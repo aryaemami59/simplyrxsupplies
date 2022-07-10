@@ -7,7 +7,6 @@ import {
 import items from "../../app/items.json";
 
 function VendorDropDown(props) {
-  // const [vendorName, setVendorName] = useState()
   return (
     <>
       <UncontrolledDropdown className="me-2">

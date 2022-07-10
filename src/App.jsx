@@ -4,22 +4,13 @@ import {
   Navbar,
   NavbarBrand,
   NavbarToggler,
-  NavItem,
   Collapse,
   Nav,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText,
   Offcanvas,
   OffcanvasHeader,
   OffcanvasBody,
-  Button,
 } from "reactstrap";
 import { useState } from "react";
-import MckessonDropDown from "./features/components/MckessonDropDown";
 import VendorDropDownsList from "./features/components/VendorDropDownsList";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -32,32 +23,14 @@ function App() {
       <div>
         <Navbar color="dark" dark expand="lg" sticky="top">
           <NavbarBrand href="/" className="me-3">
-            navbar brand
+            Simply Supplies
           </NavbarBrand>
           <NavbarToggler
             onClick={() => setShow(!show)}
             className="me-2"></NavbarToggler>
           <Collapse navbar>
             <Nav className="me-auto" navbar>
-              {/* <NavItem>
-                <NavLink href="/">Components</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/">GitHub</NavLink>
-              </NavItem> */}
-              {/* <MckessonDropDown /> */}
-              <VendorDropDownsList></VendorDropDownsList>
-              {/* <UncontrolledDropdown inNavbar nav>
-                <DropdownToggle caret nav>
-                  McKesson
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem>10 Dram Vials</DropdownItem>
-                  <DropdownItem>13 Dram Vials</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>Reset</DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown> */}
+              <VendorDropDownsList />
             </Nav>
           </Collapse>
           <Offcanvas
