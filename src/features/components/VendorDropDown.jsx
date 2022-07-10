@@ -11,7 +11,7 @@ function VendorDropDown(props) {
     <>
       <UncontrolledDropdown className="me-2">
         <DropdownToggle caret>{props.vendorName}</DropdownToggle>
-        <DropdownMenu>
+        <DropdownMenu dark>
           {items
             .filter(e => e[props.vendorName])
             .map(e => (
