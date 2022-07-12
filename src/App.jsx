@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import {
   Navbar,
@@ -15,6 +14,7 @@ import VendorDropDownsList from "./features/components/VendorDropDownsList";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import VendorAccordionList from "./features/components/VendorAccordionList";
 
 function App() {
   const [show, setShow] = useState(false);
@@ -35,14 +35,14 @@ function App() {
           </Collapse>
           <Offcanvas
             direction="start"
-            toggle={() => setShow(!show)}
-            isOpen={show}>
+            isOpen={show}
+            toggle={() => setShow(!show)}>
             <OffcanvasHeader toggle={() => setShow(!show)}>
               Offcanvas
             </OffcanvasHeader>
             <OffcanvasBody>
               <strong>This is the Offcanvas body.</strong>
-              <VendorDropDownsList />
+              <VendorAccordionList />
             </OffcanvasBody>
           </Offcanvas>
         </Navbar>
