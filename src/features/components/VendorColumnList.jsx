@@ -1,6 +1,6 @@
-import VendorDropDown from "./VendorDropDown";
+import VendorColumn from "./VendorColumn";
 
-function VendorDropDownsList(props) {
+function VendorColumnList(props) {
   const vendors = [
     "McKesson",
     "OrderInsite",
@@ -14,15 +14,14 @@ function VendorDropDownsList(props) {
   return (
     <>
       {vendors.map((e, i) => (
-        <VendorDropDown
+        <VendorColumn
           key={i}
           vendorName={e}
-          items={props.items}
-          onAdd={props.onAdd}
+          itemsAdded={props.itemsAdded.filter(f => f[e])}
         />
       ))}
     </>
   );
 }
 
-export default VendorDropDownsList;
+export default VendorColumnList;

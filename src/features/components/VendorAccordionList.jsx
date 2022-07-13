@@ -1,7 +1,8 @@
 import VendorAccordion from "./VendorAccordion";
 import { Accordion } from "reactstrap";
 import { useState } from "react";
-function VendorAccordionList() {
+
+function VendorAccordionList(props) {
   const vendors = [
     "McKesson",
     "OrderInsite",
@@ -28,7 +29,10 @@ function VendorAccordionList() {
             key={i}
             targetId={i.toString()}
             vendorName={e}
-            onToggle={clickHandler}></VendorAccordion>
+            onToggle={clickHandler}
+            items={props.items}
+            onAdd={props.onAdd}
+          />
         ))}
       </Accordion>
     </>

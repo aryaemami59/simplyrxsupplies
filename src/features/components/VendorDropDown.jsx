@@ -4,7 +4,6 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import items from "../../app/items.json";
 
 function VendorDropDown(props) {
   return (
@@ -12,10 +11,12 @@ function VendorDropDown(props) {
       <UncontrolledDropdown className="me-2">
         <DropdownToggle caret>{props.vendorName}</DropdownToggle>
         <DropdownMenu dark>
-          {items
+          {props.items
             .filter(e => e[props.vendorName])
             .map(e => (
-              <DropdownItem key={`${e.name}-${props.vendorName}`}>
+              <DropdownItem
+                key={`${e.name}-${props.vendorName}`}
+                onClick={() => props.onAdd(e)}>
                 {e.name}
               </DropdownItem>
             ))}

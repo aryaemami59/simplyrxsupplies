@@ -5,7 +5,6 @@ import {
   ListGroup,
   ListGroupItem,
 } from "reactstrap";
-import items from "../../app/items.json";
 
 function VendorAccordion(props) {
   return (
@@ -18,10 +17,12 @@ function VendorAccordion(props) {
         </AccordionHeader>
         <AccordionBody accordionId={props.targetId}>
           <ListGroup>
-            {items
+            {props.items
               .filter(e => e[props.vendorName])
               .map(e => (
-                <ListGroupItem key={`${e.name}-${props.vendorName}`}>
+                <ListGroupItem
+                  onClick={() => props.onAdd(e)}
+                  key={`${e.name}-${props.vendorName}`}>
                   {e.name}
                 </ListGroupItem>
               ))}

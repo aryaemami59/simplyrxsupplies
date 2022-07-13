@@ -11,13 +11,15 @@ import {
 } from "reactstrap";
 import { useState } from "react";
 import VendorDropDownsList from "./features/components/VendorDropDownsList";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import VendorAccordionList from "./features/components/VendorAccordionList";
+import VendorColumnList from "./features/components/VendorColumnList";
+import items from "./app/items.json";
 
 function App() {
   const [show, setShow] = useState(false);
+  const [itemsAdded, setItemsAdded] = useState([]);
   return (
     <div className="App">
       <div>
@@ -30,7 +32,10 @@ function App() {
             className="me-2"></NavbarToggler>
           <Collapse navbar>
             <Nav className="me-auto" navbar>
-              <VendorDropDownsList />
+              <VendorDropDownsList
+                items={items}
+                onAdd={ev => setItemsAdded([...itemsAdded, ev])}
+              />
             </Nav>
           </Collapse>
           <Offcanvas
@@ -42,10 +47,14 @@ function App() {
             </OffcanvasHeader>
             <OffcanvasBody>
               <strong>This is the Offcanvas body.</strong>
-              <VendorAccordionList />
+              <VendorAccordionList
+                items={items}
+                onAdd={ev => setItemsAdded([...itemsAdded, ev])}
+              />
             </OffcanvasBody>
           </Offcanvas>
         </Navbar>
+        <VendorColumnList itemsAdded={itemsAdded} />
       </div>
     </div>
   );
