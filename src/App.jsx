@@ -10,12 +10,12 @@ import {
   OffcanvasBody,
 } from "reactstrap";
 import { useState } from "react";
-import VendorDropDownsList from "./features/components/VendorDropDownsList";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import VendorAccordionList from "./features/components/VendorAccordionList";
-import VendorColumnList from "./features/components/VendorColumnList";
 import items from "./app/items.json";
+import VendorDropDownsList from "./features/components/DropDownComponents/VendorDropDownsList";
+import VendorAccordionList from "./features/components/AccordionComponents/VendorAccordionList";
+import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";
 
 function App() {
   const [show, setShow] = useState(false);
