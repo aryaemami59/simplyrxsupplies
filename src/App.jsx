@@ -9,7 +9,7 @@ import {
   OffcanvasHeader,
   OffcanvasBody,
 } from "reactstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import items from "./app/items.json";
@@ -20,6 +20,19 @@ import VendorColumnList from "./features/components/ColumnComponents/VendorColum
 function App() {
   const [show, setShow] = useState(false);
   const [itemsAdded, setItemsAdded] = useState([]);
+  // const [classes, setClasses] = useState("");
+
+  useEffect(() => {
+    // function addItems(ev) {
+    //   itemsAdded.includes(ev) && setClasses("text-decoration-line-through");
+    // }
+    // setClasses("text-decoration-line-through");
+    // console.log(itemsAdded);
+  }, [itemsAdded]);
+
+  // function addItems(ev) {
+  //   itemsAdded.includes(ev) && setClasses("text-decoration-line-through");
+  // }
   return (
     <div className="App">
       <div>
@@ -33,7 +46,9 @@ function App() {
           <Collapse navbar>
             <Nav className="me-auto" navbar>
               <VendorDropDownsList
+                // classes={classes}
                 items={items}
+                itemsAdded={itemsAdded}
                 onAdd={ev => setItemsAdded([...itemsAdded, ev])}
               />
             </Nav>
