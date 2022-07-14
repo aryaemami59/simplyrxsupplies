@@ -1,18 +1,8 @@
-import {
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  // DropdownItem,
-} from "reactstrap";
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 import SingleDropDown from "./SingleDropDown";
-import { useState, useEffect } from "react";
 
 function VendorDropDown(props) {
-  const [added, setAdded] = useState(false);
-
-  useEffect(() => {
-    // console.log(added);
-  }, [added]);
+  // console.log("rendering VendorDropDown");
   return (
     <>
       <UncontrolledDropdown className="me-2">
@@ -32,15 +22,6 @@ function VendorDropDown(props) {
                 onEvent={props.onEvent}
                 classes={props.itemsAdded.includes(e) ? props.classes : ""}
               />
-              // <DropdownItem
-              //   className={added ? "text-decoration-line-through" : ""}
-              //   key={`${e.name}-${props.vendorName}`}
-              //   onClick={() => {
-              //     setAdded(!added);
-              //     props.onAdd(e);
-              //   }}>
-              //   {e.name}
-              // </DropdownItem>
             ))}
         </DropdownMenu>
       </UncontrolledDropdown>

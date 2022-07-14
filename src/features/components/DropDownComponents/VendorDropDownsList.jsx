@@ -1,15 +1,21 @@
 import VendorDropDown from "./VendorDropDown";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function VendorDropDownsList(props) {
   const [added, setAdded] = useState(false);
-  const [classes, setClasses] = useState("");
+  // const [classes, setClasses] = useState("");
+  // const isInitialMount = useRef(true);
 
-  useEffect(() => {
-    // console.log(added);
-    setClasses("text-decoration-line-through");
-    console.log(props.itemsAdded);
-  }, [props.itemsAdded]);
+  console.log("rendering VendorDropDownsList");
+
+  // useEffect(() => {
+  //   if (isInitialMount.current) {
+  //     isInitialMount.current = false;
+  //   } else {
+  //     setClasses("text-decoration-line-through");
+  //   }
+  // }, [props.itemsAdded]);
+
   const vendors = [
     "McKesson",
     "OrderInsite",
@@ -24,8 +30,7 @@ function VendorDropDownsList(props) {
     <>
       {vendors.map((e, i) => (
         <VendorDropDown
-          classes={classes}
-          // classes={props.classes}
+          classes={props.classes}
           key={i}
           vendorName={e}
           items={props.items}

@@ -9,7 +9,7 @@ import {
   OffcanvasHeader,
   OffcanvasBody,
 } from "reactstrap";
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import items from "./app/items.json";
@@ -20,19 +20,17 @@ import VendorColumnList from "./features/components/ColumnComponents/VendorColum
 function App() {
   const [show, setShow] = useState(false);
   const [itemsAdded, setItemsAdded] = useState([]);
-  // const [classes, setClasses] = useState("");
+  const [classes, setClasses] = useState("");
+  const isInitialMount = useRef(true);
 
   useEffect(() => {
-    // function addItems(ev) {
-    //   itemsAdded.includes(ev) && setClasses("text-decoration-line-through");
-    // }
-    // setClasses("text-decoration-line-through");
-    // console.log(itemsAdded);
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      setClasses("text-decoration-line-through");
+    }
   }, [itemsAdded]);
 
-  // function addItems(ev) {
-  //   itemsAdded.includes(ev) && setClasses("text-decoration-line-through");
-  // }
   return (
     <div className="App">
       <div>
@@ -46,7 +44,7 @@ function App() {
           <Collapse navbar>
             <Nav className="me-auto" navbar>
               <VendorDropDownsList
-                // classes={classes}
+                classes={classes}
                 items={items}
                 itemsAdded={itemsAdded}
                 onAdd={ev => setItemsAdded([...itemsAdded, ev])}
@@ -63,6 +61,8 @@ function App() {
             <OffcanvasBody>
               <strong>This is the Offcanvas body.</strong>
               <VendorAccordionList
+                classes={classes}
+                itemsAdded={itemsAdded}
                 items={items}
                 onAdd={ev => setItemsAdded([...itemsAdded, ev])}
               />

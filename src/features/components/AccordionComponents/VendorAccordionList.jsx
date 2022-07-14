@@ -26,11 +26,13 @@ function VendorAccordionList(props) {
       <Accordion open={openItems} toggle={clickHandler}>
         {vendors.map((e, i) => (
           <VendorAccordion
+            classes={props.classes}
             key={i}
             targetId={i.toString()}
             vendorName={e}
             onToggle={clickHandler}
             items={props.items}
+            itemsAdded={props.itemsAdded}
             onAdd={props.onAdd}
           />
         ))}

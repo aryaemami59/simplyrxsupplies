@@ -21,6 +21,7 @@ function VendorAccordion(props) {
               .filter(e => e[props.vendorName])
               .map(e => (
                 <ListGroupItem
+                  className={props.itemsAdded.includes(e) ? props.classes : ""}
                   onClick={() => props.onAdd(e)}
                   key={`${e.name}-${props.vendorName}`}>
                   {e.name}
