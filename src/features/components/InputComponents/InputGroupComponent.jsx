@@ -29,11 +29,9 @@ function InputGroupComponent() {
               </FormGroup>
             </Col>
             <Col md="2" className="ps-0">
-              {/* <InputGroup> */}
               <Button size="lg" className="form-control shadow h-100" block>
                 Search
               </Button>
-              {/* </InputGroup> */}
             </Col>
           </InputGroup>
         </Row>
