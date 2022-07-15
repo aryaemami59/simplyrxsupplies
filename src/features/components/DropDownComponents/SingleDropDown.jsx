@@ -1,7 +1,6 @@
 import { DropdownItem } from "reactstrap";
 
 function SingleDropDown(props) {
-  // console.log("rendering SingleDropDown");
   return (
     <>
       <DropdownItem

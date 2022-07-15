@@ -8,6 +8,9 @@ import {
   Offcanvas,
   OffcanvasHeader,
   OffcanvasBody,
+  Col,
+  Row,
+  Container,
 } from "reactstrap";
 import { useState, useRef, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -16,6 +19,7 @@ import items from "./app/items.json";
 import VendorDropDownsList from "./features/components/DropDownComponents/VendorDropDownsList";
 import VendorAccordionList from "./features/components/AccordionComponents/VendorAccordionList";
 import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";
+import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
 
 function App() {
   const [show, setShow] = useState(false);
@@ -24,11 +28,9 @@ function App() {
   const isInitialMount = useRef(true);
 
   useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      setClasses("text-decoration-line-through");
-    }
+    isInitialMount.current
+      ? (isInitialMount.current = false)
+      : setClasses("text-decoration-line-through");
   }, [itemsAdded]);
 
   return (
@@ -69,7 +71,16 @@ function App() {
             </OffcanvasBody>
           </Offcanvas>
         </Navbar>
-        <VendorColumnList itemsAdded={itemsAdded} />
+        <Container>
+          <Row className="my-5">
+            <Col md="6">
+              <InputGroupComponent />
+            </Col>
+            <Col md="4">
+              <VendorColumnList itemsAdded={itemsAdded} />
+            </Col>
+          </Row>
+        </Container>
       </div>
     </div>
   );
