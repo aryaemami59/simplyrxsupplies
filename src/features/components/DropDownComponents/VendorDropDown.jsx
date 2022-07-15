@@ -1,7 +1,13 @@
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 import SingleDropDown from "./SingleDropDown";
+// import { useState, useEffect } from "react";
 
 function VendorDropDown(props) {
+  // const [added, setAdded] = useState(false);
+  // setAdded(true)
+  // useEffect(() => {
+  //   console.log(added);
+  // }, [added]);
   // console.log("rendering VendorDropDown");
   return (
     <>
@@ -17,10 +23,13 @@ function VendorDropDown(props) {
                 itemName={e.name}
                 itemObj={e}
                 items={props.items}
-                added={props.added}
+                // addItem={() => props.itemsAdded.includes(e) && setAdded(true)}
+                // added={added}
+                // added={props.added}
                 itemsAdded={props.itemsAdded}
                 onEvent={props.onEvent}
                 classes={props.itemsAdded.includes(e) ? props.classes : ""}
+                added={props.itemsAdded.includes(e) ? true : false}
               />
             ))}
         </DropdownMenu>

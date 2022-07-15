@@ -25,13 +25,23 @@ function App() {
   const [show, setShow] = useState(false);
   const [itemsAdded, setItemsAdded] = useState([]);
   const [classes, setClasses] = useState("");
+  // const [added, setAdded] = useState(false);
   const isInitialMount = useRef(true);
 
   useEffect(() => {
-    isInitialMount.current
-      ? (isInitialMount.current = false)
-      : setClasses("text-decoration-line-through");
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      // setAdded(true);
+      setClasses("text-decoration-line-through");
+    }
+    // isInitialMount.current
+    //   ? (isInitialMount.current = false)
+    //   : setClasses("text-decoration-line-through");
+    // setAdded(true);
+    // console.log(added);
   }, [itemsAdded]);
+  // console.log(added);
 
   return (
     <div className="App">
@@ -47,6 +57,7 @@ function App() {
             <Nav className="me-auto" navbar>
               <VendorDropDownsList
                 classes={classes}
+                // added={added}
                 items={items}
                 itemsAdded={itemsAdded}
                 onAdd={ev => setItemsAdded([...itemsAdded, ev])}
@@ -65,6 +76,7 @@ function App() {
               <VendorAccordionList
                 classes={classes}
                 itemsAdded={itemsAdded}
+                // added={added}
                 items={items}
                 onAdd={ev => setItemsAdded([...itemsAdded, ev])}
               />
