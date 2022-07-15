@@ -1,21 +1,14 @@
 import VendorColumn from "./VendorColumn";
+import vendors from "../../../app/vendorNames.json";
+import officialVendorNames from "../../../app/officialVendorNames.json";
 
 function VendorColumnList(props) {
-  const vendors = [
-    "McKesson",
-    "OrderInsite",
-    "GNFR",
-    "signOrderCatalog",
-    "vaxServe",
-    "medSurge",
-    "covap",
-    "FORS",
-  ];
   return (
     <>
       {vendors.map((e, i) => (
         <VendorColumn
-          key={i}
+          officialVendorName={officialVendorNames[0][e]}
+          key={`${officialVendorNames[0][e]}-VendorColumn`}
           vendorName={e}
           itemsAdded={props.itemsAdded.filter(f => f[e])}
         />

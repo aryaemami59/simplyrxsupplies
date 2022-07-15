@@ -1,18 +1,10 @@
 import VendorAccordion from "./VendorAccordion";
 import { Accordion } from "reactstrap";
 import { useState } from "react";
+import vendors from "../../../app/vendorNames.json";
+import officialVendorNames from "../../../app/officialVendorNames.json";
 
 function VendorAccordionList(props) {
-  const vendors = [
-    "McKesson",
-    "OrderInsite",
-    "GNFR",
-    "signOrderCatalog",
-    "vaxServe",
-    "medSurge",
-    "covap",
-    "FORS",
-  ];
   const [openItems, setOpenItems] = useState([]);
   const clickHandler = targetId => {
     if (openItems.includes(targetId)) {
@@ -26,6 +18,7 @@ function VendorAccordionList(props) {
       <Accordion open={openItems} toggle={clickHandler}>
         {vendors.map((e, i) => (
           <VendorAccordion
+            officialVendorName={officialVendorNames[0][e]}
             classes={props.classes}
             key={i}
             targetId={i.toString()}

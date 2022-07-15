@@ -12,7 +12,7 @@ import { Container } from "reactstrap";
 
 function VendorColumn(props) {
   const [open, setOpen] = useState(false);
-  console.log(props.itemsAdded);
+  // console.log(props.itemsAdded);
   return (
     <>
       <div>
@@ -20,10 +20,12 @@ function VendorColumn(props) {
           className="position-relative"
           color="primary"
           onClick={() => setOpen(!open)}
+          key={`${props.officialVendorName}-VendorColumn-Button`}
           block>
-          {props.vendorName}{" "}
+          {props.officialVendorName}{" "}
           <Badge
             className="position-absolute top-0 start-100 translate-middle border border-light opacity-75"
+            key={`${props.officialVendorName}-VendorColumn-Badge`}
             pill
             color={props.itemsAdded.length ? "success" : "secondary"}>
             {props.itemsAdded.length}
@@ -35,13 +37,18 @@ function VendorColumn(props) {
             <CardBody>
               <ListGroup>
                 {props.itemsAdded.map((e, i) => (
-                  <Container color="danger" className="bg-secondary p-4">
+                  <Container
+                    color="danger"
+                    className="bg-secondary p-4"
+                    key={`${e.name}-${props.vendorName}-VendorColumn-Container-name`}>
                     <ListGroupItem
                       color="success"
-                      key={`${i}-${props.vendorName}`}>
+                      key={`${e.name}-${props.vendorName}-VendorColumn-ListGroupItem-name`}>
                       Item Name: {e.name}
                     </ListGroupItem>
-                    <ListGroupItem color="primary" key={i}>
+                    <ListGroupItem
+                      color="primary"
+                      key={`${e.itemNumber}-${props.vendorName}-VendorColumn-ListGroupItem-number`}>
                       Item Number: {e.itemNumber}
                     </ListGroupItem>
                   </Container>

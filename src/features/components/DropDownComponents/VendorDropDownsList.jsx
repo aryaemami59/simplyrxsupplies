@@ -1,24 +1,17 @@
 import VendorDropDown from "./VendorDropDown";
 import { useState } from "react";
+import vendors from "../../../app/vendorNames.json";
+import officialVendorNames from "../../../app/officialVendorNames.json";
 
 function VendorDropDownsList(props) {
   const [added, setAdded] = useState(false);
-  console.log("rendering VendorDropDownsList");
-  const vendors = [
-    "McKesson",
-    "OrderInsite",
-    "GNFR",
-    "signOrderCatalog",
-    "vaxServe",
-    "medSurge",
-    "covap",
-    "FORS",
-  ];
+  // console.log("rendering VendorDropDownsList");
 
   return (
     <>
       {vendors.map((e, i) => (
         <VendorDropDown
+          officialVendorName={officialVendorNames[0][e]}
           classes={props.classes}
           key={i}
           vendorName={e}

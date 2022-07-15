@@ -13,7 +13,7 @@ function VendorAccordion(props) {
         <AccordionHeader
           targetId={props.targetId}
           onClick={() => props.onToggle(props.targetId)}>
-          {props.vendorName}
+          {props.officialVendorName}
         </AccordionHeader>
         <AccordionBody accordionId={props.targetId}>
           <ListGroup>
