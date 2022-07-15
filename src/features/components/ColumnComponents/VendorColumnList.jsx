@@ -1,6 +1,6 @@
 import VendorColumn from "./VendorColumn";
-import vendors from "../../../app/vendorNames.json";
-import officialVendorNames from "../../../app/officialVendorNames.json";
+import vendors from "../../../data/vendorNames.json";
+import officialVendorNames from "../../../data/officialVendorNames.json";
 
 function VendorColumnList(props) {
   return (

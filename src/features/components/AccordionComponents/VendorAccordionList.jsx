@@ -1,8 +1,8 @@
 import VendorAccordion from "./VendorAccordion";
 import { Accordion } from "reactstrap";
 import { useState } from "react";
-import vendors from "../../../app/vendorNames.json";
-import officialVendorNames from "../../../app/officialVendorNames.json";
+import vendors from "../../../data/vendorNames.json";
+import officialVendorNames from "../../../data/officialVendorNames.json";
 
 function VendorAccordionList(props) {
   const [openItems, setOpenItems] = useState([]);

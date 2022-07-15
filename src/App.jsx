@@ -15,7 +15,7 @@ import {
 import { useState, useRef, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import items from "./app/items.json";
+import items from "./data/items.json";
 import VendorDropDownsList from "./features/components/DropDownComponents/VendorDropDownsList";
 import VendorAccordionList from "./features/components/AccordionComponents/VendorAccordionList";
 import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";

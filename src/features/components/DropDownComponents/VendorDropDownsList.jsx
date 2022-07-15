@@ -1,7 +1,7 @@
 import VendorDropDown from "./VendorDropDown";
 import { useState } from "react";
-import vendors from "../../../app/vendorNames.json";
-import officialVendorNames from "../../../app/officialVendorNames.json";
+import vendors from "../../../data/vendorNames.json";
+import officialVendorNames from "../../../data/officialVendorNames.json";
 
 function VendorDropDownsList(props) {
   const [added, setAdded] = useState(false);
