@@ -5,7 +5,8 @@ import vendors from "../../../data/vendorNames.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 
 function VendorAccordionList(props) {
-  const [openItems, setOpenItems] = useState([]);
+  const [openItems, setOpenItems] = useState(() => []);
+
   const clickHandler = targetId => {
     if (openItems.includes(targetId)) {
       setOpenItems(openItems.filter(e => e !== targetId));
@@ -13,6 +14,7 @@ function VendorAccordionList(props) {
       setOpenItems([...openItems, targetId]);
     }
   };
+
   return (
     <>
       <Accordion open={openItems} toggle={clickHandler}>

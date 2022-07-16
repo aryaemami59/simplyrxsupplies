@@ -13,7 +13,7 @@ import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import VendorAccordionList from "../AccordionComponents/VendorAccordionList";
 
 function NavbarComponent(props) {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(() => false);
 
   return (
     <>

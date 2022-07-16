@@ -9,9 +9,9 @@ import InputGroupComponent from "./features/components/InputComponents/InputGrou
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
 
 function App() {
-  const [itemsAdded, setItemsAdded] = useState([]);
-  const [classes, setClasses] = useState("");
-  const isInitialMount = useRef(true);
+  const [itemsAdded, setItemsAdded] = useState(() => []);
+  const [classes, setClasses] = useState(() => "");
+  const isInitialMount = useRef(() => true);
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -27,12 +27,12 @@ function App() {
         classes={classes}
         items={items}
         itemsAdded={itemsAdded}
-        onAdd={ev => setItemsAdded([...itemsAdded, ev])}
+        onAdd={ev => setItemsAdded(prev => [...prev, ev])}
       />
       <Container>
         <Row className="my-5">
           <Col md="6">
-            <InputGroupComponent />
+            <InputGroupComponent items={items} key={`InputGroupComponent`} />
           </Col>
           <Col md="4">
             <VendorColumnList itemsAdded={itemsAdded} />

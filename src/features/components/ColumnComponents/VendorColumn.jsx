@@ -11,7 +11,7 @@ import { useState } from "react";
 import { Container } from "reactstrap";
 
 function VendorColumn(props) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(() => false);
   // console.log(props.itemsAdded);
   return (
     <>

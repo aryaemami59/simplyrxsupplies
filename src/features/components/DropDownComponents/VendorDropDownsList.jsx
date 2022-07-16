@@ -1,12 +1,8 @@
 import VendorDropDown from "./VendorDropDown";
-// import { useState } from "react";
 import vendors from "../../../data/vendorNames.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 
 function VendorDropDownsList(props) {
-  // const [added, setAdded] = useState(false);
-  // console.log("rendering VendorDropDownsList");
-
   return (
     <>
       {vendors.map((e, i) => (
@@ -19,7 +15,6 @@ function VendorDropDownsList(props) {
           onAdd={props.onAdd}
           added={props.added}
           itemsAdded={props.itemsAdded}
-          // onEvent={() => setAdded(!added)}
         />
       ))}
     </>
