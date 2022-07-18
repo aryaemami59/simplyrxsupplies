@@ -9,17 +9,27 @@ import InputGroupComponent from "./features/components/InputComponents/InputGrou
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
 
 function App() {
-  const [itemsAdded, setItemsAdded] = useState(() => []);
+  const [itemsAdded, setItemsAdded] = useState([]);
   const [classes, setClasses] = useState(() => "");
-  const isInitialMount = useRef(() => true);
+  // const isInitialMount = useRef(() => true);
+  function addItems(ev) {
+    setItemsAdded(prev => [...prev, ev]);
+    setClasses("text-decoration-line-through");
+  }
+
+  console.log("app render");
 
   useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      setClasses("text-decoration-line-through");
-    }
+    console.log("itemsadded changed");
   }, [itemsAdded]);
+  // useEffect(() => {
+  //   if (isInitialMount.current) {
+  //     isInitialMount.current = false;
+  //   } else {
+  //     setClasses("text-decoration-line-through");
+  //     console.log(itemsAdded);
+  //   }
+  // }, [itemsAdded]);
 
   return (
     <div className="App">
@@ -27,7 +37,7 @@ function App() {
         classes={classes}
         items={items}
         itemsAdded={itemsAdded}
-        onAdd={ev => setItemsAdded(prev => [...prev, ev])}
+        onAdd={addItems}
       />
       <Container>
         <Row className="my-5">

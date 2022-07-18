@@ -1,24 +1,31 @@
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 import SingleDropDown from "./SingleDropDown";
 
-function VendorDropDown(props) {
+function VendorDropDown({
+  officialVendorName,
+  items,
+  vendorName,
+  onAdd,
+  itemsAdded,
+  classes,
+}) {
   return (
     <>
       <UncontrolledDropdown className="me-2">
-        <DropdownToggle caret>{props.officialVendorName}</DropdownToggle>
+        <DropdownToggle caret>{officialVendorName}</DropdownToggle>
         <DropdownMenu dark>
-          {props.items
-            .filter(e => e[props.vendorName])
+          {items
+            .filter(e => e[vendorName])
             .map(e => (
               <SingleDropDown
-                onAdd={props.onAdd}
-                key={`${e.name}-${props.vendorName}`}
+                onAdd={onAdd}
+                key={`${e.name}-${vendorName}`}
                 itemName={e.name}
                 itemObj={e}
-                items={props.items}
-                itemsAdded={props.itemsAdded}
-                classes={props.itemsAdded.includes(e) ? props.classes : ""}
-                added={props.itemsAdded.includes(e) ? true : false}
+                items={items}
+                itemsAdded={itemsAdded}
+                classes={itemsAdded.includes(e) ? classes : ""}
+                added={itemsAdded.includes(e) ? true : false}
               />
             ))}
         </DropdownMenu>

@@ -10,9 +10,9 @@ import {
 import { useState } from "react";
 import { Container } from "reactstrap";
 
-function VendorColumn(props) {
+function VendorColumn({ officialVendorName, itemsAdded, vendorName }) {
   const [open, setOpen] = useState(() => false);
-  // console.log(props.itemsAdded);
+  // console.log(itemsAdded);
   return (
     <>
       <div>
@@ -20,35 +20,35 @@ function VendorColumn(props) {
           className="position-relative"
           color="primary"
           onClick={() => setOpen(!open)}
-          key={`${props.officialVendorName}-VendorColumn-Button`}
+          key={`${officialVendorName}-VendorColumn-Button`}
           block>
-          {props.officialVendorName}{" "}
+          {officialVendorName}{" "}
           <Badge
             className="position-absolute top-0 start-100 translate-middle border border-light opacity-75"
-            key={`${props.officialVendorName}-VendorColumn-Badge`}
+            key={`${officialVendorName}-VendorColumn-Badge`}
             pill
-            color={props.itemsAdded.length ? "success" : "secondary"}>
-            {props.itemsAdded.length}
-            {/* {props.itemsAdded.length ? props.itemsAdded.length : " "} */}
+            color={itemsAdded.length ? "success" : "secondary"}>
+            {itemsAdded.length}
+            {/* {itemsAdded.length ? itemsAdded.length : " "} */}
           </Badge>
         </Button>
         <Collapse isOpen={open}>
           <Card>
             <CardBody>
               <ListGroup>
-                {props.itemsAdded.map((e, i) => (
+                {itemsAdded.map((e, i) => (
                   <Container
                     color="danger"
                     className="bg-secondary p-4"
-                    key={`${e.name}-${props.vendorName}-VendorColumn-Container-name`}>
+                    key={`${e.name}-${vendorName}-VendorColumn-Container-name`}>
                     <ListGroupItem
                       color="success"
-                      key={`${e.name}-${props.vendorName}-VendorColumn-ListGroupItem-name`}>
+                      key={`${e.name}-${vendorName}-VendorColumn-ListGroupItem-name`}>
                       Item Name: {e.name}
                     </ListGroupItem>
                     <ListGroupItem
                       color="primary"
-                      key={`${e.itemNumber}-${props.vendorName}-VendorColumn-ListGroupItem-number`}>
+                      key={`${e.itemNumber}-${vendorName}-VendorColumn-ListGroupItem-number`}>
                       Item Number: {e.itemNumber}
                     </ListGroupItem>
                   </Container>

@@ -12,7 +12,7 @@ import {
 } from "reactstrap";
 import { useEffect, useState } from "react";
 
-function InputGroupComponent(props) {
+function InputGroupComponent({ items }) {
   const [val, setVal] = useState(() => "");
 
   // useEffect(() => {
@@ -48,7 +48,7 @@ function InputGroupComponent(props) {
       </Container>
       <ListGroup key={`InputGroupComponent-ListGroupItem`}>
         {val &&
-          props.items
+          items
             .filter(e => e.name.toLowerCase().includes(val.toLowerCase()))
             .map((e, i) => (
               <Container key={`${i}-Container-${e.name}${e.itemNumber}`}>

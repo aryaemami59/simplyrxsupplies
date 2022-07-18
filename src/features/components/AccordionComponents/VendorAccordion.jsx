@@ -6,24 +6,31 @@ import {
   ListGroupItem,
 } from "reactstrap";
 
-function VendorAccordion(props) {
+function VendorAccordion({
+  targetId,
+  onToggle,
+  officialVendorName,
+  items,
+  vendorName,
+  classes,
+  itemsAdded,
+  onAdd,
+}) {
   return (
     <>
       <AccordionItem>
-        <AccordionHeader
-          targetId={props.targetId}
-          onClick={() => props.onToggle(props.targetId)}>
-          {props.officialVendorName}
+        <AccordionHeader targetId={targetId} onClick={() => onToggle(targetId)}>
+          {officialVendorName}
         </AccordionHeader>
-        <AccordionBody accordionId={props.targetId}>
+        <AccordionBody accordionId={targetId}>
           <ListGroup>
-            {props.items
-              .filter(e => e[props.vendorName])
+            {items
+              .filter(e => e[vendorName])
               .map(e => (
                 <ListGroupItem
-                  className={props.itemsAdded.includes(e) ? props.classes : ""}
-                  onClick={() => props.onAdd(e)}
-                  key={`${e.name}-${props.vendorName}`}>
+                  className={itemsAdded.includes(e) ? classes : ""}
+                  onClick={() => onAdd(e)}
+                  key={`${e.name}-${vendorName}`}>
                   {e.name}
                 </ListGroupItem>
               ))}

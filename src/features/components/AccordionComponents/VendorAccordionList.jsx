@@ -4,7 +4,7 @@ import { useState } from "react";
 import vendors from "../../../data/vendorNames.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 
-function VendorAccordionList(props) {
+function VendorAccordionList({ classes, items, itemsAdded, onAdd }) {
   const [openItems, setOpenItems] = useState(() => []);
 
   const clickHandler = targetId => {
@@ -21,14 +21,14 @@ function VendorAccordionList(props) {
         {vendors.map((e, i) => (
           <VendorAccordion
             officialVendorName={officialVendorNames[0][e]}
-            classes={props.classes}
+            classes={classes}
             key={i}
             targetId={i.toString()}
             vendorName={e}
             onToggle={clickHandler}
-            items={props.items}
-            itemsAdded={props.itemsAdded}
-            onAdd={props.onAdd}
+            items={items}
+            itemsAdded={itemsAdded}
+            onAdd={onAdd}
           />
         ))}
       </Accordion>

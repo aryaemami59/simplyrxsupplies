@@ -2,7 +2,7 @@ import VendorColumn from "./VendorColumn";
 import vendors from "../../../data/vendorNames.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 
-function VendorColumnList(props) {
+function VendorColumnList({ itemsAdded }) {
   return (
     <>
       {vendors.map((e, i) => (
@@ -10,7 +10,7 @@ function VendorColumnList(props) {
           officialVendorName={officialVendorNames[0][e]}
           key={`${officialVendorNames[0][e]}-VendorColumn`}
           vendorName={e}
-          itemsAdded={props.itemsAdded.filter(f => f[e])}
+          itemsAdded={itemsAdded.filter(f => f[e])}
         />
       ))}
     </>

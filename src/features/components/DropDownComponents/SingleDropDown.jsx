@@ -1,11 +1,9 @@
 import { DropdownItem } from "reactstrap";
 
-function SingleDropDown(props) {
+function SingleDropDown({ classes, added, onAdd, itemObj, itemName }) {
   return (
-    <DropdownItem
-      className={props.classes}
-      onClick={() => !props.added && props.onAdd(props.itemObj)}>
-      {props.itemName}
+    <DropdownItem className={classes} onClick={() => !added && onAdd(itemObj)}>
+      {itemName}
     </DropdownItem>
   );
 }

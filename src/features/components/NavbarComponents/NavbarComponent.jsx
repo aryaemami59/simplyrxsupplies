@@ -12,7 +12,7 @@ import { useState } from "react";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import VendorAccordionList from "../AccordionComponents/VendorAccordionList";
 
-function NavbarComponent(props) {
+function NavbarComponent({ classes, items, itemsAdded, onAdd }) {
   const [show, setShow] = useState(() => false);
 
   return (
@@ -27,10 +27,10 @@ function NavbarComponent(props) {
         <Collapse navbar>
           <Nav className="me-auto" navbar>
             <VendorDropDownsList
-              classes={props.classes}
-              items={props.items}
-              itemsAdded={props.itemsAdded}
-              onAdd={props.onAdd}
+              classes={classes}
+              items={items}
+              itemsAdded={itemsAdded}
+              onAdd={onAdd}
             />
           </Nav>
         </Collapse>
@@ -44,10 +44,10 @@ function NavbarComponent(props) {
           <OffcanvasBody>
             <strong>This is the Offcanvas body.</strong>
             <VendorAccordionList
-              classes={props.classes}
-              itemsAdded={props.itemsAdded}
-              items={props.items}
-              onAdd={props.onAdd}
+              classes={classes}
+              itemsAdded={itemsAdded}
+              items={items}
+              onAdd={onAdd}
             />
           </OffcanvasBody>
         </Offcanvas>
