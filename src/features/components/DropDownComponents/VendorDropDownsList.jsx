@@ -4,6 +4,7 @@ import officialVendorNames from "../../../data/officialVendorNames.json";
 import { useEffect } from "react";
 
 function VendorDropDownsList({ classes, items, onAdd, added, itemsAdded }) {
+  console.log("VendorDropDownsList");
   // useEffect(() => {
   //   console.log("a");
   // }, [itemsAdded]);
