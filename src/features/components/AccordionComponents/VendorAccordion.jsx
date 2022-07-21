@@ -6,6 +6,7 @@ import {
   ListGroupItem,
 } from "reactstrap";
 import BadgeComponent from "../ColumnComponents/BadgeComponent";
+import PropTypes from "prop-types";
 
 function VendorAccordion({
   targetId,
@@ -46,5 +47,25 @@ function VendorAccordion({
     </>
   );
 }
+
+VendorAccordion.propTypes = {
+  targetId: PropTypes.string,
+  onToggle: PropTypes.func,
+  officialVendorName: PropTypes.string,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+    })
+  ),
+  vendorName: PropTypes.string,
+  itemsAdded: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+    })
+  ),
+  onAdd: PropTypes.func,
+};
 
 export default VendorAccordion;

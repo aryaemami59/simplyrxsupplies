@@ -11,6 +11,7 @@ import {
 import { useState } from "react";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import VendorAccordionList from "../AccordionComponents/VendorAccordionList";
+import PropTypes from "prop-types";
 
 function NavbarComponent({ items, itemsAdded, onAdd }) {
   const [show, setShow] = useState(() => false);
@@ -53,5 +54,21 @@ function NavbarComponent({ items, itemsAdded, onAdd }) {
     </>
   );
 }
+
+NavbarComponent.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+    })
+  ),
+  itemsAdded: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+    })
+  ),
+  onAdd: PropTypes.func,
+};
 
 export default NavbarComponent;

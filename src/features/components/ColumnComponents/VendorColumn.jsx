@@ -9,6 +9,7 @@ import {
 import { useState } from "react";
 import { Container } from "reactstrap";
 import BadgeComponent from "./BadgeComponent";
+import PropTypes from "prop-types";
 
 function VendorColumn({ officialVendorName, itemsAdded, vendorName }) {
   const [open, setOpen] = useState(() => false);
@@ -57,5 +58,16 @@ function VendorColumn({ officialVendorName, itemsAdded, vendorName }) {
     </>
   );
 }
+
+VendorColumn.propTypes = {
+  officialVendorName: PropTypes.string,
+  itemsAdded: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+    })
+  ),
+  vendorName: PropTypes.string,
+};
 
 export default VendorColumn;

@@ -1,6 +1,7 @@
 import VendorColumn from "./VendorColumn";
 import vendors from "../../../data/vendorNames.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
+import PropTypes from "prop-types";
 
 function VendorColumnList({ itemsAdded }) {
   return (
@@ -16,5 +17,14 @@ function VendorColumnList({ itemsAdded }) {
     </>
   );
 }
+
+VendorColumnList.propTypes = {
+  itemsAdded: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+    })
+  ),
+};
 
 export default VendorColumnList;

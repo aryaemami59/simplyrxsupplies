@@ -1,9 +1,10 @@
 import VendorDropDown from "./VendorDropDown";
 import vendors from "../../../data/vendorNames.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
+import PropTypes from "prop-types";
 
-function VendorDropDownsList({ items, onAdd, added, itemsAdded }) {
+function VendorDropDownsList({ items, onAdd, itemsAdded }) {
   console.log("VendorDropDownsList");
   useEffect(() => {
     console.log(itemsAdded);
@@ -18,7 +19,6 @@ function VendorDropDownsList({ items, onAdd, added, itemsAdded }) {
           vendorName={e}
           items={items}
           onAdd={onAdd}
-          added={added}
           itemsAdded={itemsAdded}
         />
       ))}
@@ -26,4 +26,20 @@ function VendorDropDownsList({ items, onAdd, added, itemsAdded }) {
   );
 }
 
-export default VendorDropDownsList;
+VendorDropDownsList.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+    })
+  ),
+  onAdd: PropTypes.func,
+  itemsAdded: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+    })
+  ),
+};
+
+export default memo(VendorDropDownsList);

@@ -3,6 +3,7 @@ import { Accordion } from "reactstrap";
 import { useState } from "react";
 import vendors from "../../../data/vendorNames.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
+import PropTypes from "prop-types";
 
 function VendorAccordionList({ items, itemsAdded, onAdd }) {
   const [openItems, setOpenItems] = useState(() => []);
@@ -34,5 +35,21 @@ function VendorAccordionList({ items, itemsAdded, onAdd }) {
     </>
   );
 }
+
+VendorAccordionList.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+    })
+  ),
+  itemsAdded: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+    })
+  ),
+  onAdd: PropTypes.func,
+};
 
 export default VendorAccordionList;

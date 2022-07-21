@@ -1,4 +1,5 @@
 import { Badge } from "reactstrap";
+import PropTypes from "prop-types";
 
 function BadgeComponent({ itemsAdded }) {
   return (
@@ -10,5 +11,14 @@ function BadgeComponent({ itemsAdded }) {
     </Badge>
   );
 }
+
+BadgeComponent.propTypes = {
+  itemsAdded: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+    })
+  ),
+};
 
 export default BadgeComponent;

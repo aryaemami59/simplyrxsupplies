@@ -1,5 +1,6 @@
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 import SingleDropDown from "./SingleDropDown";
+import PropTypes from "prop-types";
 
 function VendorDropDown({
   officialVendorName,
@@ -29,5 +30,23 @@ function VendorDropDown({
     </>
   );
 }
+
+VendorDropDown.propTypes = {
+  officialVendorName: PropTypes.string,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+    })
+  ),
+  vendorName: PropTypes.string,
+  onAdd: PropTypes.func,
+  itemsAdded: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+    })
+  ),
+};
 
 export default VendorDropDown;

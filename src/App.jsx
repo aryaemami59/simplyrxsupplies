@@ -1,6 +1,6 @@
 import "./App.css";
 import { Col, Row, Container } from "reactstrap";
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import items from "./data/items.json";
@@ -17,13 +17,17 @@ function App() {
     // setClasses("text-decoration-line-through");
   }
 
-  const itemNames = useCallback(() => items.map(({ name }) => name));
+  const itemNames = useMemo(() => items.map(({ name }) => name), []);
 
   console.log("app render");
 
   useEffect(() => {
-    // console.log("itemsadded changed");
+    console.log(itemsAdded);
   }, [itemsAdded]);
+
+  useEffect(() => {
+    console.log("item names");
+  }, [itemNames]);
   // useEffect(() => {
   //   if (isInitialMount.current) {
   //     isInitialMount.current = false;
@@ -35,12 +39,7 @@ function App() {
 
   return (
     <div className="App">
-      <NavbarComponent
-        // classes={classes}
-        items={items}
-        itemsAdded={itemsAdded}
-        onAdd={addItems}
-      />
+      <NavbarComponent items={items} itemsAdded={itemsAdded} onAdd={addItems} />
       <Container>
         <Row className="my-5">
           <Col md="6">

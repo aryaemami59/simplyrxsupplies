@@ -1,4 +1,6 @@
 import { DropdownItem } from "reactstrap";
+import { memo } from "react";
+import PropTypes from "prop-types";
 
 function SingleDropDown({ onAdd, itemObj, itemsAdded }) {
   return (
@@ -12,4 +14,18 @@ function SingleDropDown({ onAdd, itemObj, itemsAdded }) {
   );
 }
 
-export default SingleDropDown;
+SingleDropDown.propTypes = {
+  onAdd: PropTypes.func,
+  itemObj: PropTypes.shape({
+    name: PropTypes.string,
+    itemNumber: PropTypes.string,
+  }),
+  itemsAdded: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+    })
+  ),
+};
+
+export default memo(SingleDropDown);

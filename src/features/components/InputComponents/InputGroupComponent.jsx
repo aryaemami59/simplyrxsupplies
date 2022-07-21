@@ -9,12 +9,13 @@ import {
   Container,
 } from "reactstrap";
 import InputListItems from "./InputListItems";
-import React, { useEffect, useMemo, useState, useCallback } from "react";
+import React, { useEffect, useMemo, useState, useCallback, memo } from "react";
+import PropTypes from "prop-types";
 
 function InputGroupComponent({ items }) {
   const [val, setVal] = useState(() => "");
   const [listItems, setListItems] = useState(() => "");
-  const [match, setMatch] = useState(() => false);
+  // const [match, setMatch] = useState(() => false);
 
   console.log("input render");
   // useEffect(() => {
@@ -79,7 +80,8 @@ function InputGroupComponent({ items }) {
                   type="email"
                   className="shadow"
                   bsSize="lg"
-                  onInput={e => setVal(e.target.value.trim())}
+                  onChange={e => setVal(e.target.value.trim())}
+                  // onInput={e => setVal(e.target.value.trim())}
                 />
                 <Label for="exampleEmail">Search...</Label>
               </FormGroup>
@@ -97,4 +99,13 @@ function InputGroupComponent({ items }) {
   );
 }
 
-export default InputGroupComponent;
+InputGroupComponent.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+    })
+  ),
+};
+
+export default memo(InputGroupComponent);
