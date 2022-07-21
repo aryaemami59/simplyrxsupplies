@@ -7,8 +7,6 @@ import {
   Col,
   Row,
   Container,
-  ListGroup,
-  ListGroupItem,
 } from "reactstrap";
 import InputListItems from "./InputListItems";
 import React, { useEffect, useMemo, useState, useCallback } from "react";
@@ -36,9 +34,9 @@ function InputGroupComponent({ items }) {
   //   [val]
   // );
 
-  // useEffect(() => {
-  //   console.log(itemNames);
-  // }, [itemNames]);
+  useEffect(() => {
+    // console.log(itemNames);
+  }, [itemNames]);
 
   const searchResults = useMemo(() => {
     const newArray = itemNames.filter(e =>
@@ -47,16 +45,25 @@ function InputGroupComponent({ items }) {
     return newArray;
   }, [val, itemNames]);
 
+  useEffect(() => {
+    // console.log(searchResults);
+  }, [searchResults]);
+
   const joinedItems = useMemo(() => {
-    // console.log("joined items");
+    console.log("joined items");
     return searchResults.join();
   }, [searchResults]);
 
-  useEffect(() => {
-    // console.log("set items");
-    setListItems(searchResults);
-    // console.log(listItems);
+  const change = useCallback(() => {
+    return setListItems(searchResults);
   }, [joinedItems]);
+
+  useEffect(() => {
+    console.log("set items");
+    // setListItems(searchResults);
+    change();
+    // console.log(listItems);
+  }, [change]);
 
   return (
     <>
@@ -86,21 +93,6 @@ function InputGroupComponent({ items }) {
         </Row>
       </Container>
       {val && <InputListItems listItems={listItems} />}
-      {/* <ListGroup key={`InputGroupComponent-ListGroupItem`}>
-        {val &&
-          listItems?.map((e, i) => (
-            <Container key={`${i}-Container-${e.name}${e.itemNumber}`}>
-              <ListGroupItem
-                key={`${e.name}${e.itemNumber}${i}-SearchResults-ListGroupItem-name`}>
-                {e.name}
-              </ListGroupItem>
-              <ListGroupItem
-                key={`${e.itemNumber}${e.name}${i}-SearchResults-ListGroupItem-itemNumber`}>
-                {e.itemNumber}
-              </ListGroupItem>
-            </Container>
-          ))}
-      </ListGroup> */}
     </>
   );
 }

@@ -3,18 +3,17 @@ import vendors from "../../../data/vendorNames.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import { useEffect } from "react";
 
-function VendorDropDownsList({ classes, items, onAdd, added, itemsAdded }) {
+function VendorDropDownsList({ items, onAdd, added, itemsAdded }) {
   console.log("VendorDropDownsList");
-  // useEffect(() => {
-  //   console.log("a");
-  // }, [itemsAdded]);
+  useEffect(() => {
+    console.log(itemsAdded);
+  }, [itemsAdded]);
 
   return (
     <>
       {vendors.map((e, i) => (
         <VendorDropDown
           officialVendorName={officialVendorNames[0][e]}
-          classes={classes}
           key={i}
           vendorName={e}
           items={items}

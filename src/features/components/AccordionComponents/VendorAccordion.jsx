@@ -5,6 +5,7 @@ import {
   ListGroup,
   ListGroupItem,
 } from "reactstrap";
+import BadgeComponent from "../ColumnComponents/BadgeComponent";
 
 function VendorAccordion({
   targetId,
@@ -12,7 +13,6 @@ function VendorAccordion({
   officialVendorName,
   items,
   vendorName,
-  classes,
   itemsAdded,
   onAdd,
 }) {
@@ -20,6 +20,10 @@ function VendorAccordion({
     <>
       <AccordionItem>
         <AccordionHeader targetId={targetId} onClick={() => onToggle(targetId)}>
+          <BadgeComponent
+            itemsAdded={itemsAdded}
+            key={`${officialVendorName}-VendorColumn-Badge`}
+          />
           {officialVendorName}
         </AccordionHeader>
         <AccordionBody accordionId={targetId}>
@@ -28,8 +32,10 @@ function VendorAccordion({
               .filter(e => e[vendorName])
               .map(e => (
                 <ListGroupItem
-                  className={itemsAdded.includes(e) ? classes : ""}
-                  onClick={() => onAdd(e)}
+                  className={
+                    itemsAdded.includes(e) ? "text-decoration-line-through" : ""
+                  }
+                  onClick={() => !itemsAdded.includes(e) && onAdd(e)}
                   key={`${e.name}-${vendorName}`}>
                   {e.name}
                 </ListGroupItem>

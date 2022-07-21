@@ -9,12 +9,12 @@ import InputGroupComponent from "./features/components/InputComponents/InputGrou
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
 
 function App() {
-  const [itemsAdded, setItemsAdded] = useState([]);
-  const [classes, setClasses] = useState(() => "");
+  const [itemsAdded, setItemsAdded] = useState(() => []);
+  // const [classes, setClasses] = useState(() => "");
   // const isInitialMount = useRef(() => true);
   function addItems(ev) {
     setItemsAdded(prev => [...prev, ev]);
-    setClasses("text-decoration-line-through");
+    // setClasses("text-decoration-line-through");
   }
 
   const itemNames = useCallback(() => items.map(({ name }) => name));
@@ -36,7 +36,7 @@ function App() {
   return (
     <div className="App">
       <NavbarComponent
-        classes={classes}
+        // classes={classes}
         items={items}
         itemsAdded={itemsAdded}
         onAdd={addItems}

@@ -7,7 +7,6 @@ function VendorDropDown({
   vendorName,
   onAdd,
   itemsAdded,
-  classes,
 }) {
   return (
     <>
@@ -20,12 +19,9 @@ function VendorDropDown({
               <SingleDropDown
                 onAdd={onAdd}
                 key={`${e.name}-${vendorName}`}
-                itemName={e.name}
                 itemObj={e}
                 items={items}
                 itemsAdded={itemsAdded}
-                classes={itemsAdded.includes(e) ? classes : ""}
-                added={itemsAdded.includes(e) ? true : false}
               />
             ))}
         </DropdownMenu>

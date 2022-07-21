@@ -3,7 +3,7 @@ import { useState, useEffect, useMemo, memo } from "react";
 
 // let renderCount = 0;
 function InputListItems({ listItems }) {
-  console.log("render input list items");
+  console.log("render input list items"); 
   // renderCount++;
   // console.log(renderCount);
   // const [render, setRender] = useState(0)

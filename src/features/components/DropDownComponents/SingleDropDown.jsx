@@ -1,9 +1,13 @@
 import { DropdownItem } from "reactstrap";
 
-function SingleDropDown({ classes, added, onAdd, itemObj, itemName }) {
+function SingleDropDown({ onAdd, itemObj, itemsAdded }) {
   return (
-    <DropdownItem className={classes} onClick={() => !added && onAdd(itemObj)}>
-      {itemName}
+    <DropdownItem
+      className={
+        itemsAdded.includes(itemObj) ? "text-decoration-line-through" : ""
+      }
+      onClick={() => !itemsAdded.includes(itemObj) && onAdd(itemObj)}>
+      {itemObj.name}
     </DropdownItem>
   );
 }

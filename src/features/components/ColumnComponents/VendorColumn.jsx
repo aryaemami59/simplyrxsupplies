@@ -5,10 +5,10 @@ import {
   CardBody,
   ListGroup,
   ListGroupItem,
-  Badge,
 } from "reactstrap";
 import { useState } from "react";
 import { Container } from "reactstrap";
+import BadgeComponent from "./BadgeComponent";
 
 function VendorColumn({ officialVendorName, itemsAdded, vendorName }) {
   const [open, setOpen] = useState(() => false);
@@ -22,15 +22,11 @@ function VendorColumn({ officialVendorName, itemsAdded, vendorName }) {
           onClick={() => setOpen(!open)}
           key={`${officialVendorName}-VendorColumn-Button`}
           block>
-          {officialVendorName}{" "}
-          <Badge
-            className="position-absolute top-0 start-100 translate-middle border border-light opacity-75"
+          {officialVendorName}
+          <BadgeComponent
+            itemsAdded={itemsAdded}
             key={`${officialVendorName}-VendorColumn-Badge`}
-            pill
-            color={itemsAdded.length ? "success" : "secondary"}>
-            {itemsAdded.length}
-            {/* {itemsAdded.length ? itemsAdded.length : " "} */}
-          </Badge>
+          />
         </Button>
         <Collapse isOpen={open}>
           <Card>
