@@ -10,6 +10,7 @@ import NavbarComponent from "./features/components/NavbarComponents/NavbarCompon
 
 function App() {
   const [itemsAdded, setItemsAdded] = useState(() => []);
+  
   // const [classes, setClasses] = useState(() => "");
   // const isInitialMount = useRef(() => true);
   function addItems(ev) {

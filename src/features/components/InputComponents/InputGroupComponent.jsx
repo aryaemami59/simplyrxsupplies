@@ -14,62 +14,30 @@ import PropTypes from "prop-types";
 
 function InputGroupComponent({ items, onAdd, itemsAdded }) {
   const [val, setVal] = useState(() => "");
-  const [listItems, setListItems] = useState(() => "");
-  // const [listItems, setListItems] = useState(() => "");
-  // const [match, setMatch] = useState(() => false);
+  const [listItems, setListItems] = useState(() => []);
 
   console.log("input render");
-  // useEffect(() => {
-  //   console.log("items changed");
-  // }, [items]);
 
-  const itemNames = useMemo(() => {
-    // console.log("item names");
-    const newArrStr = items.map(({ name }) => name);
-    return newArrStr;
-  }, [items]);
+  const searchResultsStr = useMemo(() => {
+    return items
+      .filter(({ name }) => name.toLowerCase().includes(val.toLowerCase()))
+      .map(({ name }) => name)
+      .join();
+  }, [items, val]);
 
-  // const filtered = useCallback(
-  //   e => {
-  //     return e.toLowerCase().includes(val.toLowerCase());
-  //   },
-  //   [val]
-  // );
-
-  useEffect(() => {
-    // console.log(itemNames);
-  }, [itemNames]);
-
-  const searchResults = useMemo(() => {
-    const newArray = itemNames.filter(e =>
-      e.toLowerCase().includes(val.toLowerCase())
-    );
-    return newArray;
-  }, [val, itemNames]);
-
-  useEffect(() => {
-    // console.log(searchResults);
-  }, [searchResults]);
-
-  const joinedItems = useMemo(() => {
-    console.log("joined items");
-    return searchResults.join();
-  }, [searchResults]);
-
-  const change = useCallback(() => {
-    const myItems = items.filter(({ name }) =>
+  const searchResultsArr = useMemo(() => {
+    return items.filter(({ name }) =>
       name.toLowerCase().includes(val.toLowerCase())
     );
-    return setListItems(myItems);
-    // return setListItems(searchResults);
-  }, [joinedItems]);
+  }, [searchResultsStr]);
+
+  const changeItems = useCallback(() => {
+    return setListItems(searchResultsArr);
+  }, [searchResultsArr]);
 
   useEffect(() => {
-    console.log("set items");
-    // setListItems(searchResults);
-    change();
-    // console.log(listItems);
-  }, [change]);
+    changeItems();
+  }, [changeItems]);
 
   return (
     <>
@@ -86,7 +54,6 @@ function InputGroupComponent({ items, onAdd, itemsAdded }) {
                   className="shadow"
                   bsSize="lg"
                   onChange={e => setVal(e.target.value.trim())}
-                  // onInput={e => setVal(e.target.value.trim())}
                 />
                 <Label for="exampleEmail">Search...</Label>
               </FormGroup>

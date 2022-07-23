@@ -1,6 +1,7 @@
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 import SingleDropDown from "./SingleDropDown";
 import PropTypes from "prop-types";
+import { memo } from "react";
 
 function VendorDropDown({
   officialVendorName,
@@ -9,6 +10,7 @@ function VendorDropDown({
   onAdd,
   itemsAdded,
 }) {
+  console.log("VendorDropDown");
   return (
     <>
       <UncontrolledDropdown className="me-2">
@@ -49,4 +51,4 @@ VendorDropDown.propTypes = {
   ),
 };
 
-export default VendorDropDown;
+export default memo(VendorDropDown);
