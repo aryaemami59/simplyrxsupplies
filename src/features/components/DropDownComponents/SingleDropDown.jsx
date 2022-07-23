@@ -1,8 +1,11 @@
 import { DropdownItem } from "reactstrap";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import PropTypes from "prop-types";
 
 function SingleDropDown({ onAdd, itemObj, itemsAdded }) {
+  useEffect(() => {
+    console.log("SingleDropDown");
+  }, [itemsAdded]);
   return (
     <DropdownItem
       className={

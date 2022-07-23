@@ -1,7 +1,7 @@
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 import SingleDropDown from "./SingleDropDown";
 import PropTypes from "prop-types";
-import { memo } from "react";
+import { memo, useEffect, useState, useMemo } from "react";
 
 function VendorDropDown({
   officialVendorName,
@@ -10,7 +10,21 @@ function VendorDropDown({
   onAdd,
   itemsAdded,
 }) {
-  console.log("VendorDropDown");
+  // const [added, setAdded] = useState(() => []);
+
+  // console.log("VendorDropDown");
+
+  const addedStr = useMemo(() => {
+    return itemsAdded.map(({ name }) => name).join();
+  }, [itemsAdded]);
+
+  const addedArr = useMemo(() => {
+    return itemsAdded;
+  }, [addedStr]);
+
+  // useEffect(() => {
+  //   console.log("VendorDropDown changed");
+  // }, [addedArr]);
   return (
     <>
       <UncontrolledDropdown className="me-2">
@@ -24,7 +38,7 @@ function VendorDropDown({
                 key={`${e.name}-${vendorName}`}
                 itemObj={e}
                 items={items}
-                itemsAdded={itemsAdded}
+                itemsAdded={addedArr}
               />
             ))}
         </DropdownMenu>

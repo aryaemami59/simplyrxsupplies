@@ -1,25 +1,44 @@
 import VendorDropDown from "./VendorDropDown";
 import vendors from "../../../data/vendorNames.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
-import { memo, useEffect } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 
 function VendorDropDownsList({ items, onAdd, itemsAdded }) {
+  // const [added, setAdded] = useState(() => !!itemsAdded.length);
   console.log("VendorDropDownsList");
-  useEffect(() => {
-    console.log(itemsAdded);
-  }, [itemsAdded]);
+  const addedStr = itemsAdded.map(({ name }) => name).join();
+  console.log(addedStr);
+  // useEffect(() => {
+  //   console.log(itemsAdded);
+  // }, [itemsAdded]);
 
+  // console.log(itemsAdded);
+
+  // const added = useMemo(
+  //   e => {
+  //     return itemsAdded.filter(f => f[e]);
+  //   },
+  //   [itemsAdded]
+  // );
+
+  // vendors.map(e => console.log(added));
+  // useEffect(() => {
+  //   console.log(added);
+  // }, [added]);
+
+  // console.log(added);
   return (
     <>
       {vendors.map((e, i) => (
         <VendorDropDown
           officialVendorName={officialVendorNames[0][e]}
-          key={i}
+          key={e}
           vendorName={e}
           items={items}
           onAdd={onAdd}
-          itemsAdded={itemsAdded}
+          // itemsAdded={itemsAdded}
+          itemsAdded={itemsAdded.filter(f => f[e])}
         />
       ))}
     </>

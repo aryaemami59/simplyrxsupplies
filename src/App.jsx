@@ -9,26 +9,29 @@ import InputGroupComponent from "./features/components/InputComponents/InputGrou
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
 
 function App() {
-  const [itemsAdded, setItemsAdded] = useState(() => []);
-  
+  const [itemsAdded, setItemsAdded] = useState([]);
+
   // const [classes, setClasses] = useState(() => "");
   // const isInitialMount = useRef(() => true);
-  function addItems(ev) {
-    setItemsAdded(prev => [...prev, ev]);
-    // setClasses("text-decoration-line-through");
-  }
+  const addItems = useCallback(ev => {
+    return setItemsAdded(prev => [...prev, ev]);
+  }, []);
+
+  // function addItems(ev) {
+  //   setItemsAdded(prev => [...prev, ev]);
+  // }
 
   const itemNames = useMemo(() => items.map(({ name }) => name), []);
 
-  console.log("app render");
+  // console.log("app render");
 
-  useEffect(() => {
-    console.log(itemsAdded);
-  }, [itemsAdded]);
+  // useEffect(() => {
+  //   console.log(itemsAdded);
+  // }, [itemsAdded]);
 
-  useEffect(() => {
-    console.log("item names");
-  }, [itemNames]);
+  // useEffect(() => {
+  //   console.log("item names");
+  // }, [itemNames]);
   // useEffect(() => {
   //   if (isInitialMount.current) {
   //     isInitialMount.current = false;

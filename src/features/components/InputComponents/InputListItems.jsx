@@ -3,7 +3,7 @@ import { useState, useEffect, useMemo, memo } from "react";
 import PropTypes from "prop-types";
 
 function InputListItems({ listItems, onAdd, itemsAdded }) {
-  console.log("render input list items");
+  // console.log("render input list items");
 
   useEffect(() => {
     console.log("list items changed");
