@@ -12,9 +12,10 @@ import InputListItems from "./InputListItems";
 import React, { useEffect, useMemo, useState, useCallback, memo } from "react";
 import PropTypes from "prop-types";
 
-function InputGroupComponent({ items }) {
+function InputGroupComponent({ items, onAdd, itemsAdded }) {
   const [val, setVal] = useState(() => "");
   const [listItems, setListItems] = useState(() => "");
+  // const [listItems, setListItems] = useState(() => "");
   // const [match, setMatch] = useState(() => false);
 
   console.log("input render");
@@ -56,7 +57,11 @@ function InputGroupComponent({ items }) {
   }, [searchResults]);
 
   const change = useCallback(() => {
-    return setListItems(searchResults);
+    const myItems = items.filter(({ name }) =>
+      name.toLowerCase().includes(val.toLowerCase())
+    );
+    return setListItems(myItems);
+    // return setListItems(searchResults);
   }, [joinedItems]);
 
   useEffect(() => {
@@ -94,7 +99,13 @@ function InputGroupComponent({ items }) {
           </InputGroup>
         </Row>
       </Container>
-      {val && <InputListItems listItems={listItems} />}
+      {val && (
+        <InputListItems
+          itemsAdded={itemsAdded}
+          onAdd={onAdd}
+          listItems={listItems}
+        />
+      )}
     </>
   );
 }
@@ -106,6 +117,7 @@ InputGroupComponent.propTypes = {
       itemNumber: PropTypes.string,
     })
   ),
+  onAdd: PropTypes.func,
 };
 
 export default memo(InputGroupComponent);

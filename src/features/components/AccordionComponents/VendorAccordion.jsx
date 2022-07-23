@@ -33,6 +33,7 @@ function VendorAccordion({
               .filter(e => e[vendorName])
               .map(e => (
                 <ListGroupItem
+                  role="button"
                   className={
                     itemsAdded.includes(e) ? "text-decoration-line-through" : ""
                   }

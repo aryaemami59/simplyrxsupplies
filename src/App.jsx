@@ -44,6 +44,8 @@ function App() {
         <Row className="my-5">
           <Col md="6">
             <InputGroupComponent
+              onAdd={addItems}
+              itemsAdded={itemsAdded}
               itemNames={itemNames}
               items={items}
               key={`InputGroupComponent`}
