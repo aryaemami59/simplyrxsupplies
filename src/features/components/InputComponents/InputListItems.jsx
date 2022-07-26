@@ -14,6 +14,9 @@ function InputListItems({ listItems, onAdd, itemsAdded }) {
         {listItems?.map((e, i) => (
           <Container key={`${i}-Container-${e}${e}`}>
             <ListGroupItem
+              className={
+                itemsAdded.includes(e) ? "text-decoration-line-through" : ""
+              }
               key={`${e}${e}${i}-SearchResults-ListGroupItem-name`}
               onClick={() => !itemsAdded.includes(e) && onAdd(e)}
               role="button">

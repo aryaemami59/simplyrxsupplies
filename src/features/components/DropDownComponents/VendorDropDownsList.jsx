@@ -4,6 +4,8 @@ import officialVendorNames from "../../../data/officialVendorNames.json";
 import { memo, useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 
+
+
 function VendorDropDownsList({ items, onAdd, itemsAdded }) {
   // const [added, setAdded] = useState(() => !!itemsAdded.length);
   console.log("VendorDropDownsList");

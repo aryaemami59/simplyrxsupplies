@@ -12,7 +12,7 @@ function VendorDropDown({
 }) {
   // const [added, setAdded] = useState(() => []);
 
-  // console.log("VendorDropDown");
+  console.log("VendorDropDown");
 
   const addedStr = useMemo(() => {
     return itemsAdded.map(({ name }) => name).join();
