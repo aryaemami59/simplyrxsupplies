@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 function SingleDropDown({ onAdd, itemObj, itemsAdded }) {
   useEffect(() => {
-    console.log("SingleDropDown");
+    // console.log("SingleDropDown");
   }, [itemsAdded]);
   return (
     <DropdownItem

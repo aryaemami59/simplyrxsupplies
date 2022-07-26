@@ -8,9 +8,9 @@ import PropTypes from "prop-types";
 
 function VendorDropDownsList({ items, onAdd, itemsAdded }) {
   // const [added, setAdded] = useState(() => !!itemsAdded.length);
-  console.log("VendorDropDownsList");
+  // console.log("VendorDropDownsList");
   const addedStr = itemsAdded.map(({ name }) => name).join();
-  console.log(addedStr);
+  // console.log(addedStr);
   // useEffect(() => {
   //   console.log(itemsAdded);
   // }, [itemsAdded]);

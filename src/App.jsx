@@ -1,12 +1,21 @@
 import "./App.css";
 import { Col, Row, Container } from "reactstrap";
-import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useMemo,
+  createContext,
+} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import items from "./data/items.json";
 import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";
 import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
+
+export const AddedContext = createContext();
 
 function App() {
   const [itemsAdded, setItemsAdded] = useState([]);
@@ -47,13 +56,15 @@ function App() {
       <Container>
         <Row className="my-5">
           <Col md="6">
-            <InputGroupComponent
-              onAdd={addItems}
-              itemsAdded={itemsAdded}
-              itemNames={itemNames}
-              items={items}
-              key={`InputGroupComponent`}
-            />
+            <AddedContext.Provider value={itemsAdded}>
+              <InputGroupComponent
+                onAdd={addItems}
+                // itemsAdded={itemsAdded}
+                // itemNames={itemNames}
+                items={items}
+                key={`InputGroupComponent`}
+              />
+            </AddedContext.Provider>
           </Col>
           <Col md="4">
             <VendorColumnList itemsAdded={itemsAdded} />

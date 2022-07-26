@@ -1,9 +1,11 @@
 import { ListGroup, ListGroupItem, Container } from "reactstrap";
-import { useState, useEffect, useMemo, memo } from "react";
+import { useState, useEffect, useMemo, memo, useContext } from "react";
 import PropTypes from "prop-types";
+import { AddedContext } from "../../../App";
 
-function InputListItems({ listItems, onAdd, itemsAdded }) {
-  // console.log("render input list items");
+function InputListItems({ listItems, onAdd }) {
+  console.log("render input list items");
+  const itemsAdded = useContext(AddedContext);
 
   useEffect(() => {
     console.log("list items changed");
