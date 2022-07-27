@@ -11,7 +11,7 @@ function VendorDropDown({ officialVendorName, items, vendorName, onAdd }) {
   // const itemsAdded = useContext(AddedContext);
   // console.log(itemsAdded)
 
-  console.log("VendorDropDown");
+  // console.log("VendorDropDown");
 
   // const addedStr = useMemo(() => {
   //   return itemsAdded.map(({ name }) => name).join();

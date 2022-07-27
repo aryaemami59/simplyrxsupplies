@@ -6,21 +6,52 @@ import {
   ListGroup,
   ListGroupItem,
 } from "reactstrap";
-import { useState } from "react";
+import {
+  useState,
+  useContext,
+  memo,
+  useCallback,
+  useMemo,
+  useEffect,
+} from "react";
 import { Container } from "reactstrap";
 import BadgeComponent from "./BadgeComponent";
 import PropTypes from "prop-types";
+// import { AddedContext } from "../../../App";
 
-function VendorColumn({ officialVendorName, itemsAdded, vendorName }) {
+function VendorColumn({ officialVendorName, vendorName, itemsAdded }) {
+  // const itemsAdded = useContext(AddedContext).filter(e => e[vendorName]);
+  // const itemsAddedLen = !!itemsAdded.length;
+  // console.log(itemsAddedLen)
+  // const itemsAdded = useContext(AddedContext);
   const [open, setOpen] = useState(() => false);
-  // console.log(itemsAdded);
+  // const [added, setAdded] = useState(() => []);
+  // const [len, setLen] = useState(() => !!itemsAdded.length);
+
+  useEffect(() => {
+    // console.log("itemsAdded");
+    // console.log(itemsAdded);
+  }, [itemsAdded]);
+
+  const changeLen = useMemo(() => {
+    // setAdded(prev => [...prev, itemsAdded]);
+    return itemsAdded;
+    // return setLen(true);
+  }, [itemsAdded]);
+
+  const buttonClick = useCallback(() => {
+    return setOpen(!open);
+  }, [open]);
+
+  console.log("VendorColumn");
+  // console.log(added);
   return (
     <>
       <div>
         <Button
           className="position-relative"
           color="primary"
-          onClick={() => setOpen(!open)}
+          onClick={buttonClick}
           key={`${officialVendorName}-VendorColumn-Button`}
           block>
           {officialVendorName}
@@ -33,7 +64,7 @@ function VendorColumn({ officialVendorName, itemsAdded, vendorName }) {
           <Card>
             <CardBody>
               <ListGroup>
-                {itemsAdded.map((e, i) => (
+                {changeLen?.map((e, i) => (
                   <Container
                     color="danger"
                     className="bg-secondary p-4"
@@ -70,4 +101,4 @@ VendorColumn.propTypes = {
   vendorName: PropTypes.string,
 };
 
-export default VendorColumn;
+export default memo(VendorColumn);

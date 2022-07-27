@@ -16,7 +16,7 @@ export const itemsContext = createContext();
 
 function VendorDropDownsList({ items, onAdd }) {
   // const [added, setAdded] = useState(() => !!itemsAdded.length);
-  console.log("VendorDropDownsList");
+  // console.log("VendorDropDownsList");
   // const itemsAdded = useContext(AddedContext);
   // const addedStr = itemsAdded.map(({ name }) => name).join();
   // console.log(addedStr);

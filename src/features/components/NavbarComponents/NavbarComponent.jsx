@@ -17,7 +17,7 @@ function NavbarComponent({ items, onAdd }) {
   const [show, setShow] = useState(() => false);
   // const itemsAdded = useContext(AddedContext);
 
-  // console.log("NavbarComponent");
+  console.log("NavbarComponent");
 
   return (
     <>

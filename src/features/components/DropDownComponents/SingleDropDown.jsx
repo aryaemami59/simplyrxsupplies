@@ -1,10 +1,14 @@
 import { DropdownItem } from "reactstrap";
 import { memo, useEffect, useContext, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
-import { AddedContext } from "../../../App";
-
-function SingleDropDown({ onAdd, itemObj }) {
-  const itemsAdded = useContext(AddedContext);
+import AddedContext from "../../components/ContextComponents/AddedContext";
+import { myContext } from "../../components/ContextComponents/AddedContext";
+// const { itemsAdded } = AddedContext;
+function SingleDropDown({ itemObj }) {
+  // console.log(itemsAdded);
+  const { itemsAdded, onAdd } = useContext(myContext);
+  // console.log(itemsAdded);
+  // const itemsAdded = useContext(AddedContext);
   const renderCount = useRef(0);
   // console.log("SingleDropDown");
   // console.log(itemObj);
@@ -16,7 +20,7 @@ function SingleDropDown({ onAdd, itemObj }) {
   useEffect(() => {
     // console.log("SingleDropDown");
     renderCount.current = renderCount.current + 1;
-    console.log(renderCount.current);
+    // console.log(renderCount.current);
   });
   return (
     <DropdownItem

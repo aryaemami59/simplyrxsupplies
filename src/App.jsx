@@ -7,6 +7,7 @@ import {
   useCallback,
   useMemo,
   createContext,
+  memo,
 } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -14,25 +15,25 @@ import items from "./data/items.json";
 import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";
 import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
-
-export const AddedContext = createContext();
+import AddedContext from "./features/components/ContextComponents/AddedContext";
+// export const AddedContext = createContext();
 
 function App() {
-  const [itemsAdded, setItemsAdded] = useState([]);
+  // const [itemsAdded, setItemsAdded] = useState([]);
+  // const addItems = useCallback(ev => {
+  //   return setItemsAdded(prev => [...prev, ev]);
+  // }, []);
 
   // const [classes, setClasses] = useState(() => "");
   // const isInitialMount = useRef(() => true);
-  const addItems = useCallback(ev => {
-    return setItemsAdded(prev => [...prev, ev]);
-  }, []);
 
   // function addItems(ev) {
   //   setItemsAdded(prev => [...prev, ev]);
   // }
 
-  const itemNames = useMemo(() => items.map(({ name }) => name), []);
+  // const itemNames = useMemo(() => items.map(({ name }) => name), []);
 
-  // console.log("app render");
+  console.log("app render");
 
   // useEffect(() => {
   //   console.log(itemsAdded);
@@ -52,17 +53,17 @@ function App() {
 
   return (
     <div className="App">
-      <AddedContext.Provider value={itemsAdded}>
+      <AddedContext>
         <NavbarComponent
           items={items}
           // itemsAdded={itemsAdded}
-          onAdd={addItems}
+          // onAdd={addItems}
         />
         <Container>
           <Row className="my-5">
             <Col md="6">
               <InputGroupComponent
-                onAdd={addItems}
+                // onAdd={addItems}
                 // itemsAdded={itemsAdded}
                 // itemNames={itemNames}
                 items={items}
@@ -76,9 +77,9 @@ function App() {
             </Col>
           </Row>
         </Container>
-      </AddedContext.Provider>
+      </AddedContext>
     </div>
   );
 }
 
-export default App;
+export default memo(App);
