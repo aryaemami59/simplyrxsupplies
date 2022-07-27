@@ -5,7 +5,9 @@ export const myContext = createContext();
 function AddedContext({ children }) {
   const [itemsAdded, setItemsAdded] = useState([]);
   const onAdd = useCallback(ev => {
-    return setItemsAdded(prev => [...prev, ev]);
+    if (!itemsAdded.includes(ev)) {
+      return setItemsAdded(prev => [...prev, ev]);
+    }
   }, []);
 
   const value = {

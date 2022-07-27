@@ -12,8 +12,8 @@ import InputListItems from "./InputListItems";
 import React, { useEffect, useMemo, useState, useCallback, memo } from "react";
 import PropTypes from "prop-types";
 
-function InputGroupComponent({ items, onAdd }) {
-  const [val, setVal] = useState(() => "");
+function InputGroupComponent({ items }) {
+  const [val, setVal] = useState("");
   const [listItems, setListItems] = useState([]);
   console.log("input render");
 
@@ -82,7 +82,7 @@ function InputGroupComponent({ items, onAdd }) {
           </InputGroup>
         </Row>
       </Container>
-      {<InputListItems onAdd={onAdd} listItems={list} />}
+      {<InputListItems listItems={list} />}
     </>
   );
 }

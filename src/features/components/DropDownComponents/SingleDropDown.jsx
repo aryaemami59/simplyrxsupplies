@@ -14,7 +14,7 @@ function SingleDropDown({ itemObj, itemsAdded, onAdd }) {
   // console.log(itemObj);
 
   const clickHandler = useCallback(() => {
-    return !itemsAdded.includes(itemObj) && onAdd(itemObj);
+    return onAdd(itemObj);
   }, []);
 
   useEffect(() => {
