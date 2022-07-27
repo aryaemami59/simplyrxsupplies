@@ -52,11 +52,15 @@ function App() {
 
   return (
     <div className="App">
-      <NavbarComponent items={items} itemsAdded={itemsAdded} onAdd={addItems} />
-      <Container>
-        <Row className="my-5">
-          <Col md="6">
-            <AddedContext.Provider value={itemsAdded}>
+      <AddedContext.Provider value={itemsAdded}>
+        <NavbarComponent
+          items={items}
+          // itemsAdded={itemsAdded}
+          onAdd={addItems}
+        />
+        <Container>
+          <Row className="my-5">
+            <Col md="6">
               <InputGroupComponent
                 onAdd={addItems}
                 // itemsAdded={itemsAdded}
@@ -64,13 +68,15 @@ function App() {
                 items={items}
                 key={`InputGroupComponent`}
               />
-            </AddedContext.Provider>
-          </Col>
-          <Col md="4">
-            <VendorColumnList itemsAdded={itemsAdded} />
-          </Col>
-        </Row>
-      </Container>
+            </Col>
+            <Col md="4">
+              <VendorColumnList
+              // itemsAdded={itemsAdded}
+              />
+            </Col>
+          </Row>
+        </Container>
+      </AddedContext.Provider>
     </div>
   );
 }

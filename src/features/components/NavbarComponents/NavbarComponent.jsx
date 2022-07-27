@@ -8,13 +8,16 @@ import {
   OffcanvasHeader,
   OffcanvasBody,
 } from "reactstrap";
-import { useState } from "react";
+import { memo, useState } from "react";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import VendorAccordionList from "../AccordionComponents/VendorAccordionList";
 import PropTypes from "prop-types";
 
-function NavbarComponent({ items, itemsAdded, onAdd }) {
+function NavbarComponent({ items, onAdd }) {
   const [show, setShow] = useState(() => false);
+  // const itemsAdded = useContext(AddedContext);
+
+  // console.log("NavbarComponent");
 
   return (
     <>
@@ -29,7 +32,7 @@ function NavbarComponent({ items, itemsAdded, onAdd }) {
           <Nav className="me-auto" navbar>
             <VendorDropDownsList
               items={items}
-              itemsAdded={itemsAdded}
+              // itemsAdded={itemsAdded}
               onAdd={onAdd}
             />
           </Nav>
@@ -44,7 +47,7 @@ function NavbarComponent({ items, itemsAdded, onAdd }) {
           <OffcanvasBody>
             <strong>This is the Offcanvas body.</strong>
             <VendorAccordionList
-              itemsAdded={itemsAdded}
+              // itemsAdded={itemsAdded}
               items={items}
               onAdd={onAdd}
             />
@@ -71,4 +74,4 @@ NavbarComponent.propTypes = {
   onAdd: PropTypes.func,
 };
 
-export default NavbarComponent;
+export default memo(NavbarComponent);

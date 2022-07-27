@@ -1,15 +1,24 @@
 import VendorDropDown from "./VendorDropDown";
 import vendors from "../../../data/vendorNames.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
-import { memo, useEffect, useMemo, useState } from "react";
+import {
+  memo,
+  useEffect,
+  useMemo,
+  useState,
+  useContext,
+  createContext,
+} from "react";
 import PropTypes from "prop-types";
+// import { AddedContext } from "../../../App";
 
+export const itemsContext = createContext();
 
-
-function VendorDropDownsList({ items, onAdd, itemsAdded }) {
+function VendorDropDownsList({ items, onAdd }) {
   // const [added, setAdded] = useState(() => !!itemsAdded.length);
-  // console.log("VendorDropDownsList");
-  const addedStr = itemsAdded.map(({ name }) => name).join();
+  console.log("VendorDropDownsList");
+  // const itemsAdded = useContext(AddedContext);
+  // const addedStr = itemsAdded.map(({ name }) => name).join();
   // console.log(addedStr);
   // useEffect(() => {
   //   console.log(itemsAdded);
@@ -40,7 +49,7 @@ function VendorDropDownsList({ items, onAdd, itemsAdded }) {
           items={items}
           onAdd={onAdd}
           // itemsAdded={itemsAdded}
-          itemsAdded={itemsAdded.filter(f => f[e])}
+          // itemsAdded={itemsAdded.filter(f => f[e])}
         />
       ))}
     </>

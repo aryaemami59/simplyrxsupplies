@@ -2,8 +2,12 @@ import VendorColumn from "./VendorColumn";
 import vendors from "../../../data/vendorNames.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import { AddedContext } from "../../../App";
 
-function VendorColumnList({ itemsAdded }) {
+function VendorColumnList() {
+  const itemsAdded = useContext(AddedContext);
+
   return (
     <>
       {vendors.map((e, i) => (

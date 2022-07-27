@@ -16,7 +16,7 @@ function InputGroupComponent({ items, onAdd, itemsAdded }) {
   const [val, setVal] = useState(() => "");
   const [listItems, setListItems] = useState(() => []);
 
-  console.log("input render");
+  // console.log("input render");
 
   const searchResultsStr = useMemo(() => {
     return items

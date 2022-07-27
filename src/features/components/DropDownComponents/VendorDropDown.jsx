@@ -1,26 +1,25 @@
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 import SingleDropDown from "./SingleDropDown";
 import PropTypes from "prop-types";
-import { memo, useEffect, useState, useMemo } from "react";
+import { memo, useEffect, useState, useMemo, useContext } from "react";
+// import { itemsContext } from "./VendorDropDownsList";
+// import { AddedContext } from "../../../App";
 
-function VendorDropDown({
-  officialVendorName,
-  items,
-  vendorName,
-  onAdd,
-  itemsAdded,
-}) {
+function VendorDropDown({ officialVendorName, items, vendorName, onAdd }) {
   // const [added, setAdded] = useState(() => []);
+  // const itemsAdded = useContext(itemsContext);
+  // const itemsAdded = useContext(AddedContext);
+  // console.log(itemsAdded)
 
-  // console.log("VendorDropDown");
+  console.log("VendorDropDown");
 
-  const addedStr = useMemo(() => {
-    return itemsAdded.map(({ name }) => name).join();
-  }, [itemsAdded]);
+  // const addedStr = useMemo(() => {
+  //   return itemsAdded.map(({ name }) => name).join();
+  // }, [itemsAdded]);
 
-  const addedArr = useMemo(() => {
-    return itemsAdded;
-  }, [addedStr]);
+  // const addedArr = useMemo(() => {
+  //   return itemsAdded;
+  // }, [addedStr]);
 
   // useEffect(() => {
   //   console.log("VendorDropDown changed");
@@ -38,7 +37,7 @@ function VendorDropDown({
                 key={`${e.name}-${vendorName}`}
                 itemObj={e}
                 items={items}
-                itemsAdded={addedArr}
+                // itemsAdded={addedArr}
               />
             ))}
         </DropdownMenu>
