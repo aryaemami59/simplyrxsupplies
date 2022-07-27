@@ -2,11 +2,11 @@ import { DropdownItem } from "reactstrap";
 import { memo, useEffect, useContext, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
 import AddedContext from "../../components/ContextComponents/AddedContext";
-import { myContext } from "../../components/ContextComponents/AddedContext";
+// import { myContext } from "../../components/ContextComponents/AddedContext";
 // const { itemsAdded } = AddedContext;
-function SingleDropDown({ itemObj }) {
+function SingleDropDown({ itemObj, itemsAdded, onAdd }) {
   // console.log(itemsAdded);
-  const { itemsAdded, onAdd } = useContext(myContext);
+  // const { itemsAdded, onAdd } = useContext(myContext);
   // console.log(itemsAdded);
   // const itemsAdded = useContext(AddedContext);
   const renderCount = useRef(0);
@@ -47,4 +47,8 @@ SingleDropDown.propTypes = {
   ),
 };
 
-export default memo(SingleDropDown);
+// export default memo(SingleDropDown);
+export default memo(
+  SingleDropDown,
+  (prev, next) => prev.itemsAdded.length === next.itemsAdded.length
+);

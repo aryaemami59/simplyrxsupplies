@@ -27,6 +27,10 @@ function VendorColumn({ officialVendorName, vendorName, itemsAdded }) {
   const [open, setOpen] = useState(() => false);
   // const [added, setAdded] = useState(() => []);
   // const [len, setLen] = useState(() => !!itemsAdded.length);
+  useEffect(() => {
+    // console.log(vendorName);
+    console.log("VendorColumn");
+  });
 
   useEffect(() => {
     // console.log("itemsAdded");
@@ -34,6 +38,7 @@ function VendorColumn({ officialVendorName, vendorName, itemsAdded }) {
   }, [itemsAdded]);
 
   const changeLen = useMemo(() => {
+    // console.log("item changed");
     // setAdded(prev => [...prev, itemsAdded]);
     return itemsAdded;
     // return setLen(true);
@@ -43,7 +48,7 @@ function VendorColumn({ officialVendorName, vendorName, itemsAdded }) {
     return setOpen(!open);
   }, [open]);
 
-  console.log("VendorColumn");
+  // console.log(vendorName);
   // console.log(added);
   return (
     <>
@@ -101,4 +106,8 @@ VendorColumn.propTypes = {
   vendorName: PropTypes.string,
 };
 
-export default memo(VendorColumn);
+// export default memo(VendorColumn);
+export default memo(
+  VendorColumn,
+  (p, n) => p.itemsAdded.length === n.itemsAdded.length
+);

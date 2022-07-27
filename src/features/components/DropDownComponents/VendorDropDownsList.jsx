@@ -10,11 +10,21 @@ import {
   createContext,
 } from "react";
 import PropTypes from "prop-types";
+import { myContext } from "../ContextComponents/AddedContext";
 // import { AddedContext } from "../../../App";
 
-export const itemsContext = createContext();
+// export const itemsContext = createContext();
 
-function VendorDropDownsList({ items, onAdd }) {
+function VendorDropDownsList({ items }) {
+  const { itemsAdded, onAdd } = useContext(myContext);
+
+  const empty = useMemo(() => {
+    return [];
+  }, []);
+
+  useEffect(() => {
+    // console.log("VendorDropDownsList");
+  });
   // const [added, setAdded] = useState(() => !!itemsAdded.length);
   // console.log("VendorDropDownsList");
   // const itemsAdded = useContext(AddedContext);
@@ -48,8 +58,13 @@ function VendorDropDownsList({ items, onAdd }) {
           vendorName={e}
           items={items}
           onAdd={onAdd}
+          // itemsAdded={
+          //   itemsAdded.filter(f => f[e]).length
+          //     ? itemsAdded.filter(f => f[e])
+          //     : empty
+          // }
           // itemsAdded={itemsAdded}
-          // itemsAdded={itemsAdded.filter(f => f[e])}
+          itemsAdded={itemsAdded.filter(f => f[e])}
         />
       ))}
     </>

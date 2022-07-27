@@ -5,14 +5,25 @@ import { memo, useEffect, useState, useMemo, useContext } from "react";
 // import { itemsContext } from "./VendorDropDownsList";
 // import { AddedContext } from "../../../App";
 
-function VendorDropDown({ officialVendorName, items, vendorName, onAdd }) {
+function VendorDropDown({
+  officialVendorName,
+  items,
+  vendorName,
+  onAdd,
+  itemsAdded,
+}) {
   // const [added, setAdded] = useState(() => []);
   // const itemsAdded = useContext(itemsContext);
   // const itemsAdded = useContext(AddedContext);
   // console.log(itemsAdded)
-
+  // const changeLen = useMemo(() => {
+  //   return itemsAdded;
+  // }, [itemsAdded]);
   // console.log("VendorDropDown");
 
+  useEffect(() => {
+    // console.log("VendorDropDown");
+  });
   // const addedStr = useMemo(() => {
   //   return itemsAdded.map(({ name }) => name).join();
   // }, [itemsAdded]);
@@ -37,6 +48,8 @@ function VendorDropDown({ officialVendorName, items, vendorName, onAdd }) {
                 key={`${e.name}-${vendorName}`}
                 itemObj={e}
                 items={items}
+                itemsAdded={itemsAdded}
+                // itemsAdded={changeLen}
                 // itemsAdded={addedArr}
               />
             ))}
@@ -64,4 +77,8 @@ VendorDropDown.propTypes = {
   ),
 };
 
-export default memo(VendorDropDown);
+// export default memo(VendorDropDown);
+export default memo(
+  VendorDropDown,
+  (prev, next) => prev.itemsAdded.length === next.itemsAdded.length
+);
