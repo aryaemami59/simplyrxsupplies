@@ -12,32 +12,47 @@ import InputListItems from "./InputListItems";
 import React, { useEffect, useMemo, useState, useCallback, memo } from "react";
 import PropTypes from "prop-types";
 
-function InputGroupComponent({ items, onAdd, itemsAdded }) {
+function InputGroupComponent({ items, onAdd }) {
   const [val, setVal] = useState(() => "");
-  const [listItems, setListItems] = useState(() => []);
-
+  const [listItems, setListItems] = useState([]);
   console.log("input render");
 
-  const searchResultsStr = useMemo(() => {
-    return items
-      .filter(({ name }) => name.toLowerCase().includes(val.toLowerCase()))
-      .map(({ name }) => name)
-      .join();
-  }, [items, val]);
-
+  // const searchResultsStr = useMemo(() => {
+  //   return items
+  //     .filter(({ name }) => name.toLowerCase().includes(val.toLowerCase()))
+  //     .map(({ name }) => name)
+  //     .join();
+  // }, [items, val]);
   const searchResultsArr = useMemo(() => {
     return items.filter(({ name }) =>
       name.toLowerCase().includes(val.toLowerCase())
     );
-  }, [searchResultsStr]);
+  }, [items, val]);
 
   const changeItems = useCallback(() => {
     return setListItems(searchResultsArr);
   }, [searchResultsArr]);
 
-  useEffect(() => {
-    changeItems();
-  }, [changeItems]);
+  const changeVal = useCallback(e => {
+    return setVal(e.target.value.trim());
+  }, []);
+
+  const list = useMemo(() => {
+    return listItems;
+  }, [listItems]);
+  // const searchResultsArr = useMemo(() => {
+  //   return items.filter(({ name }) =>
+  //     name.toLowerCase().includes(val.toLowerCase())
+  //   );
+  // }, [searchResultsStr]);
+
+  // const changeItems = useCallback(() => {
+  //   return setListItems(searchResultsArr);
+  // }, [searchResultsArr]);
+
+  // useEffect(() => {
+  //   changeItems();
+  // }, [changeItems]);
 
   return (
     <>
@@ -53,7 +68,8 @@ function InputGroupComponent({ items, onAdd, itemsAdded }) {
                   type="email"
                   className="shadow"
                   bsSize="lg"
-                  onChange={e => setVal(e.target.value.trim())}
+                  onInput={changeItems}
+                  onChange={changeVal}
                 />
                 <Label for="exampleEmail">Search...</Label>
               </FormGroup>
@@ -66,13 +82,7 @@ function InputGroupComponent({ items, onAdd, itemsAdded }) {
           </InputGroup>
         </Row>
       </Container>
-      {val && (
-        <InputListItems
-          itemsAdded={itemsAdded}
-          onAdd={onAdd}
-          listItems={listItems}
-        />
-      )}
+      {<InputListItems onAdd={onAdd} listItems={list} />}
     </>
   );
 }

@@ -37,4 +37,8 @@ InputListItems.propTypes = {
   onAdd: PropTypes.func,
 };
 
-export default memo(InputListItems);
+// export default memo(InputListItems);
+export default memo(
+  InputListItems,
+  (p, n) => p.listItems.length === 0 && n.listItems.length === 0
+);
