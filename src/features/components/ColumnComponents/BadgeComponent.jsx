@@ -2,6 +2,7 @@ import { Badge } from "reactstrap";
 import PropTypes from "prop-types";
 
 function BadgeComponent({ itemsAdded }) {
+  // console.log("BadgeComponent");
   return (
     <Badge
       className="position-absolute top-0 start-100 translate-middle border border-light opacity-75"

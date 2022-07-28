@@ -18,9 +18,9 @@ import { myContext } from "../ContextComponents/AddedContext";
 function VendorDropDownsList({ items }) {
   const { itemsAdded, onAdd } = useContext(myContext);
 
-  const empty = useMemo(() => {
-    return [];
-  }, []);
+  // const empty = useMemo(() => {
+  //   return [];
+  // }, []);
 
   useEffect(() => {
     // console.log("VendorDropDownsList");

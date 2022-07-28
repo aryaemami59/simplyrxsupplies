@@ -1,13 +1,15 @@
-import { createContext, useCallback, useState } from "react";
+import { createContext, useCallback, useState, useMemo } from "react";
 
 export const myContext = createContext();
+export const MCKContext = createContext();
 
 function AddedContext({ children }) {
   const [itemsAdded, setItemsAdded] = useState([]);
   const onAdd = useCallback(ev => {
-    if (!itemsAdded.includes(ev)) {
-      return setItemsAdded(prev => [...prev, ev]);
-    }
+    return setItemsAdded(prev => [...prev, ev]);
+  }, []);
+  const MCK = useMemo(() => {
+    return itemsAdded.filter(({ McKesson }) => McKesson);
   }, []);
 
   const value = {

@@ -1,38 +1,53 @@
 import VendorAccordion from "./VendorAccordion";
-import { Accordion } from "reactstrap";
-import { useState } from "react";
+import { Accordion, UncontrolledAccordion } from "reactstrap";
+import { useState, useContext, useCallback, memo } from "react";
 import vendors from "../../../data/vendorNames.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import PropTypes from "prop-types";
+import { myContext } from "../ContextComponents/AddedContext";
 
-function VendorAccordionList({ items, itemsAdded, onAdd }) {
-  const [openItems, setOpenItems] = useState(() => []);
+function VendorAccordionList({ items }) {
+  // const [openItems, setOpenItems] = useState([]);
+  const { itemsAdded, onAdd } = useContext(myContext);
 
-  const clickHandler = targetId => {
-    if (openItems.includes(targetId)) {
-      setOpenItems(openItems.filter(e => e !== targetId));
-    } else if (!openItems.includes(targetId)) {
-      setOpenItems([...openItems, targetId]);
-    }
-  };
+  // const clickHandler = useCallback(
+  //   targetId => {
+  //     if (openItems.includes(targetId)) {
+  //       return setOpenItems(openItems.filter(e => e !== targetId));
+  //     } else if (!openItems.includes(targetId)) {
+  //       return setOpenItems([...openItems, targetId]);
+  //     }
+  //   },
+  //   [openItems.length]
+  // );
+
+  // const clickHandler = targetId => {
+  //   if (openItems.includes(targetId)) {
+  //     setOpenItems(openItems.filter(e => e !== targetId));
+  //   } else if (!openItems.includes(targetId)) {
+  //     setOpenItems([...openItems, targetId]);
+  //   }
+  // };
 
   return (
-    <>
-      <Accordion open={openItems} toggle={clickHandler}>
-        {vendors.map((e, i) => (
-          <VendorAccordion
-            officialVendorName={officialVendorNames[0][e]}
-            key={i}
-            targetId={i.toString()}
-            vendorName={e}
-            onToggle={clickHandler}
-            items={items}
-            itemsAdded={itemsAdded.filter(f => f[e])}
-            onAdd={onAdd}
-          />
-        ))}
-      </Accordion>
-    </>
+    <UncontrolledAccordion
+      stayOpen
+      // open={openItems}
+      //  toggle={clickHandler}
+    >
+      {vendors.map((e, i) => (
+        <VendorAccordion
+          officialVendorName={officialVendorNames[0][e]}
+          key={i}
+          // targetId={i.toString()}
+          vendorName={e}
+          // onToggle={clickHandler}
+          items={items}
+          onAdd={onAdd}
+          itemsAdded={itemsAdded.filter(f => f[e])}
+        />
+      ))}
+    </UncontrolledAccordion>
   );
 }
 
@@ -52,4 +67,4 @@ VendorAccordionList.propTypes = {
   onAdd: PropTypes.func,
 };
 
-export default VendorAccordionList;
+export default memo(VendorAccordionList);

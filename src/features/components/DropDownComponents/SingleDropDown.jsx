@@ -1,7 +1,7 @@
 import { DropdownItem } from "reactstrap";
 import { memo, useEffect, useContext, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
-import AddedContext from "../../components/ContextComponents/AddedContext";
+// import AddedContext from "../../components/ContextComponents/AddedContext";
 // import { myContext } from "../../components/ContextComponents/AddedContext";
 // const { itemsAdded } = AddedContext;
 function SingleDropDown({ itemObj, itemsAdded, onAdd }) {
@@ -14,7 +14,7 @@ function SingleDropDown({ itemObj, itemsAdded, onAdd }) {
   // console.log(itemObj);
 
   const clickHandler = useCallback(() => {
-    return onAdd(itemObj);
+    return !itemsAdded.includes(itemObj) && onAdd(itemObj);
   }, []);
 
   useEffect(() => {

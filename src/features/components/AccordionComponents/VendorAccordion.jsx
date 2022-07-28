@@ -7,40 +7,56 @@ import {
 } from "reactstrap";
 import BadgeComponent from "../ColumnComponents/BadgeComponent";
 import PropTypes from "prop-types";
+import { memo, useCallback } from "react";
+import SingleListItem from "../SingleListItemComponents/SingleListItem";
 
 function VendorAccordion({
-  targetId,
-  onToggle,
+  // targetId,
+  // onToggle,
   officialVendorName,
   items,
   vendorName,
   itemsAdded,
   onAdd,
+  key,
 }) {
+  console.log(itemsAdded);
+  // const toggleHeader = useCallback(() => {
+  //   return onToggle(targetId);
+  // }, []);
+  // const listGroupClickHandler = useCallback(e => {
+  //   return !itemsAdded.includes(e) && onAdd(e);
+  // }, []);
+
   return (
     <>
       <AccordionItem>
-        <AccordionHeader targetId={targetId} onClick={() => onToggle(targetId)}>
+        <AccordionHeader
+          targetId={key}
+          // targetId={targetId}
+          // onClick={toggleHeader}
+        >
           <BadgeComponent
             itemsAdded={itemsAdded}
             key={`${officialVendorName}-VendorColumn-Badge`}
           />
           {officialVendorName}
         </AccordionHeader>
-        <AccordionBody accordionId={targetId}>
+        <AccordionBody
+          accordionId={key}
+          // accordionId={targetId}
+        >
           <ListGroup>
             {items
               .filter(e => e[vendorName])
               .map(e => (
-                <ListGroupItem
+                <SingleListItem
+                  key={`${e.name}-${vendorName}`}
+                  itemsAdded={itemsAdded}
+                  itemObj={e}
                   role="button"
-                  className={
-                    itemsAdded.includes(e) ? "text-decoration-line-through" : ""
-                  }
-                  onClick={() => !itemsAdded.includes(e) && onAdd(e)}
-                  key={`${e.name}-${vendorName}`}>
-                  {e.name}
-                </ListGroupItem>
+                  onAdd={onAdd}
+                />
               ))}
           </ListGroup>
         </AccordionBody>
@@ -69,4 +85,8 @@ VendorAccordion.propTypes = {
   onAdd: PropTypes.func,
 };
 
-export default VendorAccordion;
+export default memo(VendorAccordion);
+// export default memo(
+//   VendorAccordion,
+//   (prev, next) => prev.itemsAdded.length === next.itemsAdded.length
+// );

@@ -3,7 +3,7 @@ import vendors from "../../../data/vendorNames.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import PropTypes from "prop-types";
 import { memo, useContext, useMemo } from "react";
-import AddedContext from "../ContextComponents/AddedContext";
+// import AddedContext from "../ContextComponents/AddedContext";
 import { myContext } from "../ContextComponents/AddedContext";
 
 function VendorColumnList() {
