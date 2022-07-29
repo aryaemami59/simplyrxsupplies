@@ -23,10 +23,9 @@ function reducer(state, action) {
     case "update":
       return {
         ...state,
-        myItems: [...state.myItems],
         dropdownOpen: !state.dropdownOpen,
+        myItems: [...state.myItems],
       };
-
     case "open":
       return {
         ...state,
@@ -53,16 +52,21 @@ function VendorDropDown({
   const [state, dispatch] = useReducer(reducer, initialState);
   const { dropdownOpen, myItems } = state;
   // const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const my = useMemo(() => {
+    return myItems;
+  }, [myItems.length]);
   const toggle = useCallback(() => {
-    return dropdownOpen
+    return !dropdownOpen
       ? dispatch({ type: "update" })
       : dispatch({ type: "open" });
-  }, [dropdownOpen]);
-
-  const clickHandler = useCallback(e => {
-    return !myItems.includes(e) && myItems.push(e);
   }, []);
+
+  // const clickHandler = useCallback(e => {
+  //   return !myItems.includes(e) && myItems.push(e);
+  // }, []);
+  const clickHandler = e => {
+    return !myItems.includes(e) && myItems.push(e);
+  };
 
   useEffect(() => {
     console.log(myItems);
@@ -105,7 +109,7 @@ function VendorDropDown({
                 itemObj={e}
                 items={items}
                 // itemsAdded={itemsAdded}
-                itemsAdded={myItems}
+                itemsAdded={my}
                 clickHandler={() => clickHandler(e)}
                 // itemsAdded={changeLen}
                 // itemsAdded={addedArr}
