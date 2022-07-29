@@ -14,7 +14,7 @@ function VendorColumnList() {
     return [];
   }, []);
 
-  console.log("VendorColumnList");
+  // console.log("VendorColumnList");
 
   return (
     <>

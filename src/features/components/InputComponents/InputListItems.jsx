@@ -5,11 +5,11 @@ import PropTypes from "prop-types";
 import { myContext } from "../ContextComponents/AddedContext";
 
 function InputListItems({ listItems }) {
-  console.log("render input list items");
+  // console.log("render input list items");
   const { itemsAdded, onAdd } = useContext(myContext);
 
   useEffect(() => {
-    console.log("list items changed");
+    // console.log("list items changed");
   }, [listItems]);
   return (
     <>

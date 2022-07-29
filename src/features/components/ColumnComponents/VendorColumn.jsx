@@ -29,7 +29,7 @@ function VendorColumn({ officialVendorName, vendorName, itemsAdded }) {
   // const [len, setLen] = useState(() => !!itemsAdded.length);
   useEffect(() => {
     // console.log(vendorName);
-    console.log("VendorColumn");
+    // console.log("VendorColumn");
   });
 
   useEffect(() => {

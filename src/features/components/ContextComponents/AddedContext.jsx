@@ -1,7 +1,7 @@
-import { createContext, useCallback, useState, useMemo } from "react";
+import { createContext, useCallback, useState, useMemo, memo } from "react";
 
 export const myContext = createContext();
-export const MCKContext = createContext();
+// export const MCKContext = createContext();
 
 function AddedContext({ children }) {
   const [itemsAdded1, setItemsAdded] = useState([]);
@@ -12,9 +12,9 @@ function AddedContext({ children }) {
   const onAdd = useCallback(ev => {
     return setItemsAdded(prev => [...prev, ev]);
   }, []);
-  const MCK = useMemo(() => {
-    return itemsAdded.filter(({ McKesson }) => McKesson);
-  }, []);
+  // const MCK = useMemo(() => {
+  //   return itemsAdded.filter(({ McKesson }) => McKesson);
+  // }, []);
 
   const value = {
     itemsAdded,
@@ -24,4 +24,4 @@ function AddedContext({ children }) {
   return <myContext.Provider value={value}>{children}</myContext.Provider>;
 }
 
-export default AddedContext;
+export default memo(AddedContext);

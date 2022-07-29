@@ -1,4 +1,9 @@
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from "reactstrap";
+import {
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  Dropdown,
+} from "reactstrap";
 import SingleDropDown from "./SingleDropDown";
 import PropTypes from "prop-types";
 import { memo, useEffect, useState, useMemo, useContext } from "react";
@@ -12,6 +17,9 @@ function VendorDropDown({
   onAdd,
   itemsAdded,
 }) {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggle = () => setDropdownOpen(prevState => !prevState);
   // const [added, setAdded] = useState(() => []);
   // const itemsAdded = useContext(itemsContext);
   // const itemsAdded = useContext(AddedContext);
@@ -37,7 +45,7 @@ function VendorDropDown({
   // }, [addedArr]);
   return (
     <>
-      <UncontrolledDropdown className="me-2">
+      <Dropdown className="me-2" isOpen={dropdownOpen} toggle={toggle}>
         <DropdownToggle caret>{officialVendorName}</DropdownToggle>
         <DropdownMenu dark>
           {items
@@ -54,7 +62,7 @@ function VendorDropDown({
               />
             ))}
         </DropdownMenu>
-      </UncontrolledDropdown>
+      </Dropdown>
     </>
   );
 }

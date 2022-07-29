@@ -1,15 +1,42 @@
 import { DropdownItem } from "reactstrap";
-import { memo, useEffect, useContext, useCallback, useRef } from "react";
+import {
+  memo,
+  useEffect,
+  useContext,
+  useCallback,
+  useRef,
+  useReducer,
+} from "react";
 import PropTypes from "prop-types";
 // import AddedContext from "../../components/ContextComponents/AddedContext";
 // import { myContext } from "../../components/ContextComponents/AddedContext";
 // const { itemsAdded } = AddedContext;
+function reducer(state, action) {
+  switch (action.type) {
+    case "add":
+      return {
+
+      };
+    default:
+      break;
+  }
+  return state;
+}
+
+const initialState = {
+  isAdded: false,
+  myClass: "",
+};
+
 function SingleDropDown({ itemObj, itemsAdded, onAdd }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const { isAdded, myClass } = state;
   // console.log(itemsAdded);
   // const { itemsAdded, onAdd } = useContext(myContext);
   // console.log(itemsAdded);
   // const itemsAdded = useContext(AddedContext);
-  const renderCount = useRef(0);
+  // const renderCount = useRef(0);
   // console.log("SingleDropDown");
   // console.log(itemObj);
 
@@ -18,8 +45,8 @@ function SingleDropDown({ itemObj, itemsAdded, onAdd }) {
   }, []);
 
   useEffect(() => {
-    // console.log("SingleDropDown");
-    renderCount.current = renderCount.current + 1;
+    console.log("SingleDropDown");
+    // renderCount.current = renderCount.current + 1;
     // console.log(renderCount.current);
   });
   return (
