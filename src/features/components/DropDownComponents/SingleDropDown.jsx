@@ -14,9 +14,7 @@ import PropTypes from "prop-types";
 function reducer(state, action) {
   switch (action.type) {
     case "add":
-      return {
-
-      };
+      return {};
     default:
       break;
   }
@@ -28,7 +26,7 @@ const initialState = {
   myClass: "",
 };
 
-function SingleDropDown({ itemObj, itemsAdded, onAdd }) {
+function SingleDropDown({ itemObj, itemsAdded, onAdd, clickHandler }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const { isAdded, myClass } = state;
@@ -40,9 +38,9 @@ function SingleDropDown({ itemObj, itemsAdded, onAdd }) {
   // console.log("SingleDropDown");
   // console.log(itemObj);
 
-  const clickHandler = useCallback(() => {
-    return !itemsAdded.includes(itemObj) && onAdd(itemObj);
-  }, []);
+  // const clickHandler = useCallback(() => {
+  //   return !itemsAdded.includes(itemObj) && onAdd(itemObj);
+  // }, []);
 
   useEffect(() => {
     console.log("SingleDropDown");
@@ -54,6 +52,7 @@ function SingleDropDown({ itemObj, itemsAdded, onAdd }) {
       className={
         itemsAdded.includes(itemObj) ? "text-decoration-line-through" : ""
       }
+      // onClick={clickHandler}
       onClick={clickHandler}>
       {itemObj.name}
     </DropdownItem>

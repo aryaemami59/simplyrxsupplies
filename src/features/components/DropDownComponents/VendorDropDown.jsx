@@ -6,9 +6,42 @@ import {
 } from "reactstrap";
 import SingleDropDown from "./SingleDropDown";
 import PropTypes from "prop-types";
-import { memo, useEffect, useState, useMemo, useContext } from "react";
+import {
+  memo,
+  useEffect,
+  useState,
+  useMemo,
+  useContext,
+  useReducer,
+  useCallback,
+} from "react";
 // import { itemsContext } from "./VendorDropDownsList";
 // import { AddedContext } from "../../../App";
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "update":
+      return {
+        ...state,
+        myItems: [...state.myItems],
+        dropdownOpen: !state.dropdownOpen,
+      };
+
+    case "open":
+      return {
+        ...state,
+        dropdownOpen: true,
+      };
+    default:
+      break;
+  }
+  return state;
+}
+
+const initialState = {
+  dropdownOpen: false,
+  myItems: [],
+};
 
 function VendorDropDown({
   officialVendorName,
@@ -17,9 +50,24 @@ function VendorDropDown({
   onAdd,
   itemsAdded,
 }) {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { dropdownOpen, myItems } = state;
+  // const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const toggle = () => setDropdownOpen(prevState => !prevState);
+  const toggle = useCallback(() => {
+    return dropdownOpen
+      ? dispatch({ type: "update" })
+      : dispatch({ type: "open" });
+  }, [dropdownOpen]);
+
+  const clickHandler = useCallback(e => {
+    return !myItems.includes(e) && myItems.push(e);
+  }, []);
+
+  useEffect(() => {
+    console.log(myItems);
+  }, [myItems]);
+  // const toggle = () => setDropdownOpen(prevState => !prevState);
   // const [added, setAdded] = useState(() => []);
   // const itemsAdded = useContext(itemsContext);
   // const itemsAdded = useContext(AddedContext);
@@ -56,7 +104,9 @@ function VendorDropDown({
                 key={`${e.name}-${vendorName}`}
                 itemObj={e}
                 items={items}
-                itemsAdded={itemsAdded}
+                // itemsAdded={itemsAdded}
+                itemsAdded={myItems}
+                clickHandler={() => clickHandler(e)}
                 // itemsAdded={changeLen}
                 // itemsAdded={addedArr}
               />
