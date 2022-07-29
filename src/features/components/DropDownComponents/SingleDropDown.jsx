@@ -49,6 +49,7 @@ function SingleDropDown({ itemObj, itemsAdded, onAdd, clickHandler, myItems }) {
   });
   return (
     <DropdownItem
+      toggle={false}
       className={
         myItems.includes(itemObj) ? "text-decoration-line-through" : ""
       }

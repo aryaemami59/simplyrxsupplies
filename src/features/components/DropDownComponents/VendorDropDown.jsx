@@ -59,12 +59,12 @@ function VendorDropDown({
   itemsAdded,
 }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { dropdownOpen, myItems } = state;
+  const { myItems, dropdownOpen } = state;
   // const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = useCallback(() => {
     return !dropdownOpen
-      ? dispatch({ type: "open" })
-      : dispatch({ type: "update" });
+      ? dispatch({ type: "update" })
+      : dispatch({ type: "open" });
   }, []);
 
   const my = useMemo(() => {
@@ -118,7 +118,7 @@ function VendorDropDown({
                 key={`${e.name}-${vendorName}`}
                 itemObj={e}
                 items={items}
-                // itemsAdded={itemsAdded}
+                itemsAdded={itemsAdded}
                 myItems={my}
                 // itemsAdded={my}
                 clickHandler={() => clickHandler(e)}
