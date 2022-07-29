@@ -38,7 +38,7 @@ function VendorAccordionList({ items }) {
       {vendors.map((e, i) => (
         <VendorAccordion
           officialVendorName={officialVendorNames[0][e]}
-          key={i}
+          key={officialVendorNames[0][e]}
           // targetId={i.toString()}
           vendorName={e}
           // onToggle={clickHandler}

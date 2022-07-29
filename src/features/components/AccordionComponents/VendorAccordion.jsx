@@ -18,7 +18,6 @@ function VendorAccordion({
   vendorName,
   itemsAdded,
   onAdd,
-  key,
 }) {
   console.log(itemsAdded);
   // const toggleHeader = useCallback(() => {
@@ -32,7 +31,7 @@ function VendorAccordion({
     <>
       <AccordionItem>
         <AccordionHeader
-          targetId={key}
+          targetId={officialVendorName}
           // targetId={targetId}
           // onClick={toggleHeader}
         >
@@ -43,7 +42,7 @@ function VendorAccordion({
           {officialVendorName}
         </AccordionHeader>
         <AccordionBody
-          accordionId={key}
+          accordionId={officialVendorName}
           // accordionId={targetId}
         >
           <ListGroup>

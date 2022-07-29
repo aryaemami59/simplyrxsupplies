@@ -4,7 +4,11 @@ export const myContext = createContext();
 export const MCKContext = createContext();
 
 function AddedContext({ children }) {
-  const [itemsAdded, setItemsAdded] = useState([]);
+  const [itemsAdded1, setItemsAdded] = useState([]);
+
+  const itemsAdded = useMemo(() => {
+    return itemsAdded1;
+  }, [itemsAdded1.length]);
   const onAdd = useCallback(ev => {
     return setItemsAdded(prev => [...prev, ev]);
   }, []);

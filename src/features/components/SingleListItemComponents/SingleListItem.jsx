@@ -1,10 +1,14 @@
 import { ListGroupItem } from "reactstrap";
-import { memo, useCallback } from "react";
+import { memo, useCallback, useMemo } from "react";
 
 function SingleListItem({ itemsAdded, onAdd, itemObj }) {
+  // const itemsAddedMemo = useMemo(() => {
+  //   return itemsAdded;
+  // }, [itemsAdded.length]);
+
   const clickHandler = useCallback(() => {
     return !itemsAdded.includes(itemObj) && onAdd(itemObj);
-  }, []);
+  }, [itemsAdded, onAdd, itemObj]);
 
   return (
     <ListGroupItem
@@ -18,8 +22,8 @@ function SingleListItem({ itemsAdded, onAdd, itemObj }) {
   );
 }
 
-export default memo(SingleListItem);
-// export default memo(
-//   SingleListItem,
-//   (prev, next) => prev.itemsAdded.length === next.itemsAdded.length
-// );
+// export default memo(SingleListItem);
+export default memo(
+  SingleListItem,
+  (prev, next) => prev.itemsAdded.length === next.itemsAdded.length
+);
