@@ -26,7 +26,7 @@ const initialState = {
   myClass: "",
 };
 
-function SingleDropDown({ itemObj, itemsAdded, onAdd, clickHandler }) {
+function SingleDropDown({ itemObj, itemsAdded, onAdd, clickHandler, myItems }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const { isAdded, myClass } = state;
@@ -50,8 +50,11 @@ function SingleDropDown({ itemObj, itemsAdded, onAdd, clickHandler }) {
   return (
     <DropdownItem
       className={
-        itemsAdded.includes(itemObj) ? "text-decoration-line-through" : ""
+        myItems.includes(itemObj) ? "text-decoration-line-through" : ""
       }
+      // className={
+      //   itemsAdded.includes(itemObj) ? "text-decoration-line-through" : ""
+      // }
       // onClick={clickHandler}
       onClick={clickHandler}>
       {itemObj.name}
@@ -76,5 +79,5 @@ SingleDropDown.propTypes = {
 // export default memo(SingleDropDown);
 export default memo(
   SingleDropDown,
-  (prev, next) => prev.itemsAdded.length === next.itemsAdded.length
+  (prev, next) => prev.myItems.length === next.myItems.length
 );

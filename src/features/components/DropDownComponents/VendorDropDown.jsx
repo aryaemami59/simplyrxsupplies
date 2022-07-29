@@ -20,17 +20,26 @@ import {
 
 function reducer(state, action) {
   switch (action.type) {
-    case "update":
+    case "update": {
       return {
         ...state,
-        dropdownOpen: !state.dropdownOpen,
+        // dropdownOpen: false,
         myItems: [...state.myItems],
+        dropdownOpen: !state.dropdownOpen,
       };
-    case "open":
+    }
+    case "open": {
       return {
         ...state,
-        dropdownOpen: true,
+        dropdownOpen: false,
       };
+    }
+    case "close": {
+      return {
+        ...state,
+        dropdownOpen: false,
+      };
+    }
     default:
       break;
   }
@@ -38,8 +47,8 @@ function reducer(state, action) {
 }
 
 const initialState = {
-  dropdownOpen: false,
   myItems: [],
+  dropdownOpen: false,
 };
 
 function VendorDropDown({
@@ -52,20 +61,21 @@ function VendorDropDown({
   const [state, dispatch] = useReducer(reducer, initialState);
   const { dropdownOpen, myItems } = state;
   // const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggle = useCallback(() => {
+    return !dropdownOpen
+      ? dispatch({ type: "open" })
+      : dispatch({ type: "update" });
+  }, []);
+
   const my = useMemo(() => {
     return myItems;
   }, [myItems.length]);
-  const toggle = useCallback(() => {
-    return !dropdownOpen
-      ? dispatch({ type: "update" })
-      : dispatch({ type: "open" });
-  }, []);
 
   // const clickHandler = useCallback(e => {
   //   return !myItems.includes(e) && myItems.push(e);
   // }, []);
   const clickHandler = e => {
-    return !myItems.includes(e) && myItems.push(e);
+    !myItems.includes(e) && myItems.push(e);
   };
 
   useEffect(() => {
@@ -109,7 +119,8 @@ function VendorDropDown({
                 itemObj={e}
                 items={items}
                 // itemsAdded={itemsAdded}
-                itemsAdded={my}
+                myItems={my}
+                // itemsAdded={my}
                 clickHandler={() => clickHandler(e)}
                 // itemsAdded={changeLen}
                 // itemsAdded={addedArr}
