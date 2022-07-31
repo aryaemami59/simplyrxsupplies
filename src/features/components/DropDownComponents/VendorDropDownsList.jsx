@@ -25,6 +25,10 @@ function VendorDropDownsList({ items }) {
   useEffect(() => {
     // console.log("VendorDropDownsList");
   });
+
+  useEffect(() => {
+    console.log(itemsAdded);
+  }, [itemsAdded]);
   // const [added, setAdded] = useState(() => !!itemsAdded.length);
   // console.log("VendorDropDownsList");
   // const itemsAdded = useContext(AddedContext);
@@ -58,13 +62,15 @@ function VendorDropDownsList({ items }) {
           vendorName={e}
           items={items}
           onAdd={onAdd}
+          index={i}
+          bigItemsAdded={itemsAdded}
           // itemsAdded={
           //   itemsAdded.filter(f => f[e]).length
           //     ? itemsAdded.filter(f => f[e])
           //     : empty
           // }
-          // itemsAdded={itemsAdded}
-          itemsAdded={itemsAdded.filter(f => f[e])}
+          itemsAdded={itemsAdded}
+          // itemsAdded={itemsAdded.filter(f => f[e])}
         />
       ))}
     </>

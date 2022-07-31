@@ -51,12 +51,18 @@ const initialState = {
   dropdownOpen: false,
 };
 
+function updateItems(item, e) {
+  return item(e);
+}
+
 function VendorDropDown({
   officialVendorName,
   items,
   vendorName,
   onAdd,
   itemsAdded,
+  index,
+  bigItemsAdded,
 }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { myItems, dropdownOpen } = state;
@@ -66,10 +72,15 @@ function VendorDropDown({
       ? dispatch({ type: "update" })
       : dispatch({ type: "open" });
   }, []);
+  console.log(itemsAdded);
 
   const my = useMemo(() => {
     return myItems;
   }, [myItems.length]);
+
+  useEffect(() => {
+    console.log(itemsAdded);
+  }, [itemsAdded]);
 
   // const clickHandler = useCallback(e => {
   //   return !myItems.includes(e) && myItems.push(e);
@@ -77,9 +88,28 @@ function VendorDropDown({
   const clickHandler = e => {
     !myItems.includes(e) && myItems.push(e);
   };
+  const add = useCallback(() => {
+    if (my.length) {
+      itemsAdded.push(...my);
+      return onAdd(...itemsAdded);
+    }
+  }, [my]);
+  // add();
+  useEffect(() => {
+    add();
+    // if (my.length) {
+    //   itemsAdded.push(...my);
+    //   return onAdd(...itemsAdded);
+    // }
+    // if (my.length) {
+    //   itemsAdded.push(...my);
+    //   onAdd(...itemsAdded);
+    // }
+    // itemsAdded.push(myItems);
+  }, [my]);
 
   useEffect(() => {
-    console.log(myItems);
+    // console.log(myItems);
   }, [myItems]);
   // const toggle = () => setDropdownOpen(prevState => !prevState);
   // const [added, setAdded] = useState(() => []);
@@ -121,7 +151,7 @@ function VendorDropDown({
                 itemsAdded={itemsAdded}
                 myItems={my}
                 // itemsAdded={my}
-                clickHandler={() => clickHandler(e)}
+                onClick={() => clickHandler(e)}
                 // itemsAdded={changeLen}
                 // itemsAdded={addedArr}
               />

@@ -13,8 +13,12 @@ import PropTypes from "prop-types";
 // const { itemsAdded } = AddedContext;
 function reducer(state, action) {
   switch (action.type) {
-    case "add":
-      return {};
+    case "add": {
+      return {
+        isAdded: true,
+        myClass: "text-decoration-line-through",
+      };
+    }
     default:
       break;
   }
@@ -26,7 +30,7 @@ const initialState = {
   myClass: "",
 };
 
-function SingleDropDown({ itemObj, itemsAdded, onAdd, clickHandler, myItems }) {
+function SingleDropDown({ itemObj, itemsAdded, onAdd, onClick, myItems }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const { isAdded, myClass } = state;
@@ -38,21 +42,32 @@ function SingleDropDown({ itemObj, itemsAdded, onAdd, clickHandler, myItems }) {
   // console.log("SingleDropDown");
   // console.log(itemObj);
 
+  function clickHandler() {
+    onClick();
+    !isAdded && dispatch({ type: "add" });
+  }
   // const clickHandler = useCallback(() => {
   //   return !itemsAdded.includes(itemObj) && onAdd(itemObj);
   // }, []);
 
   useEffect(() => {
-    console.log("SingleDropDown");
+    // myItems.includes(itemObj) && dispatch({ type: "add" });
+
+    return () => myItems.includes(itemObj) && dispatch({ type: "add" });
+  }, []);
+
+  useEffect(() => {
+    // console.log("SingleDropDown");
     // renderCount.current = renderCount.current + 1;
     // console.log(renderCount.current);
   });
   return (
     <DropdownItem
       toggle={false}
-      className={
-        myItems.includes(itemObj) ? "text-decoration-line-through" : ""
-      }
+      className={myClass}
+      // className={
+      //   myItems.includes(itemObj) ? "text-decoration-line-through" : ""
+      // }
       // className={
       //   itemsAdded.includes(itemObj) ? "text-decoration-line-through" : ""
       // }
