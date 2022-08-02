@@ -42,8 +42,8 @@ function SingleDropDown({ itemObj, itemsAdded, onAdd, onClick, myItems }) {
   // console.log("SingleDropDown");
   // console.log(itemObj);
 
-  function clickHandler() {
-    onClick();
+  function clickHandler(e) {
+    onClick(e, itemObj);
     !isAdded && dispatch({ type: "add" });
   }
   // const clickHandler = useCallback(() => {
@@ -51,10 +51,9 @@ function SingleDropDown({ itemObj, itemsAdded, onAdd, onClick, myItems }) {
   // }, []);
 
   useEffect(() => {
-    // myItems.includes(itemObj) && dispatch({ type: "add" });
-
-    return () => myItems.includes(itemObj) && dispatch({ type: "add" });
-  }, []);
+    // itemsAdded.includes(itemObj) && dispatch({ type: "add" });
+    return () => itemsAdded.includes(itemObj) && dispatch({ type: "add" });
+  }, [itemObj, itemsAdded]);
 
   useEffect(() => {
     // console.log("SingleDropDown");
@@ -95,5 +94,5 @@ SingleDropDown.propTypes = {
 // export default memo(SingleDropDown);
 export default memo(
   SingleDropDown,
-  (prev, next) => prev.myItems.length === next.myItems.length
+  (prev, next) => prev.itemsAdded.length === next.itemsAdded.length
 );

@@ -23,11 +23,12 @@ function VendorDropDownsList({ items }) {
   // }, []);
 
   useEffect(() => {
+    // console.log(items);
     // console.log("VendorDropDownsList");
   });
 
   useEffect(() => {
-    console.log(itemsAdded);
+    // console.log(itemsAdded);
   }, [itemsAdded]);
   // const [added, setAdded] = useState(() => !!itemsAdded.length);
   // console.log("VendorDropDownsList");
@@ -69,8 +70,8 @@ function VendorDropDownsList({ items }) {
           //     ? itemsAdded.filter(f => f[e])
           //     : empty
           // }
-          itemsAdded={itemsAdded}
-          // itemsAdded={itemsAdded.filter(f => f[e])}
+          // itemsAdded={itemsAdded}
+          itemsAdded={itemsAdded.filter(f => f[e])}
         />
       ))}
     </>

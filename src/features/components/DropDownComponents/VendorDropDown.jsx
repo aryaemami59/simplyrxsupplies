@@ -18,99 +18,121 @@ import {
 // import { itemsContext } from "./VendorDropDownsList";
 // import { AddedContext } from "../../../App";
 
-function reducer(state, action) {
-  switch (action.type) {
-    case "update": {
-      return {
-        ...state,
-        // dropdownOpen: false,
-        myItems: [...state.myItems],
-        dropdownOpen: !state.dropdownOpen,
-      };
-    }
-    case "open": {
-      return {
-        ...state,
-        dropdownOpen: false,
-      };
-    }
-    case "close": {
-      return {
-        ...state,
-        dropdownOpen: false,
-      };
-    }
-    default:
-      break;
-  }
-  return state;
-}
+// function reducer(state, action) {
+//   switch (action.type) {
+//     case "update": {
+//       return {
+//         ...state,
+//         // dropdownOpen: false,
+//         myItems: [...state.myItems],
+//         dropdownOpen: !state.dropdownOpen,
+//       };
+//     }
+//     case "open": {
+//       return {
+//         ...state,
+//         dropdownOpen: false,
+//       };
+//     }
+//     case "close": {
+//       return {
+//         ...state,
+//         dropdownOpen: false,
+//       };
+//     }
+//     default:
+//       break;
+//   }
+//   return state;
+// }
 
-const initialState = {
-  myItems: [],
-  dropdownOpen: false,
-};
+// const initialState = {
+//   myItems: [],
+//   dropdownOpen: false,
+// };
 
-function updateItems(item, e) {
-  return item(e);
-}
+// function updateItems(item, e) {
+//   return item(e);
+// }
 
 function VendorDropDown({
   officialVendorName,
   items,
   vendorName,
   onAdd,
-  itemsAdded,
-  index,
-  bigItemsAdded,
+  // itemsAdded,
+  // index,
+  // bigItemsAdded,
 }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const { myItems, dropdownOpen } = state;
-  // const [dropdownOpen, setDropdownOpen] = useState(false);
-  const toggle = useCallback(() => {
-    return !dropdownOpen
-      ? dispatch({ type: "update" })
-      : dispatch({ type: "open" });
-  }, []);
-  console.log(itemsAdded);
+  // const [state, dispatch] = useReducer(reducer, initialState);
+  // const { myItems, dropdownOpen } = state;
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [myItems, setMyItems] = useState([]);
+  const [itemsAdded, setItemsAdded] = useState([]);
+  const mm = [];
 
-  const my = useMemo(() => {
-    return myItems;
-  }, [myItems.length]);
+  const updateItemsAdded = () => {
+    setItemsAdded(prev => [...prev, ...mm]);
+  };
+
+  const clickHandler = (e, data) => {
+    mm.push(data);
+  };
+  // const toggle = useCallback(() => {
+  //   return !dropdownOpen
+  //     ? dispatch({ type: "update" })
+  //     : dispatch({ type: "open" });
+  // }, []);
+  // console.log(itemsAdded);
+
+  // const my = useMemo(() => {
+  //   return myItems;
+  // }, [myItems.length]);
 
   useEffect(() => {
-    console.log(itemsAdded);
+    // console.log(itemsAdded);
   }, [itemsAdded]);
 
+  useEffect(() => {
+    setMyItems(items.filter(e => e[vendorName]));
+    // console.log(items);
+  }, [items, vendorName]);
   // const clickHandler = useCallback(e => {
   //   return !myItems.includes(e) && myItems.push(e);
   // }, []);
-  const clickHandler = e => {
-    !myItems.includes(e) && myItems.push(e);
-  };
-  const add = useCallback(() => {
-    if (my.length) {
-      itemsAdded.push(...my);
-      return onAdd(...itemsAdded);
-    }
-  }, [my]);
+  // const clickHandler = e => {
+  //   !myItems.includes(e) && myItems.push(e);
+  // };
+  // const add = useCallback(() => {
+  //   if (my.length) {
+  //     itemsAdded.push(...my);
+  //     return onAdd(...itemsAdded);
+  //   }
+  // }, [my]);
   // add();
-  useEffect(() => {
-    add();
-    // if (my.length) {
-    //   itemsAdded.push(...my);
-    //   return onAdd(...itemsAdded);
-    // }
-    // if (my.length) {
-    //   itemsAdded.push(...my);
-    //   onAdd(...itemsAdded);
-    // }
-    // itemsAdded.push(myItems);
-  }, [my]);
+  // useEffect(() => {
+  //   add();
+  //   // if (my.length) {
+  //   //   itemsAdded.push(...my);
+  //   //   return onAdd(...itemsAdded);
+  //   // }
+  //   // if (my.length) {
+  //   //   itemsAdded.push(...my);
+  //   //   onAdd(...itemsAdded);
+  //   // }
+  //   // itemsAdded.push(myItems);
+  // }, [my]);
 
   useEffect(() => {
-    // console.log(myItems);
-  }, [myItems]);
+    // console.log("VendorDropDown Mounts");
+  }, []);
+
+  useEffect(() => {
+    console.log("VendorDropDown Renders");
+  });
+  // useEffect(() => {
+  //   // console.log(myItems);
+  // }, [myItems]);
   // const toggle = () => setDropdownOpen(prevState => !prevState);
   // const [added, setAdded] = useState(() => []);
   // const itemsAdded = useContext(itemsContext);
@@ -122,6 +144,9 @@ function VendorDropDown({
   // console.log("VendorDropDown");
 
   useEffect(() => {
+    // console.log(mm);
+    // console.log(itemsAdded);
+    // console.log(items);
     // console.log("VendorDropDown");
   });
   // const addedStr = useMemo(() => {
@@ -137,10 +162,29 @@ function VendorDropDown({
   // }, [addedArr]);
   return (
     <>
-      <Dropdown className="me-2" isOpen={dropdownOpen} toggle={toggle}>
+      <Dropdown
+        className="me-2"
+        isOpen={dropdownOpen}
+        // toggle={toggle}
+        toggle={() => {
+          setDropdownOpen(!dropdownOpen);
+          updateItemsAdded();
+        }}>
         <DropdownToggle caret>{officialVendorName}</DropdownToggle>
         <DropdownMenu dark>
-          {items
+          {myItems
+            // .filter(e => e[vendorName])
+            .map(e => (
+              <SingleDropDown
+                onAdd={onAdd}
+                key={`${e.name}-${vendorName}`}
+                itemObj={e}
+                items={items}
+                itemsAdded={itemsAdded}
+                onClick={clickHandler}
+              />
+            ))}
+          {/* {items
             .filter(e => e[vendorName])
             .map(e => (
               <SingleDropDown
@@ -149,13 +193,8 @@ function VendorDropDown({
                 itemObj={e}
                 items={items}
                 itemsAdded={itemsAdded}
-                myItems={my}
-                // itemsAdded={my}
-                onClick={() => clickHandler(e)}
-                // itemsAdded={changeLen}
-                // itemsAdded={addedArr}
               />
-            ))}
+            ))} */}
         </DropdownMenu>
       </Dropdown>
     </>
@@ -180,8 +219,8 @@ VendorDropDown.propTypes = {
   ),
 };
 
-// export default memo(VendorDropDown);
-export default memo(
-  VendorDropDown,
-  (prev, next) => prev.itemsAdded.length === next.itemsAdded.length
-);
+export default memo(VendorDropDown);
+// export default memo(
+//   VendorDropDown,
+//   (prev, next) => prev.itemsAdded.length === next.itemsAdded.length
+// );
