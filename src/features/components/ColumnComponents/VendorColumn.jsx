@@ -17,9 +17,17 @@ import {
 import { Container } from "reactstrap";
 import BadgeComponent from "./BadgeComponent";
 import PropTypes from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addItems,
+  selectAllAddedNames,
+  selectAllAdded,
+} from "../../../addedSlice";
 // import { AddedContext } from "../../../App";
 
 function VendorColumn({ officialVendorName, vendorName, itemsAdded }) {
+  // const dispatch = useDispatch();
+  const added = useSelector(selectAllAdded).filter(e => e[vendorName]);
   // const itemsAdded = useContext(AddedContext).filter(e => e[vendorName]);
   // const itemsAddedLen = !!itemsAdded.length;
   // console.log(itemsAddedLen)
@@ -40,9 +48,10 @@ function VendorColumn({ officialVendorName, vendorName, itemsAdded }) {
   const changeLen = useMemo(() => {
     // console.log("item changed");
     // setAdded(prev => [...prev, itemsAdded]);
-    return itemsAdded;
+    return added;
+    // return itemsAdded;
     // return setLen(true);
-  }, [itemsAdded]);
+  }, [added]);
 
   const buttonClick = useCallback(() => {
     return setOpen(!open);
@@ -61,7 +70,8 @@ function VendorColumn({ officialVendorName, vendorName, itemsAdded }) {
           block>
           {officialVendorName}
           <BadgeComponent
-            itemsAdded={itemsAdded}
+            itemsAdded={changeLen}
+            // itemsAdded={itemsAdded}
             key={`${officialVendorName}-VendorColumn-Badge`}
           />
         </Button>

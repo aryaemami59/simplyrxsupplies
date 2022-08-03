@@ -6,34 +6,61 @@ import {
   useCallback,
   useRef,
   useReducer,
+  useState,
 } from "react";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import {
+  addItems,
+  selectAllAddedNames,
+  selectAllAdded,
+} from "../../../addedSlice";
+import { useSelector } from "react-redux";
 // import AddedContext from "../../components/ContextComponents/AddedContext";
 // import { myContext } from "../../components/ContextComponents/AddedContext";
 // const { itemsAdded } = AddedContext;
-function reducer(state, action) {
-  switch (action.type) {
-    case "add": {
-      return {
-        isAdded: true,
-        myClass: "text-decoration-line-through",
-      };
-    }
-    default:
-      break;
-  }
-  return state;
-}
+// function reducer(state, action) {
+//   switch (action.type) {
+//     case "add": {
+//       return {
+//         isAdded: true,
+//         myClass: "text-decoration-line-through",
+//       };
+//     }
+//     default:
+//       break;
+//   }
+//   return state;
+// }
 
-const initialState = {
-  isAdded: false,
-  myClass: "",
-};
+// const initialState = {
+//   isAdded: false,
+//   myClass: "",
+// };
 
-function SingleDropDown({ itemObj, itemsAdded, onAdd, onClick, myItems }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
+function SingleDropDown({
+  itemObj,
+  itemsAdded,
+  onAdd,
+  onClick,
+  myItems,
+  myItemsAdded,
+  vendorAdded,
+}) {
+  // const [state, dispatch] = useReducer(reducer, initialState);
+  // const dispatch = useDispatch();
+  // const added = useSelector(selectAllAdded).filter((e) => e[vendor]);
+  const vendorAddedNames = vendorAdded.map(({ name }) => name);
+  // console.log(vendorAddedNames);
+  const [myClass, setMyClass] = useState("");
 
-  const { isAdded, myClass } = state;
+  useEffect(() => {
+    vendorAddedNames.includes(itemObj.name) &&
+      setMyClass("text-decoration-line-through");
+  }, [itemObj.name, vendorAddedNames]);
+  // console.log(added);
+
+  // const { isAdded, myClass } = state;
   // console.log(itemsAdded);
   // const { itemsAdded, onAdd } = useContext(myContext);
   // console.log(itemsAdded);
@@ -43,8 +70,14 @@ function SingleDropDown({ itemObj, itemsAdded, onAdd, onClick, myItems }) {
   // console.log(itemObj);
 
   function clickHandler(e) {
-    onClick(e, itemObj);
-    !isAdded && dispatch({ type: "add" });
+    // !vendorAddedNames.includes(itemObj.name) &&
+    //   setMyClass("text-decoration-line-through");
+    // !added.includes(itemObj.name) && dispatch(addItems(itemObj));
+    (!vendorAddedNames.includes(itemObj.name) && onClick(e, itemObj)) ||
+      setMyClass("text-decoration-line-through");
+    // vendorAddedNames.includes(itemObj.name) &&
+    //   setMyClass("text-decoration-line-through");
+    // !isAdded && dispatch({ type: "add" });
   }
   // const clickHandler = useCallback(() => {
   //   return !itemsAdded.includes(itemObj) && onAdd(itemObj);
@@ -52,7 +85,7 @@ function SingleDropDown({ itemObj, itemsAdded, onAdd, onClick, myItems }) {
 
   useEffect(() => {
     // itemsAdded.includes(itemObj) && dispatch({ type: "add" });
-    return () => itemsAdded.includes(itemObj) && dispatch({ type: "add" });
+    // return () => itemsAdded.includes(itemObj) && dispatch({ type: "add" });
   }, [itemObj, itemsAdded]);
 
   useEffect(() => {
@@ -64,6 +97,7 @@ function SingleDropDown({ itemObj, itemsAdded, onAdd, onClick, myItems }) {
     <DropdownItem
       toggle={false}
       className={myClass}
+      // className={}
       // className={
       //   myItems.includes(itemObj) ? "text-decoration-line-through" : ""
       // }
@@ -71,7 +105,7 @@ function SingleDropDown({ itemObj, itemsAdded, onAdd, onClick, myItems }) {
       //   itemsAdded.includes(itemObj) ? "text-decoration-line-through" : ""
       // }
       // onClick={clickHandler}
-      onClick={clickHandler}>
+      onClick={e => clickHandler(e, itemObj)}>
       {itemObj.name}
     </DropdownItem>
   );
@@ -91,8 +125,8 @@ SingleDropDown.propTypes = {
   ),
 };
 
-// export default memo(SingleDropDown);
-export default memo(
-  SingleDropDown,
-  (prev, next) => prev.itemsAdded.length === next.itemsAdded.length
-);
+export default memo(SingleDropDown);
+// export default memo(
+//   SingleDropDown,
+//   (prev, next) => prev.itemsAdded.length === next.itemsAdded.length
+// );

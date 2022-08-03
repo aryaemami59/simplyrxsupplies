@@ -1,7 +1,7 @@
 import { Badge } from "reactstrap";
 import PropTypes from "prop-types";
 
-function BadgeComponent({ itemsAdded }) {
+function BadgeComponent({ itemsAdded, vendorAddedNames }) {
   // console.log("BadgeComponent");
   return (
     <Badge

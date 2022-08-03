@@ -9,6 +9,13 @@ import BadgeComponent from "../ColumnComponents/BadgeComponent";
 import PropTypes from "prop-types";
 import { memo, useCallback } from "react";
 import SingleListItem from "../SingleListItemComponents/SingleListItem";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addItems,
+  selectAllAddedNames,
+  selectAllAdded,
+  selectVendorAdded,
+} from "../../../addedSlice";
 
 function VendorAccordion({
   // targetId,
@@ -19,7 +26,11 @@ function VendorAccordion({
   itemsAdded,
   onAdd,
 }) {
-  console.log(itemsAdded);
+  const dispatch = useDispatch();
+  const vendorAdded = useSelector(selectVendorAdded(vendorName));
+  const vendorAddedNames = vendorAdded.map(({ name }) => name);
+
+  // console.log(itemsAdded);
   // const toggleHeader = useCallback(() => {
   //   return onToggle(targetId);
   // }, []);
@@ -36,6 +47,7 @@ function VendorAccordion({
       >
         <BadgeComponent
           itemsAdded={itemsAdded}
+          vendorAddedNames={vendorAddedNames}
           key={`${officialVendorName}-VendorColumn-Badge`}
         />
         {officialVendorName}
@@ -49,8 +61,10 @@ function VendorAccordion({
             .filter(e => e[vendorName])
             .map(e => (
               <SingleListItem
+                vendorAddedNames={vendorAddedNames}
                 key={`${e.name}-${vendorName}`}
                 itemsAdded={itemsAdded}
+                // itemsAdded={itemsAdded}
                 itemObj={e}
                 role="button"
                 onAdd={onAdd}

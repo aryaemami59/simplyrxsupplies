@@ -74,9 +74,9 @@ function App() {
     <div className="App">
       <AddedContext>
         <NavbarComponent
-          items={items}
-          // itemsAdded={itemsAdded}
-          // onAdd={addItems}
+        items={items}
+        // itemsAdded={itemsAdded}
+        // onAdd={addItems}
         />
         <Container>
           <Row className="my-5">

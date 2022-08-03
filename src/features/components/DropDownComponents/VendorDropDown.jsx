@@ -15,6 +15,16 @@ import {
   useReducer,
   useCallback,
 } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addItems,
+  selectAllAddedNames,
+  selectAllAdded,
+  selectVendorAdded,
+} from "../../../addedSlice";
+// import { selectItemsByVendor } from "../../../itemsSlice";
+
 // import { itemsContext } from "./VendorDropDownsList";
 // import { AddedContext } from "../../../App";
 
@@ -64,19 +74,27 @@ function VendorDropDown({
   // index,
   // bigItemsAdded,
 }) {
+  // const myItems = useSelector(selectItemsByVendor(vendorName));
   // const [state, dispatch] = useReducer(reducer, initialState);
   // const { myItems, dropdownOpen } = state;
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [myItems, setMyItems] = useState([]);
-  const [itemsAdded, setItemsAdded] = useState([]);
+  const myItems = items.filter(e => e[vendorName]);
+  const added = useSelector(selectAllAdded);
+  const vendorAdded = useSelector(selectVendorAdded(vendorName));
+  const myItemsAdded = added.filter(e => e[vendorName]);
+  const dispatch = useDispatch();
+  // const [myItems, setMyItems] = useState([]);
+  // const [itemsAdded, setItemsAdded] = useState([]);
   const mm = [];
+  // console.log(mm)
 
   const updateItemsAdded = () => {
-    setItemsAdded(prev => [...prev, ...mm]);
+    mm.length && dispatch(addItems(mm));
+    // setItemsAdded(prev => [...prev, ...mm]);
   };
 
   const clickHandler = (e, data) => {
-    mm.push(data);
+    !mm.includes(data) && mm.push(data);
   };
   // const toggle = useCallback(() => {
   //   return !dropdownOpen
@@ -89,14 +107,14 @@ function VendorDropDown({
   //   return myItems;
   // }, [myItems.length]);
 
-  useEffect(() => {
-    // console.log(itemsAdded);
-  }, [itemsAdded]);
+  // useEffect(() => {
+  //   // console.log(itemsAdded);
+  // }, [itemsAdded]);
 
-  useEffect(() => {
-    setMyItems(items.filter(e => e[vendorName]));
-    // console.log(items);
-  }, [items, vendorName]);
+  // useEffect(() => {
+  //   setMyItems(items.filter(e => e[vendorName]));
+  //   // console.log(items);
+  // }, [items, vendorName]);
   // const clickHandler = useCallback(e => {
   //   return !myItems.includes(e) && myItems.push(e);
   // }, []);
@@ -180,7 +198,9 @@ function VendorDropDown({
                 key={`${e.name}-${vendorName}`}
                 itemObj={e}
                 items={items}
-                itemsAdded={itemsAdded}
+                // myItemsAdded={myItemsAdded}
+                vendorAdded={vendorAdded}
+                // itemsAdded={itemsAdded}
                 onClick={clickHandler}
               />
             ))}

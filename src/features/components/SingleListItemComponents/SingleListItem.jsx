@@ -1,7 +1,17 @@
 import { ListGroupItem } from "reactstrap";
-import { memo, useCallback, useMemo } from "react";
+import { memo, useCallback, useMemo, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addItems,
+  selectAllAddedNames,
+  selectAllAdded,
+  selectVendorAdded,
+} from "../../../addedSlice";
 
-function SingleListItem({ itemsAdded, onAdd, itemObj }) {
+function SingleListItem({ itemsAdded, onAdd, itemObj, vendorAddedNames }) {
+  // const vendorAddedNames = vendorAdded.map(({ name }) => name);
+
+  useEffect(() => {}, [itemsAdded.length, vendorAddedNames]);
   // const itemsAddedMemo = useMemo(() => {
   //   return itemsAdded;
   // }, [itemsAdded.length]);
@@ -14,8 +24,13 @@ function SingleListItem({ itemsAdded, onAdd, itemObj }) {
     <ListGroupItem
       role="button"
       className={
-        itemsAdded.includes(itemObj) ? "text-decoration-line-through" : ""
+        vendorAddedNames.includes(itemObj.name)
+          ? "text-decoration-line-through"
+          : ""
       }
+      // className={
+      //   itemsAdded.includes(itemObj) ? "text-decoration-line-through" : ""
+      // }
       onClick={clickHandler}>
       {itemObj.name}
     </ListGroupItem>
