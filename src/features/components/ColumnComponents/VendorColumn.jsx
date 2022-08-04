@@ -18,16 +18,25 @@ import { Container } from "reactstrap";
 import BadgeComponent from "./BadgeComponent";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  addItems,
-  selectAllAddedNames,
-  selectAllAdded,
-} from "../../../addedSlice";
+// import {
+//   addItems,
+//   selectAllAddedNames,
+//   selectAllAdded,
+// } from "../../../addedSlice";
+import { selectAllAdded } from "../../../addedFORSSlice";
+import { connect } from "react-redux";
 // import { AddedContext } from "../../../App";
 
-function VendorColumn({ officialVendorName, vendorName, itemsAdded }) {
+function VendorColumn({
+  officialVendorName,
+  vendorName,
+  itemsAdded,
+  addedItems,
+}) {
   // const dispatch = useDispatch();
-  const added = useSelector(selectAllAdded).filter(e => e[vendorName]);
+  console.log(addedItems);
+  // const added = useSelector(selectAllAdded);
+  // const added = useSelector(selectAllAdded).filter(e => e[vendorName]);
   // const itemsAdded = useContext(AddedContext).filter(e => e[vendorName]);
   // const itemsAddedLen = !!itemsAdded.length;
   // console.log(itemsAddedLen)
@@ -45,13 +54,13 @@ function VendorColumn({ officialVendorName, vendorName, itemsAdded }) {
     // console.log(itemsAdded);
   }, [itemsAdded]);
 
-  const changeLen = useMemo(() => {
-    // console.log("item changed");
-    // setAdded(prev => [...prev, itemsAdded]);
-    return added;
-    // return itemsAdded;
-    // return setLen(true);
-  }, [added]);
+  // const changeLen = useMemo(() => {
+  //   // console.log("item changed");
+  //   // setAdded(prev => [...prev, itemsAdded]);
+  //   return added;
+  //   // return itemsAdded;
+  //   // return setLen(true);
+  // }, [added]);
 
   const buttonClick = useCallback(() => {
     return setOpen(!open);
@@ -70,7 +79,8 @@ function VendorColumn({ officialVendorName, vendorName, itemsAdded }) {
           block>
           {officialVendorName}
           <BadgeComponent
-            itemsAdded={changeLen}
+            itemsAdded={addedItems}
+            // itemsAdded={changeLen}
             // itemsAdded={itemsAdded}
             key={`${officialVendorName}-VendorColumn-Badge`}
           />
@@ -79,7 +89,7 @@ function VendorColumn({ officialVendorName, vendorName, itemsAdded }) {
           <Card>
             <CardBody>
               <ListGroup>
-                {changeLen?.map((e, i) => (
+                {addedItems?.map((e, i) => (
                   <Container
                     color="danger"
                     className="bg-secondary p-4"
@@ -116,8 +126,26 @@ VendorColumn.propTypes = {
   vendorName: PropTypes.string,
 };
 
+const mapStateToProps = (state, ownProps) => {
+  return {
+    addedItems: state.added[ownProps.vendorName],
+  };
+};
+
+// console.log(mapStateToProps);
+
+// const mapDispatchToProps = () => {
+//   return {
+//     addFORSItems,
+//   };
+// };
+
+// console.log(mapDispatchToProps());
+
+export default connect(mapStateToProps)(VendorColumn);
+
 // export default memo(VendorColumn);
-export default memo(
-  VendorColumn,
-  (p, n) => p.itemsAdded.length === n.itemsAdded.length
-);
+// export default memo(
+//   VendorColumn,
+//   (p, n) => p.itemsAdded.length === n.itemsAdded.length
+// );

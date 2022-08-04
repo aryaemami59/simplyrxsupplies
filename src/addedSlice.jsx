@@ -3,6 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   // vendor: "",
   addedArray: [],
+  // FORS: [],
+  // McKesson: [],
+  // OrderInsite: [],
 };
 
 export const addedSlice = createSlice({
@@ -14,17 +17,26 @@ export const addedSlice = createSlice({
       state.addedArray = state.addedArray.concat(...action.payload);
       // console.log(state.addedArray);
     },
+    addItemsVendor: (state, action) => {
+      console.log("addItems action.payload:", action.payload);
+      state[action.payload.vendor] = state[action.payload.vendor].concat(
+        ...action.payload.items
+      );
+      // console.log(state.addedArray);
+    },
   },
 });
 
-export const selectAllAdded = state => state.added.addedArray;
+export const selectAllAdded = state => state.addedFORS.addedArray;
 
 export const selectAllAddedNames = state =>
   state.added.addedArray.map(({ name }) => name);
 
+export const testing = vendor => state => state.added[vendor];
+
 export const selectVendorAdded = vendor => state =>
   state.added.addedArray.filter(e => e[vendor]);
 
-export const { addItems } = addedSlice.actions;
+export const { addItems, addItemsVendor } = addedSlice.actions;
 
 export const addedReducer = addedSlice.reducer;

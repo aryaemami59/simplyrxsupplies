@@ -7,7 +7,7 @@ import { selectAllAddedNames } from "../../../addedSlice";
 import { useSelector } from "react-redux";
 
 function InputListItems({ listItems }) {
-  const added = useSelector(selectAllAddedNames);
+  // const added = useSelector(selectAllAddedNames);
   // console.log("render input list items");
   const { itemsAdded, onAdd } = useContext(myContext);
 
@@ -20,9 +20,9 @@ function InputListItems({ listItems }) {
         {listItems?.map((e, i) => (
           <Container key={`${i}-Container-${e}${e}`}>
             <ListGroupItem
-              className={
-                added.includes(e.name) ? "text-decoration-line-through" : ""
-              }
+              // className={
+              //   added.includes(e.name) ? "text-decoration-line-through" : ""
+              // }
               key={`${e}${e}${i}-SearchResults-ListGroupItem-name`}
               onClick={() => !itemsAdded.includes(e) && onAdd(e)}
               role="button">

@@ -17,12 +17,15 @@ import {
 } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  addItems,
-  selectAllAddedNames,
-  selectAllAdded,
-  selectVendorAdded,
-} from "../../../addedSlice";
+// import {
+//   addItems,
+//   selectAllAddedNames,
+//   selectAllAdded,
+//   selectVendorAdded,
+//   testing,
+//   addItemsVendor,
+// } from "../../../addedSlice";
+// import { selectAllAdded, addFORSItems } from "../../../addedFORSSlice";
 // import { selectItemsByVendor } from "../../../itemsSlice";
 
 // import { itemsContext } from "./VendorDropDownsList";
@@ -79,9 +82,11 @@ function VendorDropDown({
   // const { myItems, dropdownOpen } = state;
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const myItems = items.filter(e => e[vendorName]);
-  const added = useSelector(selectAllAdded);
-  const vendorAdded = useSelector(selectVendorAdded(vendorName));
-  const myItemsAdded = added.filter(e => e[vendorName]);
+  // const added = useSelector(testing(vendorName));
+  // const added = useSelector(selectAllAdded);
+  // console.log(added);
+  // const vendorAdded = useSelector(selectVendorAdded(vendorName));
+  // const myItemsAdded = added.filter(e => e[vendorName]);
   const dispatch = useDispatch();
   // const [myItems, setMyItems] = useState([]);
   // const [itemsAdded, setItemsAdded] = useState([]);
@@ -89,13 +94,15 @@ function VendorDropDown({
   // console.log(mm)
 
   const updateItemsAdded = () => {
-    mm.length && dispatch(addItems(mm));
+    // mm.length && dispatch(addFORSItems(mm));
+    // mm.length && dispatch(addItems(mm));
+    // mm.length && dispatch(addItemsVendor({ items: mm, vendor: vendorName }));
     // setItemsAdded(prev => [...prev, ...mm]);
   };
 
-  const clickHandler = (e, data) => {
-    !mm.includes(data) && mm.push(data);
-  };
+  // const clickHandler = (e, data) => {
+  //   !mm.includes(data) && mm.push(data);
+  // };
   // const toggle = useCallback(() => {
   //   return !dropdownOpen
   //     ? dispatch({ type: "update" })
@@ -141,13 +148,13 @@ function VendorDropDown({
   //   // itemsAdded.push(myItems);
   // }, [my]);
 
-  useEffect(() => {
-    // console.log("VendorDropDown Mounts");
-  }, []);
+  // useEffect(() => {
+  //   // console.log("VendorDropDown Mounts");
+  // }, []);
 
-  useEffect(() => {
-    console.log("VendorDropDown Renders");
-  });
+  // useEffect(() => {
+  //   console.log("VendorDropDown Renders");
+  // });
   // useEffect(() => {
   //   // console.log(myItems);
   // }, [myItems]);
@@ -161,12 +168,12 @@ function VendorDropDown({
   // }, [itemsAdded]);
   // console.log("VendorDropDown");
 
-  useEffect(() => {
-    // console.log(mm);
-    // console.log(itemsAdded);
-    // console.log(items);
-    // console.log("VendorDropDown");
-  });
+  // useEffect(() => {
+  //   // console.log(mm);
+  //   // console.log(itemsAdded);
+  //   // console.log(items);
+  //   // console.log("VendorDropDown");
+  // });
   // const addedStr = useMemo(() => {
   //   return itemsAdded.map(({ name }) => name).join();
   // }, [itemsAdded]);
@@ -186,7 +193,7 @@ function VendorDropDown({
         // toggle={toggle}
         toggle={() => {
           setDropdownOpen(!dropdownOpen);
-          updateItemsAdded();
+          // updateItemsAdded();
         }}>
         <DropdownToggle caret>{officialVendorName}</DropdownToggle>
         <DropdownMenu dark>
@@ -198,10 +205,11 @@ function VendorDropDown({
                 key={`${e.name}-${vendorName}`}
                 itemObj={e}
                 items={items}
+                vendorName={vendorName}
                 // myItemsAdded={myItemsAdded}
-                vendorAdded={vendorAdded}
+                // vendorAdded={vendorAdded}
                 // itemsAdded={itemsAdded}
-                onClick={clickHandler}
+                // onClick={clickHandler}
               />
             ))}
           {/* {items
