@@ -207,6 +207,7 @@ function VendorDropDown({
                 itemObj={e}
                 items={items}
                 vendorName={vendorName}
+                // vendors={e.vendors}
                 vendors={e.vendors.map(f => vendorAbbr[f])}
                 // myItemsAdded={myItemsAdded}
                 // vendorAdded={vendorAdded}
