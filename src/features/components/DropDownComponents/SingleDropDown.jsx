@@ -12,13 +12,14 @@ import PropTypes from "prop-types";
 import { addItems } from "../../../addedSlice";
 import { connect } from "react-redux";
 
-function SingleDropDown({ itemObj, itemsAdded, addItems, addedItems }) {
+function SingleDropDown({ itemObj, addItems, addedItems }) {
   function clickHandler() {
     !addedItems.includes(itemObj) && addItems();
   }
+  // console.log(addedItems);
 
   useEffect(() => {
-    // console.log("SingleDropDown");
+    console.log("SingleDropDown");
   });
 
   return (
@@ -66,11 +67,16 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(
-  memo(SingleDropDown, (prev, next) => {
-    return !next.addedItems.includes(next.itemObj);
-  })
+export default memo(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(
+    memo(SingleDropDown, (prev, next) => {
+      return !next.addedItems.includes(next.itemObj);
+    })
+  ),
+  (prev, next) => {
+    // console.log(prev);
+  }
 );
