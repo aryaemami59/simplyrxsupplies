@@ -17,6 +17,7 @@ import {
 } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
+import vendorAbbr from "../../../data/vendorAbbr.json";
 // import {
 //   addItems,
 //   selectAllAddedNames,
@@ -206,6 +207,7 @@ function VendorDropDown({
                 itemObj={e}
                 items={items}
                 vendorName={vendorName}
+                vendors={e.vendors.map(f => vendorAbbr[f])}
                 // myItemsAdded={myItemsAdded}
                 // vendorAdded={vendorAdded}
                 // itemsAdded={itemsAdded}

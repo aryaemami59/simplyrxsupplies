@@ -6,7 +6,7 @@ import {
   selectAllAddedNames,
   selectAllAdded,
   selectVendorAdded,
-} from "../../../addedSlice";
+} from "../../../addedSlicekk";
 
 function SingleListItem({ itemsAdded, onAdd, itemObj, vendorAddedNames }) {
   // const vendorAddedNames = vendorAdded.map(({ name }) => name);

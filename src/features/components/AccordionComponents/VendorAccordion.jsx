@@ -15,7 +15,7 @@ import {
   selectAllAddedNames,
   selectAllAdded,
   selectVendorAdded,
-} from "../../../addedSlice";
+} from "../../../addedSlicekk";
 
 function VendorAccordion({
   // targetId,

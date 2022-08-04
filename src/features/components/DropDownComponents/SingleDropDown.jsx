@@ -9,37 +9,11 @@ import {
   useState,
 } from "react";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
-// import {
-//   addItems,
-//   selectAllAddedNames,
-//   selectAllAdded,
-// } from "../../../addedSlice";
-import { useSelector } from "react-redux";
-import { addItems } from "../../../addedFORSSlice";
-// import { Connect } from "react-redux";
+// import { useDispatch } from "react-redux";
+// import { useSelector } from "react-redux";
+import { addItems } from "../../../addedSlice";
 import { connect } from "react-redux";
-// import AddedContext from "../../components/ContextComponents/AddedContext";
-// import { myContext } from "../../components/ContextComponents/AddedContext";
-// const { itemsAdded } = AddedContext;
-// function reducer(state, action) {
-//   switch (action.type) {
-//     case "add": {
-//       return {
-//         isAdded: true,
-//         myClass: "text-decoration-line-through",
-//       };
-//     }
-//     default:
-//       break;
-//   }
-//   return state;
-// }
-
-// const initialState = {
-//   isAdded: false,
-//   myClass: "",
-// };
+import vendorAbbr from "../../../data/vendorAbbr.json";
 
 function SingleDropDown({
   itemObj,
@@ -52,31 +26,20 @@ function SingleDropDown({
   vendorName,
   addItems,
   addedItems,
+  vendors,
 }) {
-  // const [state, dispatch] = useReducer(reducer, initialState);
-  const dispatch = useDispatch();
-  // const added = useSelector(selectAllAdded).filter((e) => e[vendor]);
-  // const vendorAddedNames = vendorAdded.map(({ name }) => name);
-  // console.log(vendorAddedNames);
-  const [myClass, setMyClass] = useState("");
+  // const dispatch = useDispatch();
+  // const [myClass, setMyClass] = useState("");
+  // console.log(addedItems.includes(itemObj));
+  // const vendorsArr = itemObj.vendors.map(e => vendorAbbr[e]);
+  // console.log(vendors)
+  // console.log(vendorsArr);
 
-  // useEffect(() => {
-  //   vendorAddedNames.includes(itemObj.name) &&
-  //     setMyClass("text-decoration-line-through");
-  // }, [itemObj.name, vendorAddedNames]);
-  // console.log(added);
 
-  // const { isAdded, myClass } = state;
-  // console.log(itemsAdded);
-  // const { itemsAdded, onAdd } = useContext(myContext);
-  // console.log(itemsAdded);
-  // const itemsAdded = useContext(AddedContext);
-  // const renderCount = useRef(0);
-  // console.log("SingleDropDown");
-  // console.log(itemObj);
-
-  function clickHandler(e) {
-    // dispatch(addFORSItems(itemObj));
+  function clickHandler() {
+    // addItems();
+    !addedItems.includes(itemObj) && addItems();
+    // dispatch(addItems(itemObj));
     // onClick(e, itemObj);
     // !vendorAddedNames.includes(itemObj.name) &&
     //   setMyClass("text-decoration-line-through");
@@ -98,22 +61,22 @@ function SingleDropDown({
 
   useEffect(() => {
     // console.log("SingleDropDown");
-    // renderCount.current = renderCount.current + 1;
     // console.log(renderCount.current);
   });
   return (
     <DropdownItem
       toggle={false}
-      className={myClass}
+      // className={myClass}
       // className={}
-      // className={
-      //   myItems.includes(itemObj) ? "text-decoration-line-through" : ""
-      // }
+      className={
+        addedItems.includes(itemObj) ? "text-decoration-line-through" : ""
+      }
       // className={
       //   itemsAdded.includes(itemObj) ? "text-decoration-line-through" : ""
       // }
       // onClick={clickHandler}
-      onClick={() => addItems(itemObj)}
+      // onClick={e => clickHandler(e, itemObj)}
+      onClick={clickHandler}
       // onClick={e => clickHandler(e, itemObj)}
     >
       {itemObj.name}
@@ -141,8 +104,6 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-console.log(mapStateToProps);
-
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     addItems: () =>
@@ -150,14 +111,20 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         addItems({
           itemObj: ownProps.itemObj,
           vendorName: ownProps.vendorName,
+          vendors: ownProps.vendors
         })
       ),
   };
 };
 
-console.log(mapDispatchToProps());
-
-export default connect(mapStateToProps, mapDispatchToProps)(SingleDropDown);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  memo(SingleDropDown, (prev, next) => {
+    return !next.addedItems.includes(next.itemObj);
+  })
+);
 
 // export default memo(SingleDropDown);
 // export default memo(

@@ -3,7 +3,7 @@ import { useState, useEffect, useMemo, memo, useContext } from "react";
 import PropTypes from "prop-types";
 // import AddedContext from "../ContextComponents/AddedContext";
 import { myContext } from "../ContextComponents/AddedContext";
-import { selectAllAddedNames } from "../../../addedSlice";
+import { selectAllAddedNames } from "../../../addedSlicekk";
 import { useSelector } from "react-redux";
 
 function InputListItems({ listItems }) {

@@ -23,7 +23,7 @@ import { useSelector, useDispatch } from "react-redux";
 //   selectAllAddedNames,
 //   selectAllAdded,
 // } from "../../../addedSlice";
-import { selectAllAdded } from "../../../addedFORSSlice";
+import { selectAllAdded } from "../../../addedSlice";
 import { connect } from "react-redux";
 // import { AddedContext } from "../../../App";
 
@@ -34,7 +34,7 @@ function VendorColumn({
   addedItems,
 }) {
   // const dispatch = useDispatch();
-  console.log(addedItems);
+  // console.log(addedItems);
   // const added = useSelector(selectAllAdded);
   // const added = useSelector(selectAllAdded).filter(e => e[vendorName]);
   // const itemsAdded = useContext(AddedContext).filter(e => e[vendorName]);
@@ -132,17 +132,7 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-// console.log(mapStateToProps);
-
-// const mapDispatchToProps = () => {
-//   return {
-//     addFORSItems,
-//   };
-// };
-
-// console.log(mapDispatchToProps());
-
-export default connect(mapStateToProps)(VendorColumn);
+export default connect(mapStateToProps)(memo(VendorColumn));
 
 // export default memo(VendorColumn);
 // export default memo(
