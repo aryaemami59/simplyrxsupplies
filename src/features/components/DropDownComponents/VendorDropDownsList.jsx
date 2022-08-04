@@ -10,50 +10,15 @@ import {
   createContext,
 } from "react";
 import PropTypes from "prop-types";
-import { myContext } from "../ContextComponents/AddedContext";
-// import { AddedContext } from "../../../App";
-
-// export const itemsContext = createContext();
+// import { myContext } from "../ContextComponents/AddedContext";
 
 function VendorDropDownsList({ items }) {
-  const { itemsAdded, onAdd } = useContext(myContext);
-
-  // const empty = useMemo(() => {
-  //   return [];
-  // }, []);
+  // const { itemsAdded, onAdd } = useContext(myContext);
 
   useEffect(() => {
-    // console.log(items);
     // console.log("VendorDropDownsList");
   });
 
-  useEffect(() => {
-    // console.log(itemsAdded);
-  }, [itemsAdded]);
-  // const [added, setAdded] = useState(() => !!itemsAdded.length);
-  // console.log("VendorDropDownsList");
-  // const itemsAdded = useContext(AddedContext);
-  // const addedStr = itemsAdded.map(({ name }) => name).join();
-  // console.log(addedStr);
-  // useEffect(() => {
-  //   console.log(itemsAdded);
-  // }, [itemsAdded]);
-
-  // console.log(itemsAdded);
-
-  // const added = useMemo(
-  //   e => {
-  //     return itemsAdded.filter(f => f[e]);
-  //   },
-  //   [itemsAdded]
-  // );
-
-  // vendors.map(e => console.log(added));
-  // useEffect(() => {
-  //   console.log(added);
-  // }, [added]);
-
-  // console.log(added);
   return (
     <>
       {vendors.map((e, i) => (
@@ -62,16 +27,7 @@ function VendorDropDownsList({ items }) {
           key={e}
           vendorName={e}
           items={items}
-          onAdd={onAdd}
           index={i}
-          bigItemsAdded={itemsAdded}
-          // itemsAdded={
-          //   itemsAdded.filter(f => f[e]).length
-          //     ? itemsAdded.filter(f => f[e])
-          //     : empty
-          // }
-          // itemsAdded={itemsAdded}
-          itemsAdded={itemsAdded.filter(f => f[e])}
         />
       ))}
     </>

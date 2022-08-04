@@ -6,68 +6,22 @@ import {
   ListGroup,
   ListGroupItem,
 } from "reactstrap";
-import {
-  useState,
-  useContext,
-  memo,
-  useCallback,
-  useMemo,
-  useEffect,
-} from "react";
+import { useState, memo, useCallback, useEffect } from "react";
 import { Container } from "reactstrap";
 import BadgeComponent from "./BadgeComponent";
 import PropTypes from "prop-types";
-import { useSelector, useDispatch } from "react-redux";
-// import {
-//   addItems,
-//   selectAllAddedNames,
-//   selectAllAdded,
-// } from "../../../addedSlice";
-import { selectAllAdded } from "../../../addedSlice";
 import { connect } from "react-redux";
-// import { AddedContext } from "../../../App";
 
-function VendorColumn({
-  officialVendorName,
-  vendorName,
-  itemsAdded,
-  addedItems,
-}) {
-  // const dispatch = useDispatch();
-  // console.log(addedItems);
-  // const added = useSelector(selectAllAdded);
-  // const added = useSelector(selectAllAdded).filter(e => e[vendorName]);
-  // const itemsAdded = useContext(AddedContext).filter(e => e[vendorName]);
-  // const itemsAddedLen = !!itemsAdded.length;
-  // console.log(itemsAddedLen)
-  // const itemsAdded = useContext(AddedContext);
+function VendorColumn({ officialVendorName, vendorName, addedItems }) {
   const [open, setOpen] = useState(() => false);
-  // const [added, setAdded] = useState(() => []);
-  // const [len, setLen] = useState(() => !!itemsAdded.length);
   useEffect(() => {
-    // console.log(vendorName);
     // console.log("VendorColumn");
   });
-
-  useEffect(() => {
-    // console.log("itemsAdded");
-    // console.log(itemsAdded);
-  }, [itemsAdded]);
-
-  // const changeLen = useMemo(() => {
-  //   // console.log("item changed");
-  //   // setAdded(prev => [...prev, itemsAdded]);
-  //   return added;
-  //   // return itemsAdded;
-  //   // return setLen(true);
-  // }, [added]);
 
   const buttonClick = useCallback(() => {
     return setOpen(!open);
   }, [open]);
 
-  // console.log(vendorName);
-  // console.log(added);
   return (
     <>
       <div>
@@ -80,8 +34,6 @@ function VendorColumn({
           {officialVendorName}
           <BadgeComponent
             itemsAdded={addedItems}
-            // itemsAdded={changeLen}
-            // itemsAdded={itemsAdded}
             key={`${officialVendorName}-VendorColumn-Badge`}
           />
         </Button>
@@ -133,9 +85,3 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(mapStateToProps)(memo(VendorColumn));
-
-// export default memo(VendorColumn);
-// export default memo(
-//   VendorColumn,
-//   (p, n) => p.itemsAdded.length === n.itemsAdded.length
-// );

@@ -3,40 +3,21 @@ import {
   AccordionHeader,
   AccordionItem,
   ListGroup,
-  ListGroupItem,
 } from "reactstrap";
 import BadgeComponent from "../ColumnComponents/BadgeComponent";
 import PropTypes from "prop-types";
 import { memo, useCallback } from "react";
 import SingleListItem from "../SingleListItemComponents/SingleListItem";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  addItems,
-  selectAllAddedNames,
-  selectAllAdded,
-  selectVendorAdded,
-} from "../../../addedSlicekk";
 
 function VendorAccordion({
-  // targetId,
-  // onToggle,
   officialVendorName,
   items,
   vendorName,
   itemsAdded,
   onAdd,
 }) {
-  const dispatch = useDispatch();
-  const vendorAdded = useSelector(selectVendorAdded(vendorName));
-  const vendorAddedNames = vendorAdded.map(({ name }) => name);
-
-  // console.log(itemsAdded);
-  // const toggleHeader = useCallback(() => {
-  //   return onToggle(targetId);
-  // }, []);
-  // const listGroupClickHandler = useCallback(e => {
-  //   return !itemsAdded.includes(e) && onAdd(e);
-  // }, []);
+  // const vendorAdded = useSelector(selectVendorAdded(vendorName));
+  // const vendorAddedNames = vendorAdded.map(({ name }) => name);
 
   return (
     <AccordionItem>
@@ -47,7 +28,7 @@ function VendorAccordion({
       >
         <BadgeComponent
           itemsAdded={itemsAdded}
-          vendorAddedNames={vendorAddedNames}
+          // vendorAddedNames={vendorAddedNames}
           key={`${officialVendorName}-VendorColumn-Badge`}
         />
         {officialVendorName}
@@ -61,7 +42,7 @@ function VendorAccordion({
             .filter(e => e[vendorName])
             .map(e => (
               <SingleListItem
-                vendorAddedNames={vendorAddedNames}
+                // vendorAddedNames={vendorAddedNames}
                 key={`${e.name}-${vendorName}`}
                 itemsAdded={itemsAdded}
                 // itemsAdded={itemsAdded}
@@ -96,8 +77,4 @@ VendorAccordion.propTypes = {
   onAdd: PropTypes.func,
 };
 
-// export default memo(VendorAccordion);
-export default memo(
-  VendorAccordion,
-  (prev, next) => prev.itemsAdded.length === next.itemsAdded.length
-);
+export default memo(VendorAccordion);
