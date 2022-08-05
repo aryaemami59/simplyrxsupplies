@@ -1,14 +1,21 @@
 import { Badge } from "reactstrap";
 import PropTypes from "prop-types";
+import { memo } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { selectByVendor } from "../../../addedSlice";
 
-function BadgeComponent({ itemsAdded, vendorAddedNames }) {
+function BadgeComponent({ vendorName }) {
+  console.log(vendorName);
+  const addedItems = useSelector(selectByVendor(vendorName));
+  console.log(addedItems)
+
   // console.log("BadgeComponent");
   return (
     <Badge
       className="position-absolute top-0 start-100 translate-middle border border-light opacity-75"
       pill
-      color={itemsAdded?.length ? "success" : "secondary"}>
-      {itemsAdded?.length}
+      color={addedItems.length ? "success" : "secondary"}>
+      {addedItems.length}
     </Badge>
   );
 }
@@ -22,4 +29,4 @@ BadgeComponent.propTypes = {
   ),
 };
 
-export default BadgeComponent;
+export default memo(BadgeComponent);

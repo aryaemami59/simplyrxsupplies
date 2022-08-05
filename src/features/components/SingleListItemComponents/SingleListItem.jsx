@@ -1,44 +1,29 @@
 import { ListGroupItem } from "reactstrap";
 import { memo, useCallback, useMemo, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  addItems,
-  selectAllAddedNames,
-  selectAllAdded,
-  selectVendorAdded,
-} from "../../../addedSlicekk";
+import { selectByVendor, addItems } from "../../../addedSlice";
 
-function SingleListItem({ itemsAdded, onAdd, itemObj, vendorAddedNames }) {
-  // const vendorAddedNames = vendorAdded.map(({ name }) => name);
+function SingleListItem({ itemObj, vendorName, vendors }) {
+  const dispatch = useDispatch();
 
-  useEffect(() => {}, [itemsAdded.length, vendorAddedNames]);
-  // const itemsAddedMemo = useMemo(() => {
-  //   return itemsAdded;
-  // }, [itemsAdded.length]);
+  const addedItems = useSelector(selectByVendor(vendorName), (prev, next) => {
+    return prev.includes(itemObj) || !next.includes(itemObj);
+  });
 
-  const clickHandler = useCallback(() => {
-    return !itemsAdded.includes(itemObj) && onAdd(itemObj);
-  }, [itemsAdded, onAdd, itemObj]);
+  function clickHandler() {
+    !addedItems.includes(itemObj) && dispatch(addItems({ itemObj, vendors }));
+  }
 
   return (
     <ListGroupItem
       role="button"
       className={
-        vendorAddedNames.includes(itemObj.name)
-          ? "text-decoration-line-through"
-          : ""
+        addedItems.includes(itemObj) ? "text-decoration-line-through" : ""
       }
-      // className={
-      //   itemsAdded.includes(itemObj) ? "text-decoration-line-through" : ""
-      // }
       onClick={clickHandler}>
       {itemObj.name}
     </ListGroupItem>
   );
 }
 
-// export default memo(SingleListItem);
-export default memo(
-  SingleListItem,
-  (prev, next) => prev.itemsAdded.length === next.itemsAdded.length
-);
+export default memo(SingleListItem);

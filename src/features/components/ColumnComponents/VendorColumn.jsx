@@ -10,13 +10,22 @@ import { useState, memo, useCallback, useEffect } from "react";
 import { Container } from "reactstrap";
 import BadgeComponent from "./BadgeComponent";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { selectByVendor } from "../../../addedSlice";
+// import { connect } from "react-redux";
 
-function VendorColumn({ officialVendorName, vendorName, addedItems }) {
+function VendorColumn({
+  officialVendorName,
+  vendorName,
+  // addedItems
+}) {
+  // const dispatch = useDispatch();
   const [open, setOpen] = useState(() => false);
   useEffect(() => {
     // console.log("VendorColumn");
   });
+
+  const addedItems = useSelector(selectByVendor(vendorName));
 
   const buttonClick = useCallback(() => {
     return setOpen(!open);
@@ -33,7 +42,8 @@ function VendorColumn({ officialVendorName, vendorName, addedItems }) {
           block>
           {officialVendorName}
           <BadgeComponent
-            itemsAdded={addedItems}
+            vendorName={vendorName}
+            // addedItems={addedItems}
             key={`${officialVendorName}-VendorColumn-Badge`}
           />
         </Button>
@@ -78,10 +88,11 @@ VendorColumn.propTypes = {
   vendorName: PropTypes.string,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    addedItems: state.added[ownProps.vendorName],
-  };
-};
+// const mapStateToProps = (state, ownProps) => {
+//   return {
+//     addedItems: state.added[ownProps.vendorName],
+//   };
+// };
 
-export default connect(mapStateToProps)(memo(VendorColumn));
+export default memo(VendorColumn);
+// export default connect(mapStateToProps)(memo(VendorColumn));

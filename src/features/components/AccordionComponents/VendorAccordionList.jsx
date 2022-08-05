@@ -5,6 +5,7 @@ import vendors from "../../../data/vendorNames.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import PropTypes from "prop-types";
 import { myContext } from "../ContextComponents/AddedContext";
+import vendorAbbr from "../../../data/vendorAbbr.json";
 
 function VendorAccordionList({ items }) {
   // const [openItems, setOpenItems] = useState([]);
@@ -39,12 +40,13 @@ function VendorAccordionList({ items }) {
         <VendorAccordion
           officialVendorName={officialVendorNames[0][e]}
           key={officialVendorNames[0][e]}
+          // vendors={e.vendors.map(f => vendorAbbr[f])}
           // targetId={i.toString()}
           vendorName={e}
           // onToggle={clickHandler}
           items={items}
-          onAdd={onAdd}
-          itemsAdded={itemsAdded.filter(f => f[e])}
+          // onAdd={onAdd}
+          // itemsAdded={itemsAdded.filter(f => f[e])}
         />
       ))}
     </UncontrolledAccordion>

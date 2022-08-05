@@ -8,47 +8,30 @@ import BadgeComponent from "../ColumnComponents/BadgeComponent";
 import PropTypes from "prop-types";
 import { memo, useCallback } from "react";
 import SingleListItem from "../SingleListItemComponents/SingleListItem";
+import vendorAbbr from "../../../data/vendorAbbr.json";
 
-function VendorAccordion({
-  officialVendorName,
-  items,
-  vendorName,
-  itemsAdded,
-  onAdd,
-}) {
-  // const vendorAdded = useSelector(selectVendorAdded(vendorName));
-  // const vendorAddedNames = vendorAdded.map(({ name }) => name);
-
+function VendorAccordion({ officialVendorName, items, vendorName }) {
+  console.log(vendorName);
   return (
     <AccordionItem>
-      <AccordionHeader
-        targetId={officialVendorName}
-        // targetId={targetId}
-        // onClick={toggleHeader}
-      >
+      <AccordionHeader targetId={officialVendorName}>
         <BadgeComponent
-          itemsAdded={itemsAdded}
-          // vendorAddedNames={vendorAddedNames}
+          vendorName={vendorName}
           key={`${officialVendorName}-VendorColumn-Badge`}
         />
         {officialVendorName}
       </AccordionHeader>
-      <AccordionBody
-        accordionId={officialVendorName}
-        // accordionId={targetId}
-      >
+      <AccordionBody accordionId={officialVendorName}>
         <ListGroup>
           {items
             .filter(e => e[vendorName])
             .map(e => (
               <SingleListItem
-                // vendorAddedNames={vendorAddedNames}
+                vendorName={vendorName}
+                vendors={e.vendors.map(f => vendorAbbr[f])}
                 key={`${e.name}-${vendorName}`}
-                itemsAdded={itemsAdded}
-                // itemsAdded={itemsAdded}
                 itemObj={e}
                 role="button"
-                onAdd={onAdd}
               />
             ))}
         </ListGroup>
