@@ -16,6 +16,7 @@ import InputGroupComponent from "./features/components/InputComponents/InputGrou
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
 import { useQuery, QueryClient, QueryClientProvider } from "react-query";
 import AddedContext from "./features/components/ContextComponents/AddedContext";
+import jsbarcode from "jsbarcode";
 // const queryClient = new QueryClient();
 const myURL =
   "https://api.github.com/repos/aryaemami59/simplysuppliesAPI/contents/items.json";
@@ -66,9 +67,16 @@ const fetchItems = async () => {
 
 function App() {
   const [items, setItems] = useState([]);
-  const { isLoading, error, data, status } = useQuery("items", () =>
-    fetchItems()
-  );
+  items.forEach(e => {
+    const elem = document.createElement("img");
+    jsbarcode(elem, e.itemNumber);
+    const mysrc = elem.getAttribute("src");
+    e.src = mysrc;
+  });
+  // console.log(items);
+  // const { isLoading, error, data, status } = useQuery("items", () =>
+  //   fetchItems()
+  // );
   // console.log(items);
   // console.log(status);
   // console.log(error);

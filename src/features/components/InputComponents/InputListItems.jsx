@@ -1,11 +1,34 @@
 import { ListGroup, ListGroupItem, Container } from "reactstrap";
-import { useState, useEffect, useMemo, memo, useContext } from "react";
+import {
+  useState,
+  useEffect,
+  useMemo,
+  memo,
+  useContext,
+  useId,
+  useRef,
+  createElement,
+} from "react";
 import PropTypes from "prop-types";
 import SingleListItem from "../SingleListItemComponents/SingleListItem";
 import vendorAbbr from "../../../data/vendorAbbr.json";
 import SingleInputListItems from "./SingleInputListItems";
+import jsbarcode from "jsbarcode";
 
 function InputListItems({ listItems }) {
+  // const elem = document.createElement("img");
+  // const elem = createElement("img");
+  // console.log(elem);
+  // const myRef = useRef();
+  // console.log(myRef);
+  // const id = useId();
+  // jsbarcode(elem, "hello");
+  // const mysrc = elem.getAttribute("src");
+  // console.log(mysrc);
+  // console.log(jsbarcode(myRef, "hello").render());
+  useEffect(() => {
+    // console.log(jsbarcode(<img />).render());
+  });
   // console.log("render input list items");
 
   useEffect(() => {
@@ -30,6 +53,14 @@ function InputListItems({ listItems }) {
             itemObj={e}
             vendors={e.vendors.map(f => vendorAbbr[f])}
           />
+          {/* <img src={mysrc} alt="" /> */}
+          {/* <svg ref={myRef} id={`${id}`}></svg> */}
+          {/* <svg
+            className="barcode"
+            jsbarcode-format="upc"
+            jsbarcode-value="123456789012"
+            jsbarcode-textmargin="0"
+            jsbarcode-fontoptions="bold"></svg> */}
         </Container>
       ))}
     </ListGroup>

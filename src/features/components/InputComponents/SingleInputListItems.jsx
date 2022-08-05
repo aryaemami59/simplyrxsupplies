@@ -2,9 +2,15 @@ import { ListGroupItem, Badge, Container } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { selectByVendor, addItems } from "../../../addedSlice";
 import VendorBadges from "./VendorBadges";
+import jsbarcode from "jsbarcode";
+import { memo } from "react";
 
 function SingleInputListItems({ itemObj, vendors }) {
   const dispatch = useDispatch();
+  // const elem = document.createElement("img");
+  // jsbarcode(elem, itemObj.itemNumber);
+  // const mysrc = elem.getAttribute("src");
+
   // const mine = {};
   // vendors.forEach(e => {
   //   mine[e] = "";
@@ -38,8 +44,9 @@ function SingleInputListItems({ itemObj, vendors }) {
           />
         </Container>
       ))}
+      <img src={itemObj.src} alt="" />
     </ListGroupItem>
   );
 }
 
-export default SingleInputListItems;
+export default memo(SingleInputListItems);
