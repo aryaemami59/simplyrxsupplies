@@ -11,19 +11,13 @@ import {
 import InputListItems from "./InputListItems";
 import React, { useEffect, useMemo, useState, useCallback, memo } from "react";
 import PropTypes from "prop-types";
-// import { JsBarcode } from "jsbarcode";
-import jsbarcode from "jsbarcode";
-// console.log(jsbarcode());
-// JsBarcode("#barcode", "Hi!");
-// console.log(JsBarcode("#barcode", "Hi!"));
+
 const empty = [];
 
 function InputGroupComponent({ items }) {
   const [listItems, setListItems] = useState(empty);
   const [val, setVal] = useState("");
   const { length } = listItems;
-
-  // jsbarcode("#barcode", "hello");
 
   const list = useMemo(() => {
     return !!length ? listItems : [];

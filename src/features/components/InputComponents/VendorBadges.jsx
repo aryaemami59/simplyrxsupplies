@@ -1,6 +1,6 @@
 import { Badge } from "reactstrap";
 import { useSelector } from "react-redux";
-import { selectByVendor, addItems } from "../../../addedSlice";
+import { selectByVendor } from "../../../addedSlice";
 import { memo } from "react";
 
 function VendorBadges({ vendorName, itemObj }) {
@@ -10,13 +10,11 @@ function VendorBadges({ vendorName, itemObj }) {
   );
   // console.log(addedItems);
   return (
-    <>
-      <Badge
-        className={addedItems.includes(itemObj) ? "opacity-50" : ""}
-        color="primary">
-        {vendorName}
-      </Badge>
-    </>
+    <Badge
+      className={addedItems.includes(itemObj) ? "opacity-50" : ""}
+      color="primary">
+      {vendorName}
+    </Badge>
   );
 }
 

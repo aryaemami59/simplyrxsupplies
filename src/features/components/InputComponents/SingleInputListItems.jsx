@@ -4,29 +4,12 @@ import { selectByVendor, addItems } from "../../../addedSlice";
 import VendorBadges from "./VendorBadges";
 import jsbarcode from "jsbarcode";
 import { memo } from "react";
+import BarcodeImageComponent from "./BarcodeImageComponent";
 
 function SingleInputListItems({ itemObj, vendors }) {
   const dispatch = useDispatch();
-  // const elem = document.createElement("img");
-  // jsbarcode(elem, itemObj.itemNumber);
-  // const mysrc = elem.getAttribute("src");
-
-  // const mine = {};
-  // vendors.forEach(e => {
-  //   mine[e] = "";
-  // });
-  // console.log(mine)
-  // const addedVendors = []
-  // vendors.map(e => {
-  //   return useSelector(selectByVendor(e));
-  // });
-
-  // const addedItems = useSelector(selectByVendor(vendorName), (prev, next) => {
-  //   return prev.includes(itemObj) || !next.includes(itemObj);
-  // });
 
   function clickHandler() {
-    // !addedItems.includes(itemObj) &&
     dispatch(addItems({ itemObj, vendors }));
   }
   return (
@@ -44,7 +27,10 @@ function SingleInputListItems({ itemObj, vendors }) {
           />
         </Container>
       ))}
-      <img src={itemObj.src} alt="" />
+      {/* <BarcodeImageComponent
+        src={itemObj.src}
+        itemNumber={itemObj.itemNumber}
+      /> */}
     </ListGroupItem>
   );
 }
