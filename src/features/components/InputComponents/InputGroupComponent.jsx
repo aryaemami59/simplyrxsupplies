@@ -18,12 +18,14 @@ const empty = [];
 
 function InputGroupComponent({ items }) {
   const [listItems, setListItems] = useState(empty);
-  // const addedItems = useSelector(selectByVendor);
+
+  const list = useMemo(() => {
+    return !!listItems.length ? listItems : empty;
+  }, [listItems]);
 
   useEffect(() => {
     console.log("list items changed");
-  }, [listItems]);
-  // console.log("input render");
+  }, [list]);
 
   const changeVal = e => {
     const it = e.target.value
@@ -33,10 +35,6 @@ function InputGroupComponent({ items }) {
       : empty;
     setListItems(it);
   };
-
-  // const list = useMemo(() => {
-  //   return listItems;
-  // }, [listItems]);
 
   return (
     <>
@@ -65,7 +63,7 @@ function InputGroupComponent({ items }) {
           </InputGroup>
         </Row>
       </Container>
-      {<InputListItems listItems={listItems} />}
+      {<InputListItems listItems={list} />}
     </>
   );
 }
