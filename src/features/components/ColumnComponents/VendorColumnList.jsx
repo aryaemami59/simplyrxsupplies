@@ -4,10 +4,10 @@ import officialVendorNames from "../../../data/officialVendorNames.json";
 import PropTypes from "prop-types";
 import { memo, useContext, useMemo } from "react";
 // import AddedContext from "../ContextComponents/AddedContext";
-import { myContext } from "../ContextComponents/AddedContext";
+// import { myContext } from "../ContextComponents/AddedContext";
 
 function VendorColumnList() {
-  const { itemsAdded } = useContext(myContext);
+  // const { itemsAdded } = useContext(myContext);
   // const itemsAdded = useContext(AddedContext);
 
   const empty = useMemo(() => {
@@ -24,11 +24,11 @@ function VendorColumnList() {
           key={`${officialVendorNames[0][e]}-VendorColumn`}
           vendorName={e}
           // itemsAdded={JSON.stringify(itemsAdded.filter(f => f[e]))}
-          itemsAdded={
-            itemsAdded.filter(f => f[e]).length
-              ? itemsAdded.filter(f => f[e])
-              : empty
-          }
+          // itemsAdded={
+          //   itemsAdded.filter(f => f[e]).length
+          //     ? itemsAdded.filter(f => f[e])
+          //     : empty
+          // }
         />
       ))}
     </>

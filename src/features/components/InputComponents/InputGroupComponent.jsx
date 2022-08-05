@@ -24,7 +24,7 @@ function InputGroupComponent({ items }) {
   }, [length]);
 
   useEffect(() => {
-    console.log(list);
+    // console.log(list);
   }, [list]);
 
   useEffect(() => {

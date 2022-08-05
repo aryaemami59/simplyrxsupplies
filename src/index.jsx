@@ -6,15 +6,19 @@ import App from "./App";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 // console.log(store)
 const container = document.getElementById("root");
 const root = createRoot(container);
+const queryClient = new QueryClient();
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </QueryClientProvider>
   </React.StrictMode>
 );

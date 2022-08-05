@@ -9,7 +9,7 @@ function InputListItems({ listItems }) {
   // console.log("render input list items");
 
   useEffect(() => {
-    console.log("list items changed");
+    // console.log("list items changed");
   }, [listItems]);
   return (
     <ListGroup key={`InputGroupComponent-ListGroupItem`}>
