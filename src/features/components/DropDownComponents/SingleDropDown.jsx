@@ -14,20 +14,12 @@ import { addItems, selectByVendor } from "../../../addedSlice";
 import { useSelector, useDispatch } from "react-redux";
 // import { shallowEqual } from "react-redux";
 
-function SingleDropDown({
-  itemObj,
-  vendorName,
-  vendors,
-  // addItems,
-  // addedItems
-}) {
+function SingleDropDown({ itemObj, vendorName, vendors }) {
   const dispatch = useDispatch();
-  // const addedItems = useSelector(selectAllFORS)
   const addedItems = useSelector(selectByVendor(vendorName), (prev, next) => {
     return prev.includes(itemObj) || !next.includes(itemObj);
   });
 
-  // console.log(addedItems);
   function clickHandler() {
     !addedItems.includes(itemObj) && dispatch(addItems({ itemObj, vendors }));
   }

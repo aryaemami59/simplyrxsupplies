@@ -5,6 +5,7 @@ import { selectByVendor, addItems } from "../../../addedSlice";
 
 function SingleListItem({ itemObj, vendorName, vendors }) {
   const dispatch = useDispatch();
+  console.log(vendorName);
 
   const addedItems = useSelector(selectByVendor(vendorName), (prev, next) => {
     return prev.includes(itemObj) || !next.includes(itemObj);

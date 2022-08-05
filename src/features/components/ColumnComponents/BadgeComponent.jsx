@@ -5,11 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectByVendor } from "../../../addedSlice";
 
 function BadgeComponent({ vendorName }) {
-  console.log(vendorName);
   const addedItems = useSelector(selectByVendor(vendorName));
-  console.log(addedItems)
 
-  // console.log("BadgeComponent");
   return (
     <Badge
       className="position-absolute top-0 start-100 translate-middle border border-light opacity-75"

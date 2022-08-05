@@ -14,16 +14,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectByVendor } from "../../../addedSlice";
 // import { connect } from "react-redux";
 
-function VendorColumn({
-  officialVendorName,
-  vendorName,
-  // addedItems
-}) {
+function VendorColumn({ officialVendorName, vendorName }) {
   // const dispatch = useDispatch();
   const [open, setOpen] = useState(() => false);
-  useEffect(() => {
-    // console.log("VendorColumn");
-  });
+  useEffect(() => {});
 
   const addedItems = useSelector(selectByVendor(vendorName));
 
@@ -43,7 +37,6 @@ function VendorColumn({
           {officialVendorName}
           <BadgeComponent
             vendorName={vendorName}
-            // addedItems={addedItems}
             key={`${officialVendorName}-VendorColumn-Badge`}
           />
         </Button>
@@ -95,4 +88,3 @@ VendorColumn.propTypes = {
 // };
 
 export default memo(VendorColumn);
-// export default connect(mapStateToProps)(memo(VendorColumn));

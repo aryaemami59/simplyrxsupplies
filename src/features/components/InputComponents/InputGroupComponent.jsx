@@ -11,23 +11,32 @@ import {
 import InputListItems from "./InputListItems";
 import React, { useEffect, useMemo, useState, useCallback, memo } from "react";
 import PropTypes from "prop-types";
+// import { useSelector } from "react-redux";
+// import { selectByVendor } from "../../../addedSlice";
+
+const empty = [];
 
 function InputGroupComponent({ items }) {
-  const [listItems, setListItems] = useState([]);
-  console.log("input render");
+  const [listItems, setListItems] = useState(empty);
+  // const addedItems = useSelector(selectByVendor);
+
+  useEffect(() => {
+    console.log("list items changed");
+  }, [listItems]);
+  // console.log("input render");
 
   const changeVal = e => {
     const it = e.target.value
       ? items.filter(({ name }) =>
           name.toLowerCase().includes(e.target.value.toLowerCase())
         )
-      : [];
+      : empty;
     setListItems(it);
   };
 
-  const list = useMemo(() => {
-    return listItems;
-  }, [listItems]);
+  // const list = useMemo(() => {
+  //   return listItems;
+  // }, [listItems]);
 
   return (
     <>
@@ -56,7 +65,7 @@ function InputGroupComponent({ items }) {
           </InputGroup>
         </Row>
       </Container>
-      {<InputListItems listItems={list} />}
+      {<InputListItems listItems={listItems} />}
     </>
   );
 }

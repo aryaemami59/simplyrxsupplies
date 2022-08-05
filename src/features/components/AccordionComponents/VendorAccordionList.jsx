@@ -8,45 +8,14 @@ import { myContext } from "../ContextComponents/AddedContext";
 import vendorAbbr from "../../../data/vendorAbbr.json";
 
 function VendorAccordionList({ items }) {
-  // const [openItems, setOpenItems] = useState([]);
-  const { itemsAdded, onAdd } = useContext(myContext);
-
-  // const clickHandler = useCallback(
-  //   targetId => {
-  //     if (openItems.includes(targetId)) {
-  //       return setOpenItems(openItems.filter(e => e !== targetId));
-  //     } else if (!openItems.includes(targetId)) {
-  //       return setOpenItems([...openItems, targetId]);
-  //     }
-  //   },
-  //   [openItems.length]
-  // );
-
-  // const clickHandler = targetId => {
-  //   if (openItems.includes(targetId)) {
-  //     setOpenItems(openItems.filter(e => e !== targetId));
-  //   } else if (!openItems.includes(targetId)) {
-  //     setOpenItems([...openItems, targetId]);
-  //   }
-  // };
-
   return (
-    <UncontrolledAccordion
-      stayOpen
-      // open={openItems}
-      //  toggle={clickHandler}
-    >
+    <UncontrolledAccordion stayOpen>
       {vendors.map((e, i) => (
         <VendorAccordion
           officialVendorName={officialVendorNames[0][e]}
           key={officialVendorNames[0][e]}
-          // vendors={e.vendors.map(f => vendorAbbr[f])}
-          // targetId={i.toString()}
           vendorName={e}
-          // onToggle={clickHandler}
           items={items}
-          // onAdd={onAdd}
-          // itemsAdded={itemsAdded.filter(f => f[e])}
         />
       ))}
     </UncontrolledAccordion>
