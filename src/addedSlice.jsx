@@ -17,6 +17,7 @@ export const addedSlice = createSlice({
   reducers: {
     addItems: (state, action) => {
       console.log("addItems action.payload:", action.payload);
+      // state[action.payload.vendorName].push(action.payload.itemObj);
       action.payload.vendors.forEach(e => {
         state[e].push(action.payload.itemObj);
       });
@@ -26,6 +27,10 @@ export const addedSlice = createSlice({
 });
 
 export const selectAllAdded = state => state.added.addedArray;
+
+export const selectByVendor = vendor => state => state.added[vendor];
+
+export const selectAllFORS = state => state.added.FORS;
 
 export const { addItems } = addedSlice.actions;
 
