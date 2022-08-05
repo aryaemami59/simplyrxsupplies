@@ -11,7 +11,7 @@ import SingleListItem from "../SingleListItemComponents/SingleListItem";
 import vendorAbbr from "../../../data/vendorAbbr.json";
 
 function VendorAccordion({ officialVendorName, items, vendorName }) {
-  console.log(vendorName);
+  // console.log(vendorName);
   return (
     <AccordionItem>
       <AccordionHeader targetId={officialVendorName}>

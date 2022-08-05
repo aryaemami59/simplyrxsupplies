@@ -11,38 +11,55 @@ import {
 import InputListItems from "./InputListItems";
 import React, { useEffect, useMemo, useState, useCallback, memo } from "react";
 import PropTypes from "prop-types";
-// import { useSelector } from "react-redux";
-// import { selectByVendor } from "../../../addedSlice";
 
 const empty = [];
 
 function InputGroupComponent({ items }) {
   const [listItems, setListItems] = useState(empty);
+  const [val, setVal] = useState("");
+  const { length } = listItems;
 
   const list = useMemo(() => {
-    return !!listItems.length ? listItems : empty;
-  }, [listItems]);
+    return !!length ? listItems : [];
+  }, [length]);
 
   useEffect(() => {
-    console.log("list items changed");
+    console.log(list);
   }, [list]);
 
+  useEffect(() => {
+    // console.log("input");
+  });
+
+  const changeList = useCallback(
+    e => {
+      return setListItems(
+        e.target.value
+          ? items.filter(({ name }) =>
+              name.toLowerCase().includes(e.target.value.toLowerCase())
+            )
+          : empty
+      );
+    },
+    [items]
+  );
+
   const changeVal = e => {
-    const it = e.target.value
-      ? items.filter(({ name }) =>
-          name.toLowerCase().includes(e.target.value.toLowerCase())
-        )
-      : empty;
-    setListItems(it);
+    setVal(e.target.value);
+    changeList(e);
   };
 
   return (
     <>
       <Container fluid key={`Container`}>
-        <Row>
-          <InputGroup size="lg" className="my-4">
-            <Col md="10" className="p-0">
-              <FormGroup className="mb-0" floating inline>
+        <Row key={"input group row"}>
+          <InputGroup size="lg" className="my-4" key="Input Group">
+            <Col md="10" className="p-0" key={"Column Input Group"}>
+              <FormGroup
+                className="mb-0"
+                floating
+                inline
+                key={"form Input Group"}>
                 <Input
                   id="exampleEmail"
                   name="email"
@@ -50,13 +67,21 @@ function InputGroupComponent({ items }) {
                   type="email"
                   className="shadow"
                   bsSize="lg"
-                  onInput={changeVal}
+                  key={"input box"}
+                  onChange={changeVal}
+                  value={val}
                 />
-                <Label for="exampleEmail">Search...</Label>
+                <Label key={"input label"} for="exampleEmail">
+                  Search...
+                </Label>
               </FormGroup>
             </Col>
-            <Col md="2" className="ps-0">
-              <Button size="lg" className="form-control shadow h-100" block>
+            <Col md="2" className="ps-0" key={"button input column"}>
+              <Button
+                key={"input search button"}
+                size="lg"
+                className="form-control shadow h-100"
+                block>
                 Search
               </Button>
             </Col>

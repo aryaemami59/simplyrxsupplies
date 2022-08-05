@@ -11,7 +11,8 @@ import { Container } from "reactstrap";
 import BadgeComponent from "./BadgeComponent";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import { selectByVendor } from "../../../addedSlice";
+import { selectByVendor, removeItems } from "../../../addedSlice";
+import RemoveButton from "./RemoveButton";
 // import { connect } from "react-redux";
 
 function VendorColumn({ officialVendorName, vendorName }) {
@@ -20,7 +21,10 @@ function VendorColumn({ officialVendorName, vendorName }) {
   useEffect(() => {});
 
   const addedItems = useSelector(selectByVendor(vendorName));
-
+  // function clickHandler() {
+  //   addedItems.includes(itemObj) &&
+  //     dispatch(removeItems({ itemObj, vendorName }));
+  // }
   const buttonClick = useCallback(() => {
     return setOpen(!open);
   }, [open]);
@@ -44,11 +48,16 @@ function VendorColumn({ officialVendorName, vendorName }) {
           <Card>
             <CardBody>
               <ListGroup>
-                {addedItems?.map((e, i) => (
+                {addedItems.map((e, i) => (
                   <Container
                     color="danger"
                     className="bg-secondary p-4"
                     key={`${e.name}-${vendorName}-VendorColumn-Container-name`}>
+                    <RemoveButton
+                      vendorName={vendorName}
+                      // vendors={e.vendors}
+                      itemObj={e}
+                    />
                     <ListGroupItem
                       color="success"
                       key={`${e.name}-${vendorName}-VendorColumn-ListGroupItem-name`}>
