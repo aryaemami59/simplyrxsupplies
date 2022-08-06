@@ -11,14 +11,14 @@ import { QueryClient, QueryClientProvider } from "react-query";
 // console.log(store)
 const container = document.getElementById("root");
 const root = createRoot(container);
-// const queryClient = new QueryClient();
+const queryClient = new QueryClient();
 
 root.render(
   <React.StrictMode>
-    {/* <QueryClientProvider client={queryClient}> */}
-    <Provider store={store}>
-      <App />
-    </Provider>
-    {/* </QueryClientProvider> */}
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </QueryClientProvider>
   </React.StrictMode>
 );

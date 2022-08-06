@@ -16,12 +16,13 @@ import PropTypes from "prop-types";
 function NavbarComponent({ items, onAdd }) {
   // function kk() {
   //   var a = document.body.appendChild(document.createElement("a"));
-  //   a.download = "FORS.txt";
+  //   a.download = "items.txt";
   //   a.href =
   //     "data:text/plain;base64," +
   //     btoa(
   //       unescape(
-  //         encodeURIComponent(JSON.stringify(items.filter(({ FORS }) => FORS)))
+  //         encodeURIComponent(JSON.stringify(items))
+  //         // encodeURIComponent(JSON.stringify(items.filter(({ FORS }) => FORS)))
   //       )
   //     );
   //   a.innerHTML = "download example text";
