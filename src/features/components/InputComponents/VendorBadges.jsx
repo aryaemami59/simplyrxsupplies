@@ -1,20 +1,23 @@
-import { Badge } from "reactstrap";
+import { Badge, Container } from "reactstrap";
 import { useSelector } from "react-redux";
 import { selectByVendor } from "../../../addedSlice";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 
-function VendorBadges({ vendorName, itemObj }) {
+function VendorBadges({ vendorName, itemObj, clickHandler }) {
   const addedItems = useSelector(
     selectByVendor(vendorName),
     (prev, next) => !next.includes(itemObj) && !prev.includes(itemObj)
   );
   // console.log(addedItems);
   return (
-    <Badge
-      className={addedItems.includes(itemObj) ? "opacity-50" : ""}
-      color="primary">
-      {vendorName}
-    </Badge>
+    <Container key={`${vendorName}-${itemObj.name}-badge-container`}>
+      <Badge
+        className={addedItems.includes(itemObj) ? "opacity-50" : ""}
+        color="primary"
+        onClick={clickHandler}>
+        {vendorName}
+      </Badge>
+    </Container>
   );
 }
 
