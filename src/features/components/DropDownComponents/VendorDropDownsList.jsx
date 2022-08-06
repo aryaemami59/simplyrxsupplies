@@ -1,5 +1,6 @@
 import VendorDropDown from "./VendorDropDown";
-import vendors from "../../../data/vendorNames.json";
+import vendors from "../../../data/vendors.json";
+// import vendors from "../../../data/vendorNames.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import {
   memo,
@@ -23,7 +24,7 @@ function VendorDropDownsList({ items }) {
     <>
       {vendors.map((e, i) => (
         <VendorDropDown
-          officialVendorName={officialVendorNames[0][e]}
+          officialVendorName={officialVendorNames[e]}
           key={e}
           vendorName={e}
           items={items}

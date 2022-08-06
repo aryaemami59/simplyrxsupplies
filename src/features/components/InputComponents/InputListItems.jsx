@@ -9,7 +9,6 @@ import {
   useRef,
 } from "react";
 import PropTypes from "prop-types";
-import vendorAbbr from "../../../data/vendorAbbr.json";
 import SingleInputListItems from "./SingleInputListItems";
 
 function InputListItems({ listItems, getNewList, setListItems }) {
@@ -27,7 +26,7 @@ function InputListItems({ listItems, getNewList, setListItems }) {
         <Container key={`${i}-Container-${e.name}${e.itemNumber}`}>
           <SingleInputListItems
             itemObj={e}
-            vendors={e.vendors.map(f => vendorAbbr[f])}
+            vendors={e.vendors}
             listItems={listItems}
             getNewList={getNewList}
             setListItems={setListItems}
@@ -43,4 +42,8 @@ InputListItems.propTypes = {
   onAdd: PropTypes.func,
 };
 
-export default memo(InputListItems);
+export default memo(
+  InputListItems,
+  (prev, next) =>
+    JSON.stringify(prev.listItems) === JSON.stringify(next.listItems)
+);

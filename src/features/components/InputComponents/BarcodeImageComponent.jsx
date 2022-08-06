@@ -1,4 +1,3 @@
-// import JsBarcode from "jsbarcode";
 import { memo } from "react";
 
 function BarcodeImageComponent({ src, itemNumber }) {
@@ -6,4 +5,3 @@ function BarcodeImageComponent({ src, itemNumber }) {
 }
 
 export default memo(BarcodeImageComponent);
-// 

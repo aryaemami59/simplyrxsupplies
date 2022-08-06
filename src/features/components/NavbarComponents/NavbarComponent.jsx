@@ -14,6 +14,19 @@ import VendorAccordionList from "../AccordionComponents/VendorAccordionList";
 import PropTypes from "prop-types";
 
 function NavbarComponent({ items, onAdd }) {
+  // function kk() {
+  //   var a = document.body.appendChild(document.createElement("a"));
+  //   a.download = "FORS.txt";
+  //   a.href =
+  //     "data:text/plain;base64," +
+  //     btoa(
+  //       unescape(
+  //         encodeURIComponent(JSON.stringify(items.filter(({ FORS }) => FORS)))
+  //       )
+  //     );
+  //   a.innerHTML = "download example text";
+  // }
+  // items.length && kk();
   const [show, setShow] = useState(() => false);
   // const itemsAdded = useContext(AddedContext);
 

@@ -1,13 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
+// import items from "./data/items.json";
 
 const initialState = {
-  McKesson: [],
-  OrderInsite: [],
+  // items,
+  // McKesson: [],
+  // OrderInsite: [],
+  // GNFR: [],
+  // signOrderCatalog: [],
+  // vaxServe: [],
+  // medSurge: [],
+  // covap: [],
+  // FORS: [],
+  MCK: [],
+  OI: [],
   GNFR: [],
-  signOrderCatalog: [],
-  vaxServe: [],
-  medSurge: [],
-  covap: [],
+  SOC: [],
+  VS: [],
+  MS: [],
+  COV: [],
   FORS: [],
 };
 
@@ -16,7 +26,8 @@ export const addedSlice = createSlice({
   initialState,
   reducers: {
     addItems: (state, action) => {
-      console.log(action.payload.notAddedVendors.length);
+      // console.log(state)
+      // console.log(action.payload.notAddedVendors.length);
       action.payload.notAddedVendors.length &&
         action.payload.notAddedVendors.forEach(e => {
           state[e].push(action.payload.itemObj);

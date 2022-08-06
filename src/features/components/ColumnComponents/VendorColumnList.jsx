@@ -1,5 +1,6 @@
 import VendorColumn from "./VendorColumn";
-import vendors from "../../../data/vendorNames.json";
+import vendors from "../../../data/vendors.json";
+// import vendors from "../../../data/vendorNames.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import PropTypes from "prop-types";
 import { memo, useContext, useMemo } from "react";
@@ -9,8 +10,8 @@ function VendorColumnList() {
     <>
       {vendors.map((e, i) => (
         <VendorColumn
-          officialVendorName={officialVendorNames[0][e]}
-          key={`${officialVendorNames[0][e]}-VendorColumn`}
+          officialVendorName={officialVendorNames[e]}
+          key={`${officialVendorNames[e]}-VendorColumn`}
           vendorName={e}
         />
       ))}

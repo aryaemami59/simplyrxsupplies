@@ -6,12 +6,10 @@ import {
 } from "reactstrap";
 import BadgeComponent from "../ColumnComponents/BadgeComponent";
 import PropTypes from "prop-types";
-import { memo, useCallback } from "react";
+import { memo } from "react";
 import SingleListItem from "../SingleListItemComponents/SingleListItem";
-import vendorAbbr from "../../../data/vendorAbbr.json";
 
 function VendorAccordion({ officialVendorName, items, vendorName }) {
-  // console.log(vendorName);
   return (
     <AccordionItem>
       <AccordionHeader targetId={officialVendorName}>
@@ -28,7 +26,7 @@ function VendorAccordion({ officialVendorName, items, vendorName }) {
             .map(e => (
               <SingleListItem
                 vendorName={vendorName}
-                vendors={e.vendors.map(f => vendorAbbr[f])}
+                vendors={e.vendors}
                 key={`${e.name}-${vendorName}`}
                 itemObj={e}
                 role="button"

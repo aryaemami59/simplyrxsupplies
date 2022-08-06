@@ -1,12 +1,10 @@
-[
-  {
-    "McKesson": "McKesson",
-    "OrderInsite": "OrderInsite",
-    "GNFR": "GNFR",
-    "signOrderCatalog": "Sign Order Catalog",
-    "vaxServe": "VaxServe",
-    "medSurge": "MCK MedSurge",
-    "covap": "Covap",
-    "FORS": "FORS"
-  }
-]
+{
+  "MCK": "McKesson",
+  "OI": "OrderInsite",
+  "GNFR": "GNFR",
+  "SOC": "Sign Order Catalog",
+  "VS": "VaxServe",
+  "MS": "MCK MedSurge",
+  "COV": "Covap",
+  "FORS": "FORS"
+}

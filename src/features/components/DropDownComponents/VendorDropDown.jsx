@@ -15,7 +15,6 @@ import {
   useReducer,
   useCallback,
 } from "react";
-import vendorAbbr from "../../../data/vendorAbbr.json";
 
 function VendorDropDown({ officialVendorName, items, vendorName }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -41,7 +40,7 @@ function VendorDropDown({ officialVendorName, items, vendorName }) {
               itemObj={e}
               items={items}
               vendorName={vendorName}
-              vendors={e.vendors.map(f => vendorAbbr[f])}
+              vendors={e.vendors}
             />
           ))}
         </DropdownMenu>

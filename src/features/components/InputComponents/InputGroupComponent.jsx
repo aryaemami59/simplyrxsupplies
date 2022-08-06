@@ -9,25 +9,47 @@ import {
   Container,
 } from "reactstrap";
 import InputListItems from "./InputListItems";
-import React, { useEffect, useMemo, useState, useCallback, memo } from "react";
+import React, {
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+  memo,
+  useTransition,
+  useDeferredValue,
+} from "react";
 import PropTypes from "prop-types";
 
 const empty = [];
 
 function InputGroupComponent({ items }) {
+  const [isPending, startTransition] = useTransition();
   const [listItems, setListItems] = useState(empty);
   const [val, setVal] = useState("");
   const { length } = listItems;
 
-  const list = useMemo(() => {
-    return !!length ? listItems : [];
-  }, [length]);
+  const deferredVal = useDeferredValue(val);
 
-  function getNewList(itemObj) {
-    const newList = listItems.filter(e => e !== itemObj);
-    // console.log(newList);
-    return newList;
-  }
+  const listItemsSTR = JSON.stringify(listItems.map(({ name }) => name));
+
+  // useEffect(() => {
+  //   console.log(listItemsSTR);
+  // }, [listItemsSTR]);
+
+  // console.log(listItemsSTR);
+  const list = useMemo(() => {
+    return !!length ? listItems : empty;
+    // return JSON.stringify(value);
+  }, [listItemsSTR]);
+
+  const getNewList = useCallback(
+    itemObj => list.filter(e => e !== itemObj),
+    [list]
+  );
+
+  // function getNewList(itemObj) {
+  //   return listItems.filter(e => e !== itemObj);
+  // }
 
   useEffect(() => {
     // console.log(list);
@@ -53,7 +75,19 @@ function InputGroupComponent({ items }) {
   const changeVal = e => {
     setVal(e.target.value);
     changeList(e);
+    //   startTransition(() => {
+    //   changeList(e);
+    // });
   };
+
+  // useEffect(() => {
+  //   setListItems(
+  //     items.filter(({ name }) =>
+  //       name.toLowerCase().includes(deferredVal.toLowerCase())
+  //     )
+  //   );
+  //   return () => setListItems(empty);
+  // }, [deferredVal, items]);
 
   return (
     <>
@@ -94,7 +128,15 @@ function InputGroupComponent({ items }) {
           </InputGroup>
         </Row>
       </Container>
-      {<InputListItems listItems={list} getNewList={getNewList} setListItems={setListItems} />}
+      {isPending ? (
+        "searching..."
+      ) : (
+        <InputListItems
+          listItems={list}
+          getNewList={getNewList}
+          setListItems={setListItems}
+        />
+      )}
     </>
   );
 }

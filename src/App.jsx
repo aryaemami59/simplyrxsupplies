@@ -73,6 +73,17 @@ function App() {
     const mysrc = elem.getAttribute("src");
     e.src = mysrc;
   });
+  // function kk() {
+  //   var a = document.body.appendChild(document.createElement("a"));
+  //   a.download = "SOC.txt";
+  //   a.href =
+  //     "data:text/plain;base64," +
+  //     btoa(JSON.stringify(items.filter(({ SOC }) => SOC)));
+  //   a.innerHTML = "download example text";
+  // }
+  // items.length && kk();
+
+  // console.log(items.filter(({ MCK }) => MCK));
   // console.log(items);
   // const { isLoading, error, data, status } = useQuery("items", () =>
   //   fetchItems()
@@ -104,7 +115,7 @@ function App() {
       .then(data => data.items)
       .then(e => setItems(e));
 
-    // return () => abortCont.abort();
+    return () => abortCont.abort();
   }, []);
 
   console.log("app render");

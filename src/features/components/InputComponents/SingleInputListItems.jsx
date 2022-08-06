@@ -3,9 +3,14 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { addItems, selectByVendorsNotAdded } from "../../../addedSlice";
 import VendorBadges from "./VendorBadges";
 import { memo } from "react";
+import officialVendorNames from "../../../data/officialVendorNames.json";
+import BarcodeImageComponent from "./BarcodeImageComponent";
 
 function SingleInputListItems({ itemObj, vendors, getNewList, setListItems }) {
   const dispatch = useDispatch();
+  // console.log(vendors)
+  // console.log(officialVendorNames);
+  // console.log(useSelector(state => state.added.items));
   // let mine;
 
   // const notAddedVendors = useSelector(
@@ -38,9 +43,14 @@ function SingleInputListItems({ itemObj, vendors, getNewList, setListItems }) {
           key={`${e}-${itemObj.name}-badge`}
           itemObj={itemObj}
           vendorName={e}
+          officialVendorName={officialVendorNames[e]}
           // clickHandler={clickHandler}
         />
       ))}
+      <BarcodeImageComponent
+        itemNumber={itemObj.itemNumber}
+        src={itemObj.src}
+      />
     </Button>
   );
 }
