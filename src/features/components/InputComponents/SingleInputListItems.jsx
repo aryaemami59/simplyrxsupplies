@@ -1,23 +1,31 @@
-import { ListGroupItem, Badge, Container } from "reactstrap";
-import { useSelector, useDispatch } from "react-redux";
-import { selectByVendor, addItems } from "../../../addedSlice";
+import { Container, Button } from "reactstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { addItems, selectByVendorsNotAdded } from "../../../addedSlice";
 import VendorBadges from "./VendorBadges";
-import jsbarcode from "jsbarcode";
 import { memo } from "react";
-import BarcodeImageComponent from "./BarcodeImageComponent";
 
-function SingleInputListItems({ itemObj, vendors }) {
+function SingleInputListItems({ itemObj, vendors, getNewList, setListItems }) {
   const dispatch = useDispatch();
 
+  const notAddedVendors = useSelector(
+    selectByVendorsNotAdded(vendors, itemObj),
+    (prev, next) => prev.length === next.length || next.length
+  );
+
   function clickHandler() {
-    dispatch(addItems({ itemObj, vendors }));
+    dispatch(addItems({ itemObj, notAddedVendors }));
+    notAddedVendors.length && setListItems(getNewList(itemObj));
   }
   return (
-    <ListGroupItem
+    <Button
       role="button"
       key={`$${itemObj.name}-badge`}
-      onClick={clickHandler}>
-      {itemObj.name}
+      onClick={clickHandler}
+      color="success"
+      block
+      // disabled={notAddedVendors.length ? false : true}
+    >
+      Item Name: {itemObj.name}
       {vendors.map(e => (
         <Container key={`${e}-${itemObj.name}-badge-container`}>
           <VendorBadges
@@ -27,11 +35,7 @@ function SingleInputListItems({ itemObj, vendors }) {
           />
         </Container>
       ))}
-      {/* <BarcodeImageComponent
-        src={itemObj.src}
-        itemNumber={itemObj.itemNumber}
-      /> */}
-    </ListGroupItem>
+    </Button>
   );
 }
 

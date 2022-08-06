@@ -23,6 +23,12 @@ function InputGroupComponent({ items }) {
     return !!length ? listItems : [];
   }, [length]);
 
+  function getNewList(itemObj) {
+    const newList = listItems.filter(e => e !== itemObj);
+    // console.log(newList);
+    return newList;
+  }
+
   useEffect(() => {
     // console.log(list);
   }, [list]);
@@ -88,7 +94,7 @@ function InputGroupComponent({ items }) {
           </InputGroup>
         </Row>
       </Container>
-      {<InputListItems listItems={list} />}
+      {<InputListItems listItems={list} getNewList={getNewList} setListItems={setListItems} />}
     </>
   );
 }

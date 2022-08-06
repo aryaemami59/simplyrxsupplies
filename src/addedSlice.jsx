@@ -16,15 +16,9 @@ export const addedSlice = createSlice({
   initialState,
   reducers: {
     addItems: (state, action) => {
-      console.log("addItems action.payload:", action.payload);
-      // state[action.payload.vendorName].push(action.payload.itemObj);
-      action.payload.vendors.forEach(e => {
-        // console.log(state[e].includes(action.payload.itemObj));
-        // console.log(e);
-        !state[e].includes(action.payload.itemObj) &&
-          state[e].push(action.payload.itemObj);
+      action.payload.notAddedVendors.forEach(e => {
+        state[e].push(action.payload.itemObj);
       });
-      // state[action.payload.vendorName].push(action.payload.itemObj);
     },
     removeItems: (state, action) => {
       console.log("removeItems action.payload:", action.payload);
@@ -39,13 +33,16 @@ export const selectAllAdded = state => state.added;
 
 export const selectByVendor = vendor => state => state.added[vendor];
 
-export const selectByMultipleVendors = vendors => state => {
-  return vendors.map(e => {
-    return state.added[e];
-  });
+export const selectByVendorGetNames = vendor => state =>
+  state.added[vendor].map(({ name }) => name);
+
+export const selectByVendorsAdded = (vendors, itemObj) => state => {
+  return vendors.filter(e => state.added[e].includes(itemObj));
 };
 
-// export const selectAllFORS = state => state.added.FORS;
+export const selectByVendorsNotAdded = (vendors, itemObj) => state => {
+  return vendors.filter(e => !state.added[e].includes(itemObj));
+};
 
 export const { addItems, removeItems } = addedSlice.actions;
 

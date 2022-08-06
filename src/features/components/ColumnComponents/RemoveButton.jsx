@@ -8,6 +8,7 @@ function RemoveButton({ vendorName, itemObj }) {
   function clickHandler() {
     addedItems.includes(itemObj) &&
       dispatch(removeItems({ itemObj, vendorName }));
+    itemObj.name === "10 Dram Vials" && console.log(addedItems);
   }
   return (
     <>
