@@ -4,7 +4,6 @@ import { createSelector } from "reselect";
 const empty = [];
 
 const initialState = {
-  // val: "",
   listItems: empty,
 };
 
@@ -14,9 +13,6 @@ export const inputSlice = createSlice({
   reducers: {
     setListItems: (state, action) => {
       state.listItems === empty && console.log(state.listItems);
-      // console.log(state.listItems);
-      // console.log(state.listItems === initialState);
-      // console.log(action.payload.length);
       // state.listItems = action.payload.length ? action.payload : empty;
       state.listItems = action.payload;
     },
@@ -31,8 +27,6 @@ export const inputSlice = createSlice({
 export const selectAllListItems = createSelector(
   state => state.input.listItems,
   listItems => listItems
-  // state => JSON.stringify(state.input.listItems),
-  // listItems => JSON.parse(listItems)
 );
 
 // export const selectAllListItems = state => state.input.listItems;

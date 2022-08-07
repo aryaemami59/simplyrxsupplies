@@ -1,21 +1,10 @@
 import VendorDropDown from "./VendorDropDown";
 import vendors from "../../../data/vendors.json";
-// import vendors from "../../../data/vendorNames.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
-import {
-  memo,
-  useEffect,
-  useMemo,
-  useState,
-  useContext,
-  createContext,
-} from "react";
+import { memo, useEffect } from "react";
 import PropTypes from "prop-types";
-// import { myContext } from "../ContextComponents/AddedContext";
 
 function VendorDropDownsList({ items }) {
-  // const { itemsAdded, onAdd } = useContext(myContext);
-
   useEffect(() => {
     // console.log("VendorDropDownsList");
   });

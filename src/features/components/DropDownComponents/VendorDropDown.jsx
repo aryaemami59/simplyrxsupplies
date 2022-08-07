@@ -1,51 +1,36 @@
-import {
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  Dropdown,
-} from "reactstrap";
+import { DropdownToggle, DropdownMenu, Dropdown } from "reactstrap";
 import SingleDropDown from "./SingleDropDown";
 import PropTypes from "prop-types";
-import {
-  memo,
-  useEffect,
-  useState,
-  useMemo,
-  useContext,
-  useReducer,
-  useCallback,
-} from "react";
+import { memo, useEffect, useState } from "react";
 
 function VendorDropDown({ officialVendorName, items, vendorName }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const myItems = items.filter(e => e[vendorName]);
 
-  // useEffect(() => {
-  //   // console.log("VendorDropDown");
-  // });
+  useEffect(() => {
+    //   // console.log("VendorDropDown");
+  });
 
   return (
-    <>
-      <Dropdown
-        className="me-2"
-        isOpen={dropdownOpen}
-        toggle={() => {
-          setDropdownOpen(!dropdownOpen);
-        }}>
-        <DropdownToggle caret>{officialVendorName}</DropdownToggle>
-        <DropdownMenu dark>
-          {myItems.map(e => (
-            <SingleDropDown
-              key={`${e.name}-${vendorName}`}
-              itemObj={e}
-              items={items}
-              vendorName={vendorName}
-              vendors={e.vendors}
-            />
-          ))}
-        </DropdownMenu>
-      </Dropdown>
-    </>
+    <Dropdown
+      className="me-2"
+      isOpen={dropdownOpen}
+      toggle={() => {
+        setDropdownOpen(!dropdownOpen);
+      }}>
+      <DropdownToggle caret>{officialVendorName}</DropdownToggle>
+      <DropdownMenu dark>
+        {myItems.map(e => (
+          <SingleDropDown
+            key={`${e.name}-${vendorName}`}
+            itemObj={e}
+            items={items}
+            vendorName={vendorName}
+            vendors={e.vendors}
+          />
+        ))}
+      </DropdownMenu>
+    </Dropdown>
   );
 }
 

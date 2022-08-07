@@ -3,12 +3,7 @@ import { useSelector } from "react-redux";
 import { selectByVendor } from "../../../addedSlice";
 import { memo } from "react";
 
-function VendorBadges({
-  vendorName,
-  itemObj,
-  clickHandler,
-  officialVendorName,
-}) {
+function VendorBadges({ vendorName, itemObj, officialVendorName }) {
   const addedItems = useSelector(
     selectByVendor(vendorName),
     (prev, next) => !next.includes(itemObj) && !prev.includes(itemObj)
@@ -17,8 +12,7 @@ function VendorBadges({
     <Container key={`${vendorName}-${itemObj.name}-badge-container`}>
       <Badge
         className={addedItems.includes(itemObj) ? "opacity-50" : ""}
-        color="primary"
-        onClick={clickHandler}>
+        color="primary">
         {officialVendorName}
       </Badge>
     </Container>

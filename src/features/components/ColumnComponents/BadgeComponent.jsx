@@ -1,7 +1,7 @@
 import { Badge } from "reactstrap";
 import PropTypes from "prop-types";
 import { memo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectByVendor } from "../../../addedSlice";
 
 function BadgeComponent({ vendorName }) {

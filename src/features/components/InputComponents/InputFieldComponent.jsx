@@ -4,8 +4,8 @@ import {
   useState,
   useCallback,
   useEffect,
-  useTransition,
-  useDeferredValue,
+  // useTransition,
+  // useDeferredValue,
 } from "react";
 import { useDispatch } from "react-redux";
 import { setListItems, selectAllListItems } from "../../../inputSlice";
@@ -14,7 +14,7 @@ import { useSelector, shallowEqual } from "react-redux";
 const empty = [];
 
 function InputFieldComponent({ items }) {
-  const [isPending, startTransition] = useTransition();
+  // const [isPending, startTransition] = useTransition();
   const dispatch = useDispatch();
   const [val, setVal] = useState("");
   // const deferredVal = useDeferredValue(val);

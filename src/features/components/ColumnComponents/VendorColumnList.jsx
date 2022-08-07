@@ -2,13 +2,9 @@ import VendorColumn from "./VendorColumn";
 import vendors from "../../../data/vendors.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import PropTypes from "prop-types";
-import { memo, useContext, useMemo } from "react";
-// import { useStore } from "react-redux";
+import { memo } from "react";
 
 function VendorColumnList() {
-  // const store = useStore();
-  // console.log(store);
-
   return (
     <>
       {vendors.map((e, i) => (

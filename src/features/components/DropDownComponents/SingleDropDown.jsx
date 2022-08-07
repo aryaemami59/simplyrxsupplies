@@ -1,13 +1,5 @@
 import { DropdownItem } from "reactstrap";
-import {
-  memo,
-  useEffect,
-  useContext,
-  useCallback,
-  useRef,
-  useReducer,
-  useState,
-} from "react";
+import { memo, useEffect } from "react";
 import PropTypes from "prop-types";
 import { addItems, selectByVendor } from "../../../addedSlice";
 // import { connect } from "react-redux";

@@ -7,7 +7,7 @@ import {
 import BadgeComponent from "../ColumnComponents/BadgeComponent";
 import PropTypes from "prop-types";
 import { memo } from "react";
-import SingleListItem from "../SingleListItemComponents/SingleListItem";
+import SingleAccordionListItem from "./SingleAccordionListItem";
 
 function VendorAccordion({ officialVendorName, items, vendorName }) {
   return (
@@ -24,7 +24,7 @@ function VendorAccordion({ officialVendorName, items, vendorName }) {
           {items
             .filter(e => e[vendorName])
             .map(e => (
-              <SingleListItem
+              <SingleAccordionListItem
                 vendorName={vendorName}
                 vendors={e.vendors}
                 key={`${e.name}-${vendorName}`}

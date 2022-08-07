@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  // items,
   MCK: [],
   OI: [],
   GNFR: [],
@@ -17,8 +16,6 @@ export const addedSlice = createSlice({
   initialState,
   reducers: {
     addItems: (state, action) => {
-      // console.log(state)
-      // console.log(action.payload.notAddedVendors.length);
       action.payload.notAddedVendors.length &&
         action.payload.notAddedVendors.forEach(e => {
           state[e].push(action.payload.itemObj);
