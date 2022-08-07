@@ -9,17 +9,17 @@ import PropTypes from "prop-types";
 import { memo } from "react";
 import SingleAccordionListItem from "./SingleAccordionListItem";
 
-function VendorAccordion({ officialVendorName, items, vendorName }) {
+function VendorAccordion({ officialVendorName, items, vendorName, targetId }) {
   return (
     <AccordionItem>
-      <AccordionHeader targetId={officialVendorName}>
+      <AccordionHeader targetId={targetId}>
         <BadgeComponent
           vendorName={vendorName}
           key={`${officialVendorName}-VendorColumn-Badge`}
         />
         {officialVendorName}
       </AccordionHeader>
-      <AccordionBody accordionId={officialVendorName}>
+      <AccordionBody accordionId={targetId}>
         <ListGroup>
           {items
             .filter(e => e[vendorName])
