@@ -1,20 +1,32 @@
 import { DropdownItem } from "reactstrap";
 import { memo, useEffect } from "react";
 import PropTypes from "prop-types";
-import { addItems, selectByVendor } from "../../../addedSlice";
+import {
+  addItems,
+  selectByVendor,
+  selectByVendorsNotAdded,
+} from "../../../addedSlice";
 // import { connect } from "react-redux";
-import { useSelector, useDispatch } from "react-redux";
-// import { shallowEqual } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
 function SingleDropDown({ itemObj, vendorName, vendors }) {
   const dispatch = useDispatch();
+  const notAddedVendors = useSelector(
+    selectByVendorsNotAdded(vendors, itemObj),
+    shallowEqual
+  );
+
   const addedItems = useSelector(selectByVendor(vendorName), (prev, next) => {
     return prev.includes(itemObj) || !next.includes(itemObj);
   });
 
   function clickHandler() {
-    !addedItems.includes(itemObj) && dispatch(addItems({ itemObj, vendors }));
+    notAddedVendors.length && dispatch(addItems({ itemObj, notAddedVendors }));
   }
+
+  // function clickHandler() {
+  //   !addedItems.includes(itemObj) && dispatch(addItems({ itemObj, vendors }));
+  // }
 
   useEffect(() => {
     // console.log("SingleDropDown");

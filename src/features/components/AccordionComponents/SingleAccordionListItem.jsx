@@ -1,17 +1,34 @@
 import { ListGroupItem } from "reactstrap";
 import { memo } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { selectByVendor, addItems } from "../../../addedSlice";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import {
+  selectByVendor,
+  addItems,
+  selectByVendorsNotAdded,
+} from "../../../addedSlice";
 
 function SingleAccordionListItem({ itemObj, vendorName, vendors }) {
   const dispatch = useDispatch();
+  const notAddedVendors = useSelector(
+    selectByVendorsNotAdded(vendors, itemObj),
+    shallowEqual
+  );
+
   const addedItems = useSelector(selectByVendor(vendorName), (prev, next) => {
-    return !prev.includes(itemObj) && !next.includes(itemObj);
+    return prev.includes(itemObj) || !next.includes(itemObj);
   });
 
   function clickHandler() {
-    dispatch(addItems({ itemObj, vendors }));
+    notAddedVendors.length && dispatch(addItems({ itemObj, notAddedVendors }));
   }
+  // const dispatch = useDispatch();
+  // const addedItems = useSelector(selectByVendor(vendorName), (prev, next) => {
+  //   return !prev.includes(itemObj) && !next.includes(itemObj);
+  // });
+
+  // function clickHandler() {
+  //   dispatch(addItems({ itemObj, vendors }));
+  // }
 
   return (
     <ListGroupItem

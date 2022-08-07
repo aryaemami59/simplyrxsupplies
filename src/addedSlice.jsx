@@ -21,6 +21,9 @@ export const addedSlice = createSlice({
           state[e].push(action.payload.itemObj);
         });
     },
+    addItemsByVendor: (state, action) => {
+      state[action.payload.vendorName].push(state.action.payload.itemObj);
+    },
     removeItems: (state, action) => {
       console.log("removeItems action.payload:", action.payload);
       state[action.payload.vendorName] = state[
@@ -51,6 +54,6 @@ export const selectByVendorsNotAdded = (vendors, itemObj) => state => {
     : empty;
 };
 
-export const { addItems, removeItems } = addedSlice.actions;
+export const { addItems, removeItems, addItemsByVendor } = addedSlice.actions;
 
 export const addedReducer = addedSlice.reducer;
