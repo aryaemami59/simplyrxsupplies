@@ -1,16 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import items from "./data/items.json";
 
 const initialState = {
   // items,
-  // McKesson: [],
-  // OrderInsite: [],
-  // GNFR: [],
-  // signOrderCatalog: [],
-  // vaxServe: [],
-  // medSurge: [],
-  // covap: [],
-  // FORS: [],
   MCK: [],
   OI: [],
   GNFR: [],

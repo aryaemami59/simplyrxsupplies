@@ -39,7 +39,7 @@ const empty = [];
 function App() {
   const { isLoading, error, data, status } = useQuery(["items"], fetchItems);
 
-  status === "success" && console.log(data);
+  // status === "success" && console.log(data);
 
   if (status === "loading") {
     return <div>Loading...</div>;

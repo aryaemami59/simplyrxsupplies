@@ -10,8 +10,13 @@ import {
 } from "react";
 import PropTypes from "prop-types";
 import SingleInputListItems from "./SingleInputListItems";
+import { selectAllListItems } from "../../../inputSlice";
+import { useSelector } from "react-redux";
+import { shallowEqual } from "react-redux";
 
-function InputListItems({ listItems, getNewList, setListItems }) {
+function InputListItems() {
+  const listItems = useSelector(selectAllListItems, shallowEqual);
+  // console.log(listItems)
   useEffect(() => {
     // console.log(jsbarcode(<img />).render());
   });
@@ -21,19 +26,23 @@ function InputListItems({ listItems, getNewList, setListItems }) {
     // console.log("list items changed");
   }, [listItems]);
   return (
-    <ListGroup key={`InputGroupComponent-ListGroupItem`}>
-      {listItems.map((e, i) => (
-        <Container key={`${i}-Container-${e.name}${e.itemNumber}`}>
-          <SingleInputListItems
-            itemObj={e}
-            vendors={e.vendors}
-            listItems={listItems}
-            getNewList={getNewList}
-            setListItems={setListItems}
-          />
-        </Container>
+    // <ListGroup key={`InputGroupComponent-ListGroupItem`}>
+
+    <ul className="list-group" key={`InputGroupComponent-ListGroupItem`}>
+      {listItems.map(e => (
+        // <Container key={`${i}-Container-${e.name}${e.itemNumber}`}>
+        <SingleInputListItems
+          itemObj={e}
+          vendors={e.vendors}
+          // listItems={listItems}
+          // getNewList={getNewList}
+          // setListItems={setListItems}
+          key={`${e.name}-inputListItems`}
+        />
+        // {/* </Container> */}
       ))}
-    </ListGroup>
+    </ul>
+    // </ListGroup>
   );
 }
 

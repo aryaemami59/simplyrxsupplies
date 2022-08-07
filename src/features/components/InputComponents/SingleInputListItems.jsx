@@ -5,8 +5,9 @@ import VendorBadges from "./VendorBadges";
 import { memo } from "react";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import BarcodeImageComponent from "./BarcodeImageComponent";
+import { removeListItems, selectAllListItems } from "../../../inputSlice";
 
-function SingleInputListItems({ itemObj, vendors, getNewList, setListItems }) {
+function SingleInputListItems({ itemObj, vendors }) {
   const dispatch = useDispatch();
   // console.log(vendors)
   // console.log(officialVendorNames);
@@ -23,19 +24,23 @@ function SingleInputListItems({ itemObj, vendors, getNewList, setListItems }) {
   );
 
   function clickHandler() {
-    // notAddedVendors.length &&
-    dispatch(addItems({ itemObj, notAddedVendors }));
-    notAddedVendors.length && setListItems(getNewList(itemObj));
+    notAddedVendors.length && dispatch(addItems({ itemObj, notAddedVendors }));
+    // console.log(notAddedVendors.length);
+    notAddedVendors.length && dispatch(removeListItems(itemObj));
+    // notAddedVendors.length && setListItems(getNewList(itemObj));
   }
   return (
-    <Button
-      role="button"
-      key={`$${itemObj.name}-badge`}
+    // <Button
+    //   role="button"
+    //   key={`$${itemObj.name}-badge`}
+    //   onClick={clickHandler}
+    //   color="success"
+    //   block
+    // >
+    <button
+      key={`${itemObj.name}-badge`}
       onClick={clickHandler}
-      color="success"
-      block
-      // disabled={notAddedVendors.length ? false : true}
-    >
+      className="btn btn-success d-block w-100">
       Item Name: {itemObj.name}
       {vendors.map(e => (
         <VendorBadges
@@ -51,7 +56,8 @@ function SingleInputListItems({ itemObj, vendors, getNewList, setListItems }) {
         itemNumber={itemObj.itemNumber}
         src={itemObj.src}
       />
-    </Button>
+    </button>
+    // </Button>
   );
 }
 
