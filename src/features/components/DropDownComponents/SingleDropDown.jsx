@@ -1,5 +1,5 @@
 import { DropdownItem } from "reactstrap";
-import { memo, useEffect } from "react";
+import { memo, useCallback, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import {
   addItems,
@@ -10,19 +10,46 @@ import {
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 
 function SingleDropDown({ itemObj, vendorName, vendors }) {
+  // const dispatchRef = useDispatch();
   const dispatch = useDispatch();
+
   const notAddedVendors = useSelector(
     selectByVendorsNotAdded(vendors, itemObj),
     shallowEqual
   );
 
+  // const dispatch = useMemo(() => {
+  //   return dispatchRef;
+  // }, []);
+
+  // const dispatch = useCallback(() => {
+  //   dispatchRef(addItems({ itemObj, notAddedVendors }));
+  // }, []);
+
   const addedItems = useSelector(selectByVendor(vendorName), (prev, next) => {
     return prev.includes(itemObj) || !next.includes(itemObj);
   });
 
-  function clickHandler() {
+  useEffect(() => {
+    // console.log("dispatch changed");
+  }, [dispatch]);
+
+  useEffect(() => {
+    // console.log("addedItems changed");
+  }, [addedItems]);
+
+  useEffect(() => {
+    // console.log("dropdown Mounts");
+    // return () => console.log("dropdown Unmounts");
+  }, []);
+
+  const clickHandler = useCallback(() => {
     notAddedVendors.length && dispatch(addItems({ itemObj, notAddedVendors }));
-  }
+  }, [dispatch, itemObj, notAddedVendors]);
+
+  useEffect(() => {
+    // console.log("clickHandler changed");
+  }, [clickHandler]);
 
   // function clickHandler() {
   //   !addedItems.includes(itemObj) && dispatch(addItems({ itemObj, vendors }));

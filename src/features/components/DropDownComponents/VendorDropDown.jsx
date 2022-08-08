@@ -1,11 +1,41 @@
 import { DropdownToggle, DropdownMenu, Dropdown } from "reactstrap";
 import SingleDropDown from "./SingleDropDown";
 import PropTypes from "prop-types";
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useState, useRef, useMemo, useCallback } from "react";
 
 function VendorDropDown({ officialVendorName, items, vendorName }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const myItems = items.filter(e => e[vendorName]);
+  const renders = useRef(0);
+  // console.log("renders:", renders.current++);
+
+  const myItems = useMemo(() => {
+    return items.filter(e => e[vendorName]);
+  }, [items, vendorName]);
+
+  const toggle = useCallback(() => {
+    setDropdownOpen(prev => !prev);
+  }, []);
+
+  useEffect(() => {
+    // console.log("my items changed");
+  }, [myItems]);
+
+  useEffect(() => {
+    // console.log("toggle changed");
+  }, [toggle]);
+
+  useEffect(() => {
+    // console.log("setDropdownOpen changed");
+  }, [setDropdownOpen]);
+
+  useEffect(() => {
+    // console.log("dropdownOpen changed");
+  }, [dropdownOpen]);
+
+  useEffect(() => {
+    // console.log("VendorDropDown Mounts");
+    // return () => console.log("VendorDropDown Unmounts");
+  }, []);
 
   useEffect(() => {
     //   // console.log("VendorDropDown");
@@ -13,11 +43,9 @@ function VendorDropDown({ officialVendorName, items, vendorName }) {
 
   return (
     <Dropdown
-      className="me-2"
+      className="me-2 d-none d-lg-inline-block"
       isOpen={dropdownOpen}
-      toggle={() => {
-        setDropdownOpen(!dropdownOpen);
-      }}>
+      toggle={toggle}>
       <DropdownToggle caret>{officialVendorName}</DropdownToggle>
       <DropdownMenu dark>
         {myItems.map(e => (

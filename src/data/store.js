@@ -11,4 +11,4 @@ export const store = configureStore({
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat([logger]),
 });
 
-console.log(store.getState());
+// console.log(store.getState());

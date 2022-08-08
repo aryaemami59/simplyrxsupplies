@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
   MCK: [],
@@ -16,16 +16,19 @@ export const addedSlice = createSlice({
   initialState,
   reducers: {
     addItems: (state, action) => {
-      action.payload.notAddedVendors.length &&
-        action.payload.notAddedVendors.forEach(e => {
-          state[e].push(action.payload.itemObj);
-        });
+      // action.payload.notAddedVendors.length &&
+      //   action.payload.notAddedVendors.forEach(e => {
+      //     state[e].push(action.payload.itemObj);
+      //   });
+      action.payload.vendors.forEach(e => {
+        !current(state[e]).includes(action.payload) &&
+          state[e].push(action.payload);
+      });
     },
     addItemsByVendor: (state, action) => {
       state[action.payload.vendorName].push(state.action.payload.itemObj);
     },
     removeItems: (state, action) => {
-      console.log("removeItems action.payload:", action.payload);
       state[action.payload.vendorName] = state[
         action.payload.vendorName
       ].filter(e => e.name !== action.payload.itemObj.name);
@@ -39,6 +42,9 @@ export const selectAllAdded = state => state.added;
 
 export const selectByVendor = vendor => state => state.added[vendor];
 
+export const checkIfItemAdded = (vendor, itemObj) => state =>
+  state.added[vendor].includes(itemObj);
+
 export const selectByVendorGetNames = vendor => state =>
   state.added[vendor].map(({ name }) => name);
 
@@ -47,6 +53,8 @@ export const selectByVendorsAdded = (vendors, itemObj) => state => {
     ? vendors.filter(e => state.added[e].includes(itemObj))
     : empty;
 };
+
+// export const checkIfSameArray = (e) => (state) => ;
 
 export const selectByVendorsNotAdded = (vendors, itemObj) => state => {
   return vendors.filter(e => !state.added[e].includes(itemObj)).length

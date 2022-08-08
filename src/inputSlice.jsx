@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { shallowEqual } from "react-redux";
 import { createSelector } from "reselect";
 
 const empty = [];
@@ -28,6 +29,9 @@ export const selectAllListItems = createSelector(
   state => state.input.listItems,
   listItems => listItems
 );
+
+export const checkIfSameArray = (list, val) => state =>
+  val && shallowEqual(state.input.listItems, list);
 
 // export const selectAllListItems = state => state.input.listItems;
 

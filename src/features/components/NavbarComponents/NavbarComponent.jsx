@@ -22,9 +22,9 @@ function NavbarComponent({ items }) {
   // }, []);
 
   const renders = useRef(0);
-  console.log("renders:", renders.current++);
+  // console.log("renders:", renders.current++);
   return (
-    <Navbar color="dark" dark expand="false" sticky="top">
+    <Navbar color="dark" dark expand="lg" sticky="top">
       <NavbarBrand href="/" className="me-3">
         Simply Supplies
       </NavbarBrand>

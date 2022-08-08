@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import PropTypes from "prop-types";
 import SingleInputListItems from "./SingleInputListItems";
 import { selectAllListItems } from "../../../inputSlice";
@@ -6,6 +6,15 @@ import { useSelector, shallowEqual } from "react-redux";
 
 function InputListItems() {
   const listItems = useSelector(selectAllListItems, shallowEqual);
+
+  useEffect(() => {
+    // console.log("listItems changed");
+  }, [listItems]);
+
+  useEffect(() => {
+    // console.log("InputListItems mounts");
+    // return () => console.log("InputListItems unmounts");
+  }, []);
 
   return (
     <ul className="list-group" key={`InputGroupComponent-ListGroupItem`}>

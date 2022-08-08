@@ -41,7 +41,7 @@ function App() {
     return <div>error</div>;
   }
 
-  console.log("app render");
+  // console.log("app render");
 
   return (
     <div className="App">

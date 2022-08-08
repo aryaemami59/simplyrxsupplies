@@ -22,14 +22,21 @@ function OffcanvasComponent({ items }) {
 
   return (
     <>
-      {/* <NavbarTogglerComponent items={items} /> */}
-      <NavbarToggler onClick={toggle} className="me-2"></NavbarToggler>
+      <NavbarTogglerComponent items={items} toggle={toggle} />
+      {/* <NavbarToggler onClick={toggle} className="me-2" /> */}
       <Collapse navbar>
         <Nav className="me-auto" navbar>
-          <VendorDropDownsList items={items} />
+          <VendorDropDownsList
+            items={items}
+            className="d-none d-lg-inline-block"
+          />
         </Nav>
       </Collapse>
-      <Offcanvas direction="start" isOpen={show} toggle={toggle}>
+      <Offcanvas
+        isOpen={show}
+        toggle={toggle}
+        unmountOnClose={false}
+        scrollable={true}>
         <OffcanvasHeader toggle={toggle}>Offcanvas</OffcanvasHeader>
         <OffcanvasBody>
           <strong>This is the Offcanvas body.</strong>

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { addItems, selectByVendorsNotAdded } from "../../../addedSlice";
 import VendorBadges from "./VendorBadges";
-import { memo } from "react";
+import { memo, useCallback, useEffect } from "react";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import BarcodeImageComponent from "./BarcodeImageComponent";
 import { removeListItems } from "../../../inputSlice";
@@ -9,15 +9,38 @@ import { removeListItems } from "../../../inputSlice";
 function SingleInputListItems({ itemObj, vendors }) {
   const dispatch = useDispatch();
 
-  const notAddedVendors = useSelector(
-    selectByVendorsNotAdded(vendors, itemObj),
-    shallowEqual
-  );
+  // const notAddedVendors = useSelector(
+  //   selectByVendorsNotAdded(vendors, itemObj),
+  //   shallowEqual
+  // );
 
-  function clickHandler() {
-    notAddedVendors.length && dispatch(addItems({ itemObj, notAddedVendors }));
-    notAddedVendors.length && dispatch(removeListItems(itemObj));
-  }
+  const clickHandler = useCallback(() => {
+    // notAddedVendors.length &&
+    dispatch(addItems(itemObj));
+    // notAddedVendors.length &&
+    dispatch(removeListItems(itemObj));
+  }, [dispatch,  itemObj]);
+
+  useEffect(() => {
+    // console.log("dispatch changed");
+  }, [dispatch]);
+
+  useEffect(() => {
+    // console.log("clickHandler changed");
+  }, [clickHandler]);
+
+  // useEffect(() => {
+  //   // console.log("notAddedVendors changed");
+  // }, [notAddedVendors]);
+
+  useEffect(() => {
+    // console.log(" changed")
+  }, []);
+
+  useEffect(() => {
+    // console.log("SingleInputListItems Mounts");
+    // return () => console.log("SingleInputListItems unMounts");
+  }, []);
 
   return (
     <button
