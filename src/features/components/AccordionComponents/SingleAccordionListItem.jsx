@@ -1,5 +1,5 @@
 import { ListGroupItem } from "reactstrap";
-import { memo } from "react";
+import { memo, useEffect, useCallback, useMemo, useRef } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import {
   selectByVendor,
@@ -8,6 +8,11 @@ import {
 } from "../../../addedSlice";
 
 function SingleAccordionListItem({ itemObj, vendorName, vendors }) {
+  const renders = useRef(0);
+  // console.log("renders:", renders.current++);
+  // const dispatch = useMemo(() => {
+  //   return useDispatch();
+  // }, []);
   const dispatch = useDispatch();
   const notAddedVendors = useSelector(
     selectByVendorsNotAdded(vendors, itemObj),
@@ -29,6 +34,14 @@ function SingleAccordionListItem({ itemObj, vendorName, vendors }) {
   // function clickHandler() {
   //   dispatch(addItems({ itemObj, vendors }));
   // }
+
+  useEffect(() => {
+    // console.log("notAddedVendors changed", notAddedVendors);
+  }, [notAddedVendors]);
+
+  // useEffect(() => {
+  //   console.log("dispatch changed");
+  // }, [dispatch]);
 
   return (
     <ListGroupItem

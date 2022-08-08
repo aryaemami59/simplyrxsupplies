@@ -6,10 +6,12 @@ import {
 } from "reactstrap";
 import BadgeComponent from "../ColumnComponents/BadgeComponent";
 import PropTypes from "prop-types";
-import { memo } from "react";
+import { memo, useRef } from "react";
 import SingleAccordionListItem from "./SingleAccordionListItem";
 
 function VendorAccordion({ officialVendorName, items, vendorName, targetId }) {
+  const renders = useRef(0);
+  // console.log("renders:", renders.current++);
   return (
     <AccordionItem>
       <AccordionHeader targetId={targetId}>

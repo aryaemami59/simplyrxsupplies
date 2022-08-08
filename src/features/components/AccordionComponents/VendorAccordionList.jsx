@@ -1,6 +1,6 @@
 import VendorAccordion from "./VendorAccordion";
 import { Accordion } from "reactstrap";
-import { memo, useState } from "react";
+import { memo, useState, useRef } from "react";
 import vendors from "../../../data/vendors.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import PropTypes from "prop-types";
@@ -9,9 +9,11 @@ const empty = [];
 
 function VendorAccordionList({ items }) {
   const [open, setOpen] = useState(empty);
+  // const renders = useRef(0);
+  // console.log("renders:", renders.current++);
 
   const toggle = id => {
-    console.log(id);
+    // console.log(id);
     if (open.includes(id)) {
       setOpen(prev => {
         const newOpen = prev.filter(e => e !== id);
@@ -21,6 +23,8 @@ function VendorAccordionList({ items }) {
       setOpen(prev => prev.concat(id));
     }
   };
+
+  // console.dir(Accordion)
 
   return (
     <Accordion open={open} toggle={toggle}>

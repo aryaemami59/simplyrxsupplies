@@ -38,7 +38,7 @@ function InputFieldComponent({ items }) {
   );
 
   useEffect(() => {
-    console.log(val);
+    // console.log(val);
   }, [val]);
 
   return (
