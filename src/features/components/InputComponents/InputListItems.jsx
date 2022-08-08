@@ -2,7 +2,6 @@ import { memo, useEffect } from "react";
 import PropTypes from "prop-types";
 import SingleInputListItems from "./SingleInputListItems";
 import { selectAllListItems } from "../../../addedSlice";
-// import { selectAllListItems } from "../../../inputSlice";
 import { useSelector, shallowEqual } from "react-redux";
 
 function InputListItems() {
@@ -16,6 +15,10 @@ function InputListItems() {
     // console.log("InputListItems mounts");
     // return () => console.log("InputListItems unmounts");
   }, []);
+
+  useEffect(() => {
+    console.log("InputListItems renders");
+  });
 
   return (
     <ul className="list-group" key={`InputGroupComponent-ListGroupItem`}>

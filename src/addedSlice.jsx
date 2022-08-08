@@ -1,5 +1,4 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import { shallowEqual } from "react-redux";
 import { createSelector } from "reselect";
 
 const empty = [];
@@ -21,10 +20,6 @@ export const addedSlice = createSlice({
   initialState,
   reducers: {
     addItems: (state, action) => {
-      // action.payload.notAddedVendors.length &&
-      //   action.payload.notAddedVendors.forEach(e => {
-      //     state[e].push(action.payload.itemObj);
-      //   });
       action.payload.vendors.forEach(e => {
         if (!current(state[e]).includes(action.payload)) {
           state[e].push(action.payload);

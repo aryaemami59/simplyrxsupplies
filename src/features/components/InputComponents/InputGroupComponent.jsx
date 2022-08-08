@@ -5,23 +5,6 @@ import PropTypes from "prop-types";
 import InputFieldComponent from "./InputFieldComponent";
 
 function InputGroupComponent({ items }) {
-  // const changeVal = e => {
-  //   setVal(e.target.value);
-  //   changeList(e);
-  //   //   startTransition(() => {
-  //   //   changeList(e);
-  //   // });
-  // };
-
-  // useEffect(() => {
-  //   setListItems(
-  //     items.filter(({ name }) =>
-  //       name.toLowerCase().includes(deferredVal.toLowerCase())
-  //     )
-  //   );
-  //   return () => setListItems(empty);
-  // }, [deferredVal, items]);
-
   return (
     <>
       <div>

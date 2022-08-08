@@ -1,42 +1,17 @@
 import { DropdownItem } from "reactstrap";
-import { memo, useCallback, useEffect, useMemo } from "react";
+import { memo, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
-import {
-  addItems,
-  selectByVendor,
-  selectByVendorsNotAdded,
-} from "../../../addedSlice";
+import { addItems, checkIfItemAdded } from "../../../addedSlice";
 // import { connect } from "react-redux";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-function SingleDropDown({ itemObj, vendorName, vendors }) {
-  // const dispatchRef = useDispatch();
+function SingleDropDown({ itemObj, vendorName }) {
   const dispatch = useDispatch();
-
-  const notAddedVendors = useSelector(
-    selectByVendorsNotAdded(vendors, itemObj),
-    shallowEqual
-  );
-
-  // const dispatch = useMemo(() => {
-  //   return dispatchRef;
-  // }, []);
-
-  // const dispatch = useCallback(() => {
-  //   dispatchRef(addItems({ itemObj, notAddedVendors }));
-  // }, []);
-
-  const addedItems = useSelector(selectByVendor(vendorName), (prev, next) => {
-    return prev.includes(itemObj) || !next.includes(itemObj);
-  });
+  const ifAdded = useSelector(checkIfItemAdded(vendorName, itemObj));
 
   useEffect(() => {
     // console.log("dispatch changed");
   }, [dispatch]);
-
-  useEffect(() => {
-    // console.log("addedItems changed");
-  }, [addedItems]);
 
   useEffect(() => {
     // console.log("dropdown Mounts");
@@ -44,16 +19,12 @@ function SingleDropDown({ itemObj, vendorName, vendors }) {
   }, []);
 
   const clickHandler = useCallback(() => {
-    notAddedVendors.length && dispatch(addItems({ itemObj, notAddedVendors }));
-  }, [dispatch, itemObj, notAddedVendors]);
+    dispatch(addItems(itemObj));
+  }, [dispatch, itemObj]);
 
   useEffect(() => {
     // console.log("clickHandler changed");
   }, [clickHandler]);
-
-  // function clickHandler() {
-  //   !addedItems.includes(itemObj) && dispatch(addItems({ itemObj, vendors }));
-  // }
 
   useEffect(() => {
     // console.log("SingleDropDown");
@@ -62,9 +33,7 @@ function SingleDropDown({ itemObj, vendorName, vendors }) {
   return (
     <DropdownItem
       toggle={false}
-      className={
-        addedItems.includes(itemObj) ? "text-decoration-line-through" : ""
-      }
+      className={ifAdded ? "text-decoration-line-through" : ""}
       onClick={clickHandler}>
       {itemObj.name}
     </DropdownItem>

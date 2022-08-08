@@ -4,20 +4,11 @@ import {
   useState,
   useCallback,
   useEffect,
-  useMemo,
   // useTransition,
   // useDeferredValue,
 } from "react";
 import { useDispatch } from "react-redux";
-import {
-  setListItems,
-  selectAllListItems,
-} from "../../../addedSlice";
-// import {
-//   setListItems,
-//   selectAllListItems,
-// } from "../../../inputSlice";
-import { useSelector, shallowEqual } from "react-redux";
+import { setListItems } from "../../../addedSlice";
 
 const empty = [];
 
@@ -27,13 +18,13 @@ function InputFieldComponent({ items }) {
   const [val, setVal] = useState("");
   // const deferredVal = useDeferredValue(val);
 
-  // const selectedListItems = useSelector(selectAllListItems);
-
   const listItemsFunc = useCallback(
     e => {
       const trimmedValue = e.target.value.trim().toLowerCase();
       return trimmedValue
-        ? items.filter(({ name }) => name.toLowerCase().includes(trimmedValue))
+        ? items
+            .filter(({ name }) => name.toLowerCase().includes(trimmedValue))
+            .slice(0, 200)
         : empty;
     },
     [items]
@@ -44,17 +35,6 @@ function InputFieldComponent({ items }) {
       setVal(e.target.value);
       // startTransition(() => {
       const listItems = listItemsFunc(e);
-      // const listItems = useMemo(() => {
-      //   return listItemsFunc(e)
-      // }, [e]);
-      // const listItems = e.target.value.trim()
-      //   ? items.filter(({ name }) =>
-      //       name.toLowerCase().includes(e.target.value.toLowerCase().trim())
-      //     )
-      //   : empty;
-      // shallowEqual(empty, listItems) ||
-      // shallowEqual(selectedListItems, listItems) ||
-      // ifEmptyList ||
       dispatch(setListItems(listItems));
       // });
     },
@@ -72,10 +52,6 @@ function InputFieldComponent({ items }) {
   useEffect(() => {
     // console.log("setVal changed");
   }, [setVal]);
-
-  // useEffect(() => {
-  //   // console.log("selectedListItems changed");
-  // }, [selectedListItems]);
 
   useEffect(() => {
     // console.log("changeVal changed");
