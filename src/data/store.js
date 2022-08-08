@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
-import { addedReducer } from "../addedSlice";
-import { inputReducer } from "../inputSlice";
+import { addedReducer, inputReducer } from "../addedSlice";
+// import { inputReducer } from "../inputSlice";
 
 export const store = configureStore({
   reducer: {

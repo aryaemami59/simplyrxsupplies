@@ -12,8 +12,11 @@ import { useDispatch } from "react-redux";
 import {
   setListItems,
   selectAllListItems,
-  checkIfSameArray,
-} from "../../../inputSlice";
+} from "../../../addedSlice";
+// import {
+//   setListItems,
+//   selectAllListItems,
+// } from "../../../inputSlice";
 import { useSelector, shallowEqual } from "react-redux";
 
 const empty = [];
@@ -22,8 +25,6 @@ function InputFieldComponent({ items }) {
   // const [isPending, startTransition] = useTransition();
   const dispatch = useDispatch();
   const [val, setVal] = useState("");
-  // const ifEmptyList = useSelector(checkIfSameArray(empty, val));
-  // console.log(ifEmptyList);
   // const deferredVal = useDeferredValue(val);
 
   // const selectedListItems = useSelector(selectAllListItems);

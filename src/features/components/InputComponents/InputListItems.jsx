@@ -1,7 +1,8 @@
 import { memo, useEffect } from "react";
 import PropTypes from "prop-types";
 import SingleInputListItems from "./SingleInputListItems";
-import { selectAllListItems } from "../../../inputSlice";
+import { selectAllListItems } from "../../../addedSlice";
+// import { selectAllListItems } from "../../../inputSlice";
 import { useSelector, shallowEqual } from "react-redux";
 
 function InputListItems() {

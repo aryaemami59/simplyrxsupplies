@@ -4,7 +4,8 @@ import VendorBadges from "./VendorBadges";
 import { memo, useCallback, useEffect } from "react";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import BarcodeImageComponent from "./BarcodeImageComponent";
-import { removeListItems } from "../../../inputSlice";
+import { removeListItems } from "../../../addedSlice";
+// import { removeListItems } from "../../../inputSlice";
 
 function SingleInputListItems({ itemObj, vendors }) {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ function SingleInputListItems({ itemObj, vendors }) {
     dispatch(addItems(itemObj));
     // notAddedVendors.length &&
     dispatch(removeListItems(itemObj));
-  }, [dispatch,  itemObj]);
+  }, [dispatch, itemObj]);
 
   useEffect(() => {
     // console.log("dispatch changed");

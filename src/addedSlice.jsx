@@ -1,14 +1,19 @@
 import { createSlice, current } from "@reduxjs/toolkit";
+import { shallowEqual } from "react-redux";
+import { createSelector } from "reselect";
+
+const empty = [];
 
 const initialState = {
-  MCK: [],
-  OI: [],
-  GNFR: [],
-  SOC: [],
-  VS: [],
-  MS: [],
-  COV: [],
-  FORS: [],
+  MCK: empty,
+  OI: empty,
+  GNFR: empty,
+  SOC: empty,
+  VS: empty,
+  MS: empty,
+  COV: empty,
+  FORS: empty,
+  listItems: empty,
 };
 
 export const addedSlice = createSlice({
@@ -36,8 +41,6 @@ export const addedSlice = createSlice({
   },
 });
 
-const empty = [];
-
 export const selectAllAdded = state => state.added;
 
 export const selectByVendor = vendor => state => state.added[vendor];
@@ -54,8 +57,6 @@ export const selectByVendorsAdded = (vendors, itemObj) => state => {
     : empty;
 };
 
-// export const checkIfSameArray = (e) => (state) => ;
-
 export const selectByVendorsNotAdded = (vendors, itemObj) => state => {
   return vendors.filter(e => !state.added[e].includes(itemObj)).length
     ? vendors.filter(e => !state.added[e].includes(itemObj))
@@ -65,3 +66,27 @@ export const selectByVendorsNotAdded = (vendors, itemObj) => state => {
 export const { addItems, removeItems, addItemsByVendor } = addedSlice.actions;
 
 export const addedReducer = addedSlice.reducer;
+
+export const inputSlice = createSlice({
+  name: "input",
+  initialState,
+  reducers: {
+    setListItems: (state, action) => {
+      state.listItems = action.payload;
+    },
+    removeListItems: (state, action) => {
+      state.listItems = state.listItems.filter(
+        ({ name }) => name !== action.payload.name
+      );
+    },
+  },
+});
+
+export const selectAllListItems = createSelector(
+  state => state.input.listItems,
+  listItems => listItems
+);
+
+export const { setListItems, removeListItems } = inputSlice.actions;
+
+export const inputReducer = inputSlice.reducer;
