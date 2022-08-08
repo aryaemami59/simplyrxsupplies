@@ -19,7 +19,7 @@ function SingleInputListItems({ itemObj, vendors }) {
     // notAddedVendors.length &&
     dispatch(addItems(itemObj));
     // notAddedVendors.length &&
-    dispatch(removeListItems(itemObj));
+    // dispatch(removeListItems(itemObj));
   }, [dispatch, itemObj]);
 
   useEffect(() => {
@@ -50,13 +50,15 @@ function SingleInputListItems({ itemObj, vendors }) {
       className="btn btn-success d-block w-100">
       Item Name: {itemObj.name}
       {vendors.map(e => (
-        <VendorBadges
-          vendors={vendors}
-          key={`${e}-${itemObj.name}-badge`}
-          itemObj={itemObj}
-          vendorName={e}
-          officialVendorName={officialVendorNames[e]}
-        />
+        <div>
+          <VendorBadges
+            vendors={vendors}
+            key={`${e}-${itemObj.name}-badge`}
+            itemObj={itemObj}
+            vendorName={e}
+            officialVendorName={officialVendorNames[e]}
+          />
+        </div>
       ))}
       <BarcodeImageComponent
         itemNumber={itemObj.itemNumber}

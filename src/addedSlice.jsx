@@ -26,8 +26,12 @@ export const addedSlice = createSlice({
       //     state[e].push(action.payload.itemObj);
       //   });
       action.payload.vendors.forEach(e => {
-        !current(state[e]).includes(action.payload) &&
+        if (!current(state[e]).includes(action.payload)) {
           state[e].push(action.payload);
+          state.listItems = state.listItems.filter(
+            ({ name }) => name !== action.payload.name
+          );
+        }
       });
     },
     addItemsByVendor: (state, action) => {
@@ -36,7 +40,10 @@ export const addedSlice = createSlice({
     removeItems: (state, action) => {
       state[action.payload.vendorName] = state[
         action.payload.vendorName
-      ].filter(e => e.name !== action.payload.itemObj.name);
+      ].filter(({ name }) => name !== action.payload.itemObj.name);
+    },
+    setListItems: (state, action) => {
+      state.listItems = action.payload;
     },
   },
 });
@@ -83,10 +90,10 @@ export const inputSlice = createSlice({
 });
 
 export const selectAllListItems = createSelector(
-  state => state.input.listItems,
+  state => state.added.listItems,
   listItems => listItems
 );
 
-export const { setListItems, removeListItems } = inputSlice.actions;
+export const { setListItems, removeListItems } = addedSlice.actions;
 
 export const inputReducer = inputSlice.reducer;
