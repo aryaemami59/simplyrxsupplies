@@ -1,17 +1,25 @@
-import { useState, useRef } from "react";
+import { useState, useCallback, useEffect, memo } from "react";
 import { ListGroupItem, Tooltip } from "reactstrap";
 
 function ItemNumberComponent({ vendorName, id, itemObj }) {
   const [tooltipOpen, setTooltipOpen] = useState(false);
-  const myRef = useRef(null);
+  // const myRef = useRef(null);
 
-  const toggle = () => setTooltipOpen(prev => !prev);
+  const toggle = useCallback(() => setTooltipOpen(prev => !prev), []);
 
-  const copyItemNumber = (e, text) => {
+  useEffect(() => {
+    // console.log("toggle changed");
+  }, [toggle]);
+
+  const copyItemNumber = useCallback(() => {
     toggle();
-    navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(itemObj.itemNumber);
     setTimeout(toggle, 800);
-  };
+  }, [toggle, itemObj.itemNumber]);
+
+  useEffect(() => {
+    // console.log("copyItemNumber changed");
+  }, [copyItemNumber]);
 
   return (
     <>
@@ -19,7 +27,7 @@ function ItemNumberComponent({ vendorName, id, itemObj }) {
         // ref={myRef}
         id={id}
         role="button"
-        onClick={ev => copyItemNumber(ev, itemObj.itemNumber)}
+        onClick={copyItemNumber}
         color="primary"
         key={`${itemObj.itemNumber}-${vendorName}-VendorColumn-ListGroupItem-name`}>
         Item Number: {itemObj.itemNumber}
@@ -31,4 +39,4 @@ function ItemNumberComponent({ vendorName, id, itemObj }) {
   );
 }
 
-export default ItemNumberComponent;
+export default memo(ItemNumberComponent);

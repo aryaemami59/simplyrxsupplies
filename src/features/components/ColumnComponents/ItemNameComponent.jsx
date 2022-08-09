@@ -1,17 +1,17 @@
-import { useRef, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { ListGroupItem, Tooltip } from "reactstrap";
 
 function ItemNameComponent({ vendorName, id, itemObj }) {
   const [tooltipOpen, setTooltipOpen] = useState(false);
-  const myRef = useRef(null);
+  // const myRef = useRef(null);
 
-  const toggle = () => setTooltipOpen(prev => !prev);
+  const toggle = useCallback(() => setTooltipOpen(prev => !prev), []);
 
-  const copyItemName = (e, text) => {
+  const copyItemName = useCallback(() => {
     toggle();
-    navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(itemObj.name);
     setTimeout(toggle, 800);
-  };
+  }, [toggle, itemObj.name]);
 
   return (
     <>
@@ -19,7 +19,7 @@ function ItemNameComponent({ vendorName, id, itemObj }) {
         // ref={myRef}
         id={id}
         role="button"
-        onClick={ev => copyItemName(ev, itemObj.name)}
+        onClick={copyItemName}
         color="success"
         key={`${itemObj.name}-${vendorName}-VendorColumn-ListGroupItem-name`}>
         Item Name: {itemObj.name}
@@ -31,4 +31,4 @@ function ItemNameComponent({ vendorName, id, itemObj }) {
   );
 }
 
-export default ItemNameComponent;
+export default memo(ItemNameComponent);
