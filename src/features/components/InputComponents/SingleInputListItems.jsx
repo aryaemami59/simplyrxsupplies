@@ -29,9 +29,13 @@ function SingleInputListItems({ itemObj, vendors }) {
   }, []);
 
   useEffect(() => {
-    console.log("SingleInputListItems Mounts");
-    return () => console.log("SingleInputListItems unMounts");
+    // console.log("SingleInputListItems Mounts");
+    // return () => console.log("SingleInputListItems unMounts");
   }, []);
+
+  useEffect(() => {
+    // console.log("SingleInputListItems renders");
+  });
 
   return (
     <button

@@ -11,6 +11,7 @@ import SingleAccordionListItem from "./SingleAccordionListItem";
 
 function VendorAccordion({ officialVendorName, items, vendorName, targetId }) {
   const renders = useRef(0);
+  // const ref = useRef();
   // console.log("renders:", renders.current++);
   return (
     <AccordionItem>

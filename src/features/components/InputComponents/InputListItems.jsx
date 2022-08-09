@@ -1,4 +1,4 @@
-import { memo, useEffect } from "react";
+import { memo, useEffect, useDeferredValue } from "react";
 import PropTypes from "prop-types";
 import SingleInputListItems from "./SingleInputListItems";
 import { selectAllListItems } from "../../../addedSlice";
@@ -6,10 +6,16 @@ import { useSelector, shallowEqual } from "react-redux";
 
 function InputListItems() {
   const listItems = useSelector(selectAllListItems, shallowEqual);
+  // const deferredListItems = useDeferredValue(listItems);
 
   useEffect(() => {
     // console.log("listItems changed");
   }, [listItems]);
+
+  // useEffect(() => {
+  //   // console.log("deferredListItems changed", deferredListItems);
+  //   // console.log("listItems changed", listItems);
+  // }, [deferredListItems, listItems]);
 
   useEffect(() => {
     // console.log("InputListItems mounts");
@@ -17,7 +23,7 @@ function InputListItems() {
   }, []);
 
   useEffect(() => {
-    console.log("InputListItems renders");
+    // console.log("InputListItems renders");
   });
 
   return (

@@ -7,7 +7,7 @@ import {
   ListGroupItem,
   Container,
 } from "reactstrap";
-import { useState, memo, useCallback } from "react";
+import { useState, memo, useCallback, useRef } from "react";
 import BadgeComponent from "./BadgeComponent";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
@@ -18,6 +18,7 @@ import BarcodeImageComponent from "../InputComponents/BarcodeImageComponent";
 
 function VendorColumn({ officialVendorName, vendorName }) {
   const [open, setOpen] = useState(() => false);
+  const nodeRef = useRef(null);
 
   const addedItems = useSelector(selectByVendor(vendorName));
   const buttonClick = useCallback(() => {
