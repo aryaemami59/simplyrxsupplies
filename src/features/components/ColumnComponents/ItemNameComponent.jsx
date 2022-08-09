@@ -3,7 +3,6 @@ import { ListGroupItem, Tooltip } from "reactstrap";
 
 function ItemNameComponent({ vendorName, id, itemObj }) {
   const [tooltipOpen, setTooltipOpen] = useState(false);
-  // const myRef = useRef(null);
 
   const toggle = useCallback(() => setTooltipOpen(prev => !prev), []);
 
@@ -16,7 +15,6 @@ function ItemNameComponent({ vendorName, id, itemObj }) {
   return (
     <>
       <ListGroupItem
-        // ref={myRef}
         id={id}
         role="button"
         onClick={copyItemName}

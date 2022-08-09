@@ -13,7 +13,8 @@ function RemoveButton({ vendorName, itemObj }) {
   return (
     <CloseButton
       key={`${vendorName}-${itemObj.name}-CloseButton`}
-      onClick={clickHandler}></CloseButton>
+      onClick={clickHandler}
+    />
   );
 }
 

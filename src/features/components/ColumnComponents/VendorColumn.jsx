@@ -4,9 +4,7 @@ import {
   Card,
   CardBody,
   ListGroup,
-  ListGroupItem,
   Container,
-  Tooltip,
 } from "reactstrap";
 import { useState, memo, useCallback, useRef } from "react";
 import BadgeComponent from "./BadgeComponent";
@@ -21,21 +19,13 @@ import ItemNumberComponent from "./ItemNumberComponent";
 
 function VendorColumn({ officialVendorName, vendorName }) {
   const [open, setOpen] = useState(() => false);
-  // const { item, id } = props;
-  // const [tooltipOpen, setTooltipOpen] = useState(false);
-
-  // const toggle = () => setTooltipOpen(prev => !prev);
-
-  // const copyItemName = (e, text) => {
-  //   toggle();
-  //   navigator.clipboard.writeText(text);
-  //   setTimeout(toggle, 800);
-  // };
 
   const addedItems = useSelector(selectByVendor(vendorName));
   const buttonClick = useCallback(() => {
     return setOpen(!open);
   }, [open]);
+
+  // const nodeRef = useRef(null);
 
   return (
     <div>
@@ -47,6 +37,7 @@ function VendorColumn({ officialVendorName, vendorName }) {
         block>
         {officialVendorName}
         <BadgeComponent
+          // // nodeRef={nodeRef}
           vendorName={vendorName}
           key={`${officialVendorName}-VendorColumn-Badge`}
         />
@@ -54,41 +45,35 @@ function VendorColumn({ officialVendorName, vendorName }) {
       <Collapse isOpen={open}>
         <Card>
           <CardBody>
-            <QRCodeImageComponent vendorName={vendorName} />
+            <QRCodeImageComponent
+              // // nodeRef={nodeRef}
+              vendorName={vendorName}
+            />
             <ListGroup>
               {addedItems.map((e, i) => (
                 <Container
                   color="danger"
                   className="bg-secondary p-4"
                   key={`${e.name}${vendorName}-VendorColumn-Container-name`}>
-                  <RemoveButton vendorName={vendorName} itemObj={e} />
+                  <RemoveButton
+                    // // nodeRef={nodeRef}
+                    vendorName={vendorName}
+                    itemObj={e}
+                  />
                   <ItemNameComponent
+                    // // nodeRef={nodeRef}
                     id={"Tooltip-" + i}
                     vendorName={vendorName}
                     itemObj={e}
                   />
                   <ItemNumberComponent
+                    // // nodeRef={nodeRef}
                     id={"Tooltip-" + e.itemNumber}
                     vendorName={vendorName}
                     itemObj={e}
                   />
-                  {/* <ListGroupItem
-                    id={"Tooltip-" + i}
-                    role="button"
-                    onClick={ev => copyItemName(ev, e.name)}
-                    color="success"
-                    key={`${e.name}-${vendorName}-VendorColumn-ListGroupItem-name`}>
-                    Item Name: {e.name}
-                  </ListGroupItem> */}
-                  {/* <Tooltip isOpen={tooltipOpen} target={"Tooltip-" + i}>
-                    Copied Item Name!
-                  </Tooltip> */}
-                  {/* <ListGroupItem
-                    color="primary"
-                    key={`${e.itemNumber}-${vendorName}-VendorColumn-ListGroupItem-number`}>
-                    Item Number: {e.itemNumber}
-                  </ListGroupItem> */}
                   <ColumnBarcodeImageComponent
+                    // // nodeRef={nodeRef}
                     src={e.src}
                     itemNumber={e.itemNumber}
                   />
