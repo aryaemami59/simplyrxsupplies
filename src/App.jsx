@@ -6,6 +6,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";
 import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
+import VerticalNavComponent from "./features/components/VerticalNavComponents/VerticalNavComponent";
 import { useQuery } from "react-query";
 const myURL =
   "https://api.github.com/repos/aryaemami59/simplysuppliesAPI/contents/items.json";
@@ -46,12 +47,22 @@ function App() {
   return (
     <div className="App">
       <NavbarComponent items={data} />
-      <Container>
-        <Row className="my-5">
-          <Col md="6">
+      <Container fluid>
+        <Row className="">
+          <Col
+            md="2"
+            className="ps-0 pe-0"
+            style={{
+              height: "calc(100vh - 56px)",
+              position: "sticky",
+              top: "56px",
+            }}>
+            <VerticalNavComponent />
+          </Col>
+          <Col md="5" className="my-5">
             <InputGroupComponent items={data} key={`InputGroupComponent`} />
           </Col>
-          <Col md="4">
+          <Col md="4" className="my-5">
             <VendorColumnList />
           </Col>
         </Row>
