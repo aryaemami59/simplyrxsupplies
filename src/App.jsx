@@ -6,7 +6,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";
 import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
-import VerticalNavComponent from "./features/components/VerticalNavComponents/VerticalNavComponent";
+import VerticalNavComponent from "./features/components/SideBarNavComponents/VerticalNavComponent";
 import { useQuery } from "react-query";
 const myURL =
   "https://api.github.com/repos/aryaemami59/simplysuppliesAPI/contents/items.json";
