@@ -4,29 +4,47 @@ import {
   AccordionBody,
   AccordionHeader,
   AccordionItem,
+  ListGroup,
+  ListGroupItem,
 } from "reactstrap";
 import { useState } from "react";
 import navList from "../../../data/navList";
 
-function VerticalNavComponent() {
-  const [open, setOpen] = useState("");
+const empty = [];
+
+function VerticalNavComponent({ items }) {
+  const [open, setOpen] = useState(empty);
+  // const renders = useRef(0);
+  // console.log("renders:", renders.current++);
+
   const toggle = id => {
-    if (open === id) {
-      setOpen();
+    if (open.includes(id)) {
+      setOpen(prev => {
+        const newOpen = prev.filter(e => e !== id);
+        return newOpen.length ? newOpen : empty;
+      });
     } else {
-      setOpen(id);
+      setOpen(prev => prev.concat(id));
     }
   };
+
   return (
-    <Nav
-      vertical
-      className="overflow-auto w-100 h-100"
-      style={{}}>
+    <Nav vertical className="overflow-auto w-100 h-100" style={{}}>
       <Accordion open={open} toggle={toggle}>
         {navList.map(e => (
-          <AccordionItem>
-            <AccordionHeader targetId="1">{e}</AccordionHeader>
-            <AccordionBody accordionId="1"></AccordionBody>
+          <AccordionItem key={`${e}-accordion-item`}>
+            <AccordionHeader key={`${e}-accordion-header`} targetId={e}>
+              {e}
+            </AccordionHeader>
+            <AccordionBody key={`${e}-accordion-body`} accordionId={e}>
+              <ListGroup>
+                {items
+                  .filter(({ nav }) => nav.includes(e))
+                  .map(f => (
+                    <ListGroupItem>{f.name}</ListGroupItem>
+                  ))}
+              </ListGroup>
+            </AccordionBody>
           </AccordionItem>
         ))}
       </Accordion>

@@ -57,7 +57,7 @@ function App() {
               position: "sticky",
               top: "56px",
             }}>
-            <VerticalNavComponent />
+            <VerticalNavComponent items={data} />
           </Col>
           <Col md="5" className="my-5">
             <InputGroupComponent items={data} key={`InputGroupComponent`} />

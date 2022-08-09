@@ -13,7 +13,6 @@ function VendorAccordionList({ items }) {
   // console.log("renders:", renders.current++);
 
   const toggle = id => {
-    // console.log(id);
     if (open.includes(id)) {
       setOpen(prev => {
         const newOpen = prev.filter(e => e !== id);
