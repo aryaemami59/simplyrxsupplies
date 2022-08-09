@@ -46,8 +46,8 @@ function App() {
       <div className="d-flex justify-content-center">
         <Spinner
           className="my-5"
-          color="primary"
-          style={{ width: "10rem", height: "10rem" }}>
+          color="info"
+          style={{ width: "10rem", height: "10rem", borderWidth: "1rem" }}>
           <span className="visually-hidden">Loading...</span>
         </Spinner>
       </div>
