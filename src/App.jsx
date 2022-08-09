@@ -48,7 +48,7 @@ function App() {
           className="my-5"
           color="info"
           style={{ width: "10rem", height: "10rem", borderWidth: "1rem" }}>
-          <span className="visually-hidden">Loading...</span>
+          Loading...
         </Spinner>
       </div>
     );

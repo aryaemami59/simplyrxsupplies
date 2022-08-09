@@ -47,6 +47,9 @@ export const selectAllAdded = state => state.added;
 
 export const selectByVendor = vendor => state => state.added[vendor];
 
+export const selectByVendorItemNumbers = (vendor, char) => state =>
+  state.added[vendor].map(({ itemNumber }) => itemNumber).join(char);
+
 export const checkIfAddedToAllVendors = (vendors, itemObj) => state => {
   const arr = vendors.filter(e => state.added[e].includes(itemObj));
   return vendors.length === arr.length;

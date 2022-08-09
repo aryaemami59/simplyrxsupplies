@@ -9,7 +9,11 @@ function VerticalNavComponent({ items }) {
       className="overflow-auto w-100 h-100"
       style={{}}
       key={"sidebar nav component"}>
-      <SideBarAccordionList items={items} key={"sidebar accordion list"} />
+      <SideBarAccordionList
+        // className="bg-dark bg-gradient"
+        items={items}
+        key={"sidebar accordion list"}
+      />
     </Nav>
   );
 }

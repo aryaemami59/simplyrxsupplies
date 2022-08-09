@@ -22,7 +22,11 @@ function SideBarAccordionList({ items }) {
   };
 
   return (
-    <Accordion open={open} toggle={toggle} key={`sidebar-accordion`}>
+    <Accordion
+      // className="bg-dark bg-gradient"
+      open={open}
+      toggle={toggle}
+      key={`sidebar-accordion`}>
       {navList.map(e => (
         <SideBarAccordion
           items={items}

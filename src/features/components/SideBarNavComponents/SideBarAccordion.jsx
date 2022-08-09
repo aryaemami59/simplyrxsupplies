@@ -9,11 +9,21 @@ import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
 
 function SideBarAccordion({ items, targetId }) {
   return (
-    <AccordionItem key={`${targetId}-accordion-item`}>
-      <AccordionHeader key={`${targetId}-accordion-header`} targetId={targetId}>
+    <AccordionItem
+      key={`${targetId}-accordion-item`}
+      // className="bg-dark bg-gradient"
+    >
+      <AccordionHeader
+        color="dark"
+        // className="bg-dark bg-gradient"
+        key={`${targetId}-accordion-header`}
+        targetId={targetId}>
         {targetId}
       </AccordionHeader>
-      <AccordionBody key={`${targetId}-accordion-body`} accordionId={targetId}>
+      <AccordionBody
+        // className="bg-dark bg-gradient"
+        key={`${targetId}-accordion-body`}
+        accordionId={targetId}>
         <ListGroup>
           {items
             .filter(({ nav }) => nav.includes(targetId))

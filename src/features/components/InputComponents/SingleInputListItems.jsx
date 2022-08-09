@@ -4,6 +4,7 @@ import VendorBadges from "./VendorBadges";
 import { memo, useCallback, useEffect } from "react";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import BarcodeImageComponent from "./BarcodeImageComponent";
+import QRCode from "qrcode";
 
 function SingleInputListItems({ itemObj, vendors }) {
   const dispatch = useDispatch();

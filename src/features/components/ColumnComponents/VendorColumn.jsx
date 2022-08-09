@@ -14,11 +14,10 @@ import { useSelector } from "react-redux";
 import { selectByVendor } from "../../../addedSlice";
 import RemoveButton from "./RemoveButton";
 import BarcodeImageComponent from "../InputComponents/BarcodeImageComponent";
-// import { connect } from "react-redux";
+import QRCodeImageComponent from "./QRCodeImageComponent";
 
 function VendorColumn({ officialVendorName, vendorName }) {
   const [open, setOpen] = useState(() => false);
-  const nodeRef = useRef(null);
 
   const addedItems = useSelector(selectByVendor(vendorName));
   const buttonClick = useCallback(() => {
@@ -42,6 +41,7 @@ function VendorColumn({ officialVendorName, vendorName }) {
       <Collapse isOpen={open}>
         <Card>
           <CardBody>
+            <QRCodeImageComponent vendorName={vendorName} />
             <ListGroup>
               {addedItems.map((e, i) => (
                 <Container
