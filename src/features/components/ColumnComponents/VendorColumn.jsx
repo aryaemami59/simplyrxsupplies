@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { selectByVendor } from "../../../addedSlice";
 import RemoveButton from "./RemoveButton";
-import BarcodeImageComponent from "../InputComponents/BarcodeImageComponent";
+import ColumnBarcodeImageComponent from "./ColumnBarcodeImageComponent";
 import QRCodeImageComponent from "./QRCodeImageComponent";
 import ItemNameComponent from "./ItemNameComponent";
 import ItemNumberComponent from "./ItemNumberComponent";
@@ -88,7 +88,7 @@ function VendorColumn({ officialVendorName, vendorName }) {
                     key={`${e.itemNumber}-${vendorName}-VendorColumn-ListGroupItem-number`}>
                     Item Number: {e.itemNumber}
                   </ListGroupItem> */}
-                  <BarcodeImageComponent
+                  <ColumnBarcodeImageComponent
                     src={e.src}
                     itemNumber={e.itemNumber}
                   />
