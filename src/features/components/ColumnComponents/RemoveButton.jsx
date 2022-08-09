@@ -1,15 +1,14 @@
 import { CloseButton } from "reactstrap";
-import { useSelector, useDispatch } from "react-redux";
-import { selectByVendor, removeItems } from "../../../addedSlice";
+import { useDispatch } from "react-redux";
+import { removeItems } from "../../../addedSlice";
+import { memo, useCallback } from "react";
 
 function RemoveButton({ vendorName, itemObj }) {
   const dispatch = useDispatch();
-  const addedItems = useSelector(selectByVendor(vendorName));
 
-  function clickHandler() {
-    addedItems.includes(itemObj) &&
-      dispatch(removeItems({ itemObj, vendorName }));
-  }
+  const clickHandler = useCallback(() => {
+    dispatch(removeItems({ itemObj, vendorName }));
+  }, [dispatch, itemObj, vendorName]);
 
   return (
     <CloseButton
@@ -18,4 +17,4 @@ function RemoveButton({ vendorName, itemObj }) {
   );
 }
 
-export default RemoveButton;
+export default memo(RemoveButton);

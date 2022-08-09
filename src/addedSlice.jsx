@@ -33,6 +33,9 @@ export const addedSlice = createSlice({
       state[action.payload.vendorName].push(state.action.payload.itemObj);
     },
     removeItems: (state, action) => {
+      // if (state[]) {
+
+      // }
       state[action.payload.vendorName] = state[
         action.payload.vendorName
       ].filter(({ name }) => name !== action.payload.itemObj.name);
