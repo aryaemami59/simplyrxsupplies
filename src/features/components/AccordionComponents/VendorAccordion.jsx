@@ -8,6 +8,7 @@ import BadgeComponent from "../ColumnComponents/BadgeComponent";
 import PropTypes from "prop-types";
 import { memo, useRef } from "react";
 import SingleAccordionListItem from "./SingleAccordionListItem";
+import JsBarcode from "jsbarcode";
 
 function VendorAccordion({ officialVendorName, items, vendorName, targetId }) {
   const renders = useRef(0);
