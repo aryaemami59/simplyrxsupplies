@@ -47,6 +47,11 @@ export const selectAllAdded = state => state.added;
 
 export const selectByVendor = vendor => state => state.added[vendor];
 
+export const checkIfAddedToAllVendors = (vendors, itemObj) => state => {
+  const arr = vendors.filter(e => state.added[e].includes(itemObj));
+  return vendors.length === arr.length;
+};
+
 export const checkIfItemAdded = (vendor, itemObj) => state =>
   state.added[vendor].includes(itemObj);
 
