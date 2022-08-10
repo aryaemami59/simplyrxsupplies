@@ -4,13 +4,14 @@ import { memo } from "react";
 import { useSelector } from "react-redux";
 import { selectByVendor } from "../../../addedSlice";
 
-function BadgeComponent({ vendorName }) {
+function BadgeComponent({ vendorName, className }) {
   const addedItems = useSelector(selectByVendor(vendorName));
 
   return (
     <Badge
-      className="position-absolute top-0 start-100 translate-middle border border-light opacity-75"
-      pill
+      className={className}
+      // className="float-end"
+      // pill
       color={addedItems.length ? "success" : "secondary"}>
       {addedItems.length}
     </Badge>

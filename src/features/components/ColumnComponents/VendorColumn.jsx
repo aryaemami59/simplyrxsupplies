@@ -37,6 +37,7 @@ function VendorColumn({ officialVendorName, vendorName }) {
         block>
         {officialVendorName}
         <BadgeComponent
+          className="float-end"
           vendorName={vendorName}
           key={`${officialVendorName}-VendorColumn-Badge`}
         />

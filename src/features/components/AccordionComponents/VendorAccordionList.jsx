@@ -5,38 +5,36 @@ import vendors from "../../../data/vendors.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import PropTypes from "prop-types";
 
-const empty = [];
+// const empty = [];
 
 function VendorAccordionList({ items }) {
-  const [open, setOpen] = useState(empty);
-  // const renders = useRef(0);
-  // console.log("renders:", renders.current++);
+  // const [open, setOpen] = useState(empty);
 
-  const toggle = id => {
-    if (open.includes(id)) {
-      setOpen(prev => {
-        const newOpen = prev.filter(e => e !== id);
-        return newOpen.length ? newOpen : empty;
-      });
-    } else {
-      setOpen(prev => prev.concat(id));
-    }
-  };
-
-  // console.dir(Accordion)
+  // const toggle = id => {
+  //   if (open.includes(id)) {
+  //     setOpen(prev => {
+  //       const newOpen = prev.filter(e => e !== id);
+  //       return newOpen.length ? newOpen : empty;
+  //     });
+  //   } else {
+  //     setOpen(prev => prev.concat(id));
+  //   }
+  // };
 
   return (
-    <Accordion open={open} toggle={toggle}>
+    // <Accordion open={open} toggle={toggle}>
+    <div className="bg-dark">
       {vendors.map((e, i) => (
         <VendorAccordion
           officialVendorName={officialVendorNames[e]}
           key={officialVendorNames[e]}
-          targetId={i.toString()}
+          // targetId={i.toString()}
           vendorName={e}
           items={items}
         />
       ))}
-    </Accordion>
+    </div>
+    // {/* </Accordion> */}
   );
 }
 

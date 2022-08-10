@@ -14,11 +14,13 @@ function SideBarAccordion({ items, targetId }) {
 
   return (
     <div>
-      <h2 className="accordion-header">
+      <h2 className="accordion-header bg-light bg-gradient">
         <Button
           onClick={toggle}
           color="light"
-          className={`accordion-button ${open ? "" : collapsed}`}>
+          className={`accordion-button bg-light bg-gradient ${
+            open ? "" : collapsed
+          }`}>
           {targetId}
         </Button>
       </h2>
@@ -26,9 +28,9 @@ function SideBarAccordion({ items, targetId }) {
         id={targetId}
         isOpen={open}
         ref={nodeRef}
-        className="accordion-collapse">
-        <Card>
-          <CardBody>
+        className="accordion-collapse bg-light bg-gradient">
+        <Card className="bg-light bg-gradient">
+          <CardBody className="bg-light bg-gradient">
             <ListGroup>
               {items
                 .filter(({ nav }) => nav.includes(targetId))
