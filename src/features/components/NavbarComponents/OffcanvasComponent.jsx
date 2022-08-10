@@ -13,7 +13,8 @@ import NavbarTogglerComponent from "./NavbarTogglerComponent";
 
 function OffcanvasComponent({ items }) {
   const [show, setShow] = useState(false);
-  const renders = useRef(0);
+  const nodeRef = useRef(null);
+  // const renders = useRef(0);
   // console.log("renders:", renders.current++);
 
   const toggle = useCallback(() => {
@@ -24,23 +25,27 @@ function OffcanvasComponent({ items }) {
     <>
       <NavbarTogglerComponent items={items} toggle={toggle} />
       {/* <NavbarToggler onClick={toggle} className="me-2" /> */}
-      <Collapse navbar>
-        <Nav className="me-auto" navbar>
+      <Collapse navbar nodeRef={nodeRef}>
+        <Nav className="me-auto" navbar nodeRef={nodeRef}>
           <VendorDropDownsList
+            nodeRef={nodeRef}
             items={items}
             className="d-none d-lg-inline-block"
           />
         </Nav>
       </Collapse>
       <Offcanvas
+        nodeRef={nodeRef}
         isOpen={show}
         toggle={toggle}
         unmountOnClose={false}
         scrollable={true}>
-        <OffcanvasHeader toggle={toggle}>Offcanvas</OffcanvasHeader>
-        <OffcanvasBody>
+        <OffcanvasHeader nodeRef={nodeRef} toggle={toggle}>
+          Offcanvas
+        </OffcanvasHeader>
+        <OffcanvasBody nodeRef={nodeRef}>
           <strong>This is the Offcanvas body.</strong>
-          <VendorAccordionList items={items} />
+          <VendorAccordionList items={items} nodeRef={nodeRef} />
         </OffcanvasBody>
       </Offcanvas>
     </>

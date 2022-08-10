@@ -81,7 +81,12 @@ function App() {
             }}>
             <VerticalNavComponent items={data} />
           </Col>
-          <Col md="5" className="my-5">
+          <Col
+            md={{
+              size: 4,
+              // offset: 1,
+            }}
+            className="my-5">
             <InputGroupComponent items={data} key={`InputGroupComponent`} />
           </Col>
           <Col md="4" className="my-5">

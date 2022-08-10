@@ -25,7 +25,7 @@ function VendorColumn({ officialVendorName, vendorName }) {
     return setOpen(!open);
   }, [open]);
 
-  // const nodeRef = useRef(null);
+  const nodeRef = useRef(null);
 
   return (
     <div>
@@ -37,43 +37,41 @@ function VendorColumn({ officialVendorName, vendorName }) {
         block>
         {officialVendorName}
         <BadgeComponent
-          // // nodeRef={nodeRef}
+          nodeRef={nodeRef}
           vendorName={vendorName}
           key={`${officialVendorName}-VendorColumn-Badge`}
         />
       </Button>
-      <Collapse isOpen={open}>
-        <Card>
-          <CardBody>
-            <QRCodeImageComponent
-              // // nodeRef={nodeRef}
-              vendorName={vendorName}
-            />
-            <ListGroup>
+      <Collapse isOpen={open} nodeRef={nodeRef}>
+        <Card nodeRef={nodeRef}>
+          <CardBody nodeRef={nodeRef}>
+            <QRCodeImageComponent nodeRef={nodeRef} vendorName={vendorName} />
+            <ListGroup nodeRef={nodeRef}>
               {addedItems.map((e, i) => (
                 <Container
+                  nodeRef={nodeRef}
                   color="danger"
                   className="bg-secondary p-4"
                   key={`${e.name}${vendorName}-VendorColumn-Container-name`}>
                   <RemoveButton
-                    // // nodeRef={nodeRef}
+                    nodeRef={nodeRef}
                     vendorName={vendorName}
                     itemObj={e}
                   />
                   <ItemNameComponent
-                    // // nodeRef={nodeRef}
+                    nodeRef={nodeRef}
                     id={"Tooltip-" + i}
                     vendorName={vendorName}
                     itemObj={e}
                   />
                   <ItemNumberComponent
-                    // // nodeRef={nodeRef}
+                    nodeRef={nodeRef}
                     id={"Tooltip-" + e.itemNumber}
                     vendorName={vendorName}
                     itemObj={e}
                   />
                   <ColumnBarcodeImageComponent
-                    // // nodeRef={nodeRef}
+                    nodeRef={nodeRef}
                     src={e.src}
                     itemNumber={e.itemNumber}
                   />
