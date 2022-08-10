@@ -6,7 +6,6 @@ function ItemNumberComponent({ vendorName, id, itemObj }) {
   return (
     <ListGroup.Item
       id={id}
-      role="button"
       variant="primary"
       key={`${itemObj.itemNumber}-${vendorName}-VendorColumn-ListGroupItem-itemNumber`}>
       Item Number: {itemObj.itemNumber}

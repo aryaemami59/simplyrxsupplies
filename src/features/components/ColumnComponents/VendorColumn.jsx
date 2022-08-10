@@ -66,6 +66,9 @@ function VendorColumn({ officialVendorName, vendorName }) {
                   <ColumnBarcodeImageComponent
                     src={e.src}
                     itemNumber={e.itemNumber}
+                    itemObj={e}
+                    vendorName={vendorName}
+                    officialVendorName={officialVendorName}
                   />
                 </Container>
               ))}
