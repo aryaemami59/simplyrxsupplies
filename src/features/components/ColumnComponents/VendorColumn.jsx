@@ -54,7 +54,7 @@ function VendorColumn({ officialVendorName, vendorName }) {
                   key={`${e.name}${vendorName}-VendorColumn-Container-name`}>
                   <RemoveButton vendorName={vendorName} itemObj={e} />
                   <ItemNameComponent
-                    id={"Tooltip-" + i}
+                    id={nodeRef}
                     vendorName={vendorName}
                     itemObj={e}
                   />
