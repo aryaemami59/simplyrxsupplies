@@ -22,7 +22,7 @@ function ColumnBarcodeImageComponent({ src, itemNumber }) {
   return (
     <div>
       <img src={src} alt={itemNumber} />
-      <PrintIconComponent src={src} text={"Print The Barcode"} />
+      <PrintIconComponent src={src} text={"Print This Barcode"} />
     </div>
   );
 }

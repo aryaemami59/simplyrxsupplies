@@ -27,7 +27,7 @@ function ItemNameComponent({ vendorName, id, itemObj }) {
         variant="success"
         key={`${itemObj.name}-${vendorName}-VendorColumn-ListGroupItem-name`}>
         Item Name: {itemObj.name}
-        <CopyIconComponent content={itemObj.name} />
+        <CopyIconComponent content={itemObj.name} text={"Name"} />
         {/* <FontAwesomeIcon
           icon={faCopy}
           size="lg"

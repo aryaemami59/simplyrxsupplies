@@ -4,7 +4,7 @@ import { memo, useCallback, useRef, useState } from "react";
 import { Tooltip } from "react-bootstrap";
 import { Overlay } from "react-bootstrap";
 
-function CopyIconComponent({ content }) {
+function CopyIconComponent({ content, text }) {
   const ref = useRef(null);
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const toggle = useCallback(() => setTooltipOpen(prev => !prev), []);
@@ -30,7 +30,7 @@ function CopyIconComponent({ content }) {
       <Overlay target={ref.current} show={tooltipOpen} placement="top">
         {props => (
           <Tooltip id="overlay-example" {...props}>
-            Copied Item Name!
+            Copied Item {text}!
           </Tooltip>
         )}
       </Overlay>
