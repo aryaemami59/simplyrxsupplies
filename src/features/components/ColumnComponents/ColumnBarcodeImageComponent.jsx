@@ -1,12 +1,14 @@
 import { memo, useEffect } from "react";
-import PrintIconComponent from "./PrintIconComponent";
+import PrintIconBarcodeComponent from "./PrintIconBarcodeComponent";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 // import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function ColumnBarcodeImageComponent({
   src,
   itemNumber,
   itemObj,
-  vendorName,
   officialVendorName,
 }) {
   useEffect(() => {
@@ -16,14 +18,20 @@ function ColumnBarcodeImageComponent({
 
   // return <LazyLoadImage src={src} alt={itemNumber} />;
   return (
-    <div>
-      <img src={src} alt={itemNumber} />
-      <PrintIconComponent
-        src={src}
-        text={"Print This Barcode"}
-        header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}
-      />
-    </div>
+    <Container fluid className="p-0">
+      <Row className="m-0 w-100">
+        <Col md={12} className="bg-dark bg-gradient justify-content-center p-0">
+          <img src={src} alt={itemNumber} className="align-self-center" />
+          <PrintIconBarcodeComponent
+            src={src}
+            text={"Print This Barcode"}
+            header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}
+          />
+        </Col>
+        {/* <Col md={2} className="bg-danger p-0 m-0"> */}
+        {/* </Col> */}
+      </Row>
+    </Container>
   );
 }
 

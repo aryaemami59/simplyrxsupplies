@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { selectByVendorItemNumbers } from "../../../addedSlice";
 import { memo } from "react";
 // import { MDBBtn, MDBIcon } from "mdb-react-ui-kit";
-import PrintIconComponent from "./PrintIconComponent";
+import PrintIconComponent from "./PrintIconQRCodeComponent";
 
 function QRCodeImageComponent({ vendorName }) {
   const itemNumbers = useSelector(
@@ -17,7 +17,7 @@ function QRCodeImageComponent({ vendorName }) {
   });
 
   return (
-    <div>
+    <div className="bg-dark bg-gradient">
       <img src={src} alt={src} />
       <PrintIconComponent src={src} text={"Print The QRCode"} />
     </div>

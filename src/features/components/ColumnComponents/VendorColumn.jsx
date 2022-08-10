@@ -50,7 +50,7 @@ function VendorColumn({ officialVendorName, vendorName }) {
               {addedItems.map((e, i) => (
                 <Container
                   color="danger"
-                  className="bg-secondary p-4"
+                  className="bg-secondary p-0"
                   key={`${e.name}${vendorName}-VendorColumn-Container-name`}>
                   <RemoveButton vendorName={vendorName} itemObj={e} />
                   <ItemNameComponent

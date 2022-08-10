@@ -5,9 +5,9 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import printjs from "print-js";
 
-function PrintIconComponent({ src, text, header }) {
+function PrintIconBarcodeComponent({ src, text, header }) {
   const renderTooltip = props => (
-    <Tooltip id="button-tooltip" {...props}>
+    <Tooltip className="position-absolute" id="button-tooltip" {...props}>
       {text}
     </Tooltip>
   );
@@ -33,11 +33,11 @@ function PrintIconComponent({ src, text, header }) {
         size="lg"
         inverse
         pull="right"
-        className="btn"
+        className="btn align-self-end"
         role="button"
       />
     </OverlayTrigger>
   );
 }
 
-export default memo(PrintIconComponent);
+export default memo(PrintIconBarcodeComponent);
