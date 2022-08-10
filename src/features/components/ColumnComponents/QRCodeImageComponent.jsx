@@ -19,7 +19,7 @@ function QRCodeImageComponent({ vendorName }) {
   return (
     <div>
       <img src={src} alt={src} />
-      <PrintIconComponent src={src} />
+      <PrintIconComponent src={src} text={"Print The QRCode"} />
     </div>
   );
 }
