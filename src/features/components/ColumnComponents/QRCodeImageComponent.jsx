@@ -2,8 +2,9 @@ import QRCode from "qrcode";
 import joinChars from "../../../data/joinCharacters";
 import { useSelector } from "react-redux";
 import { selectByVendorItemNumbers } from "../../../addedSlice";
-import { memo, useCallback } from "react";
-import printjs from "print-js";
+import { memo } from "react";
+// import { MDBBtn, MDBIcon } from "mdb-react-ui-kit";
+import PrintIconComponent from "./PrintIconComponent";
 
 function QRCodeImageComponent({ vendorName }) {
   const itemNumbers = useSelector(
@@ -15,16 +16,12 @@ function QRCodeImageComponent({ vendorName }) {
     src = url;
   });
 
-  const clickHandler = useCallback(() => {
-    printjs({
-      printable: src,
-      type: "image",
-      header: "QRCode",
-      imageStyle: "width:80%;margin-bottom:20px;",
-    });
-  }, [src]);
-
-  return <img src={src} alt={src} role="button" onClick={clickHandler} />;
+  return (
+    <div>
+      <img src={src} alt={src} />
+      <PrintIconComponent src={src} />
+    </div>
+  );
 }
 
 export default memo(QRCodeImageComponent);

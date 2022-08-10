@@ -44,7 +44,7 @@ function VendorColumn({ officialVendorName, vendorName }) {
       </Button>
       <Collapse isOpen={open}>
         <Card>
-          <CardBody>
+          <CardBody className="bg-dark bg-gradient">
             <QRCodeImageComponent vendorName={vendorName} />
             <ListGroup>
               {addedItems.map((e, i) => (
