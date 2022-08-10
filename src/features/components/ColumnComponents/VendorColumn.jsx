@@ -37,41 +37,32 @@ function VendorColumn({ officialVendorName, vendorName }) {
         block>
         {officialVendorName}
         <BadgeComponent
-          nodeRef={nodeRef}
           vendorName={vendorName}
           key={`${officialVendorName}-VendorColumn-Badge`}
         />
       </Button>
-      <Collapse isOpen={open} nodeRef={nodeRef}>
-        <Card nodeRef={nodeRef}>
-          <CardBody nodeRef={nodeRef}>
-            <QRCodeImageComponent nodeRef={nodeRef} vendorName={vendorName} />
-            <ListGroup nodeRef={nodeRef}>
+      <Collapse isOpen={open}>
+        <Card>
+          <CardBody>
+            <QRCodeImageComponent vendorName={vendorName} />
+            <ListGroup>
               {addedItems.map((e, i) => (
                 <Container
-                  nodeRef={nodeRef}
                   color="danger"
                   className="bg-secondary p-4"
                   key={`${e.name}${vendorName}-VendorColumn-Container-name`}>
-                  <RemoveButton
-                    nodeRef={nodeRef}
-                    vendorName={vendorName}
-                    itemObj={e}
-                  />
+                  <RemoveButton vendorName={vendorName} itemObj={e} />
                   <ItemNameComponent
-                    nodeRef={nodeRef}
                     id={"Tooltip-" + i}
                     vendorName={vendorName}
                     itemObj={e}
                   />
                   <ItemNumberComponent
-                    nodeRef={nodeRef}
                     id={"Tooltip-" + e.itemNumber}
                     vendorName={vendorName}
                     itemObj={e}
                   />
                   <ColumnBarcodeImageComponent
-                    nodeRef={nodeRef}
                     src={e.src}
                     itemNumber={e.itemNumber}
                   />
