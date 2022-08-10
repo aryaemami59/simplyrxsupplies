@@ -1,38 +1,37 @@
-import { useState, useCallback, useEffect, memo } from "react";
-import { ListGroupItem, Tooltip } from "reactstrap";
+import { useState, useCallback, useEffect, memo, useRef } from "react";
+import Tooltip from "react-bootstrap/Tooltip";
+import ListGroup from "react-bootstrap/ListGroup";
+import Overlay from "react-bootstrap/Overlay";
 
 function ItemNumberComponent({ vendorName, id, itemObj }) {
+  const ref = useRef(null);
   const [tooltipOpen, setTooltipOpen] = useState(false);
-
   const toggle = useCallback(() => setTooltipOpen(prev => !prev), []);
-
-  useEffect(() => {
-    // console.log("toggle changed");
-  }, [toggle]);
 
   const copyItemNumber = useCallback(() => {
     toggle();
     navigator.clipboard.writeText(itemObj.itemNumber);
-    setTimeout(toggle, 800);
+    setTimeout(toggle, 500);
   }, [toggle, itemObj.itemNumber]);
-
-  useEffect(() => {
-    // console.log("copyItemNumber changed");
-  }, [copyItemNumber]);
 
   return (
     <>
-      <ListGroupItem
+      <ListGroup.Item
+        ref={ref}
         id={id}
         role="button"
         onClick={copyItemNumber}
-        color="primary"
-        key={`${itemObj.itemNumber}-${vendorName}-VendorColumn-ListGroupItem-name`}>
-        Item Number: {itemObj.itemNumber}
-      </ListGroupItem>
-      <Tooltip isOpen={tooltipOpen} target={id}>
-        Copied Item Number!
-      </Tooltip>
+        variant="primary"
+        key={`${itemObj.itemNumber}-${vendorName}-VendorColumn-ListGroupItem-itemNumber`}>
+        Item Name: {itemObj.itemNumber}
+      </ListGroup.Item>
+      <Overlay target={ref.current} show={tooltipOpen} placement="top">
+        {props => (
+          <Tooltip id="overlay-example" {...props}>
+            Copied Item Number!
+          </Tooltip>
+        )}
+      </Overlay>
     </>
   );
 }
