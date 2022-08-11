@@ -4,6 +4,7 @@ import ItemNameComponent from "./ItemNameComponent";
 import ItemNumberComponent from "./ItemNumberComponent";
 import ColumnBarcodeImageComponent from "./ColumnBarcodeImageComponent";
 import { memo } from "react";
+import PropTypes from "prop-types";
 
 function SingleVendorColumnListItem({
   itemObj,
@@ -12,7 +13,6 @@ function SingleVendorColumnListItem({
 }) {
   return (
     <Container
-      color="danger"
       className="bg-secondary p-0"
       key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
       <RemoveButton
@@ -41,5 +41,18 @@ function SingleVendorColumnListItem({
     </Container>
   );
 }
+
+PropTypes.propTypes = {
+  vendorName: PropTypes.string,
+  officialVendorName: PropTypes.string,
+  itemObj: PropTypes.shape({
+    name: PropTypes.string,
+    itemNumber: PropTypes.string,
+    keywords: PropTypes.arrayOf(PropTypes.string),
+    nav: PropTypes.arrayOf(PropTypes.string),
+    vendors: PropTypes.arrayOf(PropTypes.string),
+    src: PropTypes.string,
+  }),
+};
 
 export default memo(SingleVendorColumnListItem);

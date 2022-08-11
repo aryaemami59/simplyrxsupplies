@@ -1,11 +1,14 @@
-import { DropdownToggle, DropdownMenu, Dropdown } from "reactstrap";
 import SingleDropDown from "./SingleDropDown";
 import PropTypes from "prop-types";
-import { memo, useEffect, useState, useRef, useMemo, useCallback } from "react";
+import { memo, useEffect, useState, useMemo, useCallback } from "react";
+import { Dropdown } from "react-bootstrap";
+import { ButtonGroup } from "react-bootstrap";
+import { NavDropdown } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 
 function VendorDropDown({ officialVendorName, items, vendorName }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const renders = useRef(0);
+  // const renders = useRef(0);
   // console.log("renders:", renders.current++);
 
   const myItems = useMemo(() => {
@@ -43,21 +46,26 @@ function VendorDropDown({ officialVendorName, items, vendorName }) {
 
   return (
     <Dropdown
-      className="me-2 d-none d-lg-inline-block"
-      isOpen={dropdownOpen}
-      toggle={toggle}>
-      <DropdownToggle caret>{officialVendorName}</DropdownToggle>
-      <DropdownMenu dark>
-        {myItems.map(e => (
-          <SingleDropDown
-            key={`${e.name}-${vendorName}`}
-            itemObj={e}
-            items={items}
-            vendorName={vendorName}
-            vendors={e.vendors}
-          />
-        ))}
-      </DropdownMenu>
+      className="me-3"
+      autoClose="outside"
+      navbar={true}
+      show={dropdownOpen}
+      onSelect={toggle}
+      onToggle={toggle}>
+      <Dropdown.Toggle variant="secondary">
+        {officialVendorName}
+        <Dropdown.Menu variant="dark" show={dropdownOpen}>
+          {myItems.map(e => (
+            <SingleDropDown
+              key={`${e.name}-${vendorName}`}
+              itemObj={e}
+              items={items}
+              vendorName={vendorName}
+              vendors={e.vendors}
+            />
+          ))}
+        </Dropdown.Menu>
+      </Dropdown.Toggle>
     </Dropdown>
   );
 }

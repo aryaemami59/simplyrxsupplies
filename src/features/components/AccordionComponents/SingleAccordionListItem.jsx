@@ -1,5 +1,5 @@
-import { ListGroupItem } from "reactstrap";
 import { memo, useEffect, useCallback, useMemo, useRef } from "react";
+import { ListGroup } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { addItems, checkIfItemAdded } from "../../../addedSlice";
 
@@ -22,12 +22,12 @@ function SingleAccordionListItem({ itemObj, vendorName }) {
   }, [dispatch]);
 
   return (
-    <ListGroupItem
+    <ListGroup.Item
       role="button"
       className={ifAdded ? "text-decoration-line-through" : ""}
       onClick={clickHandler}>
       {itemObj.name}
-    </ListGroupItem>
+    </ListGroup.Item>
   );
 }
 

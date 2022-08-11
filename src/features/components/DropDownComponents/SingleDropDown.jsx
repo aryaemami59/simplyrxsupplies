@@ -1,9 +1,10 @@
-import { DropdownItem } from "reactstrap";
 import { memo, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
 import { addItems, checkIfItemAdded } from "../../../addedSlice";
 // import { connect } from "react-redux";
 import { useSelector, useDispatch } from "react-redux";
+import { Dropdown } from "react-bootstrap";
+import { NavDropdown } from "react-bootstrap";
 
 function SingleDropDown({ itemObj, vendorName }) {
   const dispatch = useDispatch();
@@ -31,12 +32,12 @@ function SingleDropDown({ itemObj, vendorName }) {
   });
 
   return (
-    <DropdownItem
-      toggle={false}
+    <Dropdown.Item
+      // toggle={false}
       className={ifAdded ? "text-decoration-line-through" : ""}
       onClick={clickHandler}>
       {itemObj.name}
-    </DropdownItem>
+    </Dropdown.Item>
   );
 }
 

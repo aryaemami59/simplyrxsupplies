@@ -1,17 +1,11 @@
-import {
-  AccordionBody,
-  AccordionHeader,
-  AccordionItem,
-  ListGroup,
-  Button,
-  Collapse,
-  Card,
-  CardBody,
-} from "reactstrap";
 import BadgeComponent from "../ColumnComponents/BadgeComponent";
 import PropTypes from "prop-types";
 import { memo, useCallback, useRef, useState } from "react";
 import SingleAccordionListItem from "./SingleAccordionListItem";
+import { Button } from "react-bootstrap";
+import { Collapse } from "react-bootstrap";
+import { Card } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 
 const collapsed = "collapsed";
 
@@ -27,7 +21,7 @@ function VendorAccordion({ officialVendorName, items, vendorName }) {
       <h2 className="accordion-header bg-light bg-gradient">
         <Button
           onClick={toggle}
-          color="light"
+          variant="light"
           className={`accordion-button bg-light bg-gradient ${
             open ? "" : collapsed
           }`}>
@@ -41,10 +35,10 @@ function VendorAccordion({ officialVendorName, items, vendorName }) {
       </h2>
       <Collapse
         id={vendorName}
-        isOpen={open}
+        in={open}
         className="accordion-collapse bg-light bg-gradient">
         <Card className="bg-light bg-gradient">
-          <CardBody className="bg-light bg-gradient">
+          <Card.Body className="bg-light bg-gradient">
             <ListGroup>
               {items
                 .filter(e => e[vendorName])
@@ -58,7 +52,7 @@ function VendorAccordion({ officialVendorName, items, vendorName }) {
                   />
                 ))}
             </ListGroup>
-          </CardBody>
+          </Card.Body>
         </Card>
       </Collapse>
     </div>

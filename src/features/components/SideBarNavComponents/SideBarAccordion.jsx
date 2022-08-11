@@ -1,5 +1,9 @@
 import { memo, useCallback, useRef, useState } from "react";
-import { ListGroup, Collapse, Button, Card, CardBody } from "reactstrap";
+import { Collapse } from "react-bootstrap";
+import { Card } from "react-bootstrap";
+// import { Button } from "react-bootstrap/Button";
+import Button from "react-bootstrap/Button";
+import ListGroup from "react-bootstrap/ListGroup";
 import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
 
 const collapsed = "collapsed";
@@ -17,7 +21,7 @@ function SideBarAccordion({ items, targetId }) {
       <h2 className="accordion-header bg-light bg-gradient">
         <Button
           onClick={toggle}
-          color="light"
+          variant="light"
           className={`accordion-button bg-light bg-gradient ${
             open ? "" : collapsed
           }`}>
@@ -26,11 +30,11 @@ function SideBarAccordion({ items, targetId }) {
       </h2>
       <Collapse
         id={targetId}
-        isOpen={open}
+        in={open}
         ref={nodeRef}
         className="accordion-collapse bg-light bg-gradient">
         <Card className="bg-light bg-gradient">
-          <CardBody className="bg-light bg-gradient">
+          <Card.Body className="bg-light bg-gradient">
             <ListGroup>
               {items
                 .filter(({ nav }) => nav.includes(targetId))
@@ -43,7 +47,7 @@ function SideBarAccordion({ items, targetId }) {
                   />
                 ))}
             </ListGroup>
-          </CardBody>
+          </Card.Body>
         </Card>
       </Collapse>
     </div>

@@ -1,5 +1,8 @@
 import "./App.css";
-import { Col, Row, Container, Spinner, Placeholder } from "reactstrap";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Spinner from "react-bootstrap/Spinner";
 import { memo } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -8,13 +11,7 @@ import InputGroupComponent from "./features/components/InputComponents/InputGrou
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
 import VerticalNavComponent from "./features/components/SideBarNavComponents/VerticalNavComponent";
 import { useQuery } from "react-query";
-import { Card } from "reactstrap";
-import { CardImg } from "reactstrap";
-import { CardBody } from "reactstrap";
-import { PlaceholderButton } from "reactstrap";
-import { Navbar } from "reactstrap";
-import { NavbarBrand } from "reactstrap";
-import OffcanvasComponent from "./features/components/NavbarComponents/OffcanvasComponent";
+// import OffcanvasComponent from "./features/components/NavbarComponents/OffcanvasComponent";
 const myURL =
   "https://api.github.com/repos/aryaemami59/simplysuppliesAPI/contents/items.json";
 
@@ -46,7 +43,7 @@ function App() {
       <div className="d-flex justify-content-center">
         <Spinner
           className="my-5"
-          color="info"
+          variant="info"
           style={{ width: "10rem", height: "10rem", borderWidth: "1rem" }}>
           Loading...
         </Spinner>
@@ -63,12 +60,6 @@ function App() {
   return (
     <div className="App">
       <NavbarComponent items={data} />
-      {/* <Navbar color="dark" dark expand="lg" sticky="top">
-        <NavbarBrand href="/" className="me-3">
-          Simply Supplies
-        </NavbarBrand>
-        <OffcanvasComponent items={data} />
-      </Navbar> */}
       <Container fluid>
         <Row className="">
           <Col

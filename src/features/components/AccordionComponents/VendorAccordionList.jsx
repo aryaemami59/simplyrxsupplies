@@ -1,5 +1,4 @@
 import VendorAccordion from "./VendorAccordion";
-import { Accordion } from "reactstrap";
 import { memo, useState, useRef } from "react";
 import vendors from "../../../data/vendors.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";

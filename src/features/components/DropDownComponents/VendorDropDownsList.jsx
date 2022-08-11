@@ -3,6 +3,9 @@ import vendors from "../../../data/vendors.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import { memo, useEffect } from "react";
 import PropTypes from "prop-types";
+import { Nav } from "react-bootstrap";
+import { NavDropdown } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
 
 function VendorDropDownsList({ items }) {
   useEffect(() => {
@@ -10,6 +13,7 @@ function VendorDropDownsList({ items }) {
   });
 
   return (
+    // {/* // <Navbar expand="lg" bg="primary" className=""> */}
     <>
       {vendors.map((e, i) => (
         <VendorDropDown
@@ -21,6 +25,7 @@ function VendorDropDownsList({ items }) {
         />
       ))}
     </>
+    // {/* </Navbar> */}
   );
 }
 

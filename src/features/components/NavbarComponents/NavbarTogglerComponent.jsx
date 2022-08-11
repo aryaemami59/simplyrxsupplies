@@ -1,7 +1,5 @@
 import { memo, useCallback, useRef, useState } from "react";
-import { Nav } from "reactstrap";
-import { Collapse } from "reactstrap";
-import { NavbarToggler } from "reactstrap";
+import { Navbar } from "react-bootstrap";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 
 function NavbarTogglerComponent({ items, toggle }) {
@@ -13,7 +11,7 @@ function NavbarTogglerComponent({ items, toggle }) {
   //   setShow(prev => !prev);
   // }, []);
   return (
-    <NavbarToggler onClick={toggle} className="me-2" />
+    <Navbar.Toggle onClick={toggle} className="me-2" />
     /* <Collapse navbar>
         <Nav className="me-auto" navbar>
           <VendorDropDownsList items={items} />

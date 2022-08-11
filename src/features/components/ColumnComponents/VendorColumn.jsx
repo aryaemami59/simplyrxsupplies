@@ -1,11 +1,14 @@
-import { Button, Collapse, Card, CardBody, ListGroup } from "reactstrap";
-import { useState, memo, useCallback, useRef } from "react";
+import { useState, memo, useCallback } from "react";
 import BadgeComponent from "./BadgeComponent";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { selectByVendor } from "../../../addedSlice";
 import QRCodeImageComponent from "./QRCodeImageComponent";
 import SingleVendorColumnListItem from "./SingleVendorColumnListItem";
+import { Button } from "react-bootstrap";
+import { Collapse } from "react-bootstrap";
+import { Card } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 
 function VendorColumn({ officialVendorName, vendorName }) {
   const [open, setOpen] = useState(false);
@@ -19,11 +22,10 @@ function VendorColumn({ officialVendorName, vendorName }) {
   return (
     <div>
       <Button
-        className="position-relative"
-        color="primary"
+        className="position-relative d-block w-100"
+        variant="primary"
         onClick={buttonClick}
-        key={`${officialVendorName}-VendorColumn-Button`}
-        block>
+        key={`${officialVendorName}-VendorColumn-Button`}>
         {officialVendorName}
         <BadgeComponent
           className="float-end"
@@ -31,9 +33,9 @@ function VendorColumn({ officialVendorName, vendorName }) {
           key={`${officialVendorName}-VendorColumn-Badge`}
         />
       </Button>
-      <Collapse isOpen={open}>
+      <Collapse in={open}>
         <Card>
-          <CardBody className="bg-dark bg-gradient">
+          <Card.Body className="bg-dark bg-gradient">
             <QRCodeImageComponent vendorName={vendorName} />
             <ListGroup>
               {addedItems.map(e => (
@@ -43,32 +45,9 @@ function VendorColumn({ officialVendorName, vendorName }) {
                   officialVendorName={officialVendorName}
                   key={`${e.name}-${vendorName}-SingleVendorColumnListItem`}
                 />
-                // <Container
-                //   color="danger"
-                //   className="bg-secondary p-0"
-                //   key={`${e.name}${vendorName}-VendorColumn-Container-name`}>
-                //   <RemoveButton vendorName={vendorName} itemObj={e} />
-                //   <ItemNameComponent
-                //     id={nodeRef}
-                //     vendorName={vendorName}
-                //     itemObj={e}
-                //   />
-                //   <ItemNumberComponent
-                //     id={"Tooltip-" + e.itemNumber}
-                //     vendorName={vendorName}
-                //     itemObj={e}
-                //   />
-                //   <ColumnBarcodeImageComponent
-                //     src={e.src}
-                //     itemNumber={e.itemNumber}
-                //     itemObj={e}
-                //     vendorName={vendorName}
-                //     officialVendorName={officialVendorName}
-                //   />
-                // </Container>
               ))}
             </ListGroup>
-          </CardBody>
+          </Card.Body>
         </Card>
       </Collapse>
     </div>

@@ -4,7 +4,6 @@ import VendorBadges from "./VendorBadges";
 import { memo, useCallback, useEffect } from "react";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import BarcodeImageComponent from "./BarcodeImageComponent";
-import QRCode from "qrcode";
 
 function SingleInputListItems({ itemObj, vendors }) {
   const dispatch = useDispatch();
@@ -58,6 +57,7 @@ function SingleInputListItems({ itemObj, vendors }) {
       <BarcodeImageComponent
         itemNumber={itemObj.itemNumber}
         src={itemObj.src}
+        key={`${itemObj.name}-BarcodeImageComponent-inputListItem`}
       />
     </button>
   );

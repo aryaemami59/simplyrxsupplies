@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { memo, useCallback, useRef, useReducer } from "react";
 import { Tooltip } from "react-bootstrap";
 import { Overlay } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 const ACTIONS = {
   CLICK_ON_ICON: "clickOnIcon",
@@ -43,7 +44,7 @@ const initialState = {
   hovered: false,
 };
 
-function CopyIconComponent({ content, text, placement }) {
+function CopyIconComponent({ content, text, placement, vendorName, itemObj }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { copied, hovered } = state;
   const oldText = `Click to Copy The Item ${text}`;
@@ -85,17 +86,32 @@ function CopyIconComponent({ content, text, placement }) {
         pull="right"
         className="btn"
         role="button"
+        key={`${itemObj.name}-${content}-${vendorName}-FontAwesomeIcon-CopyIconComponent`}
       />
-      <Overlay target={ref.current} show={copied} placement={placement}>
+      <Overlay
+        target={ref.current}
+        show={copied}
+        placement={placement}
+        key={`${itemObj.name}-${vendorName}-${content}-first-overlay`}>
         {props => (
-          <Tooltip id="overlay-example" {...props}>
+          <Tooltip
+            key={`${content}-${copiedText}-first-tooltip`}
+            id="overlay-example"
+            {...props}>
             {copiedText}
           </Tooltip>
         )}
       </Overlay>
-      <Overlay target={ref.current} show={hovered} placement={placement}>
+      <Overlay
+        target={ref.current}
+        show={hovered}
+        placement={placement}
+        key={`${itemObj.name}-${vendorName}-${content}-second-overlay`}>
         {props => (
-          <Tooltip id="overlay-example" {...props}>
+          <Tooltip
+            id="overlay-example"
+            key={`${content}-${oldText}-second-tooltip`}
+            {...props}>
             {oldText}
           </Tooltip>
         )}
@@ -103,5 +119,20 @@ function CopyIconComponent({ content, text, placement }) {
     </>
   );
 }
+
+CopyIconComponent.propTypes = {
+  content: PropTypes.string,
+  text: PropTypes.string,
+  placement: PropTypes.string,
+  vendorName: PropTypes.string,
+  itemObj: PropTypes.shape({
+    name: PropTypes.string,
+    itemNumber: PropTypes.string,
+    keywords: PropTypes.arrayOf(PropTypes.string),
+    nav: PropTypes.arrayOf(PropTypes.string),
+    vendors: PropTypes.arrayOf(PropTypes.string),
+    src: PropTypes.string,
+  }),
+};
 
 export default memo(CopyIconComponent);

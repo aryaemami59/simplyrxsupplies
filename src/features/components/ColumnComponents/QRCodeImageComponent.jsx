@@ -3,6 +3,7 @@ import joinChars from "../../../data/joinCharacters";
 import { useSelector } from "react-redux";
 import { selectByVendorItemNumbers } from "../../../addedSlice";
 import { memo } from "react";
+import PropTypes from "prop-types";
 // import { MDBBtn, MDBIcon } from "mdb-react-ui-kit";
 import PrintIconQRCodeComponent from "./PrintIconQRCodeComponent";
 
@@ -17,11 +18,26 @@ function QRCodeImageComponent({ vendorName }) {
   });
 
   return (
-    <div className="bg-dark bg-gradient">
-      <img src={src} alt={src} />
-      <PrintIconQRCodeComponent src={src} text={"Print The QRCode"} />
+    <div
+      className="bg-dark bg-gradient"
+      key={`${vendorName}-container-QRCodeImageComponent`}>
+      <img
+        src={src}
+        alt={src}
+        key={`${vendorName}-QRCode-image-QRCodeImageComponent`}
+      />
+      <PrintIconQRCodeComponent
+        vendorName={vendorName}
+        src={src}
+        text={"Print The QRCode"}
+        key={`${vendorName}-PrintIconQRCodeComponent-QRCodeImageComponent`}
+      />
     </div>
   );
 }
+
+QRCodeImageComponent.propTypes = {
+  vendorName: PropTypes.string,
+};
 
 export default memo(QRCodeImageComponent);

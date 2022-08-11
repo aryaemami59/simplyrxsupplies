@@ -1,13 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
-import { memo, useCallback, useEffect, useMemo } from "react";
+import { memo, useCallback } from "react";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import printjs from "print-js";
+import PropTypes from "prop-types";
 
-function PrintIconQRCodeComponent({ src, text }) {
+function PrintIconQRCodeComponent({ src, text, vendorName }) {
   const renderTooltip = props => (
-    <Tooltip id="button-tooltip" {...props}>
+    <Tooltip key={`${vendorName}-tooltip`} id="button-tooltip" {...props}>
       {text}
     </Tooltip>
   );
@@ -24,6 +25,7 @@ function PrintIconQRCodeComponent({ src, text }) {
   return (
     <OverlayTrigger
       placement="right"
+      key={`${vendorName}-PrintIconQRCodeComponent-OverlayTrigger`}
       delay={{ show: 100, hide: 100 }}
       overlay={renderTooltip}
       trigger={["hover", "focus"]}>
@@ -35,9 +37,16 @@ function PrintIconQRCodeComponent({ src, text }) {
         pull="right"
         className="btn"
         role="button"
+        key={`${vendorName}-FontAwesomeIcon-PrintIconQRCodeComponent`}
       />
     </OverlayTrigger>
   );
 }
+
+PrintIconQRCodeComponent.propTypes = {
+  src: PropTypes.string,
+  text: PropTypes.string,
+  vendorName: PropTypes.string,
+};
 
 export default memo(PrintIconQRCodeComponent);

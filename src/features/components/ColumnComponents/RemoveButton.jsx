@@ -1,7 +1,8 @@
-import { CloseButton } from "reactstrap";
 import { useDispatch } from "react-redux";
 import { removeItems } from "../../../addedSlice";
 import { memo, useCallback } from "react";
+import { CloseButton } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 function RemoveButton({ vendorName, itemObj }) {
   const dispatch = useDispatch();
@@ -17,5 +18,17 @@ function RemoveButton({ vendorName, itemObj }) {
     />
   );
 }
+
+RemoveButton.propTypes = {
+  vendorName: PropTypes.string,
+  itemObj: PropTypes.shape({
+    name: PropTypes.string,
+    itemNumber: PropTypes.string,
+    keywords: PropTypes.arrayOf(PropTypes.string),
+    nav: PropTypes.arrayOf(PropTypes.string),
+    vendors: PropTypes.arrayOf(PropTypes.string),
+    src: PropTypes.string,
+  }),
+};
 
 export default memo(RemoveButton);

@@ -1,14 +1,11 @@
 import { useState, useCallback, memo, useRef } from "react";
-import {
-  Collapse,
-  Nav,
-  Offcanvas,
-  OffcanvasHeader,
-  OffcanvasBody,
-} from "reactstrap";
-import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
+// import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import VendorAccordionList from "../AccordionComponents/VendorAccordionList";
 import NavbarTogglerComponent from "./NavbarTogglerComponent";
+import { Collapse } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
+import { Offcanvas } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
 
 function OffcanvasComponent({ items }) {
   const [show, setShow] = useState(false);
@@ -23,24 +20,24 @@ function OffcanvasComponent({ items }) {
   return (
     <>
       <NavbarTogglerComponent items={items} toggle={toggle} />
-      <Collapse navbar>
+      {/* <Navbar.Collapse in={!show}>
         <Nav className="me-auto" navbar>
           <VendorDropDownsList
             items={items}
             className="d-none d-lg-inline-block"
           />
         </Nav>
-      </Collapse>
+      </Navbar.Collapse> */}
       <Offcanvas
-        isOpen={show}
+        show={show}
         toggle={toggle}
         unmountOnClose={false}
         scrollable={true}>
-        <OffcanvasHeader toggle={toggle}>Offcanvas</OffcanvasHeader>
-        <OffcanvasBody>
+        <Offcanvas.Header toggle={toggle}>Offcanvas</Offcanvas.Header>
+        <Offcanvas.Body>
           <strong>This is the Offcanvas body.</strong>
           <VendorAccordionList items={items} />
-        </OffcanvasBody>
+        </Offcanvas.Body>
       </Offcanvas>
     </>
   );

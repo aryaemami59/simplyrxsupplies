@@ -1,16 +1,15 @@
 import { memo, useCallback } from "react";
+import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { ListGroupItem, Button } from "reactstrap";
 import { addItems, checkIfAddedToAllVendors } from "../../../addedSlice";
+import PropTypes from "prop-types";
 
 function SingleSideBarAccordionListItem({ targetId, itemObj }) {
   const dispatch = useDispatch();
   const ifAddedToAllVendors = useSelector(
     checkIfAddedToAllVendors(itemObj.vendors, itemObj)
   );
-
-  // console.log(ifAddedToAllVendors);
 
   const clickHandler = useCallback(() => {
     dispatch(addItems(itemObj));
@@ -19,15 +18,24 @@ function SingleSideBarAccordionListItem({ targetId, itemObj }) {
   return (
     <Button
       role="button"
-      color={ifAddedToAllVendors ? "success" : "primary"}
-      outline={ifAddedToAllVendors ? false : true}
-      // disabled={ifAddedToAllVendors ? true : false}
+      variant={ifAddedToAllVendors ? "success" : "outline-primary"}
       onClick={clickHandler}
-      // className={ifAddedToAllVendors ? "bg-success text-white" : ""}
       key={`${itemObj.name}-${targetId}-ListGroupItem-sidebar`}>
       {itemObj.name}
     </Button>
   );
 }
+
+SingleSideBarAccordionListItem.propTypes = {
+  targetId: PropTypes.string,
+  itemObj: PropTypes.shape({
+    name: PropTypes.string,
+    itemNumber: PropTypes.string,
+    keywords: PropTypes.arrayOf(PropTypes.string),
+    nav: PropTypes.arrayOf(PropTypes.string),
+    vendors: PropTypes.arrayOf(PropTypes.string),
+    src: PropTypes.string,
+  }),
+};
 
 export default memo(SingleSideBarAccordionListItem);

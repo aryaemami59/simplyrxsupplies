@@ -1,12 +1,11 @@
 import { memo } from "react";
-import { Nav } from "reactstrap";
+import Nav from "react-bootstrap/Nav";
 import SideBarAccordionList from "./SideBarAccordionList";
 
 function VerticalNavComponent({ items }) {
   return (
     <Nav
-      vertical
-      className="overflow-auto w-100 h-100"
+      className="flex-column overflow-auto w-100 h-100"
       style={{}}
       key={"sidebar nav component"}>
       <SideBarAccordionList

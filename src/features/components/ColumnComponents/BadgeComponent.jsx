@@ -1,6 +1,6 @@
-import { Badge } from "reactstrap";
 import PropTypes from "prop-types";
 import { memo } from "react";
+import { Badge } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { selectByVendor } from "../../../addedSlice";
 
@@ -10,21 +10,16 @@ function BadgeComponent({ vendorName, className }) {
   return (
     <Badge
       className={className}
-      // className="float-end"
-      // pill
-      color={addedItems.length ? "success" : "secondary"}>
+      key={`${vendorName}-Badge-BadgeComponent`}
+      bg={addedItems.length ? "success" : "secondary"}>
       {addedItems.length}
     </Badge>
   );
 }
 
 BadgeComponent.propTypes = {
-  itemsAdded: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      itemNumber: PropTypes.string,
-    })
-  ),
+  vendorName: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default memo(BadgeComponent);

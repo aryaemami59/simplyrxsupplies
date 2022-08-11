@@ -1,14 +1,18 @@
-import { Navbar, NavbarBrand } from "reactstrap";
+import Navbar from "react-bootstrap/Navbar";
 import { memo, useRef } from "react";
 import PropTypes from "prop-types";
 import OffcanvasComponent from "./OffcanvasComponent";
+import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
+import { Nav } from "react-bootstrap";
+import { NavDropdown } from "react-bootstrap";
 
 function NavbarComponent({ items }) {
   return (
-    <Navbar color="dark" dark expand="lg" sticky="top">
-      <NavbarBrand href="/" className="me-3">
+    <Navbar bg="dark" expand="lg" sticky="top" variant="dark">
+      <Navbar.Brand href="/" className="mx-3 text-white">
         Simply Supplies
-      </NavbarBrand>
+      </Navbar.Brand>
+      <VendorDropDownsList items={items} />
       <OffcanvasComponent items={items} />
     </Navbar>
   );
@@ -21,13 +25,6 @@ NavbarComponent.propTypes = {
       itemNumber: PropTypes.string,
     })
   ),
-  itemsAdded: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      itemNumber: PropTypes.string,
-    })
-  ),
-  onAdd: PropTypes.func,
 };
 
 export default memo(NavbarComponent);
