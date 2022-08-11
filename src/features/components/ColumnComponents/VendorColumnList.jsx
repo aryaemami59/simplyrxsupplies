@@ -1,17 +1,13 @@
 import VendorColumn from "./VendorColumn";
 import vendors from "../../../data/vendors.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
-import PropTypes from "prop-types";
-import { memo, useRef } from "react";
+import { memo } from "react";
 
 function VendorColumnList() {
-  const nodeRef = useRef(null);
   return (
     <>
-      {vendors.map((e, i) => (
+      {vendors.map(e => (
         <VendorColumn
-          nodeRef={nodeRef}
-          // ref={nodeRef}
           officialVendorName={officialVendorNames[e]}
           key={`${officialVendorNames[e]}-VendorColumn`}
           vendorName={e}
@@ -20,14 +16,5 @@ function VendorColumnList() {
     </>
   );
 }
-
-VendorColumnList.propTypes = {
-  itemsAdded: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      itemNumber: PropTypes.string,
-    })
-  ),
-};
 
 export default memo(VendorColumnList);

@@ -5,7 +5,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import printjs from "print-js";
 
-function PrintIconQRCodeComponent({ src, text, header }) {
+function PrintIconQRCodeComponent({ src, text }) {
   const renderTooltip = props => (
     <Tooltip id="button-tooltip" {...props}>
       {text}
@@ -16,10 +16,10 @@ function PrintIconQRCodeComponent({ src, text, header }) {
     printjs({
       printable: src,
       type: "image",
-      header: header,
+      header: "QRCode",
       imageStyle: "width:80%;margin-bottom:20px;",
     });
-  }, [src, header]);
+  }, [src]);
 
   return (
     <OverlayTrigger
