@@ -35,7 +35,10 @@ function SingleDropDown({ itemObj, vendorName }) {
     <Dropdown.Item
       variant="dark"
       // toggle={false}
-      className={ifAdded ? "text-decoration-line-through" : ""}
+      className={`text-info ${ifAdded ? "bg-info text-white" : ""}`}
+      // className={`text-info ${
+      //   ifAdded ? "text-decoration-line-through" : ""
+      // }`}
       onClick={clickHandler}>
       {itemObj.name}
     </Dropdown.Item>

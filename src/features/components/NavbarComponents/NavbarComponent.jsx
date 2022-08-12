@@ -13,46 +13,54 @@ import { NavDropdown } from "react-bootstrap";
 import SideBarAccordionList from "../SideBarNavComponents/SideBarAccordionList";
 
 function NavbarComponent({ items }) {
-  // const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
 
-  // const handleOpen = useCallback(() => {
-  //   setShow(true);
-  // }, []);
+  const handleOpen = useCallback(() => {
+    setShow(true);
+  }, []);
 
-  // const handleClose = useCallback(() => {
-  //   setShow(false);
-  // }, []);
+  const handleClose = useCallback(() => {
+    setShow(false);
+  }, []);
 
   return (
-    <Navbar bg="dark" expand="lg" sticky="top" variant="dark">
+    <Navbar
+      bg="dark"
+      expand="lg"
+      sticky="top"
+      variant="dark"
+      className="bg-gradient">
       <Container fluid className="pe-lg-0 px-xl-3">
         <Navbar.Brand href="/" className="me-0 text-white">
           Simply RX Supplies
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-`} />
+        <Navbar.Toggle
+          aria-controls={`offcanvasNavbar-expand-`}
+          onClick={handleOpen}
+        />
         <Navbar.Offcanvas
+          // responsive="sm"
+          show={show}
+          className="bg-dark"
+          onHide={handleClose}
           id={`offcanvasNavbar-expand-`}
           aria-labelledby={`offcanvasNavbarLabel-expand-`}
           placement="end">
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title id={`offcanvasNavbarLabel-expand-`}>
+            <Offcanvas.Title
+              id={`offcanvasNavbarLabel-expand-`}
+              className="text-white">
               Add Items By Vendor
             </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
-            {/* <Nav
-              className="justify-content-end flex-grow-1 pe-3"
-              variant="secondary"> */}
             <VendorDropDownsList items={items} />
-            {/* </Nav> */}
-            {/* <Nav className="d-lg-none"> */}
             <Nav>
               <SideBarAccordionList
                 items={items}
-                className="bg-light accordion d-block d-lg-none"
+                className="accordion d-block d-lg-none"
               />
             </Nav>
-            {/* </Nav> */}
           </Offcanvas.Body>
         </Navbar.Offcanvas>
       </Container>

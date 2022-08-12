@@ -17,8 +17,9 @@ function SingleSideBarAccordionListItem({ targetId, itemObj }) {
 
   return (
     <Button
-      role="button"
-      variant={ifAddedToAllVendors ? "success" : "outline-primary"}
+      // variant={`${ifAddedToAllVendors ? "success" : "outline-info"}`}
+      // variant={`${ifAddedToAllVendors ? "info" : "outline-info"}`}
+      variant={`${ifAddedToAllVendors ? "info text-white" : "outline-info"}`}
       onClick={clickHandler}
       key={`${itemObj.name}-${targetId}-ListGroupItem-sidebar`}>
       {itemObj.name}

@@ -11,8 +11,7 @@ import InputGroupComponent from "./features/components/InputComponents/InputGrou
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
 import VerticalNavComponent from "./features/components/SideBarNavComponents/VerticalNavComponent";
 import { useQuery } from "react-query";
-import OffcanvasComponent from "./features/components/NavbarComponents/OffcanvasComponent";
-// import OffcanvasComponent from "./features/components/NavbarComponents/OffcanvasComponent";
+import { Alert } from "react-bootstrap";
 const myURL =
   "https://api.github.com/repos/aryaemami59/simplysuppliesAPI/contents/items.json";
 
@@ -32,28 +31,39 @@ const fetchItems = async () => {
   return myItems;
 };
 
-// const empty = [];
-
 function App() {
   const { isLoading, error, data, status } = useQuery(["items"], fetchItems);
+  // console.log(status)
 
-  // status === "success" && console.log(data);
-
-  if (status === "loading") {
+  if (isLoading) {
     return (
       <div className="d-flex justify-content-center">
         <Spinner
+          animation="border"
+          role="status"
           className="my-5"
           variant="info"
           style={{ width: "10rem", height: "10rem", borderWidth: "1rem" }}>
-          Loading...
+          <span className="visually-hidden">Loading...</span>
         </Spinner>
       </div>
     );
   }
 
-  if (status === "error") {
-    return <div>error</div>;
+  if (error) {
+    return (
+      <div className="justify-content-center d-flex mt-5 w-100">
+        <Alert variant="danger" className="w-75">
+          <Alert.Heading className="fs-1">
+            Oh snap! You got an error!
+          </Alert.Heading>
+          <p className="fs-2">
+            Looks like there was a problem loading the page. Either refresh the
+            page or try again later.
+          </p>
+        </Alert>
+      </div>
+    );
   }
 
   // console.log("app render");

@@ -46,18 +46,18 @@ function VendorDropDown({ officialVendorName, items, vendorName }) {
 
   return (
     <Dropdown
-      className="ms-lg-0 ms-xl-3 ms-xxl-5"
+      className="ms-lg-0 ms-xl-3 ms-xxl-5 h-100"
       autoClose="outside"
       // as={NavItem}
       title={officialVendorName}
-      variant="secondary"
+      variant="primary"
       show={dropdownOpen}
       onToggle={toggle}>
-      <Dropdown.Toggle variant="secondary" className="text-white" as={NavLink}>
+      <Dropdown.Toggle variant="dark" className="text-info" as={NavLink}>
         {officialVendorName}
       </Dropdown.Toggle>
       {/* <Dropdown.Item variant="secondary"> */}
-      <Dropdown.Menu variant="dark" show={dropdownOpen}>
+      <Dropdown.Menu variant="dark" className="bg-dark" show={dropdownOpen}>
         {myItems.map(e => (
           <SingleDropDown
             key={`${e.name}-${vendorName}`}

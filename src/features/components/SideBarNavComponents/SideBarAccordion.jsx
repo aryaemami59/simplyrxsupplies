@@ -27,8 +27,8 @@ function SideBarAccordion({ items, targetId }) {
     //   <Accordion.Item eventKey="1">
     //     <Accordion.Header>{targetId}</Accordion.Header>
     //     <Accordion.Body>
-    //       <Card className="bg-light bg-gradient">
-    //         <Card.Body className="bg-light bg-gradient">
+    //       <Card className="bg-gradient">
+    //         <Card.Body className="bg-gradient">
     //           <ListGroup>
     //             {items
     //               .filter(({ nav }) => nav.includes(targetId))
@@ -46,25 +46,19 @@ function SideBarAccordion({ items, targetId }) {
     //     </Accordion.Body>
     //   </Accordion.Item>
     // </div>
-    <div>
-      <h2 className="accordion-header bg-light bg-gradient">
+    <div className="">
+      <h2 className="accordion-header bg-gradient">
         <button
           onClick={toggle}
           variant="light"
-          className={`accordion-button bg-light bg-gradient ${
-            open ? "" : collapsed
-          }`}>
+          className={`accordion-button bg-gradient ${open ? "" : collapsed}`}>
           {targetId}
         </button>
       </h2>
-      <Collapse
-        id={targetId}
-        in={open}
-        ref={nodeRef}
-        className="bg-light bg-gradient">
+      <Collapse id={targetId} in={open} ref={nodeRef} className="bg-gradient">
         <div>
-          <Card className="bg-light bg-gradient">
-            <Card.Body className="bg-light bg-gradient">
+          <Card className="bg-dark bg-gradient">
+            <Card.Body className="bg-dark bg-gradient">
               <ListGroup>
                 {items
                   .filter(({ nav }) => nav.includes(targetId))
