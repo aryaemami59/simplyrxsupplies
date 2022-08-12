@@ -26,7 +26,7 @@ function SingleVendorColumnListItem({
     <div>
       <Row className="justify-content-end pe-3">
         <Col xs={10}>
-          <Fade in={!open}>
+          <Fade in={!open} unmountOnExit={true}>
             <Button
               variant="success"
               size=""
@@ -34,17 +34,6 @@ function SingleVendorColumnListItem({
               onClick={toggle}>
               {itemObj.name}
             </Button>
-            {/* {!open ? (
-              <Button
-                variant="success"
-                size=""
-                className="w-100 fs-5"
-                onClick={toggle}>
-                {itemObj.name}
-              </Button>
-            ) : (
-              ""
-            )} */}
           </Fade>
         </Col>
         <Col
