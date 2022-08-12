@@ -37,11 +37,11 @@
     transform: translateY(0px);
   }
 }
-* {
+/* * {
   margin: 0;
   box-sizing: border-box;
   padding: 0;
-}
+} */
 div.mb-0 {
   margin-bottom: 0 !important;
 }

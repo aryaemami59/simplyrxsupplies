@@ -2,9 +2,6 @@ import SingleDropDown from "./SingleDropDown";
 import PropTypes from "prop-types";
 import { memo, useEffect, useState, useMemo, useCallback } from "react";
 import { Dropdown } from "react-bootstrap";
-import { ButtonGroup } from "react-bootstrap";
-import { NavDropdown } from "react-bootstrap";
-import { Nav } from "react-bootstrap";
 
 function VendorDropDown({ officialVendorName, items, vendorName }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -46,9 +43,9 @@ function VendorDropDown({ officialVendorName, items, vendorName }) {
 
   return (
     <Dropdown
-      className="me-3"
+      className="me-lg-0 me-xl-3 d-none d-lg-block"
       autoClose="outside"
-      navbar={true}
+      // navbar={true}
       show={dropdownOpen}
       onSelect={toggle}
       onToggle={toggle}>

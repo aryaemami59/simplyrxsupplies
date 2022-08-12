@@ -22,7 +22,7 @@ function VendorAccordionList({ items }) {
 
   return (
     // <Accordion open={open} toggle={toggle}>
-    <div className="bg-dark">
+    <div className="bg-dark d-block d-lg-none">
       {vendors.map((e, i) => (
         <VendorAccordion
           officialVendorName={officialVendorNames[e]}

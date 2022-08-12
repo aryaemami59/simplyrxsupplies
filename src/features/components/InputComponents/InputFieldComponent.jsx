@@ -8,6 +8,7 @@ import {
   useMemo,
   useRef,
 } from "react";
+import { Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { setListItems } from "../../../addedSlice";
 const empty = [];
@@ -110,13 +111,10 @@ function InputFieldComponent({ items }) {
   });
 
   return (
-    <input
-      id="search"
-      name="search"
+    <Form.Control
       placeholder="Search..."
       type="search"
       className="shadow form-control-lg form-control"
-      // bsSize="lg"
       key="input box"
       onChange={changeVal}
       value={val}

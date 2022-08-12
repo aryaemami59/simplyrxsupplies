@@ -13,7 +13,6 @@ function VendorDropDownsList({ items }) {
   });
 
   return (
-    // {/* // <Navbar expand="lg" bg="primary" className=""> */}
     <>
       {vendors.map((e, i) => (
         <VendorDropDown
@@ -25,7 +24,6 @@ function VendorDropDownsList({ items }) {
         />
       ))}
     </>
-    // {/* </Navbar> */}
   );
 }
 

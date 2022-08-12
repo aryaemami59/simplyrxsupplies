@@ -11,6 +11,7 @@ import InputGroupComponent from "./features/components/InputComponents/InputGrou
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
 import VerticalNavComponent from "./features/components/SideBarNavComponents/VerticalNavComponent";
 import { useQuery } from "react-query";
+import OffcanvasComponent from "./features/components/NavbarComponents/OffcanvasComponent";
 // import OffcanvasComponent from "./features/components/NavbarComponents/OffcanvasComponent";
 const myURL =
   "https://api.github.com/repos/aryaemami59/simplysuppliesAPI/contents/items.json";
@@ -69,8 +70,10 @@ function App() {
               height: "calc(100vh - 56px)",
               position: "sticky",
               top: "56px",
+              // overflowX: "hidden",
             }}>
             <VerticalNavComponent items={data} />
+            {/* <OffcanvasComponent items={data} /> */}
           </Col>
           <Col
             md={{

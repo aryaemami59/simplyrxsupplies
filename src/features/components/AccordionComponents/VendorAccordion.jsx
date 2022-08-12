@@ -6,6 +6,22 @@ import { Button } from "react-bootstrap";
 import { Collapse } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 import { ListGroup } from "react-bootstrap";
+import { useAccordionButton } from "react-bootstrap";
+
+function CustomToggle({ children, eventKey }) {
+  const decoratedOnClick = useAccordionButton(eventKey, () =>
+    console.log("totally custom!")
+  );
+
+  return (
+    <button
+      type="button"
+      style={{ backgroundColor: "pink" }}
+      onClick={decoratedOnClick}>
+      {children}
+    </button>
+  );
+}
 
 const collapsed = "collapsed";
 

@@ -4,8 +4,8 @@ import { Provider } from "react-redux";
 import { store } from "./data/store";
 import App from "./App";
 import "./index.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
+// import "@fortawesome/fontawesome-free/css/all.min.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const container = document.getElementById("root");

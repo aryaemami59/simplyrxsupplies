@@ -3,7 +3,6 @@ import React, { memo } from "react";
 import PropTypes from "prop-types";
 import InputFieldComponent from "./InputFieldComponent";
 import { InputGroup } from "react-bootstrap";
-import { FormGroup } from "react-bootstrap";
 import { FloatingLabel } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 
@@ -14,15 +13,16 @@ function InputGroupComponent({ items }) {
         <div className="row">
           <InputGroup size="lg" className="my-4" key="Input Group">
             <div className="p-0 col-md-10">
-              <FormGroup className="mb-0" key="form Input Group">
+              <FloatingLabel
+                key="input label"
+                controlId="search input field"
+                label="Search...">
                 <InputFieldComponent items={items} />
-                <FloatingLabel key="input label" controlId="exampleEmail">
-                  Search...
-                </FloatingLabel>
-              </FormGroup>
+              </FloatingLabel>
             </div>
             <div className="ps-0 col-md-2">
               <Button
+                variant="secondary"
                 key="input search button"
                 size="lg"
                 className="form-control shadow h-100">
