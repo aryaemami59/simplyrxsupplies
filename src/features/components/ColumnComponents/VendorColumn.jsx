@@ -34,21 +34,29 @@ function VendorColumn({ officialVendorName, vendorName }) {
         />
       </Button>
       <Collapse in={open}>
-        <Card>
-          <Card.Body className="bg-dark bg-gradient">
-            <QRCodeImageComponent vendorName={vendorName} />
-            <ListGroup>
-              {addedItems.map(e => (
-                <SingleVendorColumnListItem
-                  itemObj={e}
-                  vendorName={vendorName}
-                  officialVendorName={officialVendorName}
-                  key={`${e.name}-${vendorName}-SingleVendorColumnListItem`}
-                />
-              ))}
-            </ListGroup>
-          </Card.Body>
-        </Card>
+        <div>
+          <Card>
+            {addedItems.length ? (
+              <Card.Body className="bg-dark bg-gradient">
+                <QRCodeImageComponent vendorName={vendorName} />
+                <ListGroup>
+                  {addedItems.map(e => (
+                    <SingleVendorColumnListItem
+                      itemObj={e}
+                      vendorName={vendorName}
+                      officialVendorName={officialVendorName}
+                      key={`${e.name}-${vendorName}-SingleVendorColumnListItem`}
+                    />
+                  ))}
+                </ListGroup>
+              </Card.Body>
+            ) : (
+              <ListGroup.Item variant="danger">
+                "No Item Has Been Added Yet!"
+              </ListGroup.Item>
+            )}
+          </Card>
+        </div>
       </Collapse>
     </div>
   );

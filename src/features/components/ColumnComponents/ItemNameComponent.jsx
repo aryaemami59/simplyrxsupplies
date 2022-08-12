@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 function ItemNameComponent({ vendorName, itemObj }) {
   return (
     <ListGroup.Item
+      action
       variant="success"
       key={`${itemObj.name}-${vendorName}-VendorColumn-ListGroupItem-name`}>
       Item Name: {itemObj.name}

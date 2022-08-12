@@ -24,22 +24,10 @@ function NavbarComponent({ items }) {
   return (
     <Navbar bg="dark" expand="lg" sticky="top" variant="dark">
       <Navbar.Brand href="/" className="mx-lg-0 mx-xl-3  text-white">
-        Simply Supplies
+        Simply RX Supplies
       </Navbar.Brand>
       <VendorDropDownsList items={items} />
-      {/* <Nav> */}
       <OffcanvasComponent items={items} />
-      {/* </Nav> */}
-      {/* <Navbar.Toggle className="navbar-toggler" onClick={handleOpen} />
-      <Navbar.Offcanvas show={show} scroll={true} onHide={handleClose}>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          <VendorDropDownsList items={items} />
-          <VendorAccordionList items={items} />
-        </Offcanvas.Body>
-      </Navbar.Offcanvas> */}
     </Navbar>
   );
 }
