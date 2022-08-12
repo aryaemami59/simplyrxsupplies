@@ -3,6 +3,7 @@ import { removeItems } from "../../../addedSlice";
 import { memo, useCallback } from "react";
 import { CloseButton } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { Button } from "react-bootstrap";
 
 function RemoveButton({ vendorName, itemObj }) {
   const dispatch = useDispatch();
@@ -12,10 +13,17 @@ function RemoveButton({ vendorName, itemObj }) {
   }, [dispatch, itemObj, vendorName]);
 
   return (
-    <CloseButton
+    <Button
+      variant="danger"
+      className="w-100 fs-5"
       key={`${vendorName}-${itemObj.name}-CloseButton`}
-      onClick={clickHandler}
-    />
+      onClick={clickHandler}>
+      X
+    </Button>
+    // <CloseButton variant="danger"
+    //   key={`${vendorName}-${itemObj.name}-CloseButton`}
+    //   onClick={clickHandler}
+    // />
   );
 }
 
