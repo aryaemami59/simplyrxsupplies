@@ -5,17 +5,25 @@ import InputFieldComponent from "./InputFieldComponent";
 import { InputGroup } from "react-bootstrap";
 import { FloatingLabel } from "react-bootstrap";
 import { Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 function InputGroupComponent({ items }) {
   return (
     <>
+      {/* <FloatingLabel
+        controlId="floatingInput1"
+        label="Email address"
+        className="mb-3">
+        <Form.Control type="email" placeholder="name@example.com" />
+      </FloatingLabel> */}
       <div>
         <div className="row">
-          <InputGroup size="lg" className="my-4" key="Input Group">
+          <InputGroup className="my-4" key="Input Group">
             <div className="p-0 col-md-10">
               <FloatingLabel
+                className="text-start"
                 key="input label"
-                controlId="search input field"
+                controlId="floatingInput"
                 label="Search...">
                 <InputFieldComponent items={items} />
               </FloatingLabel>

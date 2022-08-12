@@ -114,8 +114,9 @@ function InputFieldComponent({ items }) {
     <Form.Control
       placeholder="Search..."
       type="search"
-      className="shadow form-control-lg form-control"
+      className="shadow"
       key="input box"
+      size="lg"
       onChange={changeVal}
       value={val}
     />

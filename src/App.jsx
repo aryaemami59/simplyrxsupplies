@@ -62,7 +62,7 @@ function App() {
     <div className="App">
       <NavbarComponent items={data} />
       <Container fluid>
-        <Row className="">
+        <Row>
           <Col
             md="2"
             className="ps-0 pe-0"
@@ -75,12 +75,7 @@ function App() {
             <VerticalNavComponent items={data} />
             {/* <OffcanvasComponent items={data} /> */}
           </Col>
-          <Col
-            md={{
-              size: 4,
-              // offset: 1,
-            }}
-            className="my-5">
+          <Col md={4} className="mt-5">
             <InputGroupComponent items={data} key={`InputGroupComponent`} />
           </Col>
           <Col md="4" className="my-5">
