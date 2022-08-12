@@ -8,20 +8,20 @@ import { Card } from "react-bootstrap";
 import { ListGroup } from "react-bootstrap";
 import { useAccordionButton } from "react-bootstrap";
 
-function CustomToggle({ children, eventKey }) {
-  const decoratedOnClick = useAccordionButton(eventKey, () =>
-    console.log("totally custom!")
-  );
+// function CustomToggle({ children, eventKey }) {
+//   const decoratedOnClick = useAccordionButton(eventKey, () =>
+//     console.log("totally custom!")
+//   );
 
-  return (
-    <button
-      type="button"
-      style={{ backgroundColor: "pink" }}
-      onClick={decoratedOnClick}>
-      {children}
-    </button>
-  );
-}
+//   return (
+//     <button
+//       type="button"
+//       style={{ backgroundColor: "pink" }}
+//       onClick={decoratedOnClick}>
+//       {children}
+//     </button>
+//   );
+// }
 
 const collapsed = "collapsed";
 
@@ -33,7 +33,7 @@ function VendorAccordion({ officialVendorName, items, vendorName }) {
   }, []);
 
   return (
-    <div>
+    <div className="">
       <h2 className="accordion-header bg-light bg-gradient">
         <Button
           onClick={toggle}
@@ -53,23 +53,25 @@ function VendorAccordion({ officialVendorName, items, vendorName }) {
         id={vendorName}
         in={open}
         className="accordion-collapse bg-light bg-gradient">
-        <Card className="bg-light bg-gradient">
-          <Card.Body className="bg-light bg-gradient">
-            <ListGroup>
-              {items
-                .filter(e => e[vendorName])
-                .map(e => (
-                  <SingleAccordionListItem
-                    vendorName={vendorName}
-                    vendors={e.vendors}
-                    key={`${e.name}-${vendorName}`}
-                    itemObj={e}
-                    role="button"
-                  />
-                ))}
-            </ListGroup>
-          </Card.Body>
-        </Card>
+        <div className="">
+          <Card className="bg-light bg-gradient">
+            <Card.Body className="bg-light bg-gradient">
+              <ListGroup className="">
+                {items
+                  .filter(e => e[vendorName])
+                  .map(e => (
+                    <SingleAccordionListItem
+                      vendorName={vendorName}
+                      vendors={e.vendors}
+                      key={`${e.name}-${vendorName}`}
+                      itemObj={e}
+                      role="button"
+                    />
+                  ))}
+              </ListGroup>
+            </Card.Body>
+          </Card>
+        </div>
       </Collapse>
     </div>
     // <AccordionItem>

@@ -1,11 +1,10 @@
 import { memo, useEffect, useCallback, useMemo, useRef } from "react";
-import { ListGroup } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { addItems, checkIfItemAdded } from "../../../addedSlice";
+import PropTypes from "prop-types";
 
 function SingleAccordionListItem({ itemObj, vendorName }) {
-  // const renders = useRef(0);
-  // console.log("renders:", renders.current++);
   const dispatch = useDispatch();
   const ifAdded = useSelector(checkIfItemAdded(vendorName, itemObj));
 
@@ -22,13 +21,24 @@ function SingleAccordionListItem({ itemObj, vendorName }) {
   }, [dispatch]);
 
   return (
-    <ListGroup.Item
-      role="button"
-      className={ifAdded ? "text-decoration-line-through" : ""}
+    <Button
+      variant={ifAdded ? "success" : "outline-primary"}
       onClick={clickHandler}>
       {itemObj.name}
-    </ListGroup.Item>
+    </Button>
   );
 }
+
+SingleAccordionListItem.propTypes = {
+  vendorName: PropTypes.string,
+  itemObj: PropTypes.shape({
+    name: PropTypes.string,
+    itemNumber: PropTypes.string,
+    keywords: PropTypes.arrayOf(PropTypes.string),
+    nav: PropTypes.arrayOf(PropTypes.string),
+    vendors: PropTypes.arrayOf(PropTypes.string),
+    src: PropTypes.string,
+  }),
+};
 
 export default memo(SingleAccordionListItem);

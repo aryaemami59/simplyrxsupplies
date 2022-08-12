@@ -28,9 +28,6 @@ function OffcanvasComponent({ items }) {
 
   return (
     <>
-      {/* <Button className="d-lg-none" onClick={handleOpen}>
-        Toggle
-      </Button> */}
       <Navbar.Toggle
         className="d-lg-none navbar-toggler"
         onClick={handleOpen}
@@ -40,7 +37,6 @@ function OffcanvasComponent({ items }) {
           <Offcanvas.Title>Offcanvas</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          {/* <VendorDropDownsList items={items} /> */}
           <VendorAccordionList items={items} />
         </Offcanvas.Body>
       </Offcanvas>

@@ -5,7 +5,7 @@ import SideBarAccordion from "./SideBarAccordion";
 
 function SideBarAccordionList({ items }) {
   return (
-    <div className="bg-light">
+    <div className="bg-light accordion">
       {navList.map(e => (
         <SideBarAccordion
           items={items}

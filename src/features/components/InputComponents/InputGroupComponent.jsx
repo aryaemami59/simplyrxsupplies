@@ -29,13 +29,13 @@ function InputGroupComponent({ items }) {
               </FloatingLabel>
             </div>
             <div className="ps-0 col-md-2">
-              <Button
+              {/* <Button
                 variant="secondary"
                 key="input search button"
                 size="lg"
                 className="form-control shadow h-100">
                 Search
-              </Button>
+              </Button> */}
             </div>
           </InputGroup>
         </div>
