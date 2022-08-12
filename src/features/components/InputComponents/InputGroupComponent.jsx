@@ -2,34 +2,23 @@ import InputListItems from "./InputListItems";
 import React, { memo } from "react";
 import PropTypes from "prop-types";
 import InputFieldComponent from "./InputFieldComponent";
-import { InputGroup } from "react-bootstrap";
-import { FloatingLabel } from "react-bootstrap";
-import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 
 function InputGroupComponent({ items }) {
   return (
-    <div className="row justify-content-center">
-      <div className="col-12 col-md-11 col-lg-11 mb-3 col-xxl-10">
-        <InputGroup className="mb-4" key="Input Group">
-          <FloatingLabel
-            className="text-start"
-            key="input label"
-            controlId="floatingInput"
-            label="Search...">
-            <InputFieldComponent items={items} />
-          </FloatingLabel>
-        </InputGroup>
+    <div className="row my-5 justify-content-center">
+      <div className="col-12 col-md-11 col-lg-11 col-xxl-10">
+        <Form.Floating className="" key={"my form floating"}>
+          <InputFieldComponent items={items} key={"input field component"} />
+          <label
+            className="w-auto h-auto ps-4"
+            htmlFor="floatingInputCustom"
+            key={"my floating label"}>
+            Search...
+          </label>
+        </Form.Floating>
         <InputListItems />
       </div>
-      {/* <div className="ps-0 col-md-2"> */}
-      {/* <Button
-                variant="secondary"
-                key="input search button"
-                size="lg"
-                className="form-control shadow h-100">
-                Search
-              </Button> */}
     </div>
   );
 }

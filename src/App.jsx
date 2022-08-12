@@ -88,7 +88,14 @@ function App() {
           <Col xs={10} sm={11} md={6} lg={5} xl={5} xxl={4} className="mt-5">
             <InputGroupComponent items={data} key={`InputGroupComponent`} />
           </Col>
-          <Col xs={10} sm={11} md={5} lg={4} xl={5} xxl={6} className="my-5 pe-5">
+          <Col
+            xs={10}
+            sm={11}
+            md={5}
+            lg={4}
+            xl={5}
+            xxl={6}
+            className="my-5 pe-5">
             <VendorColumnList />
           </Col>
         </Row>

@@ -32,7 +32,7 @@ function NavbarComponent({ items }) {
       className="bg-gradient">
       <Container fluid className="pe-lg-0 px-xl-3">
         <Navbar.Brand href="/" className="me-0 text-white">
-          Simply RX Supplies
+          {/* Simply RX Supplies */}
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls={`offcanvasNavbar-expand-`}
