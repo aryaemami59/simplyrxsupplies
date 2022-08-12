@@ -13,7 +13,7 @@ function VendorDropDownsList({ items }) {
   });
 
   return (
-    <>
+    <Nav className="">
       {vendors.map((e, i) => (
         <VendorDropDown
           officialVendorName={officialVendorNames[e]}
@@ -23,7 +23,7 @@ function VendorDropDownsList({ items }) {
           index={i}
         />
       ))}
-    </>
+    </Nav>
   );
 }
 

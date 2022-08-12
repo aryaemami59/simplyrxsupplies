@@ -2,6 +2,9 @@ import SingleDropDown from "./SingleDropDown";
 import PropTypes from "prop-types";
 import { memo, useEffect, useState, useMemo, useCallback } from "react";
 import { Dropdown } from "react-bootstrap";
+import { NavDropdown } from "react-bootstrap";
+import { NavItem } from "react-bootstrap";
+import { NavLink } from "react-bootstrap";
 
 function VendorDropDown({ officialVendorName, items, vendorName }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -43,26 +46,29 @@ function VendorDropDown({ officialVendorName, items, vendorName }) {
 
   return (
     <Dropdown
-      className="me-lg-0 me-xl-3 d-none d-lg-block"
+      className="ms-lg-0 ms-xl-3 ms-xxl-5"
       autoClose="outside"
-      // navbar={true}
+      // as={NavItem}
+      title={officialVendorName}
+      variant="secondary"
       show={dropdownOpen}
-      onSelect={toggle}
       onToggle={toggle}>
-      <Dropdown.Toggle variant="secondary">
+      <Dropdown.Toggle variant="secondary" className="text-white" as={NavLink}>
         {officialVendorName}
-        <Dropdown.Menu variant="dark" show={dropdownOpen}>
-          {myItems.map(e => (
-            <SingleDropDown
-              key={`${e.name}-${vendorName}`}
-              itemObj={e}
-              items={items}
-              vendorName={vendorName}
-              vendors={e.vendors}
-            />
-          ))}
-        </Dropdown.Menu>
       </Dropdown.Toggle>
+      {/* <Dropdown.Item variant="secondary"> */}
+      <Dropdown.Menu variant="dark" show={dropdownOpen}>
+        {myItems.map(e => (
+          <SingleDropDown
+            key={`${e.name}-${vendorName}`}
+            itemObj={e}
+            items={items}
+            vendorName={vendorName}
+            vendors={e.vendors}
+          />
+        ))}
+      </Dropdown.Menu>
+      {/* </Dropdown.Item> */}
     </Dropdown>
   );
 }

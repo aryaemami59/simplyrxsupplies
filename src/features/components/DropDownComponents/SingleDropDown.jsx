@@ -33,6 +33,7 @@ function SingleDropDown({ itemObj, vendorName }) {
 
   return (
     <Dropdown.Item
+      variant="dark"
       // toggle={false}
       className={ifAdded ? "text-decoration-line-through" : ""}
       onClick={clickHandler}>

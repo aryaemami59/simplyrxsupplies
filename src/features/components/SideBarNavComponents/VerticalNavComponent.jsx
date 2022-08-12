@@ -9,7 +9,7 @@ function VerticalNavComponent({ items }) {
       style={{}}
       key={"sidebar nav component"}>
       <SideBarAccordionList
-        // className="bg-dark bg-gradient"
+        className="bg-light accordion d-none d-lg-block"
         items={items}
         key={"sidebar accordion list"}
       />

@@ -39,6 +39,7 @@ function OffcanvasComponent({ items }) {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <VendorAccordionList items={items} />
+          {/* <VendorDropDownsList items={items} /> */}
           <Offcanvas.Header>
             <Offcanvas.Title>Add Items By Category</Offcanvas.Title>
           </Offcanvas.Header>

@@ -3,9 +3,9 @@ import { Accordion } from "react-bootstrap";
 import navList from "../../../data/navList";
 import SideBarAccordion from "./SideBarAccordion";
 
-function SideBarAccordionList({ items }) {
+function SideBarAccordionList({ items, className }) {
   return (
-    <div className="bg-light accordion">
+    <div className={className}>
       {navList.map(e => (
         <SideBarAccordion
           items={items}

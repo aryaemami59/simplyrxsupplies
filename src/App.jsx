@@ -62,23 +62,23 @@ function App() {
     <div className="App">
       <NavbarComponent items={data} />
       <Container fluid>
-        <Row>
+        <Row className="justify-content-center">
           <Col
-            md="2"
-            className="ps-0 pe-0"
+            xs={0}
+            lg={3}
+            xl={2}
+            className="ps-0 pe-0 d-none d-lg-block"
             style={{
               height: "calc(100vh - 56px)",
               position: "sticky",
               top: "56px",
-              // overflowX: "hidden",
             }}>
             <VerticalNavComponent items={data} />
-            {/* <OffcanvasComponent items={data} /> */}
           </Col>
-          <Col md={4} className="mt-5">
+          <Col xs={10} sm={11} md={6} lg={5} xl={5} xxl={4} className="mt-5">
             <InputGroupComponent items={data} key={`InputGroupComponent`} />
           </Col>
-          <Col md="4" className="my-5">
+          <Col xs={10} sm={11} md={5} lg={4} xl={5} xxl={6} className="my-5">
             <VendorColumnList />
           </Col>
         </Row>
