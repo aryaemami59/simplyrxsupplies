@@ -50,12 +50,17 @@ html {
   /* height: 100vh; */
   height: 100%;
   /* overflow-y: visible; */
-  /* overflow-y: scroll; */
+  overflow-y: scroll;
 }
 body {
   width: 100%;
   height: 100%;
   background: linear-gradient(to right, #606c88, #3f4c6b);
+}
+.dropdown-menu.show {
+  height: calc(100vh - 50px);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .accordion-button:not(.collapsed) {
   background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
