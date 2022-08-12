@@ -56,9 +56,19 @@ body {
   background: linear-gradient(to right, #606c88, #3f4c6b);
 }
 .dropdown-menu.show {
-  height: calc(100vh - 50px);
+  max-height: calc(100vh - 50px);
   overflow-y: auto;
   overflow-x: hidden;
+}
+svg.hover-inverse {
+  /* width: 50px; */
+  border: none;
+  box-shadow: 1px 1px 10px 1px rgba(var(--bs-warning-rgb), var(--bs-bg-opacity));
+  color: rgba(var(--bs-warning-rgb), var(--bs-bg-opacity));
+}
+svg.hover-inverse:hover {
+  color: none;
+  background-color: rgba(var(--bs-warning-rgb), var(--bs-bg-opacity));
 }
 .accordion-button:not(.collapsed) {
   background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;

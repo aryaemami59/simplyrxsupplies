@@ -4,6 +4,12 @@ import { memo, useCallback } from "react";
 import { CloseButton } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faWindowClose } from "@fortawesome/free-regular-svg-icons";
+import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { faWindowMinimize } from "@fortawesome/free-regular-svg-icons";
+// import { faWindowMinimize } from "@fortawesome/free-solid-svg-icons";
 
 function RemoveButton({ vendorName, itemObj }) {
   const dispatch = useDispatch();
@@ -13,17 +19,14 @@ function RemoveButton({ vendorName, itemObj }) {
   }, [dispatch, itemObj, vendorName]);
 
   return (
-    <Button
-      variant="danger"
-      className="w-100 fs-5"
+    <FontAwesomeIcon
+      icon={faClose}
       key={`${vendorName}-${itemObj.name}-CloseButton`}
-      onClick={clickHandler}>
-      X
-    </Button>
-    // <CloseButton variant="danger"
-    //   key={`${vendorName}-${itemObj.name}-CloseButton`}
-    //   onClick={clickHandler}
-    // />
+      onClick={clickHandler}
+      className="btn rounded-circle hover-inverse"
+      size="2x"
+      role="button"
+    />
   );
 }
 
