@@ -8,6 +8,7 @@ import { Offcanvas } from "react-bootstrap";
 import { Navbar } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
+import SideBarAccordionList from "../SideBarNavComponents/SideBarAccordionList";
 
 function OffcanvasComponent({ items }) {
   const nodeRef = useRef(null);
@@ -34,10 +35,14 @@ function OffcanvasComponent({ items }) {
       />
       <Offcanvas show={show} scroll={true} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+          <Offcanvas.Title>Add Items By Vendor</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <VendorAccordionList items={items} />
+          <Offcanvas.Header>
+            <Offcanvas.Title>Add Items By Category</Offcanvas.Title>
+          </Offcanvas.Header>
+          <SideBarAccordionList items={items} />
         </Offcanvas.Body>
       </Offcanvas>
     </>
