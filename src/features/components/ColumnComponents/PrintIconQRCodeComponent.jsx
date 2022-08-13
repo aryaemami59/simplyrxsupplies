@@ -48,12 +48,13 @@ function PrintIconQRCodeComponent({
         key={`${vendorName}-FontAwesomeIcon-PrintIconQRCodeComponent`}
       />
       <Overlay
+        key={`${vendorName}-PrintIconQRCodeComponent-Overlay`}
         target={target.current}
         show={show}
-        placement="bottom"
-        className="position-absolute">
+        placement="bottom">
         {props => (
           <Tooltip
+            key={`PrintIconQRCodeComponent-tooltip-${vendorName}-${officialVendorName}`}
             id={`PrintIconQRCodeComponent-tooltip-${vendorName}-${officialVendorName}`}
             {...props}>
             {text}
