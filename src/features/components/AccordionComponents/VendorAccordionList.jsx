@@ -1,27 +1,11 @@
+import { memo } from "react";
 import VendorAccordion from "./VendorAccordion";
-import { memo, useState, useRef } from "react";
 import vendors from "../../../data/vendors.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import PropTypes from "prop-types";
 
-// const empty = [];
-
 function VendorAccordionList({ items }) {
-  // const [open, setOpen] = useState(empty);
-
-  // const toggle = id => {
-  //   if (open.includes(id)) {
-  //     setOpen(prev => {
-  //       const newOpen = prev.filter(e => e !== id);
-  //       return newOpen.length ? newOpen : empty;
-  //     });
-  //   } else {
-  //     setOpen(prev => prev.concat(id));
-  //   }
-  // };
-
   return (
-    // <Accordion open={open} toggle={toggle}>
     <div className="bg-dark accordion">
       {vendors.map((e, i) => (
         <VendorAccordion
@@ -33,7 +17,6 @@ function VendorAccordionList({ items }) {
         />
       ))}
     </div>
-    // {/* </Accordion> */}
   );
 }
 
@@ -44,13 +27,6 @@ VendorAccordionList.propTypes = {
       itemNumber: PropTypes.string,
     })
   ),
-  itemsAdded: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      itemNumber: PropTypes.string,
-    })
-  ),
-  onAdd: PropTypes.func,
 };
 
 export default memo(VendorAccordionList);

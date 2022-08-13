@@ -1,6 +1,7 @@
-import { memo, useCallback, useRef, useState } from "react";
 import { Collapse, Card, ListGroup } from "react-bootstrap";
+import { memo, useCallback, useRef, useState } from "react";
 import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
+import PropTypes from "prop-types";
 
 const COLLAPSED = "collapsed";
 
@@ -14,7 +15,7 @@ function SideBarAccordion({ items, targetId }) {
   const nodeRef = useRef(null);
 
   return (
-    <div className="">
+    <div>
       <h2 className="accordion-header">
         <button
           onClick={toggle}
@@ -46,5 +47,19 @@ function SideBarAccordion({ items, targetId }) {
     </div>
   );
 }
+
+ListGroup.propTypes = {
+  targetId: PropTypes.string,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+      keywords: PropTypes.arrayOf(PropTypes.string),
+      nav: PropTypes.arrayOf(PropTypes.string),
+      vendors: PropTypes.arrayOf(PropTypes.string),
+      src: PropTypes.string,
+    })
+  ),
+};
 
 export default memo(SideBarAccordion);

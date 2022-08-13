@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { selectByVendorItemNumbers } from "../../../addedSlice";
 import { memo } from "react";
 import PropTypes from "prop-types";
-// import { MDBBtn, MDBIcon } from "mdb-react-ui-kit";
 import PrintIconQRCodeComponent from "./PrintIconQRCodeComponent";
 
 function QRCodeImageComponent({ vendorName }) {
@@ -18,9 +17,7 @@ function QRCodeImageComponent({ vendorName }) {
   });
 
   return (
-    <div
-      className=""
-      key={`${vendorName}-container-QRCodeImageComponent`}>
+    <div key={`${vendorName}-container-QRCodeImageComponent`}>
       <img
         src={src}
         className="custom-shadow my-4"

@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
 import { memo } from "react";
 import { Badge } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { selectByVendor } from "../../../addedSlice";
+import PropTypes from "prop-types";
 
 function BadgeComponent({ vendorName, className }) {
   const addedItems = useSelector(selectByVendor(vendorName));

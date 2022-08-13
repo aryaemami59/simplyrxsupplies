@@ -1,4 +1,4 @@
-import { memo, useEffect, useCallback, useMemo, useRef } from "react";
+import { memo, useCallback } from "react";
 import { Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { addItems, checkIfItemAdded } from "../../../addedSlice";
@@ -11,14 +11,6 @@ function SingleAccordionListItem({ itemObj, vendorName }) {
   const clickHandler = useCallback(() => {
     dispatch(addItems(itemObj));
   }, [dispatch, itemObj]);
-
-  useEffect(() => {
-    // console.log("clickHandler changed");
-  }, [clickHandler]);
-
-  useEffect(() => {
-    //   console.log("dispatch changed");
-  }, [dispatch]);
 
   return (
     <Button

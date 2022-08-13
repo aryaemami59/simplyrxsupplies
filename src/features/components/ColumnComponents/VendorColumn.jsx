@@ -5,12 +5,8 @@ import { useSelector } from "react-redux";
 import { selectByVendor } from "../../../addedSlice";
 import QRCodeImageComponent from "./QRCodeImageComponent";
 import SingleVendorColumnListItem from "./SingleVendorColumnListItem";
-import { Button } from "react-bootstrap";
-import { Collapse } from "react-bootstrap";
-import { Card } from "react-bootstrap";
-import { ListGroup } from "react-bootstrap";
+import { Button, Collapse, Card, ListGroup, Alert } from "react-bootstrap";
 import vendorLinks from "../../../data/vendorLinks.json";
-import { Alert } from "react-bootstrap";
 
 function VendorColumn({ officialVendorName, vendorName }) {
   const [open, setOpen] = useState(false);
@@ -88,11 +84,5 @@ VendorColumn.propTypes = {
   officialVendorName: PropTypes.string,
   vendorName: PropTypes.string,
 };
-
-// const mapStateToProps = (state, ownProps) => {
-//   return {
-//     addedItems: state.added[ownProps.vendorName],
-//   };
-// };
 
 export default memo(VendorColumn);

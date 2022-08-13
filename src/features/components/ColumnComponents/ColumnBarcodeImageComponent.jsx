@@ -1,38 +1,38 @@
-import { memo, useEffect } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import { memo } from "react";
 import PrintIconBarcodeComponent from "./PrintIconBarcodeComponent";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-// import { LazyLoadImage } from "react-lazy-load-image-component";
+import PropTypes from "prop-types";
 
-function ColumnBarcodeImageComponent({
-  src,
-  itemNumber,
-  itemObj,
-  officialVendorName,
-}) {
-  useEffect(() => {
-    // console.log("ColumnBarcodeImageComponent mounts");
-    // return () => console.log("ColumnBarcodeImageComponent unmounts");
-  }, []);
-
-  // return <LazyLoadImage src={src} alt={itemNumber} />;
+function ColumnBarcodeImageComponent({ src, itemObj, officialVendorName }) {
   return (
     <Container fluid className="my-4">
       <Row className="">
         <Col md={12} className="">
-          <img src={src} alt={itemNumber} className="custom-shadow" />
-          <PrintIconBarcodeComponent itemObj={itemObj} officialVendorName={officialVendorName}
+          <img src={src} alt={itemObj.itemNumber} className="custom-shadow" />
+          <PrintIconBarcodeComponent
+            itemObj={itemObj}
+            officialVendorName={officialVendorName}
             src={src}
             text={"Print This Barcode"}
-            header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}
+            header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}
           />
         </Col>
-        {/* <Col md={2} className="bg-danger p-0 m-0"> */}
-        {/* </Col> */}
       </Row>
     </Container>
   );
 }
+
+ColumnBarcodeImageComponent.propTypes = {
+  src: PropTypes.string,
+  officialVendorName: PropTypes.string,
+  itemObj: PropTypes.shape({
+    name: PropTypes.string,
+    itemNumber: PropTypes.string,
+    keywords: PropTypes.arrayOf(PropTypes.string),
+    nav: PropTypes.arrayOf(PropTypes.string),
+    vendors: PropTypes.arrayOf(PropTypes.string),
+    src: PropTypes.string,
+  }),
+};
 
 export default memo(ColumnBarcodeImageComponent);

@@ -4,8 +4,7 @@ import { memo, useCallback, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { Overlay } from "react-bootstrap";
-import { Tooltip } from "react-bootstrap";
+import { Overlay, Tooltip } from "react-bootstrap";
 
 function RemoveButton({ vendorName, itemObj }) {
   const [show, setShow] = useState(false);

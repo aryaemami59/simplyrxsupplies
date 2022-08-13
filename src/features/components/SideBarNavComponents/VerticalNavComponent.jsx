@@ -1,6 +1,7 @@
+import { Nav } from "react-bootstrap";
 import { memo } from "react";
-import Nav from "react-bootstrap/Nav";
 import SideBarAccordionList from "./SideBarAccordionList";
+import PropTypes from "prop-types";
 
 function VerticalNavComponent({ items }) {
   return (
@@ -13,5 +14,18 @@ function VerticalNavComponent({ items }) {
     </Nav>
   );
 }
+
+VerticalNavComponent.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+      keywords: PropTypes.arrayOf(PropTypes.string),
+      nav: PropTypes.arrayOf(PropTypes.string),
+      vendors: PropTypes.arrayOf(PropTypes.string),
+      src: PropTypes.string,
+    })
+  ),
+};
 
 export default memo(VerticalNavComponent);

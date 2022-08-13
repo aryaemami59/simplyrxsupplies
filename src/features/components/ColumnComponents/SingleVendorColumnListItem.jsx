@@ -1,17 +1,19 @@
-import Container from "react-bootstrap/Container";
+import {
+  Collapse,
+  Button,
+  Row,
+  Col,
+  Fade,
+  ButtonGroup,
+  Container,
+} from "react-bootstrap";
+import { memo, useCallback, useState } from "react";
 import RemoveButton from "./RemoveButton";
 import ItemNameComponent from "./ItemNameComponent";
 import ItemNumberComponent from "./ItemNumberComponent";
 import ColumnBarcodeImageComponent from "./ColumnBarcodeImageComponent";
-import { memo, useCallback, useState } from "react";
-import PropTypes from "prop-types";
-import { Collapse } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-import { Row } from "react-bootstrap";
-import { Col } from "react-bootstrap";
-import { Fade } from "react-bootstrap";
-import { ButtonGroup } from "react-bootstrap";
 import MinimizeButton from "./MinimizeButton";
+import PropTypes from "prop-types";
 
 function SingleVendorColumnListItem({
   itemObj,
@@ -84,7 +86,6 @@ function SingleVendorColumnListItem({
           />
           <ColumnBarcodeImageComponent
             src={itemObj.src}
-            itemNumber={itemObj.itemNumber}
             itemObj={itemObj}
             vendorName={vendorName}
             officialVendorName={officialVendorName}
