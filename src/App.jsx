@@ -79,9 +79,9 @@ function App() {
             xl={2}
             className="ps-0 pe-0 d-none d-lg-block"
             style={{
-              height: "calc(100vh - 56px)",
+              height: "calc(100vh - 54px)",
               position: "sticky",
-              top: "56px",
+              top: "54px",
             }}>
             <VerticalNavComponent items={data} />
           </Col>

@@ -34,7 +34,7 @@ function PrintIconQRCodeComponent({
 
   return (
     <>
-      <FontAwesomeIcon
+      <FontAwesomeIcon focusable
         ref={target}
         onClick={clickHandler}
         onMouseEnter={openTooltip}

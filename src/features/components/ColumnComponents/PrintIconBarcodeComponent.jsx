@@ -36,6 +36,7 @@ function PrintIconBarcodeComponent({
   return (
     <>
       <FontAwesomeIcon
+        focusable
         ref={target}
         onClick={clickHandler}
         onMouseEnter={openTooltip}

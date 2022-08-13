@@ -21,3 +21,4 @@ root.render(
     </QueryClientProvider>
   </React.StrictMode>
 );
+

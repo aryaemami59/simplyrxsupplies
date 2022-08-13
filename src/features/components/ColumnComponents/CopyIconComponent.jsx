@@ -4,7 +4,6 @@ import { memo, useCallback, useRef, useReducer } from "react";
 import { Tooltip } from "react-bootstrap";
 import { Overlay } from "react-bootstrap";
 import PropTypes from "prop-types";
-import { Container } from "react-bootstrap";
 
 const ACTIONS = {
   CLICK_ON_ICON: "clickOnIcon",
@@ -75,8 +74,9 @@ function CopyIconComponent({ content, text, placement, vendorName, itemObj }) {
   }, [content, clickOnIcon, afterClick]);
 
   return (
-    <Container className="">
+    <>
       <FontAwesomeIcon
+        focusable
         ref={ref}
         onClick={handleClick}
         onMouseEnter={handleMouseEnter}
@@ -119,7 +119,7 @@ function CopyIconComponent({ content, text, placement, vendorName, itemObj }) {
           </Tooltip>
         )}
       </Overlay>
-    </Container>
+    </>
   );
 }
 
