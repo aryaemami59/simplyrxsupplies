@@ -66,6 +66,9 @@ svg.hover-inverse {
   box-shadow: 1px 1px 10px 1px rgba(var(--bs-warning-rgb), var(--bs-bg-opacity));
   color: rgba(var(--bs-warning-rgb), var(--bs-bg-opacity));
 }
+div.c-overflow-x-hidden {
+  overflow-x: hidden !important;
+}
 input.custom-shadow {
   box-shadow: 0 0.5rem 0.625rem -0.25rem black !important;
 }

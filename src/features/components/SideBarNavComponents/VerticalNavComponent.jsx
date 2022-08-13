@@ -5,7 +5,7 @@ import SideBarAccordionList from "./SideBarAccordionList";
 function VerticalNavComponent({ items }) {
   return (
     <Nav
-      className="flex-column overflow-auto w-100 h-100 sticky-top"
+      className="flex-column overflow-auto w-100 h-100 sticky-top c-overflow-x-hidden"
       style={{}}
       key={"sidebar nav component"}>
       <SideBarAccordionList

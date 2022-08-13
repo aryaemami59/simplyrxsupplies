@@ -51,7 +51,9 @@ function SideBarAccordion({ items, targetId }) {
         <button
           onClick={toggle}
           variant="light"
-          className={`accordion-button bg-gradient ${open ? "" : collapsed}`}>
+          className={`accordion-button bg-gradient ${
+            open ? "" : collapsed
+          }`}>
           {targetId}
         </button>
       </h2>

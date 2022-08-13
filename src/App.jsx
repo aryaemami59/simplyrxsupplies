@@ -75,7 +75,7 @@ function App() {
         <Row className="justify-content-center">
           <Col
             xs={0}
-            lg={3}
+            lg={2}
             xl={2}
             className="ps-0 pe-0 d-none d-lg-block"
             style={{
@@ -92,7 +92,7 @@ function App() {
             xs={10}
             sm={11}
             md={5}
-            lg={4}
+            lg={5}
             xl={5}
             xxl={6}
             className="my-5 pe-5">

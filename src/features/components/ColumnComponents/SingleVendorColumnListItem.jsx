@@ -10,11 +10,9 @@ import { Button } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import { Fade } from "react-bootstrap";
-// import { faWindowMinimize } from "@fortawesome/free-regular-svg-icons";
-// import { faWindowMinimize } from "@fortawesome/free-solid-svg-icons";
-import { faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
+import { ButtonGroup } from "react-bootstrap";
 
 function SingleVendorColumnListItem({
   itemObj,
@@ -29,45 +27,44 @@ function SingleVendorColumnListItem({
 
   return (
     <div>
-      <Row className="justify-content-start pe-3">
-        <Col xs={10} xxl={8} className="">
-          <Fade in={!open} unmountOnExit={true}>
-            <Button
-              variant="success"
-              size=""
-              className="w-100 fs-5"
-              onClick={toggle}>
-              {itemObj.name}
-            </Button>
-          </Fade>
-        </Col>
-        <Col
-          className=""
-          xs={{
-            span: 1,
-          }}
-          xxl={2}>
-          <FontAwesomeIcon
-            icon={faMinus}
-            className="btn rounded-circle hover-inverse px-2"
-            size="2x"
-            role="button"
-            onClick={toggle}
-          />
-        </Col>
-        <Col
-          className=""
-          xs={{
-            span: 1,
-          }}
-          xxl={2}>
-          <RemoveButton
-            vendorName={vendorName}
-            itemObj={itemObj}
-            key={`${itemObj}-${vendorName}-RemoveButton`}
-          />
-        </Col>
-      </Row>
+      <Container fluid className="">
+        <Row className="justify-content-evenly align-items-center">
+          <Col xs={12} sm={12} md={12} lg={12} xl={7} xxl={9} className="p-0">
+            <Fade in={!open} unmountOnExit={true}>
+              <Button
+                variant="success"
+                size=""
+                className="w-100"
+                onClick={toggle}>
+                {itemObj.name}
+              </Button>
+            </Fade>
+          </Col>
+          <Col
+            className="p-0 d-flex justify-content-end"
+            xs={"auto"}
+            sm={"auto"}
+            md={"auto"}
+            lg={"auto"}
+            xl={"auto"}
+            xxl={"auto"}>
+            <ButtonGroup size="" className="my-2">
+              <FontAwesomeIcon
+                icon={faMinus}
+                className="btn rounded-circle hover-inverse px-2 me-1"
+                size="2xl"
+                role="button"
+                onClick={toggle}
+              />
+              <RemoveButton
+                vendorName={vendorName}
+                itemObj={itemObj}
+                key={`${itemObj}-${vendorName}-RemoveButton`}
+              />
+            </ButtonGroup>
+          </Col>
+        </Row>
+      </Container>
       <Collapse in={open}>
         <Container
           className="bg-secondary p-0"
