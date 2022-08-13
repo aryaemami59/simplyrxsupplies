@@ -15,6 +15,7 @@ function SingleDropDown({ itemObj, vendorName }) {
   return (
     <Dropdown.Item
       variant="dark"
+      as="button"
       className={`text-wrap border-bottom border-info text-info ${
         ifAdded ? "bg-info text-white" : ""
       }`}

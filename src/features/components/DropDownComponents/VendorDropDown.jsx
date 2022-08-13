@@ -2,7 +2,6 @@ import SingleDropDown from "./SingleDropDown";
 import PropTypes from "prop-types";
 import { memo, useState, useMemo, useCallback } from "react";
 import { Dropdown } from "react-bootstrap";
-import { NavLink } from "react-bootstrap";
 
 function VendorDropDown({ officialVendorName, items, vendorName }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -17,16 +16,20 @@ function VendorDropDown({ officialVendorName, items, vendorName }) {
 
   return (
     <Dropdown
-      className=""
       autoClose="outside"
       title={officialVendorName}
-      variant="primary"
       show={dropdownOpen}
       onToggle={toggle}>
-      <Dropdown.Toggle variant="dark" className="text-info" as={NavLink}>
+      <Dropdown.Toggle
+        variant="dark"
+        className={`btn ${dropdownOpen ? "btn-info text-white" : "text-info"}`}
+        as="button">
         {officialVendorName}
       </Dropdown.Toggle>
-      <Dropdown.Menu variant="dark" className="bg-dark border border-info" show={dropdownOpen}>
+      <Dropdown.Menu
+        variant="dark"
+        className="bg-dark border border-info"
+        show={dropdownOpen}>
         {myItems.map(e => (
           <SingleDropDown
             key={`${e.name}-${vendorName}`}
