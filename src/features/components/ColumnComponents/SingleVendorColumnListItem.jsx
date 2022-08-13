@@ -3,7 +3,7 @@ import RemoveButton from "./RemoveButton";
 import ItemNameComponent from "./ItemNameComponent";
 import ItemNumberComponent from "./ItemNumberComponent";
 import ColumnBarcodeImageComponent from "./ColumnBarcodeImageComponent";
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import { Collapse } from "react-bootstrap";
 import { Button } from "react-bootstrap";
@@ -24,8 +24,20 @@ function SingleVendorColumnListItem({
     setOpen(prev => !prev);
   }, []);
 
+  const handleKeyDown = useCallback(
+    e => {
+      if (e.key === "c") {
+        toggle();
+      }
+    },
+    [toggle]
+  );
+
   return (
-    <div className="rounded shadow border mb-4 shadow">
+    <div
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      className="rounded shadow border mb-4 shadow">
       <Container fluid className="my-3">
         <Row className="justify-content-evenly align-items-center">
           <Col xs={12} xl={7} xxl={9} className="">

@@ -9,6 +9,8 @@ import { Button } from "react-bootstrap";
 import { Collapse } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 import { ListGroup } from "react-bootstrap";
+import vendorLinks from "../../../data/vendorLinks.json";
+import { Alert } from "react-bootstrap";
 
 function VendorColumn({ officialVendorName, vendorName }) {
   const [open, setOpen] = useState(false);
@@ -18,6 +20,15 @@ function VendorColumn({ officialVendorName, vendorName }) {
   const buttonClick = useCallback(() => {
     return setOpen(!open);
   }, [open]);
+
+  const handleKeyDown = useCallback(
+    e => {
+      if (e.key === "m") {
+        buttonClick();
+      }
+    },
+    [buttonClick]
+  );
 
   return (
     <>
@@ -35,10 +46,21 @@ function VendorColumn({ officialVendorName, vendorName }) {
       </Button>
       <Collapse in={open}>
         <div>
-          <Card className="custom-bg-color-2">
+          <Card
+            tabIndex={0}
+            className="custom-bg-color-2"
+            onKeyDown={handleKeyDown}>
             {addedItems.length ? (
               <Card.Body className="">
                 <QRCodeImageComponent vendorName={vendorName} />
+                <Alert variant="info">
+                  <Alert.Link
+                    className=""
+                    target="blank"
+                    href={vendorLinks[vendorName]}>
+                    {officialVendorName} Website
+                  </Alert.Link>
+                </Alert>
                 <ListGroup>
                   {addedItems.map(e => (
                     <SingleVendorColumnListItem
