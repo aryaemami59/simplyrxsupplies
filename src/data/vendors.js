@@ -3,6 +3,7 @@ const vendors = [
     id: 0,
     officialName: "McKesson",
     abbrName: "MCK",
+    link: "https://connect.mckesson.com/portal/site/smo/menuitem.87a0666be7398a3ece3ee6105740d0a0/?query=",
     items: [
       {
         name: "10 Dram Vials",
@@ -1049,6 +1050,7 @@ const vendors = [
     id: 1,
     officialName: "OrderInsite",
     abbrName: "OI",
+    link: "https://acloud.orderinsite.com/rs/logon/walmart",
     items: [
       {
         name: "10 Dram Vials",
@@ -2245,6 +2247,7 @@ const vendors = [
     id: 2,
     officialName: "GNFR",
     abbrName: "GNFR",
+    link: "https://ppa01.wal-mart.com/irj/portal",
     items: [
       {
         name: "1 ML Oral Syringes",
@@ -3803,6 +3806,7 @@ const vendors = [
     id: 3,
     officialName: "Sign Order Catalog",
     abbrName: "SOC",
+    link: "https://ecom.schwarz.com/Default.aspx?page=ProductCatalog",
     items: [
       {
         name: "Opioid Pamphlets",
@@ -4770,6 +4774,7 @@ const vendors = [
     id: 4,
     officialName: "VaxServe",
     abbrName: "VS",
+    link: "https://unify.vaxserve.com/index.cfm?fa=portal.selectStore",
     items: [
       {
         name: "EasyPoint Safety Needles 25g x 5/8",
@@ -4895,6 +4900,7 @@ const vendors = [
     id: 5,
     officialName: "MCK MedSurge",
     abbrName: "MS",
+    link: "https://mms.mckesson.com/portal/login",
     items: [
       {
         name: "Super Sani-Cloth Wipes",
@@ -5070,6 +5076,7 @@ const vendors = [
     id: 6,
     officialName: "Covap",
     abbrName: "COV",
+    link: "https://www.covap.com/",
     items: [
       {
         name: 'White Magnetic Shelf Divider 6" Deep X 2" High',
@@ -5269,6 +5276,7 @@ const vendors = [
     id: 7,
     officialName: "FORS",
     abbrName: "FORS",
+    link: " https://psz01.wal-mart.com/webdynpro/dispatcher/sap.com/tc~mdm~srmcat~uisearch/ProcurementCatalog7Ehp1#",
     items: [
       {
         name: "ZD620 Desktop Printer",
