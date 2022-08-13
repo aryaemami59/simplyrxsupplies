@@ -1,7 +1,7 @@
+import { memo } from "react";
 import VendorDropDown from "./VendorDropDown";
 import vendors from "../../../data/vendors.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
-import { memo } from "react";
 import PropTypes from "prop-types";
 
 function VendorDropDownsList({ items }) {
@@ -13,7 +13,6 @@ function VendorDropDownsList({ items }) {
           key={e}
           vendorName={e}
           items={items}
-          index={i}
         />
       ))}
     </>
@@ -25,13 +24,10 @@ VendorDropDownsList.propTypes = {
     PropTypes.shape({
       name: PropTypes.string,
       itemNumber: PropTypes.string,
-    })
-  ),
-  onAdd: PropTypes.func,
-  itemsAdded: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      itemNumber: PropTypes.string,
+      keywords: PropTypes.arrayOf(PropTypes.string),
+      nav: PropTypes.arrayOf(PropTypes.string),
+      vendors: PropTypes.arrayOf(PropTypes.string),
+      src: PropTypes.string,
     })
   ),
 };

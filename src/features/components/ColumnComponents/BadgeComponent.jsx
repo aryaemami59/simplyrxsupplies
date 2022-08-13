@@ -1,25 +1,24 @@
 import { memo } from "react";
 import { Badge } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { selectByVendor } from "../../../addedSlice";
+import { addedItemsLength } from "../../../addedSlice";
 import PropTypes from "prop-types";
 
-function BadgeComponent({ vendorName, className }) {
-  const addedItems = useSelector(selectByVendor(vendorName));
+function BadgeComponent({ vendorName }) {
+  const addedItemsLen = useSelector(addedItemsLength(vendorName));
 
   return (
     <Badge
-      className={className}
+      className="float-end"
       key={`${vendorName}-Badge-BadgeComponent`}
-      bg={addedItems.length ? "success" : "secondary"}>
-      {addedItems.length}
+      bg={addedItemsLen ? "success" : "secondary"}>
+      {addedItemsLen}
     </Badge>
   );
 }
 
 BadgeComponent.propTypes = {
   vendorName: PropTypes.string,
-  className: PropTypes.string,
 };
 
 export default memo(BadgeComponent);

@@ -1,7 +1,7 @@
 import { memo } from "react";
+import { useSelector, shallowEqual } from "react-redux";
 import SingleInputListItems from "./SingleInputListItems";
 import { selectAllListItems } from "../../../addedSlice";
-import { useSelector, shallowEqual } from "react-redux";
 
 function InputListItems() {
   const listItems = useSelector(selectAllListItems, shallowEqual);

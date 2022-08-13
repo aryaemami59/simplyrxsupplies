@@ -1,5 +1,5 @@
+import { ListGroup } from "react-bootstrap";
 import { memo } from "react";
-import ListGroup from "react-bootstrap/ListGroup";
 import CopyIconComponent from "./CopyIconComponent";
 import PropTypes from "prop-types";
 

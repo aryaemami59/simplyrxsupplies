@@ -1,5 +1,5 @@
-import { memo, useCallback } from "react";
 import { Button } from "react-bootstrap";
+import { memo, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addItems, checkIfItemAdded } from "../../../addedSlice";
 import PropTypes from "prop-types";

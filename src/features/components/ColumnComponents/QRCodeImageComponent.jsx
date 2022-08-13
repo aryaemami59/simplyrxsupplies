@@ -1,10 +1,10 @@
-import QRCode from "qrcode";
-import joinChars from "../../../data/joinCharacters";
 import { useSelector } from "react-redux";
 import { selectByVendorItemNumbers } from "../../../addedSlice";
 import { memo } from "react";
-import PropTypes from "prop-types";
+import QRCode from "qrcode";
+import joinChars from "../../../data/joinCharacters";
 import PrintIconQRCodeComponent from "./PrintIconQRCodeComponent";
+import PropTypes from "prop-types";
 
 function QRCodeImageComponent({ vendorName }) {
   const itemNumbers = useSelector(

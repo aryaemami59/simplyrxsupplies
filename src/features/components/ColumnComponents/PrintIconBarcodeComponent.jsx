@@ -1,8 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
+import { Tooltip, Overlay } from "react-bootstrap";
 import { memo, useCallback, useRef, useState } from "react";
-import Tooltip from "react-bootstrap/Tooltip";
-import Overlay from "react-bootstrap/Overlay";
 import printjs from "print-js";
 import PropTypes from "prop-types";
 

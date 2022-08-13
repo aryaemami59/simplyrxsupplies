@@ -1,9 +1,8 @@
 import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Tooltip, Overlay } from "react-bootstrap";
 import { memo, useCallback, useRef, useState } from "react";
-import { Tooltip } from "react-bootstrap";
-import { Overlay } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 const EXPAND = "Expand";

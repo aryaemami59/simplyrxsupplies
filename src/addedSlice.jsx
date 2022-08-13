@@ -50,6 +50,10 @@ export const selectAllAdded = state => state.added;
 
 export const selectByVendor = vendor => state => state.added[vendor];
 
+export const addedItemsLength = vendor => state => state.added[vendor].length;
+
+// export const QRCodeContent = vendor => state => state.added[vendor].length;
+
 export const selectByVendorItemNumbers = (vendor, char) => state =>
   state.added[vendor].map(({ itemNumber }) => itemNumber).join(char);
 

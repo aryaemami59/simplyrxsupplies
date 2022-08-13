@@ -1,8 +1,8 @@
-import { memo, useCallback } from "react";
-import PropTypes from "prop-types";
-import { addItems, checkIfItemAdded } from "../../../addedSlice";
-import { useSelector, useDispatch } from "react-redux";
 import { Dropdown } from "react-bootstrap";
+import { memo, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addItems, checkIfItemAdded } from "../../../addedSlice";
+import PropTypes from "prop-types";
 
 function SingleDropDown({ itemObj, vendorName }) {
   const dispatch = useDispatch();
@@ -26,17 +26,15 @@ function SingleDropDown({ itemObj, vendorName }) {
 }
 
 SingleDropDown.propTypes = {
-  onAdd: PropTypes.func,
+  vendorName: PropTypes.string,
   itemObj: PropTypes.shape({
     name: PropTypes.string,
     itemNumber: PropTypes.string,
+    keywords: PropTypes.arrayOf(PropTypes.string),
+    nav: PropTypes.arrayOf(PropTypes.string),
+    vendors: PropTypes.arrayOf(PropTypes.string),
+    src: PropTypes.string,
   }),
-  itemsAdded: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      itemNumber: PropTypes.string,
-    })
-  ),
 };
 
 export default memo(SingleDropDown);

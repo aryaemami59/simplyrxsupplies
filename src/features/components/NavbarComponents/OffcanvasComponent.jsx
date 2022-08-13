@@ -1,9 +1,8 @@
+import { Nav, Offcanvas, Navbar } from "react-bootstrap";
 import { useState, useCallback, memo } from "react";
-import { Nav } from "react-bootstrap";
-import { Offcanvas } from "react-bootstrap";
-import { Navbar } from "react-bootstrap";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import SideBarAccordionList from "../SideBarNavComponents/SideBarAccordionList";
+import PropTypes from "prop-types";
 
 function OffcanvasComponent({ items }) {
   const [show, setShow] = useState(false);
@@ -44,5 +43,18 @@ function OffcanvasComponent({ items }) {
     </>
   );
 }
+
+OffcanvasComponent.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      itemNumber: PropTypes.string,
+      keywords: PropTypes.arrayOf(PropTypes.string),
+      nav: PropTypes.arrayOf(PropTypes.string),
+      vendors: PropTypes.arrayOf(PropTypes.string),
+      src: PropTypes.string,
+    })
+  ),
+};
 
 export default memo(OffcanvasComponent);

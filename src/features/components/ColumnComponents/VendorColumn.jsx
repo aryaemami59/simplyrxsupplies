@@ -1,12 +1,12 @@
+import { Button, Collapse, Card, ListGroup, Alert } from "react-bootstrap";
 import { useState, memo, useCallback } from "react";
-import BadgeComponent from "./BadgeComponent";
-import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { selectByVendor } from "../../../addedSlice";
+import BadgeComponent from "./BadgeComponent";
 import QRCodeImageComponent from "./QRCodeImageComponent";
 import SingleVendorColumnListItem from "./SingleVendorColumnListItem";
-import { Button, Collapse, Card, ListGroup, Alert } from "react-bootstrap";
 import vendorLinks from "../../../data/vendorLinks.json";
+import PropTypes from "prop-types";
 
 function VendorColumn({ officialVendorName, vendorName }) {
   const [open, setOpen] = useState(false);
@@ -35,7 +35,6 @@ function VendorColumn({ officialVendorName, vendorName }) {
         key={`${officialVendorName}-VendorColumn-Button`}>
         {officialVendorName}
         <BadgeComponent
-          className="float-end"
           vendorName={vendorName}
           key={`${officialVendorName}-VendorColumn-Badge`}
         />
@@ -47,13 +46,13 @@ function VendorColumn({ officialVendorName, vendorName }) {
             className="custom-bg-color-2"
             onKeyDown={handleKeyDown}>
             {addedItems.length ? (
-              <Card.Body className="">
-                <QRCodeImageComponent vendorName={vendorName} />
+              <Card.Body>
+                <QRCodeImageComponent
+                  vendorName={vendorName}
+                  key={`${vendorName}-VendorColumn-QRCodeImageComponent`}
+                />
                 <Alert variant="info">
-                  <Alert.Link
-                    className=""
-                    target="blank"
-                    href={vendorLinks[vendorName]}>
+                  <Alert.Link target="blank" href={vendorLinks[vendorName]}>
                     {officialVendorName} Website
                   </Alert.Link>
                 </Alert>

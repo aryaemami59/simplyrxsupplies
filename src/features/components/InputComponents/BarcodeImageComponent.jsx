@@ -1,12 +1,13 @@
-import { memo, useEffect } from "react";
+import { memo } from "react";
+import PropTypes from "prop-types";
 
 function BarcodeImageComponent({ src, itemNumber }) {
-  useEffect(() => {
-    // console.log("BarcodeImageComponent mounts");
-    // return () => console.log("BarcodeImageComponent unmounts");
-  }, []);
-
   return <img src={src} alt={itemNumber} />;
 }
+
+BarcodeImageComponent.propTypes = {
+  src: PropTypes.string,
+  itemNumber: PropTypes.string,
+};
 
 export default memo(BarcodeImageComponent);

@@ -1,12 +1,14 @@
+import { memo, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { addItems } from "../../../addedSlice";
 import VendorBadges from "./VendorBadges";
-import { memo, useCallback } from "react";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import BarcodeImageComponent from "./BarcodeImageComponent";
+import PropTypes from "prop-types";
 
 function SingleInputListItems({ itemObj, vendors }) {
   const dispatch = useDispatch();
+
   const clickHandler = useCallback(() => {
     dispatch(addItems(itemObj));
   }, [dispatch, itemObj]);
@@ -36,5 +38,17 @@ function SingleInputListItems({ itemObj, vendors }) {
     </button>
   );
 }
+
+SingleInputListItems.propTypes = {
+  vendors: PropTypes.arrayOf(PropTypes.string),
+  itemObj: PropTypes.shape({
+    name: PropTypes.string,
+    itemNumber: PropTypes.string,
+    keywords: PropTypes.arrayOf(PropTypes.string),
+    nav: PropTypes.arrayOf(PropTypes.string),
+    vendors: PropTypes.arrayOf(PropTypes.string),
+    src: PropTypes.string,
+  }),
+};
 
 export default memo(SingleInputListItems);

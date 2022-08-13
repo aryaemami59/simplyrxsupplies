@@ -6,8 +6,8 @@ import PropTypes from "prop-types";
 function ColumnBarcodeImageComponent({ src, itemObj, officialVendorName }) {
   return (
     <Container fluid className="my-4">
-      <Row className="">
-        <Col md={12} className="">
+      <Row>
+        <Col md={12}>
           <img src={src} alt={itemObj.itemNumber} className="custom-shadow" />
           <PrintIconBarcodeComponent
             itemObj={itemObj}

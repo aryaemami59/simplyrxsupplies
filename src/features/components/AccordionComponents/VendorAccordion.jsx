@@ -4,7 +4,7 @@ import BadgeComponent from "../ColumnComponents/BadgeComponent";
 import SingleAccordionListItem from "./SingleAccordionListItem";
 import PropTypes from "prop-types";
 
-const collapsed = "collapsed";
+const COLLAPSED = "collapsed";
 
 function VendorAccordion({ officialVendorName, vendorName, items }) {
   const [open, setOpen] = useState(false);
@@ -14,13 +14,13 @@ function VendorAccordion({ officialVendorName, vendorName, items }) {
   }, []);
 
   return (
-    <div>
+    <>
       <h2 className="accordion-header bg-light bg-gradient">
         <Button
           onClick={toggle}
           variant="light"
           className={`accordion-button bg-light bg-gradient ${
-            open ? "" : collapsed
+            open ? "" : COLLAPSED
           }`}>
           <BadgeComponent
             className="me-4"
@@ -34,10 +34,10 @@ function VendorAccordion({ officialVendorName, vendorName, items }) {
         id={vendorName}
         in={open}
         className="accordion-collapse bg-light bg-gradient">
-        <div className="">
+        <div>
           <Card className="bg-light bg-gradient">
             <Card.Body className="bg-light bg-gradient">
-              <ListGroup className="">
+              <ListGroup>
                 {items
                   .filter(e => e[vendorName])
                   .map(e => (
@@ -54,7 +54,7 @@ function VendorAccordion({ officialVendorName, vendorName, items }) {
           </Card>
         </div>
       </Collapse>
-    </div>
+    </>
   );
 }
 
@@ -65,6 +65,10 @@ VendorAccordion.propTypes = {
     PropTypes.shape({
       name: PropTypes.string,
       itemNumber: PropTypes.string,
+      keywords: PropTypes.arrayOf(PropTypes.string),
+      nav: PropTypes.arrayOf(PropTypes.string),
+      vendors: PropTypes.arrayOf(PropTypes.string),
+      src: PropTypes.string,
     })
   ),
 };

@@ -1,8 +1,7 @@
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Tooltip, Overlay } from "react-bootstrap";
 import { memo, useCallback, useRef, useReducer } from "react";
-import { Tooltip } from "react-bootstrap";
-import { Overlay } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 const ACTIONS = {

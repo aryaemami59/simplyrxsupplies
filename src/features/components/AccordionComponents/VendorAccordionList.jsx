@@ -7,11 +7,10 @@ import PropTypes from "prop-types";
 function VendorAccordionList({ items }) {
   return (
     <div className="bg-dark accordion">
-      {vendors.map((e, i) => (
+      {vendors.map(e => (
         <VendorAccordion
           officialVendorName={officialVendorNames[e]}
           key={officialVendorNames[e]}
-          // targetId={i.toString()}
           vendorName={e}
           items={items}
         />
@@ -25,6 +24,10 @@ VendorAccordionList.propTypes = {
     PropTypes.shape({
       name: PropTypes.string,
       itemNumber: PropTypes.string,
+      keywords: PropTypes.arrayOf(PropTypes.string),
+      nav: PropTypes.arrayOf(PropTypes.string),
+      vendors: PropTypes.arrayOf(PropTypes.string),
+      src: PropTypes.string,
     })
   ),
 };

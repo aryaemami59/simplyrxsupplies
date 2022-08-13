@@ -1,7 +1,7 @@
+import { Dropdown } from "react-bootstrap";
+import { memo, useState, useMemo, useCallback } from "react";
 import SingleDropDown from "./SingleDropDown";
 import PropTypes from "prop-types";
-import { memo, useState, useMemo, useCallback } from "react";
-import { Dropdown } from "react-bootstrap";
 
 function VendorDropDown({ officialVendorName, items, vendorName }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -46,18 +46,15 @@ function VendorDropDown({ officialVendorName, items, vendorName }) {
 
 VendorDropDown.propTypes = {
   officialVendorName: PropTypes.string,
+  vendorName: PropTypes.string,
   items: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       itemNumber: PropTypes.string,
-    })
-  ),
-  vendorName: PropTypes.string,
-  onAdd: PropTypes.func,
-  itemsAdded: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      itemNumber: PropTypes.string,
+      keywords: PropTypes.arrayOf(PropTypes.string),
+      nav: PropTypes.arrayOf(PropTypes.string),
+      vendors: PropTypes.arrayOf(PropTypes.string),
+      src: PropTypes.string,
     })
   ),
 };
