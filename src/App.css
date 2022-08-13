@@ -81,8 +81,9 @@ svg.hover-inverse:hover {
   background-color: rgba(var(--bs-warning-rgb));
 }
 .accordion-button:not(.collapsed) {
-  background-color: rgba(var(--bs-dark-rgb)) !important;
-  color: rgba(var(--bs-light-rgb)) !important;
+  background-color: rgba(var(--bs-info-rgb)) !important;
+  /* background-color: rgba(var(--bs-dark-rgb)) !important; */
+  color: rgba(var(--bs-white-rgb)) !important;
   /* color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important; */
 }
 .accordion-button {

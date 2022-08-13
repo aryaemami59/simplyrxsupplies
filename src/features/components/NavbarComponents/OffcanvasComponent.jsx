@@ -1,17 +1,11 @@
-import { useState, useCallback, memo, useRef, useEffect } from "react";
-// import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
-import VendorAccordionList from "../AccordionComponents/VendorAccordionList";
-import NavbarTogglerComponent from "./NavbarTogglerComponent";
-import { Collapse } from "react-bootstrap";
+import { useState, useCallback, memo, useEffect } from "react";
 import { Nav } from "react-bootstrap";
 import { Offcanvas } from "react-bootstrap";
 import { Navbar } from "react-bootstrap";
-import { Button } from "react-bootstrap";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import SideBarAccordionList from "../SideBarNavComponents/SideBarAccordionList";
 
 function OffcanvasComponent({ items }) {
-  const nodeRef = useRef(null);
   const [show, setShow] = useState(false);
 
   const handleOpen = useCallback(() => {
@@ -30,7 +24,7 @@ function OffcanvasComponent({ items }) {
   return (
     <>
       <Navbar.Toggle
-        className="d-lg-none navbar-toggler"
+        className="d-lg-none mx-4 navbar-toggler"
         onClick={handleOpen}
       />
       <Offcanvas
@@ -42,9 +36,10 @@ function OffcanvasComponent({ items }) {
           <Offcanvas.Title>Add Items By Vendor or Category</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          {/* <VendorAccordionList items={items} /> */}
-          <VendorDropDownsList items={items} />
-          <div className="accordion ">
+          <Nav className="mb-5 border-bottom border-5 border-info">
+            <VendorDropDownsList items={items} />
+          </Nav>
+          <div className="accordion rounded border border-info">
             <SideBarAccordionList items={items} />
           </div>
         </Offcanvas.Body>

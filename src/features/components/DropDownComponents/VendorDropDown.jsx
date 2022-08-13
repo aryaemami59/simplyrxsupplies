@@ -1,15 +1,11 @@
 import SingleDropDown from "./SingleDropDown";
 import PropTypes from "prop-types";
-import { memo, useEffect, useState, useMemo, useCallback } from "react";
+import { memo, useState, useMemo, useCallback } from "react";
 import { Dropdown } from "react-bootstrap";
-import { NavDropdown } from "react-bootstrap";
-import { NavItem } from "react-bootstrap";
 import { NavLink } from "react-bootstrap";
 
 function VendorDropDown({ officialVendorName, items, vendorName }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  // const renders = useRef(0);
-  // console.log("renders:", renders.current++);
 
   const myItems = useMemo(() => {
     return items.filter(e => e[vendorName]);
@@ -19,36 +15,10 @@ function VendorDropDown({ officialVendorName, items, vendorName }) {
     setDropdownOpen(prev => !prev);
   }, []);
 
-  useEffect(() => {
-    // console.log("my items changed");
-  }, [myItems]);
-
-  useEffect(() => {
-    // console.log("toggle changed");
-  }, [toggle]);
-
-  useEffect(() => {
-    // console.log("setDropdownOpen changed");
-  }, [setDropdownOpen]);
-
-  useEffect(() => {
-    // console.log("dropdownOpen changed");
-  }, [dropdownOpen]);
-
-  useEffect(() => {
-    // console.log("VendorDropDown Mounts");
-    // return () => console.log("VendorDropDown Unmounts");
-  }, []);
-
-  useEffect(() => {
-    //   // console.log("VendorDropDown");
-  });
-
   return (
     <Dropdown
-      className="mx-0 mx-lg-2 h-100"
+      className="mx-0 mx-lg-2"
       autoClose="outside"
-      // as={NavItem}
       title={officialVendorName}
       variant="primary"
       show={dropdownOpen}
@@ -56,7 +26,6 @@ function VendorDropDown({ officialVendorName, items, vendorName }) {
       <Dropdown.Toggle variant="dark" className="text-info" as={NavLink}>
         {officialVendorName}
       </Dropdown.Toggle>
-      {/* <Dropdown.Item variant="secondary"> */}
       <Dropdown.Menu variant="dark" className="bg-dark" show={dropdownOpen}>
         {myItems.map(e => (
           <SingleDropDown
@@ -68,7 +37,6 @@ function VendorDropDown({ officialVendorName, items, vendorName }) {
           />
         ))}
       </Dropdown.Menu>
-      {/* </Dropdown.Item> */}
     </Dropdown>
   );
 }
