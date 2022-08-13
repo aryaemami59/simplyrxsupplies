@@ -28,6 +28,7 @@ function RemoveButton({ vendorName, itemObj }) {
     <>
       <FontAwesomeIcon
         icon={faClose}
+        aria-label="remove item"
         key={`${vendorName}-${itemObj.name}-CloseButton`}
         ref={target}
         onClick={clickHandler}
