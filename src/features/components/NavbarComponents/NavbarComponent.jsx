@@ -1,9 +1,8 @@
-import Navbar from "react-bootstrap/Navbar";
 import { memo } from "react";
-import PropTypes from "prop-types";
 import OffcanvasComponent from "./OffcanvasComponent";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
-import { Nav } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 function NavbarComponent({ items }) {
   return (

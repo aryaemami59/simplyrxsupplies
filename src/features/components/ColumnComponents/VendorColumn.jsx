@@ -20,7 +20,7 @@ function VendorColumn({ officialVendorName, vendorName }) {
   }, [open]);
 
   return (
-    <div>
+    <>
       <Button
         className="position-relative d-block w-100"
         variant="primary"
@@ -35,7 +35,7 @@ function VendorColumn({ officialVendorName, vendorName }) {
       </Button>
       <Collapse in={open}>
         <div>
-          <Card className="bg-secondary">
+          <Card className="custom-bg-color-2">
             {addedItems.length ? (
               <Card.Body className="">
                 <QRCodeImageComponent vendorName={vendorName} />
@@ -58,7 +58,7 @@ function VendorColumn({ officialVendorName, vendorName }) {
           </Card>
         </div>
       </Collapse>
-    </div>
+    </>
   );
 }
 

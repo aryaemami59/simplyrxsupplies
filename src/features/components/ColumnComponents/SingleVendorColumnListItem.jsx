@@ -25,11 +25,11 @@ function SingleVendorColumnListItem({
   }, []);
 
   return (
-    <div className="rounded shadow border-5 border">
+    <div className="rounded shadow border mb-4 shadow">
       <Container fluid className="my-3">
         <Row className="justify-content-evenly align-items-center">
           <Col xs={12} xl={7} xxl={9} className="">
-            <Fade in={!open}>
+            <Fade in={!open} unmountOnExit>
               <Button
                 aria-controls="maximize content"
                 variant="success"
@@ -58,7 +58,7 @@ function SingleVendorColumnListItem({
       </Container>
       <Collapse in={open}>
         <Container
-          className="bg-secondary"
+          className="custom-bg-color-2"
           key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
           <ItemNameComponent
             vendorName={vendorName}

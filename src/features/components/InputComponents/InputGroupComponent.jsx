@@ -19,7 +19,7 @@ function InputGroupComponent({ items }) {
             Search...
           </label>
           <FontAwesomeIcon
-            className="c-bg rounded-circle p-2 position-absolute top-0 end-0 me-1 mt-1 text-white-50"
+            className=" rounded-circle p-2 position-absolute top-0 end-0 me-1 mt-1 text-white-50"
             role="search"
             size="2x"
             icon={faMagnifyingGlass}

@@ -61,10 +61,13 @@ body {
   overflow-x: hidden;
 }
 svg.hover-inverse {
-  /* width: 50px; */
   border: none;
-  box-shadow: 1px 1px 10px 1px rgba(var(--bs-warning-rgb), var(--bs-bg-opacity));
-  color: rgba(var(--bs-warning-rgb), var(--bs-bg-opacity));
+  box-shadow: 1px 1px 10px 1px rgba(var(--bs-warning-rgb));
+  color: rgba(var(--bs-warning-rgb));
+}
+svg.hover-inverse:hover {
+  color: none;
+  background-color: rgba(var(--bs-warning-rgb));
 }
 div.c-overflow-x-hidden {
   overflow-x: hidden !important;
@@ -75,10 +78,6 @@ input.custom-shadow {
 }
 .custom-shadow {
   box-shadow: 0 0.5rem 2rem -0.5rem black !important;
-}
-svg.hover-inverse:hover {
-  color: none;
-  background-color: rgba(var(--bs-warning-rgb));
 }
 .accordion-button:not(.collapsed) {
   background-color: rgba(var(--bs-info-rgb)) !important;
@@ -111,8 +110,18 @@ div.offcanvas-body div.dropdown-menu.show {
 .form-control.c-bg {
   background-color: rgba(0, 0, 0, 0.3);
 }
+.c-bg {
+  background-color: rgba(0, 0, 0, 0.3);
+}
 .form-control.c-bg:focus {
   background-color: rgba(0, 0, 0, 0.3);
+}
+.custom-bg-color {
+  background: linear-gradient(to right, #e0eafc, #cfdef3);
+}
+.custom-bg-color-2 {
+  /* background: linear-gradient(to left, #1f1c2c, #928dab); */
+  background: linear-gradient(to right, #485563, #29323c);
 }
 
 /* .accordion-button:not(.collapsed) {
