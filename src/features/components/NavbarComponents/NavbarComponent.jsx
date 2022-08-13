@@ -14,7 +14,7 @@ function NavbarComponent({ items }) {
       variant="dark"
       className="d-flex justify-content-start">
       <OffcanvasComponent items={items} />
-      <Nav>
+      <Nav fill navbar className="d-none d-lg-flex">
         <VendorDropDownsList items={items} />
       </Nav>
     </Navbar>

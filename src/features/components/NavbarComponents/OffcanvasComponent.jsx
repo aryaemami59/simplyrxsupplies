@@ -1,4 +1,4 @@
-import { useState, useCallback, memo, useEffect } from "react";
+import { useState, useCallback, memo } from "react";
 import { Nav } from "react-bootstrap";
 import { Offcanvas } from "react-bootstrap";
 import { Navbar } from "react-bootstrap";
@@ -16,11 +16,6 @@ function OffcanvasComponent({ items }) {
     setShow(false);
   }, []);
 
-  useEffect(() => {
-    console.log("OffcanvasComponent mounts");
-    return () => console.log("OffcanvasComponent unmounts");
-  }, []);
-
   return (
     <>
       <Navbar.Toggle
@@ -30,15 +25,17 @@ function OffcanvasComponent({ items }) {
       <Offcanvas
         className="text-bg-dark"
         show={show}
-        scroll={true}
+        scroll
         onHide={handleClose}>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Add Items By Vendor or Category</Offcanvas.Title>
+        <Offcanvas.Header closeButton closeVariant="white">
+          <Offcanvas.Title>Add Items</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <Nav className="mb-5 border-bottom border-5 border-info">
+          <Offcanvas.Title className="mb-4">By Vendor</Offcanvas.Title>
+          <Nav className="mb-5 rounded border border-info p-4">
             <VendorDropDownsList items={items} />
           </Nav>
+          <Offcanvas.Title className="mb-4">By Category</Offcanvas.Title>
           <div className="accordion rounded border border-info">
             <SideBarAccordionList items={items} />
           </div>

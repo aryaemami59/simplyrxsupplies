@@ -2,6 +2,8 @@ import { memo, useState, useCallback } from "react";
 import { Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { setListItems } from "../../../addedSlice";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const empty = [];
 
@@ -32,14 +34,22 @@ function InputFieldComponent({ items }) {
   );
 
   return (
-    <Form.Control
-      placeholder="Search..."
-      type="search"
-      className="custom-shadow rounded-pill ps-4 mt-3 mb-5"
-      key="input box"
-      onChange={changeVal}
-      value={val}
-    />
+    <>
+      <Form.Control
+        placeholder="Search..."
+        type="search"
+        className="custom-shadow rounded-pill ps-4 mt-3 mb-5"
+        key="input box"
+        onChange={changeVal}
+        value={val}
+      />
+      <FontAwesomeIcon
+        className="position-absolute bg-danger rounded-circle"
+        role="search"
+        size="10x"
+        icon={faSearch}
+      />
+    </>
   );
 }
 
