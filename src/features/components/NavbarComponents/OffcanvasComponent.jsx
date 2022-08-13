@@ -33,17 +33,20 @@ function OffcanvasComponent({ items }) {
         className="d-lg-none navbar-toggler"
         onClick={handleOpen}
       />
-      <Offcanvas show={show} scroll={true} onHide={handleClose}>
+      <Offcanvas
+        className="text-bg-dark"
+        show={show}
+        scroll={true}
+        onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Add Items By Vendor</Offcanvas.Title>
+          <Offcanvas.Title>Add Items By Vendor or Category</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <VendorAccordionList items={items} />
-          {/* <VendorDropDownsList items={items} /> */}
-          <Offcanvas.Header>
-            <Offcanvas.Title>Add Items By Category</Offcanvas.Title>
-          </Offcanvas.Header>
-          <SideBarAccordionList items={items} />
+          {/* <VendorAccordionList items={items} /> */}
+          <VendorDropDownsList items={items} />
+          <div className="accordion ">
+            <SideBarAccordionList items={items} />
+          </div>
         </Offcanvas.Body>
       </Offcanvas>
     </>

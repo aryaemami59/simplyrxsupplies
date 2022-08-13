@@ -10,16 +10,8 @@ import { Button } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import { Fade } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinus } from "@fortawesome/free-solid-svg-icons";
-import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { ButtonGroup } from "react-bootstrap";
-import { Overlay } from "react-bootstrap";
-import { Tooltip } from "react-bootstrap";
 import MinimizeButton from "./MinimizeButton";
-
-const EXPAND = "Expand";
-const COLLAPSE = "Collapse";
 
 function SingleVendorColumnListItem({
   itemObj,
@@ -31,24 +23,14 @@ function SingleVendorColumnListItem({
   const toggle = useCallback(() => {
     setOpen(prev => !prev);
   }, []);
-  // const [show, setShow] = useState(false);
-  // const target = useRef(null);
-  // const openTooltip = useCallback(() => {
-  //   setShow(true);
-  // }, []);
-
-  // const closeTooltip = useCallback(() => {
-  //   setShow(false);
-  // }, []);
 
   return (
     <div className="rounded shadow border-5 border">
       <Container fluid className="my-3">
         <Row className="justify-content-evenly align-items-center">
           <Col xs={12} xl={7} xxl={9} className="">
-            <Fade in={!open} unmountOnExit={true}>
+            <Fade in={!open}>
               <Button
-                aria-expanded={open}
                 aria-controls="maximize content"
                 variant="success"
                 className="w-100"
@@ -65,35 +47,10 @@ function SingleVendorColumnListItem({
                 vendorName={vendorName}
                 itemObj={itemObj}
               />
-              {/* <FontAwesomeIcon
-                aria-label="collapse item info"
-                ref={target}
-                icon={open ? faMinus : faAdd}
-                className="btn rounded-circle hover-inverse px-2 me-1"
-                size="2xl"
-                role="button"
-                onMouseEnter={openTooltip}
-                onMouseLeave={closeTooltip}
-                onClick={toggle}
-              />
-              <Overlay
-                key={`${vendorName}-RemoveButton-Overlay`}
-                target={target.current}
-                show={show}
-                placement="top">
-                {props => (
-                  <Tooltip
-                    key={`MinimizeButton-tooltip-${vendorName}-${itemObj.name}`}
-                    id={`MinimizeButton-tooltip-${vendorName}-${itemObj.name}`}
-                    {...props}>
-                    Click Here to {open ? COLLAPSE : EXPAND} The Item Info
-                  </Tooltip>
-                )}
-              </Overlay> */}
               <RemoveButton
                 vendorName={vendorName}
                 itemObj={itemObj}
-                key={`${itemObj}-${vendorName}-RemoveButton`}
+                key={`${itemObj.name}-${vendorName}-RemoveButton`}
               />
             </ButtonGroup>
           </Col>

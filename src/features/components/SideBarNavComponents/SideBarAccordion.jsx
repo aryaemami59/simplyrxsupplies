@@ -47,11 +47,11 @@ function SideBarAccordion({ items, targetId }) {
     //   </Accordion.Item>
     // </div>
     <div className="">
-      <h2 className="accordion-header bg-gradient">
+      <h2 className="accordion-header">
         <button
           onClick={toggle}
           variant="light"
-          className={`accordion-button bg-gradient ${
+          className={`accordion-button ${
             open ? "" : collapsed
           }`}>
           {targetId}

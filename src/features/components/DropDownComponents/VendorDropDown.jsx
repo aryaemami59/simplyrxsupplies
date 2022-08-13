@@ -46,7 +46,7 @@ function VendorDropDown({ officialVendorName, items, vendorName }) {
 
   return (
     <Dropdown
-      className="ms-lg-0 ms-xl-3 ms-xxl-5 h-100"
+      className="mx-0 mx-lg-2 h-100"
       autoClose="outside"
       // as={NavItem}
       title={officialVendorName}
