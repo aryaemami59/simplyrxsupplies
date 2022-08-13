@@ -24,17 +24,19 @@ function PrintIconBarcodeComponent({ src, text, header }) {
   return (
     <OverlayTrigger
       placement="right"
+      key={`${header}-overlay-trigger-PrintIconBarcodeComponent`}
       delay={{ show: 100, hide: 100 }}
       overlay={renderTooltip}
       trigger={["hover", "focus"]}>
       <FontAwesomeIcon
         onClick={clickHandler}
         icon={faPrint}
-        size="lg"
+        size="xl"
         inverse
         pull="right"
-        className="btn align-self-end"
+        className="btn position-absolute end-0 me-4"
         role="button"
+        key={`${header}-PrintIconBarcodeComponent`}
       />
     </OverlayTrigger>
   );

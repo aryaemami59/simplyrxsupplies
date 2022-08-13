@@ -18,9 +18,9 @@ function ColumnBarcodeImageComponent({
 
   // return <LazyLoadImage src={src} alt={itemNumber} />;
   return (
-    <Container fluid className="p-0">
-      <Row className="m-0 w-100">
-        <Col md={12} className="bg-dark bg-gradient justify-content-center p-0">
+    <Container fluid className="mt-4">
+      <Row className="justify-content-center">
+        <Col md={12} className="bg-dark bg-gradient">
           <img src={src} alt={itemNumber} className="align-self-center" />
           <PrintIconBarcodeComponent
             src={src}

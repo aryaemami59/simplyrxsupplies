@@ -24,7 +24,7 @@ function PrintIconQRCodeComponent({ src, text, vendorName }) {
 
   return (
     <OverlayTrigger
-      placement="right"
+      placement="bottom"
       key={`${vendorName}-PrintIconQRCodeComponent-OverlayTrigger`}
       delay={{ show: 100, hide: 100 }}
       overlay={renderTooltip}
@@ -32,10 +32,10 @@ function PrintIconQRCodeComponent({ src, text, vendorName }) {
       <FontAwesomeIcon
         onClick={clickHandler}
         icon={faPrint}
-        size="lg"
+        size="xl"
         inverse
         pull="right"
-        className="btn"
+        className="btn position-absolute end-0"
         role="button"
         key={`${vendorName}-FontAwesomeIcon-PrintIconQRCodeComponent`}
       />
