@@ -120,8 +120,28 @@ div.offcanvas-body div.dropdown-menu.show {
   background: linear-gradient(to right, #e0eafc, #cfdef3);
 }
 .custom-bg-color-2 {
-  /* background: linear-gradient(to left, #1f1c2c, #928dab); */
   background: linear-gradient(to right, #485563, #29323c);
+}
+::-webkit-scrollbar {
+  width: 17px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(var(--bs-secondary-rgb));
+  background-color: rgba(var(--bs-dark-rgb));
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--bs-info-rgb));
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3dd5f3;
 }
 
 /* .accordion-button:not(.collapsed) {

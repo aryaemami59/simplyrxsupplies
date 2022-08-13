@@ -44,7 +44,7 @@ function PrintIconBarcodeComponent({
         size="xl"
         inverse
         pull="right"
-        className="btn position-absolute end-0 me-3"
+        className="btn position-absolute end-0 me-4"
         role="button"
         key={`${header}-PrintIconBarcodeComponent`}
       />

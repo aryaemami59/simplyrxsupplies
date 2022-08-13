@@ -43,7 +43,7 @@ function PrintIconQRCodeComponent({
         size="xl"
         inverse
         pull="right"
-        className="btn position-absolute end-0"
+        className="btn position-absolute end-0 me-3"
         role="button"
         key={`${vendorName}-FontAwesomeIcon-PrintIconQRCodeComponent`}
       />
