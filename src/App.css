@@ -70,7 +70,11 @@ div.c-overflow-x-hidden {
   overflow-x: hidden !important;
 }
 input.custom-shadow {
-  box-shadow: 0 0.5rem 0.625rem -0.25rem black !important;
+  /* box-shadow: 0 0.5rem 0.625rem -0.25rem black !important; */
+  box-shadow: 0 0.5rem 2rem -0.5rem black !important;
+}
+.custom-shadow {
+  box-shadow: 0 0.5rem 2rem -0.5rem black !important;
 }
 svg.hover-inverse:hover {
   color: none;

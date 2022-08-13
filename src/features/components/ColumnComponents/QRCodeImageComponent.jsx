@@ -19,10 +19,11 @@ function QRCodeImageComponent({ vendorName }) {
 
   return (
     <div
-      className="bg-dark bg-gradient"
+      className=""
       key={`${vendorName}-container-QRCodeImageComponent`}>
       <img
         src={src}
+        className="custom-shadow my-4"
         alt={src}
         key={`${vendorName}-QRCode-image-QRCodeImageComponent`}
       />

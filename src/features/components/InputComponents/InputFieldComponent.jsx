@@ -35,7 +35,7 @@ function InputFieldComponent({ items }) {
     <Form.Control
       placeholder="Search..."
       type="search"
-      className="shadow rounded-pill ps-4 my-3"
+      className="custom-shadow rounded-pill ps-4 mt-3 mb-5"
       key="input box"
       onChange={changeVal}
       value={val}

@@ -26,7 +26,7 @@ function SingleVendorColumnListItem({
   }, []);
 
   return (
-    <div>
+    <div className="border border-5 border-primary rounded">
       <Container fluid className="">
         <Row className="justify-content-evenly align-items-center">
           <Col xs={12} sm={12} md={12} lg={12} xl={7} xxl={9} className="p-0">
