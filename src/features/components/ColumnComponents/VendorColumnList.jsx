@@ -8,7 +8,7 @@ import { Row } from "react-bootstrap";
 function VendorColumnList() {
   return (
     <Row className="justify-content-start">
-      <Col lg={12} xl={10} className="">
+      <Col lg={12} xl={10} className="shadow p-0">
         {vendors.map(e => (
           <VendorColumn
             officialVendorName={officialVendorNames[e]}
