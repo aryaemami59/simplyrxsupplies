@@ -4,6 +4,7 @@ import { memo, useCallback, useRef, useReducer } from "react";
 import { Tooltip } from "react-bootstrap";
 import { Overlay } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { Container } from "react-bootstrap";
 
 const ACTIONS = {
   CLICK_ON_ICON: "clickOnIcon",
@@ -54,11 +55,11 @@ function CopyIconComponent({ content, text, placement, vendorName, itemObj }) {
     () => dispatch({ type: ACTIONS.CLICK_ON_ICON }),
     []
   );
-  const hoverOverIcon = useCallback(
+  const handleMouseEnter = useCallback(
     () => dispatch({ type: ACTIONS.HOVER_OVER_ICON }),
     []
   );
-  const hoverLeave = useCallback(
+  const handleMouseLeave = useCallback(
     () => dispatch({ type: ACTIONS.HOVER_LEAVE }),
     []
   );
@@ -67,19 +68,19 @@ function CopyIconComponent({ content, text, placement, vendorName, itemObj }) {
     dispatch({ type: ACTIONS.AFTER_CLICK });
   }, []);
 
-  const copyItemName = useCallback(() => {
+  const handleClick = useCallback(() => {
     clickOnIcon();
     navigator.clipboard.writeText(content);
     setTimeout(afterClick, 500);
   }, [content, clickOnIcon, afterClick]);
 
   return (
-    <>
+    <Container className="">
       <FontAwesomeIcon
         ref={ref}
-        onClick={copyItemName}
-        onMouseEnter={hoverOverIcon}
-        onMouseLeave={hoverLeave}
+        onClick={handleClick}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         icon={faCopy}
         size="lg"
         inverse
@@ -92,7 +93,8 @@ function CopyIconComponent({ content, text, placement, vendorName, itemObj }) {
         target={ref.current}
         show={copied}
         placement={placement}
-        key={`${itemObj.name}-${vendorName}-${content}-first-overlay`}>
+        key={`${itemObj.name}-${vendorName}-${content}-first-overlay`}
+        className="position-absolute">
         {props => (
           <Tooltip
             key={`${content}-${copiedText}-first-tooltip`}
@@ -106,7 +108,8 @@ function CopyIconComponent({ content, text, placement, vendorName, itemObj }) {
         target={ref.current}
         show={hovered}
         placement={placement}
-        key={`${itemObj.name}-${vendorName}-${content}-second-overlay`}>
+        key={`${itemObj.name}-${vendorName}-${content}-second-overlay`}
+        className="position-absolute">
         {props => (
           <Tooltip
             id="overlay-example"
@@ -116,7 +119,7 @@ function CopyIconComponent({ content, text, placement, vendorName, itemObj }) {
           </Tooltip>
         )}
       </Overlay>
-    </>
+    </Container>
   );
 }
 

@@ -12,6 +12,7 @@ import { Col } from "react-bootstrap";
 import { Fade } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
+import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { ButtonGroup } from "react-bootstrap";
 
 function SingleVendorColumnListItem({
@@ -26,14 +27,15 @@ function SingleVendorColumnListItem({
   }, []);
 
   return (
-    <div className="">
+    <div className="rounded shadow border-5 border">
       <Container fluid className="my-3">
         <Row className="justify-content-evenly align-items-center">
           <Col xs={12} xl={7} xxl={9} className="">
             <Fade in={!open} unmountOnExit={true}>
               <Button
+                aria-expanded={open}
+                aria-controls="maximize content"
                 variant="success"
-                size=""
                 className="w-100"
                 onClick={toggle}>
                 {itemObj.name}
@@ -43,7 +45,7 @@ function SingleVendorColumnListItem({
           <Col className="" xs={"auto"}>
             <ButtonGroup className="my-2">
               <FontAwesomeIcon
-                icon={faMinus}
+                icon={open ? faMinus : faAdd}
                 className="btn rounded-circle hover-inverse px-2 me-1"
                 size="2xl"
                 role="button"
