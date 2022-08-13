@@ -26,10 +26,10 @@ function SingleVendorColumnListItem({
   }, []);
 
   return (
-    <div className="border border-5 border-primary rounded">
+    <div className="">
       <Container fluid className="my-3">
         <Row className="justify-content-evenly align-items-center">
-          <Col xs={12} sm={12} md={12} lg={12} xl={7} xxl={9} className="p-0">
+          <Col xs={12} xl={7} xxl={9} className="">
             <Fade in={!open} unmountOnExit={true}>
               <Button
                 variant="success"
@@ -40,15 +40,8 @@ function SingleVendorColumnListItem({
               </Button>
             </Fade>
           </Col>
-          <Col
-            className="p-0 d-flex justify-content-end"
-            xs={"auto"}
-            sm={"auto"}
-            md={"auto"}
-            lg={"auto"}
-            xl={"auto"}
-            xxl={"auto"}>
-            <ButtonGroup size="" className="my-2">
+          <Col className="" xs={"auto"}>
+            <ButtonGroup className="my-2">
               <FontAwesomeIcon
                 icon={faMinus}
                 className="btn rounded-circle hover-inverse px-2 me-1"
@@ -67,7 +60,7 @@ function SingleVendorColumnListItem({
       </Container>
       <Collapse in={open}>
         <Container
-          className="bg-secondary p-0"
+          className="bg-secondary"
           key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
           <ItemNameComponent
             vendorName={vendorName}

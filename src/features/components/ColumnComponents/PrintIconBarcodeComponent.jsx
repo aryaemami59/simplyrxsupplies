@@ -1,16 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
-import { memo, useCallback, useEffect, useMemo } from "react";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { memo, useCallback, useRef, useState } from "react";
 import Tooltip from "react-bootstrap/Tooltip";
+import Overlay from "react-bootstrap/Overlay";
 import printjs from "print-js";
+import PropTypes from "prop-types";
 
-function PrintIconBarcodeComponent({ src, text, header }) {
-  const renderTooltip = props => (
-    <Tooltip className="position-absolute" id="button-tooltip" {...props}>
-      {text}
-    </Tooltip>
-  );
+function PrintIconBarcodeComponent({
+  src,
+  text,
+  header,
+  itemObj,
+  officialVendorName,
+}) {
+  const [show, setShow] = useState(false);
+  const target = useRef(null);
 
   const clickHandler = useCallback(() => {
     printjs({
@@ -21,25 +25,59 @@ function PrintIconBarcodeComponent({ src, text, header }) {
     });
   }, [src, header]);
 
+  const openTooltip = useCallback(() => {
+    setShow(true);
+  }, []);
+
+  const closeTooltip = useCallback(() => {
+    setShow(false);
+  }, []);
+
   return (
-    <OverlayTrigger
-      placement="right"
-      key={`${header}-overlay-trigger-PrintIconBarcodeComponent`}
-      delay={{ show: 100, hide: 100 }}
-      overlay={renderTooltip}
-      trigger={["hover", "focus"]}>
+    <>
       <FontAwesomeIcon
+        ref={target}
         onClick={clickHandler}
+        onMouseEnter={openTooltip}
+        onMouseLeave={closeTooltip}
         icon={faPrint}
         size="xl"
         inverse
         pull="right"
-        className="btn position-absolute end-0 me-4"
+        className="btn position-absolute end-0"
         role="button"
         key={`${header}-PrintIconBarcodeComponent`}
       />
-    </OverlayTrigger>
+      <Overlay
+        target={target.current}
+        show={show}
+        placement="bottom"
+        className="position-absolute">
+        {props => (
+          <Tooltip
+            id={`PrintIconBarcodeComponent-tooltip-${itemObj.name}-${officialVendorName}`}
+            {...props}>
+            {text}
+          </Tooltip>
+        )}
+      </Overlay>
+    </>
   );
 }
+
+PrintIconBarcodeComponent.propTypes = {
+  src: PropTypes.string,
+  text: PropTypes.string,
+  header: PropTypes.string,
+  officialVendorName: PropTypes.string,
+  itemObj: PropTypes.shape({
+    name: PropTypes.string,
+    itemNumber: PropTypes.string,
+    keywords: PropTypes.arrayOf(PropTypes.string),
+    nav: PropTypes.arrayOf(PropTypes.string),
+    vendors: PropTypes.arrayOf(PropTypes.string),
+    src: PropTypes.string,
+  }),
+};
 
 export default memo(PrintIconBarcodeComponent);

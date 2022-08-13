@@ -18,11 +18,11 @@ function ColumnBarcodeImageComponent({
 
   // return <LazyLoadImage src={src} alt={itemNumber} />;
   return (
-    <Container fluid className="mt-4">
-      <Row className="justify-content-center">
-        <Col md={12} className="bg-dark bg-gradient">
-          <img src={src} alt={itemNumber} className="align-self-center" />
-          <PrintIconBarcodeComponent
+    <Container fluid className="my-4">
+      <Row className="">
+        <Col md={12} className="">
+          <img src={src} alt={itemNumber} className="custom-shadow" />
+          <PrintIconBarcodeComponent itemObj={itemObj} officialVendorName={officialVendorName}
             src={src}
             text={"Print This Barcode"}
             header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}

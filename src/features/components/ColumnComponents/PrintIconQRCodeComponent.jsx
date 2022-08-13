@@ -1,17 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
-import { memo, useCallback } from "react";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { memo, useCallback, useRef, useState } from "react";
+// import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import printjs from "print-js";
 import PropTypes from "prop-types";
+import { Overlay } from "react-bootstrap";
 
-function PrintIconQRCodeComponent({ src, text, vendorName }) {
-  const renderTooltip = props => (
-    <Tooltip key={`${vendorName}-tooltip`} id="button-tooltip" {...props}>
-      {text}
-    </Tooltip>
-  );
+function PrintIconQRCodeComponent({
+  src,
+  text,
+  vendorName,
+  officialVendorName,
+}) {
+  const [show, setShow] = useState(false);
+  const target = useRef(null);
 
   const clickHandler = useCallback(() => {
     printjs({
@@ -22,15 +25,21 @@ function PrintIconQRCodeComponent({ src, text, vendorName }) {
     });
   }, [src]);
 
+  const openTooltip = useCallback(() => {
+    setShow(true);
+  }, []);
+
+  const closeTooltip = useCallback(() => {
+    setShow(false);
+  }, []);
+
   return (
-    <OverlayTrigger
-      placement="bottom"
-      key={`${vendorName}-PrintIconQRCodeComponent-OverlayTrigger`}
-      delay={{ show: 100, hide: 100 }}
-      overlay={renderTooltip}
-      trigger={["hover", "focus"]}>
+    <>
       <FontAwesomeIcon
+        ref={target}
         onClick={clickHandler}
+        onMouseEnter={openTooltip}
+        onMouseLeave={closeTooltip}
         icon={faPrint}
         size="xl"
         inverse
@@ -39,7 +48,20 @@ function PrintIconQRCodeComponent({ src, text, vendorName }) {
         role="button"
         key={`${vendorName}-FontAwesomeIcon-PrintIconQRCodeComponent`}
       />
-    </OverlayTrigger>
+      <Overlay
+        target={target.current}
+        show={show}
+        placement="bottom"
+        className="position-absolute">
+        {props => (
+          <Tooltip
+            id={`PrintIconQRCodeComponent-tooltip-${vendorName}-${officialVendorName}`}
+            {...props}>
+            {text}
+          </Tooltip>
+        )}
+      </Overlay>
+    </>
   );
 }
 
@@ -47,6 +69,7 @@ PrintIconQRCodeComponent.propTypes = {
   src: PropTypes.string,
   text: PropTypes.string,
   vendorName: PropTypes.string,
+  officialVendorName: PropTypes.string,
 };
 
 export default memo(PrintIconQRCodeComponent);
