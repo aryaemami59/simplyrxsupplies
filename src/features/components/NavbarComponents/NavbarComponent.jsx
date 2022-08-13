@@ -12,7 +12,7 @@ function NavbarComponent({ items }) {
       expand="lg"
       sticky="top"
       variant="dark"
-      className="d-flex justify-content-start">
+      className="d-flex justify-content-start shadow">
       <OffcanvasComponent items={items} />
       <Nav fill navbar className="d-none d-lg-flex">
         <VendorDropDownsList items={items} />

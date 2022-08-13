@@ -108,6 +108,12 @@ div.offcanvas-body div.dropdown-menu.show {
   border-color: rgba(var(--bs-info-rgb)) !important;
   box-shadow: 0 0 0 0.25rem rgba(var(--bs-info-rgb)) !important;
 }
+.form-control.c-bg {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.form-control.c-bg:focus {
+  background-color: rgba(0, 0, 0, 0.3);
+}
 
 /* .accordion-button:not(.collapsed) {
   background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
