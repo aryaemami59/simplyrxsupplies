@@ -14,8 +14,8 @@ function VendorColumn({ officialVendorName, vendorName }) {
   const addedItems = useSelector(selectByVendor(vendorName));
 
   const buttonClick = useCallback(() => {
-    return setOpen(!open);
-  }, [open]);
+    setOpen(prev => !prev);
+  }, []);
 
   const handleKeyDown = useCallback(
     e => {
