@@ -143,6 +143,9 @@ div.offcanvas-body div.dropdown-menu.show {
 ::-webkit-scrollbar-thumb:hover {
   background: #3dd5f3;
 }
+.cursor-pointer {
+  cursor: pointer;
+}
 
 /* .accordion-button:not(.collapsed) {
   background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;

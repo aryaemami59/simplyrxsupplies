@@ -1,56 +1,42 @@
 import { Badge } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { memo, useCallback, useState } from "react";
-import { checkIfItemAdded } from "../../../addedSlice";
+import { memo } from "react";
 import PropTypes from "prop-types";
 import SwitchComponent from "./SwitchComponent";
-// import { Form } from "react-bootstrap";
-// import { Row } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 function VendorBadges({
   vendorName,
   itemObj,
   officialVendorName,
   clickHandler,
-  checked,
 }) {
-  const ifAdded = useSelector(state =>
-    !state.item[itemObj.name].includes(vendorName)
+  const ifAdded = useSelector(
+    state => !state.item[itemObj.name].includes(vendorName)
   );
-  // const ifAdded = useSelector(checkIfItemAdded(vendorName, itemObj));
-
-  // const [checked, setChecked] = useState(true);
-
-  // const clickHandler = useCallback(() => {
-  //   setChecked(prev => !prev);
-  // }, []);
 
   return (
     <>
-      {/* <div className="form-check form-switch">
-        <input
-          onChange={clickHandler}
-          className="form-check-input"
-          type="checkbox"
-          role="switch"
-          id="flexSwitchCheckChecked"
-          checked={checked}
-        /> */}
-      {/* <label className="form-check-label" htmlFor="flexSwitchCheckChecked"> */}
-      <SwitchComponent
-        key={`SwitchComponent-`}
-        vendorName={vendorName}
-        itemObj={itemObj}
-      />
-      <Badge
-        // className={` fs-6 ${!checked ? "opacity-50" : ""}`}
-        className={` fs-6 ${ifAdded ? "opacity-50" : ""}`}
-        bg="primary"
-        key={`${itemObj.name}-Badge-VendorBadges`}>
+      {/* <Form.Control
+        type="button"
+        placeholder="Username"
+        aria-describedby="inputGroupPrepend"
+        name="username"
+        isInvalid={ifAdded}
+      /> */}
+      {/* <Form.Control.Feedback type="invalid" tooltip>
+        This Item Has Already Been Added
+      </Form.Control.Feedback> */}
+      <Button
+        size="sm"
+        onClick={clickHandler}
+        className="w-100"
+        variant={!ifAdded ? "info text-white" : "outline-info"}
+        key={`${itemObj.name}-Badge-VendorBadges-`}>
         {officialVendorName}
-      </Badge>
-      {/* </label>
-      </div> */}
+      </Button>
     </>
   );
 }

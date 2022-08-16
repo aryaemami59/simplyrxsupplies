@@ -7,6 +7,7 @@ import "./index.css";
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import "@fortawesome/fontawesome-free/css/all.min.css";
 import { QueryClient, QueryClientProvider } from "react-query";
+// import { ReactQueryDevtools } from "react-query/devtools";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -18,7 +19,7 @@ root.render(
       <Provider store={store}>
         <App />
       </Provider>
+      {/* <ReactQueryDevtools /> */}
     </QueryClientProvider>
   </React.StrictMode>
 );
-

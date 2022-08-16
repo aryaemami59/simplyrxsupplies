@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";
@@ -12,6 +12,8 @@ import NavbarComponent from "./features/components/NavbarComponents/NavbarCompon
 import VerticalNavComponent from "./features/components/SideBarNavComponents/VerticalNavComponent";
 import { useQuery } from "react-query";
 import { Alert } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 const myURL =
   "https://api.github.com/repos/aryaemami59/simplysuppliesAPI/contents/items.json";
 
@@ -32,6 +34,12 @@ const fetchItems = async () => {
 };
 
 function App() {
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(fetchItems());
+  // }, [dispatch]);
+  // const data = useSelector(state => state.items.arr);
+  // console.log(data);
   const { isLoading, error, data, status } = useQuery(["items"], fetchItems);
   // console.log(status)
 
