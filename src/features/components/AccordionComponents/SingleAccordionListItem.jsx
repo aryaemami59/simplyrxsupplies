@@ -7,10 +7,11 @@ import PropTypes from "prop-types";
 function SingleAccordionListItem({ itemObj, vendorName }) {
   const dispatch = useDispatch();
   const ifAdded = useSelector(checkIfItemAdded(vendorName, itemObj));
+  const vendors = useSelector(state => state.item[itemObj.name]);
 
   const clickHandler = useCallback(() => {
-    dispatch(addItems(itemObj));
-  }, [dispatch, itemObj]);
+    dispatch(addItems({ itemObj, vendors }));
+  }, [dispatch, itemObj, vendors]);
 
   return (
     <Button

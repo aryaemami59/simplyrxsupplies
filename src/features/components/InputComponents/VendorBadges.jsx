@@ -1,11 +1,7 @@
-import { Badge } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { memo } from "react";
 import PropTypes from "prop-types";
-import SwitchComponent from "./SwitchComponent";
-import { ListGroup } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import { Form } from "react-bootstrap";
 
 function VendorBadges({
   vendorName,
@@ -18,26 +14,14 @@ function VendorBadges({
   );
 
   return (
-    <>
-      {/* <Form.Control
-        type="button"
-        placeholder="Username"
-        aria-describedby="inputGroupPrepend"
-        name="username"
-        isInvalid={ifAdded}
-      /> */}
-      {/* <Form.Control.Feedback type="invalid" tooltip>
-        This Item Has Already Been Added
-      </Form.Control.Feedback> */}
-      <Button
-        size="sm"
-        onClick={clickHandler}
-        className="w-100"
-        variant={!ifAdded ? "info text-white" : "outline-info"}
-        key={`${itemObj.name}-Badge-VendorBadges-`}>
-        {officialVendorName}
-      </Button>
-    </>
+    <Button
+      size=""
+      onClick={clickHandler}
+      className="w-100"
+      variant={!ifAdded ? "info text-white" : "outline-info"}
+      key={`${itemObj.name}-Badge-VendorBadges-`}>
+      {officialVendorName}
+    </Button>
   );
 }
 

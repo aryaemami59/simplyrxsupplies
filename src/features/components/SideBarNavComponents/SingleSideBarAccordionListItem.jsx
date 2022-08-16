@@ -7,10 +7,11 @@ import PropTypes from "prop-types";
 function SingleSideBarAccordionListItem({ targetId, itemObj }) {
   const dispatch = useDispatch();
   const ifAddedToAllVendors = useSelector(checkIfAddedToAllVendors(itemObj));
+  const vendors = useSelector(state => state.item[itemObj.name]);
 
   const clickHandler = useCallback(() => {
-    dispatch(addItems(itemObj));
-  }, [dispatch, itemObj]);
+    dispatch(addItems({ itemObj, vendors }));
+  }, [dispatch, itemObj, vendors]);
 
   return (
     <Button

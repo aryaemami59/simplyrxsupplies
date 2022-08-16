@@ -1,5 +1,4 @@
-import { memo, useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { memo } from "react";
 import { connect } from "react-redux";
 import { setVendors } from "../../../addedSlice";
 import VendorBadges from "./VendorBadges";
@@ -12,18 +11,18 @@ function SwitchComponent({
   vendorName,
 }) {
   return (
-    <div className="form-check form-switch d-flex flex-row align-items-center float-start row cursor-pointer bg-outline-primary">
+    <div className="form-check form-switch d-flex align-items-center row cursor-pointer bg-outline-primary ps-5">
       <input
         key={`${itemObj.name}-${vendorName}-SwitchComponent-`}
         onChange={clickHandler}
-        className="form-check-input col-6 cursor-pointer"
+        className="form-check-input cursor-pointer col-1"
         type="checkbox"
         role="switch"
         id={`${itemObj.name}-${vendorName}-SwitchComponent-`}
         checked={checked}
       />
       <label
-        className="form-check-label cursor-pointer"
+        className="form-check-label cursor-pointer col"
         htmlFor={`${itemObj.name}-${vendorName}-SwitchComponent-`}>
         <VendorBadges
           clickHandler={clickHandler}
