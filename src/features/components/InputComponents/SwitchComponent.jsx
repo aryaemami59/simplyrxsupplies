@@ -55,4 +55,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SwitchComponent);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(memo(SwitchComponent));

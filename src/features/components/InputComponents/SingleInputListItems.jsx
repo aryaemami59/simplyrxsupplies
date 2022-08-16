@@ -28,7 +28,7 @@ function SingleInputListItems({ itemObj }) {
   const clickHandler = useCallback(() => {
     if (IfAddedToAllVendors) {
       setShow(true);
-      setTimeout(() => setShow(false), 2000);
+      setTimeout(() => setShow(false), 1500);
     } else {
       dispatch(addItems({ itemObj, vendors }));
     }
@@ -53,10 +53,10 @@ function SingleInputListItems({ itemObj }) {
           onClick={clickHandler}
           className="btn btn-success d-block w-100 position-relative mb-2 fw-bold">
           Add Item
-          <Collapse in={show} timeout={1000}>
+          <Collapse in={show} timeout={500}>
             <div>
-              <Fade in={show} timeout={1000}>
-                <Badge bg="danger" className="d-block">
+              <Fade in={show} timeout={500}>
+                <Badge bg="danger" className="d-block fw-light">
                   This Item Has Already Been Added!
                 </Badge>
               </Fade>
