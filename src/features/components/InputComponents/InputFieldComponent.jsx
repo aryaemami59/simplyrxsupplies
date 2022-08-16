@@ -1,12 +1,17 @@
 import { Form } from "react-bootstrap";
 import { memo, useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { setListItems } from "../../../addedSlice";
+import { selectAllItems, setListItems } from "../../../addedSlice";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { Row } from "react-bootstrap";
 
 const empty = [];
 
-function InputFieldComponent({ items }) {
+function InputFieldComponent() {
+  const items = useSelector(selectAllItems);
+  const isLoading = useSelector(state => state.item.isLoading);
+  const errMsg = useSelector(state => state.item.errMsg);
   const dispatch = useDispatch();
   const [val, setVal] = useState("");
 
@@ -31,6 +36,14 @@ function InputFieldComponent({ items }) {
     },
     [dispatch, listItemsFunc]
   );
+
+  if (isLoading) {
+    return <Row>is loading</Row>;
+  }
+
+  if (errMsg) {
+    return <Row>error</Row>;
+  }
 
   return (
     <Form.Control

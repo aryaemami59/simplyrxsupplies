@@ -4,7 +4,7 @@ import vendors from "../../../data/vendors.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import PropTypes from "prop-types";
 
-function VendorAccordionList({ items }) {
+function VendorAccordionList() {
   return (
     <div className="bg-dark accordion">
       {vendors.map(e => (
@@ -12,7 +12,6 @@ function VendorAccordionList({ items }) {
           officialVendorName={officialVendorNames[e]}
           key={officialVendorNames[e]}
           vendorName={e}
-          items={items}
         />
       ))}
     </div>

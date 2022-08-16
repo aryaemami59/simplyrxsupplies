@@ -6,6 +6,7 @@ import { selectAllListItems } from "../../../addedSlice";
 
 function InputListItems() {
   const listItems = useSelector(selectAllListItems, shallowEqual);
+  // console.log(listItems)
 
   return (
     <ListGroup>

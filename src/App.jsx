@@ -14,71 +14,77 @@ import { useQuery } from "react-query";
 import { Alert } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { fetchItems } from "./addedSlice";
 const myURL =
   "https://api.github.com/repos/aryaemami59/simplysuppliesAPI/contents/items.json";
 
-const fetchItems = async () => {
-  // const abortCont = new AbortController();
+// const fetchItems = async () => {
+//   // const abortCont = new AbortController();
 
-  const response = await fetch(myURL, {
-    method: "GET",
-    headers: {
-      Accept: "application/vnd.github.v3.raw.json",
-      Authorization: "Bearer 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",
-    },
-    // signal: abortCont.signal,
-  });
-  const jsonItems = await response.json();
-  const myItems = await jsonItems.items;
-  return myItems;
-};
+//   const response = await fetch(myURL, {
+//     method: "GET",
+//     headers: {
+//       Accept: "application/vnd.github.v3.raw.json",
+//       Authorization: "Bearer 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",
+//     },
+//     // signal: abortCont.signal,
+//   });
+//   const jsonItems = await response.json();
+//   const myItems = await jsonItems.items;
+//   return myItems;
+// };
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchItems());
+  }, [dispatch]);
   // const dispatch = useDispatch();
   // useEffect(() => {
   //   dispatch(fetchItems());
   // }, [dispatch]);
   // const data = useSelector(state => state.items.arr);
   // console.log(data);
-  const { isLoading, error, data, status } = useQuery(["items"], fetchItems);
+  // const { isLoading, error, data, status } = useQuery(["items"], fetchItems);
   // console.log(status)
 
-  if (isLoading) {
-    return (
-      <div className="d-flex justify-content-center">
-        <Spinner
-          animation="border"
-          role="status"
-          className="my-5"
-          variant="info"
-          style={{ width: "10rem", height: "10rem", borderWidth: "1rem" }}>
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="d-flex justify-content-center">
+  //       <Spinner
+  //         animation="border"
+  //         role="status"
+  //         className="my-5"
+  //         variant="info"
+  //         style={{ width: "10rem", height: "10rem", borderWidth: "1rem" }}>
+  //         <span className="visually-hidden">Loading...</span>
+  //       </Spinner>
+  //     </div>
+  //   );
+  // }
 
-  if (error) {
-    return (
-      <div className="justify-content-center d-flex mt-5 w-100">
-        <Alert variant="danger" className="w-75">
-          <Alert.Heading className="fs-1">
-            Oh snap! You got an error!
-          </Alert.Heading>
-          <p className="fs-2">
-            Looks like there was a problem loading the page. Either refresh the
-            page or try again later.
-          </p>
-        </Alert>
-      </div>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <div className="justify-content-center d-flex mt-5 w-100">
+  //       <Alert variant="danger" className="w-75">
+  //         <Alert.Heading className="fs-1">
+  //           Oh snap! You got an error!
+  //         </Alert.Heading>
+  //         <p className="fs-2">
+  //           Looks like there was a problem loading the page. Either refresh the
+  //           page or try again later.
+  //         </p>
+  //       </Alert>
+  //     </div>
+  //   );
+  // }
 
   // console.log("app render");
 
   return (
     <div className="App">
-      <NavbarComponent items={data} />
+      <NavbarComponent />
       <Container fluid>
         <Row className="justify-content-center">
           <Col
@@ -91,10 +97,10 @@ function App() {
               position: "sticky",
               top: "54px",
             }}>
-            <VerticalNavComponent items={data} />
+            <VerticalNavComponent />
           </Col>
           <Col xs={10} sm={11} md={6} lg={5} xl={5} xxl={4} className="mt-5">
-            <InputGroupComponent items={data} key={`InputGroupComponent`} />
+            <InputGroupComponent key={`InputGroupComponent`} />
           </Col>
           <Col
             xs={10}

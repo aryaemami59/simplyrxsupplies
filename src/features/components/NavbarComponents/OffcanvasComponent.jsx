@@ -4,7 +4,7 @@ import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import SideBarAccordionList from "../SideBarNavComponents/SideBarAccordionList";
 import PropTypes from "prop-types";
 
-function OffcanvasComponent({ items }) {
+function OffcanvasComponent() {
   const [show, setShow] = useState(false);
 
   const handleOpen = useCallback(() => {
@@ -32,11 +32,11 @@ function OffcanvasComponent({ items }) {
         <Offcanvas.Body>
           <Offcanvas.Title className="mb-4">By Vendor</Offcanvas.Title>
           <Nav className="mb-5 rounded border border-info p-4">
-            <VendorDropDownsList items={items} />
+            <VendorDropDownsList />
           </Nav>
           <Offcanvas.Title className="mb-4">By Category</Offcanvas.Title>
           <div className="accordion rounded border border-info">
-            <SideBarAccordionList items={items} />
+            <SideBarAccordionList />
           </div>
         </Offcanvas.Body>
       </Offcanvas>

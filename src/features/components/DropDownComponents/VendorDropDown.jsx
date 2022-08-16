@@ -2,8 +2,14 @@ import { Dropdown } from "react-bootstrap";
 import { memo, useState, useMemo, useCallback } from "react";
 import SingleDropDown from "./SingleDropDown";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { selectAllItems } from "../../../addedSlice";
+import { Row } from "react-bootstrap";
 
-function VendorDropDown({ officialVendorName, items, vendorName }) {
+function VendorDropDown({ officialVendorName, vendorName }) {
+  const items = useSelector(selectAllItems);
+  const isLoading = useSelector(state => state.item.isLoading);
+  const errMsg = useSelector(state => state.item.errMsg);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const myItems = useMemo(() => {
@@ -13,6 +19,14 @@ function VendorDropDown({ officialVendorName, items, vendorName }) {
   const toggle = useCallback(() => {
     setDropdownOpen(prev => !prev);
   }, []);
+
+  if (isLoading) {
+    return <Row>is loading</Row>;
+  }
+
+  if (errMsg) {
+    return <Row>error</Row>;
+  }
 
   return (
     <Dropdown

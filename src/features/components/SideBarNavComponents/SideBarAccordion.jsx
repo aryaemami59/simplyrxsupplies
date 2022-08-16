@@ -2,10 +2,16 @@ import { Collapse, Card, ListGroup } from "react-bootstrap";
 import { memo, useCallback, useRef, useState } from "react";
 import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { selectAllItems } from "../../../addedSlice";
+import { Row } from "react-bootstrap";
 
 const COLLAPSED = "collapsed";
 
-function SideBarAccordion({ items, targetId }) {
+function SideBarAccordion({ targetId }) {
+  const items = useSelector(selectAllItems);
+  const isLoading = useSelector(state => state.item.isLoading);
+  const errMsg = useSelector(state => state.item.errMsg);
   const [open, setOpen] = useState(false);
 
   const toggle = useCallback(() => {
@@ -13,6 +19,14 @@ function SideBarAccordion({ items, targetId }) {
   }, []);
 
   const nodeRef = useRef(null);
+
+  if (isLoading) {
+    return <Row>is loading</Row>;
+  }
+
+  if (errMsg) {
+    return <Row>error</Row>;
+  }
 
   return (
     <div>

@@ -4,7 +4,7 @@ import vendors from "../../../data/vendors.json";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import PropTypes from "prop-types";
 
-function VendorDropDownsList({ items }) {
+function VendorDropDownsList() {
   return (
     <>
       {vendors.map((e, i) => (
@@ -12,7 +12,6 @@ function VendorDropDownsList({ items }) {
           officialVendorName={officialVendorNames[e]}
           key={e}
           vendorName={e}
-          items={items}
         />
       ))}
     </>

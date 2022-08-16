@@ -3,15 +3,11 @@ import navList from "../../../data/navList";
 import SideBarAccordion from "./SideBarAccordion";
 import PropTypes from "prop-types";
 
-function SideBarAccordionList({ items }) {
+function SideBarAccordionList() {
   return (
     <>
       {navList.map(e => (
-        <SideBarAccordion
-          items={items}
-          targetId={e}
-          key={`${e}-side-bar-accordion`}
-        />
+        <SideBarAccordion targetId={e} key={`${e}-side-bar-accordion`} />
       ))}
     </>
   );

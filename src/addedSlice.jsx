@@ -1,11 +1,24 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice, current, createAsyncThunk } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
-import myItems from "./data/items.json";
 
-const items = {};
-for (const key of myItems.items) {
-  items[key.name] = key.vendors;
-}
+const myURL =
+  "https://api.github.com/repos/aryaemami59/simplysuppliesAPI/contents/items.json";
+
+export const fetchItems = createAsyncThunk("Items/fetchItems", async () => {
+  const response = await fetch(myURL, {
+    method: "GET",
+    headers: {
+      Accept: "application/vnd.github.v3.raw.json",
+      Authorization: "Bearer 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",
+    },
+  });
+  if (!response.ok) {
+    return Promise.reject("Unable to fetch, status: " + response.status);
+  }
+  const data = await response.json();
+  const myItems = await data.items;
+  return myItems;
+});
 
 const empty = [];
 
@@ -22,7 +35,9 @@ const initialState = {
 };
 
 const itemInitialState = {
-  ...items,
+  itemsArr: [],
+  isLoading: true,
+  errMsg: "",
 };
 
 export const addedSlice = createSlice({
@@ -51,13 +66,8 @@ export const addedSlice = createSlice({
       state.listItems = action.payload;
     },
   },
-  extraReducers: {
-    // "item/setVendors": (state, action) => {
-    //   state.vendorsToAdd = action.payload.itemObj.vendors.filter(
-    //     e => e !== action.payload.vendorName
-    //   );
-    // },
-  },
+  // extraReducers: {
+  // },
 });
 
 export const itemSlice = createSlice({
@@ -80,19 +90,21 @@ export const itemSlice = createSlice({
     },
   },
   extraReducers: {
-    // "added/addItems": (state, action) => {
-    //   state[action.payload.itemObj.name] = state[
-    //     action.payload.itemObj.name
-    //   ].filter(e => !action.payload.vendors.includes(e)).length
-    //     ? state[action.payload.itemObj.name].filter(
-    //         e => !action.payload.vendors.includes(e)
-    //       )
-    //     : empty;
-    // },
-    // "added/removeItems": (state, action) => {
-    //   console.log(state.items);
-    //   state[action.payload.itemObj.name].push(action.payload.vendorName);
-    // },
+    [fetchItems.pending]: state => {
+      state.isLoading = true;
+    },
+    [fetchItems.fulfilled]: (state, action) => {
+      for (const key of action.payload) {
+        state[key.name] = key.vendors;
+      }
+      state.isLoading = false;
+      state.errMsg = "";
+      state.itemsArr = action.payload;
+    },
+    [fetchItems.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.errMsg = action.error ? action.error.message : "Fetch failed";
+    },
   },
 });
 export const selectAllAdded = state => state.added;
@@ -105,7 +117,6 @@ export const selectByVendorItemNumbers = (vendor, char) => state =>
   state.added[vendor].map(({ itemNumber }) => itemNumber).join(char);
 
 export const checkIfAddedToAllVendors = itemObj => state => {
-  // console.log(itemObj.vendors.filter(e => state.added[e].includes(itemObj)));
   const arr = itemObj.vendors.filter(e => state.added[e].includes(itemObj))
     .length
     ? itemObj.vendors.filter(e => state.added[e].includes(itemObj))
@@ -142,6 +153,8 @@ export const selectAllListItems = createSelector(
   state => state.added.listItems,
   listItems => listItems
 );
+
+export const selectAllItems = state => state.item.itemsArr;
 
 export const { setListItems, removeListItems } = addedSlice.actions;
 

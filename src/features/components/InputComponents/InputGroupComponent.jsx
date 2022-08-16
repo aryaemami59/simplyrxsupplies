@@ -6,12 +6,12 @@ import InputListItems from "./InputListItems";
 import InputFieldComponent from "./InputFieldComponent";
 import PropTypes from "prop-types";
 
-function InputGroupComponent({ items }) {
+function InputGroupComponent() {
   return (
     <div className="row my-5 justify-content-center">
       <div className="col-12 col-md-11 col-lg-11 col-xxl-10">
         <Form.Floating key={"my form floating"}>
-          <InputFieldComponent items={items} key={"input field component"} />
+          <InputFieldComponent key={"input field component"} />
           <label
             className="w-auto h-auto ps-4 text-white-50"
             htmlFor="floatingInputCustom"

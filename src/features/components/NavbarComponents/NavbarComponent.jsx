@@ -4,7 +4,7 @@ import OffcanvasComponent from "./OffcanvasComponent";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import PropTypes from "prop-types";
 
-function NavbarComponent({ items }) {
+function NavbarComponent() {
   return (
     <Navbar
       bg="dark"
@@ -12,9 +12,9 @@ function NavbarComponent({ items }) {
       sticky="top"
       variant="dark"
       className="d-flex justify-content-start shadow">
-      <OffcanvasComponent items={items} />
+      <OffcanvasComponent />
       <Nav fill navbar className="d-none d-lg-flex">
-        <VendorDropDownsList items={items} />
+        <VendorDropDownsList />
       </Nav>
     </Navbar>
   );
