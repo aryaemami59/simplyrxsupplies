@@ -8,7 +8,7 @@ import {
 } from "react-bootstrap";
 import { memo, useCallback, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addItems } from "../../../addedSlice";
+import { addItems, checkIfAddedToAllVendors } from "../../../addedSlice";
 import officialVendorNames from "../../../data/officialVendorNames.json";
 import SearchResultsBarcodeImageComponent from "./SearchResultsBarcodeImageComponent";
 import PropTypes from "prop-types";
@@ -16,7 +16,6 @@ import { useSelector } from "react-redux";
 import SearchResultsItemNameComponent from "./SearchResultsItemNameComponent";
 import SearchResultsItemNumberComponent from "./SearchResultsItemNumberComponent";
 import SwitchComponent from "./SwitchComponent";
-import { checkIfAddedToAllVendors } from "../../../addedSlice";
 
 function SingleInputListItems({ itemObj }) {
   const IfAddedToAllVendors = useSelector(checkIfAddedToAllVendors(itemObj));
@@ -52,7 +51,7 @@ function SingleInputListItems({ itemObj }) {
           size="lg"
           key={`${itemObj.name}-badge`}
           onClick={clickHandler}
-          className="btn btn-success d-block w-100 position-relative mb-2">
+          className="btn btn-success d-block w-100 position-relative mb-2 fw-bold">
           Add Item
           <Collapse in={show} timeout={1000}>
             <div>
@@ -69,6 +68,7 @@ function SingleInputListItems({ itemObj }) {
             itemObj={itemObj}
             key={`SearchResultsItemNumberComponent-${itemObj.name}-${itemObj.itemNumber}`}
           />
+          <h5 variant="dark">Available on:</h5>
           {itemObj.vendors.map(e => (
             <SwitchComponent
               key={`SwitchComponent-${itemObj.name}${e}`}

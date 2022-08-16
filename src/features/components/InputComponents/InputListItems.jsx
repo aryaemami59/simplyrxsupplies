@@ -1,3 +1,4 @@
+import { ListGroup } from "react-bootstrap";
 import { memo } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 import SingleInputListItems from "./SingleInputListItems";
@@ -7,7 +8,7 @@ function InputListItems() {
   const listItems = useSelector(selectAllListItems, shallowEqual);
 
   return (
-    <ul className="list-group" key={`InputGroupComponent-ListGroupItem`}>
+    <ListGroup>
       {listItems.map(e => (
         <SingleInputListItems
           itemObj={e}
@@ -15,7 +16,7 @@ function InputListItems() {
           key={`${e.name}-inputListItems`}
         />
       ))}
-    </ul>
+    </ListGroup>
   );
 }
 

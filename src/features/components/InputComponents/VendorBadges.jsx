@@ -1,7 +1,7 @@
+import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { memo } from "react";
 import PropTypes from "prop-types";
-import { Button } from "react-bootstrap";
 
 function VendorBadges({
   vendorName,
