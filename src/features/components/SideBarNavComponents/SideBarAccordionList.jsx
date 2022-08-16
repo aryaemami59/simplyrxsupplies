@@ -7,7 +7,7 @@ function SideBarAccordionList() {
   return (
     <>
       {navList.map(e => (
-        <SideBarAccordion targetId={e} key={`${e}-side-bar-accordion`} />
+        <SideBarAccordion category={e} key={`${e}-side-bar-accordion`} />
       ))}
     </>
   );

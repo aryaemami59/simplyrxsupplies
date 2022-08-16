@@ -21,15 +21,12 @@ import { Alert } from "react-bootstrap";
 //   "https://api.github.com/repos/aryaemami59/simplysuppliesAPI/contents/items.json";
 
 // const fetchItems = async () => {
-//   // const abortCont = new AbortController();
-
 //   const response = await fetch(myURL, {
 //     method: "GET",
 //     headers: {
 //       Accept: "application/vnd.github.v3.raw.json",
 //       Authorization: "Bearer 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",
 //     },
-//     // signal: abortCont.signal,
 //   });
 //   const jsonItems = await response.json();
 //   const myItems = await jsonItems.items;
@@ -44,14 +41,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchItems());
   }, [dispatch]);
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(fetchItems());
-  // }, [dispatch]);
-  // const data = useSelector(state => state.items.arr);
-  // console.log(data);
   // const { isLoading, error, data, status } = useQuery(["items"], fetchItems);
-  // console.log(status)
 
   if (isLoading) {
     return (
@@ -83,6 +73,7 @@ function App() {
   //     </div>
   //   );
   // }
+
   if (errMsg) {
     return (
       <div className="justify-content-center d-flex mt-5 w-100">

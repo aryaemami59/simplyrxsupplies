@@ -113,6 +113,9 @@ export const selectByVendor = vendor => state => state.added[vendor];
 
 export const addedItemsLength = vendor => state => state.added[vendor].length;
 
+export const selectSidebarNavs = category => state =>
+  state.item.itemsArr.filter(({ nav }) => nav.includes(category));
+
 export const selectByVendorItemNumbers = (vendor, char) => state =>
   state.added[vendor].map(({ itemNumber }) => itemNumber).join(char);
 
