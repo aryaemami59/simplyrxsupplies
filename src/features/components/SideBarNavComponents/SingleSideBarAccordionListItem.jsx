@@ -1,16 +1,13 @@
 import { Button } from "react-bootstrap";
 import { memo, useCallback } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import officialVendorNames from "../../../data/officialVendorNames.json";
 import {
   addItems,
   checkIfAddedToAllVendors,
+  selectVendorsObj,
   selectVendorsToAddTo,
 } from "../../../addedSlice";
 import PropTypes from "prop-types";
-import SwitchComponent from "../InputComponents/SwitchComponent";
-import { ListGroup } from "react-bootstrap";
-import SideBarSwitchComponent from "./SideBarSwitchComponent";
 import SideBarVendorBadges from "./SideBarVendorBadges";
 import { ButtonGroup } from "react-bootstrap";
 
@@ -18,6 +15,7 @@ function SingleSideBarAccordionListItem({ targetId, itemObj }) {
   const dispatch = useDispatch();
   const ifAddedToAllVendors = useSelector(checkIfAddedToAllVendors(itemObj));
   const vendors = useSelector(selectVendorsToAddTo(itemObj), shallowEqual);
+  const vendorsObj = useSelector(selectVendorsObj, shallowEqual);
 
   const clickHandler = useCallback(() => {
     dispatch(addItems({ itemObj, vendors }));
@@ -38,7 +36,7 @@ function SingleSideBarAccordionListItem({ targetId, itemObj }) {
           <SideBarVendorBadges
             key={`SideBarVendorBadges-${itemObj.name}${e}`}
             itemObj={itemObj}
-            officialVendorName={officialVendorNames[e]}
+            officialVendorName={vendorsObj[e].officialName}
             vendorName={e}
           />
         ))}
@@ -48,7 +46,6 @@ function SingleSideBarAccordionListItem({ targetId, itemObj }) {
           <SwitchComponent
             key={`SwitchComponent-${itemObj.name}${e}`}
             itemObj={itemObj}
-            officialVendorName={officialVendorNames[e]}
             vendorName={e}
           />
         ))}

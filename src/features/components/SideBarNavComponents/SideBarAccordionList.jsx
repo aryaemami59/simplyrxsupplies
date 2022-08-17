@@ -1,9 +1,13 @@
 import { memo } from "react";
-import navList from "../../../data/navList";
 import SideBarAccordion from "./SideBarAccordion";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { selectNavsArr } from "../../../addedSlice";
+import { shallowEqual } from "react-redux";
 
 function SideBarAccordionList() {
+  const navList = useSelector(selectNavsArr, shallowEqual);
+
   return (
     <>
       {navList.map(e => (

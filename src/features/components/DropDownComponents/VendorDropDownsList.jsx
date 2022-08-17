@@ -1,15 +1,19 @@
 import { memo } from "react";
 import VendorDropDown from "./VendorDropDown";
-import vendors from "../../../data/vendors.json";
-import officialVendorNames from "../../../data/officialVendorNames.json";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { selectVendorsArr, selectVendorsObj } from "../../../addedSlice";
+import { shallowEqual } from "react-redux";
 
 function VendorDropDownsList() {
+  const vendors = useSelector(selectVendorsArr, shallowEqual);
+  const vendorsObj = useSelector(selectVendorsObj, shallowEqual);
+
   return (
     <>
       {vendors.map((e, i) => (
         <VendorDropDown
-          officialVendorName={officialVendorNames[e]}
+          officialVendorName={vendorsObj[e].officialName}
           key={e}
           vendorName={e}
         />

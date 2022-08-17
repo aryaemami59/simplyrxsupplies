@@ -127,11 +127,13 @@ export const addedSlice = createSlice({
   extraReducers: {
     [fetchVendors.fulfilled]: (state, action) => {
       state.vendorsObj = action.payload;
+      state.vendorsArr = Object.keys(action.payload);
       // console.log(current(state));
     },
     [fetchNavList.fulfilled]: (state, action) => {
       state.navsObj = action.payload;
-      // console.log(current(state));
+      state.navsArr = Object.keys(action.payload);
+      console.log(current(state));
     },
   },
 });
@@ -176,7 +178,21 @@ export const selectAllAdded = state => state.added;
 
 export const selectByVendor = vendor => state => state.added[vendor];
 
+export const selectVendorsObj = state => state.added.vendorsObj;
+
+export const selectVendorsArr = state => state.added.vendorsArr;
+
+export const selectVendorsLinks = vendorName => state =>
+  state.added.vendorsObj[vendorName].link;
+
+export const selectNavsArr = state => state.added.navsArr;
+
+export const selectNavsObj = state => state.added.navsObj;
+
 export const addedItemsLength = vendor => state => state.added[vendor].length;
+
+export const selectJoinChars = vendorName => state =>
+  state.added.vendorsObj[vendorName].joinChars;
 
 export const checkIfAddedToOneVendor = (itemObj, vendorName) => state =>
   state.item[itemObj.name].includes(vendorName);

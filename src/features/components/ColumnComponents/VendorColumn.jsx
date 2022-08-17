@@ -1,16 +1,16 @@
 import { Button, Collapse, Card, ListGroup, Alert } from "react-bootstrap";
-import { useState, memo, useCallback, useEffect } from "react";
+import { useState, memo, useCallback } from "react";
 import { useSelector } from "react-redux";
-import { selectByVendor } from "../../../addedSlice";
+import { selectByVendor, selectVendorsLinks } from "../../../addedSlice";
 import BadgeComponent from "./BadgeComponent";
 import QRCodeImageComponent from "./QRCodeImageComponent";
 import SingleVendorColumnListItem from "./SingleVendorColumnListItem";
-import vendorLinks from "../../../data/vendorLinks.json";
 import PropTypes from "prop-types";
 import { shallowEqual } from "react-redux";
 
 function VendorColumn({ officialVendorName, vendorName }) {
   const [open, setOpen] = useState(false);
+  const vendorLink = useSelector(selectVendorsLinks(vendorName));
 
   const addedItems = useSelector(selectByVendor(vendorName), shallowEqual);
 
@@ -57,7 +57,7 @@ function VendorColumn({ officialVendorName, vendorName }) {
                   key={`${vendorName}-VendorColumn-QRCodeImageComponent`}
                 />
                 <Alert variant="info">
-                  <Alert.Link target="blank" href={vendorLinks[vendorName]}>
+                  <Alert.Link target="blank" href={vendorLink}>
                     {officialVendorName} Website
                   </Alert.Link>
                 </Alert>

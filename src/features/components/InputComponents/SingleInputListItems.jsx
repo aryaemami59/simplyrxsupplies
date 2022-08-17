@@ -1,14 +1,18 @@
 import { Card, ListGroup } from "react-bootstrap";
 import { memo } from "react";
-import officialVendorNames from "../../../data/officialVendorNames.json";
 import SearchResultsBarcodeImageComponent from "./SearchResultsBarcodeImageComponent";
 import PropTypes from "prop-types";
 import SearchResultsItemNameComponent from "./SearchResultsItemNameComponent";
 import SearchResultsItemNumberComponent from "./SearchResultsItemNumberComponent";
 import SwitchComponent from "./SwitchComponent";
 import AddItemButtonComponent from "./AddItemButtonComponent";
+import { useSelector } from "react-redux";
+import { selectVendorsObj } from "../../../addedSlice";
+import { shallowEqual } from "react-redux";
 
 function SingleInputListItems({ itemObj }) {
+  const vendorsObj = useSelector(selectVendorsObj, shallowEqual);
+
   return (
     <Card bg="dark" border="info" text="white">
       <Card.Body>
@@ -35,7 +39,7 @@ function SingleInputListItems({ itemObj }) {
             <SwitchComponent
               key={`SwitchComponent-${itemObj.name}${e}`}
               itemObj={itemObj}
-              officialVendorName={officialVendorNames[e]}
+              officialVendorName={vendorsObj[e].officialName}
               vendorName={e}
             />
           ))}
