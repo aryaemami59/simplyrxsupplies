@@ -7,7 +7,7 @@ function ItemNameComponent({ vendorName, itemObj }) {
   return (
     <ListGroup.Item
       action
-      className="rounded-top"
+      className="rounded-top fw-bold"
       variant="success"
       key={`${itemObj.name}-${vendorName}-VendorColumn-ListGroupItem-name`}>
       Item Name: {itemObj.name}

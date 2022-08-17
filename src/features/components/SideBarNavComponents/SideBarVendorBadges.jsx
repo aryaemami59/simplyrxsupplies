@@ -18,7 +18,7 @@ function SideBarVendorBadges({
     <Button
       size="sm"
       onClickCapture={clickHandler}
-      className="w-100 fw-lighter position-relative"
+      className="w-100 fw-lighter position-relative ps-0"
       variant={ifAdded ? "dark text-white" : "outline-dark text-white"}
       key={`${itemObj.name}-Badge-SideBarVendorBadges-`}>
       {officialVendorName}

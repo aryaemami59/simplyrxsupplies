@@ -11,11 +11,10 @@ import PropTypes from "prop-types";
 function SingleDropDown({ itemObj, vendorName }) {
   const dispatch = useDispatch();
   const ifAddedStyles = useSelector(checkIfItemAdded(vendorName, itemObj));
-  const vendors = useSelector(selectVendorsToAddTo(itemObj), shallowEqual);
 
   const clickHandler = useCallback(() => {
-    dispatch(addItems({ itemObj, vendors }));
-  }, [dispatch, itemObj, vendors]);
+    dispatch(addItems({ itemObj, vendors: [vendorName] }));
+  }, [dispatch, itemObj, vendorName]);
 
   return (
     <Dropdown.Item

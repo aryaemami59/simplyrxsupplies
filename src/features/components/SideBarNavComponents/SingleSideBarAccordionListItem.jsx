@@ -12,6 +12,7 @@ import SwitchComponent from "../InputComponents/SwitchComponent";
 import { ListGroup } from "react-bootstrap";
 import SideBarSwitchComponent from "./SideBarSwitchComponent";
 import SideBarVendorBadges from "./SideBarVendorBadges";
+import { ButtonGroup } from "react-bootstrap";
 
 function SingleSideBarAccordionListItem({ targetId, itemObj }) {
   const dispatch = useDispatch();
@@ -30,14 +31,16 @@ function SingleSideBarAccordionListItem({ targetId, itemObj }) {
         key={`${itemObj.name}-${targetId}-ListGroupItem-sidebar`}>
         {itemObj.name}
       </Button>
-      {itemObj.vendors.map(e => (
-        <SideBarVendorBadges
-          key={`SideBarVendorBadges-${itemObj.name}${e}`}
-          itemObj={itemObj}
-          officialVendorName={officialVendorNames[e]}
-          vendorName={e}
-        />
-      ))}
+      <ButtonGroup size="sm">
+        {itemObj.vendors.map(e => (
+          <SideBarVendorBadges
+            key={`SideBarVendorBadges-${itemObj.name}${e}`}
+            itemObj={itemObj}
+            officialVendorName={officialVendorNames[e]}
+            vendorName={e}
+          />
+        ))}
+      </ButtonGroup>
       {/* <ListGroup className="w- fs-6 fw-light">
         {itemObj.vendors.map(e => (
           <SwitchComponent
