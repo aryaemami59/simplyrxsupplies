@@ -40,8 +40,6 @@ function App() {
   );
   const errMsg = useSelector(state => state.item.errMsg || state.added.errMsg);
   const dispatch = useDispatch();
-  // console.log(errMsg);
-  console.log(isLoading);
 
   useEffect(() => {
     dispatch(fetchItems());

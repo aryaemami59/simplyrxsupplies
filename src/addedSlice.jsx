@@ -1,19 +1,14 @@
 import { createSlice, current, createAsyncThunk } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
-import AUTH_TOKEN, {
+import {
   GITHUB_URL_ITEMS,
   GITHUB_URL_VENDORS,
   GITHUB_URL_NAVLIST,
+  FETCH_CONFIG,
 } from "../authToken";
 
 export const fetchItems = createAsyncThunk("Items/fetchItems", async () => {
-  const response = await fetch(GITHUB_URL_ITEMS, {
-    method: "GET",
-    headers: {
-      Accept: "application/vnd.github.v3.raw.json",
-      Authorization: AUTH_TOKEN,
-    },
-  });
+  const response = await fetch(GITHUB_URL_ITEMS, FETCH_CONFIG);
   if (!response.ok) {
     return Promise.reject("Unable to fetch, status: " + response.status);
   }
@@ -22,32 +17,20 @@ export const fetchItems = createAsyncThunk("Items/fetchItems", async () => {
   return myItems;
 });
 
-// const fetchv = async () => {
-//   const response = await fetch(GITHUB_URL_NAVLIST, {
-//     method: "GET",
-//     headers: {
-//       Accept: "application/vnd.github.v3.raw.json",
-//       Authorization: AUTH_TOKEN,
-//     },
-//   });
+// const testFetch = async () => {
+//   const response = await fetch(GITHUB_URL_NAVLIST, FETCH_CONFIG);
 //   const data = await response.json();
 //   console.log(data);
 //   const myVendors = await data.navs;
 //   return myVendors;
 // };
 
-// fetchv().then(e => console.log(e));
+// testFetch().then(e => console.log(e));
 
 export const fetchVendors = createAsyncThunk(
   "Vendors/fetchVendors",
   async () => {
-    const response = await fetch(GITHUB_URL_VENDORS, {
-      method: "GET",
-      headers: {
-        Accept: "application/vnd.github.v3.raw.json",
-        Authorization: AUTH_TOKEN,
-      },
-    });
+    const response = await fetch(GITHUB_URL_VENDORS, FETCH_CONFIG);
     if (!response.ok) {
       return Promise.reject("Unable to fetch, status: " + response.status);
     }
@@ -60,13 +43,7 @@ export const fetchVendors = createAsyncThunk(
 export const fetchNavList = createAsyncThunk(
   "NavList/fetchNavList",
   async () => {
-    const response = await fetch(GITHUB_URL_NAVLIST, {
-      method: "GET",
-      headers: {
-        Accept: "application/vnd.github.v3.raw.json",
-        Authorization: AUTH_TOKEN,
-      },
-    });
+    const response = await fetch(GITHUB_URL_NAVLIST, FETCH_CONFIG);
     if (!response.ok) {
       return Promise.reject("Unable to fetch, status: " + response.status);
     }
@@ -79,14 +56,6 @@ export const fetchNavList = createAsyncThunk(
 const empty = [];
 
 const initialState = {
-  // MCK: empty,
-  // OI: empty,
-  // GNFR: empty,
-  // SOC: empty,
-  // VS: empty,
-  // MS: empty,
-  // COV: empty,
-  // FORS: empty,
   listItems: empty,
   vendorsIsLoading: true,
   navListIsLoading: true,
@@ -146,7 +115,6 @@ export const addedSlice = createSlice({
       state.navsArr = Object.keys(action.payload);
       state.navListIsLoading = false;
       state.errMsg = "";
-      console.log(current(state));
     },
     [fetchVendors.rejected]: (state, action) => {
       state.vendorsIsLoading = false;
@@ -164,7 +132,6 @@ export const itemSlice = createSlice({
   initialState: itemInitialState,
   reducers: {
     setVendors: (state, action) => {
-      // if (current(state[action.payload.itemObj.name]) !== empty) {
       state[action.payload.itemObj.name] = state[
         action.payload.itemObj.name
       ].includes(action.payload.vendorName)
@@ -174,7 +141,6 @@ export const itemSlice = createSlice({
         : current(state[action.payload.itemObj.name]).concat(
             action.payload.vendorName
           );
-      // }
     },
   },
   extraReducers: {

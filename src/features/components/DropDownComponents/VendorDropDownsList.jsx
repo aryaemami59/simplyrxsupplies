@@ -7,7 +7,6 @@ import { shallowEqual } from "react-redux";
 
 function VendorDropDownsList() {
   const vendors = useSelector(selectVendorsArr, shallowEqual);
-  console.log(vendors);
   const vendorsObj = useSelector(selectVendorsObj, shallowEqual);
 
   return (
