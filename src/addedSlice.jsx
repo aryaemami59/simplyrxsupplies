@@ -1,15 +1,17 @@
 import { createSlice, current, createAsyncThunk } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
-
-const myURL =
-  "https://api.github.com/repos/aryaemami59/simplysuppliesAPI/contents/items.json";
+import AUTH_TOKEN, {
+  GITHUB_URL_ITEMS,
+  GITHUB_URL_VENDORS,
+  GITHUB_URL_NAVLIST,
+} from "../authToken";
 
 export const fetchItems = createAsyncThunk("Items/fetchItems", async () => {
-  const response = await fetch(myURL, {
+  const response = await fetch(GITHUB_URL_ITEMS, {
     method: "GET",
     headers: {
       Accept: "application/vnd.github.v3.raw.json",
-      Authorization: "Bearer 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",
+      Authorization: AUTH_TOKEN,
     },
   });
   if (!response.ok) {
@@ -19,6 +21,62 @@ export const fetchItems = createAsyncThunk("Items/fetchItems", async () => {
   const myItems = await data.items;
   return myItems;
 });
+
+// const fetchv = async () => {
+//   const response = await fetch(GITHUB_URL_NAVLIST, {
+//     method: "GET",
+//     headers: {
+//       Accept: "application/vnd.github.v3.raw.json",
+//       Authorization: AUTH_TOKEN,
+//     },
+//   });
+//   const data = await response.json();
+//   console.log(data);
+//   const myVendors = await data.navs;
+//   return myVendors;
+// };
+
+// fetchv().then(e => console.log(e));
+
+export const fetchVendors = createAsyncThunk(
+  "Vendors/fetchVendors",
+  async () => {
+    const response = await fetch(GITHUB_URL_VENDORS, {
+      method: "GET",
+      headers: {
+        Accept: "application/vnd.github.v3.raw.json",
+        Authorization: AUTH_TOKEN,
+      },
+    });
+    if (!response.ok) {
+      return Promise.reject("Unable to fetch, status: " + response.status);
+    }
+    const data = await response.json();
+    const myVendors = await data.vendors;
+    return myVendors;
+  }
+);
+
+export const fetchNavList = createAsyncThunk(
+  "NavList/fetchNavList",
+  async () => {
+    const response = await fetch(GITHUB_URL_NAVLIST, {
+      method: "GET",
+      headers: {
+        Accept: "application/vnd.github.v3.raw.json",
+        Authorization: AUTH_TOKEN,
+      },
+    });
+    if (!response.ok) {
+      return Promise.reject("Unable to fetch, status: " + response.status);
+    }
+    const data = await response.json();
+    const myNavs = await data.navs;
+    return myNavs;
+  }
+);
+
+// console.log(fetchVendors.fulfilled("arya").payload);
 
 const empty = [];
 
@@ -66,8 +124,16 @@ export const addedSlice = createSlice({
       state.listItems = action.payload;
     },
   },
-  // extraReducers: {
-  // },
+  extraReducers: {
+    [fetchVendors.fulfilled]: (state, action) => {
+      state.vendorsObj = action.payload;
+      // console.log(current(state));
+    },
+    [fetchNavList.fulfilled]: (state, action) => {
+      state.navsObj = action.payload;
+      // console.log(current(state));
+    },
+  },
 });
 
 export const itemSlice = createSlice({

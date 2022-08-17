@@ -14,14 +14,12 @@ import VerticalNavComponent from "./features/components/SideBarNavComponents/Ver
 // import { Alert } from "react-bootstrap";
 // import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { fetchItems } from "./addedSlice";
+import { fetchItems, fetchNavList, fetchVendors } from "./addedSlice";
 import { useSelector } from "react-redux";
 import { Alert } from "react-bootstrap";
-// const myURL =
-//   "https://api.github.com/repos/aryaemami59/simplysuppliesAPI/contents/items.json";
 
 // const fetchItems = async () => {
-//   const response = await fetch(myURL, {
+//   const response = await fetch(GITHUB_URL, {
 //     method: "GET",
 //     headers: {
 //       Accept: "application/vnd.github.v3.raw.json",
@@ -40,6 +38,8 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchItems());
+    dispatch(fetchVendors());
+    dispatch(fetchNavList());
   }, [dispatch]);
   // const { isLoading, error, data, status } = useQuery(["items"], fetchItems);
 
