@@ -4,18 +4,18 @@ import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { selectSidebarNavs } from "../../../addedSlice";
+import { shallowEqual } from "react-redux";
 
 const COLLAPSED = "collapsed";
 
 function SideBarAccordion({ category }) {
-  const sidebarItems = useSelector(selectSidebarNavs(category));
+  const sidebarItems = useSelector(selectSidebarNavs(category), shallowEqual);
   const [open, setOpen] = useState(false);
+  const nodeRef = useRef(null);
 
   const toggle = useCallback(() => {
     setOpen(prev => !prev);
   }, []);
-
-  const nodeRef = useRef(null);
 
   return (
     <div>
@@ -34,7 +34,6 @@ function SideBarAccordion({ category }) {
               <ListGroup>
                 {sidebarItems.map(f => (
                   <SingleSideBarAccordionListItem
-                    items={sidebarItems}
                     targetId={category}
                     itemObj={f}
                     key={`${f.name}-SingleSideBarAccordionListItem`}

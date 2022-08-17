@@ -1,13 +1,17 @@
 import { Button } from "react-bootstrap";
 import { memo, useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { addItems, checkIfAddedToAllVendors } from "../../../addedSlice";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import {
+  addItems,
+  checkIfAddedToAllVendors,
+  selectVendorsToAddTo,
+} from "../../../addedSlice";
 import PropTypes from "prop-types";
 
 function SingleSideBarAccordionListItem({ targetId, itemObj }) {
   const dispatch = useDispatch();
   const ifAddedToAllVendors = useSelector(checkIfAddedToAllVendors(itemObj));
-  const vendors = useSelector(state => state.item[itemObj.name]);
+  const vendors = useSelector(selectVendorsToAddTo(itemObj), shallowEqual);
 
   const clickHandler = useCallback(() => {
     dispatch(addItems({ itemObj, vendors }));

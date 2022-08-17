@@ -75,7 +75,6 @@ export const itemSlice = createSlice({
   initialState: itemInitialState,
   reducers: {
     setVendors: (state, action) => {
-      console.log(current(state[action.payload.itemObj.name]));
       // if (current(state[action.payload.itemObj.name]) !== empty) {
       state[action.payload.itemObj.name] = state[
         action.payload.itemObj.name
@@ -113,6 +112,12 @@ export const selectByVendor = vendor => state => state.added[vendor];
 
 export const addedItemsLength = vendor => state => state.added[vendor].length;
 
+export const selectItemsByVendor = vendor => state =>
+  state.item.itemsArr.filter(e => e[vendor]);
+
+export const selectVendorsToAddTo = itemObj => state =>
+  state.item[itemObj.name];
+
 export const selectSidebarNavs = category => state =>
   state.item.itemsArr.filter(({ nav }) => nav.includes(category));
 
@@ -128,7 +133,7 @@ export const checkIfAddedToAllVendors = itemObj => state => {
 };
 
 export const checkIfItemAdded = (vendor, itemObj) => state =>
-  state.added[vendor].includes(itemObj);
+  state.added[vendor].includes(itemObj) ? "bg-info text-white" : "";
 
 export const selectByVendorGetNames = vendor => state =>
   state.added[vendor].map(({ name }) => name);
@@ -151,6 +156,8 @@ export const { addItems, removeItems, addItemsByVendor, changeVendors } =
 export const itemReducer = itemSlice.reducer;
 
 export const addedReducer = addedSlice.reducer;
+
+// export const selectAllListItems = state => state.added.listItems;
 
 export const selectAllListItems = createSelector(
   state => state.added.listItems,
