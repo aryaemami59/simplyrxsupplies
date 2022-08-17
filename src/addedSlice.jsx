@@ -112,6 +112,9 @@ export const selectByVendor = vendor => state => state.added[vendor];
 
 export const addedItemsLength = vendor => state => state.added[vendor].length;
 
+export const checkIfAddedToOneVendor = (itemObj, vendorName) => state =>
+  state.item[itemObj.name].includes(vendorName);
+
 export const selectItemsByVendor = vendor => state =>
   state.item.itemsArr.filter(e => e[vendor]);
 
