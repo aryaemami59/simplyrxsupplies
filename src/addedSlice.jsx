@@ -5,53 +5,25 @@ import {
   GITHUB_URL_VENDORS,
   GITHUB_URL_NAVLIST,
   FETCH_CONFIG,
-} from "../authToken";
+} from "../fetchInfo";
 
-export const fetchItems = createAsyncThunk("Items/fetchItems", async () => {
-  const response = await fetch(GITHUB_URL_ITEMS, FETCH_CONFIG);
-  if (!response.ok) {
-    return Promise.reject("Unable to fetch, status: " + response.status);
-  }
-  const data = await response.json();
-  const myItems = await data.items;
-  return myItems;
-});
-
-// const testFetch = async () => {
-//   const response = await fetch(GITHUB_URL_NAVLIST, FETCH_CONFIG);
-//   const data = await response.json();
-//   console.log(data);
-//   const myVendors = await data.navs;
-//   return myVendors;
-// };
-
-// testFetch().then(e => console.log(e));
-
-export const fetchVendors = createAsyncThunk(
-  "Vendors/fetchVendors",
-  async () => {
-    const response = await fetch(GITHUB_URL_VENDORS, FETCH_CONFIG);
+const createAsyncThunkFunc = (strVal, githubUrl) => {
+  return createAsyncThunk(`${strVal}/fetch${strVal}`, async () => {
+    const response = await fetch(githubUrl, FETCH_CONFIG);
     if (!response.ok) {
       return Promise.reject("Unable to fetch, status: " + response.status);
     }
     const data = await response.json();
-    const myVendors = await data.vendors;
-    return myVendors;
-  }
-);
+    const myItems = await data[strVal];
+    return myItems;
+  });
+};
 
-export const fetchNavList = createAsyncThunk(
-  "NavList/fetchNavList",
-  async () => {
-    const response = await fetch(GITHUB_URL_NAVLIST, FETCH_CONFIG);
-    if (!response.ok) {
-      return Promise.reject("Unable to fetch, status: " + response.status);
-    }
-    const data = await response.json();
-    const myNavs = await data.navs;
-    return myNavs;
-  }
-);
+export const fetchItems = createAsyncThunkFunc("items", GITHUB_URL_ITEMS);
+
+export const fetchVendors = createAsyncThunkFunc("vendors", GITHUB_URL_VENDORS);
+
+export const fetchNavList = createAsyncThunkFunc("navs", GITHUB_URL_NAVLIST);
 
 const empty = [];
 
