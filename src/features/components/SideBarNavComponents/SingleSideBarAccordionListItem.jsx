@@ -26,12 +26,14 @@ function SingleSideBarAccordionListItem({ targetId, itemObj }) {
   return (
     <>
       <Button
+        size="lg"
+        className="fw-bold"
         variant={`${ifAddedToAllVendors ? "info text-white" : "outline-info"}`}
         onClick={clickHandler}
         key={`${itemObj.name}-${targetId}-ListGroupItem-sidebar`}>
         {itemObj.name}
       </Button>
-      <ButtonGroup size="sm">
+      <ButtonGroup size="sm" vertical>
         {itemObj.vendors.map(e => (
           <SideBarVendorBadges
             key={`SideBarVendorBadges-${itemObj.name}${e}`}

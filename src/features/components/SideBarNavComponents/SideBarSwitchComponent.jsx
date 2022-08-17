@@ -12,20 +12,23 @@ function SideBarSwitchComponent({
   vendorName,
 }) {
   return (
-    <div className="form-check form-switch d-flex align-items-center row cursor-pointer bg-outline-primary ps-5 p-0 position-absolute top-0 start-0 bottom-0 justify-content-between">
-      <input
-        key={`${itemObj.name}-${vendorName}-SwitchComponent-`}
-        onChange={clickHandler}
-        className="form-check-input cursor-pointer"
-        type="checkbox"
-        role="switch"
-        id={`${itemObj.name}-${vendorName}-SwitchComponent-`}
-        checked={checked}
-      />
-      <label
-        className="form-check-label cursor-pointer"
-        htmlFor={`${itemObj.name}-${vendorName}-SwitchComponent-`}></label>
-    </div>
+    <>
+      
+    </>
+    // <div className="form-check form-switch d-flex align-items-center row cursor-pointer bg-outline-primary ps-5 p-0 position-absolute top-0 start-0 bottom-0 justify-content-between">
+    //   <input
+    //     key={`${itemObj.name}-${vendorName}-SwitchComponent-`}
+    //     onChange={clickHandler}
+    //     className="form-check-input cursor-pointer"
+    //     type="checkbox"
+    //     role="switch"
+    //     id={`${itemObj.name}-${vendorName}-SwitchComponent-`}
+    //     checked={checked}
+    //   />
+    //   <label
+    //     className="form-check-label cursor-pointer"
+    //     htmlFor={`${itemObj.name}-${vendorName}-SwitchComponent-`}></label>
+    // </div>
   );
 }
 

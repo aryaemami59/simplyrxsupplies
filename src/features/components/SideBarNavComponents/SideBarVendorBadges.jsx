@@ -17,16 +17,21 @@ function SideBarVendorBadges({
   return (
     <Button
       size="sm"
+      type="checkbox"
       onClickCapture={clickHandler}
-      className="w-100 fw-lighter position-relative ps-0"
-      variant={ifAdded ? "dark text-white" : "outline-dark text-white"}
+      className={`"w-100 fw-lighter position-relative ps-0" ${
+        ifAdded ? "fw-bold" : ""
+      } `}
+      variant={
+        ifAdded ? "outline-primary text-white" : "outline-primary text-white-50"
+      }
       key={`${itemObj.name}-Badge-SideBarVendorBadges-`}>
       {officialVendorName}
-      <SideBarSwitchComponent
+      {/* <SideBarSwitchComponent
         itemObj={itemObj}
         vendorName={vendorName}
-        key={`SideBarSwitchComponent-`}
-      />
+        key={`SideBarSwitchComponent-`} */}
+      {/* /> */}
     </Button>
   );
 }
