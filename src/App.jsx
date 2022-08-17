@@ -32,9 +32,16 @@ import { Alert } from "react-bootstrap";
 // };
 
 function App() {
-  const isLoading = useSelector(state => state.item.isLoading);
-  const errMsg = useSelector(state => state.item.errMsg);
+  const isLoading = useSelector(
+    state =>
+      state.item.isLoading ||
+      state.added.vendorsIsLoading ||
+      state.added.navListIsLoading
+  );
+  const errMsg = useSelector(state => state.item.errMsg || state.added.errMsg);
   const dispatch = useDispatch();
+  // console.log(errMsg);
+  console.log(isLoading);
 
   useEffect(() => {
     dispatch(fetchItems());

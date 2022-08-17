@@ -76,24 +76,25 @@ export const fetchNavList = createAsyncThunk(
   }
 );
 
-// console.log(fetchVendors.fulfilled("arya").payload);
-
 const empty = [];
 
 const initialState = {
-  MCK: empty,
-  OI: empty,
-  GNFR: empty,
-  SOC: empty,
-  VS: empty,
-  MS: empty,
-  COV: empty,
-  FORS: empty,
+  // MCK: empty,
+  // OI: empty,
+  // GNFR: empty,
+  // SOC: empty,
+  // VS: empty,
+  // MS: empty,
+  // COV: empty,
+  // FORS: empty,
   listItems: empty,
+  vendorsIsLoading: true,
+  navListIsLoading: true,
+  errMsg: "",
 };
 
 const itemInitialState = {
-  itemsArr: [],
+  itemsArr: empty,
   isLoading: true,
   errMsg: "",
 };
@@ -125,15 +126,35 @@ export const addedSlice = createSlice({
     },
   },
   extraReducers: {
+    [fetchVendors.pending]: state => {
+      state.vendorsIsLoading = true;
+    },
+    [fetchNavList.pending]: state => {
+      state.navListIsLoading = true;
+    },
     [fetchVendors.fulfilled]: (state, action) => {
       state.vendorsObj = action.payload;
       state.vendorsArr = Object.keys(action.payload);
-      // console.log(current(state));
+      for (const val in action.payload) {
+        state[val] = empty;
+      }
+      state.vendorsIsLoading = false;
+      state.errMsg = "";
     },
     [fetchNavList.fulfilled]: (state, action) => {
       state.navsObj = action.payload;
       state.navsArr = Object.keys(action.payload);
+      state.navListIsLoading = false;
+      state.errMsg = "";
       console.log(current(state));
+    },
+    [fetchVendors.rejected]: (state, action) => {
+      state.vendorsIsLoading = false;
+      state.errMsg = action.error ? action.error.message : "Fetch failed";
+    },
+    [fetchNavList.rejected]: (state, action) => {
+      state.navListIsLoading = false;
+      state.errMsg = action.error ? action.error.message : "Fetch failed";
     },
   },
 });
