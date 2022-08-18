@@ -213,6 +213,9 @@ export const checkIfItemAdded = (vendorName, itemObj) => state =>
 
 export const selectAllItems = state => state.item.itemsArr;
 
+export const selectVendorOfficialName = vendorName => state =>
+  state.added.vendorsObj[vendorName].officialName;
+
 export const selectAllListItems = createSelector(
   state => state.added.listItems,
   listItems => listItems

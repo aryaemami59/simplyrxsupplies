@@ -1,23 +1,18 @@
 import VendorColumn from "./VendorColumn";
 import { memo } from "react";
 import { Col, Row } from "react-bootstrap";
-import { selectVendorsObj, selectVendorsArr } from "../../../addedSlice";
+import { selectVendorsArr } from "../../../addedSlice";
 import { useSelector } from "react-redux";
 import { shallowEqual } from "react-redux";
 
 function VendorColumnList() {
-  const vendorsObj = useSelector(selectVendorsObj, shallowEqual);
   const vendors = useSelector(selectVendorsArr, shallowEqual);
 
   return (
     <Row className="justify-content-start">
       <Col lg={12} xl={10} className="shadow p-0">
         {vendors.map(e => (
-          <VendorColumn
-            officialVendorName={vendorsObj[e].officialName}
-            key={`${vendorsObj[e].officialName}-VendorColumn`}
-            vendorName={e}
-          />
+          <VendorColumn key={`${e}-VendorColumn`} vendorName={e} />
         ))}
       </Col>
     </Row>

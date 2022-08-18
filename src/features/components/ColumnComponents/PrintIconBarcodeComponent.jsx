@@ -5,13 +5,7 @@ import { memo, useCallback, useRef, useState } from "react";
 import printjs from "print-js";
 import PropTypes from "prop-types";
 
-function PrintIconBarcodeComponent({
-  src,
-  text,
-  header,
-  itemObj,
-  officialVendorName,
-}) {
+function PrintIconBarcodeComponent({ src, text, header, itemObj }) {
   const [show, setShow] = useState(false);
   const target = useRef(null);
 
@@ -19,7 +13,7 @@ function PrintIconBarcodeComponent({
     printjs({
       printable: src,
       type: "image",
-      header: header,
+      header,
       imageStyle: "width:80%;margin-bottom:20px;",
     });
   }, [src, header]);
@@ -55,7 +49,7 @@ function PrintIconBarcodeComponent({
         className="position-absolute">
         {props => (
           <Tooltip
-            id={`PrintIconBarcodeComponent-tooltip-${itemObj.name}-${officialVendorName}`}
+            id={`PrintIconBarcodeComponent-tooltip-${itemObj.name}-${src}`}
             {...props}>
             {text}
           </Tooltip>
@@ -69,7 +63,6 @@ PrintIconBarcodeComponent.propTypes = {
   src: PropTypes.string,
   text: PropTypes.string,
   header: PropTypes.string,
-  officialVendorName: PropTypes.string,
   itemObj: PropTypes.shape({
     name: PropTypes.string,
     itemNumber: PropTypes.string,

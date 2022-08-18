@@ -15,11 +15,7 @@ import ColumnBarcodeImageComponent from "./ColumnBarcodeImageComponent";
 import MinimizeButton from "./MinimizeButton";
 import PropTypes from "prop-types";
 
-function SingleVendorColumnListItem({
-  itemObj,
-  vendorName,
-  officialVendorName,
-}) {
+function SingleVendorColumnListItem({ itemObj, vendorName }) {
   const [open, setOpen] = useState(true);
 
   const toggle = useCallback(() => {
@@ -88,7 +84,6 @@ function SingleVendorColumnListItem({
             src={itemObj.src}
             itemObj={itemObj}
             vendorName={vendorName}
-            officialVendorName={officialVendorName}
             key={`${itemObj.name}-${vendorName}-ColumnBarcodeImageComponent`}
           />
         </Container>
