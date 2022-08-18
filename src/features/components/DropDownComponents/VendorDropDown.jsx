@@ -1,5 +1,5 @@
 import { Dropdown } from "react-bootstrap";
-import { memo, useState, useCallback } from "react";
+import { memo, useState, useCallback, useEffect } from "react";
 import SingleDropDown from "./SingleDropDown";
 import { useSelector, shallowEqual } from "react-redux";
 import { selectItemsByVendor } from "../../../addedSlice";
