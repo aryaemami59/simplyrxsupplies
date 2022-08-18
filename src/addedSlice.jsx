@@ -113,15 +113,6 @@ export const itemSlice = createSlice({
         : state[action.payload.itemObj.name].vendorsToAdd.concat(
             action.payload.vendorName
           );
-      //   state[action.payload.itemObj.name].vendorsToAdd = state[
-      //     action.payload.itemObj.name
-      //   ].vendorsAdded.includes(action.payload.vendorName)
-      //     ? current(state[action.payload.itemObj.name].vendorsAdded).filter(
-      //         e => e !== action.payload.vendorName
-      //       )
-      //     : current(state[action.payload.itemObj.name].vendorsToAdd).concat(
-      //         action.payload.vendorName
-      //       );
     },
   },
   extraReducers: {
@@ -184,32 +175,18 @@ export const selectQRCodeContent = vendorName => state =>
     .map(({ itemNumber }) => itemNumber)
     .join(state.added.vendorsObj[vendorName].joinChars);
 
-export const checkIfAddedToAllVendors = itemObj => state => {
-  // const arr = state.item[itemObj];
-  // const arr = itemObj.vendors.filter(e => state.added[e].includes(itemObj))
-  //   .length
-  //   ? itemObj.vendors.filter(e => state.added[e].includes(itemObj))
-  //   : empty;
-  // return itemObj.vendors.length === arr.length;
-};
+export const checkIfAddedToAllVendors = itemObj => state =>
+  state.item[itemObj.name].vendorsAdded.length === itemObj.vendors.length;
 
-export const checkIfItemAdded = (vendor, itemObj) => state =>
-  state.added[vendor].includes(itemObj) ? "bg-info text-white" : "";
+export const checkIfItemAdded = (vendorName, itemObj) => state =>
+  state.item[itemObj.name].includes(vendorName) ? "bg-info text-white" : "";
 
-export const selectByVendorGetNames = vendor => state =>
-  state.added[vendor].map(({ name }) => name);
+export const selectAllItems = state => state.item.itemsArr;
 
-export const selectByVendorsAdded = (vendors, itemObj) => state => {
-  return vendors.filter(e => state.added[e].includes(itemObj)).length
-    ? vendors.filter(e => state.added[e].includes(itemObj))
-    : empty;
-};
-
-export const selectByVendorsNotAdded = (vendors, itemObj) => state => {
-  return vendors.filter(e => !state.added[e].includes(itemObj)).length
-    ? vendors.filter(e => !state.added[e].includes(itemObj))
-    : empty;
-};
+export const selectAllListItems = createSelector(
+  state => state.added.listItems,
+  listItems => listItems
+);
 
 export const { addItems, removeItems, addItemsByVendor, changeVendors } =
   addedSlice.actions;
@@ -218,15 +195,6 @@ export const itemReducer = itemSlice.reducer;
 
 export const addedReducer = addedSlice.reducer;
 
-// export const selectAllListItems = state => state.added.listItems;
-
-export const selectAllListItems = createSelector(
-  state => state.added.listItems,
-  listItems => listItems
-);
-
-export const selectAllItems = state => state.item.itemsArr;
-
 export const { setListItems, removeListItems } = addedSlice.actions;
 
-export const { setVendors, testing } = itemSlice.actions;
+export const { setVendors } = itemSlice.actions;

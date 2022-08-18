@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button, ButtonGroup } from "react-bootstrap";
 import { memo, useCallback } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import {
@@ -7,9 +7,8 @@ import {
   selectVendorsObj,
   selectVendorsToAddTo,
 } from "../../../addedSlice";
-import PropTypes from "prop-types";
 import SideBarVendorBadges from "./SideBarVendorBadges";
-import { ButtonGroup } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 function SingleSideBarAccordionListItem({ targetId, itemObj }) {
   const dispatch = useDispatch();
@@ -18,7 +17,7 @@ function SingleSideBarAccordionListItem({ targetId, itemObj }) {
   const vendorsObj = useSelector(selectVendorsObj, shallowEqual);
 
   const clickHandler = useCallback(() => {
-    ifAddedToAllVendors && dispatch(addItems({ itemObj, vendors }));
+    ifAddedToAllVendors || dispatch(addItems({ itemObj, vendors }));
   }, [dispatch, itemObj, vendors, ifAddedToAllVendors]);
 
   return (
@@ -41,15 +40,6 @@ function SingleSideBarAccordionListItem({ targetId, itemObj }) {
           />
         ))}
       </ButtonGroup>
-      {/* <ListGroup className="w- fs-6 fw-light">
-        {itemObj.vendors.map(e => (
-          <SwitchComponent
-            key={`SwitchComponent-${itemObj.name}${e}`}
-            itemObj={itemObj}
-            vendorName={e}
-          />
-        ))}
-      </ListGroup> */}
     </>
   );
 }

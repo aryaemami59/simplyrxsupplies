@@ -14,10 +14,6 @@ function VendorColumn({ officialVendorName, vendorName }) {
 
   const addedItems = useSelector(selectByVendor(vendorName), shallowEqual);
 
-  // useEffect(() => {
-  //   console.log("addedItems");
-  // }, [addedItems]);
-
   const buttonClick = useCallback(() => {
     setOpen(prev => !prev);
   }, []);
