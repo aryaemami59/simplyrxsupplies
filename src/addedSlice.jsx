@@ -207,7 +207,9 @@ export const checkIfAddedToAllVendors = itemObj => state =>
   state.item[itemObj.name].vendorsAdded.length === itemObj.vendors.length;
 
 export const checkIfItemAdded = (vendorName, itemObj) => state =>
-  state.item[itemObj.name].includes(vendorName) ? "bg-info text-white" : "";
+  state.item[itemObj.name].vendorsAdded.includes(vendorName)
+    ? "bg-info text-white"
+    : "";
 
 export const selectAllItems = state => state.item.itemsArr;
 
