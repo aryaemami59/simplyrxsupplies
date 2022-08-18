@@ -1,5 +1,5 @@
-import { memo } from "react";
 import { Card } from "react-bootstrap";
+import { memo } from "react";
 
 function SearchResultsItemNameComponent({ itemObj }) {
   return (

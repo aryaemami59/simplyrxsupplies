@@ -1,23 +1,22 @@
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { memo } from "react";
+import {
+  checkIfAddedToOneVendor,
+  selectVendorOfficialName,
+} from "../../../addedSlice";
 import PropTypes from "prop-types";
-import { checkIfAddedToOneVendor } from "../../../addedSlice";
 
-function VendorBadges({
-  vendorName,
-  itemObj,
-  officialVendorName,
-  clickHandler,
-}) {
+function VendorBadges({ vendorName, itemObj, clickHandler }) {
   const ifAdded = useSelector(checkIfAddedToOneVendor(itemObj, vendorName));
+  const officialVendorName = useSelector(selectVendorOfficialName(vendorName));
 
   return (
     <Button
       size=""
       onClick={clickHandler}
       className="w-100"
-      variant={!ifAdded ? "info text-white" : "outline-info"}
+      variant={ifAdded ? "outline-info" : "info text-white"}
       key={`${itemObj.name}-Badge-VendorBadges-`}>
       {officialVendorName}
     </Button>
@@ -26,7 +25,7 @@ function VendorBadges({
 
 VendorBadges.propTypes = {
   vendorName: PropTypes.string,
-  officialVendorName: PropTypes.string,
+  clickHandler: PropTypes.func,
   itemObj: PropTypes.shape({
     name: PropTypes.string,
     itemNumber: PropTypes.string,

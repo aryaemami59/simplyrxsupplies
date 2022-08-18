@@ -1,17 +1,16 @@
 import { Button } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, connect } from "react-redux";
 import { memo } from "react";
+import {
+  setVendors,
+  checkIfAddedToOneVendor,
+  selectVendorOfficialName,
+} from "../../../addedSlice";
 import PropTypes from "prop-types";
-import { setVendors, checkIfAddedToOneVendor } from "../../../addedSlice";
-import { connect } from "react-redux";
 
-function SideBarVendorBadges({
-  vendorName,
-  itemObj,
-  officialVendorName,
-  clickHandler,
-}) {
+function SideBarVendorBadges({ vendorName, itemObj, clickHandler }) {
   const ifAdded = useSelector(checkIfAddedToOneVendor(itemObj, vendorName));
+  const officialVendorName = useSelector(selectVendorOfficialName(vendorName));
 
   return (
     <Button
@@ -26,18 +25,13 @@ function SideBarVendorBadges({
       }
       key={`${itemObj.name}-Badge-SideBarVendorBadges-`}>
       {officialVendorName}
-      {/* <SideBarSwitchComponent
-        itemObj={itemObj}
-        vendorName={vendorName}
-        key={`SideBarSwitchComponent-`} */}
-      {/* /> */}
     </Button>
   );
 }
 
 SideBarVendorBadges.propTypes = {
   vendorName: PropTypes.string,
-  officialVendorName: PropTypes.string,
+  clickHandler: PropTypes.func,
   itemObj: PropTypes.shape({
     name: PropTypes.string,
     itemNumber: PropTypes.string,

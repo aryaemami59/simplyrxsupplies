@@ -1,31 +1,38 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Form } from "react-bootstrap";
-import React, { memo } from "react";
+import { memo } from "react";
 import InputListItems from "./InputListItems";
 import InputFieldComponent from "./InputFieldComponent";
 import PropTypes from "prop-types";
 
 function InputGroupComponent() {
   return (
-    <div className="row my-5 justify-content-center">
-      <div className="col-12 col-md-11 col-lg-11 col-xxl-10">
-        <Form.Floating key={"my form floating"}>
-          <InputFieldComponent key={"input field component"} />
+    <div
+      key={`div-row-InputGroupComponent`}
+      className="row my-5 justify-content-center">
+      <div
+        key={`div-col-InputGroupComponent`}
+        className="col-12 col-md-11 col-lg-11 col-xxl-10">
+        <Form.Floating key={`Form.Floating-InputGroupComponent`}>
+          <InputFieldComponent
+            key={`InputFieldComponent-InputGroupComponent`}
+          />
           <label
             className="w-auto h-auto ps-4 text-white-50"
             htmlFor="floatingInputCustom"
-            key={"my floating label"}>
+            key={`label-InputGroupComponent`}>
             Search...
           </label>
           <FontAwesomeIcon
+            key={`FontAwesomeIcon-InputGroupComponent-searchIcon`}
             className=" rounded-circle p-2 position-absolute top-0 end-0 me-1 mt-1 text-white-50"
             role="search"
             size="2x"
             icon={faMagnifyingGlass}
           />
         </Form.Floating>
-        <InputListItems />
+        <InputListItems key={`InputListItems-InputGroupComponent`} />
       </div>
     </div>
   );

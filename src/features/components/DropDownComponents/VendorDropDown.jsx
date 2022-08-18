@@ -1,12 +1,16 @@
 import { Dropdown } from "react-bootstrap";
-import { memo, useState, useCallback, useEffect } from "react";
+import { memo, useState, useCallback } from "react";
 import SingleDropDown from "./SingleDropDown";
 import { useSelector, shallowEqual } from "react-redux";
-import { selectItemsByVendor } from "../../../addedSlice";
+import {
+  selectItemsByVendor,
+  selectVendorOfficialName,
+} from "../../../addedSlice";
 import PropTypes from "prop-types";
 
-function VendorDropDown({ officialVendorName, vendorName }) {
+function VendorDropDown({ vendorName }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const officialVendorName = useSelector(selectVendorOfficialName(vendorName));
   const myItems = useSelector(selectItemsByVendor(vendorName), shallowEqual);
 
   const toggle = useCallback(() => {
@@ -26,6 +30,7 @@ function VendorDropDown({ officialVendorName, vendorName }) {
         {officialVendorName}
       </Dropdown.Toggle>
       <Dropdown.Menu
+        renderOnMount
         variant="dark"
         className="bg-dark border border-info"
         show={dropdownOpen}>
@@ -34,7 +39,6 @@ function VendorDropDown({ officialVendorName, vendorName }) {
             key={`${e.name}-${vendorName}`}
             itemObj={e}
             vendorName={vendorName}
-            vendors={e.vendors}
           />
         ))}
       </Dropdown.Menu>

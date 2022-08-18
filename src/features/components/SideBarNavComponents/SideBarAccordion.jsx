@@ -1,10 +1,9 @@
 import { Collapse, Card, ListGroup } from "react-bootstrap";
+import { useSelector, shallowEqual } from "react-redux";
 import { memo, useCallback, useRef, useState } from "react";
 import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
-import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
 import { selectSidebarNavs } from "../../../addedSlice";
-import { shallowEqual } from "react-redux";
+import PropTypes from "prop-types";
 
 const COLLAPSED = "collapsed";
 
@@ -34,7 +33,7 @@ function SideBarAccordion({ category }) {
               <ListGroup>
                 {sidebarItems.map(f => (
                   <SingleSideBarAccordionListItem
-                    targetId={category}
+                    category={category}
                     itemObj={f}
                     key={`${f.name}-SingleSideBarAccordionListItem`}
                   />

@@ -11,10 +11,11 @@ function NavbarComponent() {
       expand="lg"
       sticky="top"
       variant="dark"
-      className="d-flex justify-content-start shadow">
-      <OffcanvasComponent />
-      <Nav fill navbar className="d-none d-lg-flex">
-        <VendorDropDownsList />
+      className="d-flex justify-content-start shadow"
+      key={`Navbar-NavbarComponent`}>
+      <OffcanvasComponent key={`OffcanvasComponent-NavbarComponent`} />
+      <Nav fill navbar className="d-none d-lg-flex" key={`Nav-NavbarComponent`}>
+        <VendorDropDownsList key={`VendorDropDownsList-NavbarComponent`} />
       </Nav>
     </Navbar>
   );

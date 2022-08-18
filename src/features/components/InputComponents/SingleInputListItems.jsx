@@ -1,45 +1,45 @@
 import { Card, ListGroup } from "react-bootstrap";
 import { memo } from "react";
 import SearchResultsBarcodeImageComponent from "./SearchResultsBarcodeImageComponent";
-import PropTypes from "prop-types";
 import SearchResultsItemNameComponent from "./SearchResultsItemNameComponent";
 import SearchResultsItemNumberComponent from "./SearchResultsItemNumberComponent";
 import SwitchComponent from "./SwitchComponent";
 import AddItemButtonComponent from "./AddItemButtonComponent";
-import { useSelector } from "react-redux";
-import { selectVendorsObj } from "../../../addedSlice";
-import { shallowEqual } from "react-redux";
+import PropTypes from "prop-types";
 
 function SingleInputListItems({ itemObj }) {
-  const vendorsObj = useSelector(selectVendorsObj, shallowEqual);
-
   return (
-    <Card bg="dark" border="info" text="white">
-      <Card.Body>
+    <Card
+      bg="dark"
+      border="info"
+      text="white"
+      key={`Card-SingleInputListItems`}>
+      <Card.Body key={`Card.Body-SingleInputListItems`}>
         <SearchResultsItemNameComponent
           itemObj={itemObj}
-          key={`SearchResultsItemNameComponent-`}
+          key={`SearchResultsItemNameComponent-SingleInputListItems`}
         />
         <SearchResultsBarcodeImageComponent
           itemNumber={itemObj.itemNumber}
           src={itemObj.src}
-          key={`${itemObj.name}-BarcodeImageComponent-inputListItem`}
+          key={`SearchResultsBarcodeImageComponent-SingleInputListItems`}
         />
         <AddItemButtonComponent
           itemObj={itemObj}
-          key={`AddItemButtonComponent-`}
+          key={`AddItemButtonComponent-SingleInputListItems`}
         />
-        <ListGroup>
+        <ListGroup key={`ListGroup-SingleInputListItems`}>
           <SearchResultsItemNumberComponent
             itemObj={itemObj}
             key={`SearchResultsItemNumberComponent-${itemObj.name}-${itemObj.itemNumber}`}
           />
-          <h5 variant="dark">Available on:</h5>
+          <h5 key={`h5-SingleInputListItems`} variant="dark">
+            Available on:
+          </h5>
           {itemObj.vendors.map(e => (
             <SwitchComponent
               key={`SwitchComponent-${itemObj.name}${e}`}
               itemObj={itemObj}
-              officialVendorName={vendorsObj[e].officialName}
               vendorName={e}
             />
           ))}

@@ -1,5 +1,5 @@
 import { ListGroup } from "react-bootstrap";
-import { memo, useEffect } from "react";
+import { memo } from "react";
 import { useSelector, shallowEqual } from "react-redux";
 import SingleInputListItems from "./SingleInputListItems";
 import { selectAllListItems } from "../../../addedSlice";
@@ -7,19 +7,10 @@ import { selectAllListItems } from "../../../addedSlice";
 function InputListItems() {
   const listItems = useSelector(selectAllListItems, shallowEqual);
 
-  // useEffect(() => {
-  //   console.log("listItems");
-  // }, [listItems]);
-  // console.log(listItems)
-
   return (
-    <ListGroup>
+    <ListGroup key={`ListGroup-InputListItems`}>
       {listItems.map(e => (
-        <SingleInputListItems
-          itemObj={e}
-          vendors={e.vendors}
-          key={`${e.name}-inputListItems`}
-        />
+        <SingleInputListItems itemObj={e} key={`${e.name}-inputListItems`} />
       ))}
     </ListGroup>
   );

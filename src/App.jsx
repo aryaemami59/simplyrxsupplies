@@ -32,6 +32,12 @@ import { Alert } from "react-bootstrap";
 // };
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchItems());
+    dispatch(fetchVendors());
+    dispatch(fetchNavList());
+  }, [dispatch]);
   const isLoading = useSelector(
     state =>
       state.item.isLoading ||
@@ -39,18 +45,12 @@ function App() {
       state.added.navListIsLoading
   );
   const errMsg = useSelector(state => state.item.errMsg || state.added.errMsg);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchItems());
-    dispatch(fetchVendors());
-    dispatch(fetchNavList());
-  }, [dispatch]);
   // const { isLoading, error, data, status } = useQuery(["items"], fetchItems);
 
   if (isLoading) {
     return (
-      <div className="d-flex justify-content-center">
+      <div key={`div-isLoading-App`} className="d-flex justify-content-center">
         <Spinner
           animation="border"
           role="status"
@@ -81,12 +81,14 @@ function App() {
 
   if (errMsg) {
     return (
-      <div className="justify-content-center d-flex mt-5 w-100">
-        <Alert variant="danger" className="w-75">
-          <Alert.Heading className="fs-1">
+      <div
+        key={`div-errMsg-App`}
+        className="justify-content-center d-flex mt-5 w-100">
+        <Alert key={`Alert-errMsg-App`} variant="danger" className="w-75">
+          <Alert.Heading key={`Alert.Heading-errMsg-App`} className="fs-1">
             Oh snap! You got an error!
           </Alert.Heading>
-          <p className="fs-2">
+          <p className="fs-2" key={`p-errMsg-App`}>
             Looks like there was a problem loading the page. Either refresh the
             page or try again later.
           </p>
@@ -95,14 +97,13 @@ function App() {
     );
   }
 
-  // console.log("app render");
-
   return (
     <div className="App">
-      <NavbarComponent />
-      <Container fluid>
-        <Row className="justify-content-center">
+      <NavbarComponent key={`NavbarComponent-App`} />
+      <Container fluid key={`Container-App`}>
+        <Row className="justify-content-center" key={`Row-App`}>
           <Col
+            key={`Col-firstCol-App`}
             xs={0}
             lg={2}
             xl={2}
@@ -112,12 +113,21 @@ function App() {
               position: "sticky",
               top: "54px",
             }}>
-            <VerticalNavComponent />
-          </Col>
-          <Col xs={10} sm={11} md={6} lg={5} xl={5} xxl={4} className="mt-5">
-            <InputGroupComponent key={`InputGroupComponent`} />
+            <VerticalNavComponent key={`VerticalNavComponent-App`} />
           </Col>
           <Col
+            xs={10}
+            sm={11}
+            md={6}
+            lg={5}
+            xl={5}
+            xxl={4}
+            className="mt-5"
+            key={`Col-secondCol-App`}>
+            <InputGroupComponent key={`InputGroupComponent-App`} />
+          </Col>
+          <Col
+            key={`Col-thirdCol-App`}
             xs={10}
             sm={11}
             md={5}
@@ -125,7 +135,7 @@ function App() {
             xl={5}
             xxl={6}
             className="my-5 pe-5">
-            <VendorColumnList />
+            <VendorColumnList key={`VendorColumnList-App`} />
           </Col>
         </Row>
       </Container>

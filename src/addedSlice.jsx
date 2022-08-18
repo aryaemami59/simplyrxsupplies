@@ -63,7 +63,7 @@ export const addedSlice = createSlice({
       });
     },
     addItemsByVendor: (state, action) => {
-      state[action.payload.vendorName].push(state.action.payload.itemObj);
+      state[action.payload.vendorName].push(action.payload.itemObj);
     },
     removeItems: (state, action) => {
       state[action.payload.vendorName] = state[
@@ -81,19 +81,19 @@ export const addedSlice = createSlice({
     [fetchNavList.pending]: state => {
       state.navListIsLoading = true;
     },
-    [fetchVendors.fulfilled]: (state, action) => {
-      state.vendorsObj = action.payload;
-      state.vendorsArr = Object.keys(action.payload);
-      for (const val in action.payload) {
-        state[val] = empty;
-      }
-      state.vendorsIsLoading = false;
-      state.errMsg = "";
-    },
     [fetchNavList.fulfilled]: (state, action) => {
       state.navsObj = action.payload;
       state.navsArr = Object.keys(action.payload);
       state.navListIsLoading = false;
+      state.errMsg = "";
+    },
+    [fetchVendors.fulfilled]: (state, action) => {
+      state.vendorsArr = Object.keys(action.payload);
+      state.vendorsObj = action.payload;
+      for (const val in action.payload) {
+        state[val] = empty;
+      }
+      state.vendorsIsLoading = false;
       state.errMsg = "";
     },
     [fetchVendors.rejected]: (state, action) => {
@@ -134,39 +134,38 @@ export const itemSlice = createSlice({
       state.isLoading = false;
       state.errMsg = "";
       state.itemsArr = action.payload;
-      // console.log(current(state));
     },
     [fetchItems.rejected]: (state, action) => {
       state.isLoading = false;
       state.errMsg = action.error ? action.error.message : "Fetch failed";
     },
     "added/addItems": (state, action) => {
-      // console.log(
-      //   "vendorsAdded",
-      //   current(state[action.payload.itemObj.name]).vendorsAdded
-      // );
-      // console.log(current(state[action.payload.itemObj.name]).vendorsToAdd);
-      // const mySet = new Set(
-      //   state[action.payload.itemObj.name].vendorsAdded.concat(
-      //     state[action.payload.itemObj.name].vendorsToAdd
-      //   )
-      // );
-      // console.log(mySet);
-      // state[action.payload.itemObj.name].vendorsAdded = [...mySet];
-      // mySet.add()
       state[action.payload.itemObj.name].vendorsAdded = [
         ...state[action.payload.itemObj.name].vendorsAdded,
         ...state[action.payload.itemObj.name].vendorsToAdd,
       ];
-      state[action.payload.itemObj.name].vendorsToAdd = new Intersection(
-        action.payload.itemObj.vendors,
-        state[action.payload.itemObj.name].vendorsAdded
-      );
-      // console.log(
-      //   "vendorsAdded",
-      //   current(state[action.payload.itemObj.name]).vendorsAdded
-      // );
-      // console.log(current(state[action.payload.itemObj.name]).vendorsToAdd);
+      state[action.payload.itemObj.name].vendorsToAdd = state[
+        action.payload.itemObj.name
+      ].vendorsToAdd.length
+        ? new Intersection(
+            action.payload.itemObj.vendors,
+            state[action.payload.itemObj.name].vendorsAdded
+          )
+        : empty;
+    },
+    "added/addItemsByVendor": (state, action) => {
+      state[action.payload.itemObj.name].vendorsAdded = [
+        ...state[action.payload.itemObj.name].vendorsAdded,
+        action.payload.vendorName,
+      ];
+      state[action.payload.itemObj.name].vendorsToAdd = state[
+        action.payload.itemObj.name
+      ].vendorsToAdd.length
+        ? new Intersection(
+            action.payload.itemObj.vendors,
+            state[action.payload.itemObj.name].vendorsAdded
+          )
+        : empty;
     },
   },
 });
@@ -206,12 +205,15 @@ export const selectQRCodeContent = vendorName => state =>
 export const checkIfAddedToAllVendors = itemObj => state =>
   state.item[itemObj.name].vendorsAdded.length === itemObj.vendors.length;
 
-export const checkIfItemAdded = (vendorName, itemObj) => state =>
-  state.item[itemObj.name].vendorsAdded.includes(vendorName)
-    ? "bg-info text-white"
-    : "";
+export const checkIfItemAddedToOneVendor = (vendorName, itemObj) => state =>
+  state.item[itemObj.name].vendorsAdded.includes(vendorName);
 
-export const selectAllItems = state => state.item.itemsArr;
+// export const checkIfItemAdded = (vendorName, itemObj) => state =>
+//   state.item[itemObj.name].vendorsAdded.includes(vendorName)
+//     ? "bg-info text-white"
+//     : "";
+
+export const selectItemsArr = state => state.item.itemsArr;
 
 export const selectVendorOfficialName = vendorName => state =>
   state.added.vendorsObj[vendorName].officialName;

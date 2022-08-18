@@ -1,20 +1,17 @@
+import { useSelector, shallowEqual } from "react-redux";
 import { memo } from "react";
+import { selectVendorsArr } from "../../../addedSlice";
 import VendorDropDown from "./VendorDropDown";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import { selectVendorsArr, selectVendorsObj } from "../../../addedSlice";
-import { shallowEqual } from "react-redux";
 
 function VendorDropDownsList() {
   const vendors = useSelector(selectVendorsArr, shallowEqual);
-  const vendorsObj = useSelector(selectVendorsObj, shallowEqual);
 
   return (
     <>
-      {vendors.map((e, i) => (
+      {vendors.map(e => (
         <VendorDropDown
-          officialVendorName={vendorsObj[e].officialName}
-          key={e}
+          key={`${e}-VendorDropDownsList-VendorDropDown`}
           vendorName={e}
         />
       ))}

@@ -1,22 +1,29 @@
 import { Dropdown } from "react-bootstrap";
 import { memo, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addItems, checkIfItemAdded } from "../../../addedSlice";
+import {
+  checkIfItemAddedToOneVendor,
+  addItemsByVendor,
+} from "../../../addedSlice";
 import PropTypes from "prop-types";
 
 function SingleDropDown({ itemObj, vendorName }) {
   const dispatch = useDispatch();
-  const ifAddedStyles = useSelector(checkIfItemAdded(vendorName, itemObj));
+  const ifAddedToVendor = useSelector(
+    checkIfItemAddedToOneVendor(vendorName, itemObj)
+  );
 
   const clickHandler = useCallback(() => {
-    dispatch(addItems({ itemObj, vendors: [vendorName] }));
-  }, [dispatch, itemObj, vendorName]);
+    ifAddedToVendor || dispatch(addItemsByVendor({ itemObj, vendorName }));
+  }, [dispatch, itemObj, vendorName, ifAddedToVendor]);
 
   return (
     <Dropdown.Item
       variant="dark"
       as="button"
-      className={`text-wrap border-bottom border-info text-info ${ifAddedStyles}`}
+      className={`text-wrap border-bottom border-info text-info ${
+        ifAddedToVendor ? "bg-info text-white" : ""
+      }`}
       onClick={clickHandler}>
       {itemObj.name}
     </Dropdown.Item>

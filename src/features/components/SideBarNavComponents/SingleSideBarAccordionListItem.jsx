@@ -10,7 +10,7 @@ import {
 import SideBarVendorBadges from "./SideBarVendorBadges";
 import PropTypes from "prop-types";
 
-function SingleSideBarAccordionListItem({ targetId, itemObj }) {
+function SingleSideBarAccordionListItem({ category, itemObj }) {
   const dispatch = useDispatch();
   const ifAddedToAllVendors = useSelector(checkIfAddedToAllVendors(itemObj));
   const vendors = useSelector(selectVendorsToAddTo(itemObj), shallowEqual);
@@ -27,7 +27,7 @@ function SingleSideBarAccordionListItem({ targetId, itemObj }) {
         className="fw-bold"
         variant={`${ifAddedToAllVendors ? "info text-white" : "outline-info"}`}
         onClick={clickHandler}
-        key={`${itemObj.name}-${targetId}-ListGroupItem-sidebar`}>
+        key={`${itemObj.name}-${category}-ListGroupItem-sidebar`}>
         {itemObj.name}
       </Button>
       <ButtonGroup size="sm" vertical>
@@ -45,7 +45,7 @@ function SingleSideBarAccordionListItem({ targetId, itemObj }) {
 }
 
 SingleSideBarAccordionListItem.propTypes = {
-  targetId: PropTypes.string,
+  category: PropTypes.string,
   itemObj: PropTypes.shape({
     name: PropTypes.string,
     itemNumber: PropTypes.string,

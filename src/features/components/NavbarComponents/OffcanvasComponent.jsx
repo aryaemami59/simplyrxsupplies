@@ -18,25 +18,48 @@ function OffcanvasComponent() {
   return (
     <>
       <Navbar.Toggle
+        key={`Navbar.Toggle-OffcanvasComponent`}
         className="d-lg-none mx-4 navbar-toggler"
         onClick={handleOpen}
       />
       <Offcanvas
         className="text-bg-dark"
+        key={`Offcanvas-OffcanvasComponent`}
         show={show}
         scroll
         onHide={handleClose}>
-        <Offcanvas.Header closeButton closeVariant="white">
-          <Offcanvas.Title>Add Items</Offcanvas.Title>
+        <Offcanvas.Header
+          closeButton
+          closeVariant="white"
+          key={`Offcanvas.Header-OffcanvasComponent`}>
+          <Offcanvas.Title key={`Offcanvas.Title-OffcanvasComponent-Add Items`}>
+            Add Items
+          </Offcanvas.Title>
         </Offcanvas.Header>
-        <Offcanvas.Body>
-          <Offcanvas.Title className="mb-4">By Vendor</Offcanvas.Title>
-          <Nav className="mb-5 rounded border border-info p-4">
-            <VendorDropDownsList />
+        <Offcanvas.Body key={`Offcanvas.Body-OffcanvasComponent`}>
+          <Offcanvas.Title
+            className="mb-4"
+            key={`Offcanvas.Title-OffcanvasComponent-By Vendor`}>
+            By Vendor
+          </Offcanvas.Title>
+          <Nav
+            className="mb-5 rounded border border-info p-4"
+            key={`Nav-OffcanvasComponent`}>
+            <VendorDropDownsList
+              key={`VendorDropDownsList-OffcanvasComponent`}
+            />
           </Nav>
-          <Offcanvas.Title className="mb-4">By Category</Offcanvas.Title>
-          <div className="accordion rounded border border-info">
-            <SideBarAccordionList />
+          <Offcanvas.Title
+            className="mb-4"
+            key={`Offcanvas.Title-OffcanvasComponent-By Category`}>
+            By Category
+          </Offcanvas.Title>
+          <div
+            key={`div-OffcanvasComponent`}
+            className="accordion rounded border border-info">
+            <SideBarAccordionList
+              key={`SideBarAccordionList-OffcanvasComponent`}
+            />
           </div>
         </Offcanvas.Body>
       </Offcanvas>
