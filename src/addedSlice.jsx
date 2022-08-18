@@ -7,6 +7,14 @@ import {
   FETCH_CONFIG,
 } from "../fetchInfo";
 
+class Intersection {
+  constructor(firstArray, secondArray) {
+    this.firstArray = firstArray;
+    this.secondArray = secondArray;
+    return firstArray.filter(e => !secondArray.includes(e));
+  }
+}
+
 const createAsyncThunkFunc = (strVal, githubUrl) => {
   return createAsyncThunk(`${strVal}/fetch${strVal}`, async () => {
     const response = await fetch(githubUrl, FETCH_CONFIG);
@@ -133,12 +141,32 @@ export const itemSlice = createSlice({
       state.errMsg = action.error ? action.error.message : "Fetch failed";
     },
     "added/addItems": (state, action) => {
-      console.log(current(state[action.payload.itemObj.name]).vendorsAdded);
+      console.log(
+        "vendorsAdded",
+        current(state[action.payload.itemObj.name]).vendorsAdded
+      );
+      console.log(current(state[action.payload.itemObj.name]).vendorsToAdd);
+      // const mySet = new Set(
+      //   state[action.payload.itemObj.name].vendorsAdded.concat(
+      //     state[action.payload.itemObj.name].vendorsToAdd
+      //   )
+      // );
+      // console.log(mySet);
+      // state[action.payload.itemObj.name].vendorsAdded = [...mySet];
+      // mySet.add()
       state[action.payload.itemObj.name].vendorsAdded = [
         ...state[action.payload.itemObj.name].vendorsAdded,
         ...state[action.payload.itemObj.name].vendorsToAdd,
       ];
-      console.log(current(state[action.payload.itemObj.name]).vendorsAdded);
+      state[action.payload.itemObj.name].vendorsToAdd = new Intersection(
+        action.payload.itemObj.vendors,
+        state[action.payload.itemObj.name].vendorsAdded
+      );
+      console.log(
+        "vendorsAdded",
+        current(state[action.payload.itemObj.name]).vendorsAdded
+      );
+      console.log(current(state[action.payload.itemObj.name]).vendorsToAdd);
     },
   },
 });
