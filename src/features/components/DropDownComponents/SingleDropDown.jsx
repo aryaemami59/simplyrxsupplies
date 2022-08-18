@@ -1,11 +1,7 @@
 import { Dropdown } from "react-bootstrap";
 import { memo, useCallback } from "react";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import {
-  addItems,
-  checkIfItemAdded,
-  selectVendorsToAddTo,
-} from "../../../addedSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { addItems, checkIfItemAdded } from "../../../addedSlice";
 import PropTypes from "prop-types";
 
 function SingleDropDown({ itemObj, vendorName }) {

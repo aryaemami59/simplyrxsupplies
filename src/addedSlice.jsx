@@ -104,15 +104,24 @@ export const itemSlice = createSlice({
   initialState: itemInitialState,
   reducers: {
     setVendors: (state, action) => {
-      state[action.payload.itemObj.name] = state[
+      state[action.payload.itemObj.name].vendorsToAdd = state[
         action.payload.itemObj.name
-      ].includes(action.payload.vendorName)
-        ? current(state[action.payload.itemObj.name]).filter(
+      ].vendorsToAdd.includes(action.payload.vendorName)
+        ? state[action.payload.itemObj.name].vendorsToAdd.filter(
             e => e !== action.payload.vendorName
           )
-        : current(state[action.payload.itemObj.name]).concat(
+        : state[action.payload.itemObj.name].vendorsToAdd.concat(
             action.payload.vendorName
           );
+      //   state[action.payload.itemObj.name].vendorsToAdd = state[
+      //     action.payload.itemObj.name
+      //   ].vendorsAdded.includes(action.payload.vendorName)
+      //     ? current(state[action.payload.itemObj.name].vendorsAdded).filter(
+      //         e => e !== action.payload.vendorName
+      //       )
+      //     : current(state[action.payload.itemObj.name].vendorsToAdd).concat(
+      //         action.payload.vendorName
+      //       );
     },
   },
   extraReducers: {
@@ -121,21 +130,29 @@ export const itemSlice = createSlice({
     },
     [fetchItems.fulfilled]: (state, action) => {
       for (const key of action.payload) {
-        state[key.name] = key.vendors;
+        state[key.name] = { vendorsToAdd: key.vendors, vendorsAdded: empty };
       }
       state.isLoading = false;
       state.errMsg = "";
       state.itemsArr = action.payload;
+      console.log(current(state));
     },
     [fetchItems.rejected]: (state, action) => {
       state.isLoading = false;
       state.errMsg = action.error ? action.error.message : "Fetch failed";
     },
+    "added/addItems": (state, action) => {
+      console.log(current(state[action.payload.itemObj.name]).vendorsAdded);
+      state[action.payload.itemObj.name].vendorsAdded = [
+        ...state[action.payload.itemObj.name].vendorsAdded,
+        ...state[action.payload.itemObj.name].vendorsToAdd,
+      ];
+      console.log(current(state[action.payload.itemObj.name]).vendorsAdded);
+    },
   },
 });
-export const selectAllAdded = state => state.added;
 
-export const selectByVendor = vendor => state => state.added[vendor];
+export const selectByVendor = vendorName => state => state.added[vendorName];
 
 export const selectVendorsObj = state => state.added.vendorsObj;
 
@@ -150,30 +167,30 @@ export const selectNavsObj = state => state.added.navsObj;
 
 export const addedItemsLength = vendor => state => state.added[vendor].length;
 
-export const selectJoinChars = vendorName => state =>
-  state.added.vendorsObj[vendorName].joinChars;
-
 export const checkIfAddedToOneVendor = (itemObj, vendorName) => state =>
-  state.item[itemObj.name].includes(vendorName);
+  state.item[itemObj.name].vendorsAdded.includes(vendorName);
 
-export const selectItemsByVendor = vendor => state =>
-  state.item.itemsArr.filter(e => e[vendor]);
+export const selectItemsByVendor = vendorName => state =>
+  state.added.vendorsObj[vendorName].items;
 
 export const selectVendorsToAddTo = itemObj => state =>
-  state.item[itemObj.name];
+  state.item[itemObj.name].vendorsToAdd;
 
 export const selectSidebarNavs = category => state =>
-  state.item.itemsArr.filter(({ nav }) => nav.includes(category));
+  state.added.navsObj[category];
 
-export const selectByVendorItemNumbers = (vendor, char) => state =>
-  state.added[vendor].map(({ itemNumber }) => itemNumber).join(char);
+export const selectQRCodeContent = vendorName => state =>
+  state.added[vendorName]
+    .map(({ itemNumber }) => itemNumber)
+    .join(state.added.vendorsObj[vendorName].joinChars);
 
 export const checkIfAddedToAllVendors = itemObj => state => {
-  const arr = itemObj.vendors.filter(e => state.added[e].includes(itemObj))
-    .length
-    ? itemObj.vendors.filter(e => state.added[e].includes(itemObj))
-    : empty;
-  return itemObj.vendors.length === arr.length;
+  // const arr = state.item[itemObj];
+  // const arr = itemObj.vendors.filter(e => state.added[e].includes(itemObj))
+  //   .length
+  //   ? itemObj.vendors.filter(e => state.added[e].includes(itemObj))
+  //   : empty;
+  // return itemObj.vendors.length === arr.length;
 };
 
 export const checkIfItemAdded = (vendor, itemObj) => state =>

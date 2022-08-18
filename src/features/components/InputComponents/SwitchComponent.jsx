@@ -38,7 +38,9 @@ function SwitchComponent({
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    checked: state.item[ownProps.itemObj.name].includes(ownProps.vendorName),
+    checked: state.item[ownProps.itemObj.name].vendorsToAdd.includes(
+      ownProps.vendorName
+    ),
   };
 };
 

@@ -18,8 +18,8 @@ function SingleSideBarAccordionListItem({ targetId, itemObj }) {
   const vendorsObj = useSelector(selectVendorsObj, shallowEqual);
 
   const clickHandler = useCallback(() => {
-    dispatch(addItems({ itemObj, vendors }));
-  }, [dispatch, itemObj, vendors]);
+    ifAddedToAllVendors && dispatch(addItems({ itemObj, vendors }));
+  }, [dispatch, itemObj, vendors, ifAddedToAllVendors]);
 
   return (
     <>

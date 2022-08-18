@@ -2,7 +2,6 @@ import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { memo } from "react";
 import PropTypes from "prop-types";
-import SideBarSwitchComponent from "./SideBarSwitchComponent";
 import { setVendors, checkIfAddedToOneVendor } from "../../../addedSlice";
 import { connect } from "react-redux";
 
@@ -51,7 +50,9 @@ SideBarVendorBadges.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    checked: state.item[ownProps.itemObj.name].includes(ownProps.vendorName),
+    checked: state.item[ownProps.itemObj.name].vendorsAdded.includes(
+      ownProps.vendorName
+    ),
   };
 };
 

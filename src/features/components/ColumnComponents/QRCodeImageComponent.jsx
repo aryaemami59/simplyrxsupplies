@@ -1,19 +1,12 @@
 import { useSelector } from "react-redux";
-import {
-  selectByVendorItemNumbers,
-  selectJoinChars,
-} from "../../../addedSlice";
+import { selectQRCodeContent } from "../../../addedSlice";
 import { memo } from "react";
 import QRCode from "qrcode";
 import PrintIconQRCodeComponent from "./PrintIconQRCodeComponent";
 import PropTypes from "prop-types";
-import { shallowEqual } from "react-redux";
 
 function QRCodeImageComponent({ vendorName }) {
-  const joinChars = useSelector(selectJoinChars(vendorName), shallowEqual);
-  const itemNumbers = useSelector(
-    selectByVendorItemNumbers(vendorName, joinChars[vendorName])
-  );
+  const itemNumbers = useSelector(selectQRCodeContent(vendorName));
 
   let src = "";
   QRCode.toDataURL(itemNumbers, (err, url) => {
@@ -27,6 +20,7 @@ function QRCodeImageComponent({ vendorName }) {
         className="custom-shadow my-4"
         alt={src}
         key={`${vendorName}-QRCode-image-QRCodeImageComponent`}
+        title={itemNumbers}
       />
       <PrintIconQRCodeComponent
         vendorName={vendorName}

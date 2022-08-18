@@ -2,6 +2,7 @@ import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { memo } from "react";
 import PropTypes from "prop-types";
+import { checkIfAddedToOneVendor } from "../../../addedSlice";
 
 function VendorBadges({
   vendorName,
@@ -9,9 +10,7 @@ function VendorBadges({
   officialVendorName,
   clickHandler,
 }) {
-  const ifAdded = useSelector(
-    state => !state.item[itemObj.name].includes(vendorName)
-  );
+  const ifAdded = useSelector(checkIfAddedToOneVendor(itemObj, vendorName));
 
   return (
     <Button
