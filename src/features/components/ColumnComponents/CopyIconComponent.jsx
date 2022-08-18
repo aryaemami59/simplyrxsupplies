@@ -49,14 +49,17 @@ function CopyIconComponent({ content, text, placement, vendorName, itemObj }) {
   const oldText = `Click to Copy The Item ${text}`;
   const copiedText = `Copied Item ${text}!`;
   const ref = useRef(null);
+
   const clickOnIcon = useCallback(
     () => dispatch({ type: ACTIONS.CLICK_ON_ICON }),
     []
   );
+
   const handleMouseEnter = useCallback(
     () => dispatch({ type: ACTIONS.HOVER_OVER_ICON }),
     []
   );
+
   const handleMouseLeave = useCallback(
     () => dispatch({ type: ACTIONS.HOVER_LEAVE }),
     []

@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 import { shallowEqual } from "react-redux";
 
 function VendorColumnList() {
-  const vendors = useSelector(selectVendorsArr, shallowEqual);
   const vendorsObj = useSelector(selectVendorsObj, shallowEqual);
+  const vendors = useSelector(selectVendorsArr, shallowEqual);
 
   return (
     <Row className="justify-content-start">

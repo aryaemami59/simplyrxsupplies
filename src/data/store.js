@@ -7,7 +7,7 @@ export const store = configureStore({
     added: addedReducer,
     item: itemReducer,
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat([logger]),
+  // middleware: getDefaultMiddleware => getDefaultMiddleware().concat([logger]),
 });
 
 // console.log(store.getState());

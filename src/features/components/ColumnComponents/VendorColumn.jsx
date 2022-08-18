@@ -1,12 +1,11 @@
 import { Button, Collapse, Card, ListGroup, Alert } from "react-bootstrap";
 import { useState, memo, useCallback } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 import { selectByVendor, selectVendorsLinks } from "../../../addedSlice";
 import BadgeComponent from "./BadgeComponent";
 import QRCodeImageComponent from "./QRCodeImageComponent";
 import SingleVendorColumnListItem from "./SingleVendorColumnListItem";
 import PropTypes from "prop-types";
-import { shallowEqual } from "react-redux";
 
 function VendorColumn({ officialVendorName, vendorName }) {
   const [open, setOpen] = useState(false);

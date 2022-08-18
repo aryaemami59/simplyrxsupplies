@@ -1,10 +1,10 @@
-import { useDispatch } from "react-redux";
-import { removeItems } from "../../../addedSlice";
-import { memo, useCallback, useRef, useState } from "react";
-import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { Overlay, Tooltip } from "react-bootstrap";
+import { memo, useCallback, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { removeItems } from "../../../addedSlice";
+import PropTypes from "prop-types";
 
 function RemoveButton({ vendorName, itemObj }) {
   const [show, setShow] = useState(false);

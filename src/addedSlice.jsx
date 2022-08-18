@@ -134,18 +134,18 @@ export const itemSlice = createSlice({
       state.isLoading = false;
       state.errMsg = "";
       state.itemsArr = action.payload;
-      console.log(current(state));
+      // console.log(current(state));
     },
     [fetchItems.rejected]: (state, action) => {
       state.isLoading = false;
       state.errMsg = action.error ? action.error.message : "Fetch failed";
     },
     "added/addItems": (state, action) => {
-      console.log(
-        "vendorsAdded",
-        current(state[action.payload.itemObj.name]).vendorsAdded
-      );
-      console.log(current(state[action.payload.itemObj.name]).vendorsToAdd);
+      // console.log(
+      //   "vendorsAdded",
+      //   current(state[action.payload.itemObj.name]).vendorsAdded
+      // );
+      // console.log(current(state[action.payload.itemObj.name]).vendorsToAdd);
       // const mySet = new Set(
       //   state[action.payload.itemObj.name].vendorsAdded.concat(
       //     state[action.payload.itemObj.name].vendorsToAdd
@@ -162,11 +162,11 @@ export const itemSlice = createSlice({
         action.payload.itemObj.vendors,
         state[action.payload.itemObj.name].vendorsAdded
       );
-      console.log(
-        "vendorsAdded",
-        current(state[action.payload.itemObj.name]).vendorsAdded
-      );
-      console.log(current(state[action.payload.itemObj.name]).vendorsToAdd);
+      // console.log(
+      //   "vendorsAdded",
+      //   current(state[action.payload.itemObj.name]).vendorsAdded
+      // );
+      // console.log(current(state[action.payload.itemObj.name]).vendorsToAdd);
     },
   },
 });
