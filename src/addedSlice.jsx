@@ -5,7 +5,7 @@ import {
   GITHUB_URL_VENDORS,
   GITHUB_URL_NAVLIST,
   FETCH_CONFIG,
-} from "../fetchInfo";
+} from "./data/fetchInfo";
 
 class Intersection {
   constructor(firstArray, secondArray) {
