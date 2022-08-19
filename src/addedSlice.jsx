@@ -7,6 +7,10 @@ import {
   FETCH_CONFIG,
 } from "../fetchInfo";
 
+fetch(GITHUB_URL_ITEMS)
+  .then(e => e.json())
+  .then(e => console.log(e));
+
 class Intersection {
   constructor(firstArray, secondArray) {
     this.firstArray = firstArray;
@@ -17,7 +21,7 @@ class Intersection {
 
 const createAsyncThunkFunc = (strVal, githubUrl) => {
   return createAsyncThunk(`${strVal}/fetch${strVal}`, async () => {
-    const response = await fetch(githubUrl, FETCH_CONFIG);
+    const response = await fetch(githubUrl);
     if (!response.ok) {
       return Promise.reject("Unable to fetch, status: " + response.status);
     }
