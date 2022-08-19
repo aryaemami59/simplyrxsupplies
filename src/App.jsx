@@ -4,7 +4,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { memo, useEffect } from "react";
-import { fetchItems, fetchNavList, fetchVendors } from "./addedSlice";
+import {
+  checkIfLoading,
+  fetchItems,
+  fetchNavList,
+  fetchVendors,
+  selectErrMsg,
+} from "./addedSlice";
 import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";
 import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
@@ -12,18 +18,15 @@ import VerticalNavComponent from "./features/components/SideBarNavComponents/Ver
 
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchItems());
     dispatch(fetchVendors());
     dispatch(fetchNavList());
   }, [dispatch]);
-  const isLoading = useSelector(
-    state =>
-      state.item.isLoading ||
-      state.added.vendorsIsLoading ||
-      state.added.navListIsLoading
-  );
-  const errMsg = useSelector(state => state.item.errMsg || state.added.errMsg);
+
+  const isLoading = useSelector(checkIfLoading);
+  const errMsg = useSelector(selectErrMsg);
 
   if (isLoading) {
     return (

@@ -45,7 +45,7 @@ function SingleVendorColumnListItem({ itemObj, vendorName }) {
           key={`Row-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
           className="justify-content-evenly align-items-center">
           <Col
-            key={`Col-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
+            key={`Col-SingleVendorColumnListItem-${vendorName}-${itemObj.name}-first`}
             xs={12}
             xl={7}
             xxl={9}
@@ -65,7 +65,7 @@ function SingleVendorColumnListItem({ itemObj, vendorName }) {
             </Fade>
           </Col>
           <Col
-            key={`Col-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
+            key={`Col-SingleVendorColumnListItem-${vendorName}-${itemObj.name}-second`}
             className=""
             xs={"auto"}>
             <ButtonGroup

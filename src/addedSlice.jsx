@@ -214,6 +214,13 @@ export const selectAllListItems = createSelector(
   listItems => listItems
 );
 
+export const checkIfLoading = state =>
+  state.item.isLoading ||
+  state.added.vendorsIsLoading ||
+  state.added.navListIsLoading;
+
+export const selectErrMsg = state => state.item.errMsg || state.added.errMsg;
+
 export const {
   addItems,
   removeItems,
