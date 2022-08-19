@@ -1,0 +1,174 @@
+/*!
+  Copyright (c) 2018 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+
+/*!
+ * Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ * Copyright 2022 Fonticons, Inc.
+ */
+
+/*! ./browser */
+
+/*! ./functions */
+
+/*! ./html */
+
+/*! ./image */
+
+/*! ./js/init */
+
+/*! ./json */
+
+/*! ./modal */
+
+/*! ./pdf */
+
+/*! ./print */
+
+/*! ./raw-html */
+
+/*! ./sass/index.scss */
+
+/*! ./src/index.js */
+
+/*! exports provided: addWrapper, capitalizePrint, collectStyles, addHeader, cleanUp, isRawHTML */
+
+/*! exports provided: default */
+
+/*! no static exports found */
+
+/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
+
+/*!**********************!*\
+        !*** ./src/index.js ***!
+        \**********************/
+
+/*!***********************!*\
+        !*** ./src/js/pdf.js ***!
+        \***********************/
+
+/*!************************!*\
+        !*** ./src/js/html.js ***!
+        \************************/
+
+/*!************************!*\
+        !*** ./src/js/init.js ***!
+        \************************/
+
+/*!************************!*\
+        !*** ./src/js/json.js ***!
+        \************************/
+
+/*!*************************!*\
+        !*** ./src/js/image.js ***!
+        \*************************/
+
+/*!*************************!*\
+        !*** ./src/js/modal.js ***!
+        \*************************/
+
+/*!*************************!*\
+        !*** ./src/js/print.js ***!
+        \*************************/
+
+/*!***************************!*\
+        !*** ./src/js/browser.js ***!
+        \***************************/
+
+/*!****************************!*\
+        !*** ./src/js/raw-html.js ***!
+        \****************************/
+
+/*!****************************!*\
+        !*** multi ./src/index.js ***!
+        \****************************/
+
+/*!*****************************!*\
+        !*** ./src/js/functions.js ***!
+        \*****************************/
+
+/*!*****************************!*\
+        !*** ./src/sass/index.scss ***!
+        \*****************************/
+
+/**
+ * @license React
+ * react-dom.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * @license React
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * @license React
+ * react-jsx-runtime.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * @license React
+ * react.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * @license React
+ * scheduler.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * @license React
+ * use-sync-external-store-shim.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/**
+ * @license React
+ * use-sync-external-store-shim/with-selector.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/** @license React v16.13.1
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
