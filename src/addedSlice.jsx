@@ -172,16 +172,12 @@ export const itemSlice = createSlice({
 
 export const selectByVendor = vendorName => state => state.added[vendorName];
 
-export const selectVendorsObj = state => state.added.vendorsObj;
-
 export const selectVendorsArr = state => state.added.vendorsArr;
 
 export const selectVendorsLinks = vendorName => state =>
   state.added.vendorsObj[vendorName].link;
 
 export const selectNavsArr = state => state.added.navsArr;
-
-export const selectNavsObj = state => state.added.navsObj;
 
 export const addedItemsLength = vendor => state => state.added[vendor].length;
 
@@ -208,11 +204,6 @@ export const checkIfAddedToAllVendors = itemObj => state =>
 export const checkIfItemAddedToOneVendor = (vendorName, itemObj) => state =>
   state.item[itemObj.name].vendorsAdded.includes(vendorName);
 
-// export const checkIfItemAdded = (vendorName, itemObj) => state =>
-//   state.item[itemObj.name].vendorsAdded.includes(vendorName)
-//     ? "bg-info text-white"
-//     : "";
-
 export const selectItemsArr = state => state.item.itemsArr;
 
 export const selectVendorOfficialName = vendorName => state =>
@@ -223,13 +214,16 @@ export const selectAllListItems = createSelector(
   listItems => listItems
 );
 
-export const { addItems, removeItems, addItemsByVendor, changeVendors } =
-  addedSlice.actions;
+export const {
+  addItems,
+  removeItems,
+  addItemsByVendor,
+  setListItems,
+  removeListItems,
+} = addedSlice.actions;
+
+export const { setVendors } = itemSlice.actions;
 
 export const itemReducer = itemSlice.reducer;
 
 export const addedReducer = addedSlice.reducer;
-
-export const { setListItems, removeListItems } = addedSlice.actions;
-
-export const { setVendors } = itemSlice.actions;

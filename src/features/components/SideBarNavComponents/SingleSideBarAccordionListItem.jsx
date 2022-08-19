@@ -4,7 +4,6 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import {
   addItems,
   checkIfAddedToAllVendors,
-  selectVendorsObj,
   selectVendorsToAddTo,
 } from "../../../addedSlice";
 import SideBarVendorBadges from "./SideBarVendorBadges";
@@ -14,7 +13,6 @@ function SingleSideBarAccordionListItem({ category, itemObj }) {
   const dispatch = useDispatch();
   const ifAddedToAllVendors = useSelector(checkIfAddedToAllVendors(itemObj));
   const vendors = useSelector(selectVendorsToAddTo(itemObj), shallowEqual);
-  const vendorsObj = useSelector(selectVendorsObj, shallowEqual);
 
   const clickHandler = useCallback(() => {
     ifAddedToAllVendors || dispatch(addItems({ itemObj, vendors }));
@@ -30,12 +28,14 @@ function SingleSideBarAccordionListItem({ category, itemObj }) {
         key={`${itemObj.name}-${category}-ListGroupItem-sidebar`}>
         {itemObj.name}
       </Button>
-      <ButtonGroup size="sm" vertical>
+      <ButtonGroup
+        key={`ButtonGroup-SingleSideBarAccordionListItem-${itemObj.name}-${category}`}
+        size="sm"
+        vertical>
         {itemObj.vendors.map(e => (
           <SideBarVendorBadges
             key={`SideBarVendorBadges-${itemObj.name}${e}`}
             itemObj={itemObj}
-            officialVendorName={vendorsObj[e].officialName}
             vendorName={e}
           />
         ))}

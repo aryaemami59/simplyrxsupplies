@@ -29,19 +29,6 @@ function SideBarVendorBadges({ vendorName, itemObj, clickHandler }) {
   );
 }
 
-SideBarVendorBadges.propTypes = {
-  vendorName: PropTypes.string,
-  clickHandler: PropTypes.func,
-  itemObj: PropTypes.shape({
-    name: PropTypes.string,
-    itemNumber: PropTypes.string,
-    keywords: PropTypes.arrayOf(PropTypes.string),
-    nav: PropTypes.arrayOf(PropTypes.string),
-    vendors: PropTypes.arrayOf(PropTypes.string),
-    src: PropTypes.string,
-  }),
-};
-
 const mapStateToProps = (state, ownProps) => {
   return {
     checked: state.item[ownProps.itemObj.name].vendorsAdded.includes(
@@ -61,6 +48,19 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       );
     },
   };
+};
+
+SideBarVendorBadges.propTypes = {
+  vendorName: PropTypes.string,
+  clickHandler: PropTypes.func,
+  itemObj: PropTypes.shape({
+    name: PropTypes.string,
+    itemNumber: PropTypes.string,
+    keywords: PropTypes.arrayOf(PropTypes.string),
+    nav: PropTypes.arrayOf(PropTypes.string),
+    vendors: PropTypes.arrayOf(PropTypes.string),
+    src: PropTypes.string,
+  }),
 };
 
 export default connect(
