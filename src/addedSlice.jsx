@@ -77,6 +77,9 @@ export const addedSlice = createSlice({
     setListItems: (state, action) => {
       state.listItems = action.payload;
     },
+    clearListItems: (state, action) => {
+      state.listItems = empty;
+    },
   },
   extraReducers: {
     [fetchVendors.pending]: state => {
@@ -231,6 +234,7 @@ export const {
   addItemsByVendor,
   setListItems,
   removeListItems,
+  clearListItems,
 } = addedSlice.actions;
 
 export const { setVendors } = itemSlice.actions;

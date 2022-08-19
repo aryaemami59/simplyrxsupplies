@@ -64,12 +64,12 @@ function App() {
   return (
     <div className="App">
       <NavbarComponent key={`NavbarComponent-App`} />
-      <Container fluid key={`Container-App`}>
+      <Container fluid key={`Container-App`} className="">
         <Row className="justify-content-center" key={`Row-App`}>
           <Col
             key={`Col-firstCol-App`}
             xs={0}
-            lg={2}
+            lg={3}
             xl={2}
             className="ps-0 pe-0 d-none d-lg-block"
             style={{
@@ -80,10 +80,10 @@ function App() {
             <VerticalNavComponent key={`VerticalNavComponent-App`} />
           </Col>
           <Col
-            xs={10}
+            xs={11}
             sm={11}
             md={6}
-            lg={5}
+            lg={4}
             xl={5}
             xxl={4}
             className="mt-5"
@@ -92,13 +92,13 @@ function App() {
           </Col>
           <Col
             key={`Col-thirdCol-App`}
-            xs={10}
+            xs={11}
             sm={11}
-            md={5}
+            md={6}
             lg={5}
             xl={5}
             xxl={6}
-            className="my-5 pe-5">
+            className="my-5 ">
             <VendorColumnList key={`VendorColumnList-App`} />
           </Col>
         </Row>

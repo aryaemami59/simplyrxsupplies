@@ -9,8 +9,8 @@ function VendorColumnList() {
   const vendors = useSelector(selectVendorsArr, shallowEqual);
 
   return (
-    <Row className="justify-content-start">
-      <Col lg={12} xl={10} className="shadow p-0">
+    <Row className="justify-content-center px-5">
+      <Col xs={12} lg={12} xl={10} className="shadow p-0">
         {vendors.map(e => (
           <VendorColumn key={`${e}-VendorColumn`} vendorName={e} />
         ))}

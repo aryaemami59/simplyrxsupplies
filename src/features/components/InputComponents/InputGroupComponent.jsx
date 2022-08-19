@@ -1,11 +1,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { Form } from "react-bootstrap";
-import { memo } from "react";
+import { Form, CloseButton } from "react-bootstrap";
+import { memo, useCallback } from "react";
 import InputListItems from "./InputListItems";
 import InputFieldComponent from "./InputFieldComponent";
+import { clearListItems } from "../../../addedSlice";
+import { useDispatch } from "react-redux";
 
 function InputGroupComponent() {
+  const dispatch = useDispatch();
+
+  const clickHandler = useCallback(() => {
+    dispatch(clearListItems());
+  }, [dispatch]);
+
   return (
     <div
       key={`div-row-InputGroupComponent`}
@@ -23,9 +31,16 @@ function InputGroupComponent() {
             key={`label-InputGroupComponent`}>
             Search...
           </label>
+          <CloseButton
+            onClick={clickHandler}
+            variant="white"
+            role="button"
+            key={`CloseButton-`}
+            className="rounded-circle position-absolute top-0 btn mt-1 btn-lg fw-bold fs-2 end-0 me-5"
+          />
           <FontAwesomeIcon
             key={`FontAwesomeIcon-InputGroupComponent-searchIcon`}
-            className=" rounded-circle p-2 position-absolute top-0 end-0 me-1 mt-1 text-white-50"
+            className="rounded-circle p-2 position-absolute top-0 end-0 me-1 mt-1 text-white-50"
             role="search"
             size="2x"
             icon={faMagnifyingGlass}
