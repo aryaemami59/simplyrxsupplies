@@ -7,7 +7,7 @@ function SearchResultsBarcodeImageComponent({ itemObj }) {
       key={`img-SearchResultsBarcodeImageComponent-${itemObj.name}`}
       src={itemObj.src}
       alt={`${itemObj.itemNumber}-${itemObj.name}`}
-      className="mb-3"
+      className=""
     />
   );
 }

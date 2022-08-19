@@ -6,7 +6,7 @@ function SearchResultsItemNumberComponent({ itemObj }) {
   return (
     <Badge
       key={`Badge-SearchResultsItemNumberComponent-${itemObj.itemNumber}`}
-      className="fs-6 mb-2 fw-normal">
+      className="fs-6 fw-normal">
       Item Number: {itemObj.itemNumber}
     </Badge>
   );
