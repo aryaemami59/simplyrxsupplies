@@ -17,20 +17,30 @@ function SideBarAccordion({ category }) {
   }, []);
 
   return (
-    <div>
-      <h2 className="accordion-header">
+    <div key={`div-SideBarAccordion-${category}-outer`}>
+      <h2 key={`h2-SideBarAccordion-${category}`} className="accordion-header">
         <button
+          key={`button-SideBarAccordion-${category}`}
           onClick={toggle}
           variant="light"
           className={`accordion-button rounded ${open ? "" : COLLAPSED}`}>
           {category}
         </button>
       </h2>
-      <Collapse id={category} in={open} ref={nodeRef} className="bg-gradient">
-        <div>
-          <Card className="bg-dark bg-gradient">
-            <Card.Body className="bg-dark bg-gradient">
-              <ListGroup>
+      <Collapse
+        key={`Collapse-SideBarAccordion-${category}`}
+        id={category}
+        in={open}
+        ref={nodeRef}
+        className="bg-gradient">
+        <div key={`div-SideBarAccordion-${category}-inner`}>
+          <Card
+            key={`Card-SideBarAccordion-${category}`}
+            className="bg-dark bg-gradient">
+            <Card.Body
+              key={`Card.Body-SideBarAccordion-${category}`}
+              className="bg-dark bg-gradient">
+              <ListGroup key={`ListGroup-SideBarAccordion-${category}`}>
                 {sidebarItems.map(f => (
                   <SingleSideBarAccordionListItem
                     category={category}
@@ -48,17 +58,7 @@ function SideBarAccordion({ category }) {
 }
 
 ListGroup.propTypes = {
-  targetId: PropTypes.string,
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      itemNumber: PropTypes.string,
-      keywords: PropTypes.arrayOf(PropTypes.string),
-      nav: PropTypes.arrayOf(PropTypes.string),
-      vendors: PropTypes.arrayOf(PropTypes.string),
-      src: PropTypes.string,
-    })
-  ),
+  category: PropTypes.string,
 };
 
 export default memo(SideBarAccordion);

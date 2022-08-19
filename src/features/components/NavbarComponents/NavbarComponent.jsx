@@ -2,7 +2,6 @@ import { Nav, Navbar } from "react-bootstrap";
 import { memo } from "react";
 import OffcanvasComponent from "./OffcanvasComponent";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
-import PropTypes from "prop-types";
 
 function NavbarComponent() {
   return (
@@ -20,18 +19,5 @@ function NavbarComponent() {
     </Navbar>
   );
 }
-
-NavbarComponent.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      itemNumber: PropTypes.string,
-      keywords: PropTypes.arrayOf(PropTypes.string),
-      nav: PropTypes.arrayOf(PropTypes.string),
-      vendors: PropTypes.arrayOf(PropTypes.string),
-      src: PropTypes.string,
-    })
-  ),
-};
 
 export default memo(NavbarComponent);

@@ -2,7 +2,6 @@ import { Form } from "react-bootstrap";
 import { memo, useState, useCallback } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { selectItemsArr, setListItems } from "../../../addedSlice";
-import PropTypes from "prop-types";
 
 const empty = [];
 
@@ -43,18 +42,5 @@ function InputFieldComponent() {
     />
   );
 }
-
-InputFieldComponent.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      itemNumber: PropTypes.string,
-      keywords: PropTypes.arrayOf(PropTypes.string),
-      nav: PropTypes.arrayOf(PropTypes.string),
-      vendors: PropTypes.arrayOf(PropTypes.string),
-      src: PropTypes.string,
-    })
-  ),
-};
 
 export default memo(InputFieldComponent);

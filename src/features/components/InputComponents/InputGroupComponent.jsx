@@ -4,7 +4,6 @@ import { Form } from "react-bootstrap";
 import { memo } from "react";
 import InputListItems from "./InputListItems";
 import InputFieldComponent from "./InputFieldComponent";
-import PropTypes from "prop-types";
 
 function InputGroupComponent() {
   return (
@@ -37,18 +36,5 @@ function InputGroupComponent() {
     </div>
   );
 }
-
-InputGroupComponent.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      itemNumber: PropTypes.string,
-      keywords: PropTypes.arrayOf(PropTypes.string),
-      nav: PropTypes.arrayOf(PropTypes.string),
-      vendors: PropTypes.arrayOf(PropTypes.string),
-      src: PropTypes.string,
-    })
-  ),
-};
 
 export default memo(InputGroupComponent);

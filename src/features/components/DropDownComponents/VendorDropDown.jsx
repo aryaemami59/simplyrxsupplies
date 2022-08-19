@@ -47,18 +47,7 @@ function VendorDropDown({ vendorName }) {
 }
 
 VendorDropDown.propTypes = {
-  officialVendorName: PropTypes.string,
   vendorName: PropTypes.string,
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      itemNumber: PropTypes.string,
-      keywords: PropTypes.arrayOf(PropTypes.string),
-      nav: PropTypes.arrayOf(PropTypes.string),
-      vendors: PropTypes.arrayOf(PropTypes.string),
-      src: PropTypes.string,
-    })
-  ),
 };
 
 export default memo(VendorDropDown);
