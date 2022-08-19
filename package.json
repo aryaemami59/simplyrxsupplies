@@ -1,7 +1,7 @@
 {
-  "name": "my-app",
+  "name": "simply-rx-supplies",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free": "^6.1.1",
@@ -14,16 +14,12 @@
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.2.1",
     "bootstrap": "^5.2.0",
-    "jsbarcode": "^3.11.5",
-    "mdb-react-ui-kit": "^4.1.0",
     "print-js": "^1.6.0",
     "prop-types": "^15.8.1",
     "qrcode": "^1.5.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
-    "react-lazy-load-image-component": "^1.5.5",
-    "react-query": "^4.0.0",
     "react-redux": "^8.0.2",
     "react-scripts": "5.0.1",
     "react-transition-group": "^4.4.5",
@@ -54,8 +50,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/react-query": "^1.2.9"
   }
 }
