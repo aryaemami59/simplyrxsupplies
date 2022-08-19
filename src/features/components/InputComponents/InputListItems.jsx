@@ -8,7 +8,7 @@ function InputListItems() {
   const listItems = useSelector(selectAllListItems, shallowEqual);
 
   return (
-    <ListGroup key={`ListGroup-InputListItems`}>
+    <ListGroup className="mt-5" key={`ListGroup-InputListItems`}>
       {listItems.map(e => (
         <SingleInputListItems itemObj={e} key={`${e.name}-inputListItems`} />
       ))}

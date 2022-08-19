@@ -7,10 +7,6 @@ import {
   FETCH_CONFIG,
 } from "../fetchInfo";
 
-fetch(GITHUB_URL_ITEMS)
-  .then(e => e.json())
-  .then(e => console.log(e));
-
 class Intersection {
   constructor(firstArray, secondArray) {
     this.firstArray = firstArray;

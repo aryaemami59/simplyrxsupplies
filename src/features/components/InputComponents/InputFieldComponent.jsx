@@ -1,13 +1,26 @@
 import { Form } from "react-bootstrap";
-import { memo, useState, useCallback } from "react";
+import { memo, useState, useCallback, useRef } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { selectItemsArr, setListItems } from "../../../addedSlice";
+import {
+  clearListItems,
+  selectItemsArr,
+  setListItems,
+} from "../../../addedSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX } from "@fortawesome/free-solid-svg-icons";
 
 const empty = [];
 
 function InputFieldComponent() {
   const items = useSelector(selectItemsArr, shallowEqual);
   const dispatch = useDispatch();
+  const inputRef = useRef(null);
+
+  const clickHandler = useCallback(() => {
+    dispatch(clearListItems());
+    setVal("");
+    inputRef.current.focus();
+  }, [dispatch]);
   const [val, setVal] = useState("");
 
   const listItemsFunc = useCallback(
@@ -32,14 +45,29 @@ function InputFieldComponent() {
   );
 
   return (
-    <Form.Control
-      placeholder="Search..."
-      type="search"
-      className="rounded-pill ps-4 mt-3 mb-5 text-white border-0 c-bg"
-      key={`Form.Control-InputFieldComponent`}
-      onChange={changeVal}
-      value={val}
-    />
+    <>
+      <Form.Control
+        ref={inputRef}
+        placeholder="Search..."
+        type="search"
+        className="rounded-pill ps-4 mt- mb- text-white border-0 c-bg"
+        key={`Form.Control-InputFieldComponent`}
+        onChange={changeVal}
+        value={val}
+      />
+      <FontAwesomeIcon
+        onClick={clickHandler}
+        className="btn btn-lg rounded-circle position-absolute top-0 end-0 mt-1 me-5 text-white-50"
+        size="2x"
+        transform=""
+        role="button"
+        inverse
+        pull="right"
+        focusable="auto"
+        icon={faX}
+        key={`FontAwesomeIcon-`}
+      />
+    </>
   );
 }
 

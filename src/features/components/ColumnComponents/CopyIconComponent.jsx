@@ -85,9 +85,10 @@ function CopyIconComponent({ content, text, placement, vendorName, itemObj }) {
         onMouseLeave={handleMouseLeave}
         icon={faCopy}
         size="lg"
+        transform=""
         inverse
         pull="right"
-        className="btn"
+        className="btn p-0"
         role="button"
         key={`${itemObj.name}-${content}-${vendorName}-FontAwesomeIcon-CopyIconComponent`}
       />
