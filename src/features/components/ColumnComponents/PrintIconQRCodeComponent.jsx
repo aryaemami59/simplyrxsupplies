@@ -5,12 +5,7 @@ import { memo, useCallback, useRef, useState } from "react";
 import printjs from "print-js";
 import PropTypes from "prop-types";
 
-function PrintIconQRCodeComponent({
-  src,
-  text,
-  vendorName,
-  officialVendorName,
-}) {
+function PrintIconQRCodeComponent({ src, text, vendorName }) {
   const [show, setShow] = useState(false);
   const target = useRef(null);
 
@@ -18,7 +13,8 @@ function PrintIconQRCodeComponent({
     printjs({
       printable: src,
       type: "image",
-      header: "QRCode",
+      header:
+        "You can scan this image on the vendor's website to pull up all the items at once.",
       imageStyle: "width:80%;margin-bottom:20px;",
     });
   }, [src]);
@@ -54,8 +50,8 @@ function PrintIconQRCodeComponent({
         placement="bottom">
         {props => (
           <Tooltip
-            key={`PrintIconQRCodeComponent-tooltip-${vendorName}-${officialVendorName}`}
-            id={`PrintIconQRCodeComponent-tooltip-${vendorName}-${officialVendorName}`}
+            key={`PrintIconQRCodeComponent-tooltip-${vendorName}`}
+            id={`PrintIconQRCodeComponent-tooltip-${vendorName}`}
             {...props}>
             {text}
           </Tooltip>
@@ -69,7 +65,6 @@ PrintIconQRCodeComponent.propTypes = {
   src: PropTypes.string,
   text: PropTypes.string,
   vendorName: PropTypes.string,
-  officialVendorName: PropTypes.string,
 };
 
 export default memo(PrintIconQRCodeComponent);

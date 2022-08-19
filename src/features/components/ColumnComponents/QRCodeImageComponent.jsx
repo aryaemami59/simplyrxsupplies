@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
-import { selectQRCodeContent } from "../../../addedSlice";
 import { memo } from "react";
 import QRCode from "qrcode";
+import { selectQRCodeContent } from "../../../addedSlice";
 import PrintIconQRCodeComponent from "./PrintIconQRCodeComponent";
 import PropTypes from "prop-types";
 
@@ -18,7 +18,7 @@ function QRCodeImageComponent({ vendorName }) {
       <img
         src={src}
         className="custom-shadow my-4"
-        alt={src}
+        alt={`${vendorName}-QRCode`}
         key={`${vendorName}-QRCode-image-QRCodeImageComponent`}
         title={itemNumbers}
       />

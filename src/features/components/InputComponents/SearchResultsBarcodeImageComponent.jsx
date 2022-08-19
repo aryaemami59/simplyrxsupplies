@@ -1,13 +1,26 @@
 import { memo } from "react";
 import PropTypes from "prop-types";
 
-function SearchResultsBarcodeImageComponent({ src, itemNumber }) {
-  return <img src={src} alt={itemNumber} className="mb-3" />;
+function SearchResultsBarcodeImageComponent({ itemObj }) {
+  return (
+    <img
+      key={`img-SearchResultsBarcodeImageComponent-${itemObj.name}`}
+      src={itemObj.src}
+      alt={`${itemObj.itemNumber}-${itemObj.name}`}
+      className="mb-3"
+    />
+  );
 }
 
 SearchResultsBarcodeImageComponent.propTypes = {
-  src: PropTypes.string,
-  itemNumber: PropTypes.string,
+  itemObj: PropTypes.shape({
+    name: PropTypes.string,
+    itemNumber: PropTypes.string,
+    keywords: PropTypes.arrayOf(PropTypes.string),
+    nav: PropTypes.arrayOf(PropTypes.string),
+    vendors: PropTypes.arrayOf(PropTypes.string),
+    src: PropTypes.string,
+  }),
 };
 
 export default memo(SearchResultsBarcodeImageComponent);

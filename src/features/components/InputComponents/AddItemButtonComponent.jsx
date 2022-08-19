@@ -1,11 +1,12 @@
 import { Fade, Collapse, Badge, Button } from "react-bootstrap";
-import { memo, useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useRef, useState } from "react";
 import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import {
   addItems,
   checkIfAddedToAllVendors,
   selectVendorsToAddTo,
 } from "../../../addedSlice";
+import PropTypes from "prop-types";
 
 function AddItemButtonComponent({ itemObj }) {
   const [show, setShow] = useState(false);
@@ -19,7 +20,6 @@ function AddItemButtonComponent({ itemObj }) {
   }, []);
   const hideBadge = useCallback(() => {
     setShow(false);
-    // setTimeout(() => setShow(false), 1500);
   }, []);
 
   const showThenHide = useCallback(() => {
@@ -33,30 +33,27 @@ function AddItemButtonComponent({ itemObj }) {
       : dispatch(addItems({ itemObj, vendors }));
   }, [IfAddedToAllVendors, showThenHide, dispatch, itemObj, vendors]);
 
-  // const clickHandler = useCallback(() => {
-  //   if (IfAddedToAllVendors) {
-  //     setShow(true);
-  //     setTimeout(() => setShow(false), 1500);
-  //   } else {
-  //     dispatch(addItems({ itemObj, vendors }));
-  //   }
-  // }, [dispatch, itemObj, IfAddedToAllVendors, vendors]);
-
   return (
     <Button
       ref={target}
       size="lg"
-      key={`Button-AddItemButtonComponent`}
+      key={`Button-AddItemButtonComponent-${itemObj.name}`}
       onClick={clickHandler}
       className="btn btn-success d-block w-100 position-relative mb-2 fw-bold">
       Add Item
-      <Collapse in={show} timeout={500} key={`Collapse-AddItemButtonComponent`}>
-        <div key={`div-AddItemButtonComponent`}>
-          <Fade in={show} timeout={500} key={`Fade-AddItemButtonComponent`}>
+      <Collapse
+        in={show}
+        timeout={500}
+        key={`Collapse-AddItemButtonComponent-${itemObj.name}`}>
+        <div key={`div-AddItemButtonComponent-${itemObj.name}`}>
+          <Fade
+            in={show}
+            timeout={500}
+            key={`Fade-AddItemButtonComponent-${itemObj.name}`}>
             <Badge
               bg="danger"
               className="d-block fw-light"
-              key={`Badge-AddItemButtonComponent`}>
+              key={`Badge-AddItemButtonComponent-${itemObj.name}`}>
               This Item Has Already Been Added!
             </Badge>
           </Fade>
@@ -65,5 +62,16 @@ function AddItemButtonComponent({ itemObj }) {
     </Button>
   );
 }
+
+AddItemButtonComponent.propTypes = {
+  itemObj: PropTypes.shape({
+    name: PropTypes.string,
+    itemNumber: PropTypes.string,
+    keywords: PropTypes.arrayOf(PropTypes.string),
+    nav: PropTypes.arrayOf(PropTypes.string),
+    vendors: PropTypes.arrayOf(PropTypes.string),
+    src: PropTypes.string,
+  }),
+};
 
 export default memo(AddItemButtonComponent);

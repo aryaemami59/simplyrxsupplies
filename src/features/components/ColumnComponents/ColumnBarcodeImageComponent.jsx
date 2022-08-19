@@ -5,17 +5,21 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { selectVendorOfficialName } from "../../../addedSlice";
 
-function ColumnBarcodeImageComponent({ src, itemObj, vendorName }) {
+function ColumnBarcodeImageComponent({ itemObj, vendorName }) {
   const officialVendorName = useSelector(selectVendorOfficialName(vendorName));
 
   return (
     <Container fluid className="my-4">
       <Row>
         <Col md={12}>
-          <img src={src} alt={itemObj.itemNumber} className="custom-shadow" />
+          <img
+            src={itemObj.src}
+            alt={itemObj.itemNumber}
+            className="custom-shadow"
+          />
           <PrintIconBarcodeComponent
             itemObj={itemObj}
-            src={src}
+            src={itemObj.src}
             text={"Print This Barcode"}
             header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}
           />
@@ -26,8 +30,7 @@ function ColumnBarcodeImageComponent({ src, itemObj, vendorName }) {
 }
 
 ColumnBarcodeImageComponent.propTypes = {
-  src: PropTypes.string,
-  officialVendorName: PropTypes.string,
+  vendorName: PropTypes.string,
   itemObj: PropTypes.shape({
     name: PropTypes.string,
     itemNumber: PropTypes.string,

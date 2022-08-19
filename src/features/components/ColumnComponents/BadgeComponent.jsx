@@ -1,6 +1,6 @@
-import { memo } from "react";
 import { Badge } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { memo } from "react";
 import { addedItemsLength } from "../../../addedSlice";
 import PropTypes from "prop-types";
 

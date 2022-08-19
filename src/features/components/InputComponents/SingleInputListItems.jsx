@@ -20,8 +20,7 @@ function SingleInputListItems({ itemObj }) {
           key={`SearchResultsItemNameComponent-SingleInputListItems`}
         />
         <SearchResultsBarcodeImageComponent
-          itemNumber={itemObj.itemNumber}
-          src={itemObj.src}
+          itemObj={itemObj}
           key={`SearchResultsBarcodeImageComponent-SingleInputListItems`}
         />
         <AddItemButtonComponent

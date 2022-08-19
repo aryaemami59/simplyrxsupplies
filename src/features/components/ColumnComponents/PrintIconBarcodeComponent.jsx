@@ -5,18 +5,18 @@ import { memo, useCallback, useRef, useState } from "react";
 import printjs from "print-js";
 import PropTypes from "prop-types";
 
-function PrintIconBarcodeComponent({ src, text, header, itemObj }) {
+function PrintIconBarcodeComponent({ text, header, itemObj }) {
   const [show, setShow] = useState(false);
   const target = useRef(null);
 
   const clickHandler = useCallback(() => {
     printjs({
-      printable: src,
+      printable: itemObj.src,
       type: "image",
       header,
       imageStyle: "width:80%;margin-bottom:20px;",
     });
-  }, [src, header]);
+  }, [itemObj.src, header]);
 
   const openTooltip = useCallback(() => {
     setShow(true);
@@ -43,13 +43,15 @@ function PrintIconBarcodeComponent({ src, text, header, itemObj }) {
         key={`${header}-PrintIconBarcodeComponent`}
       />
       <Overlay
+        key={`Overlay-PrintIconBarcodeComponent-${itemObj.name}-${header}`}
         target={target.current}
         show={show}
         placement="bottom"
         className="position-absolute">
         {props => (
           <Tooltip
-            id={`PrintIconBarcodeComponent-tooltip-${itemObj.name}-${src}`}
+            key={`Tooltip-PrintIconBarcodeComponent-${itemObj.name}-${header}`}
+            id={`PrintIconBarcodeComponent-tooltip-${itemObj.name}-${itemObj.src}`}
             {...props}>
             {text}
           </Tooltip>
@@ -60,7 +62,6 @@ function PrintIconBarcodeComponent({ src, text, header, itemObj }) {
 }
 
 PrintIconBarcodeComponent.propTypes = {
-  src: PropTypes.string,
   text: PropTypes.string,
   header: PropTypes.string,
   itemObj: PropTypes.shape({

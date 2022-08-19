@@ -33,14 +33,29 @@ function SingleVendorColumnListItem({ itemObj, vendorName }) {
 
   return (
     <div
+      key={`div-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
       tabIndex={0}
       onKeyDown={handleKeyDown}
       className="rounded shadow border mb-4 shadow">
-      <Container fluid className="my-3">
-        <Row className="justify-content-evenly align-items-center">
-          <Col xs={12} xl={7} xxl={9} className="">
-            <Fade in={!open} unmountOnExit>
+      <Container
+        key={`Container-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
+        fluid
+        className="my-3">
+        <Row
+          key={`Row-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
+          className="justify-content-evenly align-items-center">
+          <Col
+            key={`Col-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
+            xs={12}
+            xl={7}
+            xxl={9}
+            className="">
+            <Fade
+              key={`Fade-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
+              in={!open}
+              unmountOnExit>
               <Button
+                key={`Button-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
                 aria-controls="maximize content"
                 variant="success"
                 className="w-100"
@@ -49,9 +64,15 @@ function SingleVendorColumnListItem({ itemObj, vendorName }) {
               </Button>
             </Fade>
           </Col>
-          <Col className="" xs={"auto"}>
-            <ButtonGroup className="my-2">
+          <Col
+            key={`Col-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
+            className=""
+            xs={"auto"}>
+            <ButtonGroup
+              key={`ButtonGroup-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
+              className="my-2">
               <MinimizeButton
+                key={`MinimizeButton-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
                 open={open}
                 toggle={toggle}
                 vendorName={vendorName}
@@ -60,13 +81,15 @@ function SingleVendorColumnListItem({ itemObj, vendorName }) {
               <RemoveButton
                 vendorName={vendorName}
                 itemObj={itemObj}
-                key={`${itemObj.name}-${vendorName}-RemoveButton`}
+                key={`RemoveButton-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
               />
             </ButtonGroup>
           </Col>
         </Row>
       </Container>
-      <Collapse in={open}>
+      <Collapse
+        key={`Collapse-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
+        in={open}>
         <Container
           className="custom-bg-color-2"
           key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
@@ -81,7 +104,6 @@ function SingleVendorColumnListItem({ itemObj, vendorName }) {
             key={`${itemObj.name}-${vendorName}-ItemNumberComponent`}
           />
           <ColumnBarcodeImageComponent
-            src={itemObj.src}
             itemObj={itemObj}
             vendorName={vendorName}
             key={`${itemObj.name}-${vendorName}-ColumnBarcodeImageComponent`}
@@ -94,7 +116,6 @@ function SingleVendorColumnListItem({ itemObj, vendorName }) {
 
 PropTypes.propTypes = {
   vendorName: PropTypes.string,
-  officialVendorName: PropTypes.string,
   itemObj: PropTypes.shape({
     name: PropTypes.string,
     itemNumber: PropTypes.string,

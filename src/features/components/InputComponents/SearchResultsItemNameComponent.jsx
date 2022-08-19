@@ -1,5 +1,6 @@
 import { Card } from "react-bootstrap";
 import { memo } from "react";
+import PropTypes from "prop-types";
 
 function SearchResultsItemNameComponent({ itemObj }) {
   return (
@@ -10,5 +11,16 @@ function SearchResultsItemNameComponent({ itemObj }) {
     </Card.Title>
   );
 }
+
+SearchResultsItemNameComponent.propTypes = {
+  itemObj: PropTypes.shape({
+    name: PropTypes.string,
+    itemNumber: PropTypes.string,
+    keywords: PropTypes.arrayOf(PropTypes.string),
+    nav: PropTypes.arrayOf(PropTypes.string),
+    vendors: PropTypes.arrayOf(PropTypes.string),
+    src: PropTypes.string,
+  }),
+};
 
 export default memo(SearchResultsItemNameComponent);

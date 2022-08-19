@@ -1,6 +1,6 @@
 import { Button, Collapse, Card, ListGroup, Alert } from "react-bootstrap";
-import { useState, memo, useCallback } from "react";
 import { useSelector, shallowEqual } from "react-redux";
+import { useState, memo, useCallback } from "react";
 import {
   selectByVendor,
   selectVendorOfficialName,
@@ -15,7 +15,6 @@ function VendorColumn({ vendorName }) {
   const [open, setOpen] = useState(false);
   const officialVendorName = useSelector(selectVendorOfficialName(vendorName));
   const vendorLink = useSelector(selectVendorsLinks(vendorName));
-
   const addedItems = useSelector(selectByVendor(vendorName), shallowEqual);
 
   const buttonClick = useCallback(() => {
@@ -44,24 +43,28 @@ function VendorColumn({ vendorName }) {
           key={`${officialVendorName}-VendorColumn-Badge`}
         />
       </Button>
-      <Collapse in={open}>
-        <div>
+      <Collapse key={`Collapse-VendorColumn-${vendorName}`} in={open}>
+        <div key={`div-VendorColumn-${vendorName}`}>
           <Card
+            key={`Card-VendorColumn-${vendorName}`}
             tabIndex={0}
             className="custom-bg-color-2"
             onKeyDown={handleKeyDown}>
             {addedItems.length ? (
-              <Card.Body>
+              <Card.Body key={`Card.Body-VendorColumn-${vendorName}`}>
                 <QRCodeImageComponent
                   vendorName={vendorName}
                   key={`${vendorName}-VendorColumn-QRCodeImageComponent`}
                 />
-                <Alert variant="info">
-                  <Alert.Link target="blank" href={vendorLink}>
+                <Alert key={`Alert-VendorColumn-${vendorName}`} variant="info">
+                  <Alert.Link
+                    key={`Alert.Link-VendorColumn-${vendorName}`}
+                    target="blank"
+                    href={vendorLink}>
                     {officialVendorName} Website
                   </Alert.Link>
                 </Alert>
-                <ListGroup>
+                <ListGroup key={`ListGroup-VendorColumn-${vendorName}`}>
                   {addedItems.map(e => (
                     <SingleVendorColumnListItem
                       itemObj={e}
@@ -72,7 +75,9 @@ function VendorColumn({ vendorName }) {
                 </ListGroup>
               </Card.Body>
             ) : (
-              <ListGroup.Item variant="danger">
+              <ListGroup.Item
+                key={`ListGroup.Item-VendorColumn-${vendorName}`}
+                variant="danger">
                 "No Item Has Been Added Yet!"
               </ListGroup.Item>
             )}
@@ -84,7 +89,6 @@ function VendorColumn({ vendorName }) {
 }
 
 VendorColumn.propTypes = {
-  officialVendorName: PropTypes.string,
   vendorName: PropTypes.string,
 };
 
