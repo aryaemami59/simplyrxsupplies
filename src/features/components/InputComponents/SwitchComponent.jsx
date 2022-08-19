@@ -8,7 +8,7 @@ function SwitchComponent({ clickHandler, checked, itemObj, vendorName }) {
   return (
     <div
       key={`div-SwitchComponent-${vendorName}`}
-      className="form-check form-switch d-flex align-items-center row cursor-pointer bg-outline-primary ps-5">
+      className="form-check form-switch d-flex align-items-center row cursor-pointer bg-outline-primary w-100">
       <input
         key={`input-SwitchComponent-${vendorName}`}
         onChange={clickHandler}
@@ -20,7 +20,7 @@ function SwitchComponent({ clickHandler, checked, itemObj, vendorName }) {
       />
       <label
         key={`label-SwitchComponent-${vendorName}`}
-        className="form-check-label cursor-pointer col"
+        className="form-check-label cursor-pointer col pe-0"
         htmlFor={`${itemObj.name}-${vendorName}-SwitchComponent-SwitchComponent-${vendorName}`}>
         <VendorBadges
           clickHandler={clickHandler}

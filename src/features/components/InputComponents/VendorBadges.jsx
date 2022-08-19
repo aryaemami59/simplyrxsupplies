@@ -15,7 +15,7 @@ function VendorBadges({ vendorName, itemObj, clickHandler }) {
     <Button
       size=""
       onClick={clickHandler}
-      className="w-100"
+      className="w-100 text-brea"
       variant={ifAdded ? "outline-info" : "info text-white"}
       key={`Button-VendorBadges-${vendorName}`}>
       {officialVendorName}

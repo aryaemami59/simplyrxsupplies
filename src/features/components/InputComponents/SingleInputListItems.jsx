@@ -17,9 +17,7 @@ function SingleInputListItems({ itemObj }) {
       border="info"
       text="white"
       key={`Card-SingleInputListItems`}>
-      <Card.Body
-        key={`Card.Body-SingleInputListItems`}
-        className="row gy-2  justify-content-evenl align-items-cente align-content-betwee">
+      <Card.Body key={`Card.Body-SingleInputListItems`} className="row gy-2">
         <Col xs={12}>
           <Row className="m-0">
             <SearchResultsItemNameComponent
@@ -29,9 +27,9 @@ function SingleInputListItems({ itemObj }) {
           </Row>
         </Col>
         <Col xs={12}>
-          <Row className="justify-content-center align-items-center m-0 ">
-            <Col className="align-items-center justify-content-center">
-              <Row className="justify-content-center m-0">
+          <Row className="justify-content-center justify-content-sm-center align-items-center m-0 ">
+            <Col xs={7} md={12} lg={7} className="pe-0">
+              <Row md={"auto"} className="m-0">
                 {itemObj.vendors.map(e => (
                   <SwitchComponent
                     key={`SwitchComponent-${itemObj.name}${e}`}
@@ -41,11 +39,13 @@ function SingleInputListItems({ itemObj }) {
                 ))}
               </Row>
             </Col>
-            <Col>
-              <SearchResultsBarcodeImageComponent
-                itemObj={itemObj}
-                key={`SearchResultsBarcodeImageComponent-SingleInputListItems`}
-              />
+            <Col xs={5} lg={5}>
+              <Row className="justify-content-center">
+                <SearchResultsBarcodeImageComponent
+                  itemObj={itemObj}
+                  key={`SearchResultsBarcodeImageComponent-SingleInputListItems`}
+                />
+              </Row>
             </Col>
           </Row>
         </Col>

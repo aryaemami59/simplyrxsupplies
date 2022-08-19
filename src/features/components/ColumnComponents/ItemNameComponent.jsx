@@ -15,7 +15,7 @@ function ItemNameComponent({ vendorName, itemObj }) {
         key={`${vendorName}-${itemObj.name}-CopyIconComponent-ItemNameComponent`}
         content={itemObj.name}
         text={"Name"}
-        placement="right"
+        placement="top"
         itemObj={itemObj}
         vendorName={vendorName}
       />

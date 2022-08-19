@@ -72,7 +72,7 @@ function CopyIconComponent({ content, text, placement, vendorName, itemObj }) {
   const handleClick = useCallback(() => {
     clickOnIcon();
     navigator.clipboard.writeText(content);
-    setTimeout(afterClick, 500);
+    setTimeout(afterClick, 200);
   }, [content, clickOnIcon, afterClick]);
 
   return (

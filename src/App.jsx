@@ -83,9 +83,9 @@ function App() {
             xs={11}
             sm={11}
             md={6}
-            lg={4}
+            lg={5}
             xl={5}
-            xxl={4}
+            xxl={5}
             className="mt-5"
             key={`Col-secondCol-App`}>
             <InputGroupComponent key={`InputGroupComponent-App`} />
@@ -95,9 +95,9 @@ function App() {
             xs={11}
             sm={11}
             md={6}
-            lg={5}
+            lg={4}
             xl={5}
-            xxl={6}
+            xxl={5}
             className="my-5 ">
             <VendorColumnList key={`VendorColumnList-App`} />
           </Col>
