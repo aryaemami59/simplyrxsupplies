@@ -18,9 +18,16 @@ function VendorColumnModalComponent() {
         variant="outline-info"
         size="lg"
         onClick={showModal}
-        className="my-3 d-inline-block d-md-none w-75 rounded">
+        className="neon-butto my-3 d-inline-block d-md-none w-75 rounded">
         Display Cart
       </Button>
+      {/* <button
+        type="button"
+        onClick={showModal}
+        className="neon-button my-3 d-md-none w-75"
+        value="Display Cart">
+        Display Cart
+      </button> */}
       <Modal
         scrollable
         onHide={hideModal}
