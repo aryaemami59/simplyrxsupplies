@@ -1,4 +1,4 @@
-import { Card } from "react-bootstrap";
+import { Card, Row, Col } from "react-bootstrap";
 import { memo } from "react";
 import SearchResultsBarcodeImageComponent from "./SearchResultsBarcodeImageComponent";
 import SearchResultsItemNameComponent from "./SearchResultsItemNameComponent";
@@ -6,13 +6,10 @@ import SearchResultsItemNumberComponent from "./SearchResultsItemNumberComponent
 import SwitchComponent from "./SwitchComponent";
 import AddItemButtonComponent from "./AddItemButtonComponent";
 import PropTypes from "prop-types";
-import { Row } from "react-bootstrap";
-import { Col } from "react-bootstrap";
 
 function SingleInputListItems({ itemObj }) {
   return (
     <Card
-      className=""
       bg="dark"
       border="info"
       text="white"
@@ -65,11 +62,6 @@ function SingleInputListItems({ itemObj }) {
             />
           </Row>
         </Col>
-        {/* <ListGroup key={`ListGroup-SingleInputListItems`}> */}
-        {/* <h5 key={`h5-SingleInputListItems`} variant="dark">
-            Available on:
-          </h5> */}
-        {/* </ListGroup> */}
       </Card.Body>
     </Card>
   );

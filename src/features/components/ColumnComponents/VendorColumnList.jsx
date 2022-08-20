@@ -14,7 +14,7 @@ function VendorColumnList() {
         xs={12}
         lg={12}
         xl={10}
-        className="shadow p-0 justify-content-center">
+        className="shadow p-0 justify-content-center text-center">
         {vendors.map(e => (
           <VendorColumn key={`${e}-VendorColumn`} vendorName={e} />
         ))}
