@@ -98,7 +98,7 @@ function App() {
             lg={4}
             xl={5}
             xxl={5}
-            className="my-5 ">
+            className="my-5 justify-content-center">
             <VendorColumnList key={`VendorColumnList-App`} />
           </Col>
         </Row>

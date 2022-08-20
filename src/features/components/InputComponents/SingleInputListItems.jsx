@@ -1,4 +1,4 @@
-import { Card, ListGroup } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { memo } from "react";
 import SearchResultsBarcodeImageComponent from "./SearchResultsBarcodeImageComponent";
 import SearchResultsItemNameComponent from "./SearchResultsItemNameComponent";
@@ -28,7 +28,7 @@ function SingleInputListItems({ itemObj }) {
         </Col>
         <Col xs={12}>
           <Row className="justify-content-center justify-content-sm-center align-items-center m-0 ">
-            <Col xs={7} md={12} lg={7} className="pe-0">
+            <Col xs={7} md={12} lg={8} className="pe-0">
               <Row md={"auto"} className="m-0">
                 {itemObj.vendors.map(e => (
                   <SwitchComponent
@@ -39,7 +39,7 @@ function SingleInputListItems({ itemObj }) {
                 ))}
               </Row>
             </Col>
-            <Col xs={5} lg={5}>
+            <Col xs={5} lg={4}>
               <Row className="justify-content-center">
                 <SearchResultsBarcodeImageComponent
                   itemObj={itemObj}

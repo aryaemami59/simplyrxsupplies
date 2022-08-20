@@ -149,9 +149,9 @@ div.offcanvas-body div.dropdown-menu.show {
 input.cursor-pointer {
   cursor: pointer;
 }
-/* .cursor-default {
+.cursor-default {
   cursor: default;
-} */
+}
 .form-check-input.custom-checkbox-bg:checked {
   background-color: #3dd5f3;
   border-color: #3dd5f3;

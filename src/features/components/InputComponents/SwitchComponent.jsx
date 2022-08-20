@@ -1,9 +1,9 @@
+import { Form } from "react-bootstrap";
 import { connect } from "react-redux";
 import { memo } from "react";
 import { setVendors } from "../../../addedSlice";
 import VendorBadges from "./VendorBadges";
 import PropTypes from "prop-types";
-import { Form } from "react-bootstrap";
 
 function SwitchComponent({
   clickHandler,
@@ -39,30 +39,6 @@ function SwitchComponent({
         />
       </Form.Check.Label>
     </Form.Check>
-    // <div
-    //   key={`div-SwitchComponent-${vendorName}`}
-    //   className="form-check form-switch d-flex align-items-center row cursor-pointer bg-outline-primary w-100">
-    //   <input
-    //     key={`input-SwitchComponent-${vendorName}`}
-    //     onChange={clickHandler}
-    //     className="form-check-input cursor-pointer col-1"
-    //     type="checkbox"
-    //     role="switch"
-    //     id={`${itemObj.name}-${vendorName}-SwitchComponent-SwitchComponent-${vendorName}`}
-    //     checked={checked}
-    //   />
-    //   <label
-    //     key={`label-SwitchComponent-${vendorName}`}
-    //     className="form-check-label cursor-pointer col pe-0"
-    //     htmlFor={`${itemObj.name}-${vendorName}-SwitchComponent-SwitchComponent-${vendorName}`}>
-    //     <VendorBadges
-    //       clickHandler={clickHandler}
-    //       vendorName={vendorName}
-    //       itemObj={itemObj}
-    //       key={`VendorBadges-SwitchComponent-${vendorName}`}
-    //     />
-    //   </label>
-    // </div>
   );
 }
 
@@ -93,6 +69,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 SwitchComponent.propTypes = {
   clickHandler: PropTypes.func,
   checked: PropTypes.bool,
+  disabled: PropTypes.bool,
   vendorName: PropTypes.string,
   itemObj: PropTypes.shape({
     name: PropTypes.string,
