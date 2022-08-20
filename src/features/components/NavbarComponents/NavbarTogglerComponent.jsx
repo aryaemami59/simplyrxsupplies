@@ -3,7 +3,7 @@ import { memo } from "react";
 import PropTypes from "prop-types";
 
 function NavbarTogglerComponent({ toggle }) {
-  return <Navbar.Toggle onClick={toggle} className="me-2 d-lg-none" />;
+  return <Navbar.Toggle onClick={toggle} className={`me-2 d-lg-none`} />;
 }
 
 NavbarTogglerComponent.propTypes = {

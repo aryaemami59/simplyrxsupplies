@@ -11,8 +11,8 @@ function VendorColumnList() {
   return (
     <Row className="justify-content-center">
       <Col
-        xs={12}
-        lg={12}
+        xs={11}
+        lg={11}
         xl={10}
         className="shadow p-0 justify-content-center text-center">
         {vendors.map(e => (

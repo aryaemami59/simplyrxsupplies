@@ -1,5 +1,5 @@
 import { Dropdown } from "react-bootstrap";
-import { memo, useState, useCallback } from "react";
+import { memo, useState, useCallback, useContext } from "react";
 import SingleDropDown from "./SingleDropDown";
 import { useSelector, shallowEqual } from "react-redux";
 import {
@@ -7,8 +7,10 @@ import {
   selectVendorOfficialName,
 } from "../../../addedSlice";
 import PropTypes from "prop-types";
+import { DarkMode } from "../../../App";
 
 function VendorDropDown({ vendorName }) {
+  const { darkTheme } = useContext(DarkMode);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const officialVendorName = useSelector(selectVendorOfficialName(vendorName));
   const myItems = useSelector(selectItemsByVendor(vendorName), shallowEqual);
@@ -24,15 +26,13 @@ function VendorDropDown({ vendorName }) {
       show={dropdownOpen}
       onToggle={toggle}>
       <Dropdown.Toggle
-        variant="dark"
         className={`btn ${dropdownOpen ? "btn-info text-white" : "text-info"}`}
         as="button">
         {officialVendorName}
       </Dropdown.Toggle>
       <Dropdown.Menu
         renderOnMount
-        variant="dark"
-        className="bg-dark border border-info"
+        className={`border border-info ${darkTheme ? "bg-dark" : "bg-light"}`}
         show={dropdownOpen}>
         {myItems.map(e => (
           <SingleDropDown

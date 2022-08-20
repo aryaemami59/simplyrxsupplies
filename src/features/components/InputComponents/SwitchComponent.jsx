@@ -17,7 +17,7 @@ function SwitchComponent({
       type="switch"
       id={`${itemObj.name}-${vendorName}-SwitchComponent-SwitchComponent-${vendorName}`}
       disabled={disabled}
-      className="d-flex align-items-center row bg-outline-primary w-100"
+      className="d-flex align-items-center row bg-outline-primary w-100 pe-0"
       key={`div-SwitchComponent-${vendorName}`}>
       <Form.Check.Input
         disabled={disabled}
@@ -28,7 +28,7 @@ function SwitchComponent({
       />
       <Form.Check.Label
         key={`label-SwitchComponent-${vendorName}`}
-        className={`"col pe-0"`}
+        className="col pe-0"
         htmlFor={`${itemObj.name}-${vendorName}-SwitchComponent-SwitchComponent-${vendorName}`}>
         <VendorBadges
           disabled={disabled}

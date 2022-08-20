@@ -1,13 +1,16 @@
 import { Collapse, Card, ListGroup } from "react-bootstrap";
 import { useSelector, shallowEqual } from "react-redux";
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback, useContext, useRef, useState } from "react";
 import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
 import { selectSidebarNavs } from "../../../addedSlice";
 import PropTypes from "prop-types";
+import { DarkMode } from "../../../App";
 
 const COLLAPSED = "collapsed";
 
 function SideBarAccordion({ category }) {
+  const { darkTheme } = useContext(DarkMode);
+
   const sidebarItems = useSelector(selectSidebarNavs(category), shallowEqual);
   const [open, setOpen] = useState(false);
   const nodeRef = useRef(null);
@@ -22,8 +25,12 @@ function SideBarAccordion({ category }) {
         <button
           key={`button-SideBarAccordion-${category}`}
           onClick={toggle}
-          variant="light"
-          className={`accordion-button rounded ${open ? "" : COLLAPSED}`}>
+          variant="dark"
+          className={`accordion-button rounded ${
+            darkTheme
+              ? "bg-dark custom-dark-mode"
+              : "bg-light custom-light-mode"
+          } ${open ? "" : COLLAPSED}`}>
           {category}
         </button>
       </h2>
@@ -36,10 +43,14 @@ function SideBarAccordion({ category }) {
         <div key={`div-SideBarAccordion-${category}-inner`}>
           <Card
             key={`Card-SideBarAccordion-${category}`}
-            className="bg-dark bg-gradient">
+            className={`bg-gradient custom-dark-mode ${
+              darkTheme ? "bg-dark" : "bg-light"
+            }`}>
             <Card.Body
               key={`Card.Body-SideBarAccordion-${category}`}
-              className="bg-dark bg-gradient">
+              className={`bg-gradient custom-dark-mode ${
+                darkTheme ? "bg-dark" : "bg-light"
+              }`}>
               <ListGroup key={`ListGroup-SideBarAccordion-${category}`}>
                 {sidebarItems.map(f => (
                   <SingleSideBarAccordionListItem

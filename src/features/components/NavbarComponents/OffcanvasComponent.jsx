@@ -1,9 +1,11 @@
 import { Nav, Offcanvas, Navbar } from "react-bootstrap";
-import { useState, useCallback, memo } from "react";
+import { useState, useCallback, memo, useContext } from "react";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import SideBarAccordionList from "../SideBarNavComponents/SideBarAccordionList";
+import { DarkMode } from "../../../App";
 
 function OffcanvasComponent() {
+  const { darkTheme } = useContext(DarkMode);
   const [show, setShow] = useState(false);
 
   const handleOpen = useCallback(() => {
@@ -22,7 +24,7 @@ function OffcanvasComponent() {
         onClick={handleOpen}
       />
       <Offcanvas
-        className="text-bg-dark"
+        className={`${darkTheme ? "text-bg-dark" : "text-bg-light"}`}
         key={`Offcanvas-OffcanvasComponent`}
         show={show}
         scroll

@@ -50,7 +50,7 @@ function InputFieldComponent() {
         ref={inputRef}
         placeholder="Search..."
         type="search"
-        className="rounded-pill ps-4 mt- mb- text-white border-0 c-bg"
+        className="rounded-pill ps-4 text-white border-0 c-bg"
         key={`Form.Control-InputFieldComponent`}
         onChange={changeVal}
         value={val}

@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { memo, useEffect } from "react";
+import { createContext, memo, useEffect, useState } from "react";
 import {
   checkIfLoading,
   fetchItems,
@@ -15,8 +15,10 @@ import VendorColumnList from "./features/components/ColumnComponents/VendorColum
 import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
 import VerticalNavComponent from "./features/components/SideBarNavComponents/VerticalNavComponent";
+export const DarkMode = createContext(true);
 
 function App() {
+  const [darkTheme, setDarkTheme] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -62,47 +64,50 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <NavbarComponent key={`NavbarComponent-App`} />
-      <Container fluid key={`Container-App`} className="">
-        <Row className="justify-content-center" key={`Row-App`}>
-          <Col
-            key={`Col-firstCol-App`}
-            xs={0}
-            lg={3}
-            xl={2}
-            className="ps-0 pe-0 d-none d-lg-block"
-            style={{
-              height: "calc(100vh - 54px)",
-              position: "sticky",
-              top: "54px",
-            }}>
-            <VerticalNavComponent key={`VerticalNavComponent-App`} />
-          </Col>
-          <Col
-            xs={11}
-            sm={11}
-            md={6}
-            lg={5}
-            xl={5}
-            xxl={5}
-            className="mt-5"
-            key={`Col-secondCol-App`}>
-            <InputGroupComponent key={`InputGroupComponent-App`} />
-          </Col>
-          <Col
-            key={`Col-thirdCol-App`}
-            xs={11}
-            sm={11}
-            md={6}
-            lg={4}
-            xl={5}
-            xxl={5}
-            className="my-5 justify-content-center">
-            <VendorColumnList key={`VendorColumnList-App`} />
-          </Col>
-        </Row>
-      </Container>
+    <div
+      className={`App ${darkTheme ? "custom-dark-mode" : "custom-light-mode"}`}>
+      <DarkMode.Provider value={{ setDarkTheme, darkTheme }}>
+        <NavbarComponent key={`NavbarComponent-App`} />
+        <Container fluid key={`Container-App`} className="">
+          <Row className="justify-content-center" key={`Row-App`}>
+            <Col
+              key={`Col-firstCol-App`}
+              xs={0}
+              lg={3}
+              xl={2}
+              className="ps-0 pe-0 d-none d-lg-block"
+              style={{
+                height: "calc(100vh - 54px)",
+                position: "sticky",
+                top: "54px",
+              }}>
+              <VerticalNavComponent key={`VerticalNavComponent-App`} />
+            </Col>
+            <Col
+              xs={11}
+              sm={11}
+              md={6}
+              lg={5}
+              xl={5}
+              xxl={5}
+              className="mt-5"
+              key={`Col-secondCol-App`}>
+              <InputGroupComponent key={`InputGroupComponent-App`} />
+            </Col>
+            <Col
+              key={`Col-thirdCol-App`}
+              xs={11}
+              sm={11}
+              md={6}
+              lg={4}
+              xl={5}
+              xxl={5}
+              className="my-5 justify-content-center">
+              <VendorColumnList key={`VendorColumnList-App`} />
+            </Col>
+          </Row>
+        </Container>
+      </DarkMode.Provider>
     </div>
   );
 }
