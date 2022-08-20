@@ -7,15 +7,16 @@ import {
 } from "../../../addedSlice";
 import PropTypes from "prop-types";
 
-function VendorBadges({ vendorName, itemObj, clickHandler }) {
+function VendorBadges({ vendorName, itemObj, clickHandler, disabled }) {
   const ifAdded = useSelector(checkIfAddedToOneVendor(itemObj, vendorName));
   const officialVendorName = useSelector(selectVendorOfficialName(vendorName));
 
   return (
     <Button
       size=""
+      disabled={disabled}
       onClick={clickHandler}
-      className="w-100 text-brea"
+      className="w-100"
       variant={ifAdded ? "outline-info" : "info text-white"}
       key={`Button-VendorBadges-${vendorName}`}>
       {officialVendorName}

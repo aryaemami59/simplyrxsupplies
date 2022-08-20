@@ -22,6 +22,7 @@ function SingleSideBarAccordionListItem({ category, itemObj }) {
     <>
       <Button
         size="lg"
+        disabled={ifAddedToAllVendors}
         className="fw-bold"
         variant={`${ifAddedToAllVendors ? "info text-white" : "outline-info"}`}
         onClick={clickHandler}

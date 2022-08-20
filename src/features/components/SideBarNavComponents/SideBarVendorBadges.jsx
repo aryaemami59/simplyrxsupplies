@@ -1,39 +1,50 @@
-import { Button } from "react-bootstrap";
-import { useSelector, connect } from "react-redux";
+import { Form } from "react-bootstrap";
+import { connect } from "react-redux";
 import { memo } from "react";
-import {
-  setVendors,
-  checkIfAddedToOneVendor,
-  selectVendorOfficialName,
-} from "../../../addedSlice";
+import { setVendors } from "../../../addedSlice";
 import PropTypes from "prop-types";
 
-function SideBarVendorBadges({ vendorName, itemObj, clickHandler }) {
-  const ifAdded = useSelector(checkIfAddedToOneVendor(itemObj, vendorName));
-  const officialVendorName = useSelector(selectVendorOfficialName(vendorName));
-
+function SideBarVendorBadges({
+  vendorName,
+  itemObj,
+  clickHandler,
+  checked,
+  disabled,
+  officialVendorName,
+}) {
   return (
-    <Button
-      size="sm"
+    <Form.Check
       type="checkbox"
-      onClickCapture={clickHandler}
-      className={`"w-100 fw-lighter position-relative ps-0" ${
-        ifAdded ? "fw-bold" : ""
-      } `}
-      variant={
-        ifAdded ? "outline-primary text-white" : "outline-primary text-white-50"
-      }
+      className="text-info"
+      id={`Form.Check-SideBarVendorBadges-${itemObj.name}-${vendorName}`}
       key={`${itemObj.name}-Badge-SideBarVendorBadges-`}>
-      {officialVendorName}
-    </Button>
+      <Form.Check.Input
+        disabled={disabled}
+        onChange={clickHandler}
+        checked={checked}
+        className="custom-checkbox-bg cursor-pointer"
+        type="checkbox"
+        key={`Form.Check.Input-SideBarVendorBadges-${itemObj.name}`}
+      />
+      <Form.Check.Label
+        className="cursor-pointer"
+        htmlFor={`Form.Check-SideBarVendorBadges-${itemObj.name}-${vendorName}`}>
+        {officialVendorName}
+      </Form.Check.Label>
+    </Form.Check>
   );
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    checked: state.item[ownProps.itemObj.name].vendorsAdded.includes(
+    checked: state.item[ownProps.itemObj.name].vendorsToAdd.includes(
       ownProps.vendorName
     ),
+    disabled: state.item[ownProps.itemObj.name].vendorsAdded.includes(
+      ownProps.vendorName
+    ),
+    officialVendorName:
+      state.added.vendorsObj[ownProps.vendorName].officialName,
   };
 };
 
@@ -52,7 +63,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 SideBarVendorBadges.propTypes = {
   vendorName: PropTypes.string,
+  officialVendorName: PropTypes.string,
   clickHandler: PropTypes.func,
+  checked: PropTypes.bool,
+  disabled: PropTypes.bool,
   itemObj: PropTypes.shape({
     name: PropTypes.string,
     itemNumber: PropTypes.string,

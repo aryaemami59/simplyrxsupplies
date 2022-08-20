@@ -4,7 +4,6 @@ import {
   GITHUB_URL_ITEMS,
   GITHUB_URL_VENDORS,
   GITHUB_URL_NAVLIST,
-  FETCH_CONFIG,
 } from "./data/fetchInfo";
 
 class Intersection {
@@ -169,6 +168,11 @@ export const itemSlice = createSlice({
             state[action.payload.itemObj.name].vendorsAdded
           )
         : empty;
+    },
+    "added/removeItems": (state, action) => {
+      state[action.payload.itemObj.name].vendorsAdded = state[
+        action.payload.itemObj.name
+      ].vendorsAdded.filter(e => e !== action.payload.vendorName);
     },
   },
 });
