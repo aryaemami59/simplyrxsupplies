@@ -15,7 +15,7 @@ function SideBarVendorBadges({
   return (
     <Form.Check
       type="checkbox"
-      className="text-info"
+      className="text-info custom-text-shadow-white"
       id={`Form.Check-SideBarVendorBadges-${itemObj.name}-${vendorName}`}
       key={`${itemObj.name}-Badge-SideBarVendorBadges-`}>
       <Form.Check.Input

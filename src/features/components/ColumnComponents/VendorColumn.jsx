@@ -1,6 +1,6 @@
 import { Button, Collapse, Card, ListGroup, Alert } from "react-bootstrap";
 import { useSelector, shallowEqual } from "react-redux";
-import { useState, memo, useCallback } from "react";
+import { useState, memo, useCallback, useContext } from "react";
 import {
   selectByVendor,
   selectVendorOfficialName,
@@ -10,8 +10,10 @@ import BadgeComponent from "./BadgeComponent";
 import QRCodeImageComponent from "./QRCodeImageComponent";
 import SingleVendorColumnListItem from "./SingleVendorColumnListItem";
 import PropTypes from "prop-types";
+import { DarkMode } from "../../../App";
 
 function VendorColumn({ vendorName }) {
+  const { darkTheme } = useContext(DarkMode);
   const [open, setOpen] = useState(false);
   const officialVendorName = useSelector(selectVendorOfficialName(vendorName));
   const vendorLink = useSelector(selectVendorsLinks(vendorName));
@@ -33,7 +35,7 @@ function VendorColumn({ vendorName }) {
   return (
     <>
       <Button
-        className="position-relative d-block w-100"
+        className="position-relative d-block w-100 custom-text-shadow-white"
         variant="primary"
         onClick={buttonClick}
         key={`${officialVendorName}-VendorColumn-Button`}>
@@ -48,7 +50,7 @@ function VendorColumn({ vendorName }) {
           <Card
             key={`Card-VendorColumn-${vendorName}`}
             tabIndex={0}
-            className="custom-bg-color-2"
+            className={darkTheme ? "custom-bg-color-2" : "custom-light-mode"}
             onKeyDown={handleKeyDown}>
             {addedItems.length ? (
               <Card.Body key={`Card.Body-VendorColumn-${vendorName}`}>

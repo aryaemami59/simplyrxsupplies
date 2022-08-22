@@ -26,7 +26,9 @@ function VendorDropDown({ vendorName }) {
       show={dropdownOpen}
       onToggle={toggle}>
       <Dropdown.Toggle
-        className={`btn ${dropdownOpen ? "btn-info text-white" : "text-info"}`}
+        className={`custom-text-shadow-white btn ${
+          dropdownOpen ? "btn-info text-white" : "text-info"
+        }`}
         as="button">
         {officialVendorName}
       </Dropdown.Toggle>

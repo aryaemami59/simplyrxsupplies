@@ -91,7 +91,7 @@ function SingleVendorColumnListItem({ itemObj, vendorName }) {
         key={`Collapse-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
         in={open}>
         <Container
-          className="custom-bg-color-2"
+          // className={"custom-bg-color-2"}
           key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
           <ItemNameComponent
             vendorName={vendorName}

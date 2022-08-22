@@ -26,7 +26,7 @@ function SideBarAccordion({ category }) {
           key={`button-SideBarAccordion-${category}`}
           onClick={toggle}
           variant="dark"
-          className={`accordion-button rounded ${
+          className={`accordion-button rounded custom-text-shadow-white ${
             darkTheme
               ? "bg-dark custom-dark-mode"
               : "bg-light custom-light-mode"

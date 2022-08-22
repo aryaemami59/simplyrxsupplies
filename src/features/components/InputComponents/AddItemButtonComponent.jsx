@@ -39,7 +39,7 @@ function AddItemButtonComponent({ itemObj }) {
       size="lg"
       key={`Button-AddItemButtonComponent-${itemObj.name}`}
       onClick={clickHandler}
-      className="btn btn-success d-block w-100 position-relative mb-2 fw-bold">
+      className="btn btn-success d-block w-100 position-relative mb-2 fw-bold rounded-pill shadow custom-text-shadow-white">
       Add Item
       <Collapse
         in={show}

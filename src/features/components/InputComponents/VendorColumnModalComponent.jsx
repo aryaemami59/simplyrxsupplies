@@ -15,10 +15,10 @@ function VendorColumnModalComponent() {
   return (
     <>
       <Button
-        variant="outline-info"
+        variant="info"
         size="lg"
         onClick={showModal}
-        className="neon-butto my-3 d-inline-block d-md-none w-75 rounded">
+        className={`neon-butto my-3 d-inline-block d-md-none w-75 rounded custom-text-shadow-white text-white shadow`}>
         Display Cart
       </Button>
       {/* <button

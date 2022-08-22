@@ -16,7 +16,7 @@ function VendorBadges({ vendorName, itemObj, clickHandler, disabled }) {
       size=""
       disabled={disabled}
       onClick={clickHandler}
-      className="w-100"
+      className="w-100 custom-text-shadow-white"
       variant={ifAdded ? "outline-info" : "info text-white"}
       key={`Button-VendorBadges-${vendorName}`}>
       {officialVendorName}

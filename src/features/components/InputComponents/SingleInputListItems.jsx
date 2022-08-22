@@ -1,18 +1,21 @@
 import { Card, Row, Col } from "react-bootstrap";
-import { memo } from "react";
+import { memo, useContext } from "react";
 import SearchResultsBarcodeImageComponent from "./SearchResultsBarcodeImageComponent";
 import SearchResultsItemNameComponent from "./SearchResultsItemNameComponent";
 import SearchResultsItemNumberComponent from "./SearchResultsItemNumberComponent";
 import SwitchComponent from "./SwitchComponent";
 import AddItemButtonComponent from "./AddItemButtonComponent";
 import PropTypes from "prop-types";
+import { DarkMode } from "../../../App";
 
 function SingleInputListItems({ itemObj }) {
+  const { darkTheme } = useContext(DarkMode);
+
   return (
     <Card
-      bg="dark"
+      bg={darkTheme ? "dark" : "light"}
       border="info"
-      text="white"
+      text={darkTheme ? "white" : "dark"}
       key={`Card-SingleInputListItems`}>
       <Card.Body key={`Card.Body-SingleInputListItems`} className="row gy-2">
         <Col xs={12}>
@@ -20,6 +23,14 @@ function SingleInputListItems({ itemObj }) {
             <SearchResultsItemNameComponent
               itemObj={itemObj}
               key={`SearchResultsItemNameComponent-SingleInputListItems`}
+            />
+          </Row>
+        </Col>
+        <Col xs={12}>
+          <Row className="mx-0">
+            <SearchResultsItemNumberComponent
+              itemObj={itemObj}
+              key={`SearchResultsItemNumberComponent-${itemObj.name}-${itemObj.itemNumber}`}
             />
           </Row>
         </Col>
@@ -44,14 +55,6 @@ function SingleInputListItems({ itemObj }) {
                 />
               </Row>
             </Col>
-          </Row>
-        </Col>
-        <Col xs={12}>
-          <Row className="mx-0">
-            <SearchResultsItemNumberComponent
-              itemObj={itemObj}
-              key={`SearchResultsItemNumberComponent-${itemObj.name}-${itemObj.itemNumber}`}
-            />
           </Row>
         </Col>
         <Col xs={12}>

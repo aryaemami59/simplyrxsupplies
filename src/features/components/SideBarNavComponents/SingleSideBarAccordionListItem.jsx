@@ -24,7 +24,9 @@ function SingleSideBarAccordionListItem({ category, itemObj }) {
         size="lg"
         disabled={ifAddedToAllVendors}
         className="fw-bold"
-        variant={`${ifAddedToAllVendors ? "info text-white" : "outline-info"}`}
+        variant={`${
+          ifAddedToAllVendors ? "info text-white" : "outline-info"
+        } custom-text-shadow-white-50`}
         onClick={clickHandler}
         key={`${itemObj.name}-${category}-ListGroupItem-sidebar`}>
         {itemObj.name}

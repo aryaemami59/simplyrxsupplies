@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 function SearchResultsItemNameComponent({ itemObj }) {
   return (
     <Card.Title
-      className="bg-primary p-3 m-0 rounded fw-normal"
+      className="bg-primary text-white p-3 m-0 rounded fw-normal shadow custom-text-shadow-white"
       key={`Card.Title-${itemObj.name}-SearchResultsItemNameComponent`}>
       {itemObj.name}
     </Card.Title>

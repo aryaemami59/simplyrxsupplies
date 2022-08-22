@@ -24,7 +24,9 @@ function OffcanvasComponent() {
         onClick={handleOpen}
       />
       <Offcanvas
-        className={`${darkTheme ? "text-bg-dark" : "text-bg-light"}`}
+        className={`${
+          darkTheme ? "text-bg-dark" : "text-bg-light"
+        } custom-text-shadow-white`}
         key={`Offcanvas-OffcanvasComponent`}
         show={show}
         scroll
