@@ -12,7 +12,7 @@ function InputGroupComponent() {
       className="row my-5 justify-content-center">
       <div
         key={`div-col-InputGroupComponent`}
-        className="col-12 col-md-11 col-lg-11 col-xxl-10">
+        className="col-12 col-md-11 col-lg-11 col-xxl-10 justify-content-center">
         <Form.Floating key={`Form.Floating-InputGroupComponent`}>
           <InputFieldComponent
             key={`InputFieldComponent-InputGroupComponent`}

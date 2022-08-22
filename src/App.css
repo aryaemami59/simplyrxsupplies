@@ -59,6 +59,7 @@ div.mb-0 {
 html {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 body {
@@ -93,13 +94,13 @@ body {
 }
 
 svg.hover-inverse {
+  background-color: transparent;
   border: none;
   box-shadow: 1px 1px 10px 1px rgba(var(--bs-warning-rgb));
   color: rgba(var(--bs-warning-rgb));
 }
 
 svg.hover-inverse:hover {
-  color: none;
   background-color: rgba(var(--bs-warning-rgb));
 }
 
@@ -116,13 +117,15 @@ input.custom-shadow {
 }
 
 .accordion-button.custom-dark-mode:not(.collapsed) {
+  /* background-color: rgba(var(--bs-dark-rgb)); */
   background-color: rgba(var(--bs-info-rgb));
   /* background-color: rgba(var(--custom-green-rgb)); */
   color: rgba(var(--bs-white-rgb));
 }
 
 .accordion-button.custom-dark-mode {
-  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity));
+  background-color: rgba(var(--bs-dark-rgb));
+  /* background-color: rgba(var(--bs-info-rgb), var(--bs-bg-opacity)); */
   color: rgba(var(--bs-info-rgb));
   /* color: rgba(var(--custom-green-rgb)); */
 }
@@ -140,7 +143,7 @@ input.custom-shadow {
   box-shadow: 0 0 0 0.25rem rgba(var(--bs-info-rgb));
 }
 
-.accordion-button.custom-light-mode:not(.collapsed) {
+/* .accordion-button.custom-light-mode:not(.collapsed) {
   background-color: rgba(var(--bs-info-rgb));
   color: rgba(var(--bs-dark-rgb));
 }
@@ -161,7 +164,7 @@ input.custom-shadow {
 .accordion-button.custom-light-mode:focus {
   border-color: rgba(var(--bs-info-rgb));
   box-shadow: 0 0 0 0.25rem rgba(var(--bs-info-rgb));
-}
+} */
 
 div.offcanvas.offcanvas-start.show {
   resize: horizontal;

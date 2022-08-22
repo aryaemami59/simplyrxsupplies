@@ -1,11 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { Tooltip, Overlay } from "react-bootstrap";
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback, useContext, useRef, useState } from "react";
 import printjs from "print-js";
 import PropTypes from "prop-types";
+import { DarkMode } from "../../../App";
 
 function PrintIconQRCodeComponent({ src, text, vendorName }) {
+  const { darkTheme } = useContext(DarkMode);
   const [show, setShow] = useState(false);
   const target = useRef(null);
 
@@ -37,7 +39,7 @@ function PrintIconQRCodeComponent({ src, text, vendorName }) {
         onMouseLeave={closeTooltip}
         icon={faPrint}
         size="xl"
-        inverse
+        inverse={darkTheme ? true : false}
         pull="right"
         className="btn position-absolute end-0 me-3"
         role="button"

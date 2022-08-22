@@ -30,6 +30,7 @@ function RemoveButton({ vendorName, itemObj }) {
         aria-label="remove item"
         key={`${vendorName}-${itemObj.name}-CloseButton`}
         ref={target}
+        // inverse
         onClick={clickHandler}
         onMouseEnter={openTooltip}
         onMouseLeave={closeTooltip}

@@ -25,11 +25,10 @@ function SideBarAccordion({ category }) {
         <button
           key={`button-SideBarAccordion-${category}`}
           onClick={toggle}
-          variant="dark"
-          className={`accordion-button rounded custom-text-shadow-white ${
+          className={`accordion-button rounded ${
             darkTheme
-              ? "bg-dark custom-dark-mode"
-              : "bg-light custom-light-mode"
+              ? "custom-dark-mode custom-text-shadow-white"
+              : "custom-light-mode custom-text-shadow-white-50"
           } ${open ? "" : COLLAPSED}`}>
           {category}
         </button>

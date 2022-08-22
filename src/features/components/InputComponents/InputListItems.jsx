@@ -11,7 +11,9 @@ function InputListItems() {
   return (
     <>
       <VendorColumnModalComponent key={`VendorColumnModalComponent-`} />
-      <ListGroup className="mt-5 px-xxl-4" key={`ListGroup-InputListItems`}>
+      <ListGroup
+        className="mt-5 px-xxl-4"
+        key={`ListGroup-InputListItems`}>
         {listItems.map(e => (
           <SingleInputListItems itemObj={e} key={`${e.name}-inputListItems`} />
         ))}

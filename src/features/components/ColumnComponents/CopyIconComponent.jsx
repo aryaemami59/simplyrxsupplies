@@ -1,8 +1,9 @@
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip, Overlay } from "react-bootstrap";
-import { memo, useCallback, useRef, useReducer } from "react";
+import { memo, useCallback, useRef, useReducer, useContext } from "react";
 import PropTypes from "prop-types";
+import { DarkMode } from "../../../App";
 
 const ACTIONS = {
   CLICK_ON_ICON: "clickOnIcon",
@@ -44,6 +45,7 @@ const initialState = {
 };
 
 function CopyIconComponent({ content, text, placement, vendorName, itemObj }) {
+  const { darkTheme } = useContext(DarkMode);
   const [state, dispatch] = useReducer(reducer, initialState);
   const { copied, hovered } = state;
   const oldText = `Click to Copy The Item ${text}`;
@@ -86,7 +88,7 @@ function CopyIconComponent({ content, text, placement, vendorName, itemObj }) {
         icon={faCopy}
         size="lg"
         transform=""
-        inverse
+        inverse={darkTheme ? true : false}
         pull="right"
         className="btn p-0"
         role="button"
