@@ -17,8 +17,11 @@ import NavbarComponent from "./features/components/NavbarComponents/NavbarCompon
 import VerticalNavComponent from "./features/components/SideBarNavComponents/VerticalNavComponent";
 export const DarkMode = createContext(true);
 
+const getLocalStorageTheme = () => !!localStorage.getItem("theme");
+
 function App() {
-  const [darkTheme, setDarkTheme] = useState(true);
+  // const [darkTheme, setDarkTheme] = useState(true);
+  const [darkTheme, setDarkTheme] = useState(() => getLocalStorageTheme());
   const dispatch = useDispatch();
 
   useEffect(() => {

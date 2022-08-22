@@ -8,7 +8,13 @@ function DarkModeTogglerButtonComponent() {
   const { setDarkTheme, darkTheme } = useContext(DarkMode);
 
   const clickHandler = useCallback(() => {
-    setDarkTheme(prev => !prev);
+    // setDarkTheme(prev => !prev);
+    setDarkTheme(prev => {
+      !prev
+        ? localStorage.setItem("theme", !prev)
+        : localStorage.removeItem("theme");
+      return !prev;
+    });
   }, [setDarkTheme]);
 
   return (
