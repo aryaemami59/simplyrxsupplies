@@ -74,6 +74,11 @@ export const addedSlice = createSlice({
       ].filter(({ name }) => name !== action.payload.itemObj.name);
     },
     setListItems: (state, action) => {
+      // console.log("was".match(/\s*(was)/gi));
+      console.log(
+        /\s*(relion)*\s*(syringes)*/gi.test("relion insulin syringes")
+      );
+      // console.log(action.payload.split(/\s+/));
       state.listItems = action.payload;
     },
     clearListItems: (state, action) => {

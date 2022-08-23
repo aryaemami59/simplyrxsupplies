@@ -25,6 +25,17 @@ function InputFieldComponent() {
 
   const listItemsFunc = useCallback(
     e => {
+      const reg = e.target.value.split(/\s+/gi);
+      const itemNames = items.map(({ name }) => name.split(/\s+/gi));
+      console.log(
+        itemNames.filter(f => f.includes(e.target.value.trim().toLowerCase()))
+      );
+      // console.log(itemNames);
+
+      console.log(reg);
+      // console.log(
+      //   items.filter(({ name }) => name.toLowerCase().includes(trimmedValue))
+      // );
       const trimmedValue = e.target.value.trim().toLowerCase();
       return trimmedValue
         ? items
