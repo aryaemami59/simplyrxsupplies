@@ -232,6 +232,9 @@ export const selectItemsArr = state => state.item.itemsArr;
 export const selectVendorOfficialName = vendorName => state =>
   state.added.vendorsObj[vendorName].officialName;
 
+export const selectAllVendorOfficialNames = state =>
+  state.added.vendorsArr.map(e => state.added.vendorsObj[e].officialName);
+
 export const selectAllListItems = createSelector(
   state => state.added.listItems,
   listItems => listItems

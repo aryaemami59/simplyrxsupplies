@@ -1,14 +1,21 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { Button, Form, Row } from "react-bootstrap";
+import { Button, ButtonGroup, ButtonToolbar, Form, Row } from "react-bootstrap";
 import { memo, useCallback } from "react";
 import InputListItems from "./InputListItems";
 import InputFieldComponent from "./InputFieldComponent";
-import { useDispatch } from "react-redux";
-import { compactSearchResults } from "../../../addedSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  compactSearchResults,
+  selectAllVendorOfficialNames,
+} from "../../../addedSlice";
 
 function InputGroupComponent() {
   const dispatch = useDispatch();
+  const ifCompact = useSelector(state => state.added.compact);
+  const vendors = useSelector(selectAllVendorOfficialNames);
+  const vendorsFirst = vendors.slice(0, 4);
+  const vendorsSecond = vendors.slice(4, 8);
 
   const clickHandler = useCallback(() => {
     dispatch(compactSearchResults());
@@ -18,7 +25,7 @@ function InputGroupComponent() {
     <>
       <Row className="justify-content-center mb-3">
         <Button onClick={clickHandler} className="w-auto">
-          Toggle compact view of the search results
+          {ifCompact ? "Show" : "Hide"} compact view of the search results
         </Button>
       </Row>
       <div
@@ -48,6 +55,21 @@ function InputGroupComponent() {
           <InputListItems key={`InputListItems-InputGroupComponent`} />
         </div>
       </div>
+      {/* <Row className="text-white justify-content-cente align-items-cente">
+        Filter the search results By:
+        <ButtonToolbar className="text-white">
+          <ButtonGroup vertical size="sm" className="text-white">
+            {vendorsFirst.map(e => (
+              <Button>{e}</Button>
+            ))}
+          </ButtonGroup>
+          <ButtonGroup vertical size="sm" className="text-white">
+            {vendorsSecond.map(e => (
+              <Button>{e}</Button>
+            ))}
+          </ButtonGroup>
+        </ButtonToolbar>
+      </Row> */}
     </>
   );
 }
