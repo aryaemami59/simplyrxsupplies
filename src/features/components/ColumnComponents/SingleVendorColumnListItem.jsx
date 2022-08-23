@@ -6,6 +6,8 @@ import {
   Fade,
   ButtonGroup,
   Container,
+  Modal,
+  ListGroup,
 } from "react-bootstrap";
 import { memo, useCallback, useState } from "react";
 import RemoveButton from "./RemoveButton";
@@ -14,9 +16,24 @@ import ItemNumberComponent from "./ItemNumberComponent";
 import ColumnBarcodeImageComponent from "./ColumnBarcodeImageComponent";
 import MinimizeButton from "./MinimizeButton";
 import PropTypes from "prop-types";
+import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSelector } from "react-redux";
 
 function SingleVendorColumnListItem({ itemObj, vendorName }) {
   const [open, setOpen] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
+  const itemNameShown = useSelector(state => state.added.showItemName);
+  const itemNumberShown = useSelector(state => state.added.showItemNumber);
+  const itemBarcodeShown = useSelector(state => state.added.showItemBarcode);
+
+  const showModal = useCallback(() => {
+    setModalOpen(true);
+  }, []);
+
+  const hideModal = useCallback(() => {
+    setModalOpen(false);
+  }, []);
 
   const toggle = useCallback(() => {
     setOpen(prev => !prev);
@@ -71,6 +88,63 @@ function SingleVendorColumnListItem({ itemObj, vendorName }) {
             <ButtonGroup
               key={`ButtonGroup-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
               className="my-2">
+              <FontAwesomeIcon
+                onClick={showModal}
+                icon={faMagnifyingGlassPlus}
+                inverse
+                className="btn rounded-circle px-2 me-1 hover-inverse"
+                size="2xl"
+                role="button"
+              />
+              <Modal
+                scrollable
+                onHide={hideModal}
+                show={modalOpen}
+                size="xl"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered>
+                <Modal.Header
+                  className="bg-dark text-info"
+                  closeButton
+                  closeVariant="white">
+                  <Modal.Title id="contained-modal-title-vcenter">
+                    Item Details
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="bg-dark text-info">
+                  <Row className="justify-content-center text-center fs-4">
+                    <Col
+                      key={`Col-thirdCol-App`}
+                      xs={10}
+                      className="justify-content-center">
+                      <Container
+                        key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
+                        <ListGroup>
+                          <ItemNameComponent
+                            vendorName={vendorName}
+                            itemObj={itemObj}
+                            key={`${itemObj.name}-${vendorName}-ItemNameComponent`}
+                          />
+                          <ItemNumberComponent
+                            vendorName={vendorName}
+                            itemObj={itemObj}
+                            key={`${itemObj.name}-${vendorName}-ItemNumberComponent`}
+                          />
+                          <ColumnBarcodeImageComponent
+                            // className="w-125 h-100"
+                            itemObj={itemObj}
+                            vendorName={vendorName}
+                            key={`${itemObj.name}-${vendorName}-ColumnBarcodeImageComponent`}
+                          />
+                        </ListGroup>
+                      </Container>
+                    </Col>
+                  </Row>
+                </Modal.Body>
+                <Modal.Footer className="bg-dark text-info">
+                  <Button onClick={hideModal}>Close</Button>
+                </Modal.Footer>
+              </Modal>
               <MinimizeButton
                 key={`MinimizeButton-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
                 open={open}
@@ -93,21 +167,33 @@ function SingleVendorColumnListItem({ itemObj, vendorName }) {
         <Container
           // className={"custom-bg-color-2"}
           key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
-          <ItemNameComponent
-            vendorName={vendorName}
-            itemObj={itemObj}
-            key={`${itemObj.name}-${vendorName}-ItemNameComponent`}
-          />
-          <ItemNumberComponent
-            vendorName={vendorName}
-            itemObj={itemObj}
-            key={`${itemObj.name}-${vendorName}-ItemNumberComponent`}
-          />
-          <ColumnBarcodeImageComponent
-            itemObj={itemObj}
-            vendorName={vendorName}
-            key={`${itemObj.name}-${vendorName}-ColumnBarcodeImageComponent`}
-          />
+          {itemNameShown ? (
+            <ItemNameComponent
+              vendorName={vendorName}
+              itemObj={itemObj}
+              key={`${itemObj.name}-${vendorName}-ItemNameComponent`}
+            />
+          ) : (
+            ""
+          )}
+          {itemNumberShown ? (
+            <ItemNumberComponent
+              vendorName={vendorName}
+              itemObj={itemObj}
+              key={`${itemObj.name}-${vendorName}-ItemNumberComponent`}
+            />
+          ) : (
+            ""
+          )}
+          {itemBarcodeShown ? (
+            <ColumnBarcodeImageComponent
+              itemObj={itemObj}
+              vendorName={vendorName}
+              key={`${itemObj.name}-${vendorName}-ColumnBarcodeImageComponent`}
+            />
+          ) : (
+            ""
+          )}
         </Container>
       </Collapse>
     </div>

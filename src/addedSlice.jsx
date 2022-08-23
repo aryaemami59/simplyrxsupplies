@@ -36,6 +36,10 @@ const empty = [];
 
 const initialState = {
   listItems: empty,
+  compact: false,
+  showItemNumber: true,
+  showItemBarcode: true,
+  showItemName: true,
   vendorsIsLoading: true,
   navListIsLoading: true,
   errMsg: "",
@@ -74,6 +78,18 @@ export const addedSlice = createSlice({
     },
     clearListItems: (state, action) => {
       state.listItems = empty;
+    },
+    compactSearchResults: (state, action) => {
+      state.compact = !state.compact;
+    },
+    ToggleItemNumber: (state, action) => {
+      state.showItemNumber = !state.showItemNumber;
+    },
+    ToggleItemBarcode: (state, action) => {
+      state.showItemBarcode = !state.showItemBarcode;
+    },
+    ToggleItemName: (state, action) => {
+      state.showItemName = !state.showItemName;
     },
   },
   extraReducers: {
@@ -235,6 +251,10 @@ export const {
   setListItems,
   removeListItems,
   clearListItems,
+  compactSearchResults,
+  ToggleItemNumber,
+  ToggleItemBarcode,
+  ToggleItemName,
 } = addedSlice.actions;
 
 export const { setVendors } = itemSlice.actions;

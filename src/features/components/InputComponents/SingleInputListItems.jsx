@@ -7,9 +7,11 @@ import SwitchComponent from "./SwitchComponent";
 import AddItemButtonComponent from "./AddItemButtonComponent";
 import PropTypes from "prop-types";
 import { DarkMode } from "../../../App";
+import { useSelector } from "react-redux";
 
 function SingleInputListItems({ itemObj }) {
   const { darkTheme } = useContext(DarkMode);
+  const ifCompact = useSelector(state => state.added.compact);
 
   return (
     <Card
@@ -17,8 +19,10 @@ function SingleInputListItems({ itemObj }) {
       border="info"
       text={darkTheme ? "white" : "dark"}
       key={`Card-SingleInputListItems`}>
-      <Card.Body key={`Card.Body-SingleInputListItems`} className="row gy-2">
-        <Col xs={12}>
+      <Card.Body
+        key={`Card.Body-SingleInputListItems`}
+        className="row gy-2 justify-content-center">
+        <Col xs={!ifCompact ? 12 : 6}>
           <Row className="m-0">
             <SearchResultsItemNameComponent
               itemObj={itemObj}
@@ -26,15 +30,19 @@ function SingleInputListItems({ itemObj }) {
             />
           </Row>
         </Col>
-        <Col xs={12}>
-          <Row className="mx-0">
-            <SearchResultsItemNumberComponent
-              itemObj={itemObj}
-              key={`SearchResultsItemNumberComponent-${itemObj.name}-${itemObj.itemNumber}`}
-            />
-          </Row>
-        </Col>
-        <Col xs={12}>
+        {!ifCompact ? (
+          <Col xs={!ifCompact ? 12 : 6}>
+            <Row className="mx-0">
+              <SearchResultsItemNumberComponent
+                itemObj={itemObj}
+                key={`SearchResultsItemNumberComponent-${itemObj.name}-${itemObj.itemNumber}`}
+              />
+            </Row>
+          </Col>
+        ) : (
+          ""
+        )}
+        <Col xs={!ifCompact ? 12 : 6}>
           <Row className="justify-content-center justify-content-sm-center align-items-center m-0 ">
             <Col xs={7} md={12} lg={8} className="pe-0">
               <Row md={"auto"} className="m-0">
@@ -47,14 +55,18 @@ function SingleInputListItems({ itemObj }) {
                 ))}
               </Row>
             </Col>
-            <Col xs={5} lg={4}>
-              <Row className="justify-content-center">
-                <SearchResultsBarcodeImageComponent
-                  itemObj={itemObj}
-                  key={`SearchResultsBarcodeImageComponent-SingleInputListItems`}
-                />
-              </Row>
-            </Col>
+            {!ifCompact ? (
+              <Col xs={5} lg={4}>
+                <Row className="justify-content-center">
+                  <SearchResultsBarcodeImageComponent
+                    itemObj={itemObj}
+                    key={`SearchResultsBarcodeImageComponent-SingleInputListItems`}
+                  />
+                </Row>
+              </Col>
+            ) : (
+              ""
+            )}
           </Row>
         </Col>
         <Col xs={12}>

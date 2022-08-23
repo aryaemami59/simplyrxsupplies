@@ -1,16 +1,28 @@
-import { Button, Collapse, Card, ListGroup, Alert } from "react-bootstrap";
-import { useSelector, shallowEqual } from "react-redux";
+import {
+  Button,
+  Collapse,
+  Card,
+  ListGroup,
+  Alert,
+  ButtonGroup,
+} from "react-bootstrap";
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { useState, memo, useCallback, useContext } from "react";
 import {
   selectByVendor,
   selectVendorOfficialName,
   selectVendorsLinks,
+  ToggleItemBarcode,
+  ToggleItemName,
+  ToggleItemNumber,
 } from "../../../addedSlice";
 import BadgeComponent from "./BadgeComponent";
 import QRCodeImageComponent from "./QRCodeImageComponent";
 import SingleVendorColumnListItem from "./SingleVendorColumnListItem";
 import PropTypes from "prop-types";
 import { DarkMode } from "../../../App";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faToggleOff, faToggleOn } from "@fortawesome/free-solid-svg-icons";
 
 function VendorColumn({ vendorName }) {
   const { darkTheme } = useContext(DarkMode);
@@ -18,10 +30,26 @@ function VendorColumn({ vendorName }) {
   const officialVendorName = useSelector(selectVendorOfficialName(vendorName));
   const vendorLink = useSelector(selectVendorsLinks(vendorName));
   const addedItems = useSelector(selectByVendor(vendorName), shallowEqual);
+  const dispatch = useDispatch();
+  const itemNumberShown = useSelector(state => state.added.showItemNumber);
+  const itemBarcodeShown = useSelector(state => state.added.showItemBarcode);
+  const itemNameShown = useSelector(state => state.added.showItemName);
 
   const buttonClick = useCallback(() => {
     setOpen(prev => !prev);
   }, []);
+
+  const toggleItemNumber = useCallback(() => {
+    dispatch(ToggleItemNumber());
+  }, [dispatch]);
+
+  const toggleItemBarcode = useCallback(() => {
+    dispatch(ToggleItemBarcode());
+  }, [dispatch]);
+
+  const toggleItemName = useCallback(() => {
+    dispatch(ToggleItemName());
+  }, [dispatch]);
 
   const handleKeyDown = useCallback(
     e => {
@@ -66,6 +94,46 @@ function VendorColumn({ vendorName }) {
                     {officialVendorName} Website
                   </Alert.Link>
                 </Alert>
+                {/* <ButtonGroup>
+                  <Button size="sm" className="mb-3" variant="warning">
+                    Minimize All Items
+                  </Button>
+                  <Button size="sm" className="mb-3" variant="warning">
+                    Expand All Items
+                  </Button>
+                  <Button size="sm" className="mb-3" variant="warning">
+                    Remove All Items
+                  </Button>
+                  <Button size="sm" className="mb-3" variant="warning">
+                    Remove All Duplicate Items
+                  </Button>
+                </ButtonGroup> */}
+                <ButtonGroup className="mb-3">
+                  <Button onClick={toggleItemName}>
+                    {itemNameShown ? "Hide" : "Show"} Item Name
+                    <FontAwesomeIcon
+                      size="xl"
+                      className="ms-3"
+                      icon={itemNameShown ? faToggleOn : faToggleOff}
+                    />
+                  </Button>
+                  <Button onClick={toggleItemNumber}>
+                    {itemNumberShown ? "Hide" : "Show"} Item Number
+                    <FontAwesomeIcon
+                      size="xl"
+                      className="ms-3"
+                      icon={itemNumberShown ? faToggleOn : faToggleOff}
+                    />
+                  </Button>
+                  <Button onClick={toggleItemBarcode}>
+                    {itemBarcodeShown ? "Hide" : "Show"} Item Barcode
+                    <FontAwesomeIcon
+                      size="xl"
+                      className="ms-3"
+                      icon={itemBarcodeShown ? faToggleOn : faToggleOff}
+                    />
+                  </Button>
+                </ButtonGroup>
                 <ListGroup key={`ListGroup-VendorColumn-${vendorName}`}>
                   {addedItems.map(e => (
                     <SingleVendorColumnListItem
