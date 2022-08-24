@@ -1,12 +1,13 @@
 import { Button, ButtonGroup } from "react-bootstrap";
 import { memo, useCallback } from "react";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { shallowEqual } from "react-redux";
 import { addItems, checkIfAddedToAllVendors, selectVendorsToAddTo, } from "../../../addedSlice";
 import SideBarVendorBadges from "./SideBarVendorBadges";
+import { useAppDispatch, useAppSelector } from "../../../data/store";
 const SingleSideBarAccordionListItem = ({ category, itemObj, }) => {
-    const dispatch = useDispatch();
-    const ifAddedToAllVendors = useSelector(checkIfAddedToAllVendors(itemObj));
-    const vendors = useSelector(selectVendorsToAddTo(itemObj), shallowEqual);
+    const dispatch = useAppDispatch();
+    const ifAddedToAllVendors = useAppSelector(checkIfAddedToAllVendors(itemObj));
+    const vendors = useAppSelector(selectVendorsToAddTo(itemObj), shallowEqual);
     const clickHandler = useCallback(() => {
         ifAddedToAllVendors || dispatch(addItems({ itemObj, vendors }));
     }, [dispatch, itemObj, vendors, ifAddedToAllVendors]);
@@ -19,15 +20,4 @@ const SingleSideBarAccordionListItem = ({ category, itemObj, }) => {
       </ButtonGroup>
     </>);
 };
-// SingleSideBarAccordionListItem.propTypes = {
-//   category: PropTypes.string,
-//   itemObj: PropTypes.shape({
-//     name: PropTypes.string,
-//     itemNumber: PropTypes.string,
-//     keywords: PropTypes.arrayOf(PropTypes.string),
-//     nav: PropTypes.arrayOf(PropTypes.string),
-//     vendors: PropTypes.arrayOf(PropTypes.string),
-//     src: PropTypes.string,
-//   }),
-// };
 export default memo(SingleSideBarAccordionListItem);

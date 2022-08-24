@@ -1,12 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { Overlay, Tooltip } from "react-bootstrap";
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback, useRef, useState, FC } from "react";
 import { useDispatch } from "react-redux";
-import { removeItems } from "../../../addedSlice";
-import PropTypes from "prop-types";
+import { removeItems, itemInterface } from "../../../addedSlice";
 
-function RemoveButton({ vendorName, itemObj }) {
+interface Props {
+  vendorName: string;
+  itemObj: itemInterface;
+}
+
+const RemoveButton: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
   const [show, setShow] = useState(false);
   const target = useRef(null);
   const dispatch = useDispatch();
@@ -35,7 +39,7 @@ function RemoveButton({ vendorName, itemObj }) {
         onMouseEnter={openTooltip}
         onMouseLeave={closeTooltip}
         className="btn rounded-circle hover-inverse"
-        size="2xl"
+        size="2x"
         role="button"
       />
       <Overlay
@@ -43,7 +47,7 @@ function RemoveButton({ vendorName, itemObj }) {
         show={show}
         placement="top"
         key={`${vendorName}-RemoveButton-Overlay`}>
-        {props => (
+        {(props) => (
           <Tooltip
             key={`RemoveButton-tooltip-${vendorName}-${itemObj.name}`}
             id={`RemoveButton-tooltip-${vendorName}-${itemObj.name}`}
@@ -54,18 +58,6 @@ function RemoveButton({ vendorName, itemObj }) {
       </Overlay>
     </>
   );
-}
-
-RemoveButton.propTypes = {
-  vendorName: PropTypes.string,
-  itemObj: PropTypes.shape({
-    name: PropTypes.string,
-    itemNumber: PropTypes.string,
-    keywords: PropTypes.arrayOf(PropTypes.string),
-    nav: PropTypes.arrayOf(PropTypes.string),
-    vendors: PropTypes.arrayOf(PropTypes.string),
-    src: PropTypes.string,
-  }),
 };
 
 export default memo(RemoveButton);

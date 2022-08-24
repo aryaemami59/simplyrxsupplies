@@ -1,14 +1,14 @@
 import { Collapse, Card, ListGroup } from "react-bootstrap";
-import { useSelector, shallowEqual } from "react-redux";
+import { shallowEqual } from "react-redux";
 import { memo, useCallback, useContext, useRef, useState } from "react";
 import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
 import { selectSidebarNavs } from "../../../addedSlice";
-// import PropTypes from "prop-types";
 import { DarkMode } from "../../../App";
+import { useAppSelector } from "../../../data/store";
 const COLLAPSED = "collapsed";
 const SideBarAccordion = ({ category }) => {
     const { darkTheme } = useContext(DarkMode);
-    const sidebarItems = useSelector(selectSidebarNavs(category), shallowEqual);
+    const sidebarItems = useAppSelector(selectSidebarNavs(category), shallowEqual);
     const [open, setOpen] = useState(false);
     const nodeRef = useRef(null);
     const toggle = useCallback(() => {
@@ -22,9 +22,7 @@ const SideBarAccordion = ({ category }) => {
           {category}
         </button>
       </h2>
-      <Collapse key={`Collapse-SideBarAccordion-${category}`} 
-    // id={category}
-    in={open} ref={nodeRef} className="bg-gradient">
+      <Collapse key={`Collapse-SideBarAccordion-${category}`} in={open} ref={nodeRef} className="bg-gradient">
         <div key={`div-SideBarAccordion-${category}-inner`}>
           <Card key={`Card-SideBarAccordion-${category}`} className={`bg-gradient custom-dark-mode ${darkTheme ? "bg-dark" : "bg-light"}`}>
             <Card.Body key={`Card.Body-SideBarAccordion-${category}`} className={`bg-gradient custom-dark-mode ${darkTheme ? "bg-dark" : "bg-light"}`}>
@@ -37,7 +35,4 @@ const SideBarAccordion = ({ category }) => {
       </Collapse>
     </div>);
 };
-// ListGroup.propTypes = {
-//   category: PropTypes.string,
-// };
 export default memo(SideBarAccordion);

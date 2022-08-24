@@ -1,19 +1,18 @@
 import { Badge } from "react-bootstrap";
 import { memo } from "react";
-import PropTypes from "prop-types";
-function SearchResultsItemNumberComponent({ itemObj }) {
+const SearchResultsItemNumberComponent = ({ itemObj, }) => {
     return (<Badge key={`Badge-SearchResultsItemNumberComponent-${itemObj.itemNumber}`} className="fs-6 fw-normal shadow custom-text-shadow-white">
       Item Number: {itemObj.itemNumber}
     </Badge>);
-}
-SearchResultsItemNumberComponent.propTypes = {
-    itemObj: PropTypes.shape({
-        name: PropTypes.string,
-        itemNumber: PropTypes.string,
-        keywords: PropTypes.arrayOf(PropTypes.string),
-        nav: PropTypes.arrayOf(PropTypes.string),
-        vendors: PropTypes.arrayOf(PropTypes.string),
-        src: PropTypes.string,
-    }),
 };
+// SearchResultsItemNumberComponent.propTypes = {
+//   itemObj: PropTypes.shape({
+//     name: PropTypes.string,
+//     itemNumber: PropTypes.string,
+//     keywords: PropTypes.arrayOf(PropTypes.string),
+//     nav: PropTypes.arrayOf(PropTypes.string),
+//     vendors: PropTypes.arrayOf(PropTypes.string),
+//     src: PropTypes.string,
+//   }),
+// };
 export default memo(SearchResultsItemNumberComponent);

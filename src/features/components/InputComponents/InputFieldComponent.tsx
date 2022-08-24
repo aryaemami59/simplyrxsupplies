@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
-import { memo, useState, useCallback, useRef } from "react";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { memo, useState, useCallback, useRef, FC } from "react";
+import { shallowEqual } from "react-redux";
 import {
   clearListItems,
   selectItemsArr,
@@ -9,12 +9,13 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { RefObject } from "react";
+import { useAppSelector, useAppDispatch } from "../../../data/store";
 
 const empty = [];
 
-function InputFieldComponent() {
-  const items = useSelector(selectItemsArr, shallowEqual);
-  const dispatch = useDispatch();
+const InputFieldComponent: FC = (): JSX.Element => {
+  const items = useAppSelector(selectItemsArr, shallowEqual);
+  const dispatch = useAppDispatch();
   const inputRef: RefObject<HTMLInputElement> = useRef(null);
 
   const clickHandler = useCallback(() => {
@@ -81,6 +82,6 @@ function InputFieldComponent() {
       />
     </>
   );
-}
+};
 
 export default memo(InputFieldComponent);

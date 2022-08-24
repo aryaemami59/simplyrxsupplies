@@ -1,10 +1,9 @@
 import { memo, FC } from "react";
 import { Button } from "react-bootstrap";
-import { useSelector } from "react-redux";
 import { connect } from "react-redux";
 import { setVendors, itemInterface, stateInterface } from "../../../addedSlice";
 // import SideBarVendorBadges from "./SideBarVendorBadges";
-import { AppDispatch } from "../../../data/store";
+import { AppDispatch, RootState } from "../../../data/store";
 
 interface Props {
   clickHandler: Function;
@@ -38,9 +37,12 @@ const SideBarSwitchComponent: FC<Props> = ({
   );
 };
 
-const mapStateToProps = (state: stateInterface, ownProps: Props) => {
+const mapStateToProps = (state: RootState, ownProps: Props) => {
   return {
     checked: state.item[ownProps.itemObj.name].includes(ownProps.vendorName),
+    disabled: state.item[ownProps.itemObj.name].vendorsAdded.includes(
+      ownProps.vendorName
+    ),
   };
 };
 

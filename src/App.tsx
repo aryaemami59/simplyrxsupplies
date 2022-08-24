@@ -2,7 +2,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
 import { createContext, memo, useEffect, useState } from "react";
 import {
   checkIfLoading,
@@ -15,7 +14,7 @@ import VendorColumnList from "./features/components/ColumnComponents/VendorColum
 import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
 import VerticalNavComponent from "./features/components/SideBarNavComponents/VerticalNavComponent";
-import { AppDispatch } from "./data/store";
+import { useAppDispatch, useAppSelector } from "./data/store";
 interface myContextInterface {
   darkTheme: boolean;
   setDarkTheme: (darkTheme: boolean | ((prev: boolean) => boolean)) => void;
@@ -30,7 +29,7 @@ const getLocalStorageTheme = () => !!localStorage.getItem("theme");
 function App(): JSX.Element {
   // const [darkTheme, setDarkTheme] = useState(true);
   const [darkTheme, setDarkTheme] = useState(() => getLocalStorageTheme());
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchItems());
@@ -38,8 +37,8 @@ function App(): JSX.Element {
     dispatch(fetchNavList());
   }, [dispatch]);
 
-  const isLoading = useSelector(checkIfLoading);
-  const errMsg = useSelector(selectErrMsg);
+  const isLoading = useAppSelector(checkIfLoading);
+  const errMsg = useAppSelector(selectErrMsg);
 
   if (isLoading) {
     return (

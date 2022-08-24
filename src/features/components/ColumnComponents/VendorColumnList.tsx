@@ -1,12 +1,12 @@
 import VendorColumn from "./VendorColumn";
-import { memo } from "react";
+import { memo, FC } from "react";
 import { Col, Row } from "react-bootstrap";
 import { selectVendorsArr } from "../../../addedSlice";
-import { useSelector } from "react-redux";
 import { shallowEqual } from "react-redux";
+import { useAppSelector } from "../../../data/store";
 
-function VendorColumnList() {
-  const vendors = useSelector(selectVendorsArr, shallowEqual);
+const VendorColumnList: FC = (): JSX.Element => {
+  const vendors = useAppSelector(selectVendorsArr, shallowEqual);
 
   return (
     <Row className="justify-content-center">
@@ -15,12 +15,12 @@ function VendorColumnList() {
         lg={11}
         xl={10}
         className="shadow p-0 justify-content-center text-center">
-        {vendors.map(e => (
+        {vendors.map((e) => (
           <VendorColumn key={`${e}-VendorColumn`} vendorName={e} />
         ))}
       </Col>
     </Row>
   );
-}
+};
 
 export default memo(VendorColumnList);

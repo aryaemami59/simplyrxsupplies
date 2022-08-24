@@ -1,22 +1,49 @@
 import { Form } from "react-bootstrap";
-import { connect } from "react-redux";
-import { memo, FC, ChangeEventHandler, MouseEventHandler } from "react";
+import { connect, ConnectedProps } from "react-redux";
+import { memo, FC } from "react";
 import { setVendors, itemInterface } from "../../../addedSlice";
 import VendorBadges from "./VendorBadges";
-// import PropTypes from "prop-types";
-import { AppDispatch } from "../../../data/store";
+import { AppDispatch, RootState } from "../../../data/store";
 
-interface Props {
-  clickHandler:
-    | MouseEventHandler<HTMLButtonElement> &
-        ChangeEventHandler<HTMLInputElement>;
-  checked: boolean;
+const mapStateToProps = (
+  state: RootState,
+  ownProps: ParentProps
+): { checked: boolean; disabled: boolean } => {
+  return {
+    checked: state.item[ownProps.itemObj.name].vendorsToAdd.includes(
+      ownProps.vendorName
+    ),
+    disabled: state.item[ownProps.itemObj.name].vendorsAdded.includes(
+      ownProps.vendorName
+    ),
+  };
+};
+
+const mapDispatchToProps = (dispatch: AppDispatch, ownProps: ParentProps) => {
+  return {
+    clickHandler: () => {
+      dispatch(
+        setVendors({
+          itemObj: ownProps.itemObj,
+          vendorName: ownProps.vendorName,
+        })
+      );
+    },
+  };
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface ParentProps {
   itemObj: itemInterface;
   vendorName: string;
-  disabled: boolean;
 }
 
-const SwitchComponent: FC<Props> = ({
+type myProps = ParentProps & PropsFromRedux;
+
+const SwitchComponent: FC<myProps> = ({
   clickHandler,
   checked,
   itemObj,
@@ -53,46 +80,4 @@ const SwitchComponent: FC<Props> = ({
   );
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    checked: state.item[ownProps.itemObj.name].vendorsToAdd.includes(
-      ownProps.vendorName
-    ),
-    disabled: state.item[ownProps.itemObj.name].vendorsAdded.includes(
-      ownProps.vendorName
-    ),
-  };
-};
-
-const mapDispatchToProps = (dispatch: AppDispatch, ownProps: Props) => {
-  return {
-    clickHandler: () => {
-      dispatch(
-        setVendors({
-          itemObj: ownProps.itemObj,
-          vendorName: ownProps.vendorName,
-        })
-      );
-    },
-  };
-};
-
-// SwitchComponent.propTypes = {
-//   clickHandler: PropTypes.func,
-//   checked: PropTypes.bool,
-//   disabled: PropTypes.bool,
-//   vendorName: PropTypes.string,
-//   itemObj: PropTypes.shape({
-//     name: PropTypes.string,
-//     itemNumber: PropTypes.string,
-//     keywords: PropTypes.arrayOf(PropTypes.string),
-//     nav: PropTypes.arrayOf(PropTypes.string),
-//     vendors: PropTypes.arrayOf(PropTypes.string),
-//     src: PropTypes.string,
-//   }),
-// };
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(memo(SwitchComponent));
+export default connector(memo(SwitchComponent));

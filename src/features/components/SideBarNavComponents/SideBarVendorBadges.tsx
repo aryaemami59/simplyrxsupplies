@@ -1,27 +1,62 @@
 import { Form } from "react-bootstrap";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { memo, FC } from "react";
-import { setVendors, itemInterface } from "../../../addedSlice";
-import { ChangeEventHandler } from "react";
-// import PropTypes from "prop-types";
+import {
+  setVendors,
+  itemInterface,
+  selectVendorOfficialName,
+} from "../../../addedSlice";
+import { RootState, useAppSelector, AppDispatch } from "../../../data/store";
 
-interface Props {
+const mapStateToProps = (
+  state: RootState,
+  ownProps: ParentProps
+): { checked: boolean; disabled: boolean } => {
+  return {
+    checked: state.item[ownProps.itemObj.name].vendorsToAdd.includes(
+      ownProps.vendorName
+    ),
+    disabled: state.item[ownProps.itemObj.name].vendorsAdded.includes(
+      ownProps.vendorName
+    ),
+  };
+};
+
+const mapDispatchToProps = (dispatch: AppDispatch, ownProps: ParentProps) => {
+  return {
+    clickHandler: () => {
+      dispatch(
+        setVendors({
+          itemObj: ownProps.itemObj,
+          vendorName: ownProps.vendorName,
+        })
+      );
+    },
+  };
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+interface ParentProps {
   vendorName: string;
   itemObj: itemInterface;
-  clickHandler: ChangeEventHandler<HTMLInputElement>;
-  checked: boolean;
-  disabled: boolean;
-  officialVendorName: string;
 }
 
-const SideBarVendorBadges: FC<Props> = ({
+type myProps = ParentProps & PropsFromRedux;
+
+const SideBarVendorBadges: FC<myProps> = ({
   vendorName,
   itemObj,
   clickHandler,
   checked,
   disabled,
-  officialVendorName,
 }): JSX.Element => {
+  const officialVendorName = useAppSelector(
+    selectVendorOfficialName(vendorName)
+  );
+
   return (
     <Form.Check
       type="checkbox"
@@ -45,49 +80,4 @@ const SideBarVendorBadges: FC<Props> = ({
   );
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    checked: state.item[ownProps.itemObj.name].vendorsToAdd.includes(
-      ownProps.vendorName
-    ),
-    disabled: state.item[ownProps.itemObj.name].vendorsAdded.includes(
-      ownProps.vendorName
-    ),
-    officialVendorName:
-      state.added.vendorsObj[ownProps.vendorName].officialName,
-  };
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    clickHandler: () => {
-      dispatch(
-        setVendors({
-          itemObj: ownProps.itemObj,
-          vendorName: ownProps.vendorName,
-        })
-      );
-    },
-  };
-};
-
-// SideBarVendorBadges.propTypes = {
-//   vendorName: PropTypes.string,
-//   officialVendorName: PropTypes.string,
-//   clickHandler: PropTypes.func,
-//   checked: PropTypes.bool,
-//   disabled: PropTypes.bool,
-//   itemObj: PropTypes.shape({
-//     name: PropTypes.string,
-//     itemNumber: PropTypes.string,
-//     keywords: PropTypes.arrayOf(PropTypes.string),
-//     nav: PropTypes.arrayOf(PropTypes.string),
-//     vendors: PropTypes.arrayOf(PropTypes.string),
-//     src: PropTypes.string,
-//   }),
-// };
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(memo(SideBarVendorBadges));
+export default connector(memo(SideBarVendorBadges));

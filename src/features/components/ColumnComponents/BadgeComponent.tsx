@@ -1,15 +1,14 @@
 import { Badge } from "react-bootstrap";
-import { useSelector } from "react-redux";
 import { FC, memo } from "react";
 import { addedItemsLength } from "../../../addedSlice";
-// import PropTypes from "prop-types";
+import { useAppSelector } from "../../../data/store";
 
 interface Props {
   vendorName: string;
 }
 
 const BadgeComponent: FC<Props> = ({ vendorName }): JSX.Element => {
-  const addedItemsLen: number = useSelector(addedItemsLength(vendorName));
+  const addedItemsLen: number = useAppSelector(addedItemsLength(vendorName));
 
   return (
     <Badge
@@ -20,9 +19,5 @@ const BadgeComponent: FC<Props> = ({ vendorName }): JSX.Element => {
     </Badge>
   );
 };
-
-// BadgeComponent.propTypes = {
-//   vendorName: PropTypes.string,
-// };
 
 export default memo(BadgeComponent);

@@ -1,14 +1,13 @@
 import { Container, Row, Col, Modal, Button } from "react-bootstrap";
 import { memo, useCallback, useContext, useState } from "react";
 import PrintIconBarcodeComponent from "./PrintIconBarcodeComponent";
-// import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
 import { selectVendorOfficialName } from "../../../addedSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { DarkMode } from "../../../App";
-const ColumnBarcodeImageComponent = ({ itemObj, vendorName }) => {
-    const officialVendorName = useSelector(selectVendorOfficialName(vendorName));
+import { useAppSelector } from "../../../data/store";
+const ColumnBarcodeImageComponent = ({ itemObj, vendorName, }) => {
+    const officialVendorName = useAppSelector(selectVendorOfficialName(vendorName));
     const [show, setShow] = useState(false);
     const { darkTheme } = useContext(DarkMode);
     const showModal = useCallback(() => {
@@ -21,7 +20,7 @@ const ColumnBarcodeImageComponent = ({ itemObj, vendorName }) => {
       <Row>
         <Col md={12} className="position-relative">
           <img src={itemObj.src} alt={itemObj.itemNumber} className="custom-shadow my-4"/>
-          <PrintIconBarcodeComponent itemObj={itemObj} src={itemObj.src} text={"Print This Barcode"} header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}/>
+          <PrintIconBarcodeComponent itemObj={itemObj} text={"Print This Barcode"} header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}/>
           <FontAwesomeIcon icon={faMagnifyingGlassPlus} size="lg" className="btn position-absolute m-3 top-0 my-0" inverse={darkTheme ? true : false} role="button" pull="left" onClick={showModal}/>
           <Modal show={show} onHide={hideModal}>
             <Modal.Header className="bg-dark" closeButton closeVariant="white"></Modal.Header>
@@ -36,15 +35,4 @@ const ColumnBarcodeImageComponent = ({ itemObj, vendorName }) => {
       </Row>
     </Container>);
 };
-// ColumnBarcodeImageComponent.propTypes = {
-//   vendorName: PropTypes.string,
-//   itemObj: PropTypes.shape({
-//     name: PropTypes.string,
-//     itemNumber: PropTypes.string,
-//     keywords: PropTypes.arrayOf(PropTypes.string),
-//     nav: PropTypes.arrayOf(PropTypes.string),
-//     vendors: PropTypes.arrayOf(PropTypes.string),
-//     src: PropTypes.string,
-//   }),
-// };
 export default memo(ColumnBarcodeImageComponent);

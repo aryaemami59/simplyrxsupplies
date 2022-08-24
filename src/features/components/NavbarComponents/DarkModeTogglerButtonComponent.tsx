@@ -18,7 +18,7 @@ const DarkModeTogglerButtonComponent: FC = (): JSX.Element => {
   }, [setDarkTheme]);
 
   return (
-    <Button onClick={clickHandler}>
+    <Button onClick={clickHandler} variant="">
       <FontAwesomeIcon
         size="lg"
         inverse={darkTheme ? true : false}

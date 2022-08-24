@@ -2,13 +2,13 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
 import { createContext, memo, useEffect, useState } from "react";
 import { checkIfLoading, fetchItems, fetchNavList, fetchVendors, selectErrMsg, } from "./addedSlice";
 import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";
 import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
 import VerticalNavComponent from "./features/components/SideBarNavComponents/VerticalNavComponent";
+import { useAppDispatch, useAppSelector } from "./data/store";
 export const DarkMode = createContext({
     darkTheme: true,
     setDarkTheme: () => { },
@@ -17,14 +17,14 @@ const getLocalStorageTheme = () => !!localStorage.getItem("theme");
 function App() {
     // const [darkTheme, setDarkTheme] = useState(true);
     const [darkTheme, setDarkTheme] = useState(() => getLocalStorageTheme());
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(fetchItems());
         dispatch(fetchVendors());
         dispatch(fetchNavList());
     }, [dispatch]);
-    const isLoading = useSelector(checkIfLoading);
-    const errMsg = useSelector(selectErrMsg);
+    const isLoading = useAppSelector(checkIfLoading);
+    const errMsg = useAppSelector(selectErrMsg);
     if (isLoading) {
         return (<div key={`div-isLoading-App`} className="d-flex justify-content-center">
         <Spinner animation="border" role="status" className="my-5" variant="info" style={{ width: "10rem", height: "10rem", borderWidth: "1rem" }}>

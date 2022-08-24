@@ -1,10 +1,10 @@
 import { Collapse, Card, ListGroup } from "react-bootstrap";
-import { useSelector, shallowEqual } from "react-redux";
+import { shallowEqual } from "react-redux";
 import { memo, useCallback, useContext, useRef, useState, FC } from "react";
 import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
 import { selectSidebarNavs } from "../../../addedSlice";
-// import PropTypes from "prop-types";
 import { DarkMode } from "../../../App";
+import { useAppSelector } from "../../../data/store";
 
 const COLLAPSED = "collapsed";
 
@@ -15,7 +15,10 @@ interface Props {
 const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);
 
-  const sidebarItems = useSelector(selectSidebarNavs(category), shallowEqual);
+  const sidebarItems = useAppSelector(
+    selectSidebarNavs(category),
+    shallowEqual
+  );
   const [open, setOpen] = useState(false);
   const nodeRef = useRef(null);
 
@@ -39,7 +42,6 @@ const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
       </h2>
       <Collapse
         key={`Collapse-SideBarAccordion-${category}`}
-        // id={category}
         in={open}
         ref={nodeRef}
         className="bg-gradient">
@@ -70,9 +72,5 @@ const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
     </div>
   );
 };
-
-// ListGroup.propTypes = {
-//   category: PropTypes.string,
-// };
 
 export default memo(SideBarAccordion);

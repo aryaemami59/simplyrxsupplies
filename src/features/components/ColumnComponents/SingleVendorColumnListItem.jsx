@@ -5,16 +5,15 @@ import ItemNameComponent from "./ItemNameComponent";
 import ItemNumberComponent from "./ItemNumberComponent";
 import ColumnBarcodeImageComponent from "./ColumnBarcodeImageComponent";
 import MinimizeButton from "./MinimizeButton";
-import PropTypes from "prop-types";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSelector } from "react-redux";
-function SingleVendorColumnListItem({ itemObj, vendorName }) {
+import { useAppSelector } from "../../../data/store";
+const SingleVendorColumnListItem = ({ itemObj, vendorName, }) => {
     const [open, setOpen] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
-    const itemNameShown = useSelector(state => state.added.showItemName);
-    const itemNumberShown = useSelector(state => state.added.showItemNumber);
-    const itemBarcodeShown = useSelector(state => state.added.showItemBarcode);
+    const itemNameShown = useAppSelector((state) => state.added.showItemName);
+    const itemNumberShown = useAppSelector((state) => state.added.showItemNumber);
+    const itemBarcodeShown = useAppSelector((state) => state.added.showItemBarcode);
     const showModal = useCallback(() => {
         setModalOpen(true);
     }, []);
@@ -22,9 +21,9 @@ function SingleVendorColumnListItem({ itemObj, vendorName }) {
         setModalOpen(false);
     }, []);
     const toggle = useCallback(() => {
-        setOpen(prev => !prev);
+        setOpen((prev) => !prev);
     }, []);
-    const handleKeyDown = useCallback(e => {
+    const handleKeyDown = useCallback((e) => {
         if (e.key === "c") {
             toggle();
         }
@@ -41,7 +40,7 @@ function SingleVendorColumnListItem({ itemObj, vendorName }) {
           </Col>
           <Col key={`Col-SingleVendorColumnListItem-${vendorName}-${itemObj.name}-second`} className="" xs={"auto"}>
             <ButtonGroup key={`ButtonGroup-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`} className="my-2">
-              <FontAwesomeIcon onClick={showModal} icon={faMagnifyingGlassPlus} inverse className="btn rounded-circle px-2 me-1 hover-inverse" size="2xl" role="button"/>
+              <FontAwesomeIcon onClick={showModal} icon={faMagnifyingGlassPlus} inverse className="btn rounded-circle px-2 me-1 hover-inverse" size="2x" role="button"/>
               <Modal scrollable onHide={hideModal} show={modalOpen} size="xl" aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header className="bg-dark text-info" closeButton closeVariant="white">
                   <Modal.Title id="contained-modal-title-vcenter">
@@ -83,16 +82,5 @@ function SingleVendorColumnListItem({ itemObj, vendorName }) {
         </Container>
       </Collapse>
     </div>);
-}
-PropTypes.propTypes = {
-    vendorName: PropTypes.string,
-    itemObj: PropTypes.shape({
-        name: PropTypes.string,
-        itemNumber: PropTypes.string,
-        keywords: PropTypes.arrayOf(PropTypes.string),
-        nav: PropTypes.arrayOf(PropTypes.string),
-        vendors: PropTypes.arrayOf(PropTypes.string),
-        src: PropTypes.string,
-    }),
 };
 export default memo(SingleVendorColumnListItem);

@@ -9,23 +9,37 @@ import {
   Modal,
   ListGroup,
 } from "react-bootstrap";
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useState, FC } from "react";
 import RemoveButton from "./RemoveButton";
 import ItemNameComponent from "./ItemNameComponent";
 import ItemNumberComponent from "./ItemNumberComponent";
 import ColumnBarcodeImageComponent from "./ColumnBarcodeImageComponent";
 import MinimizeButton from "./MinimizeButton";
-import PropTypes from "prop-types";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSelector } from "react-redux";
+import { itemInterface } from "../../../addedSlice";
+import { useAppSelector, RootState } from "../../../data/store";
 
-function SingleVendorColumnListItem({ itemObj, vendorName }) {
+interface Prop {
+  itemObj: itemInterface;
+  vendorName: string;
+}
+
+const SingleVendorColumnListItem: FC<Prop> = ({
+  itemObj,
+  vendorName,
+}): JSX.Element => {
   const [open, setOpen] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
-  const itemNameShown = useSelector(state => state.added.showItemName);
-  const itemNumberShown = useSelector(state => state.added.showItemNumber);
-  const itemBarcodeShown = useSelector(state => state.added.showItemBarcode);
+  const itemNameShown = useAppSelector(
+    (state: RootState) => state.added.showItemName
+  );
+  const itemNumberShown = useAppSelector(
+    (state: RootState) => state.added.showItemNumber
+  );
+  const itemBarcodeShown = useAppSelector(
+    (state: RootState) => state.added.showItemBarcode
+  );
 
   const showModal = useCallback(() => {
     setModalOpen(true);
@@ -36,11 +50,11 @@ function SingleVendorColumnListItem({ itemObj, vendorName }) {
   }, []);
 
   const toggle = useCallback(() => {
-    setOpen(prev => !prev);
+    setOpen((prev) => !prev);
   }, []);
 
   const handleKeyDown = useCallback(
-    e => {
+    (e) => {
       if (e.key === "c") {
         toggle();
       }
@@ -93,7 +107,7 @@ function SingleVendorColumnListItem({ itemObj, vendorName }) {
                 icon={faMagnifyingGlassPlus}
                 inverse
                 className="btn rounded-circle px-2 me-1 hover-inverse"
-                size="2xl"
+                size="2x"
                 role="button"
               />
               <Modal
@@ -198,18 +212,6 @@ function SingleVendorColumnListItem({ itemObj, vendorName }) {
       </Collapse>
     </div>
   );
-}
-
-PropTypes.propTypes = {
-  vendorName: PropTypes.string,
-  itemObj: PropTypes.shape({
-    name: PropTypes.string,
-    itemNumber: PropTypes.string,
-    keywords: PropTypes.arrayOf(PropTypes.string),
-    nav: PropTypes.arrayOf(PropTypes.string),
-    vendors: PropTypes.arrayOf(PropTypes.string),
-    src: PropTypes.string,
-  }),
 };
 
 export default memo(SingleVendorColumnListItem);

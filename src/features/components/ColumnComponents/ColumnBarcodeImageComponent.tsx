@@ -1,20 +1,24 @@
 import { Container, Row, Col, Modal, Button } from "react-bootstrap";
 import { FC, memo, useCallback, useContext, useState } from "react";
 import PrintIconBarcodeComponent from "./PrintIconBarcodeComponent";
-// import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
 import { itemInterface, selectVendorOfficialName } from "../../../addedSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { DarkMode } from "../../../App";
+import { useAppSelector } from "../../../data/store";
 
 interface Props {
   itemObj: itemInterface;
   vendorName: string;
 }
 
-const ColumnBarcodeImageComponent: FC<Props> = ({ itemObj, vendorName }) => {
-  const officialVendorName = useSelector(selectVendorOfficialName(vendorName));
+const ColumnBarcodeImageComponent: FC<Props> = ({
+  itemObj,
+  vendorName,
+}): JSX.Element => {
+  const officialVendorName = useAppSelector(
+    selectVendorOfficialName(vendorName)
+  );
   const [show, setShow] = useState(false);
   const { darkTheme } = useContext(DarkMode);
 
@@ -37,7 +41,6 @@ const ColumnBarcodeImageComponent: FC<Props> = ({ itemObj, vendorName }) => {
           />
           <PrintIconBarcodeComponent
             itemObj={itemObj}
-            src={itemObj.src}
             text={"Print This Barcode"}
             header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}
           />
@@ -71,17 +74,5 @@ const ColumnBarcodeImageComponent: FC<Props> = ({ itemObj, vendorName }) => {
     </Container>
   );
 };
-
-// ColumnBarcodeImageComponent.propTypes = {
-//   vendorName: PropTypes.string,
-//   itemObj: PropTypes.shape({
-//     name: PropTypes.string,
-//     itemNumber: PropTypes.string,
-//     keywords: PropTypes.arrayOf(PropTypes.string),
-//     nav: PropTypes.arrayOf(PropTypes.string),
-//     vendors: PropTypes.arrayOf(PropTypes.string),
-//     src: PropTypes.string,
-//   }),
-// };
 
 export default memo(ColumnBarcodeImageComponent);

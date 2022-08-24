@@ -1,15 +1,15 @@
 import { Dropdown } from "react-bootstrap";
 import { memo, useState, useCallback, useContext } from "react";
 import SingleDropDown from "./SingleDropDown";
-import { useSelector, shallowEqual } from "react-redux";
+import { shallowEqual } from "react-redux";
 import { selectItemsByVendor, selectVendorOfficialName, } from "../../../addedSlice";
-// import PropTypes from "prop-types";
 import { DarkMode } from "../../../App";
+import { useAppSelector } from "../../../data/store";
 const VendorDropDown = ({ vendorName }) => {
     const { darkTheme } = useContext(DarkMode);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const officialVendorName = useSelector(selectVendorOfficialName(vendorName));
-    const myItems = useSelector(selectItemsByVendor(vendorName), shallowEqual);
+    const officialVendorName = useAppSelector(selectVendorOfficialName(vendorName));
+    const myItems = useAppSelector(selectItemsByVendor(vendorName), shallowEqual);
     const toggle = useCallback(() => {
         setDropdownOpen((prev) => !prev);
     }, []);
@@ -22,7 +22,4 @@ const VendorDropDown = ({ vendorName }) => {
       </Dropdown.Menu>
     </Dropdown>);
 };
-// VendorDropDown.propTypes = {
-//   vendorName: PropTypes.string,
-// };
 export default memo(VendorDropDown);

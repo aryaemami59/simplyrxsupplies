@@ -1,16 +1,19 @@
-import { useSelector } from "react-redux";
-import { memo, useCallback, useContext, useState } from "react";
+import { memo, useCallback, useContext, useState, FC } from "react";
 import QRCode from "qrcode";
 import { selectQRCodeContent } from "../../../addedSlice";
 import PrintIconQRCodeComponent from "./PrintIconQRCodeComponent";
-import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { Button, Modal } from "react-bootstrap";
 import { DarkMode } from "../../../App";
+import { useAppSelector } from "../../../data/store";
 
-function QRCodeImageComponent({ vendorName }) {
-  const itemNumbers = useSelector(selectQRCodeContent(vendorName));
+interface Props {
+  vendorName: string;
+}
+
+const QRCodeImageComponent: FC<Props> = ({ vendorName }): JSX.Element => {
+  const itemNumbers = useAppSelector(selectQRCodeContent(vendorName));
   const [show, setShow] = useState(false);
   const { darkTheme } = useContext(DarkMode);
 
@@ -44,7 +47,7 @@ function QRCodeImageComponent({ vendorName }) {
       />
       <FontAwesomeIcon
         icon={faMagnifyingGlassPlus}
-        size="xl"
+        size="lg"
         className="btn position-absolute m-3 top-0"
         inverse={darkTheme ? true : false}
         role="button"
@@ -71,10 +74,6 @@ function QRCodeImageComponent({ vendorName }) {
       </Modal>
     </div>
   );
-}
-
-QRCodeImageComponent.propTypes = {
-  vendorName: PropTypes.string,
 };
 
 export default memo(QRCodeImageComponent);

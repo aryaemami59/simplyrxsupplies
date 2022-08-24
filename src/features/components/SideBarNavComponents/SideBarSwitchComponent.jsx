@@ -22,6 +22,7 @@ const SideBarSwitchComponent = ({ clickHandler, checked, itemObj, vendorName, })
 const mapStateToProps = (state, ownProps) => {
     return {
         checked: state.item[ownProps.itemObj.name].includes(ownProps.vendorName),
+        disabled: state.item[ownProps.itemObj.name].vendorsAdded.includes(ownProps.vendorName),
     };
 };
 const mapDispatchToProps = (dispatch, ownProps) => {

@@ -1,9 +1,10 @@
-import { useSelector, shallowEqual } from "react-redux";
+import { shallowEqual } from "react-redux";
 import { memo } from "react";
 import { selectNavsArr } from "../../../addedSlice";
 import SideBarAccordion from "./SideBarAccordion";
+import { useAppSelector } from "../../../data/store";
 const SideBarAccordionList = () => {
-    const navList = useSelector(selectNavsArr, shallowEqual);
+    const navList = useAppSelector(selectNavsArr, shallowEqual);
     return (<>
       {navList.map((e) => (<SideBarAccordion category={e} key={`${e}-SideBarAccordion-SideBarAccordionList`}/>))}
     </>);

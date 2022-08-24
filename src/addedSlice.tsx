@@ -29,6 +29,9 @@ class Intersection implements IntersectionInterface {
   }
 }
 
+const intersection = (firstArray: string[], secondArray: string[]): string[] =>
+  firstArray.filter((e) => !secondArray.includes(e));
+
 const createAsyncThunkFunc = (strVal: string, githubUrl: string) => {
   return createAsyncThunk(`${strVal}/fetch${strVal}`, async () => {
     const response: Response = await fetch(githubUrl);
@@ -276,7 +279,7 @@ export const itemSlice = createSlice({
       state[action.payload.itemObj.name].vendorsToAdd = state[
         action.payload.itemObj.name
       ].vendorsToAdd.length
-        ? new Intersection(
+        ? intersection(
             action.payload.itemObj.vendors,
             state[action.payload.itemObj.name].vendorsAdded
           )
@@ -290,7 +293,7 @@ export const itemSlice = createSlice({
       state[action.payload.itemObj.name].vendorsToAdd = state[
         action.payload.itemObj.name
       ].vendorsToAdd.length
-        ? new Intersection(
+        ? intersection(
             action.payload.itemObj.vendors,
             state[action.payload.itemObj.name].vendorsAdded
           )
@@ -312,7 +315,7 @@ export const selectVendorsArr = (state: stateInterface) =>
 
 export const selectVendorsLinks =
   (vendorName: string) => (state: stateInterface) =>
-    state.added.vendorsObj?.[vendorName].link;
+    state.added.vendorsObj ? state.added.vendorsObj[vendorName].link : "";
 
 export const selectNavsArr = (state: stateInterface) =>
   state.added.navsArr ? state.added.navsArr : empty;

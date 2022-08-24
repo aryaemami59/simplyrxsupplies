@@ -1,18 +1,17 @@
 import { Button } from "react-bootstrap";
-import { useSelector } from "react-redux";
 import { memo, FC } from "react";
 import {
   checkIfAddedToOneVendor,
   selectVendorOfficialName,
 } from "../../../addedSlice";
 import { MouseEventHandler } from "react";
-// import PropTypes from "prop-types";
 import { itemInterface } from "../../../addedSlice";
+import { useAppSelector } from "../../../data/store";
 
 interface Props {
   vendorName: string;
   itemObj: itemInterface;
-  clickHandler: MouseEventHandler<HTMLButtonElement>;
+  clickHandler?: MouseEventHandler<HTMLButtonElement>;
   disabled: boolean;
 }
 
@@ -22,8 +21,10 @@ const VendorBadges: FC<Props> = ({
   clickHandler,
   disabled,
 }): JSX.Element => {
-  const ifAdded = useSelector(checkIfAddedToOneVendor(itemObj, vendorName));
-  const officialVendorName = useSelector(selectVendorOfficialName(vendorName));
+  const ifAdded = useAppSelector(checkIfAddedToOneVendor(itemObj, vendorName));
+  const officialVendorName = useAppSelector(
+    selectVendorOfficialName(vendorName)
+  );
 
   return (
     <Button
@@ -36,18 +37,5 @@ const VendorBadges: FC<Props> = ({
     </Button>
   );
 };
-
-// VendorBadges.propTypes = {
-//   vendorName: PropTypes.string,
-//   clickHandler: PropTypes.func,
-//   itemObj: PropTypes.shape({
-//     name: PropTypes.string,
-//     itemNumber: PropTypes.string,
-//     keywords: PropTypes.arrayOf(PropTypes.string),
-//     nav: PropTypes.arrayOf(PropTypes.string),
-//     vendors: PropTypes.arrayOf(PropTypes.string),
-//     src: PropTypes.string,
-//   }),
-// };
 
 export default memo(VendorBadges);

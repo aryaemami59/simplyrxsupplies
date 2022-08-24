@@ -1,18 +1,23 @@
 import { Fade, Collapse, Badge, Button } from "react-bootstrap";
-import { memo, useCallback, useRef, useState } from "react";
-import { shallowEqual, useSelector, useDispatch } from "react-redux";
+import { memo, useCallback, useRef, useState, FC } from "react";
+import { shallowEqual } from "react-redux";
 import {
   addItems,
   checkIfAddedToAllVendors,
   selectVendorsToAddTo,
 } from "../../../addedSlice";
-import PropTypes from "prop-types";
+import { useAppSelector, useAppDispatch } from "../../../data/store";
+import { itemInterface } from "../../../addedSlice";
 
-function AddItemButtonComponent({ itemObj }) {
+interface Props {
+  itemObj: itemInterface;
+}
+
+const AddItemButtonComponent: FC<Props> = ({ itemObj }): JSX.Element => {
   const [show, setShow] = useState(false);
-  const IfAddedToAllVendors = useSelector(checkIfAddedToAllVendors(itemObj));
-  const vendors = useSelector(selectVendorsToAddTo(itemObj), shallowEqual);
-  const dispatch = useDispatch();
+  const IfAddedToAllVendors = useAppSelector(checkIfAddedToAllVendors(itemObj));
+  const vendors = useAppSelector(selectVendorsToAddTo(itemObj), shallowEqual);
+  const dispatch = useAppDispatch();
   const target = useRef(null);
 
   const showBadge = useCallback(() => {
@@ -61,17 +66,6 @@ function AddItemButtonComponent({ itemObj }) {
       </Collapse>
     </Button>
   );
-}
-
-AddItemButtonComponent.propTypes = {
-  itemObj: PropTypes.shape({
-    name: PropTypes.string,
-    itemNumber: PropTypes.string,
-    keywords: PropTypes.arrayOf(PropTypes.string),
-    nav: PropTypes.arrayOf(PropTypes.string),
-    vendors: PropTypes.arrayOf(PropTypes.string),
-    src: PropTypes.string,
-  }),
 };
 
 export default memo(AddItemButtonComponent);

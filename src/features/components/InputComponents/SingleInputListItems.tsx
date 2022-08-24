@@ -5,10 +5,9 @@ import SearchResultsItemNameComponent from "./SearchResultsItemNameComponent";
 import SearchResultsItemNumberComponent from "./SearchResultsItemNumberComponent";
 import SwitchComponent from "./SwitchComponent";
 import AddItemButtonComponent from "./AddItemButtonComponent";
-// import PropTypes from "prop-types";
 import { DarkMode } from "../../../App";
-import { useSelector } from "react-redux";
-import { itemInterface, stateInterface } from "../../../addedSlice";
+import { itemInterface } from "../../../addedSlice";
+import { RootState, useAppSelector } from "../../../data/store";
 
 interface Props {
   itemObj: itemInterface;
@@ -16,7 +15,7 @@ interface Props {
 
 const SingleInputListItems: FC<Props> = ({ itemObj }): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);
-  const ifCompact = useSelector((state: stateInterface) => state.added.compact);
+  const ifCompact = useAppSelector((state: RootState) => state.added.compact);
 
   return (
     <Card
@@ -53,8 +52,10 @@ const SingleInputListItems: FC<Props> = ({ itemObj }): JSX.Element => {
               <Row md={"auto"} className="m-0">
                 {itemObj.vendors.map((e) => (
                   <SwitchComponent
+                    // disabled={false}
                     key={`SwitchComponent-${itemObj.name}${e}`}
                     itemObj={itemObj}
+                    // clickHandler={null}
                     vendorName={e}
                   />
                 ))}
@@ -86,17 +87,5 @@ const SingleInputListItems: FC<Props> = ({ itemObj }): JSX.Element => {
     </Card>
   );
 };
-
-// SingleInputListItems.propTypes = {
-//   vendors: PropTypes.arrayOf(PropTypes.string),
-//   itemObj: PropTypes.shape({
-//     name: PropTypes.string,
-//     itemNumber: PropTypes.string,
-//     keywords: PropTypes.arrayOf(PropTypes.string),
-//     nav: PropTypes.arrayOf(PropTypes.string),
-//     vendors: PropTypes.arrayOf(PropTypes.string),
-//     src: PropTypes.string,
-//   }),
-// };
 
 export default memo(SingleInputListItems);

@@ -6,12 +6,13 @@ import {
   Alert,
   ButtonGroup,
 } from "react-bootstrap";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import { shallowEqual } from "react-redux";
 import { useState, memo, useCallback, useContext } from "react";
 import {
   selectByVendor,
   selectVendorOfficialName,
   selectVendorsLinks,
+  stateInterface,
   ToggleItemBarcode,
   ToggleItemName,
   ToggleItemNumber,
@@ -23,20 +24,29 @@ import PropTypes from "prop-types";
 import { DarkMode } from "../../../App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faToggleOff, faToggleOn } from "@fortawesome/free-solid-svg-icons";
+import { useAppSelector, useAppDispatch } from "../../../data/store";
 
 function VendorColumn({ vendorName }) {
   const { darkTheme } = useContext(DarkMode);
   const [open, setOpen] = useState(false);
-  const officialVendorName = useSelector(selectVendorOfficialName(vendorName));
-  const vendorLink = useSelector(selectVendorsLinks(vendorName));
-  const addedItems = useSelector(selectByVendor(vendorName), shallowEqual);
-  const dispatch = useDispatch();
-  const itemNumberShown = useSelector(state => state.added.showItemNumber);
-  const itemBarcodeShown = useSelector(state => state.added.showItemBarcode);
-  const itemNameShown = useSelector(state => state.added.showItemName);
+  const officialVendorName = useAppSelector(
+    selectVendorOfficialName(vendorName)
+  );
+  const vendorLink = useAppSelector(selectVendorsLinks(vendorName));
+  const addedItems = useAppSelector(selectByVendor(vendorName), shallowEqual);
+  const dispatch = useAppDispatch();
+  const itemNumberShown = useAppSelector(
+    (state: stateInterface) => state.added.showItemNumber
+  );
+  const itemBarcodeShown = useAppSelector(
+    (state: stateInterface) => state.added.showItemBarcode
+  );
+  const itemNameShown = useAppSelector(
+    (state: stateInterface) => state.added.showItemName
+  );
 
   const buttonClick = useCallback(() => {
-    setOpen(prev => !prev);
+    setOpen((prev) => !prev);
   }, []);
 
   const toggleItemNumber = useCallback(() => {
@@ -52,7 +62,7 @@ function VendorColumn({ vendorName }) {
   }, [dispatch]);
 
   const handleKeyDown = useCallback(
-    e => {
+    (e) => {
       if (e.key === "m") {
         buttonClick();
       }
@@ -89,7 +99,7 @@ function VendorColumn({ vendorName }) {
                 <Alert key={`Alert-VendorColumn-${vendorName}`} variant="info">
                   <Alert.Link
                     key={`Alert.Link-VendorColumn-${vendorName}`}
-                    target="blank"
+                    // target={"blank"}
                     href={vendorLink}>
                     {officialVendorName} Website
                   </Alert.Link>
@@ -112,7 +122,7 @@ function VendorColumn({ vendorName }) {
                   <Button onClick={toggleItemName}>
                     {itemNameShown ? "Hide" : "Show"} Item Name
                     <FontAwesomeIcon
-                      size="xl"
+                      size="lg"
                       className="ms-3"
                       icon={itemNameShown ? faToggleOn : faToggleOff}
                     />
@@ -120,7 +130,7 @@ function VendorColumn({ vendorName }) {
                   <Button onClick={toggleItemNumber}>
                     {itemNumberShown ? "Hide" : "Show"} Item Number
                     <FontAwesomeIcon
-                      size="xl"
+                      size="lg"
                       className="ms-3"
                       icon={itemNumberShown ? faToggleOn : faToggleOff}
                     />
@@ -128,14 +138,14 @@ function VendorColumn({ vendorName }) {
                   <Button onClick={toggleItemBarcode}>
                     {itemBarcodeShown ? "Hide" : "Show"} Item Barcode
                     <FontAwesomeIcon
-                      size="xl"
+                      size="lg"
                       className="ms-3"
                       icon={itemBarcodeShown ? faToggleOn : faToggleOff}
                     />
                   </Button>
                 </ButtonGroup>
                 <ListGroup key={`ListGroup-VendorColumn-${vendorName}`}>
-                  {addedItems.map(e => (
+                  {addedItems.map((e) => (
                     <SingleVendorColumnListItem
                       itemObj={e}
                       vendorName={vendorName}

@@ -1,10 +1,11 @@
-import { useSelector, shallowEqual } from "react-redux";
+import { shallowEqual } from "react-redux";
 import { memo, FC } from "react";
 import { selectNavsArr } from "../../../addedSlice";
 import SideBarAccordion from "./SideBarAccordion";
+import { useAppSelector } from "../../../data/store";
 
 const SideBarAccordionList: FC = (): JSX.Element => {
-  const navList = useSelector(selectNavsArr, shallowEqual);
+  const navList = useAppSelector(selectNavsArr, shallowEqual);
 
   return (
     <>

@@ -1,12 +1,11 @@
 import { Dropdown } from "react-bootstrap";
 import { memo, useCallback, FC } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import {
   checkIfItemAddedToOneVendor,
   addItemsByVendor,
 } from "../../../addedSlice";
-// import PropTypes from "prop-types";
 import { itemInterface } from "../../../addedSlice";
+import { useAppDispatch, useAppSelector } from "../../../data/store";
 
 interface Props {
   itemObj: itemInterface;
@@ -14,8 +13,8 @@ interface Props {
 }
 
 const SingleDropDown: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
-  const dispatch = useDispatch();
-  const ifAddedToVendor = useSelector(
+  const dispatch = useAppDispatch();
+  const ifAddedToVendor = useAppSelector(
     checkIfItemAddedToOneVendor(vendorName, itemObj)
   );
 
@@ -34,17 +33,5 @@ const SingleDropDown: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
     </Dropdown.Item>
   );
 };
-
-// SingleDropDown.propTypes = {
-//   vendorName: PropTypes.string,
-//   itemObj: PropTypes.shape({
-//     name: PropTypes.string,
-//     itemNumber: PropTypes.string,
-//     keywords: PropTypes.arrayOf(PropTypes.string),
-//     nav: PropTypes.arrayOf(PropTypes.string),
-//     vendors: PropTypes.arrayOf(PropTypes.string),
-//     src: PropTypes.string,
-//   }),
-// };
 
 export default memo(SingleDropDown);

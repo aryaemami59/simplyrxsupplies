@@ -1,12 +1,21 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { Tooltip, Overlay } from "react-bootstrap";
-import { memo, useCallback, useContext, useRef, useState } from "react";
+import { memo, useCallback, useContext, useRef, useState, FC } from "react";
 import printjs from "print-js";
-import PropTypes from "prop-types";
 import { DarkMode } from "../../../App";
 
-function PrintIconQRCodeComponent({ src, text, vendorName }) {
+interface Props {
+  src: string;
+  text: string;
+  vendorName: string;
+}
+
+const PrintIconQRCodeComponent: FC<Props> = ({
+  src,
+  text,
+  vendorName,
+}): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);
   const [show, setShow] = useState(false);
   const target = useRef(null);
@@ -38,7 +47,7 @@ function PrintIconQRCodeComponent({ src, text, vendorName }) {
         onMouseEnter={openTooltip}
         onMouseLeave={closeTooltip}
         icon={faPrint}
-        size="xl"
+        size="lg"
         inverse={darkTheme ? true : false}
         pull="right"
         className="btn position-absolute end-0 me-3"
@@ -50,7 +59,7 @@ function PrintIconQRCodeComponent({ src, text, vendorName }) {
         target={target.current}
         show={show}
         placement="bottom">
-        {props => (
+        {(props) => (
           <Tooltip
             key={`PrintIconQRCodeComponent-tooltip-${vendorName}`}
             id={`PrintIconQRCodeComponent-tooltip-${vendorName}`}
@@ -61,12 +70,6 @@ function PrintIconQRCodeComponent({ src, text, vendorName }) {
       </Overlay>
     </>
   );
-}
-
-PrintIconQRCodeComponent.propTypes = {
-  src: PropTypes.string,
-  text: PropTypes.string,
-  vendorName: PropTypes.string,
 };
 
 export default memo(PrintIconQRCodeComponent);
