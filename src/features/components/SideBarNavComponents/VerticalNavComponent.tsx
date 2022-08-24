@@ -1,9 +1,9 @@
 import { Nav } from "react-bootstrap";
-import { memo, useContext } from "react";
+import { memo, useContext, FC } from "react";
 import SideBarAccordionList from "./SideBarAccordionList";
 import { DarkMode } from "../../../App";
 
-function VerticalNavComponent() {
+const VerticalNavComponent: FC = (): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);
 
   return (
@@ -19,6 +19,6 @@ function VerticalNavComponent() {
       </div>
     </Nav>
   );
-}
+};
 
 export default memo(VerticalNavComponent);

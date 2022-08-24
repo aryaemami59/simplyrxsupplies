@@ -1,21 +1,22 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { Button, ButtonGroup, ButtonToolbar, Form, Row } from "react-bootstrap";
+import { Button, Form, Row } from "react-bootstrap";
 import { memo, useCallback } from "react";
 import InputListItems from "./InputListItems";
 import InputFieldComponent from "./InputFieldComponent";
 import { useDispatch, useSelector } from "react-redux";
 import {
   compactSearchResults,
-  selectAllVendorOfficialNames,
+  // selectAllVendorOfficialNames,
+  stateInterface,
 } from "../../../addedSlice";
 
 function InputGroupComponent() {
   const dispatch = useDispatch();
-  const ifCompact = useSelector(state => state.added.compact);
-  const vendors = useSelector(selectAllVendorOfficialNames);
-  const vendorsFirst = vendors.slice(0, 4);
-  const vendorsSecond = vendors.slice(4, 8);
+  const ifCompact = useSelector((state: stateInterface) => state.added.compact);
+  // const vendors = useSelector(selectAllVendorOfficialNames);
+  // const vendorsFirst = vendors.slice(0, 4);
+  // const vendorsSecond = vendors.slice(4, 8);
 
   const clickHandler = useCallback(() => {
     dispatch(compactSearchResults());

@@ -2,13 +2,27 @@ import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip, Overlay } from "react-bootstrap";
-import { memo, useCallback, useRef, useState } from "react";
-import PropTypes from "prop-types";
+import { memo, useCallback, useRef, useState, FC } from "react";
+// import PropTypes from "prop-types";
+import { itemInterface } from "../../../addedSlice";
+import { MouseEventHandler } from "react";
 
 const EXPAND = "Expand";
 const COLLAPSE = "Collapse";
 
-function MinimizeButton({ open, toggle, vendorName, itemObj }) {
+interface Props {
+  open: boolean;
+  toggle: MouseEventHandler<SVGSVGElement>;
+  vendorName: string;
+  itemObj: itemInterface;
+}
+
+const MinimizeButton: FC<Props> = ({
+  open,
+  toggle,
+  vendorName,
+  itemObj,
+}): JSX.Element => {
   const [show, setShow] = useState(false);
   const target = useRef(null);
 
@@ -27,7 +41,7 @@ function MinimizeButton({ open, toggle, vendorName, itemObj }) {
         ref={target}
         icon={open ? faMinus : faAdd}
         className="btn rounded-circle hover-inverse px-2 me-1"
-        size="2xl"
+        size="2x"
         role="button"
         onMouseEnter={openTooltip}
         onMouseLeave={closeTooltip}
@@ -39,7 +53,7 @@ function MinimizeButton({ open, toggle, vendorName, itemObj }) {
         target={target.current}
         show={show}
         placement="top">
-        {props => (
+        {(props) => (
           <Tooltip
             key={`MinimizeButton-tooltip-${vendorName}-${itemObj.name}`}
             id={`MinimizeButton-tooltip-${vendorName}-${itemObj.name}`}
@@ -50,20 +64,20 @@ function MinimizeButton({ open, toggle, vendorName, itemObj }) {
       </Overlay>
     </>
   );
-}
-
-MinimizeButton.propTypes = {
-  open: PropTypes.bool,
-  toggle: PropTypes.func,
-  vendorName: PropTypes.string,
-  itemObj: PropTypes.shape({
-    name: PropTypes.string,
-    itemNumber: PropTypes.string,
-    keywords: PropTypes.arrayOf(PropTypes.string),
-    nav: PropTypes.arrayOf(PropTypes.string),
-    vendors: PropTypes.arrayOf(PropTypes.string),
-    src: PropTypes.string,
-  }),
 };
+
+// MinimizeButton.propTypes = {
+//   open: PropTypes.bool,
+//   toggle: PropTypes.func,
+//   vendorName: PropTypes.string,
+//   itemObj: PropTypes.shape({
+//     name: PropTypes.string,
+//     itemNumber: PropTypes.string,
+//     keywords: PropTypes.arrayOf(PropTypes.string),
+//     nav: PropTypes.arrayOf(PropTypes.string),
+//     vendors: PropTypes.arrayOf(PropTypes.string),
+//     src: PropTypes.string,
+//   }),
+// };
 
 export default memo(MinimizeButton);

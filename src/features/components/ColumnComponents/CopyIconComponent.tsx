@@ -1,9 +1,15 @@
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip, Overlay } from "react-bootstrap";
-import { memo, useCallback, useRef, useReducer, useContext } from "react";
-import PropTypes from "prop-types";
+import { memo, useCallback, useRef, useReducer, useContext, FC } from "react";
+// import PropTypes from "prop-types";
 import { DarkMode } from "../../../App";
+import { itemInterface } from "../../../addedSlice";
+import { Placement } from "react-bootstrap/esm/types";
+
+type actionTypes = {
+  type: string;
+};
 
 const ACTIONS = {
   CLICK_ON_ICON: "clickOnIcon",
@@ -12,7 +18,7 @@ const ACTIONS = {
   AFTER_CLICK: "afterClick",
 };
 
-function reducer(state, action) {
+function reducer(state: reducerState, action: actionTypes) {
   switch (action.type) {
     case ACTIONS.CLICK_ON_ICON:
       return {
@@ -39,12 +45,31 @@ function reducer(state, action) {
   }
 }
 
-const initialState = {
+type reducerState = {
+  copied: boolean;
+  hovered: boolean;
+};
+
+const initialState: reducerState = {
   copied: false,
   hovered: false,
 };
 
-function CopyIconComponent({ content, text, placement, vendorName, itemObj }) {
+interface Props {
+  content: string;
+  text: string;
+  placement: Placement;
+  vendorName: string;
+  itemObj: itemInterface;
+}
+
+const CopyIconComponent: FC<Props> = ({
+  content,
+  text,
+  placement,
+  vendorName,
+  itemObj,
+}): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);
   const [state, dispatch] = useReducer(reducer, initialState);
   const { copied, hovered } = state;
@@ -98,9 +123,8 @@ function CopyIconComponent({ content, text, placement, vendorName, itemObj }) {
         target={ref.current}
         show={copied}
         placement={placement}
-        key={`${itemObj.name}-${vendorName}-${content}-first-overlay`}
-        className="position-absolute">
-        {props => (
+        key={`${itemObj.name}-${vendorName}-${content}-first-overlay`}>
+        {(props) => (
           <Tooltip
             key={`${content}-${copiedText}-first-tooltip`}
             id="overlay-example"
@@ -113,9 +137,8 @@ function CopyIconComponent({ content, text, placement, vendorName, itemObj }) {
         target={ref.current}
         show={hovered}
         placement={placement}
-        key={`${itemObj.name}-${vendorName}-${content}-second-overlay`}
-        className="position-absolute">
-        {props => (
+        key={`${itemObj.name}-${vendorName}-${content}-second-overlay`}>
+        {(props) => (
           <Tooltip
             id="overlay-example"
             key={`${content}-${oldText}-second-tooltip`}
@@ -126,21 +149,21 @@ function CopyIconComponent({ content, text, placement, vendorName, itemObj }) {
       </Overlay>
     </>
   );
-}
-
-CopyIconComponent.propTypes = {
-  content: PropTypes.string,
-  text: PropTypes.string,
-  placement: PropTypes.string,
-  vendorName: PropTypes.string,
-  itemObj: PropTypes.shape({
-    name: PropTypes.string,
-    itemNumber: PropTypes.string,
-    keywords: PropTypes.arrayOf(PropTypes.string),
-    nav: PropTypes.arrayOf(PropTypes.string),
-    vendors: PropTypes.arrayOf(PropTypes.string),
-    src: PropTypes.string,
-  }),
 };
+
+// CopyIconComponent.propTypes = {
+//   content: PropTypes.string,
+//   text: PropTypes.string,
+//   placement: PropTypes.string,
+//   vendorName: PropTypes.string,
+//   itemObj: PropTypes.shape({
+//     name: PropTypes.string,
+//     itemNumber: PropTypes.string,
+//     keywords: PropTypes.arrayOf(PropTypes.string),
+//     nav: PropTypes.arrayOf(PropTypes.string),
+//     vendors: PropTypes.arrayOf(PropTypes.string),
+//     src: PropTypes.string,
+//   }),
+// };
 
 export default memo(CopyIconComponent);

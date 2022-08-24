@@ -1,17 +1,22 @@
 import { Card, Row, Col } from "react-bootstrap";
-import { memo, useContext } from "react";
+import { memo, useContext, FC } from "react";
 import SearchResultsBarcodeImageComponent from "./SearchResultsBarcodeImageComponent";
 import SearchResultsItemNameComponent from "./SearchResultsItemNameComponent";
 import SearchResultsItemNumberComponent from "./SearchResultsItemNumberComponent";
 import SwitchComponent from "./SwitchComponent";
 import AddItemButtonComponent from "./AddItemButtonComponent";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { DarkMode } from "../../../App";
 import { useSelector } from "react-redux";
+import { itemInterface, stateInterface } from "../../../addedSlice";
 
-function SingleInputListItems({ itemObj }) {
+interface Props {
+  itemObj: itemInterface;
+}
+
+const SingleInputListItems: FC<Props> = ({ itemObj }): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);
-  const ifCompact = useSelector(state => state.added.compact);
+  const ifCompact = useSelector((state: stateInterface) => state.added.compact);
 
   return (
     <Card
@@ -46,7 +51,7 @@ function SingleInputListItems({ itemObj }) {
           <Row className="justify-content-center justify-content-sm-center align-items-center m-0 ">
             <Col xs={7} md={12} lg={8} className="pe-0">
               <Row md={"auto"} className="m-0">
-                {itemObj.vendors.map(e => (
+                {itemObj.vendors.map((e) => (
                   <SwitchComponent
                     key={`SwitchComponent-${itemObj.name}${e}`}
                     itemObj={itemObj}
@@ -80,18 +85,18 @@ function SingleInputListItems({ itemObj }) {
       </Card.Body>
     </Card>
   );
-}
-
-SingleInputListItems.propTypes = {
-  vendors: PropTypes.arrayOf(PropTypes.string),
-  itemObj: PropTypes.shape({
-    name: PropTypes.string,
-    itemNumber: PropTypes.string,
-    keywords: PropTypes.arrayOf(PropTypes.string),
-    nav: PropTypes.arrayOf(PropTypes.string),
-    vendors: PropTypes.arrayOf(PropTypes.string),
-    src: PropTypes.string,
-  }),
 };
+
+// SingleInputListItems.propTypes = {
+//   vendors: PropTypes.arrayOf(PropTypes.string),
+//   itemObj: PropTypes.shape({
+//     name: PropTypes.string,
+//     itemNumber: PropTypes.string,
+//     keywords: PropTypes.arrayOf(PropTypes.string),
+//     nav: PropTypes.arrayOf(PropTypes.string),
+//     vendors: PropTypes.arrayOf(PropTypes.string),
+//     src: PropTypes.string,
+//   }),
+// };
 
 export default memo(SingleInputListItems);

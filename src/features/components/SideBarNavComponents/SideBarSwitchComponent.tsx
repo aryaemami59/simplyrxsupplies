@@ -1,20 +1,26 @@
-import { memo } from "react";
+import { memo, FC } from "react";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { connect } from "react-redux";
-import { setVendors } from "../../../addedSlice";
+import { setVendors, itemInterface, stateInterface } from "../../../addedSlice";
 // import SideBarVendorBadges from "./SideBarVendorBadges";
+import { AppDispatch } from "../../../data/store";
 
-function SideBarSwitchComponent({
+interface Props {
+  clickHandler: Function;
+  checked: boolean;
+  itemObj: itemInterface;
+  vendorName: string;
+}
+
+const SideBarSwitchComponent: FC<Props> = ({
   clickHandler,
   checked,
   itemObj,
   vendorName,
-}) {
+}): JSX.Element => {
   return (
-    <>
-      
-    </>
+    <></>
     // <div className="form-check form-switch d-flex align-items-center row cursor-pointer bg-outline-primary ps-5 p-0 position-absolute top-0 start-0 bottom-0 justify-content-between">
     //   <input
     //     key={`${itemObj.name}-${vendorName}-SwitchComponent-`}
@@ -30,15 +36,15 @@ function SideBarSwitchComponent({
     //     htmlFor={`${itemObj.name}-${vendorName}-SwitchComponent-`}></label>
     // </div>
   );
-}
+};
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state: stateInterface, ownProps: Props) => {
   return {
     checked: state.item[ownProps.itemObj.name].includes(ownProps.vendorName),
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch: AppDispatch, ownProps: Props) => {
   return {
     clickHandler: () => {
       dispatch(

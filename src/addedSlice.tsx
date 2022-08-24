@@ -44,7 +44,7 @@ const createAsyncThunkFunc = (strVal: string, githubUrl: string) => {
 export const fetchItems = createAsyncThunkFunc("items", GITHUB_URL_ITEMS);
 // console.log(fetchItems);
 console.log(fetchItems.pending.type);
-interface stateInterface {
+export interface stateInterface {
   added: addedState;
   item: itemState;
 }
@@ -174,7 +174,7 @@ export const addedSlice = createSlice({
     clearListItems: (state, action) => {
       state.listItems = empty;
     },
-    compactSearchResults: (state, action) => {
+    compactSearchResults: (state: addedState) => {
       state.compact = !state.compact;
     },
     ToggleItemNumber: (state, action) => {
@@ -323,7 +323,8 @@ export const addedItemsLength =
     state.added[vendorName].length;
 
 export const checkIfAddedToOneVendor =
-  (itemObj: itemInterface, vendorName: string) => (state: stateInterface) =>
+  (itemObj: itemInterface, vendorName: string) =>
+  (state: stateInterface): boolean =>
     state.item[itemObj.name].vendorsAdded.includes(vendorName);
 
 export const selectItemsByVendor =
@@ -356,11 +357,18 @@ export const checkIfItemAddedToOneVendor =
 export const selectItemsArr = (state: stateInterface) => state.item.itemsArr;
 
 export const selectVendorOfficialName =
-  (vendorName: string) => (state: stateInterface) =>
-    state.added.vendorsObj?.[vendorName].officialName;
+  (vendorName: string) =>
+  (state: stateInterface): string =>
+    state.added.vendorsObj
+      ? state.added.vendorsObj[vendorName].officialName
+      : "";
 
 export const selectAllVendorOfficialNames = (state: stateInterface) =>
-  state.added.vendorsArr?.map((e) => state.added.vendorsObj?.[e].officialName);
+  state.added.vendorsArr
+    ? state.added.vendorsArr.map((e) =>
+        state.added.vendorsObj ? state.added.vendorsObj[e].officialName : ""
+      )
+    : empty;
 
 export const selectAllListItems = createSelector(
   (state: stateInterface) => state.added.listItems,
