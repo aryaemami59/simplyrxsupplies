@@ -1,17 +1,28 @@
 import { Form } from "react-bootstrap";
 import { connect } from "react-redux";
-import { memo } from "react";
-import { setVendors } from "../../../addedSlice";
+import { memo, FC, ChangeEventHandler, MouseEventHandler } from "react";
+import { setVendors, itemInterface } from "../../../addedSlice";
 import VendorBadges from "./VendorBadges";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
+import { AppDispatch } from "../../../data/store";
 
-function SwitchComponent({
+interface Props {
+  clickHandler:
+    | MouseEventHandler<HTMLButtonElement> &
+        ChangeEventHandler<HTMLInputElement>;
+  checked: boolean;
+  itemObj: itemInterface;
+  vendorName: string;
+  disabled: boolean;
+}
+
+const SwitchComponent: FC<Props> = ({
   clickHandler,
   checked,
   itemObj,
   vendorName,
   disabled,
-}) {
+}): JSX.Element => {
   return (
     <Form.Check
       type="switch"
@@ -40,7 +51,7 @@ function SwitchComponent({
       </Form.Check.Label>
     </Form.Check>
   );
-}
+};
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -53,7 +64,7 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch: AppDispatch, ownProps: Props) => {
   return {
     clickHandler: () => {
       dispatch(
@@ -66,20 +77,20 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-SwitchComponent.propTypes = {
-  clickHandler: PropTypes.func,
-  checked: PropTypes.bool,
-  disabled: PropTypes.bool,
-  vendorName: PropTypes.string,
-  itemObj: PropTypes.shape({
-    name: PropTypes.string,
-    itemNumber: PropTypes.string,
-    keywords: PropTypes.arrayOf(PropTypes.string),
-    nav: PropTypes.arrayOf(PropTypes.string),
-    vendors: PropTypes.arrayOf(PropTypes.string),
-    src: PropTypes.string,
-  }),
-};
+// SwitchComponent.propTypes = {
+//   clickHandler: PropTypes.func,
+//   checked: PropTypes.bool,
+//   disabled: PropTypes.bool,
+//   vendorName: PropTypes.string,
+//   itemObj: PropTypes.shape({
+//     name: PropTypes.string,
+//     itemNumber: PropTypes.string,
+//     keywords: PropTypes.arrayOf(PropTypes.string),
+//     nav: PropTypes.arrayOf(PropTypes.string),
+//     vendors: PropTypes.arrayOf(PropTypes.string),
+//     src: PropTypes.string,
+//   }),
+// };
 
 export default connect(
   mapStateToProps,
