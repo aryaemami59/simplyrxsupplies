@@ -3,18 +3,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { createContext, memo, useEffect, useState, } from "react";
+import { createContext, memo, useEffect, useState } from "react";
 import { checkIfLoading, fetchItems, fetchNavList, fetchVendors, selectErrMsg, } from "./addedSlice";
 import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";
 import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
 import VerticalNavComponent from "./features/components/SideBarNavComponents/VerticalNavComponent";
-// export const DarkMode = createContext({
-//   darkTheme: true,
-//   setDarkTheme,
-// });
-export const DarkMode = createContext(null);
-// export const setDarkMode = createContext();
+export const DarkMode = createContext({
+    darkTheme: true,
+    setDarkTheme: () => { },
+});
 const getLocalStorageTheme = () => !!localStorage.getItem("theme");
 function App() {
     // const [darkTheme, setDarkTheme] = useState(true);

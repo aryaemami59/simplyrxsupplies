@@ -8,27 +8,28 @@ import {
 } from "../../../addedSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
+import { RefObject } from "react";
 
 const empty = [];
 
 function InputFieldComponent() {
   const items = useSelector(selectItemsArr, shallowEqual);
   const dispatch = useDispatch();
-  const inputRef = useRef(null);
+  const inputRef: RefObject<HTMLInputElement> = useRef(null);
 
   const clickHandler = useCallback(() => {
     dispatch(clearListItems());
     setVal("");
-    inputRef.current.focus();
+    inputRef.current && inputRef.current.focus();
   }, [dispatch]);
   const [val, setVal] = useState("");
 
   const listItemsFunc = useCallback(
-    e => {
+    (e) => {
       const reg = e.target.value.split(/\s+/gi);
       const itemNames = items.map(({ name }) => name.split(/\s+/gi));
       console.log(
-        itemNames.filter(f => f.includes(e.target.value.trim().toLowerCase()))
+        itemNames.filter((f) => f.includes(e.target.value.trim().toLowerCase()))
       );
       // console.log(itemNames);
 
@@ -47,7 +48,7 @@ function InputFieldComponent() {
   );
 
   const changeVal = useCallback(
-    e => {
+    (e) => {
       const listItems = listItemsFunc(e);
       setVal(e.target.value);
       dispatch(setListItems(listItems));

@@ -1,3 +1,12 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import { createSlice, current, createAsyncThunk } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import { GITHUB_URL_ITEMS, GITHUB_URL_VENDORS, GITHUB_URL_NAVLIST, } from "./data/fetchInfo";
@@ -14,15 +23,15 @@ class Intersection {
     }
 }
 const createAsyncThunkFunc = (strVal, githubUrl) => {
-    return createAsyncThunk(`${strVal}/fetch${strVal}`, async () => {
-        const response = await fetch(githubUrl);
+    return createAsyncThunk(`${strVal}/fetch${strVal}`, () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield fetch(githubUrl);
         if (!response.ok) {
             return Promise.reject("Unable to fetch, status: " + response.status);
         }
-        const data = await response.json();
-        const myItems = await data[strVal];
+        const data = yield response.json();
+        const myItems = yield data[strVal];
         return myItems;
-    });
+    }));
 };
 export const fetchItems = createAsyncThunkFunc("items", GITHUB_URL_ITEMS);
 // console.log(fetchItems);
@@ -73,19 +82,19 @@ export const addedSlice = createSlice({
             // console.log(action.payload.split(/\s+/));
             state.listItems = action.payload;
         },
-        clearListItems: (state, action) => {
+        clearListItems: (state) => {
             state.listItems = empty;
         },
-        compactSearchResults: (state, action) => {
+        compactSearchResults: (state) => {
             state.compact = !state.compact;
         },
-        ToggleItemNumber: (state, action) => {
+        ToggleItemNumber: (state) => {
             state.showItemNumber = !state.showItemNumber;
         },
-        ToggleItemBarcode: (state, action) => {
+        ToggleItemBarcode: (state) => {
             state.showItemBarcode = !state.showItemBarcode;
         },
-        ToggleItemName: (state, action) => {
+        ToggleItemName: (state) => {
             state.showItemName = !state.showItemName;
         },
     },
@@ -178,22 +187,29 @@ export const itemSlice = createSlice({
     },
 });
 export const selectByVendor = (vendorName) => (state) => state.added[vendorName];
-export const selectVendorsArr = (state) => state.added.vendorsArr;
-export const selectVendorsLinks = (vendorName) => (state) => state.added.vendorsObj?.[vendorName].link;
-export const selectNavsArr = (state) => state.added.navsArr;
+export const selectVendorsArr = (state) => state.added.vendorsArr ? state.added.vendorsArr : empty;
+export const selectVendorsLinks = (vendorName) => (state) => { var _a; return (_a = state.added.vendorsObj) === null || _a === void 0 ? void 0 : _a[vendorName].link; };
+export const selectNavsArr = (state) => state.added.navsArr ? state.added.navsArr : empty;
 export const addedItemsLength = (vendorName) => (state) => state.added[vendorName].length;
 export const checkIfAddedToOneVendor = (itemObj, vendorName) => (state) => state.item[itemObj.name].vendorsAdded.includes(vendorName);
-export const selectItemsByVendor = (vendorName) => (state) => state.added.vendorsObj?.[vendorName].items;
+export const selectItemsByVendor = (vendorName) => (state) => state.added.vendorsObj ? state.added.vendorsObj[vendorName].items : empty;
 export const selectVendorsToAddTo = (itemObj) => (state) => state.item[itemObj.name].vendorsToAdd;
-export const selectSidebarNavs = (category) => (state) => state.added.navsObj?.[category];
-export const selectQRCodeContent = (vendorName) => (state) => state.added[vendorName]
-    .map(({ itemNumber }) => itemNumber)
-    .join(state.added.vendorsObj?.[vendorName].joinChars);
+export const selectSidebarNavs = (category) => (state) => state.added.navsObj ? state.added.navsObj[category] : empty;
+export const selectQRCodeContent = (vendorName) => (state) => {
+    var _a;
+    return state.added[vendorName]
+        .map(({ itemNumber }) => itemNumber)
+        .join((_a = state.added.vendorsObj) === null || _a === void 0 ? void 0 : _a[vendorName].joinChars);
+};
 export const checkIfAddedToAllVendors = (itemObj) => (state) => state.item[itemObj.name].vendorsAdded.length === itemObj.vendors.length;
 export const checkIfItemAddedToOneVendor = (vendorName, itemObj) => (state) => state.item[itemObj.name].vendorsAdded.includes(vendorName);
 export const selectItemsArr = (state) => state.item.itemsArr;
-export const selectVendorOfficialName = (vendorName) => (state) => state.added.vendorsObj?.[vendorName].officialName;
-export const selectAllVendorOfficialNames = (state) => state.added.vendorsArr?.map((e) => state.added.vendorsObj?.[e].officialName);
+export const selectVendorOfficialName = (vendorName) => (state) => state.added.vendorsObj
+    ? state.added.vendorsObj[vendorName].officialName
+    : "";
+export const selectAllVendorOfficialNames = (state) => state.added.vendorsArr
+    ? state.added.vendorsArr.map((e) => state.added.vendorsObj ? state.added.vendorsObj[e].officialName : "")
+    : empty;
 export const selectAllListItems = createSelector((state) => state.added.listItems, (listItems) => listItems);
 export const checkIfLoading = (state) => state.item.isLoading ||
     state.added.vendorsIsLoading ||

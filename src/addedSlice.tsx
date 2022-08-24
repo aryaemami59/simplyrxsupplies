@@ -145,7 +145,7 @@ export const addedSlice = createSlice({
   name: "added",
   initialState,
   reducers: {
-    addItems: (state, action) => {
+    addItems: (state: addedState, action) => {
       action.payload.vendors.forEach((e: string) => {
         if (!current(state[e]).includes(action.payload.itemObj)) {
           state[e].push(action.payload.itemObj);
@@ -155,15 +155,15 @@ export const addedSlice = createSlice({
         }
       });
     },
-    addItemsByVendor: (state, action) => {
+    addItemsByVendor: (state: addedState, action) => {
       state[action.payload.vendorName].push(action.payload.itemObj);
     },
-    removeItems: (state, action) => {
+    removeItems: (state: addedState, action) => {
       state[action.payload.vendorName] = state[
         action.payload.vendorName
       ].filter(({ name }) => name !== action.payload.itemObj.name);
     },
-    setListItems: (state, action) => {
+    setListItems: (state: addedState, action) => {
       // console.log("was".match(/\s*(was)/gi));
       console.log(
         /\s*(relion)*\s*(syringes)*/gi.test("relion insulin syringes")
@@ -171,19 +171,19 @@ export const addedSlice = createSlice({
       // console.log(action.payload.split(/\s+/));
       state.listItems = action.payload;
     },
-    clearListItems: (state, action) => {
+    clearListItems: (state: addedState) => {
       state.listItems = empty;
     },
     compactSearchResults: (state: addedState) => {
       state.compact = !state.compact;
     },
-    ToggleItemNumber: (state, action) => {
+    ToggleItemNumber: (state) => {
       state.showItemNumber = !state.showItemNumber;
     },
-    ToggleItemBarcode: (state, action) => {
+    ToggleItemBarcode: (state) => {
       state.showItemBarcode = !state.showItemBarcode;
     },
-    ToggleItemName: (state, action) => {
+    ToggleItemName: (state) => {
       state.showItemName = !state.showItemName;
     },
   },
