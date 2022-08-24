@@ -1,10 +1,10 @@
 import { Nav, Offcanvas, Navbar } from "react-bootstrap";
-import { useState, useCallback, memo, useContext } from "react";
+import { useState, useCallback, memo, useContext, FC } from "react";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import SideBarAccordionList from "../SideBarNavComponents/SideBarAccordionList";
 import { DarkMode } from "../../../App";
 
-function OffcanvasComponent() {
+const OffcanvasComponent: FC = (): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);
   const [show, setShow] = useState(false);
 
@@ -68,6 +68,6 @@ function OffcanvasComponent() {
       </Offcanvas>
     </>
   );
-}
+};
 
 export default memo(OffcanvasComponent);

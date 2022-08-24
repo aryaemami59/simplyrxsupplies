@@ -1,5 +1,5 @@
 import { Button, ButtonGroup } from "react-bootstrap";
-import { memo, useCallback } from "react";
+import { memo, useCallback, FC } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import {
   addItems,
@@ -7,9 +7,18 @@ import {
   selectVendorsToAddTo,
 } from "../../../addedSlice";
 import SideBarVendorBadges from "./SideBarVendorBadges";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
+import { itemInterface } from "../../../addedSlice";
 
-function SingleSideBarAccordionListItem({ category, itemObj }) {
+interface Props {
+  category: string;
+  itemObj: itemInterface;
+}
+
+const SingleSideBarAccordionListItem: FC<Props> = ({
+  category,
+  itemObj,
+}): JSX.Element => {
   const dispatch = useDispatch();
   const ifAddedToAllVendors = useSelector(checkIfAddedToAllVendors(itemObj));
   const vendors = useSelector(selectVendorsToAddTo(itemObj), shallowEqual);
@@ -35,7 +44,7 @@ function SingleSideBarAccordionListItem({ category, itemObj }) {
         key={`ButtonGroup-SingleSideBarAccordionListItem-${itemObj.name}-${category}`}
         size="sm"
         vertical>
-        {itemObj.vendors.map(e => (
+        {itemObj.vendors.map((e) => (
           <SideBarVendorBadges
             key={`SideBarVendorBadges-${itemObj.name}${e}`}
             itemObj={itemObj}
@@ -45,18 +54,18 @@ function SingleSideBarAccordionListItem({ category, itemObj }) {
       </ButtonGroup>
     </>
   );
-}
-
-SingleSideBarAccordionListItem.propTypes = {
-  category: PropTypes.string,
-  itemObj: PropTypes.shape({
-    name: PropTypes.string,
-    itemNumber: PropTypes.string,
-    keywords: PropTypes.arrayOf(PropTypes.string),
-    nav: PropTypes.arrayOf(PropTypes.string),
-    vendors: PropTypes.arrayOf(PropTypes.string),
-    src: PropTypes.string,
-  }),
 };
+
+// SingleSideBarAccordionListItem.propTypes = {
+//   category: PropTypes.string,
+//   itemObj: PropTypes.shape({
+//     name: PropTypes.string,
+//     itemNumber: PropTypes.string,
+//     keywords: PropTypes.arrayOf(PropTypes.string),
+//     nav: PropTypes.arrayOf(PropTypes.string),
+//     vendors: PropTypes.arrayOf(PropTypes.string),
+//     src: PropTypes.string,
+//   }),
+// };
 
 export default memo(SingleSideBarAccordionListItem);

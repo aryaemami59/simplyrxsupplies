@@ -1,17 +1,27 @@
 import { Form } from "react-bootstrap";
 import { connect } from "react-redux";
-import { memo } from "react";
-import { setVendors } from "../../../addedSlice";
-import PropTypes from "prop-types";
+import { memo, FC } from "react";
+import { setVendors, itemInterface } from "../../../addedSlice";
+import { ChangeEventHandler } from "react";
+// import PropTypes from "prop-types";
 
-function SideBarVendorBadges({
+interface Props {
+  vendorName: string;
+  itemObj: itemInterface;
+  clickHandler: ChangeEventHandler<HTMLInputElement>;
+  checked: boolean;
+  disabled: boolean;
+  officialVendorName: string;
+}
+
+const SideBarVendorBadges: FC<Props> = ({
   vendorName,
   itemObj,
   clickHandler,
   checked,
   disabled,
   officialVendorName,
-}) {
+}): JSX.Element => {
   return (
     <Form.Check
       type="checkbox"
@@ -33,7 +43,7 @@ function SideBarVendorBadges({
       </Form.Check.Label>
     </Form.Check>
   );
-}
+};
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -61,21 +71,21 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-SideBarVendorBadges.propTypes = {
-  vendorName: PropTypes.string,
-  officialVendorName: PropTypes.string,
-  clickHandler: PropTypes.func,
-  checked: PropTypes.bool,
-  disabled: PropTypes.bool,
-  itemObj: PropTypes.shape({
-    name: PropTypes.string,
-    itemNumber: PropTypes.string,
-    keywords: PropTypes.arrayOf(PropTypes.string),
-    nav: PropTypes.arrayOf(PropTypes.string),
-    vendors: PropTypes.arrayOf(PropTypes.string),
-    src: PropTypes.string,
-  }),
-};
+// SideBarVendorBadges.propTypes = {
+//   vendorName: PropTypes.string,
+//   officialVendorName: PropTypes.string,
+//   clickHandler: PropTypes.func,
+//   checked: PropTypes.bool,
+//   disabled: PropTypes.bool,
+//   itemObj: PropTypes.shape({
+//     name: PropTypes.string,
+//     itemNumber: PropTypes.string,
+//     keywords: PropTypes.arrayOf(PropTypes.string),
+//     nav: PropTypes.arrayOf(PropTypes.string),
+//     vendors: PropTypes.arrayOf(PropTypes.string),
+//     src: PropTypes.string,
+//   }),
+// };
 
 export default connect(
   mapStateToProps,

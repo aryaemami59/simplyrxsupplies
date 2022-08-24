@@ -1,14 +1,14 @@
 import { useSelector, shallowEqual } from "react-redux";
-import { memo } from "react";
+import { memo, FC } from "react";
 import { selectVendorsArr } from "../../../addedSlice";
 import VendorDropDown from "./VendorDropDown";
 
-function VendorDropDownsList() {
+const VendorDropDownsList: FC = (): JSX.Element => {
   const vendors = useSelector(selectVendorsArr, shallowEqual);
 
   return (
     <>
-      {vendors.map(e => (
+      {vendors.map((e) => (
         <VendorDropDown
           key={`${e}-VendorDropDownsList-VendorDropDown`}
           vendorName={e}
@@ -16,6 +16,6 @@ function VendorDropDownsList() {
       ))}
     </>
   );
-}
+};
 
 export default memo(VendorDropDownsList);

@@ -1,14 +1,18 @@
 import { Collapse, Card, ListGroup } from "react-bootstrap";
 import { useSelector, shallowEqual } from "react-redux";
-import { memo, useCallback, useContext, useRef, useState } from "react";
+import { memo, useCallback, useContext, useRef, useState, FC } from "react";
 import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
 import { selectSidebarNavs } from "../../../addedSlice";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { DarkMode } from "../../../App";
 
 const COLLAPSED = "collapsed";
 
-function SideBarAccordion({ category }) {
+interface Props {
+  category: string;
+}
+
+const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);
 
   const sidebarItems = useSelector(selectSidebarNavs(category), shallowEqual);
@@ -16,7 +20,7 @@ function SideBarAccordion({ category }) {
   const nodeRef = useRef(null);
 
   const toggle = useCallback(() => {
-    setOpen(prev => !prev);
+    setOpen((prev) => !prev);
   }, []);
 
   return (
@@ -35,7 +39,7 @@ function SideBarAccordion({ category }) {
       </h2>
       <Collapse
         key={`Collapse-SideBarAccordion-${category}`}
-        id={category}
+        // id={category}
         in={open}
         ref={nodeRef}
         className="bg-gradient">
@@ -51,7 +55,7 @@ function SideBarAccordion({ category }) {
                 darkTheme ? "bg-dark" : "bg-light"
               }`}>
               <ListGroup key={`ListGroup-SideBarAccordion-${category}`}>
-                {sidebarItems.map(f => (
+                {sidebarItems.map((f) => (
                   <SingleSideBarAccordionListItem
                     category={category}
                     itemObj={f}
@@ -65,10 +69,10 @@ function SideBarAccordion({ category }) {
       </Collapse>
     </div>
   );
-}
-
-ListGroup.propTypes = {
-  category: PropTypes.string,
 };
+
+// ListGroup.propTypes = {
+//   category: PropTypes.string,
+// };
 
 export default memo(SideBarAccordion);

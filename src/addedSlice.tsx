@@ -44,6 +44,10 @@ const createAsyncThunkFunc = (strVal: string, githubUrl: string) => {
 export const fetchItems = createAsyncThunkFunc("items", GITHUB_URL_ITEMS);
 // console.log(fetchItems);
 console.log(fetchItems.pending.type);
+interface stateInterface {
+  added: addedState;
+  item: itemState;
+}
 
 export const fetchVendors = createAsyncThunkFunc("vendors", GITHUB_URL_VENDORS);
 
@@ -54,7 +58,7 @@ const empty: [] = [];
 // let ven = ["MCK", "OI"] as const;
 // type vendorName = typeof ven[number];
 
-interface itemInterface {
+export interface itemInterface {
   id: number;
   name: string;
   itemNumber: string;
@@ -111,7 +115,7 @@ interface addedState {
   vendorsArr?: string[];
   vendorsObj?: vendorsObjInterface;
   navsArr?: string[];
-  navsObj?: object;
+  navsObj?: { [key: string]: itemInterface[] };
 }
 
 interface itemState {
@@ -300,76 +304,75 @@ export const itemSlice = createSlice({
   },
 });
 
-export const selectByVendor =
-  (vendorName: string) =>
-  (state: { added: { [x: string]: vendorInterface } }) =>
-    state.added[vendorName];
+export const selectByVendor = (vendorName: string) => (state: stateInterface) =>
+  state.added[vendorName];
 
-export const selectVendorsArr = (state: { added: addedState }) =>
-  state.added.vendorsArr;
+export const selectVendorsArr = (state: stateInterface) =>
+  state.added.vendorsArr ? state.added.vendorsArr : empty;
 
 export const selectVendorsLinks =
-  (vendorName: string) => (state: { added: addedState }) =>
+  (vendorName: string) => (state: stateInterface) =>
     state.added.vendorsObj?.[vendorName].link;
 
-export const selectNavsArr = (state: { added: addedState }) =>
-  state.added.navsArr;
+export const selectNavsArr = (state: stateInterface) =>
+  state.added.navsArr ? state.added.navsArr : empty;
 
 export const addedItemsLength =
-  (vendorName: string) => (state: { added: addedState }) =>
+  (vendorName: string) =>
+  (state: stateInterface): number =>
     state.added[vendorName].length;
 
 export const checkIfAddedToOneVendor =
-  (itemObj, vendorName) => (state: { item: itemState }) =>
+  (itemObj: itemInterface, vendorName: string) => (state: stateInterface) =>
     state.item[itemObj.name].vendorsAdded.includes(vendorName);
 
 export const selectItemsByVendor =
-  (vendorName: string) => (state: { added: addedState }) =>
-    state.added.vendorsObj?.[vendorName].items;
+  (vendorName: string) => (state: stateInterface) =>
+    state.added.vendorsObj ? state.added.vendorsObj[vendorName].items : empty;
 
 export const selectVendorsToAddTo =
-  (itemObj: itemInterface) => (state: { item: itemState }) =>
+  (itemObj: itemInterface) => (state: stateInterface) =>
     state.item[itemObj.name].vendorsToAdd;
 
 export const selectSidebarNavs =
-  (category: string) => (state: { added: addedState }) =>
-    state.added.navsObj?.[category];
+  (category: string) => (state: stateInterface) =>
+    state.added.navsObj ? state.added.navsObj[category] : empty;
 
 export const selectQRCodeContent =
-  (vendorName: string) => (state: { added: addedState }) =>
+  (vendorName: string) => (state: stateInterface) =>
     state.added[vendorName]
       .map(({ itemNumber }) => itemNumber)
       .join(state.added.vendorsObj?.[vendorName].joinChars);
 
 export const checkIfAddedToAllVendors =
-  (itemObj) => (state: { item: itemState }) =>
+  (itemObj: itemInterface) => (state: stateInterface) =>
     state.item[itemObj.name].vendorsAdded.length === itemObj.vendors.length;
 
 export const checkIfItemAddedToOneVendor =
-  (vendorName, itemObj) => (state: { item: itemState }) =>
+  (vendorName: string, itemObj: itemInterface) =>
+  (state: stateInterface): boolean =>
     state.item[itemObj.name].vendorsAdded.includes(vendorName);
 
-export const selectItemsArr = (state: { item: itemState }) =>
-  state.item.itemsArr;
+export const selectItemsArr = (state: stateInterface) => state.item.itemsArr;
 
 export const selectVendorOfficialName =
-  (vendorName) => (state: { added: addedState }) =>
+  (vendorName: string) => (state: stateInterface) =>
     state.added.vendorsObj?.[vendorName].officialName;
 
-export const selectAllVendorOfficialNames = (state: { added: addedState }) =>
+export const selectAllVendorOfficialNames = (state: stateInterface) =>
   state.added.vendorsArr?.map((e) => state.added.vendorsObj?.[e].officialName);
 
 export const selectAllListItems = createSelector(
-  (state: { added: { listItems: any } }) => state.added.listItems,
+  (state: stateInterface) => state.added.listItems,
   (listItems) => listItems
 );
 
-export const checkIfLoading = (state: { item: itemState; added: addedState }) =>
+export const checkIfLoading = (state: stateInterface) =>
   state.item.isLoading ||
   state.added.vendorsIsLoading ||
   state.added.navListIsLoading;
 
-export const selectErrMsg = (state: { item: itemState; added: addedState }) =>
+export const selectErrMsg = (state: stateInterface) =>
   state.item.errMsg || state.added.errMsg;
 
 export const {

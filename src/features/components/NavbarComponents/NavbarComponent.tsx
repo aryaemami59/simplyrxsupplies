@@ -1,11 +1,11 @@
 import { Nav, Navbar } from "react-bootstrap";
-import { memo, useContext } from "react";
+import { memo, useContext, FC } from "react";
 import OffcanvasComponent from "./OffcanvasComponent";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import { DarkMode } from "../../../App";
 import DarkModeTogglerButtonComponent from "./DarkModeTogglerButtonComponent";
 
-function NavbarComponent() {
+const NavbarComponent: FC = (): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);
 
   return (
@@ -23,6 +23,6 @@ function NavbarComponent() {
       <DarkModeTogglerButtonComponent key={`FontAwesomeIcon-NavbarComponent`} />
     </Navbar>
   );
-}
+};
 
 export default memo(NavbarComponent);

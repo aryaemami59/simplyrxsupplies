@@ -1,22 +1,26 @@
 import { Dropdown } from "react-bootstrap";
-import { memo, useState, useCallback, useContext } from "react";
+import { memo, useState, useCallback, useContext, FC } from "react";
 import SingleDropDown from "./SingleDropDown";
 import { useSelector, shallowEqual } from "react-redux";
 import {
   selectItemsByVendor,
   selectVendorOfficialName,
 } from "../../../addedSlice";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { DarkMode } from "../../../App";
 
-function VendorDropDown({ vendorName }) {
+interface Props {
+  vendorName: string;
+}
+
+const VendorDropDown: FC<Props> = ({ vendorName }): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const officialVendorName = useSelector(selectVendorOfficialName(vendorName));
   const myItems = useSelector(selectItemsByVendor(vendorName), shallowEqual);
 
   const toggle = useCallback(() => {
-    setDropdownOpen(prev => !prev);
+    setDropdownOpen((prev) => !prev);
   }, []);
 
   return (
@@ -36,7 +40,7 @@ function VendorDropDown({ vendorName }) {
         renderOnMount
         className={`border border-info ${darkTheme ? "bg-dark" : "bg-light"}`}
         show={dropdownOpen}>
-        {myItems.map(e => (
+        {myItems.map((e) => (
           <SingleDropDown
             key={`${e.name}-${vendorName}`}
             itemObj={e}
@@ -46,10 +50,10 @@ function VendorDropDown({ vendorName }) {
       </Dropdown.Menu>
     </Dropdown>
   );
-}
-
-VendorDropDown.propTypes = {
-  vendorName: PropTypes.string,
 };
+
+// VendorDropDown.propTypes = {
+//   vendorName: PropTypes.string,
+// };
 
 export default memo(VendorDropDown);

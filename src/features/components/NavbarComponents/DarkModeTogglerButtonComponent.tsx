@@ -1,24 +1,24 @@
 import { faCircleHalfStroke } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "react-bootstrap";
-import { memo, useCallback, useContext } from "react";
+import { memo, useCallback, useContext, FC } from "react";
 import { DarkMode } from "../../../App";
 
-function DarkModeTogglerButtonComponent() {
+const DarkModeTogglerButtonComponent: FC = (): JSX.Element => {
   const { setDarkTheme, darkTheme } = useContext(DarkMode);
 
   const clickHandler = useCallback(() => {
     // setDarkTheme(prev => !prev);
-    setDarkTheme(prev => {
+    setDarkTheme((prev: boolean) => {
       !prev
-        ? localStorage.setItem("theme", !prev)
+        ? localStorage.setItem("theme", (!prev).toString())
         : localStorage.removeItem("theme");
       return !prev;
     });
   }, [setDarkTheme]);
 
   return (
-    <Button onClick={clickHandler} variant>
+    <Button onClick={clickHandler}>
       <FontAwesomeIcon
         size="lg"
         inverse={darkTheme ? true : false}
@@ -28,6 +28,6 @@ function DarkModeTogglerButtonComponent() {
       />
     </Button>
   );
-}
+};
 
 export default memo(DarkModeTogglerButtonComponent);
