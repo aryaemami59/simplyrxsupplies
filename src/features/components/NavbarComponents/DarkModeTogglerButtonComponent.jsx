@@ -14,7 +14,7 @@ const DarkModeTogglerButtonComponent = () => {
             return !prev;
         });
     }, [setDarkTheme]);
-    return (<Button onClick={clickHandler}>
+    return (<Button onClick={clickHandler} variant="">
       <FontAwesomeIcon size="lg" inverse={darkTheme ? true : false} pull="right" key={`FontAwesomeIcon-NavbarComponent`} icon={faCircleHalfStroke}/>
     </Button>);
 };

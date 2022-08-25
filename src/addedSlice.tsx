@@ -6,29 +6,6 @@ import {
   GITHUB_URL_NAVLIST,
 } from "./data/fetchInfo";
 
-interface IntersectionInterface {
-  firstArray: string[];
-  secondArray: string[];
-}
-
-// interface addedVendorInterface {
-
-// }
-
-class Intersection implements IntersectionInterface {
-  firstArray: string[];
-  secondArray: string[];
-
-  constructor(firstArray: string[], secondArray: string[]) {
-    this.firstArray = firstArray;
-    this.secondArray = secondArray;
-    this.fixArray();
-  }
-  fixArray() {
-    return this.firstArray.filter((e) => !this.secondArray.includes(e));
-  }
-}
-
 const intersection = (firstArray: string[], secondArray: string[]): string[] =>
   firstArray.filter((e) => !secondArray.includes(e));
 
@@ -58,9 +35,6 @@ export const fetchNavList = createAsyncThunkFunc("navs", GITHUB_URL_NAVLIST);
 
 const empty: [] = [];
 
-// let ven = ["MCK", "OI"] as const;
-// type vendorName = typeof ven[number];
-
 export interface itemInterface {
   id: number;
   name: string;
@@ -83,19 +57,12 @@ interface vendorInterface {
   id: number;
   officialName: string;
   abbrName: string;
-  // type vendorName = abbrName;
   link: string;
   joinChars: string;
   items: itemInterface[];
 }
 
-// type vendorName = Pick<vendorInterface, "abbrName">;
-let vens;
-if (vens) type vendorName = keyof typeof vens;
-
 interface vendorsObjInterface {
-  // [key: vendorInterface.abbrName]: vendorInterface;
-  [MCK: vendorName]: vendorInterface;
   OI: vendorInterface;
   GNFR: vendorInterface;
   SOC: vendorInterface;
@@ -106,7 +73,6 @@ interface vendorsObjInterface {
 }
 
 interface addedState {
-  // [vendorName: string]: any[];
   listItems: itemInterface[];
   compact: boolean;
   showItemNumber: boolean;
@@ -208,12 +174,6 @@ export const addedSlice = createSlice({
       action: { payload: vendorsObjInterface; type: string }
     ) => {
       state.vendorsArr = Object.keys(action.payload);
-      // type keys = keyof typeof action.payload;
-      // console.log(keyof typeof action.payload);
-      // type vendorName = typeof jj[number];
-      // const ll: keys = "MCK";
-      // console.log(ll);
-      // if (state.vendorsArr) vens = state.vendorsObj;
       state.vendorsObj = action.payload;
       for (const val in action.payload) {
         state[val] = empty;

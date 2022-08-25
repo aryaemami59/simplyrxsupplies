@@ -1,20 +1,6 @@
 import { createSlice, current, createAsyncThunk } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import { GITHUB_URL_ITEMS, GITHUB_URL_VENDORS, GITHUB_URL_NAVLIST, } from "./data/fetchInfo";
-// interface addedVendorInterface {
-// }
-class Intersection {
-    firstArray;
-    secondArray;
-    constructor(firstArray, secondArray) {
-        this.firstArray = firstArray;
-        this.secondArray = secondArray;
-        this.fixArray();
-    }
-    fixArray() {
-        return this.firstArray.filter((e) => !this.secondArray.includes(e));
-    }
-}
 const intersection = (firstArray, secondArray) => firstArray.filter((e) => !secondArray.includes(e));
 const createAsyncThunkFunc = (strVal, githubUrl) => {
     return createAsyncThunk(`${strVal}/fetch${strVal}`, async () => {
@@ -33,10 +19,6 @@ console.log(fetchItems.pending.type);
 export const fetchVendors = createAsyncThunkFunc("vendors", GITHUB_URL_VENDORS);
 export const fetchNavList = createAsyncThunkFunc("navs", GITHUB_URL_NAVLIST);
 const empty = [];
-// type vendorName = Pick<vendorInterface, "abbrName">;
-let vens;
-if (vens)
-    ;
 const initialState = {
     listItems: empty,
     compact: false,
@@ -107,12 +89,6 @@ export const addedSlice = createSlice({
         },
         [fetchVendors.fulfilled.type]: (state, action) => {
             state.vendorsArr = Object.keys(action.payload);
-            // type keys = keyof typeof action.payload;
-            // console.log(keyof typeof action.payload);
-            // type vendorName = typeof jj[number];
-            // const ll: keys = "MCK";
-            // console.log(ll);
-            // if (state.vendorsArr) vens = state.vendorsObj;
             state.vendorsObj = action.payload;
             for (const val in action.payload) {
                 state[val] = empty;

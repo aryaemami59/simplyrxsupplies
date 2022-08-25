@@ -18,7 +18,7 @@ function InputGroupComponent() {
     return (<>
       <Row className="justify-content-center mb-3">
         <Button onClick={clickHandler} className="w-auto">
-          {ifCompact ? "Show" : "Hide"} compact view of the search results
+          {ifCompact ? "Hide" : "Show"} compact view of the search results
         </Button>
       </Row>
       <div key={`div-row-InputGroupComponent`} className="row justify-content-center">
