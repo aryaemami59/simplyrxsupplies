@@ -2,24 +2,34 @@ import { ListGroup } from "react-bootstrap";
 import { memo } from "react";
 import CopyIconComponent from "./CopyIconComponent";
 import PropTypes from "prop-types";
+import { useAppSelector, RootState } from "../../../data/store";
 
 function ItemNumberComponent({ vendorName, itemObj }) {
+  const itemNumberShown = useAppSelector(
+    (state: RootState) => state.added.showItemNumber
+  );
   return (
-    <ListGroup.Item
-      variant="primary"
-      className="rounded-bottom fw-bold"
-      action
-      key={`${itemObj.itemNumber}-${vendorName}-VendorColumn-ListGroupItem-itemNumber`}>
-      Item Number: {itemObj.itemNumber}
-      <CopyIconComponent
-        key={`${vendorName}-${itemObj.itemNumber}-CopyIconComponent-ItemNumberComponent`}
-        content={itemObj.itemNumber}
-        text={"Number"}
-        placement="bottom"
-        itemObj={itemObj}
-        vendorName={vendorName}
-      />
-    </ListGroup.Item>
+    <>
+      {itemNumberShown ? (
+        <ListGroup.Item
+          variant="primary"
+          className="rounded-bottom fw-bold"
+          action
+          key={`${itemObj.itemNumber}-${vendorName}-VendorColumn-ListGroupItem-itemNumber`}>
+          Item Number: {itemObj.itemNumber}
+          <CopyIconComponent
+            key={`${vendorName}-${itemObj.itemNumber}-CopyIconComponent-ItemNumberComponent`}
+            content={itemObj.itemNumber}
+            text={"Number"}
+            placement="bottom"
+            itemObj={itemObj}
+            vendorName={vendorName}
+          />
+        </ListGroup.Item>
+      ) : (
+        ""
+      )}
+    </>
   );
 }
 

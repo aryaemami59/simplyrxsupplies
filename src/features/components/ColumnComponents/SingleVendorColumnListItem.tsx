@@ -18,7 +18,7 @@ import MinimizeButton from "./MinimizeButton";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { itemInterface } from "../../../addedSlice";
-import { useAppSelector, RootState } from "../../../data/store";
+import ColumnToggleButtonGroup from "./ColumnToggleButtonGroup";
 
 interface Prop {
   itemObj: itemInterface;
@@ -31,15 +31,6 @@ const SingleVendorColumnListItem: FC<Prop> = ({
 }): JSX.Element => {
   const [open, setOpen] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
-  const itemNameShown = useAppSelector(
-    (state: RootState) => state.added.showItemName
-  );
-  const itemNumberShown = useAppSelector(
-    (state: RootState) => state.added.showItemNumber
-  );
-  const itemBarcodeShown = useAppSelector(
-    (state: RootState) => state.added.showItemBarcode
-  );
 
   const showModal = useCallback(() => {
     setModalOpen(true);
@@ -145,7 +136,6 @@ const SingleVendorColumnListItem: FC<Prop> = ({
                             key={`${itemObj.name}-${vendorName}-ItemNumberComponent`}
                           />
                           <ColumnBarcodeImageComponent
-                            // className="w-125 h-100"
                             itemObj={itemObj}
                             vendorName={vendorName}
                             key={`${itemObj.name}-${vendorName}-ColumnBarcodeImageComponent`}
@@ -178,37 +168,7 @@ const SingleVendorColumnListItem: FC<Prop> = ({
       <Collapse
         key={`Collapse-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
         in={open}>
-        <Container
-          // className={"custom-bg-color-2"}
-          key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
-          {itemNameShown ? (
-            <ItemNameComponent
-              vendorName={vendorName}
-              itemObj={itemObj}
-              key={`${itemObj.name}-${vendorName}-ItemNameComponent`}
-            />
-          ) : (
-            ""
-          )}
-          {itemNumberShown ? (
-            <ItemNumberComponent
-              vendorName={vendorName}
-              itemObj={itemObj}
-              key={`${itemObj.name}-${vendorName}-ItemNumberComponent`}
-            />
-          ) : (
-            ""
-          )}
-          {itemBarcodeShown ? (
-            <ColumnBarcodeImageComponent
-              itemObj={itemObj}
-              vendorName={vendorName}
-              key={`${itemObj.name}-${vendorName}-ColumnBarcodeImageComponent`}
-            />
-          ) : (
-            ""
-          )}
-        </Container>
+        <ColumnToggleButtonGroup itemObj={itemObj} vendorName={vendorName} />
       </Collapse>
     </div>
   );
