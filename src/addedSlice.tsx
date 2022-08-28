@@ -62,12 +62,12 @@ const vendors = [
 ] as const;
 
 export type itemInterface = {
-  [key in typeof vendors[number]]?: boolean;
+  readonly [key in typeof vendors[number]]?: boolean;
 } & {
-  id: number;
-  name: string;
-  itemNumber: string;
-  keywords: string[];
+  readonly id: number;
+  readonly name: string;
+  readonly itemNumber: string;
+  readonly keywords: string[];
   // MCK?: boolean;
   // OI?: boolean;
   // GNFR?: boolean;
@@ -76,12 +76,12 @@ export type itemInterface = {
   // MS?: boolean;
   // COV?: boolean;
   // FORS?: boolean;
-  nav: string[];
-  vendors: string[];
-  // vendors: typeof vendors[number][];
-  src: string;
-  // vendorsToAdd?: typeof vendors[number][] | [];
-  // vendorsAdded?: typeof vendors[number][] | [];
+  readonly nav: string[];
+  // readonly vendors: string[];
+  readonly vendors: typeof vendors[number][];
+  readonly src: string;
+  vendorsToAdd?: typeof vendors[number][] | [];
+  vendorsAdded?: typeof vendors[number][] | [];
 };
 
 interface vendorInterface {
@@ -241,7 +241,6 @@ export const addedSlice = createSlice({
       state: addedState,
       action: fetchVendorsFulfilledInterface
     ) => {
-      const vendorsArr = [...Object.keys(action.payload)] as const;
       state.vendorsArr = Object.keys(action.payload);
       state.vendorsObj = action.payload;
       for (const val in action.payload) {
@@ -292,16 +291,6 @@ export const itemSlice = createSlice({
       action: { payload: itemInterface[] }
     ): void => {
       for (const itemObj of action.payload) {
-        const mm = { ...itemObj } as const;
-        type Keys = keyof typeof mm;
-        type Values = typeof mm[Keys];
-        let hh: Values;
-        // console.log(hh);
-        const jj = {
-          vendorsToAdd: itemObj.vendors,
-          vendorsAdded: empty,
-        } as const;
-        const vendors = [...itemObj.vendors] as const;
         state[itemObj.name] = {
           vendorsToAdd: itemObj.vendors,
           vendorsAdded: empty,

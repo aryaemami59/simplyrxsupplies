@@ -49,7 +49,6 @@ const PrintIconQRCodeComponent: FC<Props> = ({
         icon={faPrint}
         size="lg"
         inverse={darkTheme ? true : false}
-        // pull="right"
         className="btn w-auto"
         role="button"
         key={`${vendorName}-FontAwesomeIcon-PrintIconQRCodeComponent`}

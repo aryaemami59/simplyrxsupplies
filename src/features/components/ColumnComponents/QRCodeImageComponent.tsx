@@ -47,7 +47,6 @@ const QRCodeImageComponent: FC<Props> = ({ vendorName }): JSX.Element => {
               className="btn w-auto"
               inverse={darkTheme ? true : false}
               role="button"
-              // pull="left"
               onClick={showModal}
             />
           </Row>
