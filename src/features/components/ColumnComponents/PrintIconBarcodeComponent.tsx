@@ -49,8 +49,8 @@ const PrintIconBarcodeComponent: FC<Props> = ({
         icon={faPrint}
         size="lg"
         inverse={darkTheme ? true : false}
-        pull="right"
-        className="btn position-absolute end-0 me-4"
+        // pull="right"
+        className="btn w-auto"
         role="button"
         key={`${header}-PrintIconBarcodeComponent`}
       />
@@ -59,7 +59,7 @@ const PrintIconBarcodeComponent: FC<Props> = ({
         target={target.current}
         show={show}
         placement="bottom">
-        {(props) => (
+        {props => (
           <Tooltip
             key={`Tooltip-PrintIconBarcodeComponent-${itemObj.name}-${header}`}
             id={`PrintIconBarcodeComponent-tooltip-${itemObj.name}-${itemObj.src}`}

@@ -12,7 +12,6 @@ import {
   selectByVendor,
   selectVendorOfficialName,
   selectVendorsLinks,
-  stateInterface,
   ToggleItemBarcode,
   ToggleItemName,
   ToggleItemNumber,
@@ -24,7 +23,7 @@ import PropTypes from "prop-types";
 import { DarkMode } from "../../../App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faToggleOff, faToggleOn } from "@fortawesome/free-solid-svg-icons";
-import { useAppSelector, useAppDispatch } from "../../../data/store";
+import { useAppSelector, useAppDispatch, RootState } from "../../../data/store";
 
 function VendorColumn({ vendorName }) {
   const { darkTheme } = useContext(DarkMode);
@@ -36,17 +35,17 @@ function VendorColumn({ vendorName }) {
   const addedItems = useAppSelector(selectByVendor(vendorName), shallowEqual);
   const dispatch = useAppDispatch();
   const itemNumberShown = useAppSelector(
-    (state: stateInterface) => state.added.showItemNumber
+    (state: RootState) => state.added.showItemNumber
   );
   const itemBarcodeShown = useAppSelector(
-    (state: stateInterface) => state.added.showItemBarcode
+    (state: RootState) => state.added.showItemBarcode
   );
   const itemNameShown = useAppSelector(
-    (state: stateInterface) => state.added.showItemName
+    (state: RootState) => state.added.showItemName
   );
 
   const buttonClick = useCallback(() => {
-    setOpen((prev) => !prev);
+    setOpen(prev => !prev);
   }, []);
 
   const toggleItemNumber = useCallback(() => {
@@ -62,7 +61,7 @@ function VendorColumn({ vendorName }) {
   }, [dispatch]);
 
   const handleKeyDown = useCallback(
-    (e) => {
+    e => {
       if (e.key === "m") {
         buttonClick();
       }
@@ -145,7 +144,7 @@ function VendorColumn({ vendorName }) {
                   </Button>
                 </ButtonGroup>
                 <ListGroup key={`ListGroup-VendorColumn-${vendorName}`}>
-                  {addedItems.map((e) => (
+                  {addedItems.map(e => (
                     <SingleVendorColumnListItem
                       itemObj={e}
                       vendorName={vendorName}

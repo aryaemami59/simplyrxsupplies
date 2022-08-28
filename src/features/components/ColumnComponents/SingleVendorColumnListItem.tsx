@@ -50,11 +50,11 @@ const SingleVendorColumnListItem: FC<Prop> = ({
   }, []);
 
   const toggle = useCallback(() => {
-    setOpen((prev) => !prev);
+    setOpen(prev => !prev);
   }, []);
 
   const handleKeyDown = useCallback(
-    (e) => {
+    e => {
       if (e.key === "c") {
         toggle();
       }

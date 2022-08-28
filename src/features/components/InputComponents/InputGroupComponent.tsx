@@ -4,18 +4,12 @@ import { Button, Form, Row } from "react-bootstrap";
 import { memo, useCallback } from "react";
 import InputListItems from "./InputListItems";
 import InputFieldComponent from "./InputFieldComponent";
-import { useAppDispatch, useAppSelector } from "../../../data/store";
-import {
-  compactSearchResults,
-  // selectAllVendorOfficialNames,
-  stateInterface,
-} from "../../../addedSlice";
+import { useAppDispatch, useAppSelector, RootState } from "../../../data/store";
+import { compactSearchResults } from "../../../addedSlice";
 
 function InputGroupComponent() {
   const dispatch = useAppDispatch();
-  const ifCompact = useAppSelector(
-    (state: stateInterface) => state.added.compact
-  );
+  const ifCompact = useAppSelector((state: RootState) => state.added.compact);
   // const vendors = useAppSelector(selectAllVendorOfficialNames);
   // const vendorsFirst = vendors.slice(0, 4);
   // const vendorsSecond = vendors.slice(4, 8);

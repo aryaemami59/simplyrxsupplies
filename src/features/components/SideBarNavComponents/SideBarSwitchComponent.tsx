@@ -1,8 +1,6 @@
 import { memo, FC } from "react";
-import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
-import { setVendors, itemInterface, stateInterface } from "../../../addedSlice";
-// import SideBarVendorBadges from "./SideBarVendorBadges";
+import { setVendors, itemInterface } from "../../../addedSlice";
 import { AppDispatch, RootState } from "../../../data/store";
 
 interface Props {

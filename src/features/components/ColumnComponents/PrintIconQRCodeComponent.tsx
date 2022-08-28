@@ -49,8 +49,8 @@ const PrintIconQRCodeComponent: FC<Props> = ({
         icon={faPrint}
         size="lg"
         inverse={darkTheme ? true : false}
-        pull="right"
-        className="btn position-absolute end-0 me-3"
+        // pull="right"
+        className="btn w-auto"
         role="button"
         key={`${vendorName}-FontAwesomeIcon-PrintIconQRCodeComponent`}
       />
@@ -59,7 +59,7 @@ const PrintIconQRCodeComponent: FC<Props> = ({
         target={target.current}
         show={show}
         placement="bottom">
-        {(props) => (
+        {props => (
           <Tooltip
             key={`PrintIconQRCodeComponent-tooltip-${vendorName}`}
             id={`PrintIconQRCodeComponent-tooltip-${vendorName}`}

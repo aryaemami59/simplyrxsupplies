@@ -34,25 +34,29 @@ const ColumnBarcodeImageComponent: FC<Props> = ({
     <Container fluid className="my-4">
       <Row>
         <Col md={12} className="position-relative">
-          <img
-            src={itemObj.src}
-            alt={itemObj.itemNumber}
-            className="custom-shadow my-4"
-          />
-          <PrintIconBarcodeComponent
-            itemObj={itemObj}
-            text={"Print This Barcode"}
-            header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}
-          />
-          <FontAwesomeIcon
-            icon={faMagnifyingGlassPlus}
-            size="lg"
-            className="btn position-absolute m-3 top-0 my-0"
-            inverse={darkTheme ? true : false}
-            role="button"
-            pull="left"
-            onClick={showModal}
-          />
+          <Row className="justify-content-center">
+            <PrintIconBarcodeComponent
+              itemObj={itemObj}
+              text={"Print This Barcode"}
+              header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}
+            />
+            <FontAwesomeIcon
+              icon={faMagnifyingGlassPlus}
+              size="lg"
+              className="btn w-auto"
+              inverse={darkTheme ? true : false}
+              role="button"
+              // pull="left"
+              onClick={showModal}
+            />
+          </Row>
+          <Row className="justify-content-center">
+            <img
+              src={itemObj.src}
+              alt={itemObj.itemNumber}
+              className="custom-shadow my-4 w-auto p-0"
+            />
+          </Row>
           <Modal show={show} onHide={hideModal}>
             <Modal.Header
               className="bg-dark"
