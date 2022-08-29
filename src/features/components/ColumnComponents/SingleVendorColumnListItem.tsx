@@ -6,19 +6,13 @@ import {
   Fade,
   ButtonGroup,
   Container,
-  Modal,
-  ListGroup,
 } from "react-bootstrap";
 import { memo, useCallback, useState, FC } from "react";
 import RemoveButton from "./RemoveButton";
-import ItemNameComponent from "./ItemNameComponent";
-import ItemNumberComponent from "./ItemNumberComponent";
-import ColumnBarcodeImageComponent from "./ColumnBarcodeImageComponent";
 import MinimizeButton from "./MinimizeButton";
-import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { itemInterface } from "../../../addedSlice";
 import ColumnToggleButtonGroup from "./ColumnToggleButtonGroup";
+import SingleVendorColumnModal from "./SingleVendorColumnModal";
 
 interface Prop {
   itemObj: itemInterface;
@@ -30,15 +24,6 @@ const SingleVendorColumnListItem: FC<Prop> = ({
   vendorName,
 }): JSX.Element => {
   const [open, setOpen] = useState(true);
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const showModal = useCallback(() => {
-    setModalOpen(true);
-  }, []);
-
-  const hideModal = useCallback(() => {
-    setModalOpen(false);
-  }, []);
 
   const toggle = useCallback(() => {
     setOpen(prev => !prev);
@@ -93,62 +78,10 @@ const SingleVendorColumnListItem: FC<Prop> = ({
             <ButtonGroup
               key={`ButtonGroup-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
               className="my-2">
-              <FontAwesomeIcon
-                onClick={showModal}
-                icon={faMagnifyingGlassPlus}
-                inverse
-                className="btn rounded-circle px-2 me-1 hover-inverse"
-                size="2x"
-                role="button"
+              <SingleVendorColumnModal
+                itemObj={itemObj}
+                vendorName={vendorName}
               />
-              <Modal
-                scrollable
-                onHide={hideModal}
-                show={modalOpen}
-                size="xl"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered>
-                <Modal.Header
-                  className="bg-dark text-info"
-                  closeButton
-                  closeVariant="white">
-                  <Modal.Title id="contained-modal-title-vcenter">
-                    Item Details
-                  </Modal.Title>
-                </Modal.Header>
-                <Modal.Body className="bg-dark text-info">
-                  <Row className="justify-content-center text-center fs-4">
-                    <Col
-                      key={`Col-thirdCol-App`}
-                      xs={10}
-                      className="justify-content-center">
-                      <Container
-                        key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
-                        <ListGroup>
-                          <ItemNameComponent
-                            vendorName={vendorName}
-                            itemObj={itemObj}
-                            key={`${itemObj.name}-${vendorName}-ItemNameComponent`}
-                          />
-                          <ItemNumberComponent
-                            vendorName={vendorName}
-                            itemObj={itemObj}
-                            key={`${itemObj.name}-${vendorName}-ItemNumberComponent`}
-                          />
-                          <ColumnBarcodeImageComponent
-                            itemObj={itemObj}
-                            vendorName={vendorName}
-                            key={`${itemObj.name}-${vendorName}-ColumnBarcodeImageComponent`}
-                          />
-                        </ListGroup>
-                      </Container>
-                    </Col>
-                  </Row>
-                </Modal.Body>
-                <Modal.Footer className="bg-dark text-info">
-                  <Button onClick={hideModal}>Close</Button>
-                </Modal.Footer>
-              </Modal>
               <MinimizeButton
                 key={`MinimizeButton-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
                 open={open}

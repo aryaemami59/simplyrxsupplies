@@ -1,10 +1,15 @@
 import { ListGroup } from "react-bootstrap";
-import { memo } from "react";
+import { memo, FC } from "react";
 import CopyIconComponent from "./CopyIconComponent";
-import PropTypes from "prop-types";
 import { useAppSelector, RootState } from "../../../data/store";
+import { itemInterface } from "../../../addedSlice";
 
-function ItemNameComponent({ vendorName, itemObj }) {
+interface Prop {
+  itemObj: itemInterface;
+  vendorName: string;
+}
+
+const ItemNameComponent: FC<Prop> = ({ vendorName, itemObj }): JSX.Element => {
   const itemNameShown = useAppSelector(
     (state: RootState) => state.added.showItemName
   );
@@ -32,18 +37,6 @@ function ItemNameComponent({ vendorName, itemObj }) {
       )}
     </>
   );
-}
-
-ItemNameComponent.propTypes = {
-  vendorName: PropTypes.string,
-  itemObj: PropTypes.shape({
-    name: PropTypes.string,
-    itemNumber: PropTypes.string,
-    keywords: PropTypes.arrayOf(PropTypes.string),
-    nav: PropTypes.arrayOf(PropTypes.string),
-    vendors: PropTypes.arrayOf(PropTypes.string),
-    src: PropTypes.string,
-  }),
 };
 
 export default memo(ItemNameComponent);
