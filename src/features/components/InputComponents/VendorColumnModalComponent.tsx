@@ -1,8 +1,10 @@
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback, useState, useContext } from "react";
 import { Button, Col, Modal, Row } from "react-bootstrap";
 import VendorColumnList from "../ColumnComponents/VendorColumnList";
+import { DarkMode } from "../../../App";
 
 function VendorColumnModalComponent() {
+  const { darkTheme } = useContext(DarkMode);
   const [show, setShow] = useState(false);
 
   const showModal = useCallback(() => {
@@ -36,14 +38,15 @@ function VendorColumnModalComponent() {
         aria-labelledby="contained-modal-title-vcenter"
         centered>
         <Modal.Header
-          className="bg-dark text-info"
+          className={darkTheme ? "bg-dark text-info" : "bg-light text-dark"}
           closeButton
           closeVariant="white">
           <Modal.Title id="contained-modal-title-vcenter">
             Item Vendors
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="bg-dark text-info">
+        <Modal.Body
+          className={darkTheme ? "bg-dark text-info" : "bg-light text-dark"}>
           <Row className="justify-content-center">
             <Col
               key={`Col-thirdCol-App`}
@@ -53,7 +56,8 @@ function VendorColumnModalComponent() {
             </Col>
           </Row>
         </Modal.Body>
-        <Modal.Footer className="bg-dark text-info">
+        <Modal.Footer
+          className={darkTheme ? "bg-dark text-info" : "bg-light text-dark"}>
           <Button onClick={hideModal}>Close</Button>
         </Modal.Footer>
       </Modal>

@@ -1,12 +1,13 @@
 import { Form } from "react-bootstrap";
 import { connect, ConnectedProps } from "react-redux";
-import { memo, FC } from "react";
+import { memo, FC, useContext } from "react";
 import {
   setVendors,
   itemInterface,
   selectVendorOfficialName,
 } from "../../../addedSlice";
 import { RootState, useAppSelector, AppDispatch } from "../../../data/store";
+import { DarkMode } from "../../../App";
 
 const mapStateToProps = (
   state: RootState,
@@ -53,6 +54,7 @@ const SideBarVendorBadges: FC<myProps> = ({
   checked,
   disabled,
 }): JSX.Element => {
+  const { darkTheme } = useContext(DarkMode);
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
@@ -60,14 +62,14 @@ const SideBarVendorBadges: FC<myProps> = ({
   return (
     <Form.Check
       type="checkbox"
-      className="text-info custom-text-shadow-white"
+      className={darkTheme ? "text-info custom-text-shadow-whit" : "text-dark"}
       id={`Form.Check-SideBarVendorBadges-${itemObj.name}-${vendorName}`}
       key={`${itemObj.name}-Badge-SideBarVendorBadges-`}>
       <Form.Check.Input
         disabled={disabled}
         onChange={clickHandler}
         checked={checked}
-        className="custom-checkbox-bg cursor-pointer"
+        className={`cursor-pointer ${darkTheme ? "custom-checkbox-bg" : ""}`}
         type="checkbox"
         key={`Form.Check.Input-SideBarVendorBadges-${itemObj.name}`}
       />

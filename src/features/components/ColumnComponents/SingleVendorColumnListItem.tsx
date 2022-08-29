@@ -43,7 +43,7 @@ const SingleVendorColumnListItem: FC<Prop> = ({
       key={`div-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
       tabIndex={0}
       onKeyDown={handleKeyDown}
-      className="rounded shadow border mb-4 shadow">
+      className="rounded border mb-4">
       <Container
         key={`Container-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
         fluid

@@ -13,7 +13,7 @@ const SearchResultsItemNumberComponent: FC<Props> = ({
   return (
     <Badge
       key={`Badge-SearchResultsItemNumberComponent-${itemObj.itemNumber}`}
-      className="fs-6 fw-normal shadow custom-text-shadow-white">
+      className="fs-6 fw-normal">
       Item Number: {itemObj.itemNumber}
     </Badge>
   );

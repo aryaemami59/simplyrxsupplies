@@ -30,7 +30,7 @@ const VendorBadges: FC<Props> = ({
     <Button
       disabled={disabled}
       onClick={clickHandler}
-      className="w-100 custom-text-shadow-white px-1 px-sm-2"
+      className="w-100 px-1 px-sm-2"
       variant={ifAdded ? "outline-info" : "info text-white"}
       key={`Button-VendorBadges-${vendorName}`}>
       {officialVendorName}

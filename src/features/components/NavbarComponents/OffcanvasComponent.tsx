@@ -24,9 +24,7 @@ const OffcanvasComponent: FC = (): JSX.Element => {
         onClick={handleOpen}
       />
       <Offcanvas
-        className={`${
-          darkTheme ? "text-bg-dark" : "text-bg-light"
-        } custom-text-shadow-white`}
+        className={`${darkTheme ? "text-bg-dark" : "text-bg-light"}`}
         key={`Offcanvas-OffcanvasComponent`}
         show={show}
         scroll
@@ -46,7 +44,9 @@ const OffcanvasComponent: FC = (): JSX.Element => {
             By Vendor
           </Offcanvas.Title>
           <Nav
-            className="mb-5 rounded border border-info p-4"
+            className={`mb-5 rounded border p-4 ${
+              darkTheme ? "border-info" : "border-dark"
+            }`}
             key={`Nav-OffcanvasComponent`}>
             <VendorDropDownsList
               key={`VendorDropDownsList-OffcanvasComponent`}
@@ -59,7 +59,9 @@ const OffcanvasComponent: FC = (): JSX.Element => {
           </Offcanvas.Title>
           <div
             key={`div-OffcanvasComponent`}
-            className="accordion rounded border border-info">
+            className={`accordion rounded border ${
+              darkTheme ? "border-info" : "border-dark"
+            }`}>
             <SideBarAccordionList
               key={`SideBarAccordionList-OffcanvasComponent`}
             />

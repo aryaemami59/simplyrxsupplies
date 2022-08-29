@@ -23,7 +23,7 @@ const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
   const nodeRef = useRef(null);
 
   const toggle = useCallback(() => {
-    setOpen((prev) => !prev);
+    setOpen(prev => !prev);
   }, []);
 
   return (
@@ -33,9 +33,7 @@ const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
           key={`button-SideBarAccordion-${category}`}
           onClick={toggle}
           className={`accordion-button rounded ${
-            darkTheme
-              ? "custom-dark-mode custom-text-shadow-white"
-              : "custom-light-mode custom-text-shadow-white-50"
+            darkTheme ? "custom-dark-mode" : "custom-light-mode"
           } ${open ? "" : COLLAPSED}`}>
           {category}
         </button>
@@ -57,7 +55,7 @@ const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
                 darkTheme ? "bg-dark" : "bg-light"
               }`}>
               <ListGroup key={`ListGroup-SideBarAccordion-${category}`}>
-                {sidebarItems.map((f) => (
+                {sidebarItems.map(f => (
                   <SingleSideBarAccordionListItem
                     category={category}
                     itemObj={f}

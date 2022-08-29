@@ -39,7 +39,7 @@ const ColumnBarcodeImageComponent: FC<Props> = ({
                 <img
                   src={itemObj.src}
                   alt={itemObj.itemNumber}
-                  className="custom-shadow my-4 w-auto p-0"
+                  className="my-4 w-auto p-0"
                 />
               </Row>
             </Col>

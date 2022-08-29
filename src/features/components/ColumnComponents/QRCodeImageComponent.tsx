@@ -38,7 +38,7 @@ const QRCodeImageComponent: FC<Props> = ({ vendorName }): JSX.Element => {
           <Row className="justify-content-center">
             <img
               src={src}
-              className="custom-shadow my-4 w-auto p-0"
+              className="my-4 w-auto p-0"
               alt={`${vendorName}-QRCode`}
               key={`${vendorName}-QRCode-image-QRCodeImageComponent`}
               title={itemNumbers}

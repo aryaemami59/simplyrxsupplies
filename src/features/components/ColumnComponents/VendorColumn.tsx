@@ -48,7 +48,7 @@ function VendorColumn({ vendorName }) {
   return (
     <>
       <Button
-        className="position-relative d-block w-100 custom-text-shadow-white"
+        className="position-relative d-block w-100"
         variant="primary"
         onClick={buttonClick}
         key={`${officialVendorName}-VendorColumn-Button`}>
