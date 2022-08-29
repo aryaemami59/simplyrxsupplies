@@ -24,10 +24,10 @@ export const DarkMode = createContext<myContextInterface>({
   setDarkTheme: () => {},
 });
 
-const getLocalStorageTheme = () => !!localStorage.getItem("theme");
+const getLocalStorageTheme = (): boolean =>
+  localStorage.getItem("theme") ? !!localStorage.getItem("theme") : true;
 
 function App(): JSX.Element {
-  // const [darkTheme, setDarkTheme] = useState(true);
   const [darkTheme, setDarkTheme] = useState(() => getLocalStorageTheme());
   const dispatch = useAppDispatch();
 
@@ -37,8 +37,8 @@ function App(): JSX.Element {
     dispatch(fetchNavList());
   }, [dispatch]);
 
-  const isLoading = useAppSelector(checkIfLoading);
-  const errMsg = useAppSelector(selectErrMsg);
+  const isLoading: boolean = useAppSelector(checkIfLoading);
+  const errMsg: string = useAppSelector(selectErrMsg);
 
   if (isLoading) {
     return (

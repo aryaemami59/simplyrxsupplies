@@ -1,17 +1,22 @@
-import { FC, memo, useState, useContext, useCallback } from "react";
-import { Modal, Button } from "react-bootstrap";
-import { itemInterface } from "../../../addedSlice";
+import { FC, memo, useContext, useState, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DarkMode } from "../../../App";
+import { Modal, Button } from "react-bootstrap";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
+import { DarkMode } from "../../../App";
 
 interface Props {
-  itemObj: itemInterface;
+  src: string;
+  vendorName: string;
+  itemNumbers: string;
 }
 
-const ColumnBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
-  const [show, setShow] = useState(false);
+const QRCodeModal: FC<Props> = ({
+  src,
+  vendorName,
+  itemNumbers,
+}): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);
+  const [show, setShow] = useState(false);
 
   const showModal = useCallback(() => {
     setShow(true);
@@ -20,6 +25,7 @@ const ColumnBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
   const hideModal = useCallback(() => {
     setShow(false);
   }, []);
+
   return (
     <>
       <FontAwesomeIcon
@@ -34,14 +40,20 @@ const ColumnBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
         <Modal.Header
           className={darkTheme ? "bg-dark" : "bg-light"}
           closeButton
-          closeVariant={darkTheme ? "white" : ""}></Modal.Header>
+          closeVariant={darkTheme ? "white" : "none"}></Modal.Header>
         <Modal.Body
           className={`d-flex justify-content-center align-items-center ${
             darkTheme ? "bg-dark" : "bg-light"
           }`}>
-          <img src={itemObj.src} alt={itemObj.itemNumber} className="w-100" />
+          <img
+            src={src}
+            className="w-100"
+            alt={`${vendorName}-QRCode`}
+            key={`${vendorName}-QRCode-image-QRCodeImageComponent`}
+            title={itemNumbers}
+          />
         </Modal.Body>
-        <Modal.Footer className={darkTheme ? "bg-dark" : "bg-light"}>
+        <Modal.Footer className={darkTheme ? "bg-dark text-info" : "bg-light"}>
           <Button onClick={hideModal}>Close</Button>
         </Modal.Footer>
       </Modal>
@@ -49,4 +61,4 @@ const ColumnBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
   );
 };
 
-export default memo(ColumnBarcodeModal);
+export default memo(QRCodeModal);

@@ -20,9 +20,12 @@ const VendorDropDown: FC<Props> = ({ vendorName }): JSX.Element => {
     selectVendorOfficialName(vendorName)
   );
   const myItems = useAppSelector(selectItemsByVendor(vendorName), shallowEqual);
+  const dropdownOpenColor = darkTheme
+    ? "text-white btn-info"
+    : "text-white btn-dark";
 
   const toggle = useCallback(() => {
-    setDropdownOpen((prev) => !prev);
+    setDropdownOpen(prev => !prev);
   }, []);
 
   return (
@@ -30,19 +33,25 @@ const VendorDropDown: FC<Props> = ({ vendorName }): JSX.Element => {
       autoClose="outside"
       title={officialVendorName}
       show={dropdownOpen}
+      focusFirstItemOnShow="keyboard"
       onToggle={toggle}>
       <Dropdown.Toggle
-        className={`custom-text-shadow-white btn ${
-          dropdownOpen ? "btn-info text-white" : "text-info"
-        }`}
+        className={`custom-text-shadow-whit btn
+        ${darkTheme ? "text-info" : "btn-light"}
+        ${dropdownOpen ? dropdownOpenColor : ""}`}
         as="button">
         {officialVendorName}
       </Dropdown.Toggle>
       <Dropdown.Menu
+        variant={darkTheme ? "dark" : "light"}
         renderOnMount
-        className={`border border-info ${darkTheme ? "bg-dark" : "bg-light"}`}
+        className={`border ${
+          darkTheme
+            ? "border-info bg-dark text-info"
+            : "border-dark bg-light text-dark"
+        }`}
         show={dropdownOpen}>
-        {myItems.map((e) => (
+        {myItems.map(e => (
           <SingleDropDown
             key={`${e.name}-${vendorName}`}
             itemObj={e}

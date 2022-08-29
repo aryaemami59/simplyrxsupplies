@@ -10,12 +10,14 @@ const ColumnBarcodeImageComponent = ({ itemObj, vendorName, }) => {
     const officialVendorName = useAppSelector(selectVendorOfficialName(vendorName));
     const [show, setShow] = useState(false);
     const { darkTheme } = useContext(DarkMode);
+
     const showModal = useCallback(() => {
         setShow(true);
     }, []);
     const hideModal = useCallback(() => {
         setShow(false);
     }, []);
+
     return (<Container fluid className="my-4">
       <Row>
         <Col md={12} className="position-relative">

@@ -1,4 +1,4 @@
-import { FC, memo, useState, useCallback } from "react";
+import { FC, memo, useState, useCallback, useContext } from "react";
 import { Modal, Row, Col, Container, ListGroup, Button } from "react-bootstrap";
 import { itemInterface, selectVendorOfficialName } from "../../../addedSlice";
 import CopyIconComponent from "./CopyIconComponent";
@@ -7,7 +7,7 @@ import { useAppSelector } from "../../../data/store";
 import ColumnBarcodeModal from "./ColumnBarcodeModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
-
+import { DarkMode } from "../../../App";
 interface Props {
   itemObj: itemInterface;
   vendorName: string;
@@ -17,6 +17,7 @@ const SingleVendorColumnModal: FC<Props> = ({
   itemObj,
   vendorName,
 }): JSX.Element => {
+  const { darkTheme } = useContext(DarkMode);
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
@@ -48,14 +49,14 @@ const SingleVendorColumnModal: FC<Props> = ({
         aria-labelledby="contained-modal-title-vcenter"
         centered>
         <Modal.Header
-          className="bg-dark text-info"
+          className={darkTheme ? "bg-dark text-info" : "bg-light"}
           closeButton
-          closeVariant="white">
+          closeVariant={darkTheme ? "white" : "none"}>
           <Modal.Title id="contained-modal-title-vcenter">
             Item Details
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="bg-dark text-info">
+        <Modal.Body className={darkTheme ? "bg-dark text-info" : "bg-light"}>
           <Row className="justify-content-center text-center fs-4">
             <Col
               key={`Col-thirdCol-App`}
@@ -120,7 +121,7 @@ const SingleVendorColumnModal: FC<Props> = ({
             </Col>
           </Row>
         </Modal.Body>
-        <Modal.Footer className="bg-dark text-info">
+        <Modal.Footer className={darkTheme ? "bg-dark" : "bg-light"}>
           <Button onClick={hideModal}>Close</Button>
         </Modal.Footer>
       </Modal>
