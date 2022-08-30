@@ -7,7 +7,7 @@ export const store = configureStore({
         added: addedReducer,
         item: itemReducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([logger]),
+    // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([logger]),
 });
 export const useAppDispatch = useDispatch;
 export const useAppSelector = useSelector;
