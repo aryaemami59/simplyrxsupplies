@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { RefObject } from "react";
 import { useAppSelector, useAppDispatch } from "../../../data/store";
-import { itemInterface } from "../../../addedSlice";
 
 const empty = [];
 
@@ -28,84 +27,46 @@ const InputFieldComponent: FC = (): JSX.Element => {
 
   const listItemsFunc = useCallback(
     e => {
-      // const reg = e.target.value.replace(/\s+/gi, "");
       const reg = e.target.value
         .trim()
         .split(/\s+/gi)
-        .map((f: string, i: number, arr: string[]) => `(${f})`)
+        .map((f: string) => `(${f})`)
         .join("|");
-      // const reg = e.target.value
-      //   .trim()
-      //   .split(/\s+/gi)
-      //   .map((f: string, i: number, arr: string[]) =>
-      //     i !== arr.length - 1 ? `(${f}\\s)` : `(${f})`
-      //   )
-      //   .join("?.*");
-      // console.log(reg);
-      // const re = new RegExp(`${e.target.value}`, "gi");
       const re = new RegExp(`${reg}`, "gi");
-      // const re = new RegExp(`(relion\\s)?(novolin\\s)?(r\\s)?(vial)`, "gi");
+      const trimmedValue = e.target.value
+        .trim()
+        .toLowerCase()
+        .replace(/\s{2,}/, " ");
+      // console.log(e.target.value.trim().toLowerCase().match())
+      // console.log("relion insulin syringes".split(" "));
+      // console.log(trimmedValue.split(" "));
+      // console.log(
+      //   "relion insulin syringes".split(" ").includes(trimmedValue.split(" "))
+      // );
       // console.log(re);
-      // console.log(re.test("relion novolin r vial"));
-      // console.log(re.exec("relion insulin syringes"));
-      // console.log([
-      //   ...'ReliOn Insulin Syringes 6mm(15/64") 3/10 mL(Purple Strips)'.matchAll(
-      //     re
-      //   ),
-      // ]);
-      console.log(
-        [..."Monoject 1 ml Oral Syringes Used For FlavoRX".matchAll(re)].length
-      );
-      // console.log(
-      //   re.test('ReliOn Insulin Syringes 6mm(15/64") 3/10 mL(Purple Strips)')
-      // );
-      // console.log([..."relion insulin syringes".matchAll(re)]);
-      // console.log("relion insulin syringes".match(re));
-
-      // const reg = e.target.value.split(/\s+/gi);
-      // console.log(reg);
-      const itemNames = items.map(({ name }) => name);
-      console.log(itemNames.filter(e => [...e.matchAll(re)].length));
-      // const itemNames = items.map(({ name }) => name.split(/\s+/gi));
-      // console.log(itemNames.filter(e => e.match(re)));
-      // console.log(itemNames);
-
-      // console.log(reg);
-      // console.log(
-      //   items.filter(({ name }) => name.toLowerCase().includes(trimmedValue))
-      // );
-      const trimmedValue = e.target.value.trim().toLowerCase();
-      function sortResults(
-        searchTerm: string,
-        trimmedValue: string,
-        re: RegExp
-      ) {
-        // if (searchTerm === trimmedValue) {
-        //   return 5;
-        // }
-        // if (searchTerm.startsWith(trimmedValue)) {
-        //   return 4;
-        // }
-        // if (searchTerm.includes(trimmedValue)) {
-        //   return 3;
-        // }
-        if ([...searchTerm.matchAll(re)].length) {
-          console.log(searchTerm, [...searchTerm.matchAll(re)]);
-          // console.log(searchTerm, 2);
-          return [...searchTerm.matchAll(re)].length;
+      function sortResults(searchTerm: string, re: RegExp) {
+        if (searchTerm === trimmedValue) {
+          return 100;
         }
-        // console.log(searchTerm, 0);
+        if (searchTerm.startsWith(trimmedValue)) {
+          console.log(searchTerm, 75);
+          return 75;
+        }
+        if (searchTerm.includes(trimmedValue)) {
+          return 50;
+        }
+        if (searchTerm.match(re)) {
+          return searchTerm.match(re).length;
+        }
         return 0;
       }
       return trimmedValue
-        ? // .filter(({ name }) => name.toLowerCase().includes(trimmedValue))
-          items
-            // .filter(({ name }) => re.test(name.toLowerCase()))
-            .filter(({ name }) => [...name.toLowerCase().matchAll(re)].length)
+        ? items
+            .filter(({ name }) => name.toLowerCase().trim().match(re))
             .sort(
               (a, b) =>
-                sortResults(b.name.toLowerCase().trim(), trimmedValue, re) -
-                sortResults(a.name.toLowerCase().trim(), trimmedValue, re)
+                sortResults(b.name.toLowerCase().trim(), re) -
+                sortResults(a.name.toLowerCase().trim(), re)
             )
             .slice(0, 100)
         : empty;
