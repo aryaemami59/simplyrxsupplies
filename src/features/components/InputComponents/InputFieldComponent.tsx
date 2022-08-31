@@ -1,18 +1,25 @@
 import { Form } from "react-bootstrap";
-import { memo, useState, useCallback, useRef, FC, ChangeEvent } from "react";
+import {
+  memo,
+  useState,
+  useCallback,
+  useRef,
+  FC,
+  ChangeEvent,
+  RefObject,
+} from "react";
 import { shallowEqual } from "react-redux";
 import {
   clearListItems,
   selectItemsArr,
   setListItems,
+  itemInterface,
 } from "../../../addedSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
-import { RefObject } from "react";
 import { useAppSelector, useAppDispatch } from "../../../data/store";
-import { itemInterface } from "../../../addedSlice";
 
-const empty = [];
+const empty: [] = [];
 
 const sortResults = (
   searchTerm: itemInterface,
@@ -58,7 +65,7 @@ const InputFieldComponent: FC = (): JSX.Element => {
           i !== arr.length - 1 ? `(\\b(${f})+\\b)` : `(\\b(${f}))`
         )
         .join(".*");
-      const looseReg = trimmedValue
+      const looseReg: string = trimmedValue
         .split(/\s+/gi)
         .map((f: string) => `(?=.*${f})`)
         .join("");
