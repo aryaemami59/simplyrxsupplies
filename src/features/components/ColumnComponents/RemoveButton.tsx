@@ -47,7 +47,7 @@ const RemoveButton: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
         show={show}
         placement="top"
         key={`${vendorName}-RemoveButton-Overlay`}>
-        {(props) => (
+        {props => (
           <Tooltip
             key={`RemoveButton-tooltip-${vendorName}-${itemObj.name}`}
             id={`RemoveButton-tooltip-${vendorName}-${itemObj.name}`}
