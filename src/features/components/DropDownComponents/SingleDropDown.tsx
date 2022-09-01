@@ -1,12 +1,12 @@
 import { Dropdown } from "react-bootstrap";
-import { memo, useCallback, FC, useContext } from "react";
+import { memo, useCallback, FC, useContext, MouseEventHandler } from "react";
 import {
   checkIfItemAddedToOneVendor,
   addItemsByVendor,
 } from "../../../addedSlice";
 import { itemInterface } from "../../../addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../data/store";
-import { DarkMode } from "../../../App";
+import { DarkMode, myContextInterface } from "../../../App";
 
 interface Props {
   itemObj: itemInterface;
@@ -14,15 +14,15 @@ interface Props {
 }
 
 const SingleDropDown: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
+  const { darkTheme } = useContext<myContextInterface>(DarkMode);
   const dispatch = useAppDispatch();
-  const ifAddedToVendor = useAppSelector(
+  const ifAddedToVendor: boolean = useAppSelector<boolean>(
     checkIfItemAddedToOneVendor(vendorName, itemObj)
   );
 
   const addedColor = darkTheme ? "bg-info text-white" : "bg-dark text-white";
 
-  const clickHandler = useCallback(() => {
+  const clickHandler: MouseEventHandler<HTMLElement> = useCallback((): void => {
     ifAddedToVendor || dispatch(addItemsByVendor({ itemObj, vendorName }));
   }, [dispatch, itemObj, vendorName, ifAddedToVendor]);
 
@@ -38,4 +38,4 @@ const SingleDropDown: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
   );
 };
 
-export default memo(SingleDropDown);
+export default memo<Props>(SingleDropDown);

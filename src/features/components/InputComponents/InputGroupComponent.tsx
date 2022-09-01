@@ -1,22 +1,25 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Button, Form, Row } from "react-bootstrap";
-import { memo, useCallback } from "react";
+import { memo, useCallback, FC, MouseEventHandler } from "react";
 import InputListItems from "./InputListItems";
 import InputFieldComponent from "./InputFieldComponent";
 import { useAppDispatch, useAppSelector, RootState } from "../../../data/store";
 import { compactSearchResults } from "../../../addedSlice";
 
-function InputGroupComponent() {
+const InputGroupComponent: FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const ifCompact = useAppSelector((state: RootState) => state.added.compact);
+  const ifCompact: boolean = useAppSelector<boolean>(
+    (state: RootState): boolean => state.added.compact
+  );
   // const vendors = useAppSelector(selectAllVendorOfficialNames);
   // const vendorsFirst = vendors.slice(0, 4);
   // const vendorsSecond = vendors.slice(4, 8);
 
-  const clickHandler = useCallback(() => {
-    dispatch(compactSearchResults());
-  }, [dispatch]);
+  const clickHandler: MouseEventHandler<HTMLButtonElement> =
+    useCallback((): void => {
+      dispatch(compactSearchResults());
+    }, [dispatch]);
 
   return (
     <>
@@ -69,6 +72,6 @@ function InputGroupComponent() {
       </Row> */}
     </>
   );
-}
+};
 
 export default memo(InputGroupComponent);

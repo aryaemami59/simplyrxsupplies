@@ -577,3 +577,5 @@ export const { setVendors } = itemSlice.actions;
 export const itemReducer: Reducer<itemState, AnyAction> = itemSlice.reducer;
 
 export const addedReducer: Reducer<addedState, AnyAction> = addedSlice.reducer;
+
+console.log(addedSlice);

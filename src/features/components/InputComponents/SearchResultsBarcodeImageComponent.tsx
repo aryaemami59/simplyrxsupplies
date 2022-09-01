@@ -1,7 +1,13 @@
-import { memo } from "react";
-import PropTypes from "prop-types";
+import { memo, FC } from "react";
+import { itemInterface } from "../../../addedSlice";
 
-function SearchResultsBarcodeImageComponent({ itemObj }) {
+interface Props {
+  itemObj: itemInterface;
+}
+
+const SearchResultsBarcodeImageComponent: FC<Props> = ({
+  itemObj,
+}): JSX.Element => {
   return (
     <img
       key={`img-SearchResultsBarcodeImageComponent-${itemObj.name}`}
@@ -10,17 +16,6 @@ function SearchResultsBarcodeImageComponent({ itemObj }) {
       className="flex-grow-0 flex-shrink-0 w-auto px-0 px-sm-2 px-lg-0 px-xl-2"
     />
   );
-}
-
-SearchResultsBarcodeImageComponent.propTypes = {
-  itemObj: PropTypes.shape({
-    name: PropTypes.string,
-    itemNumber: PropTypes.string,
-    keywords: PropTypes.arrayOf(PropTypes.string),
-    nav: PropTypes.arrayOf(PropTypes.string),
-    vendors: PropTypes.arrayOf(PropTypes.string),
-    src: PropTypes.string,
-  }),
 };
 
-export default memo(SearchResultsBarcodeImageComponent);
+export default memo<Props>(SearchResultsBarcodeImageComponent);

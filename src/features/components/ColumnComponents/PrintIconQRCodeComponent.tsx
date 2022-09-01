@@ -1,9 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { Tooltip, Overlay } from "react-bootstrap";
-import { memo, useCallback, useContext, useRef, useState, FC } from "react";
+import {
+  memo,
+  useCallback,
+  useContext,
+  useRef,
+  useState,
+  FC,
+  MutableRefObject,
+  MouseEventHandler,
+  SetStateAction,
+  Dispatch,
+} from "react";
 import printjs from "print-js";
-import { DarkMode } from "../../../App";
+import { DarkMode, myContextInterface } from "../../../App";
 
 interface Props {
   src: string;
@@ -16,27 +27,31 @@ const PrintIconQRCodeComponent: FC<Props> = ({
   text,
   vendorName,
 }): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
-  const [show, setShow] = useState(false);
-  const target = useRef(null);
+  const { darkTheme } = useContext<myContextInterface>(DarkMode);
+  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
+    useState<boolean>(false);
+  const target: MutableRefObject<null> = useRef<null>(null);
 
-  const clickHandler = useCallback(() => {
-    printjs({
-      printable: src,
-      type: "image",
-      header:
-        "You can scan this image on the vendor's website to pull up all the items at once.",
-      imageStyle: "width:80%;margin-bottom:20px;",
-    });
-  }, [src]);
+  const clickHandler: MouseEventHandler<SVGSVGElement> =
+    useCallback((): void => {
+      printjs({
+        printable: src,
+        type: "image",
+        header:
+          "You can scan this image on the vendor's website to pull up all the items at once.",
+        imageStyle: "width:80%;margin-bottom:20px;",
+      });
+    }, [src]);
 
-  const openTooltip = useCallback(() => {
-    setShow(true);
-  }, []);
+  const openTooltip: MouseEventHandler<SVGSVGElement> =
+    useCallback((): void => {
+      setShow(true);
+    }, []);
 
-  const closeTooltip = useCallback(() => {
-    setShow(false);
-  }, []);
+  const closeTooltip: MouseEventHandler<SVGSVGElement> =
+    useCallback((): void => {
+      setShow(false);
+    }, []);
 
   return (
     <>
@@ -71,4 +86,4 @@ const PrintIconQRCodeComponent: FC<Props> = ({
   );
 };
 
-export default memo(PrintIconQRCodeComponent);
+export default memo<Props>(PrintIconQRCodeComponent);

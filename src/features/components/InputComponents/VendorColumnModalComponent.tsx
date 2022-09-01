@@ -1,16 +1,27 @@
-import { memo, useCallback, useState, useContext } from "react";
+import {
+  memo,
+  useCallback,
+  useState,
+  useContext,
+  FC,
+  Dispatch,
+  SetStateAction,
+  MouseEventHandler,
+} from "react";
 import { Button, Col, Modal, Row } from "react-bootstrap";
 import VendorColumnList from "../ColumnComponents/VendorColumnList";
-import { DarkMode } from "../../../App";
+import { DarkMode, myContextInterface } from "../../../App";
 
-function VendorColumnModalComponent() {
-  const { darkTheme } = useContext(DarkMode);
-  const [show, setShow] = useState(false);
+const VendorColumnModalComponent: FC = (): JSX.Element => {
+  const { darkTheme } = useContext<myContextInterface>(DarkMode);
+  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
+    useState<boolean>(false);
 
-  const showModal = useCallback(() => {
-    setShow(true);
-  }, []);
-  const hideModal = useCallback(() => {
+  const showModal: MouseEventHandler<HTMLButtonElement> =
+    useCallback((): void => {
+      setShow(true);
+    }, []);
+  const hideModal: () => void = useCallback((): void => {
     setShow(false);
   }, []);
 
@@ -23,13 +34,6 @@ function VendorColumnModalComponent() {
         className={`neon-butto my-3 d-inline-block d-md-none w-75 rounded custom-text-shadow-white text-white shadow`}>
         Display Cart
       </Button>
-      {/* <button
-        type="button"
-        onClick={showModal}
-        className="neon-button my-3 d-md-none w-75"
-        value="Display Cart">
-        Display Cart
-      </button> */}
       <Modal
         scrollable
         onHide={hideModal}
@@ -63,6 +67,6 @@ function VendorColumnModalComponent() {
       </Modal>
     </>
   );
-}
+};
 
 export default memo(VendorColumnModalComponent);

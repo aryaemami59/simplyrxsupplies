@@ -8,7 +8,9 @@ interface Props {
 }
 
 const BadgeComponent: FC<Props> = ({ vendorName }): JSX.Element => {
-  const addedItemsLen: number = useAppSelector(addedItemsLength(vendorName));
+  const addedItemsLen: number = useAppSelector<number>(
+    addedItemsLength(vendorName)
+  );
 
   return (
     <Badge
@@ -20,4 +22,4 @@ const BadgeComponent: FC<Props> = ({ vendorName }): JSX.Element => {
   );
 };
 
-export default memo(BadgeComponent);
+export default memo<Props>(BadgeComponent);

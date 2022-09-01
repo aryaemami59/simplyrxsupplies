@@ -1,7 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { Overlay, Tooltip } from "react-bootstrap";
-import { memo, useCallback, useRef, useState, FC } from "react";
+import {
+  memo,
+  useCallback,
+  useRef,
+  useState,
+  FC,
+  MutableRefObject,
+  MouseEventHandler,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { useDispatch } from "react-redux";
 import { removeItems, itemInterface } from "../../../addedSlice";
 
@@ -11,21 +21,25 @@ interface Props {
 }
 
 const RemoveButton: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
-  const [show, setShow] = useState(false);
-  const target = useRef(null);
+  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
+    useState<boolean>(false);
+  const target: MutableRefObject<null> = useRef<null>(null);
   const dispatch = useDispatch();
 
-  const clickHandler = useCallback(() => {
-    dispatch(removeItems({ itemObj, vendorName }));
-  }, [dispatch, itemObj, vendorName]);
+  const clickHandler: MouseEventHandler<SVGSVGElement> =
+    useCallback((): void => {
+      dispatch(removeItems({ itemObj, vendorName }));
+    }, [dispatch, itemObj, vendorName]);
 
-  const openTooltip = useCallback(() => {
-    setShow(true);
-  }, []);
+  const openTooltip: MouseEventHandler<SVGSVGElement> =
+    useCallback((): void => {
+      setShow(true);
+    }, []);
 
-  const closeTooltip = useCallback(() => {
-    setShow(false);
-  }, []);
+  const closeTooltip: MouseEventHandler<SVGSVGElement> =
+    useCallback((): void => {
+      setShow(false);
+    }, []);
 
   return (
     <>
@@ -34,7 +48,6 @@ const RemoveButton: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
         aria-label="remove item"
         key={`${vendorName}-${itemObj.name}-CloseButton`}
         ref={target}
-        // inverse
         onClick={clickHandler}
         onMouseEnter={openTooltip}
         onMouseLeave={closeTooltip}
@@ -60,4 +73,4 @@ const RemoveButton: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
   );
 };
 
-export default memo(RemoveButton);
+export default memo<Props>(RemoveButton);

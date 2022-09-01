@@ -1,4 +1,4 @@
-import { FC, memo, useCallback } from "react";
+import { FC, memo, MouseEventHandler, useCallback } from "react";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ToggleItemBarcode } from "../../../addedSlice";
@@ -7,12 +7,13 @@ import { RootState, useAppSelector, useAppDispatch } from "../../../data/store";
 
 const ColumnToggleItemBarcodeButton: FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const itemBarcodeShown = useAppSelector(
-    (state: RootState) => state.added.showItemBarcode
+  const itemBarcodeShown: boolean = useAppSelector<boolean>(
+    (state: RootState): boolean => state.added.showItemBarcode
   );
-  const toggleItemBarcode = useCallback(() => {
-    dispatch(ToggleItemBarcode());
-  }, [dispatch]);
+  const toggleItemBarcode: MouseEventHandler<HTMLButtonElement> =
+    useCallback((): void => {
+      dispatch(ToggleItemBarcode());
+    }, [dispatch]);
 
   return (
     <Button onClick={toggleItemBarcode}>

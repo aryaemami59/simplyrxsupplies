@@ -1,14 +1,23 @@
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip, Overlay } from "react-bootstrap";
-import { memo, useCallback, useRef, useReducer, useContext, FC } from "react";
-// import PropTypes from "prop-types";
+import {
+  memo,
+  useCallback,
+  useRef,
+  useReducer,
+  useContext,
+  FC,
+  MouseEventHandler,
+  MutableRefObject,
+  Dispatch,
+} from "react";
 import { DarkMode } from "../../../App";
 import { itemInterface } from "../../../addedSlice";
 import { Placement } from "react-bootstrap/esm/types";
 
-type actionTypes = {
-  type: string;
+type actionType = {
+  type: typeof ACTIONS[keyof typeof ACTIONS];
 };
 
 const ACTIONS = {
@@ -16,9 +25,9 @@ const ACTIONS = {
   HOVER_OVER_ICON: "hoverOverIcon",
   HOVER_LEAVE: "hoverLeave",
   AFTER_CLICK: "afterClick",
-};
+} as const;
 
-function reducer(state: reducerState, action: actionTypes) {
+const reducer = (state: reducerState, action: actionType): reducerState => {
   switch (action.type) {
     case ACTIONS.CLICK_ON_ICON:
       return {
@@ -43,14 +52,11 @@ function reducer(state: reducerState, action: actionTypes) {
     default:
       return state;
   }
-}
-
-type reducerState = {
-  copied: boolean;
-  hovered: boolean;
 };
 
-const initialState: reducerState = {
+type reducerState = typeof initialState;
+
+const initialState = {
   copied: false,
   hovered: false,
 };
@@ -71,36 +77,40 @@ const CopyIconComponent: FC<Props> = ({
   itemObj,
 }): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch]: [reducerState, Dispatch<actionType>] = useReducer(
+    reducer,
+    initialState
+  );
   const { copied, hovered } = state;
-  const oldText = `Click to Copy The Item ${text}`;
-  const copiedText = `Copied Item ${text}!`;
-  const ref = useRef(null);
+  const oldText: string = `Click to Copy The Item ${text}`;
+  const copiedText: string = `Copied Item ${text}!`;
+  const ref: MutableRefObject<null> = useRef(null);
 
   const clickOnIcon = useCallback(
-    () => dispatch({ type: ACTIONS.CLICK_ON_ICON }),
+    (): void => dispatch({ type: ACTIONS.CLICK_ON_ICON }),
     []
   );
 
-  const handleMouseEnter = useCallback(
-    () => dispatch({ type: ACTIONS.HOVER_OVER_ICON }),
+  const handleMouseEnter: MouseEventHandler<SVGSVGElement> = useCallback(
+    (): void => dispatch({ type: ACTIONS.HOVER_OVER_ICON }),
     []
   );
 
-  const handleMouseLeave = useCallback(
-    () => dispatch({ type: ACTIONS.HOVER_LEAVE }),
+  const handleMouseLeave: MouseEventHandler<SVGSVGElement> = useCallback(
+    (): void => dispatch({ type: ACTIONS.HOVER_LEAVE }),
     []
   );
 
-  const afterClick = useCallback(() => {
+  const afterClick: MouseEventHandler<SVGSVGElement> = useCallback((): void => {
     dispatch({ type: ACTIONS.AFTER_CLICK });
   }, []);
 
-  const handleClick = useCallback(() => {
-    clickOnIcon();
-    navigator.clipboard.writeText(content);
-    setTimeout(afterClick, 200);
-  }, [content, clickOnIcon, afterClick]);
+  const handleClick: MouseEventHandler<SVGSVGElement> =
+    useCallback((): void => {
+      clickOnIcon();
+      navigator.clipboard.writeText(content);
+      setTimeout(afterClick, 200);
+    }, [content, clickOnIcon, afterClick]);
 
   return (
     <>
@@ -124,7 +134,7 @@ const CopyIconComponent: FC<Props> = ({
         show={copied}
         placement={placement}
         key={`${itemObj.name}-${vendorName}-${content}-first-overlay`}>
-        {(props) => (
+        {props => (
           <Tooltip
             key={`${content}-${copiedText}-first-tooltip`}
             id="overlay-example"
@@ -138,7 +148,7 @@ const CopyIconComponent: FC<Props> = ({
         show={hovered}
         placement={placement}
         key={`${itemObj.name}-${vendorName}-${content}-second-overlay`}>
-        {(props) => (
+        {props => (
           <Tooltip
             id="overlay-example"
             key={`${content}-${oldText}-second-tooltip`}
@@ -150,20 +160,5 @@ const CopyIconComponent: FC<Props> = ({
     </>
   );
 };
-
-// CopyIconComponent.propTypes = {
-//   content: PropTypes.string,
-//   text: PropTypes.string,
-//   placement: PropTypes.string,
-//   vendorName: PropTypes.string,
-//   itemObj: PropTypes.shape({
-//     name: PropTypes.string,
-//     itemNumber: PropTypes.string,
-//     keywords: PropTypes.arrayOf(PropTypes.string),
-//     nav: PropTypes.arrayOf(PropTypes.string),
-//     vendors: PropTypes.arrayOf(PropTypes.string),
-//     src: PropTypes.string,
-//   }),
-// };
 
 export default memo(CopyIconComponent);

@@ -7,6 +7,8 @@ import {
   FC,
   ChangeEvent,
   RefObject,
+  MouseEventHandler,
+  Dispatch,
 } from "react";
 import { shallowEqual } from "react-redux";
 import {
@@ -18,6 +20,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { useAppSelector, useAppDispatch } from "../../../data/store";
+import { SetStateAction } from "react";
 
 const empty: [] = [];
 
@@ -42,16 +45,22 @@ const sortResults = (
 };
 
 const InputFieldComponent: FC = (): JSX.Element => {
-  const items = useAppSelector(selectItemsArr, shallowEqual);
+  const items: itemInterface[] = useAppSelector<itemInterface[]>(
+    selectItemsArr,
+    shallowEqual
+  );
   const dispatch = useAppDispatch();
-  const inputRef: RefObject<HTMLInputElement> = useRef(null);
+  const inputRef: RefObject<HTMLInputElement> = useRef<null>(null);
 
-  const clickHandler = useCallback(() => {
-    dispatch(clearListItems());
-    setVal("");
-    inputRef.current && inputRef.current.focus();
-  }, [dispatch]);
-  const [val, setVal] = useState("");
+  const clickHandler: MouseEventHandler<SVGSVGElement> =
+    useCallback((): void => {
+      dispatch(clearListItems());
+      setVal("");
+      inputRef.current && inputRef.current.focus();
+    }, [dispatch]);
+
+  const [val, setVal]: [string, Dispatch<SetStateAction<string>>] =
+    useState<string>("");
 
   const listItemsFunc = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {

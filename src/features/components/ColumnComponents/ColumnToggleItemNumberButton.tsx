@@ -1,4 +1,4 @@
-import { FC, memo, useCallback } from "react";
+import { FC, memo, MouseEventHandler, useCallback } from "react";
 import { Button } from "react-bootstrap";
 import { ToggleItemNumber } from "../../../addedSlice";
 import { useAppDispatch, useAppSelector, RootState } from "../../../data/store";
@@ -7,12 +7,15 @@ import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
 
 const ColumnToggleItemNumberButton: FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const itemNumberShown = useAppSelector(
-    (state: RootState) => state.added.showItemNumber
+  const itemNumberShown: boolean = useAppSelector<boolean>(
+    (state: RootState): boolean => state.added.showItemNumber
   );
-  const toggleItemNumber = useCallback(() => {
-    dispatch(ToggleItemNumber());
-  }, [dispatch]);
+
+  const toggleItemNumber: MouseEventHandler<HTMLButtonElement> =
+    useCallback((): void => {
+      dispatch(ToggleItemNumber());
+    }, [dispatch]);
+
   return (
     <Button onClick={toggleItemNumber}>
       {itemNumberShown ? "Hide" : "Show"} Item Number

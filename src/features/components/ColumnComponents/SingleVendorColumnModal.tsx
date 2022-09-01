@@ -1,4 +1,13 @@
-import { FC, memo, useState, useCallback, useContext } from "react";
+import {
+  FC,
+  memo,
+  useState,
+  useCallback,
+  useContext,
+  SetStateAction,
+  Dispatch,
+  MouseEventHandler,
+} from "react";
 import { Modal, Row, Col, Container, ListGroup, Button } from "react-bootstrap";
 import { itemInterface, selectVendorOfficialName } from "../../../addedSlice";
 import CopyIconComponent from "./CopyIconComponent";
@@ -7,7 +16,7 @@ import { useAppSelector } from "../../../data/store";
 import ColumnBarcodeModal from "./ColumnBarcodeModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
-import { DarkMode } from "../../../App";
+import { DarkMode, myContextInterface } from "../../../App";
 interface Props {
   itemObj: itemInterface;
   vendorName: string;
@@ -17,17 +26,20 @@ const SingleVendorColumnModal: FC<Props> = ({
   itemObj,
   vendorName,
 }): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
-  const officialVendorName = useAppSelector(
+  const { darkTheme } = useContext<myContextInterface>(DarkMode);
+  const officialVendorName: string = useAppSelector<string>(
     selectVendorOfficialName(vendorName)
   );
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen]: [
+    boolean,
+    Dispatch<SetStateAction<boolean>>
+  ] = useState<boolean>(false);
 
-  const showModal = useCallback(() => {
+  const showModal: MouseEventHandler<SVGSVGElement> = useCallback((): void => {
     setModalOpen(true);
   }, []);
 
-  const hideModal = useCallback(() => {
+  const hideModal: () => void = useCallback((): void => {
     setModalOpen(false);
   }, []);
 
@@ -129,4 +141,4 @@ const SingleVendorColumnModal: FC<Props> = ({
   );
 };
 
-export default memo(SingleVendorColumnModal);
+export default memo<Props>(SingleVendorColumnModal);

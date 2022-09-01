@@ -5,11 +5,14 @@ import SideBarAccordion from "./SideBarAccordion";
 import { useAppSelector } from "../../../data/store";
 
 const SideBarAccordionList: FC = (): JSX.Element => {
-  const navList = useAppSelector(selectNavsArr, shallowEqual);
+  const navList: string[] = useAppSelector<string[]>(
+    selectNavsArr,
+    shallowEqual
+  );
 
   return (
     <>
-      {navList.map((e) => (
+      {navList.map(e => (
         <SideBarAccordion
           category={e}
           key={`${e}-SideBarAccordion-SideBarAccordionList`}

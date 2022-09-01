@@ -1,9 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { Tooltip, Overlay } from "react-bootstrap";
-import { memo, useCallback, useContext, useRef, useState, FC } from "react";
+import {
+  memo,
+  useCallback,
+  useContext,
+  useRef,
+  useState,
+  FC,
+  Dispatch,
+  SetStateAction,
+  MouseEventHandler,
+  MutableRefObject,
+} from "react";
 import printJS from "print-js";
-import { DarkMode } from "../../../App";
+import { DarkMode, myContextInterface } from "../../../App";
 import { itemInterface } from "../../../addedSlice";
 
 interface Props {
@@ -17,26 +28,30 @@ const PrintIconBarcodeComponent: FC<Props> = ({
   header,
   itemObj,
 }): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
-  const [show, setShow] = useState(false);
-  const target = useRef(null);
+  const { darkTheme } = useContext<myContextInterface>(DarkMode);
+  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
+    useState<boolean>(false);
+  const target: MutableRefObject<null> = useRef<null>(null);
 
-  const clickHandler = useCallback(() => {
-    printJS({
-      printable: itemObj.src,
-      type: "image",
-      header,
-      imageStyle: "width:80%;margin-bottom:20px;",
-    });
-  }, [itemObj.src, header]);
+  const clickHandler: MouseEventHandler<SVGSVGElement> =
+    useCallback((): void => {
+      printJS({
+        printable: itemObj.src,
+        type: "image",
+        header,
+        imageStyle: "width:80%;margin-bottom:20px;",
+      });
+    }, [itemObj.src, header]);
 
-  const openTooltip = useCallback(() => {
-    setShow(true);
-  }, []);
+  const openTooltip: MouseEventHandler<SVGSVGElement> =
+    useCallback((): void => {
+      setShow(true);
+    }, []);
 
-  const closeTooltip = useCallback(() => {
-    setShow(false);
-  }, []);
+  const closeTooltip: MouseEventHandler<SVGSVGElement> =
+    useCallback((): void => {
+      setShow(false);
+    }, []);
 
   return (
     <>
@@ -49,7 +64,6 @@ const PrintIconBarcodeComponent: FC<Props> = ({
         icon={faPrint}
         size="lg"
         inverse={darkTheme ? true : false}
-        // pull="right"
         className="btn w-auto"
         role="button"
         key={`${header}-PrintIconBarcodeComponent`}
@@ -72,4 +86,4 @@ const PrintIconBarcodeComponent: FC<Props> = ({
   );
 };
 
-export default memo(PrintIconBarcodeComponent);
+export default memo<Props>(PrintIconBarcodeComponent);

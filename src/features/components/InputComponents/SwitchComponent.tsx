@@ -5,10 +5,15 @@ import { setVendors, itemInterface } from "../../../addedSlice";
 import VendorBadges from "./VendorBadges";
 import { AppDispatch, RootState } from "../../../data/store";
 
+type stateToPropsReturnType = {
+  checked: boolean;
+  disabled: boolean;
+};
+
 const mapStateToProps = (
   state: RootState,
   ownProps: ParentProps
-): { checked: boolean; disabled: boolean } => {
+): stateToPropsReturnType => {
   return {
     checked: state.item[ownProps.itemObj.name].vendorsToAdd.includes(
       ownProps.vendorName
@@ -19,7 +24,10 @@ const mapStateToProps = (
   };
 };
 
-const mapDispatchToProps = (dispatch: AppDispatch, ownProps: ParentProps) => {
+const mapDispatchToProps = (
+  dispatch: AppDispatch,
+  ownProps: ParentProps
+): { clickHandler: () => void } => {
   return {
     clickHandler: () => {
       dispatch(
@@ -80,4 +88,4 @@ const SwitchComponent: FC<myProps> = ({
   );
 };
 
-export default connector(memo(SwitchComponent));
+export default connector(memo<myProps>(SwitchComponent));

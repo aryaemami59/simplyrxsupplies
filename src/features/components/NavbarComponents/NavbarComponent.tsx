@@ -2,11 +2,11 @@ import { Nav, Navbar } from "react-bootstrap";
 import { memo, useContext, FC } from "react";
 import OffcanvasComponent from "./OffcanvasComponent";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
-import { DarkMode } from "../../../App";
+import { DarkMode, myContextInterface } from "../../../App";
 import DarkModeTogglerButtonComponent from "./DarkModeTogglerButtonComponent";
 
 const NavbarComponent: FC = (): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
+  const { darkTheme } = useContext<myContextInterface>(DarkMode);
 
   return (
     <Navbar

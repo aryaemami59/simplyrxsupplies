@@ -5,11 +5,14 @@ import VendorDropDown from "./VendorDropDown";
 import { useAppSelector } from "../../../data/store";
 
 const VendorDropDownsList: FC = (): JSX.Element => {
-  const vendors = useAppSelector(selectVendorsArr, shallowEqual);
+  const vendors: string[] = useAppSelector<string[]>(
+    selectVendorsArr,
+    shallowEqual
+  );
 
   return (
     <>
-      {vendors.map((e) => (
+      {vendors.map(e => (
         <VendorDropDown
           key={`${e}-VendorDropDownsList-VendorDropDown`}
           vendorName={e}

@@ -7,30 +7,39 @@ import {
   ButtonGroup,
   Container,
 } from "react-bootstrap";
-import { memo, useCallback, useState, FC } from "react";
+import {
+  memo,
+  useCallback,
+  useState,
+  FC,
+  KeyboardEvent,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import RemoveButton from "./RemoveButton";
 import MinimizeButton from "./MinimizeButton";
 import { itemInterface } from "../../../addedSlice";
 import ColumnToggleButtonGroup from "./ColumnToggleButtonGroup";
 import SingleVendorColumnModal from "./SingleVendorColumnModal";
 
-interface Prop {
+interface Props {
   itemObj: itemInterface;
   vendorName: string;
 }
 
-const SingleVendorColumnListItem: FC<Prop> = ({
+const SingleVendorColumnListItem: FC<Props> = ({
   itemObj,
   vendorName,
 }): JSX.Element => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen]: [boolean, Dispatch<SetStateAction<boolean>>] =
+    useState<boolean>(true);
 
-  const toggle = useCallback(() => {
-    setOpen(prev => !prev);
+  const toggle = useCallback((): void => {
+    setOpen((prev: boolean): boolean => !prev);
   }, []);
 
   const handleKeyDown = useCallback(
-    e => {
+    (e: KeyboardEvent<HTMLDivElement>): void => {
       if (e.key === "c") {
         toggle();
       }
@@ -107,4 +116,4 @@ const SingleVendorColumnListItem: FC<Prop> = ({
   );
 };
 
-export default memo(SingleVendorColumnListItem);
+export default memo<Props>(SingleVendorColumnListItem);

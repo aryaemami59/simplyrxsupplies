@@ -2,13 +2,19 @@ import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip, Overlay } from "react-bootstrap";
-import { memo, useCallback, useRef, useState, FC } from "react";
-// import PropTypes from "prop-types";
+import {
+  memo,
+  useCallback,
+  useRef,
+  useState,
+  FC,
+  MutableRefObject,
+} from "react";
 import { itemInterface } from "../../../addedSlice";
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, Dispatch, SetStateAction } from "react";
 
-const EXPAND = "Expand";
-const COLLAPSE = "Collapse";
+const EXPAND = "Expand" as const;
+const COLLAPSE = "Collapse" as const;
 
 interface Props {
   open: boolean;
@@ -23,16 +29,19 @@ const MinimizeButton: FC<Props> = ({
   vendorName,
   itemObj,
 }): JSX.Element => {
-  const [show, setShow] = useState(false);
-  const target = useRef(null);
+  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
+    useState<boolean>(false);
+  const target: MutableRefObject<null> = useRef<null>(null);
 
-  const openTooltip = useCallback(() => {
-    setShow(true);
-  }, []);
+  const openTooltip: MouseEventHandler<SVGSVGElement> =
+    useCallback((): void => {
+      setShow(true);
+    }, []);
 
-  const closeTooltip = useCallback(() => {
-    setShow(false);
-  }, []);
+  const closeTooltip: MouseEventHandler<SVGSVGElement> =
+    useCallback((): void => {
+      setShow(false);
+    }, []);
 
   return (
     <>
@@ -53,7 +62,7 @@ const MinimizeButton: FC<Props> = ({
         target={target.current}
         show={show}
         placement="top">
-        {(props) => (
+        {props => (
           <Tooltip
             key={`MinimizeButton-tooltip-${vendorName}-${itemObj.name}`}
             id={`MinimizeButton-tooltip-${vendorName}-${itemObj.name}`}
@@ -66,18 +75,4 @@ const MinimizeButton: FC<Props> = ({
   );
 };
 
-// MinimizeButton.propTypes = {
-//   open: PropTypes.bool,
-//   toggle: PropTypes.func,
-//   vendorName: PropTypes.string,
-//   itemObj: PropTypes.shape({
-//     name: PropTypes.string,
-//     itemNumber: PropTypes.string,
-//     keywords: PropTypes.arrayOf(PropTypes.string),
-//     nav: PropTypes.arrayOf(PropTypes.string),
-//     vendors: PropTypes.arrayOf(PropTypes.string),
-//     src: PropTypes.string,
-//   }),
-// };
-
-export default memo(MinimizeButton);
+export default memo<Props>(MinimizeButton);

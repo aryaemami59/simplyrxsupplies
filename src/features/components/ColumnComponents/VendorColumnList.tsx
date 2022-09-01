@@ -6,7 +6,10 @@ import { shallowEqual } from "react-redux";
 import { useAppSelector } from "../../../data/store";
 
 const VendorColumnList: FC = (): JSX.Element => {
-  const vendors = useAppSelector(selectVendorsArr, shallowEqual);
+  const vendors: string[] = useAppSelector<string[]>(
+    selectVendorsArr,
+    shallowEqual
+  );
 
   return (
     <Row className="justify-content-center">
@@ -15,7 +18,7 @@ const VendorColumnList: FC = (): JSX.Element => {
         lg={11}
         xl={10}
         className="shadow p-0 justify-content-center text-center">
-        {vendors.map((e) => (
+        {vendors.map(e => (
           <VendorColumn key={`${e}-VendorColumn`} vendorName={e} />
         ))}
       </Col>

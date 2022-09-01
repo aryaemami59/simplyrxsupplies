@@ -1,29 +1,42 @@
 import { Collapse, Card, ListGroup } from "react-bootstrap";
 import { shallowEqual } from "react-redux";
-import { memo, useCallback, useContext, useRef, useState, FC } from "react";
+import {
+  memo,
+  useCallback,
+  useContext,
+  useRef,
+  useState,
+  FC,
+  Dispatch,
+  SetStateAction,
+  MouseEventHandler,
+  Ref,
+} from "react";
 import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
-import { selectSidebarNavs } from "../../../addedSlice";
-import { DarkMode } from "../../../App";
+import { selectSidebarNavs, itemInterface } from "../../../addedSlice";
+import { DarkMode, myContextInterface } from "../../../App";
 import { useAppSelector } from "../../../data/store";
+import { Transition } from "react-transition-group";
 
-const COLLAPSED = "collapsed";
+const COLLAPSED = "collapsed" as const;
 
 interface Props {
   category: string;
 }
 
 const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
+  const { darkTheme } = useContext<myContextInterface>(DarkMode);
 
-  const sidebarItems = useAppSelector(
+  const sidebarItems: itemInterface[] = useAppSelector<itemInterface[]>(
     selectSidebarNavs(category),
     shallowEqual
   );
-  const [open, setOpen] = useState(false);
-  const nodeRef = useRef(null);
+  const [open, setOpen]: [boolean, Dispatch<SetStateAction<boolean>>] =
+    useState<boolean>(false);
+  const nodeRef: Ref<Transition<any>> = useRef<null>(null);
 
-  const toggle = useCallback(() => {
-    setOpen(prev => !prev);
+  const toggle: MouseEventHandler<HTMLButtonElement> = useCallback((): void => {
+    setOpen((prev: boolean): boolean => !prev);
   }, []);
 
   return (
@@ -71,4 +84,4 @@ const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
   );
 };
 
-export default memo(SideBarAccordion);
+export default memo<Props>(SideBarAccordion);

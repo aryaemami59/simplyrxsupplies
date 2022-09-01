@@ -1,21 +1,21 @@
 import { faCircleHalfStroke } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "react-bootstrap";
-import { memo, useCallback, useContext, FC } from "react";
-import { DarkMode } from "../../../App";
+import { memo, useCallback, useContext, FC, MouseEventHandler } from "react";
+import { DarkMode, myContextInterface } from "../../../App";
 
 const DarkModeTogglerButtonComponent: FC = (): JSX.Element => {
-  const { setDarkTheme, darkTheme } = useContext(DarkMode);
+  const { setDarkTheme, darkTheme } = useContext<myContextInterface>(DarkMode);
 
-  const clickHandler = useCallback(() => {
-    // setDarkTheme(prev => !prev);
-    setDarkTheme((prev: boolean) => {
-      !prev
-        ? localStorage.setItem("theme", (!prev).toString())
-        : localStorage.removeItem("theme");
-      return !prev;
-    });
-  }, [setDarkTheme]);
+  const clickHandler: MouseEventHandler<HTMLButtonElement> =
+    useCallback((): void => {
+      setDarkTheme((prev: boolean): boolean => {
+        !prev
+          ? localStorage.setItem("theme", (!prev).toString())
+          : localStorage.removeItem("theme");
+        return !prev;
+      });
+    }, [setDarkTheme]);
 
   return (
     <Button onClick={clickHandler} variant="">

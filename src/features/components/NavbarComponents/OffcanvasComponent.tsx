@@ -1,18 +1,28 @@
 import { Nav, Offcanvas, Navbar } from "react-bootstrap";
-import { useState, useCallback, memo, useContext, FC } from "react";
+import {
+  useState,
+  useCallback,
+  memo,
+  useContext,
+  FC,
+  Dispatch,
+  SetStateAction,
+  MouseEventHandler,
+} from "react";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import SideBarAccordionList from "../SideBarNavComponents/SideBarAccordionList";
-import { DarkMode } from "../../../App";
+import { DarkMode, myContextInterface } from "../../../App";
 
 const OffcanvasComponent: FC = (): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
-  const [show, setShow] = useState(false);
+  const { darkTheme } = useContext<myContextInterface>(DarkMode);
+  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
+    useState<boolean>(false);
 
-  const handleOpen = useCallback(() => {
+  const handleOpen: MouseEventHandler<HTMLElement> = useCallback((): void => {
     setShow(true);
   }, []);
 
-  const handleClose = useCallback(() => {
+  const handleClose: () => void = useCallback((): void => {
     setShow(false);
   }, []);
 

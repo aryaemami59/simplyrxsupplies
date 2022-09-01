@@ -2,7 +2,15 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
-import { createContext, memo, useEffect, useState } from "react";
+import {
+  createContext,
+  memo,
+  useEffect,
+  useState,
+  FC,
+  SetStateAction,
+  Dispatch,
+} from "react";
 import {
   checkIfLoading,
   fetchItems,
@@ -15,10 +23,12 @@ import InputGroupComponent from "./features/components/InputComponents/InputGrou
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
 import VerticalNavComponent from "./features/components/SideBarNavComponents/VerticalNavComponent";
 import { useAppDispatch, useAppSelector } from "./data/store";
-interface myContextInterface {
+
+export interface myContextInterface {
   darkTheme: boolean;
-  setDarkTheme: (darkTheme: boolean | ((prev: boolean) => boolean)) => void;
+  setDarkTheme: Dispatch<SetStateAction<boolean>>;
 }
+
 export const DarkMode = createContext<myContextInterface>({
   darkTheme: true,
   setDarkTheme: () => {},
@@ -27,8 +37,10 @@ export const DarkMode = createContext<myContextInterface>({
 const getLocalStorageTheme = (): boolean =>
   localStorage.getItem("theme") ? !!localStorage.getItem("theme") : true;
 
-function App(): JSX.Element {
-  const [darkTheme, setDarkTheme] = useState(() => getLocalStorageTheme());
+const App: FC = (): JSX.Element => {
+  const [darkTheme, setDarkTheme] = useState<boolean>(() =>
+    getLocalStorageTheme()
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -120,6 +132,6 @@ function App(): JSX.Element {
       </DarkMode.Provider>
     </div>
   );
-}
+};
 
 export default memo(App);

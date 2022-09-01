@@ -1,5 +1,15 @@
 import { Fade, Collapse, Badge, Button } from "react-bootstrap";
-import { memo, useCallback, useRef, useState, FC } from "react";
+import {
+  memo,
+  useCallback,
+  useRef,
+  useState,
+  FC,
+  SetStateAction,
+  Dispatch,
+  RefObject,
+  MouseEventHandler,
+} from "react";
 import { shallowEqual } from "react-redux";
 import {
   addItems,
@@ -14,29 +24,36 @@ interface Props {
 }
 
 const AddItemButtonComponent: FC<Props> = ({ itemObj }): JSX.Element => {
-  const [show, setShow] = useState(false);
-  const IfAddedToAllVendors = useAppSelector(checkIfAddedToAllVendors(itemObj));
-  const vendors = useAppSelector(selectVendorsToAddTo(itemObj), shallowEqual);
+  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
+    useState<boolean>(false);
+  const IfAddedToAllVendors: boolean = useAppSelector<boolean>(
+    checkIfAddedToAllVendors(itemObj)
+  );
+  const vendors: string[] = useAppSelector<string[]>(
+    selectVendorsToAddTo(itemObj),
+    shallowEqual
+  );
   const dispatch = useAppDispatch();
-  const target = useRef(null);
+  const target: RefObject<HTMLButtonElement> = useRef<null>(null);
 
-  const showBadge = useCallback(() => {
+  const showBadge = useCallback((): void => {
     setShow(true);
   }, []);
-  const hideBadge = useCallback(() => {
+  const hideBadge = useCallback((): void => {
     setShow(false);
   }, []);
 
-  const showThenHide = useCallback(() => {
+  const showThenHide = useCallback((): void => {
     showBadge();
     setTimeout(hideBadge, 1500);
   }, [showBadge, hideBadge]);
 
-  const clickHandler = useCallback(() => {
-    IfAddedToAllVendors
-      ? showThenHide()
-      : dispatch(addItems({ itemObj, vendors }));
-  }, [IfAddedToAllVendors, showThenHide, dispatch, itemObj, vendors]);
+  const clickHandler: MouseEventHandler<HTMLButtonElement> =
+    useCallback((): void => {
+      IfAddedToAllVendors
+        ? showThenHide()
+        : dispatch(addItems({ itemObj, vendors }));
+    }, [IfAddedToAllVendors, showThenHide, dispatch, itemObj, vendors]);
 
   return (
     <Button
@@ -68,4 +85,4 @@ const AddItemButtonComponent: FC<Props> = ({ itemObj }): JSX.Element => {
   );
 };
 
-export default memo(AddItemButtonComponent);
+export default memo<Props>(AddItemButtonComponent);

@@ -19,15 +19,4 @@ const SearchResultsItemNumberComponent: FC<Props> = ({
   );
 };
 
-// SearchResultsItemNumberComponent.propTypes = {
-//   itemObj: PropTypes.shape({
-//     name: PropTypes.string,
-//     itemNumber: PropTypes.string,
-//     keywords: PropTypes.arrayOf(PropTypes.string),
-//     nav: PropTypes.arrayOf(PropTypes.string),
-//     vendors: PropTypes.arrayOf(PropTypes.string),
-//     src: PropTypes.string,
-//   }),
-// };
-
-export default memo(SearchResultsItemNumberComponent);
+export default memo<Props>(SearchResultsItemNumberComponent);

@@ -14,10 +14,10 @@ const ColumnBarcodeImageComponent: FC<Props> = ({
   itemObj,
   vendorName,
 }): JSX.Element => {
-  const itemBarcodeShown = useAppSelector(
-    (state: RootState) => state.added.showItemBarcode
+  const itemBarcodeShown: boolean = useAppSelector<boolean>(
+    (state: RootState): boolean => state.added.showItemBarcode
   );
-  const officialVendorName = useAppSelector(
+  const officialVendorName: string = useAppSelector<string>(
     selectVendorOfficialName(vendorName)
   );
 
@@ -52,4 +52,4 @@ const ColumnBarcodeImageComponent: FC<Props> = ({
   );
 };
 
-export default memo(ColumnBarcodeImageComponent);
+export default memo<Props>(ColumnBarcodeImageComponent);

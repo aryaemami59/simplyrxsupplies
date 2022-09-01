@@ -7,37 +7,54 @@ import {
   ButtonGroup,
 } from "react-bootstrap";
 import { shallowEqual } from "react-redux";
-import { useState, memo, useCallback, useContext } from "react";
+import {
+  useState,
+  memo,
+  useCallback,
+  useContext,
+  FC,
+  KeyboardEvent,
+  SetStateAction,
+  Dispatch,
+} from "react";
 import {
   selectByVendor,
   selectVendorOfficialName,
   selectVendorsLinks,
+  itemInterface,
 } from "../../../addedSlice";
 import BadgeComponent from "./BadgeComponent";
 import QRCodeImageComponent from "./QRCodeImageComponent";
 import SingleVendorColumnListItem from "./SingleVendorColumnListItem";
-import PropTypes from "prop-types";
-import { DarkMode } from "../../../App";
+import { DarkMode, myContextInterface } from "../../../App";
 import { useAppSelector } from "../../../data/store";
 import ColumnToggleNameButton from "./ColumnToggleNameButton";
 import ColumnToggleItemNumberButton from "./ColumnToggleItemNumberButton";
 import ColumnToggleItemBarcodeButton from "./ColumnToggleItemBarcodeButton";
 
-function VendorColumn({ vendorName }) {
-  const { darkTheme } = useContext(DarkMode);
-  const [open, setOpen] = useState(false);
-  const officialVendorName = useAppSelector(
+interface Props {
+  vendorName: string;
+}
+
+const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
+  const { darkTheme } = useContext<myContextInterface>(DarkMode);
+  const [open, setOpen]: [boolean, Dispatch<SetStateAction<boolean>>] =
+    useState<boolean>(false);
+  const officialVendorName: string = useAppSelector<string>(
     selectVendorOfficialName(vendorName)
   );
-  const vendorLink = useAppSelector(selectVendorsLinks(vendorName));
-  const addedItems = useAppSelector(selectByVendor(vendorName), shallowEqual);
+  const vendorLink: string = useAppSelector(selectVendorsLinks(vendorName));
+  const addedItems: itemInterface[] = useAppSelector(
+    selectByVendor(vendorName),
+    shallowEqual
+  );
 
-  const buttonClick = useCallback(() => {
-    setOpen(prev => !prev);
+  const buttonClick = useCallback((): void => {
+    setOpen((prev: boolean): boolean => !prev);
   }, []);
 
   const handleKeyDown = useCallback(
-    e => {
+    (e: KeyboardEvent<HTMLElement>) => {
       if (e.key === "m") {
         buttonClick();
       }
@@ -87,6 +104,7 @@ function VendorColumn({ vendorName }) {
                   {addedItems.map(e => (
                     <SingleVendorColumnListItem
                       itemObj={e}
+                      {...e}
                       vendorName={vendorName}
                       key={`${e.name}-${vendorName}-SingleVendorColumnListItem`}
                     />
@@ -105,10 +123,6 @@ function VendorColumn({ vendorName }) {
       </Collapse>
     </>
   );
-}
-
-VendorColumn.propTypes = {
-  vendorName: PropTypes.string,
 };
 
-export default memo(VendorColumn);
+export default memo<Props>(VendorColumn);

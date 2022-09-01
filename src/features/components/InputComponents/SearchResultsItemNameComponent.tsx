@@ -1,8 +1,14 @@
 import { Card } from "react-bootstrap";
-import { memo } from "react";
-import PropTypes from "prop-types";
+import { memo, FC } from "react";
+import { itemInterface } from "../../../addedSlice";
 
-function SearchResultsItemNameComponent({ itemObj }) {
+interface Props {
+  itemObj: itemInterface;
+}
+
+const SearchResultsItemNameComponent: FC<Props> = ({
+  itemObj,
+}): JSX.Element => {
   return (
     <Card.Title
       className="bg-primary text-white p-3 m-0 rounded fw-normal"
@@ -10,17 +16,6 @@ function SearchResultsItemNameComponent({ itemObj }) {
       {itemObj.name}
     </Card.Title>
   );
-}
-
-SearchResultsItemNameComponent.propTypes = {
-  itemObj: PropTypes.shape({
-    name: PropTypes.string,
-    itemNumber: PropTypes.string,
-    keywords: PropTypes.arrayOf(PropTypes.string),
-    nav: PropTypes.arrayOf(PropTypes.string),
-    vendors: PropTypes.arrayOf(PropTypes.string),
-    src: PropTypes.string,
-  }),
 };
 
-export default memo(SearchResultsItemNameComponent);
+export default memo<Props>(SearchResultsItemNameComponent);

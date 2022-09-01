@@ -21,8 +21,10 @@ const VendorBadges: FC<Props> = ({
   clickHandler,
   disabled,
 }): JSX.Element => {
-  const ifAdded = useAppSelector(checkIfAddedToOneVendor(itemObj, vendorName));
-  const officialVendorName = useAppSelector(
+  const ifAdded: boolean = useAppSelector<boolean>(
+    checkIfAddedToOneVendor(itemObj, vendorName)
+  );
+  const officialVendorName: string = useAppSelector<string>(
     selectVendorOfficialName(vendorName)
   );
 
@@ -38,4 +40,4 @@ const VendorBadges: FC<Props> = ({
   );
 };
 
-export default memo(VendorBadges);
+export default memo<Props>(VendorBadges);

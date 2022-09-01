@@ -1,8 +1,17 @@
-import { FC, memo, useContext, useState, useCallback } from "react";
+import {
+  FC,
+  memo,
+  useContext,
+  useState,
+  useCallback,
+  Dispatch,
+  SetStateAction,
+  MouseEventHandler,
+} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal, Button } from "react-bootstrap";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
-import { DarkMode } from "../../../App";
+import { DarkMode, myContextInterface } from "../../../App";
 
 interface Props {
   src: string;
@@ -15,14 +24,15 @@ const QRCodeModal: FC<Props> = ({
   vendorName,
   itemNumbers,
 }): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
-  const [show, setShow] = useState(false);
+  const { darkTheme } = useContext<myContextInterface>(DarkMode);
+  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
+    useState<boolean>(false);
 
-  const showModal = useCallback(() => {
+  const showModal: MouseEventHandler<SVGSVGElement> = useCallback((): void => {
     setShow(true);
   }, []);
 
-  const hideModal = useCallback(() => {
+  const hideModal: () => void = useCallback((): void => {
     setShow(false);
   }, []);
 
@@ -61,4 +71,4 @@ const QRCodeModal: FC<Props> = ({
   );
 };
 
-export default memo(QRCodeModal);
+export default memo<Props>(QRCodeModal);

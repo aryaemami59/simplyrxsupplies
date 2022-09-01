@@ -11,10 +11,12 @@ interface Props {
 }
 
 const QRCodeImageComponent: FC<Props> = ({ vendorName }): JSX.Element => {
-  const itemNumbers = useAppSelector(selectQRCodeContent(vendorName));
+  const itemNumbers: string = useAppSelector<string>(
+    selectQRCodeContent(vendorName)
+  );
 
-  let src = "";
-  QRCode.toDataURL(itemNumbers, (err, url) => {
+  let src: string = "";
+  QRCode.toDataURL(itemNumbers, (err, url): void => {
     src = url;
   });
 
@@ -50,4 +52,4 @@ const QRCodeImageComponent: FC<Props> = ({ vendorName }): JSX.Element => {
   );
 };
 
-export default memo(QRCodeImageComponent);
+export default memo<Props>(QRCodeImageComponent);

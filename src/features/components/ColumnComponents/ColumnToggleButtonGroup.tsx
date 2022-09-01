@@ -23,4 +23,4 @@ const ColumnToggleButtonGroup: FC<Props> = ({
   );
 };
 
-export default memo(ColumnToggleButtonGroup);
+export default memo<Props>(ColumnToggleButtonGroup);

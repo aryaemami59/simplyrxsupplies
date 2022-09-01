@@ -5,7 +5,7 @@ import SearchResultsItemNameComponent from "./SearchResultsItemNameComponent";
 import SearchResultsItemNumberComponent from "./SearchResultsItemNumberComponent";
 import SwitchComponent from "./SwitchComponent";
 import AddItemButtonComponent from "./AddItemButtonComponent";
-import { DarkMode } from "../../../App";
+import { DarkMode, myContextInterface } from "../../../App";
 import { itemInterface } from "../../../addedSlice";
 import { RootState, useAppSelector } from "../../../data/store";
 
@@ -14,8 +14,10 @@ interface Props {
 }
 
 const SingleInputListItems: FC<Props> = ({ itemObj }): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
-  const ifCompact = useAppSelector((state: RootState) => state.added.compact);
+  const { darkTheme } = useContext<myContextInterface>(DarkMode);
+  const ifCompact: boolean = useAppSelector<boolean>(
+    (state: RootState): boolean => state.added.compact
+  );
 
   return (
     <Card
@@ -89,4 +91,4 @@ const SingleInputListItems: FC<Props> = ({ itemObj }): JSX.Element => {
   );
 };
 
-export default memo(SingleInputListItems);
+export default memo<Props>(SingleInputListItems);

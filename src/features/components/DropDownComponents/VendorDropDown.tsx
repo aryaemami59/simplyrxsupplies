@@ -1,31 +1,45 @@
 import { Dropdown } from "react-bootstrap";
-import { memo, useState, useCallback, useContext, FC } from "react";
+import {
+  memo,
+  useState,
+  useCallback,
+  useContext,
+  FC,
+  SetStateAction,
+  Dispatch,
+} from "react";
 import SingleDropDown from "./SingleDropDown";
 import { shallowEqual } from "react-redux";
 import {
   selectItemsByVendor,
   selectVendorOfficialName,
 } from "../../../addedSlice";
-import { DarkMode } from "../../../App";
+import { DarkMode, myContextInterface } from "../../../App";
 import { useAppSelector } from "../../../data/store";
+import { itemInterface } from "../../../addedSlice";
 
 interface Props {
   vendorName: string;
 }
 
 const VendorDropDown: FC<Props> = ({ vendorName }): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const officialVendorName = useAppSelector(
+  const { darkTheme } = useContext<myContextInterface>(DarkMode);
+  const [dropdownOpen, setDropdownOpen]: [
+    boolean,
+    Dispatch<SetStateAction<boolean>>
+  ] = useState<boolean>(false);
+  const officialVendorName: string = useAppSelector<string>(
     selectVendorOfficialName(vendorName)
   );
-  const myItems = useAppSelector(selectItemsByVendor(vendorName), shallowEqual);
-  const dropdownOpenColor = darkTheme
-    ? "text-white btn-info"
-    : "text-white btn-dark";
+  const myItems: itemInterface[] = useAppSelector<itemInterface[]>(
+    selectItemsByVendor(vendorName),
+    shallowEqual
+  );
+  const dropdownOpenColor: "text-white btn-info" | "text-white btn-dark" =
+    darkTheme ? "text-white btn-info" : "text-white btn-dark";
 
-  const toggle = useCallback(() => {
-    setDropdownOpen(prev => !prev);
+  const toggle: () => void = useCallback((): void => {
+    setDropdownOpen((prev: Boolean): false => !prev);
   }, []);
 
   return (
@@ -63,4 +77,4 @@ const VendorDropDown: FC<Props> = ({ vendorName }): JSX.Element => {
   );
 };
 
-export default memo(VendorDropDown);
+export default memo<Props>(VendorDropDown);

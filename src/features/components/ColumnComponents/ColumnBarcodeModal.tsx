@@ -1,8 +1,17 @@
-import { FC, memo, useState, useContext, useCallback } from "react";
+import {
+  FC,
+  memo,
+  useState,
+  useContext,
+  useCallback,
+  Dispatch,
+  SetStateAction,
+  MouseEventHandler,
+} from "react";
 import { Modal, Button } from "react-bootstrap";
 import { itemInterface } from "../../../addedSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DarkMode } from "../../../App";
+import { DarkMode, myContextInterface } from "../../../App";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
@@ -10,14 +19,15 @@ interface Props {
 }
 
 const ColumnBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
-  const [show, setShow] = useState(false);
-  const { darkTheme } = useContext(DarkMode);
+  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
+    useState<boolean>(false);
+  const { darkTheme } = useContext<myContextInterface>(DarkMode);
 
-  const showModal = useCallback(() => {
+  const showModal: MouseEventHandler<SVGSVGElement> = useCallback((): void => {
     setShow(true);
   }, []);
 
-  const hideModal = useCallback(() => {
+  const hideModal: () => void = useCallback((): void => {
     setShow(false);
   }, []);
   return (
@@ -49,4 +59,4 @@ const ColumnBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
   );
 };
 
-export default memo(ColumnBarcodeModal);
+export default memo<Props>(ColumnBarcodeModal);

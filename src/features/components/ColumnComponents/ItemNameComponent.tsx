@@ -4,14 +4,14 @@ import CopyIconComponent from "./CopyIconComponent";
 import { useAppSelector, RootState } from "../../../data/store";
 import { itemInterface } from "../../../addedSlice";
 
-interface Prop {
+interface Props {
   itemObj: itemInterface;
   vendorName: string;
 }
 
-const ItemNameComponent: FC<Prop> = ({ vendorName, itemObj }): JSX.Element => {
-  const itemNameShown = useAppSelector(
-    (state: RootState) => state.added.showItemName
+const ItemNameComponent: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
+  const itemNameShown: boolean = useAppSelector<boolean>(
+    (state: RootState): boolean => state.added.showItemName
   );
 
   return (
@@ -39,4 +39,4 @@ const ItemNameComponent: FC<Prop> = ({ vendorName, itemObj }): JSX.Element => {
   );
 };
 
-export default memo(ItemNameComponent);
+export default memo<Props>(ItemNameComponent);
