@@ -110,7 +110,9 @@ const SingleVendorColumnListItem: FC<Props> = ({
       <Collapse
         key={`Collapse-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
         in={open}>
-        <ColumnToggleButtonGroup itemObj={itemObj} vendorName={vendorName} />
+        <div>
+          <ColumnToggleButtonGroup itemObj={itemObj} vendorName={vendorName} />
+        </div>
       </Collapse>
     </div>
   );
