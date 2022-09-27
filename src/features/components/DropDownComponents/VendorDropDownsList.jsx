@@ -6,7 +6,7 @@ import { useAppSelector } from "../../../data/store";
 const VendorDropDownsList = () => {
     const vendors = useAppSelector(selectVendorsArr, shallowEqual);
     return (<>
-      {vendors.map((e) => (<VendorDropDown key={`${e}-VendorDropDownsList-VendorDropDown`} vendorName={e}/>))}
+      {vendors.map(e => (<VendorDropDown key={`${e}-VendorDropDownsList-VendorDropDown`} vendorName={e}/>))}
     </>);
 };
 export default memo(VendorDropDownsList);

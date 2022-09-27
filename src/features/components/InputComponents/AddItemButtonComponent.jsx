@@ -1,5 +1,5 @@
 import { Fade, Collapse, Badge, Button } from "react-bootstrap";
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, useCallback, useRef, useState, } from "react";
 import { shallowEqual } from "react-redux";
 import { addItems, checkIfAddedToAllVendors, selectVendorsToAddTo, } from "../../../addedSlice";
 import { useAppSelector, useAppDispatch } from "../../../data/store";

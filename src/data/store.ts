@@ -9,7 +9,7 @@ export const store = configureStore({
     added: addedReducer,
     item: itemReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([logger]),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat([logger]),
 });
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

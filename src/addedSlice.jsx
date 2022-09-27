@@ -1,7 +1,7 @@
-import { createSlice, current, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, current, createAsyncThunk, } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import { GITHUB_URL_ITEMS, GITHUB_URL_VENDORS, GITHUB_URL_NAVLIST, } from "./data/fetchInfo";
-const intersection = (firstArray, secondArray) => firstArray.filter((e) => !secondArray.includes(e));
+const intersection = (firstArray, secondArray) => firstArray.filter(e => !secondArray.includes(e));
 const createAsyncThunkFunc = (strVal, githubUrl) => {
     return createAsyncThunk(`${strVal}/fetch${strVal}`, async () => {
         const response = await fetch(githubUrl);
@@ -14,8 +14,6 @@ const createAsyncThunkFunc = (strVal, githubUrl) => {
     });
 };
 export const fetchItems = createAsyncThunkFunc("items", GITHUB_URL_ITEMS);
-// console.log(fetchItems);
-console.log(fetchItems.pending.type);
 export const fetchVendors = createAsyncThunkFunc("vendors", GITHUB_URL_VENDORS);
 export const fetchNavList = createAsyncThunkFunc("navs", GITHUB_URL_NAVLIST);
 const empty = [];
@@ -53,9 +51,6 @@ export const addedSlice = createSlice({
             state[action.payload.vendorName] = state[action.payload.vendorName].filter(({ name }) => name !== action.payload.itemObj.name);
         },
         setListItems: (state, action) => {
-            // console.log("was".match(/\s*(was)/gi));
-            console.log(/\s*(relion)*\s*(syringes)*/gi.test("relion insulin syringes"));
-            // console.log(action.payload.split(/\s+/));
             state.listItems = action.payload;
         },
         clearListItems: (state) => {
@@ -74,20 +69,20 @@ export const addedSlice = createSlice({
             state.showItemName = !state.showItemName;
         },
     },
-    extraReducers: {
-        [fetchVendors.pending.type]: (state) => {
+    extraReducers: builder => {
+        builder.addCase(fetchVendors.pending, (state) => {
             state.vendorsIsLoading = true;
-        },
-        [fetchNavList.pending.type]: (state) => {
+        });
+        builder.addCase(fetchNavList.pending, (state) => {
             state.navListIsLoading = true;
-        },
-        [fetchNavList.fulfilled.type]: (state, action) => {
+        });
+        builder.addCase(fetchNavList.fulfilled, (state, action) => {
             state.navsObj = action.payload;
             state.navsArr = Object.keys(action.payload);
             state.navListIsLoading = false;
             state.errMsg = "";
-        },
-        [fetchVendors.fulfilled.type]: (state, action) => {
+        });
+        builder.addCase(fetchVendors.fulfilled, (state, action) => {
             state.vendorsArr = Object.keys(action.payload);
             state.vendorsObj = action.payload;
             for (const val in action.payload) {
@@ -95,15 +90,15 @@ export const addedSlice = createSlice({
             }
             state.vendorsIsLoading = false;
             state.errMsg = "";
-        },
-        [fetchVendors.rejected.type]: (state, action) => {
+        });
+        builder.addCase(fetchVendors.rejected, (state, action) => {
             state.vendorsIsLoading = false;
-            state.errMsg = action.error ? action.error.message : "Fetch failed";
-        },
-        [fetchNavList.rejected.type]: (state, action) => {
+            state.errMsg = action.error.message || "Fetch failed";
+        });
+        builder.addCase(fetchNavList.rejected, (state, action) => {
             state.navListIsLoading = false;
-            state.errMsg = action.error ? action.error.message : "Fetch failed";
-        },
+            state.errMsg = action.error.message || "Fetch failed";
+        });
     },
 });
 export const itemSlice = createSlice({
@@ -111,29 +106,31 @@ export const itemSlice = createSlice({
     initialState: itemInitialState,
     reducers: {
         setVendors: (state, action) => {
-            console.log(action.payload);
             state[action.payload.itemObj.name].vendorsToAdd = state[action.payload.itemObj.name].vendorsToAdd.includes(action.payload.vendorName)
                 ? state[action.payload.itemObj.name].vendorsToAdd.filter((e) => e !== action.payload.vendorName)
                 : state[action.payload.itemObj.name].vendorsToAdd.concat(action.payload.vendorName);
         },
     },
-    extraReducers: {
-        [fetchItems.pending.type]: (state) => {
+    extraReducers: builder => {
+        builder.addCase(fetchItems.pending, (state) => {
             state.isLoading = true;
-        },
-        [fetchItems.fulfilled.type]: (state, action) => {
-            for (const key of action.payload) {
-                state[key.name] = { vendorsToAdd: key.vendors, vendorsAdded: empty };
+        });
+        builder.addCase(fetchItems.fulfilled, (state, action) => {
+            for (const itemObj of action.payload) {
+                state[itemObj.name] = {
+                    vendorsToAdd: itemObj.vendors,
+                    vendorsAdded: empty,
+                };
             }
             state.isLoading = false;
             state.errMsg = "";
             state.itemsArr = action.payload;
-        },
-        [fetchItems.rejected.type]: (state, action) => {
+        });
+        builder.addCase(fetchItems.rejected, (state, action) => {
             state.isLoading = false;
-            state.errMsg = action.error ? action.error.message : "Fetch failed";
-        },
-        "added/addItems": (state, action) => {
+            state.errMsg = action.error.message || "Fetch failed";
+        });
+        builder.addCase(addItems, (state, action) => {
             state[action.payload.itemObj.name].vendorsAdded = [
                 ...state[action.payload.itemObj.name].vendorsAdded,
                 ...state[action.payload.itemObj.name].vendorsToAdd,
@@ -141,8 +138,8 @@ export const itemSlice = createSlice({
             state[action.payload.itemObj.name].vendorsToAdd = state[action.payload.itemObj.name].vendorsToAdd.length
                 ? intersection(action.payload.itemObj.vendors, state[action.payload.itemObj.name].vendorsAdded)
                 : empty;
-        },
-        "added/addItemsByVendor": (state, action) => {
+        });
+        builder.addCase(addItemsByVendor, (state, action) => {
             state[action.payload.itemObj.name].vendorsAdded = [
                 ...state[action.payload.itemObj.name].vendorsAdded,
                 action.payload.vendorName,
@@ -150,10 +147,10 @@ export const itemSlice = createSlice({
             state[action.payload.itemObj.name].vendorsToAdd = state[action.payload.itemObj.name].vendorsToAdd.length
                 ? intersection(action.payload.itemObj.vendors, state[action.payload.itemObj.name].vendorsAdded)
                 : empty;
-        },
-        "added/removeItems": (state, action) => {
+        });
+        builder.addCase(removeItems, (state, action) => {
             state[action.payload.itemObj.name].vendorsAdded = state[action.payload.itemObj.name].vendorsAdded.filter((e) => e !== action.payload.vendorName);
-        },
+        });
     },
 });
 export const selectByVendor = (vendorName) => (state) => state.added[vendorName];
@@ -171,12 +168,8 @@ export const selectQRCodeContent = (vendorName) => (state) => state.added[vendor
 export const checkIfAddedToAllVendors = (itemObj) => (state) => state.item[itemObj.name].vendorsAdded.length === itemObj.vendors.length;
 export const checkIfItemAddedToOneVendor = (vendorName, itemObj) => (state) => state.item[itemObj.name].vendorsAdded.includes(vendorName);
 export const selectItemsArr = (state) => state.item.itemsArr;
-export const selectVendorOfficialName = (vendorName) => (state) => state.added.vendorsObj
-    ? state.added.vendorsObj[vendorName].officialName
-    : "";
-export const selectAllVendorOfficialNames = (state) => state.added.vendorsArr
-    ? state.added.vendorsArr.map((e) => state.added.vendorsObj ? state.added.vendorsObj[e].officialName : "")
-    : empty;
+export const selectVendorOfficialName = (vendorName) => (state) => state.added.vendorsObj[vendorName].officialName;
+export const selectAllVendorOfficialNames = (state) => state.added.vendorsArr.map((e) => state.added.vendorsObj[e].officialName);
 export const selectAllListItems = createSelector((state) => state.added.listItems, (listItems) => listItems);
 export const checkIfLoading = (state) => state.item.isLoading ||
     state.added.vendorsIsLoading ||

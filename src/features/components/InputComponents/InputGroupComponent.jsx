@@ -5,8 +5,8 @@ import { memo, useCallback } from "react";
 import InputListItems from "./InputListItems";
 import InputFieldComponent from "./InputFieldComponent";
 import { useAppDispatch, useAppSelector } from "../../../data/store";
-import { compactSearchResults, } from "../../../addedSlice";
-function InputGroupComponent() {
+import { compactSearchResults } from "../../../addedSlice";
+const InputGroupComponent = () => {
     const dispatch = useAppDispatch();
     const ifCompact = useAppSelector((state) => state.added.compact);
     // const vendors = useAppSelector(selectAllVendorOfficialNames);
@@ -49,5 +49,5 @@ function InputGroupComponent() {
           </ButtonToolbar>
         </Row> */}
     </>);
-}
+};
 export default memo(InputGroupComponent);

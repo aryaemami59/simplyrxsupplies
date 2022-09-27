@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Container, Row, Col, Spinner, Alert } from "react-bootstrap";
-import { createContext, memo, useEffect, useState } from "react";
+import { createContext, memo, useEffect, useState, } from "react";
 import { checkIfLoading, fetchItems, fetchNavList, fetchVendors, selectErrMsg, } from "./addedSlice";
 import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";
 import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
@@ -13,9 +13,8 @@ export const DarkMode = createContext({
     darkTheme: true,
     setDarkTheme: () => { },
 });
-const getLocalStorageTheme = () => !!localStorage.getItem("theme");
-function App() {
-    // const [darkTheme, setDarkTheme] = useState(true);
+const getLocalStorageTheme = () => localStorage.getItem("theme") ? !!localStorage.getItem("theme") : true;
+const App = () => {
     const [darkTheme, setDarkTheme] = useState(() => getLocalStorageTheme());
     const dispatch = useAppDispatch();
     useEffect(() => {
@@ -67,5 +66,5 @@ function App() {
         </Container>
       </DarkMode.Provider>
     </div>);
-}
+};
 export default memo(App);

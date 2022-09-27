@@ -6,7 +6,6 @@ import { DarkMode } from "../../../App";
 const DarkModeTogglerButtonComponent = () => {
     const { setDarkTheme, darkTheme } = useContext(DarkMode);
     const clickHandler = useCallback(() => {
-        // setDarkTheme(prev => !prev);
         setDarkTheme((prev) => {
             !prev
                 ? localStorage.setItem("theme", (!prev).toString())

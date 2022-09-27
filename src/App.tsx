@@ -25,7 +25,7 @@ import VerticalNavComponent from "./features/components/SideBarNavComponents/Ver
 import { useAppDispatch, useAppSelector } from "./data/store";
 
 export interface myContextInterface {
-  darkTheme: boolean;
+  darkTheme: boolean | (() => boolean);
   setDarkTheme: Dispatch<SetStateAction<boolean>>;
 }
 
