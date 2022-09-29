@@ -8,19 +8,17 @@ import {
   useRef,
   useState,
   FC,
-  MutableRefObject,
   MouseEventHandler,
-  SetStateAction,
-  Dispatch,
 } from "react";
 import printjs from "print-js";
 import { DarkMode, myContextInterface } from "../../../App";
+import { vendorNameType, Src } from "../../../customTypes/types";
 
-interface Props {
-  src: string;
+type Props = {
+  src: Src;
   text: string;
-  vendorName: string;
-}
+  vendorName: vendorNameType;
+};
 
 const PrintIconQRCodeComponent: FC<Props> = ({
   src,
@@ -28,30 +26,26 @@ const PrintIconQRCodeComponent: FC<Props> = ({
   vendorName,
 }): JSX.Element => {
   const { darkTheme } = useContext<myContextInterface>(DarkMode);
-  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
-    useState<boolean>(false);
-  const target: MutableRefObject<null> = useRef<null>(null);
+  const [show, setShow] = useState<boolean>(false);
+  const target = useRef<null>(null);
 
-  const clickHandler: MouseEventHandler<SVGSVGElement> =
-    useCallback((): void => {
-      printjs({
-        printable: src,
-        type: "image",
-        header:
-          "You can scan this image on the vendor's website to pull up all the items at once.",
-        imageStyle: "width:80%;margin-bottom:20px;",
-      });
-    }, [src]);
+  const clickHandler: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+    printjs({
+      printable: src,
+      type: "image",
+      header:
+        "You can scan this image on the vendor's website to pull up all the items at once.",
+      imageStyle: "width:80%;margin-bottom:20px;",
+    });
+  }, [src]);
 
-  const openTooltip: MouseEventHandler<SVGSVGElement> =
-    useCallback((): void => {
-      setShow(true);
-    }, []);
+  const openTooltip: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+    setShow(true);
+  }, []);
 
-  const closeTooltip: MouseEventHandler<SVGSVGElement> =
-    useCallback((): void => {
-      setShow(false);
-    }, []);
+  const closeTooltip: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+    setShow(false);
+  }, []);
 
   return (
     <>

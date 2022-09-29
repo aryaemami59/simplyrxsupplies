@@ -8,20 +8,17 @@ import {
   useRef,
   useState,
   FC,
-  Dispatch,
-  SetStateAction,
   MouseEventHandler,
-  MutableRefObject,
 } from "react";
 import printJS from "print-js";
 import { DarkMode, myContextInterface } from "../../../App";
-import { itemInterface } from "../../../addedSlice";
+import { ItemObjType } from "../../../customTypes/types";
 
-interface Props {
+type Props = {
   text: string;
   header: string;
-  itemObj: itemInterface;
-}
+  itemObj: ItemObjType;
+};
 
 const PrintIconBarcodeComponent: FC<Props> = ({
   text,
@@ -29,9 +26,8 @@ const PrintIconBarcodeComponent: FC<Props> = ({
   itemObj,
 }): JSX.Element => {
   const { darkTheme } = useContext<myContextInterface>(DarkMode);
-  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
-    useState<boolean>(false);
-  const target: MutableRefObject<null> = useRef<null>(null);
+  const [show, setShow] = useState<boolean>(false);
+  const target = useRef<null>(null);
 
   const clickHandler: MouseEventHandler<SVGSVGElement> =
     useCallback((): void => {

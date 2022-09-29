@@ -3,21 +3,22 @@ import { connect, ConnectedProps } from "react-redux";
 import { memo, FC, useContext } from "react";
 import {
   setVendors,
-  itemInterface,
   selectVendorOfficialName,
-} from "../../../addedSlice";
-import { RootState, useAppSelector, AppDispatch } from "../../../data/store";
+} from "../../../Redux/addedSlice";
 import { DarkMode } from "../../../App";
+import { RootState, AppDispatch } from "../../../Redux/store";
+import { vendorNameType, ItemObjType } from "../../../customTypes/types";
+import { useAppSelector } from "../../../Redux/hooks";
 
 const mapStateToProps = (
   state: RootState,
   ownProps: ParentProps
 ): { checked: boolean; disabled: boolean } => {
   return {
-    checked: state.item[ownProps.itemObj.name].vendorsToAdd.includes(
+    checked: state.item[ownProps.itemObj.name]!.vendorsToAdd.includes(
       ownProps.vendorName
     ),
-    disabled: state.item[ownProps.itemObj.name].vendorsAdded.includes(
+    disabled: state.item[ownProps.itemObj.name]!.vendorsAdded.includes(
       ownProps.vendorName
     ),
   };
@@ -40,10 +41,10 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-interface ParentProps {
-  vendorName: string;
-  itemObj: itemInterface;
-}
+type ParentProps = {
+  vendorName: vendorNameType;
+  itemObj: ItemObjType;
+};
 
 type myProps = ParentProps & PropsFromRedux;
 

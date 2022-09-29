@@ -1,21 +1,18 @@
 import { shallowEqual } from "react-redux";
 import { memo, FC } from "react";
-import { selectVendorsArr } from "../../../addedSlice";
+import { selectVendorsArr } from "../../../Redux/addedSlice";
 import VendorDropDown from "./VendorDropDown";
-import { useAppSelector } from "../../../data/store";
+import { useAppSelector } from "../../../Redux/hooks";
 
 const VendorDropDownsList: FC = (): JSX.Element => {
-  const vendors: string[] = useAppSelector<string[]>(
-    selectVendorsArr,
-    shallowEqual
-  );
+  const vendors = useAppSelector(selectVendorsArr, shallowEqual);
 
   return (
     <>
-      {vendors.map(e => (
+      {vendors.map(vendorName => (
         <VendorDropDown
-          key={`${e}-VendorDropDownsList-VendorDropDown`}
-          vendorName={e}
+          key={`${vendorName}-VendorDropDownsList-VendorDropDown`}
+          vendorName={vendorName}
         />
       ))}
     </>

@@ -1,17 +1,17 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import { store } from "./data/store";
 import App from "./App";
 import "./index.css";
+import { whyDidYouUpdate } from "why-did-you-update";
+import { store } from "./Redux/store";
 
 // if (process.env.NODE_ENV !== "production") {
 // const { whyDidYouUpdate } = require("why-did-you-update");
 // whyDidYouUpdate(React);
 // }
-import { whyDidYouUpdate } from "why-did-you-update";
 
-const container = document.getElementById("root");
+const container = document.getElementById("root") as HTMLDivElement;
 const root = createRoot(container);
 whyDidYouUpdate(React);
 

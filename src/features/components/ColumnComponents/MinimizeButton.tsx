@@ -2,16 +2,9 @@ import { faAdd } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip, Overlay } from "react-bootstrap";
-import {
-  memo,
-  useCallback,
-  useRef,
-  useState,
-  FC,
-  MutableRefObject,
-} from "react";
-import { itemInterface } from "../../../addedSlice";
-import { MouseEventHandler, Dispatch, SetStateAction } from "react";
+import { memo, useCallback, useRef, useState, FC } from "react";
+import { MouseEventHandler } from "react";
+import { ItemObjType, vendorNameType } from "../../../customTypes/types";
 
 const EXPAND = "Expand" as const;
 const COLLAPSE = "Collapse" as const;
@@ -19,19 +12,17 @@ const COLLAPSE = "Collapse" as const;
 interface Props {
   open: boolean;
   toggle: MouseEventHandler<SVGSVGElement>;
-  vendorName: string;
-  itemObj: itemInterface;
+  vendorName: vendorNameType;
+  itemObj: ItemObjType;
 }
-
 const MinimizeButton: FC<Props> = ({
   open,
   toggle,
   vendorName,
   itemObj,
 }): JSX.Element => {
-  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
-    useState<boolean>(false);
-  const target: MutableRefObject<null> = useRef<null>(null);
+  const [show, setShow] = useState<boolean>(false);
+  const target = useRef<null>(null);
 
   const openTooltip: MouseEventHandler<SVGSVGElement> =
     useCallback((): void => {

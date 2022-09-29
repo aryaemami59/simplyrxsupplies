@@ -13,8 +13,8 @@ import {
   Dispatch,
 } from "react";
 import { DarkMode } from "../../../App";
-import { itemInterface } from "../../../addedSlice";
 import { Placement } from "react-bootstrap/esm/types";
+import { ItemObjType, vendorNameType } from "../../../customTypes/types";
 
 type actionType = {
   type: typeof ACTIONS[keyof typeof ACTIONS];
@@ -61,13 +61,13 @@ const initialState = {
   hovered: false,
 };
 
-interface Props {
+type Props = {
   content: string;
   text: string;
   placement: Placement;
-  vendorName: string;
-  itemObj: itemInterface;
-}
+  vendorName: vendorNameType;
+  itemObj: ItemObjType;
+};
 
 const CopyIconComponent: FC<Props> = ({
   content,

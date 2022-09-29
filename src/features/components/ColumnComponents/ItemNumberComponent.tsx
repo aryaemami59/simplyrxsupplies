@@ -1,20 +1,21 @@
 import { ListGroup } from "react-bootstrap";
 import { memo, FC } from "react";
 import CopyIconComponent from "./CopyIconComponent";
-import { useAppSelector, RootState } from "../../../data/store";
-import { itemInterface } from "../../../addedSlice";
+import { ItemObjType, vendorNameType } from "../../../customTypes/types";
+import { useAppSelector } from "../../../Redux/hooks";
+import { RootState } from "../../../Redux/store";
 
-interface Props {
-  itemObj: itemInterface;
-  vendorName: string;
-}
+type Props = {
+  itemObj: ItemObjType;
+  vendorName: vendorNameType;
+};
 
 const ItemNumberComponent: FC<Props> = ({
   vendorName,
   itemObj,
 }): JSX.Element => {
-  const itemNumberShown: boolean = useAppSelector<boolean>(
-    (state: RootState): boolean => state.added.showItemNumber
+  const itemNumberShown = useAppSelector(
+    (state: RootState) => state.added.showItemNumber
   );
 
   return (

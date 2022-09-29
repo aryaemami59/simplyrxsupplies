@@ -1,19 +1,18 @@
 import { memo, FC } from "react";
 import QRCode from "qrcode";
-import { selectQRCodeContent } from "../../../addedSlice";
+import { selectQRCodeContent } from "../../../Redux/addedSlice";
 import PrintIconQRCodeComponent from "./PrintIconQRCodeComponent";
 import { Col, Container, Row } from "react-bootstrap";
-import { useAppSelector } from "../../../data/store";
 import QRCodeModal from "./QRCodeModal";
+import { useAppSelector } from "../../../Redux/hooks";
+import { vendorNameType } from "../../../customTypes/types";
 
-interface Props {
-  vendorName: string;
-}
+type Props = {
+  vendorName: vendorNameType;
+};
 
 const QRCodeImageComponent: FC<Props> = ({ vendorName }): JSX.Element => {
-  const itemNumbers: string = useAppSelector<string>(
-    selectQRCodeContent(vendorName)
-  );
+  const itemNumbers: string = useAppSelector(selectQRCodeContent(vendorName));
 
   let src: string = "";
   QRCode.toDataURL(itemNumbers, (err, url): void => {

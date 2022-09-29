@@ -5,55 +5,45 @@ import {
   useRef,
   useState,
   FC,
-  SetStateAction,
-  Dispatch,
-  RefObject,
   MouseEventHandler,
 } from "react";
 import { shallowEqual } from "react-redux";
+import { ItemObjType } from "../../../customTypes/types";
+import { useAppSelector, useAppDispatch } from "../../../Redux/hooks";
 import {
   addItems,
   checkIfAddedToAllVendors,
   selectVendorsToAddTo,
-} from "../../../addedSlice";
-import { useAppSelector, useAppDispatch } from "../../../data/store";
-import { itemInterface } from "../../../addedSlice";
+} from "../../../Redux/addedSlice";
 
-interface Props {
-  itemObj: itemInterface;
-}
+type Props = {
+  itemObj: ItemObjType;
+};
 
 const AddItemButtonComponent: FC<Props> = ({ itemObj }): JSX.Element => {
-  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
-    useState<boolean>(false);
-  const IfAddedToAllVendors: boolean = useAppSelector<boolean>(
-    checkIfAddedToAllVendors(itemObj)
-  );
-  const vendors: string[] = useAppSelector<string[]>(
-    selectVendorsToAddTo(itemObj),
-    shallowEqual
-  );
+  const [show, setShow] = useState<boolean>(false);
+  const IfAddedToAllVendors = useAppSelector(checkIfAddedToAllVendors(itemObj));
+  const vendors = useAppSelector(selectVendorsToAddTo(itemObj), shallowEqual);
   const dispatch = useAppDispatch();
-  const target: RefObject<HTMLButtonElement> = useRef<null>(null);
+  const target = useRef<null>(null);
 
-  const showBadge = useCallback((): void => {
+  const showBadge = useCallback(() => {
     setShow(true);
   }, []);
-  const hideBadge = useCallback((): void => {
+  const hideBadge = useCallback(() => {
     setShow(false);
   }, []);
 
-  const showThenHide = useCallback((): void => {
+  const showThenHide = useCallback(() => {
     showBadge();
     setTimeout(hideBadge, 1500);
   }, [showBadge, hideBadge]);
 
-  const clickHandler: MouseEventHandler<HTMLButtonElement> =
-    useCallback((): void => {
-      IfAddedToAllVendors
-        ? showThenHide()
-        : dispatch(addItems({ itemObj, vendors }));
-    }, [IfAddedToAllVendors, showThenHide, dispatch, itemObj, vendors]);
+  const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+    IfAddedToAllVendors
+      ? showThenHide()
+      : dispatch(addItems({ itemObj, vendors }));
+  }, [IfAddedToAllVendors, showThenHide, dispatch, itemObj, vendors]);
 
   return (
     <Button

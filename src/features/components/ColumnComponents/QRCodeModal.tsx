@@ -4,20 +4,19 @@ import {
   useContext,
   useState,
   useCallback,
-  Dispatch,
-  SetStateAction,
   MouseEventHandler,
 } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal, Button } from "react-bootstrap";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { DarkMode, myContextInterface } from "../../../App";
+import { vendorNameType, ItemNumber, Src } from "../../../customTypes/types";
 
-interface Props {
-  src: string;
-  vendorName: string;
-  itemNumbers: string;
-}
+type Props = {
+  src: Src;
+  vendorName: vendorNameType;
+  itemNumbers: ItemNumber;
+};
 
 const QRCodeModal: FC<Props> = ({
   src,
@@ -25,14 +24,13 @@ const QRCodeModal: FC<Props> = ({
   itemNumbers,
 }): JSX.Element => {
   const { darkTheme } = useContext<myContextInterface>(DarkMode);
-  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
-    useState<boolean>(false);
+  const [show, setShow] = useState<boolean>(false);
 
-  const showModal: MouseEventHandler<SVGSVGElement> = useCallback((): void => {
+  const showModal: MouseEventHandler<SVGSVGElement> = useCallback(() => {
     setShow(true);
   }, []);
 
-  const hideModal: () => void = useCallback((): void => {
+  const hideModal = useCallback(() => {
     setShow(false);
   }, []);
 

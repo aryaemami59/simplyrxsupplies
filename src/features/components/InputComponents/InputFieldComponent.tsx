@@ -6,26 +6,23 @@ import {
   useRef,
   FC,
   ChangeEvent,
-  RefObject,
   MouseEventHandler,
-  Dispatch,
 } from "react";
 import { shallowEqual } from "react-redux";
 import {
   clearListItems,
   selectItemsArr,
   setListItems,
-  itemInterface,
-} from "../../../addedSlice";
+} from "../../../Redux/addedSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
-import { useAppSelector, useAppDispatch } from "../../../data/store";
-import { SetStateAction } from "react";
+import { ItemObjType } from "../../../customTypes/types";
+import { useAppSelector, useAppDispatch } from "../../../Redux/hooks";
 
 const empty: [] = [];
 
 const sortResults = (
-  searchTerm: itemInterface,
+  searchTerm: ItemObjType,
   re: RegExp,
   trimmedValue: string
 ): number => {
@@ -45,12 +42,9 @@ const sortResults = (
 };
 
 const InputFieldComponent: FC = (): JSX.Element => {
-  const items: itemInterface[] = useAppSelector<itemInterface[]>(
-    selectItemsArr,
-    shallowEqual
-  );
+  const items = useAppSelector(selectItemsArr, shallowEqual);
   const dispatch = useAppDispatch();
-  const inputRef: RefObject<HTMLInputElement> = useRef<null>(null);
+  const inputRef = useRef<HTMLInputElement>(null!);
 
   const clickHandler: MouseEventHandler<SVGSVGElement> =
     useCallback((): void => {
@@ -59,8 +53,7 @@ const InputFieldComponent: FC = (): JSX.Element => {
       inputRef.current && inputRef.current.focus();
     }, [dispatch]);
 
-  const [val, setVal]: [string, Dispatch<SetStateAction<string>>] =
-    useState<string>("");
+  const [val, setVal] = useState<string>("");
 
   const listItemsFunc = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -95,7 +88,7 @@ const InputFieldComponent: FC = (): JSX.Element => {
 
   const changeVal = useCallback(
     (e: ChangeEvent<HTMLInputElement>): void => {
-      const listItems: itemInterface[] = listItemsFunc(e);
+      const listItems = listItemsFunc(e);
       setVal(e.target.value);
       dispatch(setListItems(listItems));
     },

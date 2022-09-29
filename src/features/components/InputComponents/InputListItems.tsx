@@ -2,15 +2,12 @@ import { ListGroup } from "react-bootstrap";
 import { memo, FC } from "react";
 import { shallowEqual } from "react-redux";
 import SingleInputListItems from "./SingleInputListItems";
-import { selectAllListItems, itemInterface } from "../../../addedSlice";
+import { selectAllListItems } from "../../../Redux/addedSlice";
 import VendorColumnModalComponent from "./VendorColumnModalComponent";
-import { useAppSelector } from "../../../data/store";
+import { useAppSelector } from "../../../Redux/hooks";
 
 const InputListItems: FC = (): JSX.Element => {
-  const listItems: itemInterface[] = useAppSelector<itemInterface[]>(
-    selectAllListItems,
-    shallowEqual
-  );
+  const listItems = useAppSelector(selectAllListItems, shallowEqual);
 
   return (
     <>

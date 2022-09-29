@@ -4,8 +4,6 @@ import {
   useState,
   useContext,
   FC,
-  Dispatch,
-  SetStateAction,
   MouseEventHandler,
 } from "react";
 import { Button, Col, Modal, Row } from "react-bootstrap";
@@ -14,14 +12,12 @@ import { DarkMode, myContextInterface } from "../../../App";
 
 const VendorColumnModalComponent: FC = (): JSX.Element => {
   const { darkTheme } = useContext<myContextInterface>(DarkMode);
-  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
-    useState<boolean>(false);
+  const [show, setShow] = useState<boolean>(false);
 
-  const showModal: MouseEventHandler<HTMLButtonElement> =
-    useCallback((): void => {
-      setShow(true);
-    }, []);
-  const hideModal: () => void = useCallback((): void => {
+  const showModal: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+    setShow(true);
+  }, []);
+  const hideModal = useCallback(() => {
     setShow(false);
   }, []);
 

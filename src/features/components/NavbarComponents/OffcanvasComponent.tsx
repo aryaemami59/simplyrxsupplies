@@ -5,8 +5,6 @@ import {
   memo,
   useContext,
   FC,
-  Dispatch,
-  SetStateAction,
   MouseEventHandler,
 } from "react";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
@@ -15,14 +13,13 @@ import { DarkMode, myContextInterface } from "../../../App";
 
 const OffcanvasComponent: FC = (): JSX.Element => {
   const { darkTheme } = useContext<myContextInterface>(DarkMode);
-  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
-    useState<boolean>(false);
+  const [show, setShow] = useState<boolean>(false);
 
-  const handleOpen: MouseEventHandler<HTMLElement> = useCallback((): void => {
+  const handleOpen: MouseEventHandler<HTMLElement> = useCallback(() => {
     setShow(true);
   }, []);
 
-  const handleClose: () => void = useCallback((): void => {
+  const handleClose = useCallback(() => {
     setShow(false);
   }, []);
 

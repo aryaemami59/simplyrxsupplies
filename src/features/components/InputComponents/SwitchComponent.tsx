@@ -1,9 +1,10 @@
 import { Form } from "react-bootstrap";
 import { connect, ConnectedProps } from "react-redux";
 import { memo, FC } from "react";
-import { setVendors, itemInterface } from "../../../addedSlice";
+import { setVendors } from "../../../Redux/addedSlice";
 import VendorBadges from "./VendorBadges";
-import { AppDispatch, RootState } from "../../../data/store";
+import { ItemObjType, vendorNameType } from "../../../customTypes/types";
+import { RootState, AppDispatch } from "../../../Redux/store";
 
 type stateToPropsReturnType = {
   checked: boolean;
@@ -15,10 +16,10 @@ const mapStateToProps = (
   ownProps: ParentProps
 ): stateToPropsReturnType => {
   return {
-    checked: state.item[ownProps.itemObj.name].vendorsToAdd.includes(
+    checked: state.item[ownProps.itemObj.name]!.vendorsToAdd.includes(
       ownProps.vendorName
     ),
-    disabled: state.item[ownProps.itemObj.name].vendorsAdded.includes(
+    disabled: state.item[ownProps.itemObj.name]!.vendorsAdded.includes(
       ownProps.vendorName
     ),
   };
@@ -44,10 +45,10 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-interface ParentProps {
-  itemObj: itemInterface;
-  vendorName: string;
-}
+type ParentProps = {
+  itemObj: ItemObjType;
+  vendorName: vendorNameType;
+};
 
 type myProps = ParentProps & PropsFromRedux;
 

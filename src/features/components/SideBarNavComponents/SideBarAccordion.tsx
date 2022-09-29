@@ -7,36 +7,29 @@ import {
   useRef,
   useState,
   FC,
-  Dispatch,
-  SetStateAction,
   MouseEventHandler,
-  Ref,
 } from "react";
 import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
-import { selectSidebarNavs, itemInterface } from "../../../addedSlice";
+import { selectCategories } from "../../../Redux/addedSlice";
 import { DarkMode, myContextInterface } from "../../../App";
-import { useAppSelector } from "../../../data/store";
-import { Transition } from "react-transition-group";
+import { Category } from "../../../customTypes/types";
+import { useAppSelector } from "../../../Redux/hooks";
 
 const COLLAPSED = "collapsed" as const;
 
-interface Props {
-  category: string;
-}
+type Props = {
+  category: Category;
+};
 
 const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
   const { darkTheme } = useContext<myContextInterface>(DarkMode);
 
-  const sidebarItems: itemInterface[] = useAppSelector<itemInterface[]>(
-    selectSidebarNavs(category),
-    shallowEqual
-  );
-  const [open, setOpen]: [boolean, Dispatch<SetStateAction<boolean>>] =
-    useState<boolean>(false);
-  const nodeRef: Ref<Transition<any>> = useRef<null>(null);
+  const sidebarItems = useAppSelector(selectCategories(category), shallowEqual);
+  const [open, setOpen] = useState<boolean>(false);
+  const nodeRef = useRef<null>(null!);
 
-  const toggle: MouseEventHandler<HTMLButtonElement> = useCallback((): void => {
-    setOpen((prev: boolean): boolean => !prev);
+  const toggle: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+    setOpen(prev => !prev);
   }, []);
 
   return (

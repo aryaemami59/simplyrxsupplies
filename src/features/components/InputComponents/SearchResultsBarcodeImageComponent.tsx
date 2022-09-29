@@ -1,9 +1,9 @@
 import { memo, FC } from "react";
-import { itemInterface } from "../../../addedSlice";
+import { ItemObjType } from "../../../customTypes/types";
 
-interface Props {
-  itemObj: itemInterface;
-}
+type Props = {
+  itemObj: ItemObjType;
+};
 
 const SearchResultsBarcodeImageComponent: FC<Props> = ({
   itemObj,

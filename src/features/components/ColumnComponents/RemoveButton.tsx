@@ -7,39 +7,33 @@ import {
   useRef,
   useState,
   FC,
-  MutableRefObject,
   MouseEventHandler,
-  Dispatch,
-  SetStateAction,
 } from "react";
 import { useDispatch } from "react-redux";
-import { removeItems, itemInterface } from "../../../addedSlice";
+import { removeItems } from "../../../Redux/addedSlice";
+import { vendorNameType, ItemObjType } from "../../../customTypes/types";
 
-interface Props {
-  vendorName: string;
-  itemObj: itemInterface;
-}
+type Props = {
+  vendorName: vendorNameType;
+  itemObj: ItemObjType;
+};
 
 const RemoveButton: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
-  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
-    useState<boolean>(false);
-  const target: MutableRefObject<null> = useRef<null>(null);
+  const [show, setShow] = useState<boolean>(false);
+  const target = useRef<null>(null);
   const dispatch = useDispatch();
 
-  const clickHandler: MouseEventHandler<SVGSVGElement> =
-    useCallback((): void => {
-      dispatch(removeItems({ itemObj, vendorName }));
-    }, [dispatch, itemObj, vendorName]);
+  const clickHandler: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+    dispatch(removeItems({ itemObj, vendorName }));
+  }, [dispatch, itemObj, vendorName]);
 
-  const openTooltip: MouseEventHandler<SVGSVGElement> =
-    useCallback((): void => {
-      setShow(true);
-    }, []);
+  const openTooltip: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+    setShow(true);
+  }, []);
 
-  const closeTooltip: MouseEventHandler<SVGSVGElement> =
-    useCallback((): void => {
-      setShow(false);
-    }, []);
+  const closeTooltip: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+    setShow(false);
+  }, []);
 
   return (
     <>

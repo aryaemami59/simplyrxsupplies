@@ -3,20 +3,20 @@ import { memo, useCallback, FC, useContext, MouseEventHandler } from "react";
 import {
   checkIfItemAddedToOneVendor,
   addItemsByVendor,
-} from "../../../addedSlice";
-import { itemInterface } from "../../../addedSlice";
-import { useAppDispatch, useAppSelector } from "../../../data/store";
+} from "../../../Redux/addedSlice";
 import { DarkMode, myContextInterface } from "../../../App";
+import { ItemObjType, vendorNameType } from "../../../customTypes/types";
+import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 
-interface Props {
-  itemObj: itemInterface;
-  vendorName: string;
-}
+type Props = {
+  itemObj: ItemObjType;
+  vendorName: vendorNameType;
+};
 
 const SingleDropDown: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
   const { darkTheme } = useContext<myContextInterface>(DarkMode);
   const dispatch = useAppDispatch();
-  const ifAddedToVendor: boolean = useAppSelector<boolean>(
+  const ifAddedToVendor: boolean = useAppSelector(
     checkIfItemAddedToOneVendor(vendorName, itemObj)
   );
 

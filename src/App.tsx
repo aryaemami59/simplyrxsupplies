@@ -17,12 +17,12 @@ import {
   fetchNavList,
   fetchVendors,
   selectErrMsg,
-} from "./addedSlice";
+} from "./Redux/addedSlice";
 import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";
 import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
 import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
 import VerticalNavComponent from "./features/components/SideBarNavComponents/VerticalNavComponent";
-import { useAppDispatch, useAppSelector } from "./data/store";
+import { useAppSelector, useAppDispatch } from "./Redux/hooks";
 
 export interface myContextInterface {
   darkTheme: boolean | (() => boolean);

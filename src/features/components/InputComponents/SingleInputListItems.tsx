@@ -6,18 +6,17 @@ import SearchResultsItemNumberComponent from "./SearchResultsItemNumberComponent
 import SwitchComponent from "./SwitchComponent";
 import AddItemButtonComponent from "./AddItemButtonComponent";
 import { DarkMode, myContextInterface } from "../../../App";
-import { itemInterface } from "../../../addedSlice";
-import { RootState, useAppSelector } from "../../../data/store";
+import { ItemObjType } from "../../../customTypes/types";
+import { useAppSelector } from "../../../Redux/hooks";
+import { RootState } from "../../../Redux/store";
 
-interface Props {
-  itemObj: itemInterface;
-}
+type Props = {
+  itemObj: ItemObjType;
+};
 
 const SingleInputListItems: FC<Props> = ({ itemObj }): JSX.Element => {
   const { darkTheme } = useContext<myContextInterface>(DarkMode);
-  const ifCompact: boolean = useAppSelector<boolean>(
-    (state: RootState): boolean => state.added.compact
-  );
+  const ifCompact = useAppSelector((state: RootState) => state.added.compact);
 
   return (
     <Card

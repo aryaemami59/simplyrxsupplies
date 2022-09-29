@@ -1,23 +1,25 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { FC, memo } from "react";
 import PrintIconBarcodeComponent from "./PrintIconBarcodeComponent";
-import { itemInterface, selectVendorOfficialName } from "../../../addedSlice";
-import { useAppSelector, RootState } from "../../../data/store";
+import { selectVendorOfficialName } from "../../../Redux/addedSlice";
 import ColumnBarcodeModal from "./ColumnBarcodeModal";
+import { ItemObjType, vendorNameType } from "../../../customTypes/types";
+import { useAppSelector } from "../../../Redux/hooks";
+import { RootState } from "../../../Redux/store";
 
-interface Props {
-  itemObj: itemInterface;
-  vendorName: string;
-}
+type Props = {
+  itemObj: ItemObjType;
+  vendorName: vendorNameType;
+};
 
 const ColumnBarcodeImageComponent: FC<Props> = ({
   itemObj,
   vendorName,
 }): JSX.Element => {
-  const itemBarcodeShown: boolean = useAppSelector<boolean>(
-    (state: RootState): boolean => state.added.showItemBarcode
+  const itemBarcodeShown = useAppSelector(
+    (state: RootState) => state.added.showItemBarcode
   );
-  const officialVendorName: string = useAppSelector<string>(
+  const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
 

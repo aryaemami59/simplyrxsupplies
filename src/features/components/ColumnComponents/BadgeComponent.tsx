@@ -1,11 +1,12 @@
 import { Badge } from "react-bootstrap";
 import { FC, memo } from "react";
-import { addedItemsLength } from "../../../addedSlice";
-import { useAppSelector } from "../../../data/store";
+import { addedItemsLength } from "../../../Redux/addedSlice";
+import { useAppSelector } from "../../../Redux/hooks";
+import { vendorNameType } from "../../../customTypes/types";
 
-interface Props {
-  vendorName: string;
-}
+type Props = {
+  vendorName: vendorNameType;
+};
 
 const BadgeComponent: FC<Props> = ({ vendorName }): JSX.Element => {
   const addedItemsLen: number = useAppSelector<number>(

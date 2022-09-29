@@ -4,42 +4,38 @@ import {
   useState,
   useCallback,
   useContext,
-  SetStateAction,
-  Dispatch,
   MouseEventHandler,
 } from "react";
 import { Modal, Row, Col, Container, ListGroup, Button } from "react-bootstrap";
-import { itemInterface, selectVendorOfficialName } from "../../../addedSlice";
+import { selectVendorOfficialName } from "../../../Redux/addedSlice";
 import CopyIconComponent from "./CopyIconComponent";
 import PrintIconBarcodeComponent from "./PrintIconBarcodeComponent";
-import { useAppSelector } from "../../../data/store";
 import ColumnBarcodeModal from "./ColumnBarcodeModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { DarkMode, myContextInterface } from "../../../App";
-interface Props {
-  itemObj: itemInterface;
-  vendorName: string;
-}
+import { ItemObjType, vendorNameType } from "../../../customTypes/types";
+import { useAppSelector } from "../../../Redux/hooks";
+type Props = {
+  itemObj: ItemObjType;
+  vendorName: vendorNameType;
+};
 
 const SingleVendorColumnModal: FC<Props> = ({
   itemObj,
   vendorName,
 }): JSX.Element => {
   const { darkTheme } = useContext<myContextInterface>(DarkMode);
-  const officialVendorName: string = useAppSelector<string>(
+  const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
-  const [modalOpen, setModalOpen]: [
-    boolean,
-    Dispatch<SetStateAction<boolean>>
-  ] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  const showModal: MouseEventHandler<SVGSVGElement> = useCallback((): void => {
+  const showModal: MouseEventHandler<SVGSVGElement> = useCallback(() => {
     setModalOpen(true);
   }, []);
 
-  const hideModal: () => void = useCallback((): void => {
+  const hideModal = useCallback(() => {
     setModalOpen(false);
   }, []);
 

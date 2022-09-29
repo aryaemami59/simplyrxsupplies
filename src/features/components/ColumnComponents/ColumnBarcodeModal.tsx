@@ -4,30 +4,27 @@ import {
   useState,
   useContext,
   useCallback,
-  Dispatch,
-  SetStateAction,
   MouseEventHandler,
 } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { itemInterface } from "../../../addedSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DarkMode, myContextInterface } from "../../../App";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
+import { ItemObjType } from "../../../customTypes/types";
 
-interface Props {
-  itemObj: itemInterface;
-}
+type Props = {
+  itemObj: ItemObjType;
+};
 
 const ColumnBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
-  const [show, setShow]: [boolean, Dispatch<SetStateAction<boolean>>] =
-    useState<boolean>(false);
+  const [show, setShow] = useState<boolean>(false);
   const { darkTheme } = useContext<myContextInterface>(DarkMode);
 
   const showModal: MouseEventHandler<SVGSVGElement> = useCallback((): void => {
     setShow(true);
   }, []);
 
-  const hideModal: () => void = useCallback((): void => {
+  const hideModal = useCallback(() => {
     setShow(false);
   }, []);
   return (

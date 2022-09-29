@@ -1,14 +1,14 @@
 import { FC, memo } from "react";
 import { Container } from "react-bootstrap";
-import { itemInterface } from "../../../addedSlice";
 import ItemNameComponent from "./ItemNameComponent";
 import ItemNumberComponent from "./ItemNumberComponent";
 import ColumnBarcodeImageComponent from "./ColumnBarcodeImageComponent";
+import { ItemObjType, vendorNameType } from "../../../customTypes/types";
 
-interface Props {
-  itemObj: itemInterface;
-  vendorName: string;
-}
+type Props = {
+  itemObj: ItemObjType;
+  vendorName: vendorNameType;
+};
 
 const ColumnToggleButtonGroup: FC<Props> = ({
   itemObj,

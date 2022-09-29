@@ -1,14 +1,15 @@
 import { memo, FC } from "react";
 import { connect } from "react-redux";
-import { setVendors, itemInterface } from "../../../addedSlice";
-import { AppDispatch, RootState } from "../../../data/store";
+import { setVendors } from "../../../Redux/addedSlice";
+import { ItemObjType, vendorNameType } from "../../../customTypes/types";
+import { RootState, AppDispatch } from "../../../Redux/store";
 
-interface Props {
+type Props = {
   clickHandler: Function;
   checked: boolean;
-  itemObj: itemInterface;
-  vendorName: string;
-}
+  itemObj: ItemObjType;
+  vendorName: vendorNameType;
+};
 
 const SideBarSwitchComponent: FC<Props> = ({
   clickHandler,
@@ -37,8 +38,10 @@ const SideBarSwitchComponent: FC<Props> = ({
 
 const mapStateToProps = (state: RootState, ownProps: Props) => {
   return {
-    checked: state.item[ownProps.itemObj.name].includes(ownProps.vendorName),
-    disabled: state.item[ownProps.itemObj.name].vendorsAdded.includes(
+    checked: state.item[ownProps.itemObj.name]!.vendorsToAdd.includes(
+      ownProps.vendorName
+    ),
+    disabled: state.item[ownProps.itemObj.name]!.vendorsAdded.includes(
       ownProps.vendorName
     ),
   };

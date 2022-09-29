@@ -1,11 +1,10 @@
 import { Badge } from "react-bootstrap";
 import { memo, FC } from "react";
-import { itemInterface } from "../../../addedSlice";
-// import PropTypes from "prop-types";
+import { ItemObjType } from "../../../customTypes/types";
 
-interface Props {
-  itemObj: itemInterface;
-}
+type Props = {
+  itemObj: ItemObjType;
+};
 
 const SearchResultsItemNumberComponent: FC<Props> = ({
   itemObj,

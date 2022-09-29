@@ -5,16 +5,16 @@ import {
   addItems,
   checkIfAddedToAllVendors,
   selectVendorsToAddTo,
-} from "../../../addedSlice";
+} from "../../../Redux/addedSlice";
 import SideBarVendorBadges from "./SideBarVendorBadges";
-import { itemInterface } from "../../../addedSlice";
-import { useAppDispatch, useAppSelector } from "../../../data/store";
 import { DarkMode, myContextInterface } from "../../../App";
+import { Category, ItemObjType } from "../../../customTypes/types";
+import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 
-interface Props {
-  category: string;
-  itemObj: itemInterface;
-}
+type Props = {
+  category: Category;
+  itemObj: ItemObjType;
+};
 
 const SingleSideBarAccordionListItem: FC<Props> = ({
   category,
@@ -22,18 +22,12 @@ const SingleSideBarAccordionListItem: FC<Props> = ({
 }): JSX.Element => {
   const { darkTheme } = useContext<myContextInterface>(DarkMode);
   const dispatch = useAppDispatch();
-  const ifAddedToAllVendors: boolean = useAppSelector<boolean>(
-    checkIfAddedToAllVendors(itemObj)
-  );
-  const vendors: string[] = useAppSelector<string[]>(
-    selectVendorsToAddTo(itemObj),
-    shallowEqual
-  );
+  const ifAddedToAllVendors = useAppSelector(checkIfAddedToAllVendors(itemObj));
+  const vendors = useAppSelector(selectVendorsToAddTo(itemObj), shallowEqual);
 
-  const clickHandler: MouseEventHandler<HTMLButtonElement> =
-    useCallback((): void => {
-      ifAddedToAllVendors || dispatch(addItems({ itemObj, vendors }));
-    }, [dispatch, itemObj, vendors, ifAddedToAllVendors]);
+  const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+    ifAddedToAllVendors || dispatch(addItems({ itemObj, vendors }));
+  }, [dispatch, itemObj, vendors, ifAddedToAllVendors]);
 
   const ifAddedColors: "info text-white" | "dark text-white" = darkTheme
     ? "info text-white"

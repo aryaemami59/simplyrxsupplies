@@ -7,39 +7,30 @@ import {
   ButtonGroup,
   Container,
 } from "react-bootstrap";
-import {
-  memo,
-  useCallback,
-  useState,
-  FC,
-  KeyboardEvent,
-  Dispatch,
-  SetStateAction,
-} from "react";
+import { memo, useCallback, useState, FC, KeyboardEvent } from "react";
 import RemoveButton from "./RemoveButton";
 import MinimizeButton from "./MinimizeButton";
-import { itemInterface } from "../../../addedSlice";
 import ColumnToggleButtonGroup from "./ColumnToggleButtonGroup";
 import SingleVendorColumnModal from "./SingleVendorColumnModal";
+import { ItemObjType, vendorNameType } from "../../../customTypes/types";
 
-interface Props {
-  itemObj: itemInterface;
-  vendorName: string;
-}
+type Props = {
+  itemObj: ItemObjType;
+  vendorName: vendorNameType;
+};
 
 const SingleVendorColumnListItem: FC<Props> = ({
   itemObj,
   vendorName,
 }): JSX.Element => {
-  const [open, setOpen]: [boolean, Dispatch<SetStateAction<boolean>>] =
-    useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(true);
 
-  const toggle = useCallback((): void => {
-    setOpen((prev: boolean): boolean => !prev);
+  const toggle = useCallback(() => {
+    setOpen(prev => !prev);
   }, []);
 
   const handleKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLDivElement>): void => {
+    (e: KeyboardEvent<HTMLDivElement>) => {
       if (e.key === "c") {
         toggle();
       }

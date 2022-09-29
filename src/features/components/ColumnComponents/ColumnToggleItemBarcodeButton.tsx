@@ -1,17 +1,18 @@
 import { FC, memo, MouseEventHandler, useCallback } from "react";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ToggleItemBarcode } from "../../../addedSlice";
+import { ToggleItemBarcode } from "../../../Redux/addedSlice";
 import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
-import { RootState, useAppSelector, useAppDispatch } from "../../../data/store";
+import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
+import { RootState } from "../../../Redux/store";
 
 const ColumnToggleItemBarcodeButton: FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const itemBarcodeShown: boolean = useAppSelector<boolean>(
-    (state: RootState): boolean => state.added.showItemBarcode
+  const itemBarcodeShown = useAppSelector(
+    (state: RootState) => state.added.showItemBarcode
   );
   const toggleItemBarcode: MouseEventHandler<HTMLButtonElement> =
-    useCallback((): void => {
+    useCallback(() => {
       dispatch(ToggleItemBarcode());
     }, [dispatch]);
 

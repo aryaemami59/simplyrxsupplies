@@ -1,8 +1,7 @@
+// @ts-nocheck
 import { createContext, useCallback, useState, useMemo, memo } from "react";
-
 export const myContext = createContext();
 // export const MCKContext = createContext();
-
 function AddedContext({ children }) {
   const [itemsAdded1, setItemsAdded] = useState([]);
 

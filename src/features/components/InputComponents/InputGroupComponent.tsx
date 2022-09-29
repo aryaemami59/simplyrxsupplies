@@ -4,22 +4,17 @@ import { Button, Form, Row } from "react-bootstrap";
 import { memo, useCallback, FC, MouseEventHandler } from "react";
 import InputListItems from "./InputListItems";
 import InputFieldComponent from "./InputFieldComponent";
-import { useAppDispatch, useAppSelector, RootState } from "../../../data/store";
-import { compactSearchResults } from "../../../addedSlice";
+import { compactSearchResults } from "../../../Redux/addedSlice";
+import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
+import { RootState } from "../../../Redux/store";
 
 const InputGroupComponent: FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const ifCompact: boolean = useAppSelector<boolean>(
-    (state: RootState): boolean => state.added.compact
-  );
-  // const vendors = useAppSelector(selectAllVendorOfficialNames);
-  // const vendorsFirst = vendors.slice(0, 4);
-  // const vendorsSecond = vendors.slice(4, 8);
+  const ifCompact = useAppSelector((state: RootState) => state.added.compact);
 
-  const clickHandler: MouseEventHandler<HTMLButtonElement> =
-    useCallback((): void => {
-      dispatch(compactSearchResults());
-    }, [dispatch]);
+  const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+    dispatch(compactSearchResults());
+  }, [dispatch]);
 
   return (
     <>
@@ -55,21 +50,6 @@ const InputGroupComponent: FC = (): JSX.Element => {
           <InputListItems key={`InputListItems-InputGroupComponent`} />
         </div>
       </div>
-      {/* <Row className="text-white justify-content-cente align-items-cente">
-        Filter the search results By:
-        <ButtonToolbar className="text-white">
-          <ButtonGroup vertical size="sm" className="text-white">
-            {vendorsFirst.map(e => (
-              <Button>{e}</Button>
-            ))}
-          </ButtonGroup>
-          <ButtonGroup vertical size="sm" className="text-white">
-            {vendorsSecond.map(e => (
-              <Button>{e}</Button>
-            ))}
-          </ButtonGroup>
-        </ButtonToolbar>
-      </Row> */}
     </>
   );
 };

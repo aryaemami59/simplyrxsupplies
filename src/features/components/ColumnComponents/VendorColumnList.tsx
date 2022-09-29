@@ -1,15 +1,12 @@
 import VendorColumn from "./VendorColumn";
 import { memo, FC } from "react";
 import { Col, Row } from "react-bootstrap";
-import { selectVendorsArr } from "../../../addedSlice";
+import { selectVendorsArr } from "../../../Redux/addedSlice";
 import { shallowEqual } from "react-redux";
-import { useAppSelector } from "../../../data/store";
+import { useAppSelector } from "../../../Redux/hooks";
 
 const VendorColumnList: FC = (): JSX.Element => {
-  const vendors: string[] = useAppSelector<string[]>(
-    selectVendorsArr,
-    shallowEqual
-  );
+  const vendors = useAppSelector(selectVendorsArr, shallowEqual);
 
   return (
     <Row className="justify-content-center">

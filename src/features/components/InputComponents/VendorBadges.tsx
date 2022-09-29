@@ -3,17 +3,17 @@ import { memo, FC } from "react";
 import {
   checkIfAddedToOneVendor,
   selectVendorOfficialName,
-} from "../../../addedSlice";
+} from "../../../Redux/addedSlice";
 import { MouseEventHandler } from "react";
-import { itemInterface } from "../../../addedSlice";
-import { useAppSelector } from "../../../data/store";
+import { vendorNameType, ItemObjType } from "../../../customTypes/types";
+import { useAppSelector } from "../../../Redux/hooks";
 
-interface Props {
-  vendorName: string;
-  itemObj: itemInterface;
+type Props = {
+  vendorName: vendorNameType;
+  itemObj: ItemObjType;
   clickHandler?: MouseEventHandler<HTMLButtonElement>;
   disabled: boolean;
-}
+};
 
 const VendorBadges: FC<Props> = ({
   vendorName,
@@ -21,10 +21,8 @@ const VendorBadges: FC<Props> = ({
   clickHandler,
   disabled,
 }): JSX.Element => {
-  const ifAdded: boolean = useAppSelector<boolean>(
-    checkIfAddedToOneVendor(itemObj, vendorName)
-  );
-  const officialVendorName: string = useAppSelector<string>(
+  const ifAdded = useAppSelector(checkIfAddedToOneVendor(itemObj, vendorName));
+  const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
 
