@@ -13,7 +13,7 @@ const ColumnToggleItemNumberButton: FC = (): JSX.Element => {
   );
 
   const toggleItemNumber: MouseEventHandler<HTMLButtonElement> =
-    useCallback((): void => {
+    useCallback(() => {
       dispatch(ToggleItemNumber());
     }, [dispatch]);
 

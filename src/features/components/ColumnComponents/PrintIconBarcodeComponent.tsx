@@ -29,25 +29,22 @@ const PrintIconBarcodeComponent: FC<Props> = ({
   const [show, setShow] = useState<boolean>(false);
   const target = useRef<null>(null);
 
-  const clickHandler: MouseEventHandler<SVGSVGElement> =
-    useCallback((): void => {
-      printJS({
-        printable: itemObj.src,
-        type: "image",
-        header,
-        imageStyle: "width:80%;margin-bottom:20px;",
-      });
-    }, [itemObj.src, header]);
+  const clickHandler: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+    printJS({
+      printable: itemObj.src,
+      type: "image",
+      header,
+      imageStyle: "width:80%;margin-bottom:20px;",
+    });
+  }, [itemObj.src, header]);
 
-  const openTooltip: MouseEventHandler<SVGSVGElement> =
-    useCallback((): void => {
-      setShow(true);
-    }, []);
+  const openTooltip: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+    setShow(true);
+  }, []);
 
-  const closeTooltip: MouseEventHandler<SVGSVGElement> =
-    useCallback((): void => {
-      setShow(false);
-    }, []);
+  const closeTooltip: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+    setShow(false);
+  }, []);
 
   return (
     <>

@@ -15,7 +15,7 @@ const QRCodeImageComponent: FC<Props> = ({ vendorName }): JSX.Element => {
   const itemNumbers: string = useAppSelector(selectQRCodeContent(vendorName));
 
   let src: string = "";
-  QRCode.toDataURL(itemNumbers, (err, url): void => {
+  QRCode.toDataURL(itemNumbers, (err, url) => {
     src = url;
   });
 

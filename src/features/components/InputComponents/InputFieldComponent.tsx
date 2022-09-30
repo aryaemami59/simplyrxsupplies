@@ -46,12 +46,11 @@ const InputFieldComponent: FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null!);
 
-  const clickHandler: MouseEventHandler<SVGSVGElement> =
-    useCallback((): void => {
-      dispatch(clearListItems());
-      setVal("");
-      inputRef.current && inputRef.current.focus();
-    }, [dispatch]);
+  const clickHandler: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+    dispatch(clearListItems());
+    setVal("");
+    inputRef.current && inputRef.current.focus();
+  }, [dispatch]);
 
   const [val, setVal] = useState<string>("");
 
@@ -87,7 +86,7 @@ const InputFieldComponent: FC = (): JSX.Element => {
   );
 
   const changeVal = useCallback(
-    (e: ChangeEvent<HTMLInputElement>): void => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       const listItems = listItemsFunc(e);
       setVal(e.target.value);
       dispatch(setListItems(listItems));

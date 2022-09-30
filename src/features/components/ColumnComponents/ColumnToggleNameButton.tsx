@@ -12,7 +12,7 @@ const ColumnToggleNameButton: FC = (): JSX.Element => {
     (state: RootState) => state.added.showItemName
   );
   const toggleItemName: MouseEventHandler<HTMLButtonElement> =
-    useCallback((): void => {
+    useCallback(() => {
       dispatch(ToggleItemName());
     }, [dispatch]);
 

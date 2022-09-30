@@ -22,7 +22,7 @@ const SingleDropDown: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
 
   const addedColor = darkTheme ? "bg-info text-white" : "bg-dark text-white";
 
-  const clickHandler: MouseEventHandler<HTMLElement> = useCallback((): void => {
+  const clickHandler: MouseEventHandler<HTMLElement> = useCallback(() => {
     ifAddedToVendor || dispatch(addItemsByVendor({ itemObj, vendorName }));
   }, [dispatch, itemObj, vendorName, ifAddedToVendor]);
 

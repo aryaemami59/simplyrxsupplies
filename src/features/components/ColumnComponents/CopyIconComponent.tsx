@@ -87,30 +87,29 @@ const CopyIconComponent: FC<Props> = ({
   const ref: MutableRefObject<null> = useRef(null);
 
   const clickOnIcon = useCallback(
-    (): void => dispatch({ type: ACTIONS.CLICK_ON_ICON }),
+    () => dispatch({ type: ACTIONS.CLICK_ON_ICON }),
     []
   );
 
   const handleMouseEnter: MouseEventHandler<SVGSVGElement> = useCallback(
-    (): void => dispatch({ type: ACTIONS.HOVER_OVER_ICON }),
+    () => dispatch({ type: ACTIONS.HOVER_OVER_ICON }),
     []
   );
 
   const handleMouseLeave: MouseEventHandler<SVGSVGElement> = useCallback(
-    (): void => dispatch({ type: ACTIONS.HOVER_LEAVE }),
+    () => dispatch({ type: ACTIONS.HOVER_LEAVE }),
     []
   );
 
-  const afterClick: MouseEventHandler<SVGSVGElement> = useCallback((): void => {
+  const afterClick: MouseEventHandler<SVGSVGElement> = useCallback(() => {
     dispatch({ type: ACTIONS.AFTER_CLICK });
   }, []);
 
-  const handleClick: MouseEventHandler<SVGSVGElement> =
-    useCallback((): void => {
-      clickOnIcon();
-      navigator.clipboard.writeText(content);
-      setTimeout(afterClick, 200);
-    }, [content, clickOnIcon, afterClick]);
+  const handleClick: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+    clickOnIcon();
+    navigator.clipboard.writeText(content);
+    setTimeout(afterClick, 200);
+  }, [content, clickOnIcon, afterClick]);
 
   return (
     <>

@@ -9,9 +9,9 @@ import {
   FC,
   MouseEventHandler,
 } from "react";
-import { useDispatch } from "react-redux";
 import { removeItems } from "../../../Redux/addedSlice";
 import { vendorNameType, ItemObjType } from "../../../customTypes/types";
+import { useAppDispatch } from "../../../Redux/hooks";
 
 type Props = {
   vendorName: vendorNameType;
@@ -21,7 +21,7 @@ type Props = {
 const RemoveButton: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
   const target = useRef<null>(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const clickHandler: MouseEventHandler<SVGSVGElement> = useCallback(() => {
     dispatch(removeItems({ itemObj, vendorName }));

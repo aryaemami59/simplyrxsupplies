@@ -20,7 +20,7 @@ const ColumnBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
   const { darkTheme } = useContext<myContextInterface>(DarkMode);
 
-  const showModal: MouseEventHandler<SVGSVGElement> = useCallback((): void => {
+  const showModal: MouseEventHandler<SVGSVGElement> = useCallback(() => {
     setShow(true);
   }, []);
 

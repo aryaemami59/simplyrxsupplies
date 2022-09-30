@@ -8,12 +8,14 @@ import {
 } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import { RootState } from "./store";
-import { Category, Link, officialVendorNameType } from "../customTypes/types";
 import {
-  vendorNameType,
-  navsObjInterface,
-  vendorsObjInterface,
+  Category,
+  Link,
+  officialVendorNameType,
+  categoriesObjType,
+  vendorsObjType,
 } from "../customTypes/types";
+import { vendorNameType } from "../customTypes/types";
 import {
   itemState,
   addItemsInterface,
@@ -29,7 +31,7 @@ import {
 import {
   GITHUB_URL_ITEMS,
   GITHUB_URL_VENDORS,
-  GITHUB_URL_NAVLIST,
+  GITHUB_URL_CATEGORIES,
 } from "./fetchInfo";
 
 const intersection = (firstArray: string[], secondArray: string[]): string[] =>
@@ -58,8 +60,8 @@ export const fetchVendors: FetchVendors = createAsyncThunkFunc(
 );
 
 export const fetchNavList: FetchNavList = createAsyncThunkFunc(
-  "navs",
-  GITHUB_URL_NAVLIST
+  "categories",
+  GITHUB_URL_CATEGORIES
 );
 
 const empty: [] = [];
@@ -136,7 +138,7 @@ export const addedSlice = createSlice({
     });
     builder.addCase(
       fetchNavList.fulfilled,
-      (state, action: PayloadAction<navsObjInterface>) => {
+      (state, action: PayloadAction<categoriesObjType>) => {
         state.navsObj = action.payload;
         const keys = Object.keys(action.payload) as Category[];
         state.navsArr = keys;
@@ -146,11 +148,11 @@ export const addedSlice = createSlice({
     );
     builder.addCase(
       fetchVendors.fulfilled,
-      (state, action: PayloadAction<vendorsObjInterface>) => {
-        const payload: vendorsObjInterface = action.payload;
+      (state, action: PayloadAction<vendorsObjType>) => {
+        const payload: vendorsObjType = action.payload;
         const keys = Object.keys(payload) as vendorNameType[];
         state.vendorsArr = keys;
-        state.vendorsObj = payload as vendorsObjInterface;
+        state.vendorsObj = payload as vendorsObjType;
         let val: vendorNameType;
         for (val in payload) {
           state[val] = empty;
@@ -294,8 +296,8 @@ export const selectVendorsToAddTo =
 export const selectCategories =
   (category: Category) =>
   (state: RootState): ItemObjType[] =>
-    state.added.navsObj![category].map(
-      e => state.item.itemsArr.find(({ id }) => id === e)!
+    state.added.navsObj![category].items.map(
+      itemId => state.item.itemsArr.find(({ id }) => id === itemId)!
     );
 
 export const selectQRCodeContent =

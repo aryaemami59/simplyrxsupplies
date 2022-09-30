@@ -9,9 +9,7 @@ type Props = {
 };
 
 const BadgeComponent: FC<Props> = ({ vendorName }): JSX.Element => {
-  const addedItemsLen: number = useAppSelector<number>(
-    addedItemsLength(vendorName)
-  );
+  const addedItemsLen = useAppSelector(addedItemsLength(vendorName));
 
   return (
     <Badge

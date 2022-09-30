@@ -13,7 +13,7 @@ export type ItemObjType = {
   vendorsAdded: vendorNameType[];
 };
 
-type vendorInterface = {
+type singleVendorObjType = {
   id: number;
   officialName: officialVendorNameType;
   abbrName: vendorNameType;
@@ -22,19 +22,18 @@ type vendorInterface = {
   items: number[];
 };
 
-export type vendorsObjInterface = {
-  [key in vendorNameType]: vendorInterface;
-};
+export type vendorsObjType = Record<vendorNameType, singleVendorObjType>;
 
-export type navsObjInterface = {
-  [key in Category]: number[];
-};
+export type categoriesObjType = Record<
+  Category,
+  { id: number; items: number[] }
+>;
 
-type VendorChecked = {
-  [key in vendorNameType]?: boolean;
-};
+// type VendorChecked = Partial<Record<vendorNameType, boolean>>;
 
-export type addedState = {
+type VendorsInAddedState = Partial<Record<vendorNameType, ItemObjType[]>>;
+
+export type addedState = VendorsInAddedState & {
   listItems: ItemObjType[];
   compact: boolean;
   showItemNumber: boolean;
@@ -44,12 +43,14 @@ export type addedState = {
   navListIsLoading: boolean;
   errMsg: string;
   vendorsArr?: vendorNameType[];
-  vendorsObj?: vendorsObjInterface;
+  vendorsObj?: vendorsObjType;
   navsArr?: Category[];
-  navsObj?: navsObjInterface;
-} & {
-  [key in vendorNameType]?: ItemObjType[];
+  navsObj?: categoriesObjType;
 };
+// &
+// {
+//   [key in vendorNameType]?: ItemObjType[];
+// };
 
 export type itemState = {
   itemsArr: ItemObjType[];
@@ -490,13 +491,13 @@ export type FetchItems = AsyncThunk<
 >;
 
 export type FetchVendors = AsyncThunk<
-  vendorsObjInterface,
+  vendorsObjType,
   void,
   { dispatch: AppDispatch }
 >;
 
 export type FetchNavList = AsyncThunk<
-  navsObjInterface,
+  categoriesObjType,
   void,
   { dispatch: AppDispatch }
 >;

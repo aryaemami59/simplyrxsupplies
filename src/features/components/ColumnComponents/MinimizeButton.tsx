@@ -9,12 +9,12 @@ import { ItemObjType, vendorNameType } from "../../../customTypes/types";
 const EXPAND = "Expand" as const;
 const COLLAPSE = "Collapse" as const;
 
-interface Props {
+type Props = {
   open: boolean;
   toggle: MouseEventHandler<SVGSVGElement>;
   vendorName: vendorNameType;
   itemObj: ItemObjType;
-}
+};
 const MinimizeButton: FC<Props> = ({
   open,
   toggle,
@@ -24,15 +24,13 @@ const MinimizeButton: FC<Props> = ({
   const [show, setShow] = useState<boolean>(false);
   const target = useRef<null>(null);
 
-  const openTooltip: MouseEventHandler<SVGSVGElement> =
-    useCallback((): void => {
-      setShow(true);
-    }, []);
+  const openTooltip: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+    setShow(true);
+  }, []);
 
-  const closeTooltip: MouseEventHandler<SVGSVGElement> =
-    useCallback((): void => {
-      setShow(false);
-    }, []);
+  const closeTooltip: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+    setShow(false);
+  }, []);
 
   return (
     <>
