@@ -32,15 +32,19 @@ const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
     setOpen(prev => !prev);
   }, []);
 
+  const buttonTheme = darkTheme ? "custom-dark-mode" : "custom-light-mode";
+  const buttonCollapsed = open ? "" : COLLAPSED;
+  const theme = darkTheme ? "bg-dark" : "bg-light";
+
   return (
     <div key={`div-SideBarAccordion-${category}-outer`}>
-      <h2 key={`h2-SideBarAccordion-${category}`} className="accordion-header">
+      <h2
+        key={`h2-SideBarAccordion-${category}`}
+        className="accordion-header">
         <button
           key={`button-SideBarAccordion-${category}`}
           onClick={toggle}
-          className={`accordion-button rounded ${
-            darkTheme ? "custom-dark-mode" : "custom-light-mode"
-          } ${open ? "" : COLLAPSED}`}>
+          className={`accordion-button rounded ${buttonTheme} ${buttonCollapsed}`}>
           {category}
         </button>
       </h2>
@@ -52,20 +56,16 @@ const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
         <div key={`div-SideBarAccordion-${category}-inner`}>
           <Card
             key={`Card-SideBarAccordion-${category}`}
-            className={`bg-gradient custom-dark-mode ${
-              darkTheme ? "bg-dark" : "bg-light"
-            }`}>
+            className={`bg-gradient custom-dark-mode ${theme}`}>
             <Card.Body
               key={`Card.Body-SideBarAccordion-${category}`}
-              className={`bg-gradient custom-dark-mode ${
-                darkTheme ? "bg-dark" : "bg-light"
-              }`}>
+              className={`bg-gradient custom-dark-mode ${theme}`}>
               <ListGroup key={`ListGroup-SideBarAccordion-${category}`}>
-                {sidebarItems.map(f => (
+                {sidebarItems.map(itemObj => (
                   <SingleSideBarAccordionListItem
                     category={category}
-                    itemObj={f}
-                    key={`${f.name}-SingleSideBarAccordionListItem`}
+                    itemObj={itemObj}
+                    key={`${itemObj.name}-SingleSideBarAccordionListItem`}
                   />
                 ))}
               </ListGroup>

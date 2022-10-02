@@ -1,4 +1,4 @@
-import { Nav, Offcanvas, Navbar } from "react-bootstrap";
+import { Offcanvas, Navbar } from "react-bootstrap";
 import {
   useState,
   useCallback,
@@ -7,13 +7,12 @@ import {
   FC,
   MouseEventHandler,
 } from "react";
-import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
-import SideBarAccordionList from "../SideBarComponents/SideBarAccordionList";
-import { DarkMode, myContextInterface } from "../../../App";
+import { DarkMode } from "../../../App";
+import OffcanvasBodyContent from "./OffcanvasBodyContent";
 
 const OffcanvasComponent: FC = (): JSX.Element => {
-  const { darkTheme } = useContext<myContextInterface>(DarkMode);
-  const [show, setShow] = useState<boolean>(false);
+  const { darkTheme } = useContext(DarkMode);
+  const [show, setShow] = useState(false);
 
   const handleOpen: MouseEventHandler<HTMLElement> = useCallback(() => {
     setShow(true);
@@ -45,34 +44,7 @@ const OffcanvasComponent: FC = (): JSX.Element => {
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body key={`Offcanvas.Body-OffcanvasComponent`}>
-          <Offcanvas.Title
-            className="mb-4"
-            key={`Offcanvas.Title-OffcanvasComponent-By Vendor`}>
-            By Vendor
-          </Offcanvas.Title>
-          <Nav
-            className={`mb-5 rounded border p-4 ${
-              darkTheme ? "border-info" : "border-dark"
-            }`}
-            key={`Nav-OffcanvasComponent`}>
-            <VendorDropDownsList
-              key={`VendorDropDownsList-OffcanvasComponent`}
-            />
-          </Nav>
-          <Offcanvas.Title
-            className="mb-4"
-            key={`Offcanvas.Title-OffcanvasComponent-By Category`}>
-            By Category
-          </Offcanvas.Title>
-          <div
-            key={`div-OffcanvasComponent`}
-            className={`accordion rounded border ${
-              darkTheme ? "border-info" : "border-dark"
-            }`}>
-            <SideBarAccordionList
-              key={`SideBarAccordionList-OffcanvasComponent`}
-            />
-          </div>
+          <OffcanvasBodyContent />
         </Offcanvas.Body>
       </Offcanvas>
     </>

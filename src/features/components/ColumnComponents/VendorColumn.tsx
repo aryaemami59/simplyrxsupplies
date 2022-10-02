@@ -3,7 +3,6 @@ import {
   Collapse,
   Card,
   ListGroup,
-  Alert,
   ButtonGroup,
 } from "react-bootstrap";
 import { shallowEqual } from "react-redux";
@@ -18,7 +17,6 @@ import {
 import {
   selectByVendor,
   selectVendorOfficialName,
-  selectVendorsLinks,
 } from "../../../Redux/addedSlice";
 import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge";
 import RowSingleContainer from "./IndividualRowComponents/RowSingleContainer";
@@ -29,6 +27,9 @@ import { useAppSelector } from "../../../Redux/hooks";
 import QRCodeImage from "./QRCodeComponents/QRCodeImage";
 import ColumnToggleNamesButton from "./ToggleComponents/ColumnToggleNamesButton";
 import ColumnToggleItemNumbersButton from "./ToggleComponents/ColumnToggleItemNumbersButton";
+import VendorLink from "./VendorLink";
+import EmptyColumn from "./EmptyColumn";
+import ColumnTopCardBody from "./ColumnTopCardBody";
 
 type Props = {
   vendorName: vendorNameType;
@@ -40,7 +41,6 @@ const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
-  const vendorLink = useAppSelector(selectVendorsLinks(vendorName));
   const addedItems = useAppSelector(selectByVendor(vendorName), shallowEqual);
 
   const buttonClick = useCallback(() => {
@@ -61,15 +61,13 @@ const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
       <Button
         className="position-relative d-block w-100"
         variant="primary"
-        onClick={buttonClick}
-        key={`${officialVendorName}-VendorColumn-Button`}>
+        onClick={buttonClick}>
         {officialVendorName}
-        <RowCounterBadge
-          vendorName={vendorName}
-          key={`${officialVendorName}-VendorColumn-Badge`}
-        />
+        <RowCounterBadge vendorName={vendorName} />
       </Button>
-      <Collapse key={`Collapse-VendorColumn-${vendorName}`} in={open}>
+      <Collapse
+        key={`Collapse-VendorColumn-${vendorName}`}
+        in={open}>
         <div key={`div-VendorColumn-${vendorName}`}>
           <Card
             key={`Card-VendorColumn-${vendorName}`}
@@ -77,40 +75,38 @@ const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
             className={darkTheme ? "custom-bg-color-2" : "custom-light-mode"}
             onKeyDown={handleKeyDown}>
             {addedItems.length ? (
-              <Card.Body key={`Card.Body-VendorColumn-${vendorName}`}>
-                <QRCodeImage
-                  vendorName={vendorName}
-                  key={`${vendorName}-VendorColumn-QRCodeImageComponent`}
-                />
-                <Alert key={`Alert-VendorColumn-${vendorName}`} variant="info">
-                  <Alert.Link
-                    key={`Alert.Link-VendorColumn-${vendorName}`}
-                    href={vendorLink}>
-                    {officialVendorName} Website
-                  </Alert.Link>
-                </Alert>
-                <ButtonGroup className="mb-3">
-                  <ColumnToggleNamesButton />
-                  <ColumnToggleItemNumbersButton />
-                  <ColumnToggleItemBarcodesButton />
-                </ButtonGroup>
-                <ListGroup key={`ListGroup-VendorColumn-${vendorName}`}>
-                  {addedItems.map(e => (
-                    <RowSingleContainer
-                      itemObj={e}
-                      {...e}
-                      vendorName={vendorName}
-                      key={`${e.name}-${vendorName}-SingleVendorColumnListItem`}
-                    />
-                  ))}
-                </ListGroup>
-              </Card.Body>
+              <ColumnTopCardBody
+                {...{ addedItems, vendorName, officialVendorName }}
+                // addedItems={addedItems}
+                // vendorName={vendorName}
+                // officialVendorName={officialVendorName}
+              />
             ) : (
-              <ListGroup.Item
-                key={`ListGroup.Item-VendorColumn-${vendorName}`}
-                variant="danger">
-                "No Item Has Been Added Yet!"
-              </ListGroup.Item>
+              // <Card.Body key={`Card.Body-VendorColumn-${vendorName}`}>
+              //   <QRCodeImage
+              //     vendorName={vendorName}
+              //     key={`${vendorName}-VendorColumn-QRCodeImageComponent`}
+              //   />
+              //   <VendorLink
+              //     officialVendorName={officialVendorName}
+              //     vendorName={vendorName}
+              //   />
+              //   <ButtonGroup className="mb-3">
+              //     <ColumnToggleNamesButton />
+              //     <ColumnToggleItemNumbersButton />
+              //     <ColumnToggleItemBarcodesButton />
+              //   </ButtonGroup>
+              //   <ListGroup key={`ListGroup-VendorColumn-${vendorName}`}>
+              //     {addedItems.map(itemObj => (
+              //       <RowSingleContainer
+              //         itemObj={itemObj}
+              //         vendorName={vendorName}
+              //         key={`${itemObj.name}-${vendorName}-SingleVendorColumnListItem`}
+              //       />
+              //     ))}
+              //   </ListGroup>
+              // </Card.Body>
+              <EmptyColumn />
             )}
           </Card>
         </div>

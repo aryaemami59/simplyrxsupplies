@@ -58,7 +58,7 @@ export type itemState = Partial<Record<ItemName, ItemObjType>> & {
 
 // type ItemObjInItemState = Partial<Record<ItemName, ItemObjType>>;
 
-type ItemName = ItemNamesType;
+export type ItemName = ItemNamesType;
 export type ItemNumber = string;
 export type Keyword = string;
 export type Category = CategoryType;
