@@ -1,14 +1,14 @@
+import { FC, memo, useContext } from "react";
 import { Form } from "react-bootstrap";
 import { connect, ConnectedProps } from "react-redux";
-import { memo, FC, useContext } from "react";
-import {
-  setVendors,
-  selectVendorOfficialName,
-} from "../../../Redux/addedSlice";
 import { DarkMode } from "../../../App";
-import { RootState, AppDispatch } from "../../../Redux/store";
-import { vendorNameType, ItemObjType } from "../../../customTypes/types";
+import { ItemObjType, vendorNameType } from "../../../customTypes/types";
+import {
+  selectVendorOfficialName,
+  setVendors,
+} from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
+import { AppDispatch, RootState } from "../../../Redux/store";
 
 const mapStateToProps = (
   state: RootState,

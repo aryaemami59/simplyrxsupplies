@@ -1,23 +1,23 @@
-import { Form } from "react-bootstrap";
+import { faX } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  ChangeEvent,
+  FC,
   memo,
-  useState,
+  MouseEventHandler,
   useCallback,
   useRef,
-  FC,
-  ChangeEvent,
-  MouseEventHandler,
+  useState,
 } from "react";
+import { Form } from "react-bootstrap";
 import { shallowEqual } from "react-redux";
+import { ItemObjType } from "../../../customTypes/types";
 import {
   clearListItems,
   selectItemsArr,
   setListItems,
 } from "../../../Redux/addedSlice";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX } from "@fortawesome/free-solid-svg-icons";
-import { ItemObjType } from "../../../customTypes/types";
-import { useAppSelector, useAppDispatch } from "../../../Redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 
 const empty: [] = [];
 

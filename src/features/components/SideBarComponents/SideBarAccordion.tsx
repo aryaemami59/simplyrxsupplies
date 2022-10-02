@@ -1,19 +1,19 @@
-import { Collapse, Card, ListGroup } from "react-bootstrap";
-import { shallowEqual } from "react-redux";
 import {
+  FC,
   memo,
+  MouseEventHandler,
   useCallback,
   useContext,
   useRef,
   useState,
-  FC,
-  MouseEventHandler,
 } from "react";
-import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
-import { selectCategories } from "../../../Redux/addedSlice";
+import { Card, Collapse, ListGroup } from "react-bootstrap";
+import { shallowEqual } from "react-redux";
 import { DarkMode } from "../../../App";
 import { Category } from "../../../customTypes/types";
+import { selectCategories } from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
+import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
 
 const COLLAPSED = "collapsed" as const;
 

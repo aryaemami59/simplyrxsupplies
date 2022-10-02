@@ -1,9 +1,14 @@
-import { faAdd } from "@fortawesome/free-solid-svg-icons";
-import { faMinus } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Tooltip, Overlay } from "react-bootstrap";
-import { memo, useCallback, useRef, useState, FC } from "react";
-import { MouseEventHandler } from "react";
+import {
+  FC,
+  memo,
+  MouseEventHandler,
+  useCallback,
+  useRef,
+  useState
+} from "react";
+import { Overlay, Tooltip } from "react-bootstrap";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 
 const EXPAND = "Expand" as const;
@@ -21,7 +26,7 @@ const MinimizeButton: FC<Props> = ({
   vendorName,
   itemObj,
 }): JSX.Element => {
-  const [show, setShow] = useState<boolean>(false);
+  const [show, setShow] = useState(false);
   const target = useRef<null>(null);
 
   const openTooltip: MouseEventHandler<SVGSVGElement> = useCallback(() => {

@@ -1,13 +1,13 @@
 import { FC, memo } from "react";
 import { Col, Row } from "react-bootstrap";
-import SearchResultsItemName from "./SearchResultsItemName";
 import { ItemObjType } from "../../../customTypes/types";
-import SearchResultsAddButton from "./SearchResultsAddButton";
-import SwitchComponent from "./SwitchComponent";
-import SearchResultsBarcodeImage from "./SearchResultsBarcodeImage";
-import SearchResultsItemNumber from "./SearchResultsItemNumber";
 import { useAppSelector } from "../../../Redux/hooks";
 import { RootState } from "../../../Redux/store";
+import SearchResultsAddButton from "./SearchResultsAddButton";
+import SearchResultsBarcodeImage from "./SearchResultsBarcodeImage";
+import SearchResultsItemName from "./SearchResultsItemName";
+import SearchResultsItemNumber from "./SearchResultsItemNumber";
+import SwitchComponent from "./SwitchComponent";
 
 type Props = {
   itemObj: ItemObjType;
@@ -18,7 +18,9 @@ const SearchResultsCardBodyContent: FC<Props> = ({ itemObj }): JSX.Element => {
 
   return (
     <>
-      <Col xs={ifCompact ? 6 : 12} md={12}>
+      <Col
+        xs={ifCompact ? 6 : 12}
+        md={12}>
         <Row className="m-0">
           <SearchResultsItemName
             itemObj={itemObj}
@@ -38,10 +40,17 @@ const SearchResultsCardBodyContent: FC<Props> = ({ itemObj }): JSX.Element => {
       ) : (
         ""
       )}
-      <Col xs={ifCompact ? 6 : 12} md={12}>
+      <Col
+        xs={ifCompact ? 6 : 12}
+        md={12}>
         <Row className="justify-content-center justify-content-sm-center align-items-center m-0 ">
-          <Col xs={ifCompact ? 12 : 7} lg={ifCompact ? 12 : 8} className="pe-0">
-            <Row md={"auto"} className="m-0">
+          <Col
+            xs={ifCompact ? 12 : 7}
+            lg={ifCompact ? 12 : 8}
+            className="pe-0">
+            <Row
+              md={"auto"}
+              className="m-0">
               {itemObj.vendors.map(e => (
                 <SwitchComponent
                   key={`SwitchComponent-${itemObj.name}${e}`}
@@ -52,7 +61,9 @@ const SearchResultsCardBodyContent: FC<Props> = ({ itemObj }): JSX.Element => {
             </Row>
           </Col>
           {!ifCompact ? (
-            <Col xs={5} lg={4}>
+            <Col
+              xs={5}
+              lg={4}>
               <Row className="justify-content-center">
                 <SearchResultsBarcodeImage
                   itemObj={itemObj}

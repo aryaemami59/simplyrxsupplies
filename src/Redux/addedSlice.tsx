@@ -1,38 +1,34 @@
 import {
+  AnyAction,
+  createAsyncThunk,
   createSlice,
   current,
-  createAsyncThunk,
-  Reducer,
-  AnyAction,
   PayloadAction,
+  Reducer,
 } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
-import { RootState } from "./store";
 import {
-  Category,
-  Link,
-  officialVendorNameType,
-  categoriesObjType,
-  vendorsObjType,
-} from "../customTypes/types";
-import { vendorNameType } from "../customTypes/types";
-import {
-  itemState,
-  addItemsInterface,
+  addedState,
   addItemsByVendorInterface,
-  ItemObjType,
-} from "../customTypes/types";
-import {
+  addItemsInterface,
+  categoriesObjType,
+  Category,
+  FetchCategories,
   FetchItems,
   FetchVendors,
-  FetchCategories,
-  addedState,
+  ItemObjType,
+  itemState,
+  Link,
+  officialVendorNameType,
+  vendorNameType,
+  vendorsObjType,
 } from "../customTypes/types";
 import {
+  GITHUB_URL_CATEGORIES,
   GITHUB_URL_ITEMS,
   GITHUB_URL_VENDORS,
-  GITHUB_URL_CATEGORIES,
 } from "./fetchInfo";
+import { RootState } from "./store";
 
 const intersection = (firstArray: string[], secondArray: string[]): string[] =>
   firstArray.filter(e => !secondArray.includes(e));

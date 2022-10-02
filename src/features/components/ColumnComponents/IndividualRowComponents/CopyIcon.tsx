@@ -1,19 +1,19 @@
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Tooltip, Overlay } from "react-bootstrap";
 import {
-  memo,
-  useCallback,
-  useRef,
-  useReducer,
-  useContext,
+  Dispatch,
   FC,
+  memo,
   MouseEventHandler,
   MutableRefObject,
-  Dispatch,
+  useCallback,
+  useContext,
+  useReducer,
+  useRef,
 } from "react";
-import { DarkMode } from "../../../../App";
+import { Overlay, Tooltip } from "react-bootstrap";
 import { Placement } from "react-bootstrap/esm/types";
+import { DarkMode } from "../../../../App";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 
 type actionType = {

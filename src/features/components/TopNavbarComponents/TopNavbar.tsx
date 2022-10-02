@@ -1,9 +1,9 @@
+import { FC, memo, useContext } from "react";
 import { Nav, Navbar } from "react-bootstrap";
-import { memo, useContext, FC } from "react";
-import OffcanvasComponent from "./OffcanvasComponent";
-import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import { DarkMode } from "../../../App";
+import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import DarkModeTogglerButton from "./DarkModeTogglerButton";
+import OffcanvasComponent from "./OffcanvasComponent";
 
 const TopNavbar: FC = (): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);

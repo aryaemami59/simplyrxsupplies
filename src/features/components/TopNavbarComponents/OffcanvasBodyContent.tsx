@@ -1,8 +1,8 @@
 import { FC, memo, useContext } from "react";
-import { Offcanvas, Nav } from "react-bootstrap";
+import { Nav, Offcanvas } from "react-bootstrap";
+import { DarkMode } from "../../../App";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import SideBarAccordionList from "../SideBarComponents/SideBarAccordionList";
-import { DarkMode } from "../../../App";
 
 const OffcanvasBodyContent: FC = (): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);

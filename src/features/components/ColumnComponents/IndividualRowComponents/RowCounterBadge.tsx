@@ -1,8 +1,8 @@
-import { Badge } from "react-bootstrap";
 import { FC, memo } from "react";
+import { Badge } from "react-bootstrap";
+import { vendorNameType } from "../../../../customTypes/types";
 import { addedItemsLength } from "../../../../Redux/addedSlice";
 import { useAppSelector } from "../../../../Redux/hooks";
-import { vendorNameType } from "../../../../customTypes/types";
 
 type Props = {
   vendorName: vendorNameType;

@@ -1,8 +1,8 @@
+import { FC, memo } from "react";
 import { shallowEqual } from "react-redux";
-import { memo, FC } from "react";
 import { selectCategoriesArr } from "../../../Redux/addedSlice";
-import SideBarAccordion from "./SideBarAccordion";
 import { useAppSelector } from "../../../Redux/hooks";
+import SideBarAccordion from "./SideBarAccordion";
 
 const SideBarAccordionList: FC = (): JSX.Element => {
   const categoryList = useAppSelector(selectCategoriesArr, shallowEqual);

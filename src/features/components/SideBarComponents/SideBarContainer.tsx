@@ -1,7 +1,7 @@
+import { FC, memo, useContext } from "react";
 import { Nav } from "react-bootstrap";
-import { memo, useContext, FC } from "react";
-import SideBarAccordionList from "./SideBarAccordionList";
 import { DarkMode } from "../../../App";
+import SideBarAccordionList from "./SideBarAccordionList";
 
 const SideBarContainer: FC = (): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);

@@ -1,6 +1,6 @@
+import { FC, memo, useContext } from "react";
 import { Card } from "react-bootstrap";
-import { memo, useContext, FC } from "react";
-import { DarkMode, myContextInterface } from "../../../App";
+import { DarkMode } from "../../../App";
 import { ItemObjType } from "../../../customTypes/types";
 import SearchResultsCardBodyContent from "./SearchResultsCardBodyContent";
 
@@ -9,7 +9,7 @@ type Props = {
 };
 
 const SearchResultsSingleCard: FC<Props> = ({ itemObj }): JSX.Element => {
-  const { darkTheme } = useContext<myContextInterface>(DarkMode);
+  const { darkTheme } = useContext(DarkMode);
 
   return (
     <Card

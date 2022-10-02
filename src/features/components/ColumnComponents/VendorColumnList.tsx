@@ -1,9 +1,9 @@
-import VendorColumn from "./VendorColumn";
-import { memo, FC } from "react";
+import { FC, memo } from "react";
 import { Col, Row } from "react-bootstrap";
-import { selectVendorsArr } from "../../../Redux/addedSlice";
 import { shallowEqual } from "react-redux";
+import { selectVendorsArr } from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
+import VendorColumn from "./VendorColumn";
 
 const VendorColumnList: FC = (): JSX.Element => {
   const vendors = useAppSelector(selectVendorsArr, shallowEqual);

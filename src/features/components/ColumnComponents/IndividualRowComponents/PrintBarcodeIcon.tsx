@@ -1,17 +1,17 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
-import { Tooltip, Overlay } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import printJS from "print-js";
 import {
+  FC,
   memo,
+  MouseEventHandler,
   useCallback,
   useContext,
   useRef,
   useState,
-  FC,
-  MouseEventHandler,
 } from "react";
-import printJS from "print-js";
-import { DarkMode, myContextInterface } from "../../../../App";
+import { Overlay, Tooltip } from "react-bootstrap";
+import { DarkMode } from "../../../../App";
 import { ItemObjType } from "../../../../customTypes/types";
 
 type Props = {
@@ -25,8 +25,8 @@ const PrintBarcodeIcon: FC<Props> = ({
   header,
   itemObj,
 }): JSX.Element => {
-  const { darkTheme } = useContext<myContextInterface>(DarkMode);
-  const [show, setShow] = useState<boolean>(false);
+  const { darkTheme } = useContext(DarkMode);
+  const [show, setShow] = useState(false);
   const target = useRef<null>(null);
 
   const clickHandler: MouseEventHandler<SVGSVGElement> = useCallback(() => {

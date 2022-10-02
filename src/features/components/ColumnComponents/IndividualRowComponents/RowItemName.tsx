@@ -1,9 +1,9 @@
+import { FC, memo } from "react";
 import { ListGroup } from "react-bootstrap";
-import { memo, FC } from "react";
-import CopyIcon from "./CopyIcon";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 import { useAppSelector } from "../../../../Redux/hooks";
 import { RootState } from "../../../../Redux/store";
+import CopyIcon from "./CopyIcon";
 
 type Props = {
   itemObj: ItemObjType;

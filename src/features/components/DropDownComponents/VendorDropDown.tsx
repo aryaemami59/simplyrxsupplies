@@ -1,14 +1,14 @@
+import { FC, memo, useCallback, useContext, useState } from "react";
 import { Dropdown } from "react-bootstrap";
-import { memo, useState, useCallback, useContext, FC } from "react";
-import SingleDropDown from "./SingleDropDown";
 import { shallowEqual } from "react-redux";
+import { DarkMode } from "../../../App";
+import { vendorNameType } from "../../../customTypes/types";
 import {
   selectItemsByVendor,
   selectVendorOfficialName,
 } from "../../../Redux/addedSlice";
-import { DarkMode } from "../../../App";
-import { vendorNameType } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
+import SingleDropDown from "./SingleDropDown";
 
 type Props = {
   vendorName: vendorNameType;

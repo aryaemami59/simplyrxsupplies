@@ -1,10 +1,10 @@
+import { FC, memo } from "react";
 import { ListGroup } from "react-bootstrap";
-import { memo, FC } from "react";
 import { shallowEqual } from "react-redux";
-import SearchResultsSingleCard from "./SearchResultsSingleCard";
 import { selectAllListItems } from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
 import VendorColumnModalComponent from "../InputComponents/VendorColumnModalComponent";
+import SearchResultsSingleCard from "./SearchResultsSingleCard";
 
 const SearchResultsContainer: FC = (): JSX.Element => {
   const listItems = useAppSelector(selectAllListItems, shallowEqual);

@@ -1,11 +1,10 @@
+import { FC, memo, MouseEventHandler } from "react";
 import { Button } from "react-bootstrap";
-import { memo, FC } from "react";
+import { ItemObjType, vendorNameType } from "../../../customTypes/types";
 import {
   checkIfAddedToOneVendor,
   selectVendorOfficialName,
 } from "../../../Redux/addedSlice";
-import { MouseEventHandler } from "react";
-import { vendorNameType, ItemObjType } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
 
 type Props = {

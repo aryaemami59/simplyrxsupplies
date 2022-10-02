@@ -1,16 +1,16 @@
+import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   FC,
   memo,
+  MouseEventHandler,
+  useCallback,
   useContext,
   useState,
-  useCallback,
-  MouseEventHandler,
 } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Modal, Button } from "react-bootstrap";
-import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
-import { vendorNameType, ItemNumber, Src } from "../../../../customTypes/types";
-import { myContextInterface, DarkMode } from "../../../../App";
+import { Button, Modal } from "react-bootstrap";
+import { DarkMode } from "../../../../App";
+import { ItemNumber, Src, vendorNameType } from "../../../../customTypes/types";
 
 type Props = {
   src: Src;
@@ -23,8 +23,8 @@ const QRCodeModal: FC<Props> = ({
   vendorName,
   itemNumbers,
 }): JSX.Element => {
-  const { darkTheme } = useContext<myContextInterface>(DarkMode);
-  const [show, setShow] = useState<boolean>(false);
+  const { darkTheme } = useContext(DarkMode);
+  const [show, setShow] = useState(false);
 
   const showModal: MouseEventHandler<SVGSVGElement> = useCallback(() => {
     setShow(true);
@@ -44,7 +44,9 @@ const QRCodeModal: FC<Props> = ({
         role="button"
         onClick={showModal}
       />
-      <Modal show={show} onHide={hideModal}>
+      <Modal
+        show={show}
+        onHide={hideModal}>
         <Modal.Header
           className={darkTheme ? "bg-dark" : "bg-light"}
           closeButton

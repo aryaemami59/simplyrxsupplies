@@ -1,15 +1,15 @@
+import { FC, memo, MouseEventHandler, useCallback, useContext } from "react";
 import { Button, ButtonGroup } from "react-bootstrap";
-import { memo, useCallback, FC, useContext, MouseEventHandler } from "react";
 import { shallowEqual } from "react-redux";
+import { DarkMode } from "../../../App";
+import { Category, ItemObjType } from "../../../customTypes/types";
 import {
   addItems,
   checkIfAddedToAllVendors,
   selectVendorsToAddTo,
 } from "../../../Redux/addedSlice";
-import SideBarVendorBadges from "./SideBarVendorBadges";
-import { DarkMode } from "../../../App";
-import { Category, ItemObjType } from "../../../customTypes/types";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
+import SideBarVendorBadges from "./SideBarVendorBadges";
 
 type Props = {
   category: Category;

@@ -1,11 +1,11 @@
+import { FC, memo, MouseEventHandler, useCallback, useContext } from "react";
 import { Dropdown } from "react-bootstrap";
-import { memo, useCallback, FC, useContext, MouseEventHandler } from "react";
-import {
-  checkIfItemAddedToOneVendor,
-  addItemsByVendor,
-} from "../../../Redux/addedSlice";
 import { DarkMode } from "../../../App";
 import { ItemObjType, vendorNameType } from "../../../customTypes/types";
+import {
+  addItemsByVendor,
+  checkIfItemAddedToOneVendor,
+} from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 
 type Props = {

@@ -1,18 +1,18 @@
+import { FC, KeyboardEvent, memo, useCallback, useState } from "react";
 import {
-  Collapse,
   Button,
-  Row,
-  Col,
-  Fade,
   ButtonGroup,
+  Col,
+  Collapse,
   Container,
+  Fade,
+  Row,
 } from "react-bootstrap";
-import { memo, useCallback, useState, FC, KeyboardEvent } from "react";
-import RowRemoveButton from "./RowRemoveButton";
-import MinimizeButton from "./MinimizeButton";
-import RowSingleItemInfo from "./RowSingleItemInfo";
-import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
+import MinimizeButton from "./MinimizeButton";
+import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal";
+import RowRemoveButton from "./RowRemoveButton";
+import RowSingleItemInfo from "./RowSingleItemInfo";
 
 type Props = {
   itemObj: ItemObjType;

@@ -1,5 +1,5 @@
+import { FC, memo } from "react";
 import { Card } from "react-bootstrap";
-import { memo, FC } from "react";
 import { ItemObjType } from "../../../customTypes/types";
 
 type Props = {

@@ -1,15 +1,15 @@
+import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   FC,
   memo,
-  useState,
-  useContext,
-  useCallback,
   MouseEventHandler,
+  useCallback,
+  useContext,
+  useState,
 } from "react";
-import { Modal, Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DarkMode, myContextInterface } from "../../../../../App";
-import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
+import { Button, Modal } from "react-bootstrap";
+import { DarkMode } from "../../../../../App";
 import { ItemObjType } from "../../../../../customTypes/types";
 
 type Props = {
@@ -17,8 +17,8 @@ type Props = {
 };
 
 const RowBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
-  const [show, setShow] = useState<boolean>(false);
-  const { darkTheme } = useContext<myContextInterface>(DarkMode);
+  const [show, setShow] = useState(false);
+  const { darkTheme } = useContext(DarkMode);
 
   const showModal: MouseEventHandler<SVGSVGElement> = useCallback(() => {
     setShow(true);
@@ -37,7 +37,9 @@ const RowBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
         role="button"
         onClick={showModal}
       />
-      <Modal show={show} onHide={hideModal}>
+      <Modal
+        show={show}
+        onHide={hideModal}>
         <Modal.Header
           className={darkTheme ? "bg-dark" : "bg-light"}
           closeButton
@@ -46,7 +48,11 @@ const RowBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
           className={`d-flex justify-content-center align-items-center ${
             darkTheme ? "bg-dark" : "bg-light"
           }`}>
-          <img src={itemObj.src} alt={itemObj.itemNumber} className="w-100" />
+          <img
+            src={itemObj.src}
+            alt={itemObj.itemNumber}
+            className="w-100"
+          />
         </Modal.Body>
         <Modal.Footer className={darkTheme ? "bg-dark" : "bg-light"}>
           <Button onClick={hideModal}>Close</Button>

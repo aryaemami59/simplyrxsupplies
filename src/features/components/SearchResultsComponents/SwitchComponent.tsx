@@ -1,10 +1,10 @@
+import { FC, memo } from "react";
 import { Form } from "react-bootstrap";
 import { connect, ConnectedProps } from "react-redux";
-import { memo, FC } from "react";
-import { setVendors } from "../../../Redux/addedSlice";
-import VendorBadges from "./VendorBadges";
 import { ItemObjType, vendorNameType } from "../../../customTypes/types";
-import { RootState, AppDispatch } from "../../../Redux/store";
+import { setVendors } from "../../../Redux/addedSlice";
+import { AppDispatch, RootState } from "../../../Redux/store";
+import VendorBadges from "./VendorBadges";
 
 type stateToPropsReturnType = {
   checked: boolean;

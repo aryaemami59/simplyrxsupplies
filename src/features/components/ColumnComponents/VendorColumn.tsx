@@ -1,23 +1,23 @@
-import { Button, Collapse, Card } from "react-bootstrap";
-import { shallowEqual } from "react-redux";
 import {
-  useState,
+  FC,
+  KeyboardEvent,
   memo,
   useCallback,
   useContext,
-  FC,
-  KeyboardEvent,
+  useState,
 } from "react";
+import { Button, Card, Collapse } from "react-bootstrap";
+import { shallowEqual } from "react-redux";
+import { DarkMode } from "../../../App";
+import { vendorNameType } from "../../../customTypes/types";
 import {
   selectByVendor,
   selectVendorOfficialName,
 } from "../../../Redux/addedSlice";
-import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge";
-import { DarkMode } from "../../../App";
-import { vendorNameType } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
-import EmptyColumn from "./EmptyColumn";
 import ColumnTopCardBody from "./ColumnTopCardBody";
+import EmptyColumn from "./EmptyColumn";
+import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge";
 
 type Props = {
   vendorName: vendorNameType;

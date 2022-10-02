@@ -1,14 +1,14 @@
 import {
-  memo,
-  useCallback,
-  useState,
-  useContext,
   FC,
+  memo,
   MouseEventHandler,
+  useCallback,
+  useContext,
+  useState,
 } from "react";
 import { Button, Col, Modal, Row } from "react-bootstrap";
-import VendorColumnList from "../ColumnComponents/VendorColumnList";
 import { DarkMode } from "../../../App";
+import VendorColumnList from "../ColumnComponents/VendorColumnList";
 
 const VendorColumnModalComponent: FC = (): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);

@@ -1,4 +1,4 @@
-import { memo, FC } from "react";
+import { FC, memo } from "react";
 import { ItemObjType } from "../../../customTypes/types";
 
 type Props = {

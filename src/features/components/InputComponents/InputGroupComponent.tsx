@@ -1,12 +1,12 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FC, memo, MouseEventHandler, useCallback } from "react";
 import { Button, Form, Row } from "react-bootstrap";
-import { memo, useCallback, FC, MouseEventHandler } from "react";
-import InputFieldComponent from "./InputFieldComponent";
 import { compactSearchResults } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 import { RootState } from "../../../Redux/store";
 import SearchResultsContainer from "../SearchResultsComponents/SearchResultsContainer";
+import InputFieldComponent from "./InputFieldComponent";
 
 const InputGroupComponent: FC = (): JSX.Element => {
   const dispatch = useAppDispatch();

@@ -1,11 +1,11 @@
-import { memo, FC } from "react";
 import QRCode from "qrcode";
-import { selectQRCodeContent } from "../../../../Redux/addedSlice";
-import PrintIconQRCode from "./PrintIconQRCode";
+import { FC, memo } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import QRCodeModal from "./QRCodeModal";
-import { useAppSelector } from "../../../../Redux/hooks";
 import { vendorNameType } from "../../../../customTypes/types";
+import { selectQRCodeContent } from "../../../../Redux/addedSlice";
+import { useAppSelector } from "../../../../Redux/hooks";
+import PrintIconQRCode from "./PrintIconQRCode";
+import QRCodeModal from "./QRCodeModal";
 
 type Props = {
   vendorName: vendorNameType;
@@ -20,9 +20,13 @@ const QRCodeImage: FC<Props> = ({ vendorName }): JSX.Element => {
   });
 
   return (
-    <Container fluid className="my-4">
+    <Container
+      fluid
+      className="my-4">
       <Row>
-        <Col md={12} className="position-relative">
+        <Col
+          md={12}
+          className="position-relative">
           <Row className="justify-content-center">
             <PrintIconQRCode
               vendorName={vendorName}

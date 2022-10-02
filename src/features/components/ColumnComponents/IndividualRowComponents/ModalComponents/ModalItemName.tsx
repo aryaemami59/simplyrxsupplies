@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
 import { ListGroup } from "react-bootstrap";
-import CopyIcon from "../CopyIcon";
 import { ItemObjType, vendorNameType } from "../../../../../customTypes/types";
+import CopyIcon from "../CopyIcon";
 
 type Props = {
   itemObj: ItemObjType;

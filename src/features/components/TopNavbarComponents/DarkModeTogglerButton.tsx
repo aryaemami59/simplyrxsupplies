@@ -1,7 +1,7 @@
 import { faCircleHalfStroke } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FC, memo, MouseEventHandler, useCallback, useContext } from "react";
 import { Button } from "react-bootstrap";
-import { memo, useCallback, useContext, FC, MouseEventHandler } from "react";
 import { DarkMode } from "../../../App";
 
 const DarkModeTogglerButton: FC = (): JSX.Element => {

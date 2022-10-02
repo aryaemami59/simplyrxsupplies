@@ -1,16 +1,16 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { Overlay, Tooltip } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  FC,
   memo,
+  MouseEventHandler,
   useCallback,
   useRef,
   useState,
-  FC,
-  MouseEventHandler,
 } from "react";
+import { Overlay, Tooltip } from "react-bootstrap";
+import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 import { removeItems } from "../../../../Redux/addedSlice";
-import { vendorNameType, ItemObjType } from "../../../../customTypes/types";
 import { useAppDispatch } from "../../../../Redux/hooks";
 
 type Props = {
@@ -19,7 +19,7 @@ type Props = {
 };
 
 const RowRemoveButton: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
-  const [show, setShow] = useState<boolean>(false);
+  const [show, setShow] = useState(false);
   const target = useRef<null>(null);
   const dispatch = useAppDispatch();
 

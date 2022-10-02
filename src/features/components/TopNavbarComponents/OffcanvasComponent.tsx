@@ -1,12 +1,12 @@
-import { Offcanvas, Navbar } from "react-bootstrap";
 import {
-  useState,
-  useCallback,
-  memo,
-  useContext,
   FC,
+  memo,
   MouseEventHandler,
+  useCallback,
+  useContext,
+  useState,
 } from "react";
+import { Navbar, Offcanvas } from "react-bootstrap";
 import { DarkMode } from "../../../App";
 import OffcanvasBodyContent from "./OffcanvasBodyContent";
 

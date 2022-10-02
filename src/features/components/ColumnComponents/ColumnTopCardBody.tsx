@@ -1,16 +1,16 @@
 import { FC, memo } from "react";
-import { Card, ButtonGroup, ListGroup } from "react-bootstrap";
+import { ButtonGroup, Card, ListGroup } from "react-bootstrap";
+import {
+  ItemObjType,
+  officialVendorNameType,
+  vendorNameType,
+} from "../../../customTypes/types";
+import RowSingleContainer from "./IndividualRowComponents/RowSingleContainer";
 import QRCodeImage from "./QRCodeComponents/QRCodeImage";
 import ColumnToggleItemBarcodesButton from "./ToggleComponents/ColumnToggleItemBarcodesButton";
 import ColumnToggleItemNumbersButton from "./ToggleComponents/ColumnToggleItemNumbersButton";
 import ColumnToggleNamesButton from "./ToggleComponents/ColumnToggleNamesButton";
 import VendorLink from "./VendorLink";
-import {
-  ItemObjType,
-  vendorNameType,
-  officialVendorNameType,
-} from "../../../customTypes/types";
-import RowSingleContainer from "./IndividualRowComponents/RowSingleContainer";
 
 type Props = {
   addedItems: ItemObjType[];

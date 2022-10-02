@@ -1,15 +1,15 @@
+import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   FC,
   memo,
-  useState,
+  MouseEventHandler,
   useCallback,
   useContext,
-  MouseEventHandler,
+  useState,
 } from "react";
-import { Modal, Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
-import { DarkMode, myContextInterface } from "../../../../../App";
+import { Button, Modal } from "react-bootstrap";
+import { DarkMode } from "../../../../../App";
 import { ItemObjType, vendorNameType } from "../../../../../customTypes/types";
 import ModalBodyContent from "./ModalBodyContent";
 
@@ -22,7 +22,7 @@ const RowSingleContainerModal: FC<Props> = ({
   itemObj,
   vendorName,
 }): JSX.Element => {
-  const { darkTheme } = useContext<myContextInterface>(DarkMode);
+  const { darkTheme } = useContext(DarkMode);
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -60,7 +60,10 @@ const RowSingleContainerModal: FC<Props> = ({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className={darkTheme ? "bg-dark text-info" : "bg-light"}>
-          <ModalBodyContent itemObj={itemObj} vendorName={vendorName} />
+          <ModalBodyContent
+            itemObj={itemObj}
+            vendorName={vendorName}
+          />
         </Modal.Body>
         <Modal.Footer className={darkTheme ? "bg-dark" : "bg-light"}>
           <Button onClick={hideModal}>Close</Button>

@@ -1,27 +1,27 @@
-import { Fade, Collapse, Badge, Button } from "react-bootstrap";
 import {
+  FC,
   memo,
+  MouseEventHandler,
   useCallback,
   useRef,
   useState,
-  FC,
-  MouseEventHandler,
 } from "react";
+import { Badge, Button, Collapse, Fade } from "react-bootstrap";
 import { shallowEqual } from "react-redux";
 import { ItemObjType } from "../../../customTypes/types";
-import { useAppSelector, useAppDispatch } from "../../../Redux/hooks";
 import {
   addItems,
   checkIfAddedToAllVendors,
   selectVendorsToAddTo,
 } from "../../../Redux/addedSlice";
+import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 
 type Props = {
   itemObj: ItemObjType;
 };
 
 const SearchResultsAddButton: FC<Props> = ({ itemObj }): JSX.Element => {
-  const [show, setShow] = useState<boolean>(false);
+  const [show, setShow] = useState(false);
   const IfAddedToAllVendors = useAppSelector(checkIfAddedToAllVendors(itemObj));
   const vendors = useAppSelector(selectVendorsToAddTo(itemObj), shallowEqual);
   const dispatch = useAppDispatch();

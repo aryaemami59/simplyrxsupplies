@@ -1,30 +1,30 @@
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { Container, Row, Col } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 import {
   createContext,
+  Dispatch,
+  FC,
   memo,
+  SetStateAction,
   useEffect,
   useState,
-  FC,
-  SetStateAction,
-  Dispatch,
 } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import "./App.css";
+import ErrorComponent from "./ErrorComponent";
+import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";
+import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
+import SideBarContainer from "./features/components/SideBarComponents/SideBarContainer";
+import TopNavbar from "./features/components/TopNavbarComponents/TopNavbar";
+import IsLoading from "./IsLoading";
 import {
   checkIfLoading,
-  fetchItems,
   fetchCategories,
+  fetchItems,
   fetchVendors,
   selectErrMsg,
 } from "./Redux/addedSlice";
-import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";
-import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
-import TopNavbar from "./features/components/TopNavbarComponents/TopNavbar";
-import SideBarContainer from "./features/components/SideBarComponents/SideBarContainer";
-import { useAppSelector, useAppDispatch } from "./Redux/hooks";
-import IsLoading from "./IsLoading";
-import ErrorComponent from "./ErrorComponent";
+import { useAppDispatch, useAppSelector } from "./Redux/hooks";
 
 export interface myContextInterface {
   darkTheme: boolean | (() => boolean);
@@ -40,9 +40,7 @@ const getLocalStorageTheme = (): boolean =>
   localStorage.getItem("theme") ? !!localStorage.getItem("theme") : true;
 
 const App: FC = (): JSX.Element => {
-  const [darkTheme, setDarkTheme] = useState<boolean>(() =>
-    getLocalStorageTheme()
-  );
+  const [darkTheme, setDarkTheme] = useState<boolean>(getLocalStorageTheme);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
