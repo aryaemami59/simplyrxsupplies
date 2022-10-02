@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Simply-RX-Supplies/static/css/main.a69b5a87.css",
-    "main.js": "/Simply-RX-Supplies/static/js/main.12ec29e2.js",
+    "main.css": "/Simply-RX-Supplies/static/css/main.8e4d3caf.css",
+    "main.js": "/Simply-RX-Supplies/static/js/main.d8e67794.js",
     "static/media/fa-solid-900.ttf": "/Simply-RX-Supplies/static/media/fa-solid-900.e615bbcb258550973c16.ttf",
     "static/media/fa-brands-400.ttf": "/Simply-RX-Supplies/static/media/fa-brands-400.b823fc0dbb5a5f0c21bb.ttf",
     "static/media/fa-solid-900.woff2": "/Simply-RX-Supplies/static/media/fa-solid-900.59edf72a325ac2048d60.woff2",
@@ -11,11 +11,11 @@
     "static/media/fa-v4compatibility.ttf": "/Simply-RX-Supplies/static/media/fa-v4compatibility.4baccb548138840fa33a.ttf",
     "static/media/fa-v4compatibility.woff2": "/Simply-RX-Supplies/static/media/fa-v4compatibility.afac89562a5301459069.woff2",
     "index.html": "/Simply-RX-Supplies/index.html",
-    "main.a69b5a87.css.map": "/Simply-RX-Supplies/static/css/main.a69b5a87.css.map",
-    "main.12ec29e2.js.map": "/Simply-RX-Supplies/static/js/main.12ec29e2.js.map"
+    "main.8e4d3caf.css.map": "/Simply-RX-Supplies/static/css/main.8e4d3caf.css.map",
+    "main.d8e67794.js.map": "/Simply-RX-Supplies/static/js/main.d8e67794.js.map"
   },
   "entrypoints": [
-    "static/css/main.a69b5a87.css",
-    "static/js/main.12ec29e2.js"
+    "static/css/main.8e4d3caf.css",
+    "static/js/main.d8e67794.js"
   ]
 }
