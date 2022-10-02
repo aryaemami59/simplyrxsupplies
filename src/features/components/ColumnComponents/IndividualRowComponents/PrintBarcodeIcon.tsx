@@ -20,7 +20,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const PrintIconBarcodeComponent: FC<Props> = ({
+const PrintBarcodeIcon: FC<Props> = ({
   text,
   header,
   itemObj,
@@ -79,4 +79,4 @@ const PrintIconBarcodeComponent: FC<Props> = ({
   );
 };
 
-export default memo<Props>(PrintIconBarcodeComponent);
+export default memo<Props>(PrintBarcodeIcon);

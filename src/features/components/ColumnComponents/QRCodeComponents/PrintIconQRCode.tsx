@@ -11,8 +11,8 @@ import {
   MouseEventHandler,
 } from "react";
 import printjs from "print-js";
-import { DarkMode, myContextInterface } from "../../../App";
-import { vendorNameType, Src } from "../../../customTypes/types";
+import { DarkMode, myContextInterface } from "../../../../App";
+import { vendorNameType, Src } from "../../../../customTypes/types";
 
 type Props = {
   src: Src;

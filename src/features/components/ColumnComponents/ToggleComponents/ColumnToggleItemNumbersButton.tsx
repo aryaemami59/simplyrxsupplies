@@ -1,10 +1,10 @@
 import { FC, memo, MouseEventHandler, useCallback } from "react";
 import { Button } from "react-bootstrap";
-import { ToggleItemNumber } from "../../../Redux/addedSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
-import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
-import { RootState } from "../../../Redux/store";
+import { RootState } from "../../../../Redux/store";
+import { ToggleItemNumber } from "../../../../Redux/addedSlice";
+import { useAppDispatch, useAppSelector } from "../../../../Redux/hooks";
 
 const ColumnToggleItemNumbersButton: FC = (): JSX.Element => {
   const dispatch = useAppDispatch();

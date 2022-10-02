@@ -1,8 +1,8 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { FC, memo } from "react";
-import PrintIconBarcodeComponent from "./PrintIconBarcodeComponent";
+import PrintBarcodeIcon from "./PrintBarcodeIcon";
 import { selectVendorOfficialName } from "../../../../Redux/addedSlice";
-import RowBarcodeModal from "./RowBarcodeModal";
+import RowBarcodeModal from "./ModalComponents/RowBarcodeModal";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 import { useAppSelector } from "../../../../Redux/hooks";
 import { RootState } from "../../../../Redux/store";
@@ -27,7 +27,7 @@ const RowBarcodeImage: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
           <Row>
             <Col md={12} className="position-relative">
               <Row className="justify-content-center">
-                <PrintIconBarcodeComponent
+                <PrintBarcodeIcon
                   itemObj={itemObj}
                   text={"Print This Barcode"}
                   header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}

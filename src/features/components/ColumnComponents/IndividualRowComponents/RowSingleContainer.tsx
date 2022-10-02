@@ -11,7 +11,7 @@ import { memo, useCallback, useState, FC, KeyboardEvent } from "react";
 import RowRemoveButton from "./RowRemoveButton";
 import MinimizeButton from "./MinimizeButton";
 import RowSingleItemInfo from "./RowSingleItemInfo";
-import RowSingleContainerModal from "./RowSingleContainerModal";
+import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 
 type Props = {
@@ -23,19 +23,19 @@ const RowSingleContainer: FC<Props> = ({
   itemObj,
   vendorName,
 }): JSX.Element => {
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState(true);
 
-  const toggle = useCallback(() => {
+  const toggleFade = useCallback(() => {
     setOpen(prev => !prev);
   }, []);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLDivElement>) => {
       if (e.key === "c") {
-        toggle();
+        toggleFade();
       }
     },
-    [toggle]
+    [toggleFade]
   );
 
   return (
@@ -66,7 +66,7 @@ const RowSingleContainer: FC<Props> = ({
                 aria-controls="maximize content"
                 variant="success"
                 className="w-100"
-                onClick={toggle}>
+                onClick={toggleFade}>
                 {itemObj.name}
               </Button>
             </Fade>
@@ -85,7 +85,7 @@ const RowSingleContainer: FC<Props> = ({
               <MinimizeButton
                 key={`MinimizeButton-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
                 open={open}
-                toggle={toggle}
+                toggle={toggleFade}
                 vendorName={vendorName}
                 itemObj={itemObj}
               />

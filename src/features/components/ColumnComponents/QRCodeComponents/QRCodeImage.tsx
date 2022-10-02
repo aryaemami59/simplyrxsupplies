@@ -1,11 +1,11 @@
 import { memo, FC } from "react";
 import QRCode from "qrcode";
-import { selectQRCodeContent } from "../../../Redux/addedSlice";
+import { selectQRCodeContent } from "../../../../Redux/addedSlice";
 import PrintIconQRCode from "./PrintIconQRCode";
 import { Col, Container, Row } from "react-bootstrap";
 import QRCodeModal from "./QRCodeModal";
-import { useAppSelector } from "../../../Redux/hooks";
-import { vendorNameType } from "../../../customTypes/types";
+import { useAppSelector } from "../../../../Redux/hooks";
+import { vendorNameType } from "../../../../customTypes/types";
 
 type Props = {
   vendorName: vendorNameType;

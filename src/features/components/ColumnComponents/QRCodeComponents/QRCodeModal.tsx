@@ -1,24 +1,30 @@
 import {
   FC,
   memo,
-  useState,
   useContext,
+  useState,
   useCallback,
   MouseEventHandler,
 } from "react";
-import { Modal, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DarkMode, myContextInterface } from "../../../../App";
+import { Modal, Button } from "react-bootstrap";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
-import { ItemObjType } from "../../../../customTypes/types";
+import { vendorNameType, ItemNumber, Src } from "../../../../customTypes/types";
+import { myContextInterface, DarkMode } from "../../../../App";
 
 type Props = {
-  itemObj: ItemObjType;
+  src: Src;
+  vendorName: vendorNameType;
+  itemNumbers: ItemNumber;
 };
 
-const RowBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
-  const [show, setShow] = useState<boolean>(false);
+const QRCodeModal: FC<Props> = ({
+  src,
+  vendorName,
+  itemNumbers,
+}): JSX.Element => {
   const { darkTheme } = useContext<myContextInterface>(DarkMode);
+  const [show, setShow] = useState<boolean>(false);
 
   const showModal: MouseEventHandler<SVGSVGElement> = useCallback(() => {
     setShow(true);
@@ -27,6 +33,7 @@ const RowBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
   const hideModal = useCallback(() => {
     setShow(false);
   }, []);
+
   return (
     <>
       <FontAwesomeIcon
@@ -41,14 +48,20 @@ const RowBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
         <Modal.Header
           className={darkTheme ? "bg-dark" : "bg-light"}
           closeButton
-          closeVariant={darkTheme ? "white" : ""}></Modal.Header>
+          closeVariant={darkTheme ? "white" : "none"}></Modal.Header>
         <Modal.Body
           className={`d-flex justify-content-center align-items-center ${
             darkTheme ? "bg-dark" : "bg-light"
           }`}>
-          <img src={itemObj.src} alt={itemObj.itemNumber} className="w-100" />
+          <img
+            src={src}
+            className="w-100"
+            alt={`${vendorName}-QRCode`}
+            key={`${vendorName}-QRCode-image-QRCodeImageComponent`}
+            title={itemNumbers}
+          />
         </Modal.Body>
-        <Modal.Footer className={darkTheme ? "bg-dark" : "bg-light"}>
+        <Modal.Footer className={darkTheme ? "bg-dark text-info" : "bg-light"}>
           <Button onClick={hideModal}>Close</Button>
         </Modal.Footer>
       </Modal>
@@ -56,4 +69,4 @@ const RowBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
   );
 };
 
-export default memo<Props>(RowBarcodeModal);
+export default memo<Props>(QRCodeModal);

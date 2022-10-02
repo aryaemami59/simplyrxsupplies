@@ -29,8 +29,6 @@ export type categoriesObjType = Record<
   { id: number; items: number[] }
 >;
 
-// type VendorChecked = Partial<Record<vendorNameType, boolean>>;
-
 type VendorsInAddedState = Partial<Record<vendorNameType, ItemObjType[]>>;
 
 export type addedState = VendorsInAddedState & {
@@ -47,20 +45,18 @@ export type addedState = VendorsInAddedState & {
   navsArr?: Category[];
   navsObj?: categoriesObjType;
 };
-// &
-// {
-//   [key in vendorNameType]?: ItemObjType[];
-// };
 
-export type itemState = {
+export type itemState = Partial<Record<ItemName, ItemObjType>> & {
   itemsArr: ItemObjType[];
   isLoading: boolean;
-  // vendorsChecked: VendorChecked;
   errMsg: string;
-  // darkMode: boolean;
-} & {
-  [key in ItemName]?: ItemObjType;
 };
+// &
+// {
+//   [key in ItemName]?: ItemObjType;
+// };
+
+// type ItemObjInItemState = Partial<Record<ItemName, ItemObjType>>;
 
 type ItemName = ItemNamesType;
 export type ItemNumber = string;

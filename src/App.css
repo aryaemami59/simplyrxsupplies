@@ -323,6 +323,11 @@ input.cursor-pointer {
   text-shadow: 0 0 0.125em currentColor;
 }
 
+.sidebar-col {
+  height: calc(100vh - 54px);
+  top: 54px;
+}
+
 /* .neon-button::after,
 .neon-button::before {
   box-sizing: border-box;

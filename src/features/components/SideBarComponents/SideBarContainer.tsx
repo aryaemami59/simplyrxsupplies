@@ -3,7 +3,7 @@ import { memo, useContext, FC } from "react";
 import SideBarAccordionList from "./SideBarAccordionList";
 import { DarkMode } from "../../../App";
 
-const VerticalNavComponent: FC = (): JSX.Element => {
+const SideBarContainer: FC = (): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);
 
   return (
@@ -21,4 +21,4 @@ const VerticalNavComponent: FC = (): JSX.Element => {
   );
 };
 
-export default memo(VerticalNavComponent);
+export default memo(SideBarContainer);

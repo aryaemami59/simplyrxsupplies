@@ -21,14 +21,14 @@ import {
   selectVendorsLinks,
 } from "../../../Redux/addedSlice";
 import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge";
-import QRCodeImage from "./QRCodeImage";
 import RowSingleContainer from "./IndividualRowComponents/RowSingleContainer";
 import { DarkMode, myContextInterface } from "../../../App";
-import ColumnToggleNamesButton from "./ColumnToggleNamesButton";
-import ColumnToggleItemNumbersButton from "./ColumnToggleItemNumbersButton";
-import ColumnToggleItemBarcodesButton from "./ColumnToggleItemBarcodesButton";
+import ColumnToggleItemBarcodesButton from "./ToggleComponents/ColumnToggleItemBarcodesButton";
 import { vendorNameType } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
+import QRCodeImage from "./QRCodeComponents/QRCodeImage";
+import ColumnToggleNamesButton from "./ToggleComponents/ColumnToggleNamesButton";
+import ColumnToggleItemNumbersButton from "./ToggleComponents/ColumnToggleItemNumbersButton";
 
 type Props = {
   vendorName: vendorNameType;
