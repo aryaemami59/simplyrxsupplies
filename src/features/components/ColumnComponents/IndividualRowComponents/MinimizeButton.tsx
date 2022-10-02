@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tooltip, Overlay } from "react-bootstrap";
 import { memo, useCallback, useRef, useState, FC } from "react";
 import { MouseEventHandler } from "react";
-import { ItemObjType, vendorNameType } from "../../../customTypes/types";
+import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 
 const EXPAND = "Expand" as const;
 const COLLAPSE = "Collapse" as const;

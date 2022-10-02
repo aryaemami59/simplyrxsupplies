@@ -20,13 +20,13 @@ import {
   selectVendorOfficialName,
   selectVendorsLinks,
 } from "../../../Redux/addedSlice";
-import BadgeComponent from "./BadgeComponent";
-import QRCodeImageComponent from "./QRCodeImageComponent";
-import SingleVendorColumnListItem from "./SingleVendorColumnListItem";
+import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge";
+import QRCodeImage from "./QRCodeImage";
+import RowSingleContainer from "./IndividualRowComponents/RowSingleContainer";
 import { DarkMode, myContextInterface } from "../../../App";
-import ColumnToggleNameButton from "./ColumnToggleNameButton";
-import ColumnToggleItemNumberButton from "./ColumnToggleItemNumberButton";
-import ColumnToggleItemBarcodeButton from "./ColumnToggleItemBarcodeButton";
+import ColumnToggleNamesButton from "./ColumnToggleNamesButton";
+import ColumnToggleItemNumbersButton from "./ColumnToggleItemNumbersButton";
+import ColumnToggleItemBarcodesButton from "./ColumnToggleItemBarcodesButton";
 import { vendorNameType } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
 
@@ -64,7 +64,7 @@ const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
         onClick={buttonClick}
         key={`${officialVendorName}-VendorColumn-Button`}>
         {officialVendorName}
-        <BadgeComponent
+        <RowCounterBadge
           vendorName={vendorName}
           key={`${officialVendorName}-VendorColumn-Badge`}
         />
@@ -78,7 +78,7 @@ const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
             onKeyDown={handleKeyDown}>
             {addedItems.length ? (
               <Card.Body key={`Card.Body-VendorColumn-${vendorName}`}>
-                <QRCodeImageComponent
+                <QRCodeImage
                   vendorName={vendorName}
                   key={`${vendorName}-VendorColumn-QRCodeImageComponent`}
                 />
@@ -90,13 +90,13 @@ const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
                   </Alert.Link>
                 </Alert>
                 <ButtonGroup className="mb-3">
-                  <ColumnToggleNameButton />
-                  <ColumnToggleItemNumberButton />
-                  <ColumnToggleItemBarcodeButton />
+                  <ColumnToggleNamesButton />
+                  <ColumnToggleItemNumbersButton />
+                  <ColumnToggleItemBarcodesButton />
                 </ButtonGroup>
                 <ListGroup key={`ListGroup-VendorColumn-${vendorName}`}>
                   {addedItems.map(e => (
-                    <SingleVendorColumnListItem
+                    <RowSingleContainer
                       itemObj={e}
                       {...e}
                       vendorName={vendorName}

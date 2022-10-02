@@ -1,16 +1,16 @@
 import { ListGroup } from "react-bootstrap";
 import { memo, FC } from "react";
-import CopyIconComponent from "./CopyIconComponent";
-import { ItemObjType, vendorNameType } from "../../../customTypes/types";
-import { useAppSelector } from "../../../Redux/hooks";
-import { RootState } from "../../../Redux/store";
+import CopyIcon from "./CopyIcon";
+import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
+import { useAppSelector } from "../../../../Redux/hooks";
+import { RootState } from "../../../../Redux/store";
 
 type Props = {
   itemObj: ItemObjType;
   vendorName: vendorNameType;
 };
 
-const ItemNameComponent: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
+const RowItemName: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
   const itemNameShown = useAppSelector(
     (state: RootState) => state.added.showItemName
   );
@@ -24,7 +24,7 @@ const ItemNameComponent: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
           variant="success"
           key={`${itemObj.name}-${vendorName}-VendorColumn-ListGroupItem-name`}>
           Item Name: {itemObj.name}
-          <CopyIconComponent
+          <CopyIcon
             key={`${vendorName}-${itemObj.name}-CopyIconComponent-ItemNameComponent`}
             content={itemObj.name}
             text={"Name"}
@@ -40,4 +40,4 @@ const ItemNameComponent: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
   );
 };
 
-export default memo<Props>(ItemNameComponent);
+export default memo<Props>(RowItemName);

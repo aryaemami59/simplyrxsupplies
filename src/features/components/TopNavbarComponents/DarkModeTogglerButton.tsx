@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import { memo, useCallback, useContext, FC, MouseEventHandler } from "react";
 import { DarkMode, myContextInterface } from "../../../App";
 
-const DarkModeTogglerButtonComponent: FC = (): JSX.Element => {
+const DarkModeTogglerButton: FC = (): JSX.Element => {
   const { setDarkTheme, darkTheme } = useContext<myContextInterface>(DarkMode);
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
@@ -29,4 +29,4 @@ const DarkModeTogglerButtonComponent: FC = (): JSX.Element => {
   );
 };
 
-export default memo(DarkModeTogglerButtonComponent);
+export default memo(DarkModeTogglerButton);

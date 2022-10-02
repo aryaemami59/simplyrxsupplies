@@ -1,21 +1,18 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { FC, memo } from "react";
 import PrintIconBarcodeComponent from "./PrintIconBarcodeComponent";
-import { selectVendorOfficialName } from "../../../Redux/addedSlice";
-import ColumnBarcodeModal from "./ColumnBarcodeModal";
-import { ItemObjType, vendorNameType } from "../../../customTypes/types";
-import { useAppSelector } from "../../../Redux/hooks";
-import { RootState } from "../../../Redux/store";
+import { selectVendorOfficialName } from "../../../../Redux/addedSlice";
+import RowBarcodeModal from "./RowBarcodeModal";
+import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
+import { useAppSelector } from "../../../../Redux/hooks";
+import { RootState } from "../../../../Redux/store";
 
 type Props = {
   itemObj: ItemObjType;
   vendorName: vendorNameType;
 };
 
-const ColumnBarcodeImageComponent: FC<Props> = ({
-  itemObj,
-  vendorName,
-}): JSX.Element => {
+const RowBarcodeImage: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
   const itemBarcodeShown = useAppSelector(
     (state: RootState) => state.added.showItemBarcode
   );
@@ -35,7 +32,7 @@ const ColumnBarcodeImageComponent: FC<Props> = ({
                   text={"Print This Barcode"}
                   header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}
                 />
-                <ColumnBarcodeModal itemObj={itemObj} />
+                <RowBarcodeModal itemObj={itemObj} />
               </Row>
               <Row className="justify-content-center">
                 <img
@@ -54,4 +51,4 @@ const ColumnBarcodeImageComponent: FC<Props> = ({
   );
 };
 
-export default memo<Props>(ColumnBarcodeImageComponent);
+export default memo<Props>(RowBarcodeImage);

@@ -3,9 +3,9 @@ import { memo, useContext, FC } from "react";
 import OffcanvasComponent from "./OffcanvasComponent";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import { DarkMode, myContextInterface } from "../../../App";
-import DarkModeTogglerButtonComponent from "./DarkModeTogglerButtonComponent";
+import DarkModeTogglerButton from "./DarkModeTogglerButton";
 
-const NavbarComponent: FC = (): JSX.Element => {
+const TopNavbar: FC = (): JSX.Element => {
   const { darkTheme } = useContext<myContextInterface>(DarkMode);
 
   return (
@@ -20,9 +20,9 @@ const NavbarComponent: FC = (): JSX.Element => {
       <Nav fill navbar className="d-none d-lg-flex" key={`Nav-NavbarComponent`}>
         <VendorDropDownsList key={`VendorDropDownsList-NavbarComponent`} />
       </Nav>
-      <DarkModeTogglerButtonComponent key={`FontAwesomeIcon-NavbarComponent`} />
+      <DarkModeTogglerButton key={`FontAwesomeIcon-NavbarComponent`} />
     </Navbar>
   );
 };
 
-export default memo(NavbarComponent);
+export default memo(TopNavbar);

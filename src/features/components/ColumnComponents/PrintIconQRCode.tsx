@@ -20,11 +20,7 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-const PrintIconQRCodeComponent: FC<Props> = ({
-  src,
-  text,
-  vendorName,
-}): JSX.Element => {
+const PrintIconQRCode: FC<Props> = ({ src, text, vendorName }): JSX.Element => {
   const { darkTheme } = useContext<myContextInterface>(DarkMode);
   const [show, setShow] = useState<boolean>(false);
   const target = useRef<null>(null);
@@ -80,4 +76,4 @@ const PrintIconQRCodeComponent: FC<Props> = ({
   );
 };
 
-export default memo<Props>(PrintIconQRCodeComponent);
+export default memo<Props>(PrintIconQRCode);

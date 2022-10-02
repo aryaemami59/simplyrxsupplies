@@ -8,18 +8,18 @@ import {
   Container,
 } from "react-bootstrap";
 import { memo, useCallback, useState, FC, KeyboardEvent } from "react";
-import RemoveButton from "./RemoveButton";
+import RowRemoveButton from "./RowRemoveButton";
 import MinimizeButton from "./MinimizeButton";
-import ColumnToggleButtonGroup from "./ColumnToggleButtonGroup";
-import SingleVendorColumnModal from "./SingleVendorColumnModal";
-import { ItemObjType, vendorNameType } from "../../../customTypes/types";
+import RowSingleItemInfo from "./RowSingleItemInfo";
+import RowSingleContainerModal from "./RowSingleContainerModal";
+import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 
 type Props = {
   itemObj: ItemObjType;
   vendorName: vendorNameType;
 };
 
-const SingleVendorColumnListItem: FC<Props> = ({
+const RowSingleContainer: FC<Props> = ({
   itemObj,
   vendorName,
 }): JSX.Element => {
@@ -78,7 +78,7 @@ const SingleVendorColumnListItem: FC<Props> = ({
             <ButtonGroup
               key={`ButtonGroup-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
               className="my-2">
-              <SingleVendorColumnModal
+              <RowSingleContainerModal
                 itemObj={itemObj}
                 vendorName={vendorName}
               />
@@ -89,7 +89,7 @@ const SingleVendorColumnListItem: FC<Props> = ({
                 vendorName={vendorName}
                 itemObj={itemObj}
               />
-              <RemoveButton
+              <RowRemoveButton
                 vendorName={vendorName}
                 itemObj={itemObj}
                 key={`RemoveButton-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
@@ -102,11 +102,11 @@ const SingleVendorColumnListItem: FC<Props> = ({
         key={`Collapse-SingleVendorColumnListItem-${vendorName}-${itemObj.name}`}
         in={open}>
         <div>
-          <ColumnToggleButtonGroup itemObj={itemObj} vendorName={vendorName} />
+          <RowSingleItemInfo itemObj={itemObj} vendorName={vendorName} />
         </div>
       </Collapse>
     </div>
   );
 };
 
-export default memo<Props>(SingleVendorColumnListItem);
+export default memo<Props>(RowSingleContainer);

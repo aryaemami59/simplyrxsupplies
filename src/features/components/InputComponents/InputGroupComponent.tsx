@@ -2,11 +2,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { Button, Form, Row } from "react-bootstrap";
 import { memo, useCallback, FC, MouseEventHandler } from "react";
-import InputListItems from "./InputListItems";
 import InputFieldComponent from "./InputFieldComponent";
 import { compactSearchResults } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 import { RootState } from "../../../Redux/store";
+import SearchResultsContainer from "../SearchResultsComponents/SearchResultsContainer";
 
 const InputGroupComponent: FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -47,7 +47,7 @@ const InputGroupComponent: FC = (): JSX.Element => {
               icon={faMagnifyingGlass}
             />
           </Form.Floating>
-          <InputListItems key={`InputListItems-InputGroupComponent`} />
+          <SearchResultsContainer key={`InputListItems-InputGroupComponent`} />
         </div>
       </div>
     </>

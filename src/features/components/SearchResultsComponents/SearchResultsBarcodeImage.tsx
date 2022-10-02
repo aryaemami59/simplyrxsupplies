@@ -5,9 +5,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const SearchResultsBarcodeImageComponent: FC<Props> = ({
-  itemObj,
-}): JSX.Element => {
+const SearchResultsBarcodeImage: FC<Props> = ({ itemObj }): JSX.Element => {
   return (
     <img
       key={`img-SearchResultsBarcodeImageComponent-${itemObj.name}`}
@@ -18,4 +16,4 @@ const SearchResultsBarcodeImageComponent: FC<Props> = ({
   );
 };
 
-export default memo<Props>(SearchResultsBarcodeImageComponent);
+export default memo<Props>(SearchResultsBarcodeImage);

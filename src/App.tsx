@@ -20,8 +20,8 @@ import {
 } from "./Redux/addedSlice";
 import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";
 import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
-import NavbarComponent from "./features/components/NavbarComponents/NavbarComponent";
-import VerticalNavComponent from "./features/components/SideBarNavComponents/VerticalNavComponent";
+import TopNavbar from "./features/components/TopNavbarComponents/TopNavbar";
+import VerticalNavComponent from "./features/components/SideBarComponents/VerticalNavComponent";
 import { useAppSelector, useAppDispatch } from "./Redux/hooks";
 
 export interface myContextInterface {
@@ -89,7 +89,7 @@ const App: FC = (): JSX.Element => {
     <div
       className={`App ${darkTheme ? "custom-dark-mode" : "custom-light-mode"}`}>
       <DarkMode.Provider value={{ darkTheme, setDarkTheme }}>
-        <NavbarComponent key={`NavbarComponent-App`} />
+        <TopNavbar key={`NavbarComponent-App`} />
         <Container fluid key={`Container-App`} className="">
           <Row className="justify-content-center" key={`Row-App`}>
             <Col

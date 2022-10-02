@@ -20,7 +20,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const AddItemButtonComponent: FC<Props> = ({ itemObj }): JSX.Element => {
+const SearchResultsAddButton: FC<Props> = ({ itemObj }): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
   const IfAddedToAllVendors = useAppSelector(checkIfAddedToAllVendors(itemObj));
   const vendors = useAppSelector(selectVendorsToAddTo(itemObj), shallowEqual);
@@ -75,4 +75,4 @@ const AddItemButtonComponent: FC<Props> = ({ itemObj }): JSX.Element => {
   );
 };
 
-export default memo<Props>(AddItemButtonComponent);
+export default memo<Props>(SearchResultsAddButton);

@@ -1,31 +1,32 @@
 import { FC, memo, MouseEventHandler, useCallback } from "react";
 import { Button } from "react-bootstrap";
+import { ToggleItemNumber } from "../../../Redux/addedSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ToggleItemBarcode } from "../../../Redux/addedSlice";
 import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 import { RootState } from "../../../Redux/store";
 
-const ColumnToggleItemBarcodeButton: FC = (): JSX.Element => {
+const ColumnToggleItemNumbersButton: FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const itemBarcodeShown = useAppSelector(
-    (state: RootState) => state.added.showItemBarcode
+  const itemNumberShown = useAppSelector(
+    (state: RootState) => state.added.showItemNumber
   );
-  const toggleItemBarcode: MouseEventHandler<HTMLButtonElement> =
+
+  const toggleItemNumber: MouseEventHandler<HTMLButtonElement> =
     useCallback(() => {
-      dispatch(ToggleItemBarcode());
+      dispatch(ToggleItemNumber());
     }, [dispatch]);
 
   return (
-    <Button onClick={toggleItemBarcode}>
-      {itemBarcodeShown ? "Hide" : "Show"} Item Barcode
+    <Button onClick={toggleItemNumber}>
+      {itemNumberShown ? "Hide" : "Show"} Item Number
       <FontAwesomeIcon
         size="lg"
         className="ms-3"
-        icon={itemBarcodeShown ? faToggleOn : faToggleOff}
+        icon={itemNumberShown ? faToggleOn : faToggleOff}
       />
     </Button>
   );
 };
 
-export default memo(ColumnToggleItemBarcodeButton);
+export default memo(ColumnToggleItemNumbersButton);

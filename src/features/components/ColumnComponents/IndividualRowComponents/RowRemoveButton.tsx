@@ -9,16 +9,16 @@ import {
   FC,
   MouseEventHandler,
 } from "react";
-import { removeItems } from "../../../Redux/addedSlice";
-import { vendorNameType, ItemObjType } from "../../../customTypes/types";
-import { useAppDispatch } from "../../../Redux/hooks";
+import { removeItems } from "../../../../Redux/addedSlice";
+import { vendorNameType, ItemObjType } from "../../../../customTypes/types";
+import { useAppDispatch } from "../../../../Redux/hooks";
 
 type Props = {
   vendorName: vendorNameType;
   itemObj: ItemObjType;
 };
 
-const RemoveButton: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
+const RowRemoveButton: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
   const target = useRef<null>(null);
   const dispatch = useAppDispatch();
@@ -67,4 +67,4 @@ const RemoveButton: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
   );
 };
 
-export default memo<Props>(RemoveButton);
+export default memo<Props>(RowRemoveButton);

@@ -1,14 +1,14 @@
 import { Badge } from "react-bootstrap";
 import { FC, memo } from "react";
-import { addedItemsLength } from "../../../Redux/addedSlice";
-import { useAppSelector } from "../../../Redux/hooks";
-import { vendorNameType } from "../../../customTypes/types";
+import { addedItemsLength } from "../../../../Redux/addedSlice";
+import { useAppSelector } from "../../../../Redux/hooks";
+import { vendorNameType } from "../../../../customTypes/types";
 
 type Props = {
   vendorName: vendorNameType;
 };
 
-const BadgeComponent: FC<Props> = ({ vendorName }): JSX.Element => {
+const RowCounterBadge: FC<Props> = ({ vendorName }): JSX.Element => {
   const addedItemsLen = useAppSelector(addedItemsLength(vendorName));
 
   return (
@@ -21,4 +21,4 @@ const BadgeComponent: FC<Props> = ({ vendorName }): JSX.Element => {
   );
 };
 
-export default memo<Props>(BadgeComponent);
+export default memo<Props>(RowCounterBadge);

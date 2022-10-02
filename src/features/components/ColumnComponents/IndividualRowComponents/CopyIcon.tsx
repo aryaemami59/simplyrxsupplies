@@ -12,9 +12,9 @@ import {
   MutableRefObject,
   Dispatch,
 } from "react";
-import { DarkMode } from "../../../App";
+import { DarkMode } from "../../../../App";
 import { Placement } from "react-bootstrap/esm/types";
-import { ItemObjType, vendorNameType } from "../../../customTypes/types";
+import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 
 type actionType = {
   type: typeof ACTIONS[keyof typeof ACTIONS];
@@ -69,7 +69,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const CopyIconComponent: FC<Props> = ({
+const CopyIcon: FC<Props> = ({
   content,
   text,
   placement,
@@ -160,4 +160,4 @@ const CopyIconComponent: FC<Props> = ({
   );
 };
 
-export default memo(CopyIconComponent);
+export default memo(CopyIcon);

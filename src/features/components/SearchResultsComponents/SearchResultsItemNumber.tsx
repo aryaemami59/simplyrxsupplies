@@ -6,9 +6,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const SearchResultsItemNumberComponent: FC<Props> = ({
-  itemObj,
-}): JSX.Element => {
+const SearchResultsItemNumber: FC<Props> = ({ itemObj }): JSX.Element => {
   return (
     <Badge
       key={`Badge-SearchResultsItemNumberComponent-${itemObj.itemNumber}`}
@@ -18,4 +16,4 @@ const SearchResultsItemNumberComponent: FC<Props> = ({
   );
 };
 
-export default memo<Props>(SearchResultsItemNumberComponent);
+export default memo<Props>(SearchResultsItemNumber);

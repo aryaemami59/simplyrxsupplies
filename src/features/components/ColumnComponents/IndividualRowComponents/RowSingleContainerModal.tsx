@@ -7,21 +7,21 @@ import {
   MouseEventHandler,
 } from "react";
 import { Modal, Row, Col, Container, ListGroup, Button } from "react-bootstrap";
-import { selectVendorOfficialName } from "../../../Redux/addedSlice";
-import CopyIconComponent from "./CopyIconComponent";
+import { selectVendorOfficialName } from "../../../../Redux/addedSlice";
+import CopyIcon from "./CopyIcon";
 import PrintIconBarcodeComponent from "./PrintIconBarcodeComponent";
-import ColumnBarcodeModal from "./ColumnBarcodeModal";
+import RowBarcodeModal from "./RowBarcodeModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
-import { DarkMode, myContextInterface } from "../../../App";
-import { ItemObjType, vendorNameType } from "../../../customTypes/types";
-import { useAppSelector } from "../../../Redux/hooks";
+import { DarkMode, myContextInterface } from "../../../../App";
+import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
+import { useAppSelector } from "../../../../Redux/hooks";
 type Props = {
   itemObj: ItemObjType;
   vendorName: vendorNameType;
 };
 
-const SingleVendorColumnModal: FC<Props> = ({
+const RowSingleContainerModal: FC<Props> = ({
   itemObj,
   vendorName,
 }): JSX.Element => {
@@ -79,7 +79,7 @@ const SingleVendorColumnModal: FC<Props> = ({
                     variant="success"
                     key={`${itemObj.name}-${vendorName}-VendorColumn-ListGroupItem-name`}>
                     Item Name: {itemObj.name}
-                    <CopyIconComponent
+                    <CopyIcon
                       key={`${vendorName}-${itemObj.name}-CopyIconComponent-ItemNameComponent`}
                       content={itemObj.name}
                       text={"Name"}
@@ -94,7 +94,7 @@ const SingleVendorColumnModal: FC<Props> = ({
                     action
                     key={`${itemObj.itemNumber}-${vendorName}-VendorColumn-ListGroupItem-itemNumber`}>
                     Item Number: {itemObj.itemNumber}
-                    <CopyIconComponent
+                    <CopyIcon
                       key={`${vendorName}-${itemObj.itemNumber}-CopyIconComponent-ItemNumberComponent`}
                       content={itemObj.itemNumber}
                       text={"Number"}
@@ -112,7 +112,7 @@ const SingleVendorColumnModal: FC<Props> = ({
                             text={"Print This Barcode"}
                             header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}
                           />
-                          <ColumnBarcodeModal itemObj={itemObj} />
+                          <RowBarcodeModal itemObj={itemObj} />
                         </Row>
                         <Row className="justify-content-center">
                           <img
@@ -137,4 +137,4 @@ const SingleVendorColumnModal: FC<Props> = ({
   );
 };
 
-export default memo<Props>(SingleVendorColumnModal);
+export default memo<Props>(RowSingleContainerModal);

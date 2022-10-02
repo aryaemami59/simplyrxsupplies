@@ -6,9 +6,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const SearchResultsItemNameComponent: FC<Props> = ({
-  itemObj,
-}): JSX.Element => {
+const SearchResultsItemName: FC<Props> = ({ itemObj }): JSX.Element => {
   return (
     <Card.Title
       className="bg-primary text-white p-3 m-0 rounded fw-normal"
@@ -18,4 +16,4 @@ const SearchResultsItemNameComponent: FC<Props> = ({
   );
 };
 
-export default memo<Props>(SearchResultsItemNameComponent);
+export default memo<Props>(SearchResultsItemName);

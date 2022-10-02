@@ -8,7 +8,7 @@ import {
   MouseEventHandler,
 } from "react";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
-import SideBarAccordionList from "../SideBarNavComponents/SideBarAccordionList";
+import SideBarAccordionList from "../SideBarComponents/SideBarAccordionList";
 import { DarkMode, myContextInterface } from "../../../App";
 
 const OffcanvasComponent: FC = (): JSX.Element => {

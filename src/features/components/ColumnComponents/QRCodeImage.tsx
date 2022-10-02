@@ -1,7 +1,7 @@
 import { memo, FC } from "react";
 import QRCode from "qrcode";
 import { selectQRCodeContent } from "../../../Redux/addedSlice";
-import PrintIconQRCodeComponent from "./PrintIconQRCodeComponent";
+import PrintIconQRCode from "./PrintIconQRCode";
 import { Col, Container, Row } from "react-bootstrap";
 import QRCodeModal from "./QRCodeModal";
 import { useAppSelector } from "../../../Redux/hooks";
@@ -11,7 +11,7 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-const QRCodeImageComponent: FC<Props> = ({ vendorName }): JSX.Element => {
+const QRCodeImage: FC<Props> = ({ vendorName }): JSX.Element => {
   const itemNumbers: string = useAppSelector(selectQRCodeContent(vendorName));
 
   let src: string = "";
@@ -24,7 +24,7 @@ const QRCodeImageComponent: FC<Props> = ({ vendorName }): JSX.Element => {
       <Row>
         <Col md={12} className="position-relative">
           <Row className="justify-content-center">
-            <PrintIconQRCodeComponent
+            <PrintIconQRCode
               vendorName={vendorName}
               src={src}
               text={"Print The QRCode"}
@@ -51,4 +51,4 @@ const QRCodeImageComponent: FC<Props> = ({ vendorName }): JSX.Element => {
   );
 };
 
-export default memo<Props>(QRCodeImageComponent);
+export default memo<Props>(QRCodeImage);

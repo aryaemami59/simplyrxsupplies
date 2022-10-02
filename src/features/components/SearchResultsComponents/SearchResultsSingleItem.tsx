@@ -1,10 +1,10 @@
 import { Card, Row, Col } from "react-bootstrap";
 import { memo, useContext, FC } from "react";
-import SearchResultsBarcodeImageComponent from "./SearchResultsBarcodeImageComponent";
-import SearchResultsItemNameComponent from "./SearchResultsItemNameComponent";
-import SearchResultsItemNumberComponent from "./SearchResultsItemNumberComponent";
+import SearchResultsBarcodeImage from "./SearchResultsBarcodeImage";
+import SearchResultsItemName from "./SearchResultsItemName";
+import SearchResultsItemNumber from "./SearchResultsItemNumber";
 import SwitchComponent from "./SwitchComponent";
-import AddItemButtonComponent from "./AddItemButtonComponent";
+import SearchResultsAddButton from "./SearchResultsAddButton";
 import { DarkMode, myContextInterface } from "../../../App";
 import { ItemObjType } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
@@ -14,7 +14,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const SingleInputListItems: FC<Props> = ({ itemObj }): JSX.Element => {
+const SearchResultsSingleItem: FC<Props> = ({ itemObj }): JSX.Element => {
   const { darkTheme } = useContext<myContextInterface>(DarkMode);
   const ifCompact = useAppSelector((state: RootState) => state.added.compact);
 
@@ -29,7 +29,7 @@ const SingleInputListItems: FC<Props> = ({ itemObj }): JSX.Element => {
         className="row gy-2 justify-content-center">
         <Col xs={ifCompact ? 6 : 12} md={12}>
           <Row className="m-0">
-            <SearchResultsItemNameComponent
+            <SearchResultsItemName
               itemObj={itemObj}
               key={`SearchResultsItemNameComponent-SingleInputListItems`}
             />
@@ -38,7 +38,7 @@ const SingleInputListItems: FC<Props> = ({ itemObj }): JSX.Element => {
         {!ifCompact ? (
           <Col xs={ifCompact ? 6 : 12}>
             <Row className="mx-0">
-              <SearchResultsItemNumberComponent
+              <SearchResultsItemNumber
                 itemObj={itemObj}
                 key={`SearchResultsItemNumberComponent-${itemObj.name}-${itemObj.itemNumber}`}
               />
@@ -66,7 +66,7 @@ const SingleInputListItems: FC<Props> = ({ itemObj }): JSX.Element => {
             {!ifCompact ? (
               <Col xs={5} lg={4}>
                 <Row className="justify-content-center">
-                  <SearchResultsBarcodeImageComponent
+                  <SearchResultsBarcodeImage
                     itemObj={itemObj}
                     key={`SearchResultsBarcodeImageComponent-SingleInputListItems`}
                   />
@@ -79,7 +79,7 @@ const SingleInputListItems: FC<Props> = ({ itemObj }): JSX.Element => {
         </Col>
         <Col xs={12}>
           <Row className="m-0">
-            <AddItemButtonComponent
+            <SearchResultsAddButton
               itemObj={itemObj}
               key={`AddItemButtonComponent-SingleInputListItems`}
             />
@@ -90,4 +90,4 @@ const SingleInputListItems: FC<Props> = ({ itemObj }): JSX.Element => {
   );
 };
 
-export default memo<Props>(SingleInputListItems);
+export default memo<Props>(SearchResultsSingleItem);

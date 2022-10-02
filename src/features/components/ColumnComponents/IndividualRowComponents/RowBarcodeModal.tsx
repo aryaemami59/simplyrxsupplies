@@ -8,15 +8,15 @@ import {
 } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DarkMode, myContextInterface } from "../../../App";
+import { DarkMode, myContextInterface } from "../../../../App";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
-import { ItemObjType } from "../../../customTypes/types";
+import { ItemObjType } from "../../../../customTypes/types";
 
 type Props = {
   itemObj: ItemObjType;
 };
 
-const ColumnBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
+const RowBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
   const [show, setShow] = useState<boolean>(false);
   const { darkTheme } = useContext<myContextInterface>(DarkMode);
 
@@ -56,4 +56,4 @@ const ColumnBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
   );
 };
 
-export default memo<Props>(ColumnBarcodeModal);
+export default memo<Props>(RowBarcodeModal);
