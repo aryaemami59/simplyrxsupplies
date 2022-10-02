@@ -6,7 +6,7 @@ export type ItemObjType = {
   readonly name: ItemName;
   readonly itemNumber: ItemNumber;
   readonly keywords: Keyword[];
-  readonly nav: Category[];
+  readonly category: Category[];
   readonly vendors: vendorNameType[];
   readonly src: Src;
   vendorsToAdd: vendorNameType[];
@@ -51,12 +51,6 @@ export type itemState = Partial<Record<ItemName, ItemObjType>> & {
   isLoading: boolean;
   errMsg: string;
 };
-// &
-// {
-//   [key in ItemName]?: ItemObjType;
-// };
-
-// type ItemObjInItemState = Partial<Record<ItemName, ItemObjType>>;
 
 export type ItemName = ItemNamesType;
 export type ItemNumber = string;

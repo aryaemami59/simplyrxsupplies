@@ -10,7 +10,7 @@ const SideBarContainer: FC = (): JSX.Element => {
   return (
     <Nav
       className="flex-column overflow-auto w-100 h-100 sticky-top c-overflow-x-hidden"
-      key={"sidebar nav component"}>
+      key={"SideBarContainer"}>
       <div
         key={`div-VerticalNavComponent`}
         className={`accordion d-none d-lg-block sticky-top ${theme}`}>
