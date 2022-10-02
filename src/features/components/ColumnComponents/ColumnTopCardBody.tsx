@@ -1,4 +1,4 @@
-import { FC, memo, useEffect } from "react";
+import { FC, memo } from "react";
 import { Card, ButtonGroup, ListGroup } from "react-bootstrap";
 import QRCodeImage from "./QRCodeComponents/QRCodeImage";
 import ColumnToggleItemBarcodesButton from "./ToggleComponents/ColumnToggleItemBarcodesButton";
@@ -23,10 +23,6 @@ const ColumnTopCardBody: FC<Props> = ({
   officialVendorName,
   vendorName,
 }): JSX.Element => {
-  useEffect(() => {
-    console.log(addedItems);
-  }, [addedItems]);
-
   return (
     <>
       <Card.Body key={`Card.Body-VendorColumn-${vendorName}`}>
@@ -46,9 +42,8 @@ const ColumnTopCardBody: FC<Props> = ({
         <ListGroup key={`ListGroup-VendorColumn-${vendorName}`}>
           {addedItems.map(itemObj => (
             <RowSingleContainer
-              itemObj={itemObj}
-              vendorName={vendorName}
-              key={`${itemObj.name}-${vendorName}-SingleVendorColumnListItem`}
+              key={`${itemObj.id}-${vendorName}-SingleVendorColumnListItem`}
+              {...{ itemObj, vendorName }}
             />
           ))}
         </ListGroup>

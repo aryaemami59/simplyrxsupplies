@@ -46,9 +46,9 @@ type ParentProps = {
   itemObj: ItemObjType;
 };
 
-type myProps = ParentProps & PropsFromRedux;
+type Props = ParentProps & PropsFromRedux;
 
-const SideBarVendorBadges: FC<myProps> = ({
+const SideBarVendorBadges: FC<Props> = ({
   vendorName,
   itemObj,
   clickHandler,
@@ -64,23 +64,23 @@ const SideBarVendorBadges: FC<myProps> = ({
     <Form.Check
       type="checkbox"
       className={darkTheme ? "text-info custom-text-shadow-whit" : "text-dark"}
-      id={`Form.Check-SideBarVendorBadges-${itemObj.name}-${vendorName}`}
-      key={`${itemObj.name}-Badge-SideBarVendorBadges-`}>
+      id={`Form.Check-SideBarVendorBadges-${itemObj.id}-${vendorName}`}
+      key={`${itemObj.id}-Badge-SideBarVendorBadges-`}>
       <Form.Check.Input
         disabled={disabled}
         onChange={clickHandler}
         checked={checked}
         className={`cursor-pointer ${darkTheme ? "custom-checkbox-bg" : ""}`}
         type="checkbox"
-        key={`Form.Check.Input-SideBarVendorBadges-${itemObj.name}`}
+        key={`Form.Check.Input-SideBarVendorBadges-${itemObj.id}`}
       />
       <Form.Check.Label
         className="cursor-pointer"
-        htmlFor={`Form.Check-SideBarVendorBadges-${itemObj.name}-${vendorName}`}>
+        htmlFor={`Form.Check-SideBarVendorBadges-${itemObj.id}-${vendorName}`}>
         {officialVendorName}
       </Form.Check.Label>
     </Form.Check>
   );
 };
 
-export default connector(memo(SideBarVendorBadges));
+export default connector(memo<Props>(SideBarVendorBadges));

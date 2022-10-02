@@ -25,7 +25,7 @@ import {
 import {
   FetchItems,
   FetchVendors,
-  FetchNavList,
+  FetchCategories,
   addedState,
 } from "../customTypes/types";
 import {
@@ -59,7 +59,7 @@ export const fetchVendors: FetchVendors = createAsyncThunkFunc(
   GITHUB_URL_VENDORS
 );
 
-export const fetchNavList: FetchNavList = createAsyncThunkFunc(
+export const fetchCategories: FetchCategories = createAsyncThunkFunc(
   "categories",
   GITHUB_URL_CATEGORIES
 );
@@ -73,7 +73,7 @@ const initialState: addedState = {
   showItemBarcode: true,
   showItemName: true,
   vendorsIsLoading: true,
-  navListIsLoading: true,
+  categoriesIsLoading: true,
   errMsg: "",
 };
 
@@ -133,16 +133,16 @@ export const addedSlice = createSlice({
     builder.addCase(fetchVendors.pending, state => {
       state.vendorsIsLoading = true;
     });
-    builder.addCase(fetchNavList.pending, state => {
-      state.navListIsLoading = true;
+    builder.addCase(fetchCategories.pending, state => {
+      state.categoriesIsLoading = true;
     });
     builder.addCase(
-      fetchNavList.fulfilled,
+      fetchCategories.fulfilled,
       (state, action: PayloadAction<categoriesObjType>) => {
-        state.navsObj = action.payload;
+        state.categoriesObj = action.payload;
         const keys = Object.keys(action.payload) as Category[];
-        state.navsArr = keys;
-        state.navListIsLoading = false;
+        state.categoriesArr = keys;
+        state.categoriesIsLoading = false;
         state.errMsg = "";
       }
     );
@@ -165,8 +165,8 @@ export const addedSlice = createSlice({
       state.vendorsIsLoading = false;
       state.errMsg = action.error.message || "Fetch failed";
     });
-    builder.addCase(fetchNavList.rejected, (state, action) => {
-      state.navListIsLoading = false;
+    builder.addCase(fetchCategories.rejected, (state, action) => {
+      state.categoriesIsLoading = false;
       state.errMsg = action.error.message || "Fetch failed";
     });
   },
@@ -268,8 +268,8 @@ export const selectVendorsLinks =
   (state: RootState): Link =>
     state.added.vendorsObj ? state.added.vendorsObj[vendorName].link : "";
 
-export const selectNavsArr = (state: RootState): Category[] =>
-  state.added.navsArr ? state.added.navsArr : empty;
+export const selectCategoriesArr = (state: RootState): Category[] =>
+  state.added.categoriesArr ? state.added.categoriesArr : empty;
 
 export const addedItemsLength =
   (vendorName: vendorNameType) =>
@@ -296,7 +296,7 @@ export const selectVendorsToAddTo =
 export const selectCategories =
   (category: Category) =>
   (state: RootState): ItemObjType[] =>
-    state.added.navsObj![category].items.map(
+    state.added.categoriesObj![category].items.map(
       itemId => state.item.itemsArr.find(({ id }) => id === itemId)!
     );
 
@@ -340,7 +340,7 @@ export const selectAllListItems = createSelector(
 export const checkIfLoading = (state: RootState): boolean =>
   state.item.isLoading ||
   state.added.vendorsIsLoading ||
-  state.added.navListIsLoading;
+  state.added.categoriesIsLoading;
 
 export const selectErrMsg = (state: RootState): string =>
   state.item.errMsg || state.added.errMsg;

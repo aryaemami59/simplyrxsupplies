@@ -14,7 +14,7 @@ import {
 import {
   checkIfLoading,
   fetchItems,
-  fetchNavList,
+  fetchCategories,
   fetchVendors,
   selectErrMsg,
 } from "./Redux/addedSlice";
@@ -48,7 +48,7 @@ const App: FC = (): JSX.Element => {
   useEffect(() => {
     dispatch(fetchItems());
     dispatch(fetchVendors());
-    dispatch(fetchNavList());
+    dispatch(fetchCategories());
   }, [dispatch]);
 
   const isLoading: boolean = useAppSelector(checkIfLoading);
@@ -67,8 +67,12 @@ const App: FC = (): JSX.Element => {
       className={`App ${darkTheme ? "custom-dark-mode" : "custom-light-mode"}`}>
       <DarkMode.Provider value={{ darkTheme, setDarkTheme }}>
         <TopNavbar key={`NavbarComponent-App`} />
-        <Container fluid key={`Container-App`}>
-          <Row className="justify-content-center" key={`Row-App`}>
+        <Container
+          fluid
+          key={`Container-App`}>
+          <Row
+            className="justify-content-center"
+            key={`Row-App`}>
             <Col
               key={`Col-firstCol-App`}
               xs={0}

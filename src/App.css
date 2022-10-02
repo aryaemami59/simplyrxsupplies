@@ -328,6 +328,12 @@ input.cursor-pointer {
   top: 54px;
 }
 
+div.loading-spinner {
+  width: 10rem;
+  height: 10rem;
+  border-width: 1rem;
+}
+
 /* .neon-button::after,
 .neon-button::before {
   box-sizing: border-box;

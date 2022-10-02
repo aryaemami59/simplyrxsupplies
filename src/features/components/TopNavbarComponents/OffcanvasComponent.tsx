@@ -22,6 +22,8 @@ const OffcanvasComponent: FC = (): JSX.Element => {
     setShow(false);
   }, []);
 
+  const theme = darkTheme ? "text-bg-dark" : "text-bg-light";
+
   return (
     <>
       <Navbar.Toggle
@@ -30,7 +32,7 @@ const OffcanvasComponent: FC = (): JSX.Element => {
         onClick={handleOpen}
       />
       <Offcanvas
-        className={`${darkTheme ? "text-bg-dark" : "text-bg-light"}`}
+        className={theme}
         key={`Offcanvas-OffcanvasComponent`}
         show={show}
         scroll
@@ -43,7 +45,7 @@ const OffcanvasComponent: FC = (): JSX.Element => {
             Add Items
           </Offcanvas.Title>
         </Offcanvas.Header>
-        <Offcanvas.Body key={`Offcanvas.Body-OffcanvasComponent`}>
+        <Offcanvas.Body>
           <OffcanvasBodyContent />
         </Offcanvas.Body>
       </Offcanvas>

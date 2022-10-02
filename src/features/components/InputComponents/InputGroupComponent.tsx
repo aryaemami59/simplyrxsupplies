@@ -16,11 +16,15 @@ const InputGroupComponent: FC = (): JSX.Element => {
     dispatch(compactSearchResults());
   }, [dispatch]);
 
+  const display = ifCompact ? "Hide" : "Show";
+
   return (
     <>
       <Row className="justify-content-center mb-3">
-        <Button onClick={clickHandler} className="w-auto">
-          {ifCompact ? "Hide" : "Show"} compact view of the search results
+        <Button
+          onClick={clickHandler}
+          className="w-auto">
+          {display} compact view of the search results
         </Button>
       </Row>
       <div

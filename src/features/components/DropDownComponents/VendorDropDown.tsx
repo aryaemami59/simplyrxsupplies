@@ -6,7 +6,7 @@ import {
   selectItemsByVendor,
   selectVendorOfficialName,
 } from "../../../Redux/addedSlice";
-import { DarkMode, myContextInterface } from "../../../App";
+import { DarkMode } from "../../../App";
 import { vendorNameType } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
 
@@ -15,18 +15,25 @@ type Props = {
 };
 
 const VendorDropDown: FC<Props> = ({ vendorName }): JSX.Element => {
-  const { darkTheme } = useContext<myContextInterface>(DarkMode);
-  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const { darkTheme } = useContext(DarkMode);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
-  const myItems = useAppSelector(selectItemsByVendor(vendorName), shallowEqual);
-  const dropdownOpenColor: "text-white btn-info" | "text-white btn-dark" =
-    darkTheme ? "text-white btn-info" : "text-white btn-dark";
+  const items = useAppSelector(selectItemsByVendor(vendorName), shallowEqual);
 
   const toggle = useCallback(() => {
     setDropdownOpen(prev => !prev);
   }, []);
+
+  const dropdownOpenColor: "text-white btn-info" | "text-white btn-dark" =
+    darkTheme ? "text-white btn-info" : "text-white btn-dark";
+  const border = darkTheme
+    ? "border-info bg-dark text-info"
+    : "border-dark bg-light text-dark";
+  const theme = darkTheme ? "dark" : "light";
+  const textColor = darkTheme ? "text-info" : "btn-light";
+  const toggleClassName = dropdownOpen ? dropdownOpenColor : "";
 
   return (
     <Dropdown
@@ -36,26 +43,19 @@ const VendorDropDown: FC<Props> = ({ vendorName }): JSX.Element => {
       focusFirstItemOnShow="keyboard"
       onToggle={toggle}>
       <Dropdown.Toggle
-        className={`custom-text-shadow-whit btn
-        ${darkTheme ? "text-info" : "btn-light"}
-        ${dropdownOpen ? dropdownOpenColor : ""}`}
+        className={`custom-text-shadow-whit btn ${textColor} ${toggleClassName}`}
         as="button">
         {officialVendorName}
       </Dropdown.Toggle>
       <Dropdown.Menu
-        variant={darkTheme ? "dark" : "light"}
+        variant={theme}
         renderOnMount
-        className={`border ${
-          darkTheme
-            ? "border-info bg-dark text-info"
-            : "border-dark bg-light text-dark"
-        }`}
+        className={`border ${border}`}
         show={dropdownOpen}>
-        {myItems.map(e => (
+        {items.map(itemObj => (
           <SingleDropDown
-            key={`${e.name}-${vendorName}`}
-            itemObj={e}
-            vendorName={vendorName}
+            key={`${itemObj.id}-${vendorName}`}
+            {...{ itemObj, vendorName }}
           />
         ))}
       </Dropdown.Menu>

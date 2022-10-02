@@ -11,7 +11,7 @@ import {
 } from "react";
 import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
 import { selectCategories } from "../../../Redux/addedSlice";
-import { DarkMode, myContextInterface } from "../../../App";
+import { DarkMode } from "../../../App";
 import { Category } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
 
@@ -22,10 +22,10 @@ type Props = {
 };
 
 const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
-  const { darkTheme } = useContext<myContextInterface>(DarkMode);
+  const { darkTheme } = useContext(DarkMode);
 
   const sidebarItems = useAppSelector(selectCategories(category), shallowEqual);
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState(false);
   const nodeRef = useRef<null>(null!);
 
   const toggle: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
@@ -63,9 +63,8 @@ const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
               <ListGroup key={`ListGroup-SideBarAccordion-${category}`}>
                 {sidebarItems.map(itemObj => (
                   <SingleSideBarAccordionListItem
-                    category={category}
-                    itemObj={itemObj}
-                    key={`${itemObj.name}-SingleSideBarAccordionListItem`}
+                    key={`${itemObj.id}-SingleSideBarAccordionListItem`}
+                    {...{ category, itemObj }}
                   />
                 ))}
               </ListGroup>

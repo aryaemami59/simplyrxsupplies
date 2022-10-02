@@ -38,12 +38,12 @@ export type addedState = VendorsInAddedState & {
   showItemBarcode: boolean;
   showItemName: boolean;
   vendorsIsLoading: boolean;
-  navListIsLoading: boolean;
+  categoriesIsLoading: boolean;
   errMsg: string;
   vendorsArr?: vendorNameType[];
   vendorsObj?: vendorsObjType;
-  navsArr?: Category[];
-  navsObj?: categoriesObjType;
+  categoriesArr?: Category[];
+  categoriesObj?: categoriesObjType;
 };
 
 export type itemState = Partial<Record<ItemName, ItemObjType>> & {
@@ -492,7 +492,7 @@ export type FetchVendors = AsyncThunk<
   { dispatch: AppDispatch }
 >;
 
-export type FetchNavList = AsyncThunk<
+export type FetchCategories = AsyncThunk<
   categoriesObjType,
   void,
   { dispatch: AppDispatch }

@@ -6,6 +6,7 @@ import { DarkMode } from "../../../App";
 
 const OffcanvasBodyContent: FC = (): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);
+  const border = darkTheme ? "border-info" : "border-dark";
   return (
     <>
       <Offcanvas.Title
@@ -14,9 +15,7 @@ const OffcanvasBodyContent: FC = (): JSX.Element => {
         By Vendor
       </Offcanvas.Title>
       <Nav
-        className={`mb-5 rounded border p-4 ${
-          darkTheme ? "border-info" : "border-dark"
-        }`}
+        className={`mb-5 rounded border p-4 ${border}`}
         key={`Nav-OffcanvasComponent`}>
         <VendorDropDownsList key={`VendorDropDownsList-OffcanvasComponent`} />
       </Nav>
@@ -27,9 +26,7 @@ const OffcanvasBodyContent: FC = (): JSX.Element => {
       </Offcanvas.Title>
       <div
         key={`div-OffcanvasComponent`}
-        className={`accordion rounded border ${
-          darkTheme ? "border-info" : "border-dark"
-        }`}>
+        className={`accordion rounded border ${border}`}>
         <SideBarAccordionList key={`SideBarAccordionList-OffcanvasComponent`} />
       </div>
     </>

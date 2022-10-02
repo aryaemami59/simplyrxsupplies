@@ -52,7 +52,7 @@ const InputFieldComponent: FC = (): JSX.Element => {
     inputRef.current && inputRef.current.focus();
   }, [dispatch]);
 
-  const [val, setVal] = useState<string>("");
+  const [val, setVal] = useState("");
 
   const listItemsFunc = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {

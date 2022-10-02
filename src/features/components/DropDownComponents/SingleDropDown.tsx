@@ -4,7 +4,7 @@ import {
   checkIfItemAddedToOneVendor,
   addItemsByVendor,
 } from "../../../Redux/addedSlice";
-import { DarkMode, myContextInterface } from "../../../App";
+import { DarkMode } from "../../../App";
 import { ItemObjType, vendorNameType } from "../../../customTypes/types";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 
@@ -14,13 +14,14 @@ type Props = {
 };
 
 const SingleDropDown: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
-  const { darkTheme } = useContext<myContextInterface>(DarkMode);
+  const { darkTheme } = useContext(DarkMode);
   const dispatch = useAppDispatch();
-  const ifAddedToVendor: boolean = useAppSelector(
+  const ifAddedToVendor = useAppSelector(
     checkIfItemAddedToOneVendor(vendorName, itemObj)
   );
 
   const addedColor = darkTheme ? "bg-info text-white" : "bg-dark text-white";
+  const border = darkTheme ? "border-info text-info" : "border-dark";
 
   const clickHandler: MouseEventHandler<HTMLElement> = useCallback(() => {
     ifAddedToVendor || dispatch(addItemsByVendor({ itemObj, vendorName }));
@@ -29,9 +30,9 @@ const SingleDropDown: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
   return (
     <Dropdown.Item
       as="button"
-      className={`custom-text-shadow-whit text-wrap border-bottom btn-info ${
-        darkTheme ? "border-info text-info" : "border-dark"
-      } ${ifAddedToVendor ? addedColor : ""}`}
+      className={`custom-text-shadow-whit text-wrap border-bottom btn-info ${border} ${
+        ifAddedToVendor && addedColor
+      }`}
       onClick={clickHandler}>
       {itemObj.name}
     </Dropdown.Item>

@@ -1,10 +1,4 @@
-import {
-  Button,
-  Collapse,
-  Card,
-  ListGroup,
-  ButtonGroup,
-} from "react-bootstrap";
+import { Button, Collapse, Card } from "react-bootstrap";
 import { shallowEqual } from "react-redux";
 import {
   useState,
@@ -19,15 +13,9 @@ import {
   selectVendorOfficialName,
 } from "../../../Redux/addedSlice";
 import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge";
-import RowSingleContainer from "./IndividualRowComponents/RowSingleContainer";
-import { DarkMode, myContextInterface } from "../../../App";
-import ColumnToggleItemBarcodesButton from "./ToggleComponents/ColumnToggleItemBarcodesButton";
+import { DarkMode } from "../../../App";
 import { vendorNameType } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
-import QRCodeImage from "./QRCodeComponents/QRCodeImage";
-import ColumnToggleNamesButton from "./ToggleComponents/ColumnToggleNamesButton";
-import ColumnToggleItemNumbersButton from "./ToggleComponents/ColumnToggleItemNumbersButton";
-import VendorLink from "./VendorLink";
 import EmptyColumn from "./EmptyColumn";
 import ColumnTopCardBody from "./ColumnTopCardBody";
 
@@ -36,8 +24,8 @@ type Props = {
 };
 
 const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
-  const { darkTheme } = useContext<myContextInterface>(DarkMode);
-  const [open, setOpen] = useState<boolean>(false);
+  const { darkTheme } = useContext(DarkMode);
+  const [open, setOpen] = useState(false);
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
@@ -56,6 +44,8 @@ const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
     [buttonClick]
   );
 
+  const theme = darkTheme ? "custom-bg-color-2" : "custom-light-mode";
+
   return (
     <>
       <Button
@@ -72,40 +62,13 @@ const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
           <Card
             key={`Card-VendorColumn-${vendorName}`}
             tabIndex={0}
-            className={darkTheme ? "custom-bg-color-2" : "custom-light-mode"}
+            className={theme}
             onKeyDown={handleKeyDown}>
             {addedItems.length ? (
               <ColumnTopCardBody
                 {...{ addedItems, vendorName, officialVendorName }}
-                // addedItems={addedItems}
-                // vendorName={vendorName}
-                // officialVendorName={officialVendorName}
               />
             ) : (
-              // <Card.Body key={`Card.Body-VendorColumn-${vendorName}`}>
-              //   <QRCodeImage
-              //     vendorName={vendorName}
-              //     key={`${vendorName}-VendorColumn-QRCodeImageComponent`}
-              //   />
-              //   <VendorLink
-              //     officialVendorName={officialVendorName}
-              //     vendorName={vendorName}
-              //   />
-              //   <ButtonGroup className="mb-3">
-              //     <ColumnToggleNamesButton />
-              //     <ColumnToggleItemNumbersButton />
-              //     <ColumnToggleItemBarcodesButton />
-              //   </ButtonGroup>
-              //   <ListGroup key={`ListGroup-VendorColumn-${vendorName}`}>
-              //     {addedItems.map(itemObj => (
-              //       <RowSingleContainer
-              //         itemObj={itemObj}
-              //         vendorName={vendorName}
-              //         key={`${itemObj.name}-${vendorName}-SingleVendorColumnListItem`}
-              //       />
-              //     ))}
-              //   </ListGroup>
-              // </Card.Body>
               <EmptyColumn />
             )}
           </Card>

@@ -12,11 +12,13 @@ const SearchResultsContainer: FC = (): JSX.Element => {
   return (
     <>
       <VendorColumnModalComponent key={`VendorColumnModalComponent-`} />
-      <ListGroup className="mt-5 px-xxl-4" key={`ListGroup-InputListItems`}>
-        {listItems.map(e => (
+      <ListGroup
+        className="mt-5 px-xxl-4"
+        key={`ListGroup-InputListItems`}>
+        {listItems.map(itemObj => (
           <SearchResultsSingleCard
-            itemObj={e}
-            key={`${e.name}-inputListItems`}
+            itemObj={itemObj}
+            key={`${itemObj.id}-inputListItems`}
           />
         ))}
       </ListGroup>

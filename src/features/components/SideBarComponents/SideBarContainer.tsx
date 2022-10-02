@@ -5,6 +5,7 @@ import { DarkMode } from "../../../App";
 
 const SideBarContainer: FC = (): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);
+  const theme = darkTheme ? "custom-dark-mode" : "custom-light-mode";
 
   return (
     <Nav
@@ -12,9 +13,7 @@ const SideBarContainer: FC = (): JSX.Element => {
       key={"sidebar nav component"}>
       <div
         key={`div-VerticalNavComponent`}
-        className={`accordion d-none d-lg-block sticky-top ${
-          darkTheme ? "custom-dark-mode" : "custom-light-mode"
-        }`}>
+        className={`accordion d-none d-lg-block sticky-top ${theme}`}>
         <SideBarAccordionList key={"sidebar accordion list"} />
       </div>
     </Nav>
