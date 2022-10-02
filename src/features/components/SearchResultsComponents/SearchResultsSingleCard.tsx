@@ -10,12 +10,13 @@ type Props = {
 
 const SearchResultsSingleCard: FC<Props> = ({ itemObj }): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);
+  const theme = darkTheme ? "dark" : "light";
 
   return (
     <Card
-      bg={darkTheme ? "dark" : "light"}
+      bg={theme}
       border="info"
-      text={darkTheme ? "white" : "dark"}
+      text={theme}
       key={`Card-SingleInputListItems`}>
       <Card.Body
         key={`Card.Body-SingleInputListItems`}

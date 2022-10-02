@@ -28,7 +28,7 @@ const SearchResultsCardBodyContent: FC<Props> = ({ itemObj }): JSX.Element => {
           />
         </Row>
       </Col>
-      {!ifCompact ? (
+      {!ifCompact && (
         <Col xs={ifCompact ? 6 : 12}>
           <Row className="mx-0">
             <SearchResultsItemNumber
@@ -37,8 +37,6 @@ const SearchResultsCardBodyContent: FC<Props> = ({ itemObj }): JSX.Element => {
             />
           </Row>
         </Col>
-      ) : (
-        ""
       )}
       <Col
         xs={ifCompact ? 6 : 12}
@@ -60,7 +58,7 @@ const SearchResultsCardBodyContent: FC<Props> = ({ itemObj }): JSX.Element => {
               ))}
             </Row>
           </Col>
-          {!ifCompact ? (
+          {!ifCompact && (
             <Col
               xs={5}
               lg={4}>
@@ -71,8 +69,6 @@ const SearchResultsCardBodyContent: FC<Props> = ({ itemObj }): JSX.Element => {
                 />
               </Row>
             </Col>
-          ) : (
-            ""
           )}
         </Row>
       </Col>

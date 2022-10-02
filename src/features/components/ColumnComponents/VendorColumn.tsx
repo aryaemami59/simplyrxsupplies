@@ -66,7 +66,10 @@ const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
             onKeyDown={handleKeyDown}>
             {addedItems.length ? (
               <ColumnTopCardBody
-                {...{ addedItems, vendorName, officialVendorName }}
+                addedItems={addedItems}
+                vendorName={vendorName}
+                officialVendorName={officialVendorName}
+                // {...{ addedItems, vendorName, officialVendorName }}
               />
             ) : (
               <EmptyColumn />

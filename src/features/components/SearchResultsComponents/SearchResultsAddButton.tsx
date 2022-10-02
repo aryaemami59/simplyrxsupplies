@@ -49,23 +49,23 @@ const SearchResultsAddButton: FC<Props> = ({ itemObj }): JSX.Element => {
     <Button
       ref={target}
       size="lg"
-      key={`Button-AddItemButtonComponent-${itemObj.name}`}
+      key={`Button-AddItemButtonComponent-${itemObj.id}`}
       onClick={clickHandler}
       className="btn btn-success d-block w-100 position-relative mb-2 fw-bold rounded-pill shadow custom-text-shadow-white">
       Add Item
       <Collapse
         in={show}
         timeout={500}
-        key={`Collapse-AddItemButtonComponent-${itemObj.name}`}>
-        <div key={`div-AddItemButtonComponent-${itemObj.name}`}>
+        key={`Collapse-AddItemButtonComponent-${itemObj.id}`}>
+        <div key={`div-AddItemButtonComponent-${itemObj.id}`}>
           <Fade
             in={show}
             timeout={500}
-            key={`Fade-AddItemButtonComponent-${itemObj.name}`}>
+            key={`Fade-AddItemButtonComponent-${itemObj.id}`}>
             <Badge
               bg="danger"
               className="d-block fw-light"
-              key={`Badge-AddItemButtonComponent-${itemObj.name}`}>
+              key={`Badge-AddItemButtonComponent-${itemObj.id}`}>
               This Item Has Already Been Added!
             </Badge>
           </Fade>

@@ -18,14 +18,8 @@ const VendorLink: FC<Props> = ({
 }): JSX.Element => {
   const vendorLink = useAppSelector(selectVendorsLinks(vendorName));
   return (
-    <Alert
-      key={`Alert-VendorColumn-${vendorName}`}
-      variant="info">
-      <Alert.Link
-        key={`Alert.Link-VendorColumn-${vendorName}`}
-        href={vendorLink}>
-        {officialVendorName} Website
-      </Alert.Link>
+    <Alert variant="info">
+      <Alert.Link href={vendorLink}>{officialVendorName} Website</Alert.Link>
     </Alert>
   );
 };

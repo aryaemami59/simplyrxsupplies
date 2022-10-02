@@ -25,12 +25,14 @@ const VendorBadges: FC<Props> = ({
     selectVendorOfficialName(vendorName)
   );
 
+  const buttonVariant = ifAdded ? "outline-info" : "info text-white";
+
   return (
     <Button
       disabled={disabled}
       onClick={clickHandler}
       className="w-100 px-1 px-sm-2"
-      variant={ifAdded ? "outline-info" : "info text-white"}
+      variant={buttonVariant}
       key={`Button-VendorBadges-${vendorName}`}>
       {officialVendorName}
     </Button>
