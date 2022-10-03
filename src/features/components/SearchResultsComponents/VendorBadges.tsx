@@ -1,5 +1,5 @@
+import { Button } from "@mui/material";
 import { FC, memo, MouseEventHandler } from "react";
-import { Button } from "react-bootstrap";
 import { ItemObjType, vendorNameType } from "../../../customTypes/types";
 import {
   checkIfAddedToOneVendor,
@@ -32,7 +32,8 @@ const VendorBadges: FC<Props> = ({
       disabled={disabled}
       onClick={clickHandler}
       className="w-100 px-1 px-sm-2"
-      variant={buttonVariant}
+      variant="contained"
+      // variant={buttonVariant}
       key={`Button-VendorBadges-${vendorName}`}>
       {officialVendorName}
     </Button>

@@ -1,5 +1,6 @@
+import { Button } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useContext } from "react";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { ButtonGroup } from "react-bootstrap";
 import { shallowEqual } from "react-redux";
 import { DarkMode } from "../../../App";
 import { Category, ItemObjType } from "../../../customTypes/types";
@@ -42,10 +43,12 @@ const SingleSideBarAccordionListItem: FC<Props> = ({
   return (
     <>
       <Button
-        size="lg"
+        size="large"
+        // size="lg"
         disabled={ifAddedToAllVendors}
         className="fw-bold"
-        variant={`${buttonVariant} custom-text-shadow-white-5`}
+        variant="contained"
+        // variant={`${buttonVariant} custom-text-shadow-white-5`}
         onClick={clickHandler}
         key={`${itemObj.id}-${category}-ListGroupItem-sidebar`}>
         {itemObj.name}

@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import {
   FC,
   memo,
@@ -6,7 +7,7 @@ import {
   useContext,
   useState,
 } from "react";
-import { Button, Col, Modal, Row } from "react-bootstrap";
+import { Col, Modal, Row } from "react-bootstrap";
 import { DarkMode } from "../../../App";
 import VendorColumnList from "../ColumnComponents/VendorColumnList";
 
@@ -26,8 +27,10 @@ const VendorColumnModalComponent: FC = (): JSX.Element => {
   return (
     <>
       <Button
-        variant="info"
-        size="lg"
+        variant="contained"
+        // variant="info"
+        size="large"
+        // size="lg"
         onClick={showModal}
         className={`my-3 d-inline-block d-md-none w-75 rounded custom-text-shadow-white text-white shadow`}>
         Display Cart

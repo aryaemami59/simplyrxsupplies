@@ -1,5 +1,6 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@mui/material";
 import {
   FC,
   memo,
@@ -8,7 +9,7 @@ import {
   useContext,
   useState,
 } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { DarkMode } from "../../../../App";
 import { ItemNumber, Src, vendorNameType } from "../../../../customTypes/types";
 

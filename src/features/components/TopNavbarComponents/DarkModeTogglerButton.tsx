@@ -1,7 +1,7 @@
 import { faCircleHalfStroke } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useContext } from "react";
-import { Button } from "react-bootstrap";
 import { DarkMode } from "../../../App";
 
 const DarkModeTogglerButton: FC = (): JSX.Element => {
@@ -21,7 +21,7 @@ const DarkModeTogglerButton: FC = (): JSX.Element => {
   return (
     <Button
       onClick={clickHandler}
-      variant="">
+      variant="contained">
       <FontAwesomeIcon
         size="lg"
         inverse={inverse}

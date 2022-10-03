@@ -1,7 +1,8 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
-import { Button, Form, Row } from "react-bootstrap";
+import { Form, Row } from "react-bootstrap";
 import { compactSearchResults } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 import { RootState } from "../../../Redux/store";
@@ -23,6 +24,7 @@ const InputGroupComponent: FC = (): JSX.Element => {
       <Row className="justify-content-center mb-3">
         <Button
           onClick={clickHandler}
+          variant="contained"
           className="w-auto">
           {display} compact view of the search results
         </Button>

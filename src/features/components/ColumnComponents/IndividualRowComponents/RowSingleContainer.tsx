@@ -1,6 +1,7 @@
+import { Button } from "@mui/material";
 import { FC, KeyboardEvent, memo, useCallback, useState } from "react";
 import {
-  Button,
+  // Button,
   ButtonGroup,
   Col,
   Collapse,
@@ -65,7 +66,8 @@ const RowSingleContainer: FC<Props> = ({
               <Button
                 key={`Button-SingleVendorColumnListItem-${vendorName}-${name}`}
                 aria-controls="maximize content"
-                variant="success"
+                variant="contained"
+                // variant="success"
                 className="w-100"
                 onClick={toggleFade}>
                 {name}

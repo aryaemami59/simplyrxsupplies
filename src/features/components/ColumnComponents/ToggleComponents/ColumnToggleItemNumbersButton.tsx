@@ -1,7 +1,7 @@
 import { faToggleOff, faToggleOn } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
-import { Button } from "react-bootstrap";
 import { ToggleItemNumber } from "../../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../../Redux/hooks";
 import { RootState } from "../../../../Redux/store";

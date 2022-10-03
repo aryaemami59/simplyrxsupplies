@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import {
   FC,
   memo,
@@ -6,7 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Badge, Button, Collapse, Fade } from "react-bootstrap";
+import { Badge, Collapse, Fade } from "react-bootstrap";
 import { shallowEqual } from "react-redux";
 import { ItemObjType } from "../../../customTypes/types";
 import {
@@ -48,10 +49,14 @@ const SearchResultsAddButton: FC<Props> = ({ itemObj }): JSX.Element => {
   return (
     <Button
       ref={target}
-      size="lg"
+      size="large"
+      variant="contained"
+      // size="lg"
+
       key={`Button-AddItemButtonComponent-${itemObj.id}`}
       onClick={clickHandler}
-      className="btn btn-success d-block w-100 position-relative mb-2 fw-bold rounded-pill shadow custom-text-shadow-white">
+      // className="btn btn-success d-block w-100 position-relative mb-2 fw-bold rounded-pill shadow custom-text-shadow-white"
+    >
       Add Item
       <Collapse
         in={show}

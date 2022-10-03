@@ -1,3 +1,4 @@
+import Button from "@mui/material/Button";
 import {
   FC,
   KeyboardEvent,
@@ -6,7 +7,7 @@ import {
   useContext,
   useState,
 } from "react";
-import { Button, Card, Collapse } from "react-bootstrap";
+import { Card, Collapse } from "react-bootstrap";
 import { shallowEqual } from "react-redux";
 import { DarkMode } from "../../../App";
 import { vendorNameType } from "../../../customTypes/types";
@@ -50,7 +51,8 @@ const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
     <>
       <Button
         className="position-relative d-block w-100"
-        variant="primary"
+        variant="contained"
+        // variant="primary"
         onClick={buttonClick}>
         {officialVendorName}
         <RowCounterBadge vendorName={vendorName} />
