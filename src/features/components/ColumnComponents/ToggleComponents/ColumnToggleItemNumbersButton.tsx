@@ -18,7 +18,9 @@ const ColumnToggleItemNumbersButton: FC = (): JSX.Element => {
     }, [dispatch]);
 
   return (
-    <Button onClick={toggleItemNumber}>
+    <Button
+      variant="contained"
+      onClick={toggleItemNumber}>
       {itemNumberShown ? "Hide" : "Show"} Item Number
       <FontAwesomeIcon
         size="lg"

@@ -17,7 +17,9 @@ const ColumnToggleItemBarcodesButton: FC = (): JSX.Element => {
     }, [dispatch]);
 
   return (
-    <Button onClick={toggleItemBarcode}>
+    <Button
+      variant="contained"
+      onClick={toggleItemBarcode}>
       {itemBarcodeShown ? "Hide" : "Show"} Item Barcode
       <FontAwesomeIcon
         size="lg"

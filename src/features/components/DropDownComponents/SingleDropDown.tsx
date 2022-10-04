@@ -1,5 +1,5 @@
+import { MenuItem } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useContext } from "react";
-import { Dropdown } from "react-bootstrap";
 import { DarkMode } from "../../../App";
 import { ItemObjType, vendorNameType } from "../../../customTypes/types";
 import {
@@ -28,14 +28,15 @@ const SingleDropDown: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
   }, [dispatch, itemObj, vendorName, ifAddedToVendor]);
 
   return (
-    <Dropdown.Item
-      as="button"
-      className={`custom-text-shadow-whit text-wrap border-bottom btn-info ${border} ${
-        ifAddedToVendor && addedColor
-      }`}
+    <MenuItem
+      // as="button"
+      // className={`custom-text-shadow-whit text-wrap border-bottom btn-info ${border} ${
+      //   ifAddedToVendor && addedColor
+      // }`}
+      key={itemObj.id}
       onClick={clickHandler}>
       {itemObj.name}
-    </Dropdown.Item>
+    </MenuItem>
   );
 };
 

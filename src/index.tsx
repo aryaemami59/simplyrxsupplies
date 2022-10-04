@@ -21,9 +21,11 @@ declare module "@mui/material/styles" {
 
   interface Palette {
     neutral: Palette["primary"];
+    white: Palette["primary"];
   }
   interface PaletteOptions {
     neutral: PaletteOptions["primary"];
+    white: PaletteOptions["primary"];
   }
 
   interface PaletteColor {
@@ -52,12 +54,15 @@ const theme = createTheme({
       main: "#64748B",
       contrastText: "#fff",
     },
+    white: {
+      main: "white",
+    },
   },
 });
 
 const container = document.getElementById("root") as HTMLDivElement;
 const root = createRoot(container);
-whyDidYouUpdate(React);
+// whyDidYouUpdate(React);
 
 root.render(
   <React.StrictMode>

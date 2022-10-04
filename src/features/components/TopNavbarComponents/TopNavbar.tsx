@@ -1,5 +1,6 @@
+import { AppBar } from "@mui/material";
 import { FC, memo, useContext } from "react";
-import { Nav, Navbar } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 import { DarkMode } from "../../../App";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import DarkModeTogglerButton from "./DarkModeTogglerButton";
@@ -10,12 +11,14 @@ const TopNavbar: FC = (): JSX.Element => {
   const theme = darkTheme ? "dark" : "light";
 
   return (
-    <Navbar
-      bg={theme}
-      expand="lg"
-      sticky="top"
-      variant={theme}
-      className="d-flex justify-content-start shadow">
+    <AppBar
+      // color="transparent"
+      // bg={theme}
+      // expand="lg"
+      // sticky="top"
+      // variant={theme}
+      // className="d-flex justify-content-start shadow"
+    >
       <OffcanvasComponent />
       <Nav
         fill
@@ -24,7 +27,7 @@ const TopNavbar: FC = (): JSX.Element => {
         <VendorDropDownsList />
       </Nav>
       <DarkModeTogglerButton />
-    </Navbar>
+    </AppBar>
   );
 };
 
