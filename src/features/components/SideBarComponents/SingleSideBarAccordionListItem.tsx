@@ -1,6 +1,5 @@
-import { Button } from "@mui/material";
+import { Button, ButtonGroup } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useContext } from "react";
-import { ButtonGroup } from "react-bootstrap";
 import { shallowEqual } from "react-redux";
 import { DarkMode } from "../../../App";
 import { Category, ItemObjType } from "../../../customTypes/types";
@@ -42,21 +41,21 @@ const SingleSideBarAccordionListItem: FC<Props> = ({
 
   return (
     <>
-      <Button
-        size="large"
-        // size="lg"
-        disabled={ifAddedToAllVendors}
-        className="fw-bold"
-        variant="contained"
-        // variant={`${buttonVariant} custom-text-shadow-white-5`}
-        onClick={clickHandler}
-        key={`${itemObj.id}-${category}-ListGroupItem-sidebar`}>
-        {itemObj.name}
-      </Button>
+      <div>
+        <Button
+          size="large"
+          disabled={ifAddedToAllVendors}
+          className="fw-bold"
+          variant="contained"
+          onClick={clickHandler}
+          key={`${itemObj.id}-${category}-ListGroupItem-sidebar`}>
+          {itemObj.name}
+        </Button>
+      </div>
       <ButtonGroup
         key={`ButtonGroup-SingleSideBarAccordionListItem-${itemObj.id}-${category}`}
-        size="sm"
-        vertical>
+        size="small"
+        orientation="vertical">
         {itemObj.vendors.map(vendorName => (
           <SideBarVendorBadges
             key={`SideBarVendorBadges-${itemObj.id}${vendorName}`}
