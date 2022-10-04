@@ -18,37 +18,41 @@ const SearchResultsCardBodyContent: FC<Props> = ({ itemObj }): JSX.Element => {
 
   return (
     <>
-      <Col
-        xs={ifCompact ? 6 : 12}
-        md={12}>
-        <Row className="m-0">
+      <div
+        // xs={ifCompact ? 6 : 12}
+        // md={12}
+        className={`col-md-12 col-${ifCompact ? 6 : 12}`}>
+        <div className="m-0 row">
           <SearchResultsItemName
             itemObj={itemObj}
             key={`SearchResultsItemNameComponent-SingleInputListItems`}
           />
-        </Row>
-      </Col>
+        </div>
+      </div>
       {!ifCompact && (
-        <Col xs={ifCompact ? 6 : 12}>
-          <Row className="mx-0">
+        <div
+          // xs={ifCompact ? 6 : 12}
+          className={`col-${ifCompact ? 6 : 12}`}>
+          <div className="mx-0 row">
             <SearchResultsItemNumber
               itemObj={itemObj}
               key={`SearchResultsItemNumberComponent-${itemObj.name}-${itemObj.itemNumber}`}
             />
-          </Row>
-        </Col>
+          </div>
+        </div>
       )}
-      <Col
-        xs={ifCompact ? 6 : 12}
-        md={12}>
-        <Row className="justify-content-center justify-content-sm-center align-items-center m-0 ">
-          <Col
-            xs={ifCompact ? 12 : 7}
-            lg={ifCompact ? 12 : 8}
-            className="pe-0">
-            <Row
-              md={"auto"}
-              className="m-0">
+      <div
+        // xs={ifCompact ? 6 : 12}
+        // md={12}
+        className={`col-md-12 col-${ifCompact ? 6 : 12}`}>
+        <div className="justify-content-center justify-content-sm-center align-items-center m-0 row">
+          <div
+            // xs={ifCompact ? 12 : 7}
+            // lg={ifCompact ? 12 : 8}
+            className={`pe-0 col-lg-${ifCompact ? 12 : 8} col-${
+              ifCompact ? 12 : 7
+            }`}>
+            <div className="m-0 row row-cols-md-auto">
               {itemObj.vendors.map(e => (
                 <SwitchComponent
                   key={`SwitchComponent-${itemObj.name}${e}`}
@@ -56,30 +60,34 @@ const SearchResultsCardBodyContent: FC<Props> = ({ itemObj }): JSX.Element => {
                   vendorName={e}
                 />
               ))}
-            </Row>
-          </Col>
+            </div>
+          </div>
           {!ifCompact && (
-            <Col
-              xs={5}
-              lg={4}>
-              <Row className="justify-content-center">
+            <div
+              className="col-5 col-lg-4"
+              // xs={5}
+              // lg={4}
+            >
+              <div className="justify-content-center row">
                 <SearchResultsBarcodeImage
                   itemObj={itemObj}
                   key={`SearchResultsBarcodeImageComponent-SingleInputListItems`}
                 />
-              </Row>
-            </Col>
+              </div>
+            </div>
           )}
-        </Row>
-      </Col>
-      <Col xs={12}>
-        <Row className="m-0">
+        </div>
+      </div>
+      <div
+        // xs={12}
+        className="col-12">
+        <div className="m-0 row">
           <SearchResultsAddButton
             itemObj={itemObj}
             key={`AddItemButtonComponent-SingleInputListItems`}
           />
-        </Row>
-      </Col>
+        </div>
+      </div>
     </>
   );
 };
