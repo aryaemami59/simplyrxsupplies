@@ -1,3 +1,4 @@
+import { Checkbox, FormControlLabel } from "@mui/material";
 import { FC, memo, useContext } from "react";
 import { Form } from "react-bootstrap";
 import { connect, ConnectedProps } from "react-redux";
@@ -61,25 +62,38 @@ const SideBarVendorBadges: FC<Props> = ({
   );
 
   return (
-    <Form.Check
-      type="checkbox"
-      className={darkTheme ? "text-info custom-text-shadow-whit" : "text-dark"}
-      id={`Form.Check-SideBarVendorBadges-${itemObj.id}-${vendorName}`}
-      key={`${itemObj.id}-Badge-SideBarVendorBadges-`}>
-      <Form.Check.Input
-        disabled={disabled}
-        onChange={clickHandler}
-        checked={checked}
-        className={`cursor-pointer ${darkTheme ? "custom-checkbox-bg" : ""}`}
-        type="checkbox"
-        key={`Form.Check.Input-SideBarVendorBadges-${itemObj.id}`}
+    <>
+      <FormControlLabel
+        label={officialVendorName}
+        control={
+          <Checkbox
+            checked={checked}
+            disabled={disabled}
+            onChange={clickHandler}
+          />
+        }
       />
-      <Form.Check.Label
-        className="cursor-pointer"
-        htmlFor={`Form.Check-SideBarVendorBadges-${itemObj.id}-${vendorName}`}>
-        {officialVendorName}
-      </Form.Check.Label>
-    </Form.Check>
+
+      {/* <Form.Check
+        type="checkbox"
+        className={darkTheme ? "text-info custom-text-shadow-whit" : "text-dark"}
+        id={`Form.Check-SideBarVendorBadges-${itemObj.id}-${vendorName}`}
+        key={`${itemObj.id}-Badge-SideBarVendorBadges-`}>
+        <Form.Check.Input
+          disabled={disabled}
+          onChange={clickHandler}
+          checked={checked}
+          className={`cursor-pointer ${darkTheme ? "custom-checkbox-bg" : ""}`}
+          type="checkbox"
+          key={`Form.Check.Input-SideBarVendorBadges-${itemObj.id}`}
+        />
+        <Form.Check.Label
+          className="cursor-pointer"
+          htmlFor={`Form.Check-SideBarVendorBadges-${itemObj.id}-${vendorName}`}>
+          {officialVendorName}
+        </Form.Check.Label>
+      </Form.Check> */}
+    </>
   );
 };
 
