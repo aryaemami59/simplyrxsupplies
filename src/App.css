@@ -194,7 +194,7 @@ div.offcanvas-body div.dropdown-menu.show {
   background: linear-gradient(to right, #485563, #29323c);
 }
 
-.App.custom-dark-mode::-webkit-scrollbar,
+/* .App.custom-dark-mode::-webkit-scrollbar,
 .App.custom-dark-mode ::-webkit-scrollbar {
   width: 17px;
 }
@@ -238,7 +238,7 @@ div.offcanvas-body div.dropdown-menu.show {
 .App.custom-light-mode::-webkit-scrollbar-thumb:hover,
 .App.custom-light-mode ::-webkit-scrollbar-thumb:hover {
   background: #3dd5f3;
-}
+} */
 
 .cursor-pointer {
   cursor: pointer;

@@ -1,5 +1,5 @@
 // import { Props } from "@fortawesome/react-fontawesome";
-import { Button, Menu, MenuList } from "@mui/material";
+import { Button, Menu, MenuList, MenuProps } from "@mui/material";
 import { FC, memo, useCallback, useState } from "react";
 import { shallowEqual } from "react-redux";
 import { vendorNameType } from "../../../customTypes/types";
@@ -12,14 +12,14 @@ import SingleDropDown from "./SingleDropDown";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+// const MyMenuProps: MenuProps = {
+//   PaperProps: {
+//     style: {
+//       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+//       width: 250,
+//     },
+//   },
+// };
 
 type Props = {
   vendorName: vendorNameType;
@@ -72,8 +72,16 @@ const VendorDropDown: FC<Props> = ({ vendorName }): JSX.Element => {
           anchorEl={anchorEl}
           open={dropdownOpen}
           onClose={toggle}
-          {...MenuProps}>
-          <MenuList autoFocus>
+          anchorOrigin={{ vertical: 37, horizontal: "left" }}
+          PaperProps={{
+            style: {
+              maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+              width: 250,
+            },
+          }}>
+          <MenuList
+            autoFocus
+            autoFocusItem>
             {items.map(itemObj => (
               <SingleDropDown
                 key={`${itemObj.id}-${vendorName}`}
