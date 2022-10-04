@@ -65,45 +65,45 @@ const App: FC = (): JSX.Element => {
       className={`App ${darkTheme ? "custom-dark-mode" : "custom-light-mode"}`}>
       <DarkMode.Provider value={{ darkTheme, setDarkTheme }}>
         <TopNavbar key={`NavbarComponent-App`} />
-        <Container
-          fluid
+        <div
+          className="container-fluid"
           key={`Container-App`}>
-          <Row
-            className="justify-content-center"
+          <div
+            className="justify-content-center row"
             key={`Row-App`}>
-            <Col
+            <div
               key={`Col-firstCol-App`}
-              xs={0}
-              lg={3}
-              xl={2}
-              className="px-0 d-none d-lg-block sticky-top sidebar-col"
+              // xs={0}
+              // lg={3}
+              // xl={2}
+              className="col-lg-3 col-xl-2 px-0 d-none d-lg-block sticky-top sidebar-col"
               style={{ marginTop: 37 }}>
               <SideBarContainer key={`VerticalNavComponent-App`} />
-            </Col>
-            <Col
-              xs={11}
-              sm={11}
-              md={6}
-              lg={5}
-              xl={5}
-              xxl={5}
-              className="mt-5"
+            </div>
+            <div
+              // xs={11}
+              // sm={11}
+              // md={6}
+              // lg={5}
+              // xl={5}
+              // xxl={5}
+              className="col-11 col-md-6 col-lg-5 mt-5"
               key={`Col-secondCol-App`}>
               <InputGroupComponent key={`InputGroupComponent-App`} />
-            </Col>
-            <Col
+            </div>
+            <div
               key={`Col-thirdCol-App`}
-              xs={11}
-              sm={11}
-              md={6}
-              lg={4}
-              xl={5}
-              xxl={5}
-              className="my-5 justify-content-center">
+              // xs={11}
+              // sm={11}
+              // md={6}
+              // lg={4}
+              // xl={5}
+              // xxl={5}
+              className="col-11 col-md-6 col-lg-4 col-xl-5 my-5 justify-content-center">
               <VendorColumnList key={`VendorColumnList-App`} />
-            </Col>
-          </Row>
-        </Container>
+            </div>
+          </div>
+        </div>
       </DarkMode.Provider>
     </div>
   );
