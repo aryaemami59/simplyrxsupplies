@@ -26,7 +26,7 @@ type Props = {
 };
 
 const VendorDropDown: FC<Props> = ({ vendorName }): JSX.Element => {
-  const [anchorEl, setAnchorEl] = useState<HTMLElement>(null!);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   // const { darkTheme } = useContext(DarkMode);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const officialVendorName = useAppSelector(
@@ -40,6 +40,16 @@ const VendorDropDown: FC<Props> = ({ vendorName }): JSX.Element => {
   const toggle = useCallback((event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     setDropdownOpen(prev => !prev);
+  }, []);
+
+  const handleOpen = useCallback((event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+    setDropdownOpen(true);
+  }, []);
+
+  const handleClose = useCallback((event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(null);
+    setDropdownOpen(false);
   }, []);
 
   // const dropdownOpenColor: "text-white btn-info" | "text-white btn-dark" =
@@ -61,34 +71,42 @@ const VendorDropDown: FC<Props> = ({ vendorName }): JSX.Element => {
           aria-expanded={dropdownOpen ? "true" : undefined}
           variant="contained"
           disableElevation
-          onClick={toggle}>
+          onClick={handleOpen}
+          // onClick={toggle}
+        >
           {officialVendorName}
         </Button>
         <Menu
-          id="demo-customized-menu"
+          keepMounted
+          id={officialVendorName}
           MenuListProps={{
             "aria-labelledby": "customized-button",
+            style: {
+              maxHeight: "calc(100vh - 54px)",
+            },
           }}
           anchorEl={anchorEl}
           open={dropdownOpen}
-          onClose={toggle}
-          anchorOrigin={{ vertical: 37, horizontal: "left" }}
+          // onClose={toggle}
+          onClose={handleClose}
+          transformOrigin={{ horizontal: "left", vertical: "top" }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+          // anchorOrigin={{ vertical: 37, horizontal: "left" }}
           PaperProps={{
             style: {
-              maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
               width: 250,
             },
           }}>
-          <MenuList
+          {/* <MenuList
             autoFocus
-            autoFocusItem>
-            {items.map(itemObj => (
-              <SingleDropDown
-                key={`${itemObj.id}-${vendorName}`}
-                {...{ itemObj, vendorName }}
-              />
-            ))}
-          </MenuList>
+            autoFocusItem> */}
+          {items.map(itemObj => (
+            <SingleDropDown
+              key={`${itemObj.id}-${vendorName}`}
+              {...{ itemObj, vendorName }}
+            />
+          ))}
+          {/* </MenuList> */}
         </Menu>
       </div>
     </>
