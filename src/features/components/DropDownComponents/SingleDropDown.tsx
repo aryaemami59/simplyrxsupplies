@@ -33,6 +33,7 @@ const SingleDropDown: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
       // className={`custom-text-shadow-whit text-wrap border-bottom btn-info ${border} ${
       //   ifAddedToVendor && addedColor
       // }`}
+      className="text-wrap"
       key={itemObj.id}
       onClick={clickHandler}>
       {itemObj.name}

@@ -26,7 +26,7 @@ const TopNavbar: FC = (): JSX.Element => {
         className="d-none d-lg-flex">
         <VendorDropDownsList />
       </Nav>
-      <DarkModeTogglerButton />
+      {/* <DarkModeTogglerButton /> */}
     </AppBar>
   );
 };
