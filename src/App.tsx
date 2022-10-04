@@ -76,7 +76,8 @@ const App: FC = (): JSX.Element => {
               xs={0}
               lg={3}
               xl={2}
-              className="ps-0 pe-0 d-none d-lg-block sidebar-col position-sticky">
+              className="px-0 d-none d-lg-block sticky-top sidebar-col"
+              style={{ marginTop: 37 }}>
               <SideBarContainer key={`VerticalNavComponent-App`} />
             </Col>
             <Col

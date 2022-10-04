@@ -324,8 +324,15 @@ input.cursor-pointer {
 }
 
 .sidebar-col {
-  height: calc(100vh - 54px);
-  top: 54px;
+  /* height: 100%; */
+  /* height: 100vh; */
+  height: calc(100vh - 37px);
+  /* min-height: calc(100vh - 37px);
+  max-height: calc(100vh - 37px); */
+  /* height: calc(100vh - 54px); */
+  top: 37px;
+  /* top: 54px; */
+  /* margin-top: 37px; */
 }
 
 div.loading-spinner {

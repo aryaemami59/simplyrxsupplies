@@ -8,15 +8,17 @@ const SideBarContainer: FC = (): JSX.Element => {
   const theme = darkTheme ? "custom-dark-mode" : "custom-light-mode";
 
   return (
-    <Nav
-      className="flex-column overflow-auto w-100 h-100 sticky-top c-overflow-x-hidden"
+    <nav
+      className="flex-column overflow-auto w-100 h-100 sticky-top c-overflow-x-hidden sidebar-col"
       key={"SideBarContainer"}>
       <div
         key={`div-VerticalNavComponent`}
-        className={`accordion d-none d-lg-block sticky-top ${theme}`}>
+        // className="sidebar-col"
+        // className={`d-none d-lg-block sticky-top ${theme}`}
+      >
         <SideBarAccordionList key={"sidebar accordion list"} />
       </div>
-    </Nav>
+    </nav>
   );
 };
 

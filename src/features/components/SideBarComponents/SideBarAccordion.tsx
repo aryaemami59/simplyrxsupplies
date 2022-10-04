@@ -1,4 +1,10 @@
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Typography,
+} from "@mui/material";
+import {
   FC,
   memo,
   MouseEventHandler,
@@ -37,8 +43,24 @@ const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
   const theme = darkTheme ? "bg-dark" : "bg-light";
 
   return (
-    <div key={`div-SideBarAccordion-${category}-outer`}>
-      <h2
+    <div
+      key={`div-SideBarAccordion-${category}-outer`}
+      // style={{ paddingTop: 37 }}
+      >
+      <Accordion>
+        <AccordionSummary>
+          <Typography>{category}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          {sidebarItems.map(itemObj => (
+            <SingleSideBarAccordionListItem
+              key={`${itemObj.id}-SingleSideBarAccordionListItem`}
+              {...{ category, itemObj }}
+            />
+          ))}
+        </AccordionDetails>
+      </Accordion>
+      {/* <h2
         key={`h2-SideBarAccordion-${category}`}
         className="accordion-header">
         <button
@@ -71,7 +93,7 @@ const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
             </Card.Body>
           </Card>
         </div>
-      </Collapse>
+      </Collapse> */}
     </div>
   );
 };
