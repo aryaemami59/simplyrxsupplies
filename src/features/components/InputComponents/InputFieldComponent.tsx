@@ -1,5 +1,6 @@
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Input, TextField } from "@mui/material";
 import {
   ChangeEvent,
   FC,
@@ -18,6 +19,8 @@ import {
   setListItems,
 } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
+
+// const MyIcon = <faX />;
 
 const empty: [] = [];
 
@@ -96,6 +99,15 @@ const InputFieldComponent: FC = (): JSX.Element => {
 
   return (
     <>
+      {/* <TextField
+        autoFocus
+        fullWidth
+        onChange={changeVal}
+        value={val}
+        label="Search"
+        variant="filled"
+        className="rounded-pill ps-4 text-white c-bg"
+      /> */}
       <Form.Control
         ref={inputRef}
         placeholder="Search..."
@@ -105,18 +117,20 @@ const InputFieldComponent: FC = (): JSX.Element => {
         onChange={changeVal}
         value={val}
       />
-      <FontAwesomeIcon
-        onClick={clickHandler}
-        className="btn btn-lg rounded-circle position-absolute top-0 end-0 mt-1 me-5 text-white-50"
-        size="2x"
-        transform=""
-        role="button"
-        inverse
-        pull="right"
-        focusable="auto"
-        icon={faX}
-        key={`FontAwesomeIcon-`}
-      />
+      <>
+        {val && (
+          <FontAwesomeIcon
+            onClick={clickHandler}
+            className="rounded-circle p-2 position-absolute top-0 end-0 me-5 mt-1 text-white-50"
+            size="2x"
+            role="button"
+            pull="right"
+            focusable="auto"
+            icon={faX}
+            key={`FontAwesomeIcon-`}
+          />
+        )}
+      </>
     </>
   );
 };
