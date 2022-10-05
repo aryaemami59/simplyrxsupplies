@@ -8,11 +8,13 @@ type Props = {
 
 const SearchResultsItemNumber: FC<Props> = ({ itemObj }): JSX.Element => {
   return (
-    <Badge
-      key={`Badge-SearchResultsItemNumberComponent-${itemObj.itemNumber}`}
-      className="fs-6 fw-normal">
-      Item Number: {itemObj.itemNumber}
-    </Badge>
+    <>
+      <Badge
+        key={`Badge-SearchResultsItemNumberComponent-${itemObj.itemNumber}`}
+        className="fs-6 fw-normal">
+        Item Number: {itemObj.itemNumber}
+      </Badge>
+    </>
   );
 };
 
