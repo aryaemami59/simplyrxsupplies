@@ -1,24 +1,13 @@
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconButton } from "@mui/material";
-import {
-  Dispatch,
-  FC,
-  memo,
-  MouseEventHandler,
-  MutableRefObject,
-  useCallback,
-  useContext,
-  useReducer,
-  useRef,
-} from "react";
-import { Overlay, Tooltip } from "react-bootstrap";
+import { IconButton, Tooltip } from "@mui/material";
+import { FC, memo, MouseEventHandler, useCallback, useReducer } from "react";
 import { Placement } from "react-bootstrap/esm/types";
-import { DarkMode } from "../../../../App";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 
-type actionType = {
+type reducerActionType = {
   type: typeof ACTIONS[keyof typeof ACTIONS];
+  payload?: string;
 };
 
 const ACTIONS = {
@@ -28,38 +17,44 @@ const ACTIONS = {
   AFTER_CLICK: "afterClick",
 } as const;
 
-const reducer = (state: reducerState, action: actionType): reducerState => {
+const reducer = (
+  state: reducerState,
+  action: reducerActionType
+): reducerState => {
   switch (action.type) {
     case ACTIONS.CLICK_ON_ICON:
       return {
         copied: true,
         hovered: false,
+        tooltipText: action.payload!,
       };
     case ACTIONS.HOVER_OVER_ICON:
       return {
         copied: state.copied,
         hovered: true,
+        tooltipText: action.payload!,
       };
     case ACTIONS.HOVER_LEAVE:
       return {
         copied: state.copied,
         hovered: false,
+        tooltipText: state.tooltipText,
       };
     case ACTIONS.AFTER_CLICK:
       return {
         copied: false,
         hovered: false,
+        tooltipText: state.tooltipText,
       };
     default:
       return state;
   }
 };
 
-type reducerState = typeof initialState;
-
-const initialState = {
-  copied: false,
-  hovered: false,
+type reducerState = {
+  copied: boolean;
+  hovered: boolean;
+  tooltipText: string;
 };
 
 type Props = {
@@ -77,36 +72,35 @@ const CopyIcon: FC<Props> = ({
   vendorName,
   itemObj,
 }): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
-  const [state, dispatch]: [reducerState, Dispatch<actionType>] = useReducer(
-    reducer,
-    initialState
-  );
-  const { copied, hovered } = state;
-  const oldText: string = `Click to Copy The Item ${text}`;
-  const copiedText: string = `Copied Item ${text}!`;
-  const ref: MutableRefObject<null> = useRef(null);
+  const oldText = `Click to Copy The Item ${text}`;
+  const copiedText = `Copied Item ${text}!`;
+  const [state, dispatch] = useReducer(reducer, {
+    copied: false,
+    hovered: false,
+    tooltipText: oldText,
+  });
+  const { copied, hovered, tooltipText } = state;
 
   const clickOnIcon = useCallback(
-    () => dispatch({ type: ACTIONS.CLICK_ON_ICON }),
-    []
+    () => dispatch({ type: ACTIONS.CLICK_ON_ICON, payload: copiedText }),
+    [copiedText]
   );
 
-  const handleMouseEnter: MouseEventHandler<SVGSVGElement> = useCallback(
-    () => dispatch({ type: ACTIONS.HOVER_OVER_ICON }),
-    []
+  const handleMouseEnter: MouseEventHandler<HTMLButtonElement> = useCallback(
+    () => dispatch({ type: ACTIONS.HOVER_OVER_ICON, payload: oldText }),
+    [oldText]
   );
 
-  const handleMouseLeave: MouseEventHandler<SVGSVGElement> = useCallback(
+  const handleMouseLeave: MouseEventHandler<HTMLButtonElement> = useCallback(
     () => dispatch({ type: ACTIONS.HOVER_LEAVE }),
     []
   );
 
-  const afterClick: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+  const afterClick: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     dispatch({ type: ACTIONS.AFTER_CLICK });
   }, []);
 
-  const handleClick: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+  const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     clickOnIcon();
     navigator.clipboard.writeText(content);
     setTimeout(afterClick, 200);
@@ -114,24 +108,24 @@ const CopyIcon: FC<Props> = ({
 
   return (
     <>
-      <IconButton>
-        <FontAwesomeIcon
-          focusable
-          ref={ref}
+      <Tooltip
+        title={tooltipText}
+        open={copied || hovered}>
+        <IconButton
           onClick={handleClick}
           onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          icon={faCopy}
-          size="1x"
-          // transform=""
-          // inverse={darkTheme ? true : false}
-          pull="right"
-          // className="btn p-0"
-          role="button"
-          key={`${itemObj.name}-${content}-${vendorName}-FontAwesomeIcon-CopyIconComponent`}
-        />
-      </IconButton>
-      <Overlay
+          onMouseLeave={handleMouseLeave}>
+          <FontAwesomeIcon
+            focusable
+            icon={faCopy}
+            size="1x"
+            pull="right"
+            role="button"
+            key={`${itemObj.name}-${content}-${vendorName}-FontAwesomeIcon-CopyIconComponent`}
+          />
+        </IconButton>
+      </Tooltip>
+      {/* <Overlay
         target={ref.current}
         show={copied}
         placement={placement}
@@ -158,9 +152,9 @@ const CopyIcon: FC<Props> = ({
             {oldText}
           </Tooltip>
         )}
-      </Overlay>
+      </Overlay> */}
     </>
   );
 };
 
-export default memo(CopyIcon);
+export default memo<Props>(CopyIcon);
