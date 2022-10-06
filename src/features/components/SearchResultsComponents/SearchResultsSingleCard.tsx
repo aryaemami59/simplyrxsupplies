@@ -16,9 +16,8 @@ const SearchResultsSingleCard: FC<Props> = ({ itemObj }): JSX.Element => {
   return (
     <>
       <Card
-        // bg={theme}
-        // border="info"
-        // text={theme}
+        className="shadow"
+        variant="outlined"
         key={`Card-SingleInputListItems`}>
         <CardContent
           key={`Card.Body-SingleInputListItems`}

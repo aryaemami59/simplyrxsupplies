@@ -10,11 +10,7 @@ const VendorColumnList: FC = (): JSX.Element => {
 
   return (
     <div className="justify-content-center row">
-      <div
-        // xs={11}
-        // lg={11}
-        // xl={10}
-        className="shadow col-11 col-xl-10 p-0 justify-content-center text-center">
+      <div className="shadow col-11 col-xl-10 p-0 justify-content-center text-center bg-light">
         {vendors.map(vendorName => (
           <VendorColumn
             key={`${vendorName}-VendorColumn`}

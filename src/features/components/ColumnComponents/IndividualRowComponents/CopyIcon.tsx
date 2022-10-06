@@ -1,6 +1,7 @@
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconButton, Tooltip } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 import { FC, memo, MouseEventHandler, useCallback, useReducer } from "react";
 import { Placement } from "react-bootstrap/esm/types";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
@@ -80,6 +81,7 @@ const CopyIcon: FC<Props> = ({
     tooltipText: oldText,
   });
   const { copied, hovered, tooltipText } = state;
+  const open = copied || hovered;
 
   const clickOnIcon = useCallback(
     () => dispatch({ type: ACTIONS.CLICK_ON_ICON, payload: copiedText }),
@@ -110,7 +112,7 @@ const CopyIcon: FC<Props> = ({
     <>
       <Tooltip
         title={tooltipText}
-        open={copied || hovered}>
+        open={open}>
         <IconButton
           onClick={handleClick}
           onMouseEnter={handleMouseEnter}

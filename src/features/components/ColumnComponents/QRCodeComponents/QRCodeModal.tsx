@@ -27,7 +27,7 @@ const QRCodeModal: FC<Props> = ({
   const { darkTheme } = useContext(DarkMode);
   const [show, setShow] = useState(false);
 
-  const showModal: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+  const showModal: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     setShow(true);
   }, []);
 
@@ -37,14 +37,15 @@ const QRCodeModal: FC<Props> = ({
 
   return (
     <>
-      <IconButton className="d-block w-auto">
+      <IconButton
+        onClick={showModal}
+        className="d-block w-auto">
         <FontAwesomeIcon
           icon={faMagnifyingGlassPlus}
           size="1x"
           // className="btn w-auto"
           // inverse={darkTheme ? true : false}
           role="button"
-          onClick={showModal}
         />
       </IconButton>
       <Modal

@@ -1,23 +1,22 @@
-import { faAdd, faMinus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconButton } from "@mui/material";
 import {
-  FC,
-  memo,
-  MouseEventHandler,
-  useCallback,
-  useRef,
-  useState,
-} from "react";
-import { Overlay, Tooltip } from "react-bootstrap";
+  faAdd,
+  faArrowsDownToLine,
+  faMinimize,
+  faMinus,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
+import { Button } from "@mui/material";
 
 const EXPAND = "Expand" as const;
 const COLLAPSE = "Collapse" as const;
 
 type Props = {
   open: boolean;
-  toggle: MouseEventHandler<SVGSVGElement>;
+  toggle: MouseEventHandler<HTMLButtonElement>;
   vendorName: vendorNameType;
   itemObj: ItemObjType;
 };
@@ -28,33 +27,43 @@ const MinimizeButton: FC<Props> = ({
   itemObj,
 }): JSX.Element => {
   const [show, setShow] = useState(false);
-  const target = useRef<null>(null);
+  const text = `Click Here to ${open ? COLLAPSE : EXPAND} The Item Info`;
 
-  const openTooltip: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+  const openTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     setShow(true);
   }, []);
 
-  const closeTooltip: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+  const closeTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     setShow(false);
   }, []);
 
   return (
     <>
-      <IconButton >
-        <FontAwesomeIcon
-          aria-label="collapse item info"
-          ref={target}
-          icon={open ? faMinus : faAdd}
-          // className="btn rounded-circle hover-inverse px-2 me-1"
-          size="1x"
-          role="button"
+      <Tooltip
+        title={text}
+        open={show}>
+        <Button
           onMouseEnter={openTooltip}
           onMouseLeave={closeTooltip}
           onClick={toggle}
-          key={`${vendorName}-${itemObj.name}-MinimizeButton-FontAwesomeIcon`}
-        />
-      </IconButton>
-      <Overlay
+          variant="contained"
+          startIcon={<FontAwesomeIcon icon={faMinimize} />}>
+          Collapse
+        </Button>
+        {/* <IconButton
+          onMouseEnter={openTooltip}
+          onMouseLeave={closeTooltip}
+          onClick={toggle}>
+          <FontAwesomeIcon
+            aria-label="collapse item info"
+            icon={open ? faMinus : faAdd}
+            size="1x"
+            role="button"
+            key={`${vendorName}-${itemObj.name}-MinimizeButton-FontAwesomeIcon`}
+          />
+        </IconButton> */}
+      </Tooltip>
+      {/* <Overlay
         key={`${vendorName}-RemoveButton-Overlay`}
         target={target.current}
         show={show}
@@ -67,7 +76,7 @@ const MinimizeButton: FC<Props> = ({
             Click Here to {open ? COLLAPSE : EXPAND} The Item Info
           </Tooltip>
         )}
-      </Overlay>
+      </Overlay> */}
     </>
   );
 };

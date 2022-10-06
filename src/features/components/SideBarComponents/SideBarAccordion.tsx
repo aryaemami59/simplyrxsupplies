@@ -34,7 +34,7 @@ const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
   const [open, setOpen] = useState(false);
   const nodeRef = useRef<null>(null!);
 
-  const toggle: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  const toggle: MouseEventHandler<HTMLDivElement> = useCallback(() => {
     setOpen(prev => !prev);
   }, []);
 
@@ -46,9 +46,13 @@ const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
     <div
       key={`div-SideBarAccordion-${category}-outer`}
       // style={{ paddingTop: 37 }}
+    >
+      <Accordion
+        expanded={open}
+        onClick={toggle}
+        // className="shadow"
       >
-      <Accordion>
-        <AccordionSummary>
+        <AccordionSummary className="shadow-sm">
           <Typography>{category}</Typography>
         </AccordionSummary>
         <AccordionDetails>

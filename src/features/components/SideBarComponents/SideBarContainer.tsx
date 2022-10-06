@@ -9,13 +9,9 @@ const SideBarContainer: FC = (): JSX.Element => {
 
   return (
     <nav
-      className="flex-column overflow-auto w-100 h-100 sticky-top c-overflow-x-hidden sidebar-col"
+      className="flex-column overflow-auto w-100 h-100 sticky-top c-overflow-x-hidden sidebar-col shadow"
       key={"SideBarContainer"}>
-      <div
-        key={`div-VerticalNavComponent`}
-        // className="sidebar-col"
-        // className={`d-none d-lg-block sticky-top ${theme}`}
-      >
+      <div key={`div-VerticalNavComponent`}>
         <SideBarAccordionList key={"sidebar accordion list"} />
       </div>
     </nav>

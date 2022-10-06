@@ -1,6 +1,6 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, IconButton } from "@mui/material";
+import { Button, IconButton, Tooltip } from "@mui/material";
 import {
   FC,
   memo,
@@ -13,7 +13,8 @@ import { Modal } from "react-bootstrap";
 import { DarkMode } from "../../../../../App";
 import { ItemObjType, vendorNameType } from "../../../../../customTypes/types";
 import ModalBodyContent from "./ModalBodyContent";
-import ZoomInIcon from "@mui/icons-material/ZoomIn";
+
+const title = "Click Here to Take a Closer Look at The Item Info";
 
 type Props = {
   itemObj: ItemObjType;
@@ -27,13 +28,22 @@ const RowSingleContainerModal: FC<Props> = ({
   const { darkTheme } = useContext(DarkMode);
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  const showModal: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+  const showModal: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     setModalOpen(true);
   }, []);
 
   const hideModal = useCallback(() => {
     setModalOpen(false);
+  }, []);
+
+  const showTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const hideTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+    setOpen(false);
   }, []);
 
   return (
@@ -43,15 +53,27 @@ const RowSingleContainerModal: FC<Props> = ({
         className="rounded-circle px-2 me-1 hover-inverse"
         />
       </IconButton> */}
-      <IconButton size="medium">
+      {/* <IconButton
+        onClick={showModal}
+        size="medium">
         <FontAwesomeIcon
-          onClick={showModal}
           icon={faMagnifyingGlassPlus}
-          // className="rounded-circle px-2 me-1 hover-inverse"
           size="1x"
           role="button"
         />
-      </IconButton>
+      </IconButton> */}
+      <Tooltip
+        title={title}
+        open={open}>
+        <Button
+          onMouseEnter={showTooltip}
+          onMouseLeave={hideTooltip}
+          onClick={showModal}
+          variant="contained"
+          startIcon={<FontAwesomeIcon icon={faMagnifyingGlassPlus} />}>
+          Magnify
+        </Button>
+      </Tooltip>
       <Modal
         scrollable
         onHide={hideModal}

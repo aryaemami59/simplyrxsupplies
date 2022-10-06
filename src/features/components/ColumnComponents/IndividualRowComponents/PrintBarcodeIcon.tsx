@@ -1,18 +1,9 @@
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconButton } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 import printJS from "print-js";
-import {
-  FC,
-  memo,
-  MouseEventHandler,
-  useCallback,
-  useContext,
-  useRef,
-  useState,
-} from "react";
-import { Overlay, Tooltip } from "react-bootstrap";
-import { DarkMode } from "../../../../App";
+import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import { ItemObjType } from "../../../../customTypes/types";
 
 type Props = {
@@ -26,11 +17,9 @@ const PrintBarcodeIcon: FC<Props> = ({
   header,
   itemObj,
 }): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
   const [show, setShow] = useState(false);
-  const target = useRef<null>(null);
 
-  const clickHandler: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+  const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     printJS({
       printable: itemObj.src,
       type: "image",
@@ -39,32 +28,34 @@ const PrintBarcodeIcon: FC<Props> = ({
     });
   }, [itemObj.src, header]);
 
-  const openTooltip: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+  const openTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     setShow(true);
   }, []);
 
-  const closeTooltip: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+  const closeTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     setShow(false);
   }, []);
 
   return (
     <>
-      <IconButton className="d-block w-auto">
-        <FontAwesomeIcon
-          focusable
-          ref={target}
+      <Tooltip
+        title={text}
+        open={show}>
+        <IconButton
           onClick={clickHandler}
           onMouseEnter={openTooltip}
           onMouseLeave={closeTooltip}
-          icon={faPrint}
-          size="1x"
-          // inverse={darkTheme ? true : false}
-          // className="btn w-auto"
-          role="button"
-          key={`${header}-PrintIconBarcodeComponent`}
-        />
-      </IconButton>
-      <Overlay
+          className="d-block w-auto">
+          <FontAwesomeIcon
+            focusable
+            icon={faPrint}
+            size="1x"
+            role="button"
+            key={`${header}-PrintIconBarcodeComponent`}
+          />
+        </IconButton>
+      </Tooltip>
+      {/* <Overlay
         key={`Overlay-PrintIconBarcodeComponent-${itemObj.name}-${header}`}
         target={target.current}
         show={show}
@@ -77,7 +68,7 @@ const PrintBarcodeIcon: FC<Props> = ({
             {text}
           </Tooltip>
         )}
-      </Overlay>
+      </Overlay> */}
     </>
   );
 };

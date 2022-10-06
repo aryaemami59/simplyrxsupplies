@@ -1,13 +1,11 @@
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
-import {
-  FC,
-  memo,
-  MouseEventHandler,
-  useCallback,
-  useRef,
-  useState,
-} from "react";
-import { Badge, Collapse, Fade } from "react-bootstrap";
+import AddIcon from "@mui/icons-material/Add";
+import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
+// import { Collapse, Badge, Fade } from "@mui/material"
+// import { Badge, Collapse, Fade } from "react-bootstrap";
+import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import { shallowEqual } from "react-redux";
 import { ItemObjType } from "../../../customTypes/types";
 import {
@@ -22,43 +20,48 @@ type Props = {
 };
 
 const SearchResultsAddButton: FC<Props> = ({ itemObj }): JSX.Element => {
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
   const IfAddedToAllVendors = useAppSelector(checkIfAddedToAllVendors(itemObj));
   const vendors = useAppSelector(selectVendorsToAddTo(itemObj), shallowEqual);
   const dispatch = useAppDispatch();
-  const target = useRef<null>(null);
+  // const target = useRef<null>(null);
 
-  const showBadge = useCallback(() => {
-    setShow(true);
-  }, []);
-  const hideBadge = useCallback(() => {
-    setShow(false);
-  }, []);
+  // const showBadge = useCallback(() => {
+  //   setShow(true);
+  // }, []);
+  // const hideBadge = useCallback(() => {
+  //   setShow(false);
+  // }, []);
 
-  const showThenHide = useCallback(() => {
-    showBadge();
-    setTimeout(hideBadge, 1500);
-  }, [showBadge, hideBadge]);
+  // const showThenHide = useCallback(() => {
+  //   showBadge();
+  //   setTimeout(hideBadge, 1500);
+  // }, [showBadge, hideBadge]);
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    IfAddedToAllVendors
-      ? showThenHide()
-      : dispatch(addItems({ itemObj, vendors }));
-  }, [IfAddedToAllVendors, showThenHide, dispatch, itemObj, vendors]);
+    IfAddedToAllVendors || dispatch(addItems({ itemObj, vendors }));
+    // IfAddedToAllVendors
+    //   ? showThenHide()
+    //   : dispatch(addItems({ itemObj, vendors }));
+  }, [IfAddedToAllVendors, dispatch, itemObj, vendors]);
 
   return (
-    <Button
-      ref={target}
-      size="large"
-      variant="contained"
-      // size="lg"
-
-      key={`Button-AddItemButtonComponent-${itemObj.id}`}
-      onClick={clickHandler}
-      // className="btn btn-success d-block w-100 position-relative mb-2 fw-bold rounded-pill shadow custom-text-shadow-white"
-    >
-      Add Item
-      <Collapse
+    <>
+      <Button
+        disabled={IfAddedToAllVendors}
+        size="large"
+        variant="contained"
+        key={`Button-AddItemButtonComponent-${itemObj.id}`}
+        onClick={clickHandler}
+        startIcon={
+          <AddCircleOutlineRoundedIcon
+          // icon={faPlus}
+          // size="1x"
+          />
+        }>
+        Add Item
+      </Button>
+      {/* <Collapse
         in={show}
         timeout={500}
         key={`Collapse-AddItemButtonComponent-${itemObj.id}`}>
@@ -68,15 +71,15 @@ const SearchResultsAddButton: FC<Props> = ({ itemObj }): JSX.Element => {
             timeout={500}
             key={`Fade-AddItemButtonComponent-${itemObj.id}`}>
             <Badge
-              bg="danger"
+              // bg="danger"
               className="d-block fw-light"
               key={`Badge-AddItemButtonComponent-${itemObj.id}`}>
               This Item Has Already Been Added!
             </Badge>
           </Fade>
         </div>
-      </Collapse>
-    </Button>
+      </Collapse> */}
+    </>
   );
 };
 

@@ -26,7 +26,7 @@ type Props = {
 };
 
 const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
+  // const { darkTheme } = useContext(DarkMode);
   const [open, setOpen] = useState(false);
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
@@ -46,13 +46,14 @@ const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
     [buttonClick]
   );
 
-  const theme = darkTheme ? "custom-bg-color-2" : "custom-light-mode";
+  // const theme = darkTheme ? "custom-bg-color-2" : "custom-light-mode";
 
   return (
     <>
       <Button
-        className="position-relative d-block w-100"
+        className="position-relative d-block w-100 bg-transparen"
         variant="contained"
+        // color="inherit"
         onClick={buttonClick}>
         {officialVendorName}
         <RowCounterBadge vendorName={vendorName} />

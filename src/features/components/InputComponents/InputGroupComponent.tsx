@@ -21,14 +21,14 @@ const InputGroupComponent: FC = (): JSX.Element => {
 
   return (
     <>
-      <Row className="justify-content-center mb-3">
+      {/* <Row className="justify-content-center mb-3">
         <Button
           onClick={clickHandler}
           variant="contained"
           className="w-auto">
           {display} compact view of the search results
         </Button>
-      </Row>
+      </Row> */}
       <div
         key={`div-row-InputGroupComponent`}
         className="row justify-content-center">

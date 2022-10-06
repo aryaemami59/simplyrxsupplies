@@ -1,8 +1,7 @@
 import { FC, memo } from "react";
-import { Col, Container, Row } from "react-bootstrap";
 import {
   ItemObjType,
-  officialVendorNameType
+  officialVendorNameType,
 } from "../../../../../customTypes/types";
 import PrintBarcodeIcon from "../PrintBarcodeIcon";
 import RowBarcodeModal from "./RowBarcodeModal";
@@ -17,31 +16,27 @@ const ModalBarcodeContainer: FC<Props> = ({
   officialVendorName,
 }): JSX.Element => {
   return (
-    <Container
-      fluid
-      className="my-4">
-      <Row>
-        <Col
-          md={12}
-          className="position-relative">
-          <Row className="justify-content-center">
+    <div className="my-4 container-fluid">
+      <div className="row">
+        <div className="position-relative col col-md-12">
+          <div className="justify-content-center row">
             <PrintBarcodeIcon
               itemObj={itemObj}
               text={"Print This Barcode"}
               header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}
             />
             <RowBarcodeModal itemObj={itemObj} />
-          </Row>
-          <Row className="justify-content-center">
+          </div>
+          <div className="justify-content-center row">
             <img
               src={itemObj.src}
               alt={itemObj.itemNumber}
               className="custom-shadow my-4 w-auto p-0"
             />
-          </Row>
-        </Col>
-      </Row>
-    </Container>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
