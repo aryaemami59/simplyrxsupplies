@@ -1,5 +1,6 @@
+import { ListItem } from "@mui/material";
 import { FC, memo } from "react";
-import { ListGroup } from "react-bootstrap";
+// import { ListGroup } from "react-bootstrap";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 import { useAppSelector } from "../../../../Redux/hooks";
 import { RootState } from "../../../../Redux/store";
@@ -17,11 +18,11 @@ const RowItemName: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
 
   return (
     <>
-      {itemNameShown ? (
-        <ListGroup.Item
-          action
+      {itemNameShown && (
+        <ListItem
+          // action
           className="rounded-top fw-bold"
-          variant="success"
+          // variant="success"
           key={`${itemObj.name}-${vendorName}-VendorColumn-ListGroupItem-name`}>
           Item Name: {itemObj.name}
           <CopyIcon
@@ -32,9 +33,7 @@ const RowItemName: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
             itemObj={itemObj}
             vendorName={vendorName}
           />
-        </ListGroup.Item>
-      ) : (
-        ""
+        </ListItem>
       )}
     </>
   );

@@ -9,20 +9,20 @@ const VendorColumnList: FC = (): JSX.Element => {
   const vendors = useAppSelector(selectVendorsArr, shallowEqual);
 
   return (
-    <Row className="justify-content-center">
-      <Col
-        xs={11}
-        lg={11}
-        xl={10}
-        className="shadow p-0 justify-content-center text-center">
+    <div className="justify-content-center row">
+      <div
+        // xs={11}
+        // lg={11}
+        // xl={10}
+        className="shadow col-11 col-xl-10 p-0 justify-content-center text-center">
         {vendors.map(vendorName => (
           <VendorColumn
             key={`${vendorName}-VendorColumn`}
             vendorName={vendorName}
           />
         ))}
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 };
 

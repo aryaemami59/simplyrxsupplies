@@ -1,5 +1,6 @@
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconButton } from "@mui/material";
 import printjs from "print-js";
 import {
   FC,
@@ -25,7 +26,7 @@ const PrintIconQRCode: FC<Props> = ({ src, text, vendorName }): JSX.Element => {
   const [show, setShow] = useState(false);
   const target = useRef<null>(null);
 
-  const clickHandler: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+  const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     printjs({
       printable: src,
       type: "image",
@@ -35,29 +36,35 @@ const PrintIconQRCode: FC<Props> = ({ src, text, vendorName }): JSX.Element => {
     });
   }, [src]);
 
-  const openTooltip: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+  const openTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     setShow(true);
   }, []);
 
-  const closeTooltip: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+  const closeTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     setShow(false);
   }, []);
 
   return (
     <>
-      <FontAwesomeIcon
-        focusable
-        ref={target}
+      <IconButton
         onClick={clickHandler}
         onMouseEnter={openTooltip}
         onMouseLeave={closeTooltip}
-        icon={faPrint}
-        size="lg"
-        inverse={darkTheme ? true : false}
-        className="btn w-auto"
-        role="button"
-        key={`${vendorName}-FontAwesomeIcon-PrintIconQRCodeComponent`}
-      />
+        className="d-block w-auto">
+        <FontAwesomeIcon
+          focusable
+          ref={target}
+          icon={faPrint}
+          size="1x"
+          // onMouseEnter={openTooltip}
+          // onMouseLeave={closeTooltip}
+          // onClick={clickHandler}
+          // inverse={darkTheme ? true : false}
+          // className="btn w-auto"
+          role="button"
+          key={`${vendorName}-FontAwesomeIcon-PrintIconQRCodeComponent`}
+        />
+      </IconButton>
       <Overlay
         key={`${vendorName}-PrintIconQRCodeComponent-Overlay`}
         target={target.current}

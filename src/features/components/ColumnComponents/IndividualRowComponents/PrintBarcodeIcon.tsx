@@ -1,5 +1,6 @@
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconButton } from "@mui/material";
 import printJS from "print-js";
 import {
   FC,
@@ -48,19 +49,21 @@ const PrintBarcodeIcon: FC<Props> = ({
 
   return (
     <>
-      <FontAwesomeIcon
-        focusable
-        ref={target}
-        onClick={clickHandler}
-        onMouseEnter={openTooltip}
-        onMouseLeave={closeTooltip}
-        icon={faPrint}
-        size="lg"
-        inverse={darkTheme ? true : false}
-        className="btn w-auto"
-        role="button"
-        key={`${header}-PrintIconBarcodeComponent`}
-      />
+      <IconButton className="d-block w-auto">
+        <FontAwesomeIcon
+          focusable
+          ref={target}
+          onClick={clickHandler}
+          onMouseEnter={openTooltip}
+          onMouseLeave={closeTooltip}
+          icon={faPrint}
+          size="1x"
+          // inverse={darkTheme ? true : false}
+          // className="btn w-auto"
+          role="button"
+          key={`${header}-PrintIconBarcodeComponent`}
+        />
+      </IconButton>
       <Overlay
         key={`Overlay-PrintIconBarcodeComponent-${itemObj.name}-${header}`}
         target={target.current}

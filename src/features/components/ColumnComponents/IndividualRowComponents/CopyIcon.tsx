@@ -1,5 +1,6 @@
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconButton } from "@mui/material";
 import {
   Dispatch,
   FC,
@@ -113,21 +114,23 @@ const CopyIcon: FC<Props> = ({
 
   return (
     <>
-      <FontAwesomeIcon
-        focusable
-        ref={ref}
-        onClick={handleClick}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        icon={faCopy}
-        size="lg"
-        transform=""
-        inverse={darkTheme ? true : false}
-        pull="right"
-        className="btn p-0"
-        role="button"
-        key={`${itemObj.name}-${content}-${vendorName}-FontAwesomeIcon-CopyIconComponent`}
-      />
+      <IconButton>
+        <FontAwesomeIcon
+          focusable
+          ref={ref}
+          onClick={handleClick}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          icon={faCopy}
+          size="1x"
+          // transform=""
+          // inverse={darkTheme ? true : false}
+          pull="right"
+          // className="btn p-0"
+          role="button"
+          key={`${itemObj.name}-${content}-${vendorName}-FontAwesomeIcon-CopyIconComponent`}
+        />
+      </IconButton>
       <Overlay
         target={ref.current}
         show={copied}

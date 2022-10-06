@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import { ButtonGroup, Card, ListGroup } from "react-bootstrap";
+// import { ButtonGroup, Card, ListGroup } from "react-bootstrap";
 import {
   ItemObjType,
   officialVendorNameType,
@@ -11,6 +11,7 @@ import ColumnToggleItemBarcodesButton from "./ToggleComponents/ColumnToggleItemB
 import ColumnToggleItemNumbersButton from "./ToggleComponents/ColumnToggleItemNumbersButton";
 import ColumnToggleNamesButton from "./ToggleComponents/ColumnToggleNamesButton";
 import VendorLink from "./VendorLink";
+import { ButtonGroup, CardContent, List } from "@mui/material";
 
 type Props = {
   addedItems: ItemObjType[];
@@ -25,7 +26,7 @@ const ColumnTopCardBody: FC<Props> = ({
 }): JSX.Element => {
   return (
     <>
-      <Card.Body key={`Card.Body-VendorColumn-${vendorName}`}>
+      <CardContent key={`Card.Body-VendorColumn-${vendorName}`}>
         <QRCodeImage
           vendorName={vendorName}
           key={`${vendorName}-VendorColumn-QRCodeImageComponent`}
@@ -39,15 +40,15 @@ const ColumnTopCardBody: FC<Props> = ({
           <ColumnToggleItemNumbersButton />
           <ColumnToggleItemBarcodesButton />
         </ButtonGroup>
-        <ListGroup key={`ListGroup-VendorColumn-${vendorName}`}>
+        <List key={`ListGroup-VendorColumn-${vendorName}`}>
           {addedItems.map(itemObj => (
             <RowSingleContainer
               key={`${itemObj.id}-${vendorName}-SingleVendorColumnListItem`}
               {...{ itemObj, vendorName }}
             />
           ))}
-        </ListGroup>
-      </Card.Body>
+        </List>
+      </CardContent>
     </>
   );
 };

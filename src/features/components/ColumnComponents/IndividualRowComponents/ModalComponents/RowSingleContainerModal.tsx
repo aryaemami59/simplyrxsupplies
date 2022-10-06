@@ -1,6 +1,6 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import {
   FC,
   memo,
@@ -13,6 +13,7 @@ import { Modal } from "react-bootstrap";
 import { DarkMode } from "../../../../../App";
 import { ItemObjType, vendorNameType } from "../../../../../customTypes/types";
 import ModalBodyContent from "./ModalBodyContent";
+import ZoomInIcon from "@mui/icons-material/ZoomIn";
 
 type Props = {
   itemObj: ItemObjType;
@@ -37,14 +38,20 @@ const RowSingleContainerModal: FC<Props> = ({
 
   return (
     <>
-      <FontAwesomeIcon
-        onClick={showModal}
-        icon={faMagnifyingGlassPlus}
-        inverse
-        className="btn rounded-circle px-2 me-1 hover-inverse"
-        size="2x"
-        role="button"
-      />
+      {/* <IconButton className="rounded-circle px-2 me-1 hover-inverse">
+        <ZoomInIcon
+        className="rounded-circle px-2 me-1 hover-inverse"
+        />
+      </IconButton> */}
+      <IconButton size="medium">
+        <FontAwesomeIcon
+          onClick={showModal}
+          icon={faMagnifyingGlassPlus}
+          // className="rounded-circle px-2 me-1 hover-inverse"
+          size="1x"
+          role="button"
+        />
+      </IconButton>
       <Modal
         scrollable
         onHide={hideModal}

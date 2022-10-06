@@ -1,3 +1,4 @@
+import { Card, Collapse } from "@mui/material";
 import Button from "@mui/material/Button";
 import {
   FC,
@@ -7,7 +8,7 @@ import {
   useContext,
   useState,
 } from "react";
-import { Card, Collapse } from "react-bootstrap";
+// import { Card, Collapse } from "react-bootstrap";
 import { shallowEqual } from "react-redux";
 import { DarkMode } from "../../../App";
 import { vendorNameType } from "../../../customTypes/types";
@@ -52,7 +53,6 @@ const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
       <Button
         className="position-relative d-block w-100"
         variant="contained"
-        // variant="primary"
         onClick={buttonClick}>
         {officialVendorName}
         <RowCounterBadge vendorName={vendorName} />
@@ -63,15 +63,14 @@ const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
         <div key={`div-VendorColumn-${vendorName}`}>
           <Card
             key={`Card-VendorColumn-${vendorName}`}
-            tabIndex={0}
-            className={theme}
+            // tabIndex={0}
+            // className={theme}
             onKeyDown={handleKeyDown}>
             {addedItems.length ? (
               <ColumnTopCardBody
                 addedItems={addedItems}
                 vendorName={vendorName}
                 officialVendorName={officialVendorName}
-                // {...{ addedItems, vendorName, officialVendorName }}
               />
             ) : (
               <EmptyColumn />

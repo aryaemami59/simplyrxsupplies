@@ -1,14 +1,5 @@
-import { Button } from "@mui/material";
+import { Button, ButtonGroup, Collapse, Fade } from "@mui/material";
 import { FC, KeyboardEvent, memo, useCallback, useState } from "react";
-import {
-  // Button,
-  ButtonGroup,
-  Col,
-  Collapse,
-  Container,
-  Fade,
-  Row,
-} from "react-bootstrap";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 import MinimizeButton from "./MinimizeButton";
 import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal";
@@ -46,19 +37,15 @@ const RowSingleContainer: FC<Props> = ({
       tabIndex={0}
       onKeyDown={handleKeyDown}
       className="rounded border mb-4">
-      <Container
+      <div
         key={`Container-SingleVendorColumnListItem-${vendorName}-${name}`}
-        fluid
-        className="my-3">
-        <Row
+        className="my-3 container-fluid">
+        <div
           key={`Row-SingleVendorColumnListItem-${vendorName}-${name}`}
-          className="justify-content-evenly align-items-center">
-          <Col
+          className="justify-content-evenly align-items-center row">
+          <div
             key={`Col-SingleVendorColumnListItem-${vendorName}-${name}-first`}
-            xs={12}
-            xl={7}
-            xxl={9}
-            className="">
+            className="col-12 col-xl-7 col-xxl-9">
             <Fade
               key={`Fade-SingleVendorColumnListItem-${vendorName}-${name}`}
               in={!open}
@@ -67,17 +54,15 @@ const RowSingleContainer: FC<Props> = ({
                 key={`Button-SingleVendorColumnListItem-${vendorName}-${name}`}
                 aria-controls="maximize content"
                 variant="contained"
-                // variant="success"
                 className="w-100"
                 onClick={toggleFade}>
                 {name}
               </Button>
             </Fade>
-          </Col>
-          <Col
+          </div>
+          <div
             key={`Col-SingleVendorColumnListItem-${vendorName}-${name}-second`}
-            className=""
-            xs={"auto"}>
+            className="col-xs-auto">
             <ButtonGroup
               key={`ButtonGroup-SingleVendorColumnListItem-${vendorName}-${name}`}
               className="my-2">
@@ -98,9 +83,9 @@ const RowSingleContainer: FC<Props> = ({
                 key={`RemoveButton-SingleVendorColumnListItem-${vendorName}-${name}`}
               />
             </ButtonGroup>
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        </div>
+      </div>
       <Collapse
         key={`Collapse-SingleVendorColumnListItem-${vendorName}-${name}`}
         in={open}>

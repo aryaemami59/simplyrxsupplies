@@ -1,5 +1,6 @@
+import { Link } from "@mui/material";
 import { FC, memo } from "react";
-import { Alert } from "react-bootstrap";
+// import { Alert } from "react-bootstrap";
 import {
   officialVendorNameType,
   vendorNameType,
@@ -18,9 +19,9 @@ const VendorLink: FC<Props> = ({
 }): JSX.Element => {
   const vendorLink = useAppSelector(selectVendorsLinks(vendorName));
   return (
-    <Alert variant="info">
-      <Alert.Link href={vendorLink}>{officialVendorName} Website</Alert.Link>
-    </Alert>
+    <div className="row py-3">
+      <Link href={vendorLink}>{officialVendorName} Website</Link>
+    </div>
   );
 };
 

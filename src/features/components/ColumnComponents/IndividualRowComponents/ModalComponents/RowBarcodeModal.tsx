@@ -1,6 +1,6 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import {
   FC,
   memo,
@@ -30,14 +30,16 @@ const RowBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
   }, []);
   return (
     <>
-      <FontAwesomeIcon
-        icon={faMagnifyingGlassPlus}
-        size="lg"
-        className="btn w-auto"
-        inverse={darkTheme ? true : false}
-        role="button"
-        onClick={showModal}
-      />
+      <IconButton className="d-block w-auto">
+        <FontAwesomeIcon
+          icon={faMagnifyingGlassPlus}
+          size="1x"
+          // className="btn w-auto"
+          // inverse={darkTheme ? true : false}
+          role="button"
+          onClick={showModal}
+        />
+      </IconButton>
       <Modal
         show={show}
         onHide={hideModal}>

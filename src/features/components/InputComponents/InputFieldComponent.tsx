@@ -1,6 +1,5 @@
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Input, TextField } from "@mui/material";
 import {
   ChangeEvent,
   FC,
@@ -19,8 +18,6 @@ import {
   setListItems,
 } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
-
-// const MyIcon = <faX />;
 
 const empty: [] = [];
 

@@ -1,5 +1,6 @@
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconButton } from "@mui/material";
 import {
   FC,
   memo,
@@ -37,18 +38,20 @@ const RowRemoveButton: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
 
   return (
     <>
-      <FontAwesomeIcon
-        icon={faClose}
-        aria-label="remove item"
-        key={`${vendorName}-${itemObj.name}-CloseButton`}
-        ref={target}
-        onClick={clickHandler}
-        onMouseEnter={openTooltip}
-        onMouseLeave={closeTooltip}
-        className="btn rounded-circle hover-inverse"
-        size="2x"
-        role="button"
-      />
+      <IconButton>
+        <FontAwesomeIcon
+          icon={faClose}
+          aria-label="remove item"
+          key={`${vendorName}-${itemObj.name}-CloseButton`}
+          ref={target}
+          onClick={clickHandler}
+          onMouseEnter={openTooltip}
+          onMouseLeave={closeTooltip}
+          // className="btn rounded-circle hover-inverse"
+          size="1x"
+          role="button"
+        />
+      </IconButton>
       <Overlay
         target={target.current}
         show={show}

@@ -1,12 +1,13 @@
 import { faAdd, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconButton } from "@mui/material";
 import {
   FC,
   memo,
   MouseEventHandler,
   useCallback,
   useRef,
-  useState
+  useState,
 } from "react";
 import { Overlay, Tooltip } from "react-bootstrap";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
@@ -39,18 +40,20 @@ const MinimizeButton: FC<Props> = ({
 
   return (
     <>
-      <FontAwesomeIcon
-        aria-label="collapse item info"
-        ref={target}
-        icon={open ? faMinus : faAdd}
-        className="btn rounded-circle hover-inverse px-2 me-1"
-        size="2x"
-        role="button"
-        onMouseEnter={openTooltip}
-        onMouseLeave={closeTooltip}
-        onClick={toggle}
-        key={`${vendorName}-${itemObj.name}-MinimizeButton-FontAwesomeIcon`}
-      />
+      <IconButton >
+        <FontAwesomeIcon
+          aria-label="collapse item info"
+          ref={target}
+          icon={open ? faMinus : faAdd}
+          // className="btn rounded-circle hover-inverse px-2 me-1"
+          size="1x"
+          role="button"
+          onMouseEnter={openTooltip}
+          onMouseLeave={closeTooltip}
+          onClick={toggle}
+          key={`${vendorName}-${itemObj.name}-MinimizeButton-FontAwesomeIcon`}
+        />
+      </IconButton>
       <Overlay
         key={`${vendorName}-RemoveButton-Overlay`}
         target={target.current}

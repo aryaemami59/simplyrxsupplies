@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import { Container } from "react-bootstrap";
+// import { Container } from "react-bootstrap";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 import RowBarcodeImage from "./RowBarcodeImage";
 import RowItemName from "./RowItemName";
@@ -12,7 +12,9 @@ type Props = {
 
 const RowSingleItemInfo: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
   return (
-    <Container key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
+    <div
+      className="container"
+      key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
       <RowItemName
         itemObj={itemObj}
         vendorName={vendorName}
@@ -25,7 +27,7 @@ const RowSingleItemInfo: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
         itemObj={itemObj}
         vendorName={vendorName}
       />
-    </Container>
+    </div>
   );
 };
 
