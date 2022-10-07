@@ -13,6 +13,8 @@ type Props = {
 };
 
 const ModalBarcodeContainer: FC<Props> = ({ itemObj, officialVendorName }) => {
+  const header = `<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`;
+
   return (
     <div className="my-4 container-fluid">
       <div className="row">
@@ -21,7 +23,7 @@ const ModalBarcodeContainer: FC<Props> = ({ itemObj, officialVendorName }) => {
             <PrintBarcodeIcon
               itemObj={itemObj}
               text={"Print This Barcode"}
-              header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}
+              header={header}
             />
             <RowBarcodeModal itemObj={itemObj} />
           </div>

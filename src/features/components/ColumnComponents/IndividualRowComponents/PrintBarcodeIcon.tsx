@@ -22,7 +22,7 @@ const PrintBarcodeIcon: FC<Props> = ({ text, header, itemObj }) => {
       header,
       imageStyle: "width:80%;margin-bottom:20px;",
     });
-  }, [itemObj.src, header]);
+  }, [header, itemObj.src]);
 
   const openTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     setShow(true);
