@@ -35,6 +35,7 @@ const RowDeleteButton: FC<Props> = ({ vendorName, itemObj }) => {
         title={title}
         open={show}>
         <Button
+          className="flex-grow-1"
           onClick={clickHandler}
           onMouseEnter={openTooltip}
           onMouseLeave={closeTooltip}

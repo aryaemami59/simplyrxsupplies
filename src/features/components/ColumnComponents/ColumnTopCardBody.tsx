@@ -31,7 +31,7 @@ const ColumnTopCardBody: FC<Props> = ({
           officialVendorName={officialVendorName}
           vendorName={vendorName}
         />
-        <ButtonGroup className="mb-3">
+        <ButtonGroup className="flex-wrap justify-content-center w-100">
           <ColumnToggleNamesButton />
           <ColumnToggleItemNumbersButton />
           <ColumnToggleItemBarcodesButton />

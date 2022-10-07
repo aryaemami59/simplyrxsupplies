@@ -45,6 +45,7 @@ const RowSingleContainerModal: FC<Props> = ({ itemObj, vendorName }) => {
         title={title}
         open={open}>
         <Button
+          className="flex-grow-1"
           onMouseEnter={showTooltip}
           onMouseLeave={hideTooltip}
           onClick={showModal}

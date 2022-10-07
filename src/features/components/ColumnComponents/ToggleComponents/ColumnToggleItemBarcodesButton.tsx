@@ -4,13 +4,10 @@ import { Button } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
 import { ToggleItemBarcode } from "../../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../../Redux/hooks";
-import { RootState } from "../../../../Redux/store";
 
 const ColumnToggleItemBarcodesButton: FC = () => {
   const dispatch = useAppDispatch();
-  const itemBarcodeShown = useAppSelector(
-    (state: RootState) => state.added.showItemBarcode
-  );
+  const itemBarcodeShown = useAppSelector(state => state.added.showItemBarcode);
   const toggleItemBarcode: MouseEventHandler<HTMLButtonElement> =
     useCallback(() => {
       dispatch(ToggleItemBarcode());
@@ -18,6 +15,7 @@ const ColumnToggleItemBarcodesButton: FC = () => {
 
   return (
     <Button
+      className="flex-grow-1"
       variant="contained"
       onClick={toggleItemBarcode}>
       {itemBarcodeShown ? "Hide" : "Show"} Item Barcode

@@ -65,28 +65,21 @@ const App: FC = () => {
       // className={`App ${darkTheme ? "custom-dark-mode" : "custom-light-mode"}`}
     >
       {/* <DarkMode.Provider value={{ darkTheme, setDarkTheme }}> */}
-      <TopNavbar key={`NavbarComponent-App`} />
-      <div
-        className="container-fluid"
-        key={`Container-App`}>
-        <div
-          className="justify-content-center row"
-          key={`Row-App`}>
+      <TopNavbar />
+      <div className="container-fluid">
+        <div className="justify-content-center row">
           <div
-            key={`Col-firstCol-App`}
             className="col-lg-3 col-xl-2 px-0 d-none d-lg-block sticky-top sidebar-col"
             style={{ marginTop: 37 }}>
-            <SideBarContainer key={`VerticalNavComponent-App`} />
+            <SideBarContainer />
           </div>
-          <div
-            className="col-11 col-md-6 col-lg-5 mt-5"
-            key={`Col-secondCol-App`}>
-            <InputGroupComponent key={`InputGroupComponent-App`} />
+          <div className="col-11 col-md-6 col-lg-5 mt-5">
+            <InputGroupComponent />
           </div>
-          <div
-            key={`Col-thirdCol-App`}
-            className="col-11 col-md-6 col-lg-4 col-xl-5 my-5 justify-content-center">
-            <VendorColumnList key={`VendorColumnList-App`} />
+          <div className="col-11 col-md-6 col-lg-4 col-xl-5 my-5 justify-content-center">
+            <span className="d-none d-md-inline-block">
+              <VendorColumnList />
+            </span>
           </div>
         </div>
       </div>

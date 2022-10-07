@@ -47,6 +47,7 @@ const CollapseButton: FC<Props> = ({ open, toggle, vendorName, itemObj }) => {
         title={text}
         open={show}>
         <Button
+          className="flex-grow-1"
           onMouseEnter={openTooltip}
           onMouseLeave={closeTooltip}
           onClick={toggle}

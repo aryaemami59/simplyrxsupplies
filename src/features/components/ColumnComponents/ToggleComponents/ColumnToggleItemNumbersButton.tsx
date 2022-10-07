@@ -19,6 +19,7 @@ const ColumnToggleItemNumbersButton: FC = () => {
 
   return (
     <Button
+      className="flex-grow-1"
       variant="contained"
       onClick={toggleItemNumber}>
       {itemNumberShown ? "Hide" : "Show"} Item Number

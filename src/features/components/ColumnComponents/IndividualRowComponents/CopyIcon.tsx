@@ -106,6 +106,7 @@ const CopyIcon: FC<Props> = ({ content, text, vendorName, itemObj }) => {
         title={tooltipText}
         open={open}>
         <Button
+          className="ms-5"
           variant="contained"
           startIcon={<FontAwesomeIcon icon={faCopy} />}
           onClick={handleClick}

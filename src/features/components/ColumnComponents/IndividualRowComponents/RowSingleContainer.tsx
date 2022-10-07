@@ -35,8 +35,8 @@ const RowSingleContainer: FC<Props> = ({ itemObj, vendorName }) => {
       className="rounded border mb-4">
       <div className="my-3 container-fluid">
         <div className="justify-content-evenly align-items-center row">
-          <div className="col-xs-auto">
-            <ButtonGroup className="my-2">
+          <div className="col-xs-auto justify-content-center d-flex">
+            <ButtonGroup className="flex-wrap justify-content-center">
               <RowSingleContainerModal
                 itemObj={itemObj}
                 vendorName={vendorName}
