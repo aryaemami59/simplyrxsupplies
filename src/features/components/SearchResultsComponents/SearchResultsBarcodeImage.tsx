@@ -1,5 +1,6 @@
 import { FC, memo } from "react";
 import { ItemObjType } from "../../../customTypes/types";
+import BarcodeImage from "../ColumnComponents/IndividualRowComponents/BarcodeImage";
 
 type Props = {
   itemObj: ItemObjType;
@@ -7,12 +8,13 @@ type Props = {
 
 const SearchResultsBarcodeImage: FC<Props> = ({ itemObj }) => {
   return (
-    <img
-      key={`img-SearchResultsBarcodeImageComponent-${itemObj.name}`}
-      src={itemObj.src}
-      alt={`${itemObj.itemNumber}-${itemObj.name}`}
-      className="flex-grow-0 flex-shrink-0 w-auto px-0 px-sm-2 px-lg-0 px-xl-2"
-    />
+    <BarcodeImage itemObj={itemObj} />
+    // <img
+    //   key={`img-SearchResultsBarcodeImageComponent-${itemObj.name}`}
+    //   src={itemObj.src}
+    //   alt={`${itemObj.itemNumber}-${itemObj.name}`}
+    //   className="flex-grow-0 flex-shrink-0 w-auto px-0 px-sm-2 px-lg-0 px-xl-2"
+    // />
   );
 };
 

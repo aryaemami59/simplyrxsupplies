@@ -1,11 +1,12 @@
+import { List } from "@mui/material";
 import { FC, memo } from "react";
-import { Col, Container, ListGroup, Row } from "react-bootstrap";
 import { ItemObjType, vendorNameType } from "../../../../../customTypes/types";
 import { selectVendorOfficialName } from "../../../../../Redux/addedSlice";
 import { useAppSelector } from "../../../../../Redux/hooks";
-import ModalBarcodeContainer from "./ModalBarcodeContainer";
-import ModalItemName from "./ModalItemName";
-import ModalItemNumber from "./ModalItemNumber";
+import VendorLink from "../../VendorLink";
+import RowBarcodeImage from "../RowBarcodeImage";
+import RowItemName from "../RowItemName";
+import RowItemNumber from "../RowItemNumber";
 
 type Props = {
   itemObj: ItemObjType;
@@ -18,30 +19,34 @@ const ModalBodyContent: FC<Props> = ({ itemObj, vendorName }) => {
   );
 
   return (
-    <Row className="justify-content-center text-center fs-4">
-      <Col
+    <div className="justify-content-center text-center fs-4 row">
+      <div
         key={`Col-thirdCol-App`}
-        xs={10}
-        className="justify-content-center">
-        <Container
+        className="justify-content-center col-10">
+        <div
+          className="container"
           key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
-          <ListGroup>
-            <ModalItemName
+          <List>
+            <RowItemName
               itemObj={itemObj}
               vendorName={vendorName}
             />
-            <ModalItemNumber
+            <RowItemNumber
               itemObj={itemObj}
               vendorName={vendorName}
             />
-            <ModalBarcodeContainer
+            <RowBarcodeImage
               itemObj={itemObj}
+              vendorName={vendorName}
+            />
+            <VendorLink
               officialVendorName={officialVendorName}
+              vendorName={vendorName}
             />
-          </ListGroup>
-        </Container>
-      </Col>
-    </Row>
+          </List>
+        </div>
+      </div>
+    </div>
   );
 };
 

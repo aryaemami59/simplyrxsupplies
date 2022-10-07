@@ -3,6 +3,7 @@ import {
   ItemObjType,
   officialVendorNameType,
 } from "../../../../../customTypes/types";
+import BarcodeImage from "../BarcodeImage";
 import PrintBarcodeIcon from "../PrintBarcodeIcon";
 import RowBarcodeModal from "./RowBarcodeModal";
 
@@ -25,11 +26,7 @@ const ModalBarcodeContainer: FC<Props> = ({ itemObj, officialVendorName }) => {
             <RowBarcodeModal itemObj={itemObj} />
           </div>
           <div className="justify-content-center row">
-            <img
-              src={itemObj.src}
-              alt={itemObj.itemNumber}
-              className="custom-shadow my-4 w-auto p-0"
-            />
+            <BarcodeImage itemObj={itemObj} />
           </div>
         </div>
       </div>

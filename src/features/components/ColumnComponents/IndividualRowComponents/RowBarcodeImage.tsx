@@ -1,9 +1,8 @@
 import { FC, memo } from "react";
-import { Col, Container, Row } from "react-bootstrap";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 import { selectVendorOfficialName } from "../../../../Redux/addedSlice";
 import { useAppSelector } from "../../../../Redux/hooks";
-import { RootState } from "../../../../Redux/store";
+import BarcodeImage from "./BarcodeImage";
 import RowBarcodeModal from "./ModalComponents/RowBarcodeModal";
 import PrintBarcodeIcon from "./PrintBarcodeIcon";
 
@@ -13,43 +12,36 @@ type Props = {
 };
 
 const RowBarcodeImage: FC<Props> = ({ itemObj, vendorName }) => {
-  const itemBarcodeShown = useAppSelector(
-    (state: RootState) => state.added.showItemBarcode
-  );
+  const itemBarcodeShown = useAppSelector(state => state.added.showItemBarcode);
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
 
+  const header = `<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`;
+
   return (
     <>
-      {itemBarcodeShown ? (
-        <Container
-          fluid
-          className="my-4">
-          <Row>
-            <Col
-              md={12}
-              className="position-relative">
-              <Row className="justify-content-center">
+      {itemBarcodeShown && (
+        <div className="my-4 container-fluid">
+          <div className="row">
+            <div className="col-md-12 position-relative">
+              <div className="row justify-content-center">
                 <PrintBarcodeIcon
                   itemObj={itemObj}
-                  text={"Print This Barcode"}
-                  header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}
+                  text="Print This Barcode"
+                  header={header}
                 />
                 <RowBarcodeModal itemObj={itemObj} />
-              </Row>
-              <Row className="justify-content-center">
-                <img
-                  src={itemObj.src}
-                  alt={itemObj.itemNumber}
-                  className="my-4 w-auto p-0"
+              </div>
+              <div className="row justify-content-center">
+                <BarcodeImage
+                  itemObj={itemObj}
+                  className="w-auto"
                 />
-              </Row>
-            </Col>
-          </Row>
-        </Container>
-      ) : (
-        ""
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

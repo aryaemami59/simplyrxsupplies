@@ -1,5 +1,5 @@
+import { ListItem, ListItemText } from "@mui/material";
 import { FC, memo } from "react";
-import { ListGroup } from "react-bootstrap";
 import { ItemObjType, vendorNameType } from "../../../../../customTypes/types";
 import CopyIcon from "../CopyIcon";
 
@@ -10,12 +10,10 @@ type Props = {
 
 const ModalItemName: FC<Props> = ({ itemObj, vendorName }) => {
   return (
-    <ListGroup.Item
-      action
-      className="rounded-top fw-bold"
-      variant="success"
+    <ListItem
+      divider
       key={`${itemObj.name}-${vendorName}-VendorColumn-ListGroupItem-name`}>
-      Item Name: {itemObj.name}
+      <ListItemText>Item Name: {itemObj.name}</ListItemText>
       <CopyIcon
         key={`${vendorName}-${itemObj.name}-CopyIconComponent-ItemNameComponent`}
         content={itemObj.name}
@@ -24,7 +22,7 @@ const ModalItemName: FC<Props> = ({ itemObj, vendorName }) => {
         itemObj={itemObj}
         vendorName={vendorName}
       />
-    </ListGroup.Item>
+    </ListItem>
   );
 };
 

@@ -1,16 +1,14 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Tooltip } from "@mui/material";
 import {
-  FC,
-  memo,
-  MouseEventHandler,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
-import { Modal } from "react-bootstrap";
-import { DarkMode } from "../../../../../App";
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Tooltip,
+} from "@mui/material";
+import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import { ItemObjType, vendorNameType } from "../../../../../customTypes/types";
 import ModalBodyContent from "./ModalBodyContent";
 
@@ -22,8 +20,6 @@ type Props = {
 };
 
 const RowSingleContainerModal: FC<Props> = ({ itemObj, vendorName }) => {
-  const { darkTheme } = useContext(DarkMode);
-
   const [modalOpen, setModalOpen] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -57,31 +53,27 @@ const RowSingleContainerModal: FC<Props> = ({ itemObj, vendorName }) => {
           Magnify
         </Button>
       </Tooltip>
-      <Modal
-        scrollable
-        onHide={hideModal}
-        show={modalOpen}
-        size="xl"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered>
-        <Modal.Header
-          className={darkTheme ? "bg-dark text-info" : "bg-light"}
-          closeButton
-          closeVariant={darkTheme ? "white" : "none"}>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Item Details
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body className={darkTheme ? "bg-dark text-info" : "bg-light"}>
+      <Dialog
+        maxWidth="md"
+        fullWidth
+        onClose={hideModal}
+        open={modalOpen}
+        aria-labelledby="contained-modal-title-vcenter">
+        <DialogTitle>Item Details</DialogTitle>
+        <DialogContent>
           <ModalBodyContent
             itemObj={itemObj}
             vendorName={vendorName}
           />
-        </Modal.Body>
-        <Modal.Footer className={darkTheme ? "bg-dark" : "bg-light"}>
-          <Button onClick={hideModal}>Close</Button>
-        </Modal.Footer>
-      </Modal>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="contained"
+            onClick={hideModal}>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
