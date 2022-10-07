@@ -1,7 +1,6 @@
 import { Button, ButtonGroup } from "@mui/material";
-import { FC, memo, MouseEventHandler, useCallback, useContext } from "react";
+import { FC, memo, MouseEventHandler, useCallback } from "react";
 import { shallowEqual } from "react-redux";
-import { DarkMode } from "../../../App";
 import { Category, ItemObjType } from "../../../customTypes/types";
 import {
   addItems,
@@ -17,7 +16,6 @@ type Props = {
 };
 
 const SingleSideBarAccordionListItem: FC<Props> = ({ category, itemObj }) => {
-  const { darkTheme } = useContext(DarkMode);
   const dispatch = useAppDispatch();
   const ifAddedToAllVendors = useAppSelector(checkIfAddedToAllVendors(itemObj));
   const vendors = useAppSelector(selectVendorsToAddTo(itemObj), shallowEqual);
@@ -25,16 +23,6 @@ const SingleSideBarAccordionListItem: FC<Props> = ({ category, itemObj }) => {
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     ifAddedToAllVendors || dispatch(addItems({ itemObj, vendors }));
   }, [dispatch, itemObj, vendors, ifAddedToAllVendors]);
-
-  const ifAddedColors: "info text-white" | "dark text-white" = darkTheme
-    ? "info text-white"
-    : "dark text-white";
-
-  const notAddedColors: "outline-info" | "outline-dark" = darkTheme
-    ? "outline-info"
-    : "outline-dark";
-
-  const buttonVariant = ifAddedToAllVendors ? ifAddedColors : notAddedColors;
 
   return (
     <>
@@ -44,13 +32,11 @@ const SingleSideBarAccordionListItem: FC<Props> = ({ category, itemObj }) => {
           disabled={ifAddedToAllVendors}
           className="fw-bold"
           variant="contained"
-          onClick={clickHandler}
-          key={`${itemObj.id}-${category}-ListGroupItem-sidebar`}>
+          onClick={clickHandler}>
           {itemObj.name}
         </Button>
       </div>
       <ButtonGroup
-        key={`ButtonGroup-SingleSideBarAccordionListItem-${itemObj.id}-${category}`}
         size="small"
         orientation="vertical">
         {itemObj.vendors.map(vendorName => (

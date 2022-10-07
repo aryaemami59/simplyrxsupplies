@@ -13,9 +13,7 @@ const VendorColumnList: FC = () => {
       <Col
         xs={11}
         xl={10}
-        className="p-0 shadow"
-        // className="shadow justify-content-center text-center bg-light"
-      >
+        className="p-0 shadow">
         {vendors.map(vendorName => (
           <VendorColumn
             key={`${vendorName}-VendorColumn`}

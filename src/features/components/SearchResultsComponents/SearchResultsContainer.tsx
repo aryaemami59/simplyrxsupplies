@@ -11,10 +11,8 @@ const SearchResultsContainer: FC = () => {
 
   return (
     <>
-      <VendorColumnModalComponent key={`VendorColumnModalComponent-`} />
-      <List
-        className="mt-5 px-4"
-        key={`ListGroup-InputListItems`}>
+      <VendorColumnModalComponent />
+      <List className="mt-5 px-4">
         {listItems.map(itemObj => (
           <SearchResultsSingleCard
             itemObj={itemObj}

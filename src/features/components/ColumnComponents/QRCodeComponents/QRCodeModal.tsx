@@ -2,17 +2,17 @@ import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Button,
-  Tooltip,
   Dialog,
-  DialogTitle,
-  DialogContent,
   DialogActions,
+  DialogContent,
+  DialogTitle,
+  Tooltip,
 } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import { ItemNumber, Src, vendorNameType } from "../../../../customTypes/types";
-import QRCodeImage from "./QRCodeImage";
-import { useAppSelector } from "../../../../Redux/hooks";
 import { selectVendorOfficialName } from "../../../../Redux/addedSlice";
+import { useAppSelector } from "../../../../Redux/hooks";
+import QRCodeImage from "./QRCodeImage";
 
 const title = "Take a Closer Look at The QRCode";
 

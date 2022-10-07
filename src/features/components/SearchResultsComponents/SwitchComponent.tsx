@@ -1,15 +1,13 @@
-import { Button, FormControlLabel, Switch } from "@mui/material";
+import { FormControlLabel, Switch } from "@mui/material";
 import { FC, memo } from "react";
-import { Form } from "react-bootstrap";
 import { connect, ConnectedProps } from "react-redux";
 import { ItemObjType, vendorNameType } from "../../../customTypes/types";
 import {
-  setVendors,
   selectVendorOfficialName,
+  setVendors,
 } from "../../../Redux/addedSlice";
-import { AppDispatch, RootState } from "../../../Redux/store";
-import VendorBadges from "./VendorBadges";
 import { useAppSelector } from "../../../Redux/hooks";
+import { AppDispatch, RootState } from "../../../Redux/store";
 
 type stateToPropsReturnType = {
   checked: boolean;
@@ -70,7 +68,6 @@ const SwitchComponent: FC<myProps> = ({
   return (
     <>
       <FormControlLabel
-        // className=""
         control={
           <Switch
             checked={checked}
@@ -78,44 +75,8 @@ const SwitchComponent: FC<myProps> = ({
             onChange={clickHandler}
           />
         }
-        // label={
-        //   <Button
-        //     className="flex-grow-1 d-block"
-        //     fullWidth
-        //     onClick={clickHandler}
-        //     variant="contained">
-        //     {officialVendorName}
-        //   </Button>
-        // }
-
         label={officialVendorName}
       />
-      {/* <Form.Check
-        type="switch"
-        id={`${itemObj.name}-${vendorName}-SwitchComponent-SwitchComponent-${vendorName}`}
-        disabled={disabled}
-        className="d-flex align-items-center row bg-outline-primary w-100 pe-0"
-        key={`div-SwitchComponent-${vendorName}`}>
-        <Form.Check.Input
-          disabled={disabled}
-          onChange={clickHandler}
-          checked={checked}
-          className="col-1 custom-checkbox-bg cursor-pointer"
-          key={`input-SwitchComponent-${vendorName}`}
-        />
-        <Form.Check.Label
-          key={`label-SwitchComponent-${vendorName}`}
-          className="col pe-0"
-          htmlFor={`${itemObj.name}-${vendorName}-SwitchComponent-SwitchComponent-${vendorName}`}>
-          <VendorBadges
-            disabled={disabled}
-            clickHandler={clickHandler}
-            vendorName={vendorName}
-            itemObj={itemObj}
-            key={`VendorBadges-SwitchComponent-${vendorName}`}
-          />
-        </Form.Check.Label>
-      </Form.Check> */}
     </>
   );
 };
