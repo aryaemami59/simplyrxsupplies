@@ -1,4 +1,4 @@
-import { FC, memo, ReactNode } from "react";
+import { FC, memo } from "react";
 
 interface ColumnProps
   extends React.DetailedHTMLProps<

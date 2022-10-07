@@ -1,5 +1,4 @@
 import { FC, memo } from "react";
-import { Row } from "react-bootstrap";
 import { shallowEqual } from "react-redux";
 import { selectVendorsArr } from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
@@ -14,7 +13,9 @@ const VendorColumnList: FC = () => {
       <Col
         xs={11}
         xl={10}
-        className="shadow justify-content-center text-center bg-light">
+        className="p-0 shadow"
+        // className="shadow justify-content-center text-center bg-light"
+      >
         {vendors.map(vendorName => (
           <VendorColumn
             key={`${vendorName}-VendorColumn`}

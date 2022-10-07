@@ -341,6 +341,10 @@ div.loading-spinner {
   border-width: 1rem;
 }
 
+img.barcode-image {
+  aspect-ratio: 156 / 112;
+}
+
 /* .neon-button::after,
 .neon-button::before {
   box-sizing: border-box;

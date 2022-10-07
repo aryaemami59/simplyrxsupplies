@@ -110,7 +110,6 @@ const InputFieldComponent: FC = () => {
         placeholder="Search..."
         type="search"
         className="rounded-pill ps-4 text-white border-0 c-bg"
-        key={`Form.Control-InputFieldComponent`}
         onChange={changeVal}
         value={val}
       />
@@ -124,7 +123,6 @@ const InputFieldComponent: FC = () => {
             pull="right"
             focusable="auto"
             icon={faX}
-            key={`FontAwesomeIcon-`}
           />
         )}
       </>

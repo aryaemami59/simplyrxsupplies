@@ -11,8 +11,7 @@ const BarcodeImage: FC<Props> = ({ itemObj, className }) => {
     <img
       src={itemObj.src}
       alt={itemObj.name}
-      className={className}
-      style={{ aspectRatio: 156 / 112 }}
+      className={`${className} barcode-image`}
     />
   );
 };

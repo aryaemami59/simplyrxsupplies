@@ -1,6 +1,5 @@
 import { List } from "@mui/material";
 import { FC, memo } from "react";
-// import { Container } from "react-bootstrap";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 import RowBarcodeImage from "./RowBarcodeImage";
 import RowItemName from "./RowItemName";

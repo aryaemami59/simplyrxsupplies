@@ -12,7 +12,7 @@ import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import { ItemObjType, vendorNameType } from "../../../../../customTypes/types";
 import ModalBodyContent from "./ModalBodyContent";
 
-const title = "Click Here to Take a Closer Look at The Item Info";
+const title = "Take a Closer Look at The Item Info";
 
 type Props = {
   itemObj: ItemObjType;
@@ -54,13 +54,14 @@ const RowSingleContainerModal: FC<Props> = ({ itemObj, vendorName }) => {
         </Button>
       </Tooltip>
       <Dialog
+        keepMounted
         maxWidth="md"
         fullWidth
         onClose={hideModal}
         open={modalOpen}
         aria-labelledby="contained-modal-title-vcenter">
         <DialogTitle>Item Details</DialogTitle>
-        <DialogContent>
+        <DialogContent dividers>
           <ModalBodyContent
             itemObj={itemObj}
             vendorName={vendorName}

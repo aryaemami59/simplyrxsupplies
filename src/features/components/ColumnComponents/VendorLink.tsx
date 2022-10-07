@@ -15,7 +15,7 @@ type Props = {
 const VendorLink: FC<Props> = ({ officialVendorName, vendorName }) => {
   const vendorLink = useAppSelector(selectVendorsLinks(vendorName));
   const [open, setOpen] = useState(false);
-  const title = `Click Here to Go to ${officialVendorName}'s Website`;
+  const title = `Go to ${officialVendorName}'s Website`;
 
   const showTooltip: MouseEventHandler<HTMLAnchorElement> = useCallback(() => {
     setOpen(true);

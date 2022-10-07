@@ -12,7 +12,7 @@ import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import { ItemObjType } from "../../../../../customTypes/types";
 import BarcodeImage from "../BarcodeImage";
 
-const title = "Click Here to Take a Closer Look at The Barcode";
+const title = "Take a Closer Look at The Barcode";
 
 type Props = {
   itemObj: ItemObjType;
@@ -54,6 +54,7 @@ const RowBarcodeModal: FC<Props> = ({ itemObj }) => {
         </Button>
       </Tooltip>
       <Dialog
+        keepMounted
         maxWidth="md"
         fullWidth
         open={show}

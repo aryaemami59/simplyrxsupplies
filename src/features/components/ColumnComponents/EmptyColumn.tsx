@@ -1,11 +1,15 @@
+import { Alert, AlertTitle } from "@mui/material";
 import { FC, memo } from "react";
-import { ListGroup } from "react-bootstrap";
 
 const EmptyColumn: FC = () => {
   return (
-    <ListGroup.Item variant="danger">
-      "No Item Has Been Added Yet!"
-    </ListGroup.Item>
+    <>
+      <Alert
+        className="justify-content-center"
+        severity="error">
+        <AlertTitle>No Item Has Been Added Yet!</AlertTitle>
+      </Alert>
+    </>
   );
 };
 

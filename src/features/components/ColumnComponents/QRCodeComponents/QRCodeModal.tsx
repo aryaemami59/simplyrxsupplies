@@ -1,19 +1,20 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Tooltip } from "@mui/material";
 import {
-  FC,
-  memo,
-  MouseEventHandler,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
-import { Modal } from "react-bootstrap";
-import { DarkMode } from "../../../../App";
+  Button,
+  Tooltip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
+import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import { ItemNumber, Src, vendorNameType } from "../../../../customTypes/types";
+import QRCodeImage from "./QRCodeImage";
+import { useAppSelector } from "../../../../Redux/hooks";
+import { selectVendorOfficialName } from "../../../../Redux/addedSlice";
 
-const title = "Click Here to Take a Closer Look at The QRCode";
+const title = "Take a Closer Look at The QRCode";
 
 type Props = {
   src: Src;
@@ -22,9 +23,12 @@ type Props = {
 };
 
 const QRCodeModal: FC<Props> = ({ src, vendorName, itemNumbers }) => {
-  const { darkTheme } = useContext(DarkMode);
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const officialVendorName = useAppSelector(
+    selectVendorOfficialName(vendorName)
+  );
 
   const showModal: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     setShow(true);
@@ -57,29 +61,33 @@ const QRCodeModal: FC<Props> = ({ src, vendorName, itemNumbers }) => {
           Magnify
         </Button>
       </Tooltip>
-      <Modal
-        show={show}
-        onHide={hideModal}>
-        <Modal.Header
-          className={darkTheme ? "bg-dark" : "bg-light"}
-          closeButton
-          closeVariant={darkTheme ? "white" : "none"}></Modal.Header>
-        <Modal.Body
-          className={`d-flex justify-content-center align-items-center ${
-            darkTheme ? "bg-dark" : "bg-light"
-          }`}>
-          <img
+      <Dialog
+        keepMounted
+        maxWidth="md"
+        fullWidth
+        open={show}
+        onClose={hideModal}>
+        <DialogTitle>
+          QRCode for Items Added to {officialVendorName}
+        </DialogTitle>
+        <DialogContent
+          dividers
+          className="justify-content-center d-flex">
+          <QRCodeImage
             src={src}
-            className="w-100"
-            alt={`${vendorName}-QRCode`}
-            key={`${vendorName}-QRCode-image-QRCodeImageComponent`}
             title={itemNumbers}
+            vendorName={vendorName}
+            className="w-75"
           />
-        </Modal.Body>
-        <Modal.Footer className={darkTheme ? "bg-dark text-info" : "bg-light"}>
-          <Button onClick={hideModal}>Close</Button>
-        </Modal.Footer>
-      </Modal>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="contained"
+            onClick={hideModal}>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

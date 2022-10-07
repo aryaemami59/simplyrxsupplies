@@ -24,7 +24,7 @@ type Props = {
 
 const CollapseButton: FC<Props> = ({ open, toggle, vendorName, itemObj }) => {
   const [show, setShow] = useState(false);
-  const text = `Click Here to ${open ? COLLAPSE : EXPAND} The Item Info`;
+  const text = `${open ? COLLAPSE : EXPAND} The Item Info`;
 
   const openTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     setShow(true);

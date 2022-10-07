@@ -10,15 +10,11 @@ type Props = {
 
 const ModalItemNumber: FC<Props> = ({ itemObj, vendorName }) => {
   return (
-    <ListItem
-      divider
-      key={`${itemObj.itemNumber}-${vendorName}-VendorColumn-ListGroupItem-itemNumber`}>
+    <ListItem divider>
       <ListItemText>Item Number: {itemObj.itemNumber}</ListItemText>
       <CopyIcon
-        key={`${vendorName}-${itemObj.itemNumber}-CopyIconComponent-ItemNameComponent`}
         content={itemObj.itemNumber}
         text={"Number"}
-        placement="top"
         itemObj={itemObj}
         vendorName={vendorName}
       />

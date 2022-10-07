@@ -18,7 +18,6 @@ const ModalItemName: FC<Props> = ({ itemObj, vendorName }) => {
         key={`${vendorName}-${itemObj.name}-CopyIconComponent-ItemNameComponent`}
         content={itemObj.name}
         text={"Name"}
-        placement="top"
         itemObj={itemObj}
         vendorName={vendorName}
       />

@@ -3,7 +3,7 @@ import { FC, KeyboardEvent, memo, useCallback, useState } from "react";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 import CollapseButton from "./CollapseButton";
 import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal";
-import RowRemoveButton from "./RowRemoveButton";
+import RowDeleteButton from "./RowDeleteButton";
 import RowSingleItemInfo from "./RowSingleItemInfo";
 
 type Props = {
@@ -47,7 +47,7 @@ const RowSingleContainer: FC<Props> = ({ itemObj, vendorName }) => {
                 vendorName={vendorName}
                 itemObj={itemObj}
               />
-              <RowRemoveButton
+              <RowDeleteButton
                 vendorName={vendorName}
                 itemObj={itemObj}
               />

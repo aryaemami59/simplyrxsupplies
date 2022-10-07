@@ -1,16 +1,7 @@
 import { Card, Collapse } from "@mui/material";
 import Button from "@mui/material/Button";
-import {
-  FC,
-  KeyboardEvent,
-  memo,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
-// import { Card, Collapse } from "react-bootstrap";
+import { FC, KeyboardEvent, memo, useCallback, useState } from "react";
 import { shallowEqual } from "react-redux";
-import { DarkMode } from "../../../App";
 import { vendorNameType } from "../../../customTypes/types";
 import {
   selectByVendor,
@@ -26,7 +17,6 @@ type Props = {
 };
 
 const VendorColumn: FC<Props> = ({ vendorName }) => {
-  // const { darkTheme } = useContext(DarkMode);
   const [open, setOpen] = useState(false);
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
@@ -46,26 +36,19 @@ const VendorColumn: FC<Props> = ({ vendorName }) => {
     [buttonClick]
   );
 
-  // const theme = darkTheme ? "custom-bg-color-2" : "custom-light-mode";
-
   return (
     <>
       <Button
-        className="position-relative d-block w-100 bg-transparen"
+        className="position-relative d-block w-100"
         variant="contained"
-        // color="inherit"
         onClick={buttonClick}>
         {officialVendorName}
         <RowCounterBadge vendorName={vendorName} />
       </Button>
-      <Collapse
-        key={`Collapse-VendorColumn-${vendorName}`}
-        in={open}>
-        <div key={`div-VendorColumn-${vendorName}`}>
+      <Collapse in={open}>
+        <div>
           <Card
-            key={`Card-VendorColumn-${vendorName}`}
-            // tabIndex={0}
-            // className={theme}
+            tabIndex={0}
             onKeyDown={handleKeyDown}>
             {addedItems.length ? (
               <ColumnTopCardBody

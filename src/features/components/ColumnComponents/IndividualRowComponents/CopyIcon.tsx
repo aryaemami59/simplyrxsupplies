@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import { FC, memo, MouseEventHandler, useCallback, useReducer } from "react";
-import { Placement } from "react-bootstrap/esm/types";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 
 type reducerActionType = {
@@ -61,19 +60,12 @@ type reducerState = {
 type Props = {
   content: string;
   text: string;
-  placement: Placement;
   vendorName: vendorNameType;
   itemObj: ItemObjType;
 };
 
-const CopyIcon: FC<Props> = ({
-  content,
-  text,
-  placement,
-  vendorName,
-  itemObj,
-}) => {
-  const oldText = `Click to Copy The Item ${text}`;
+const CopyIcon: FC<Props> = ({ content, text, vendorName, itemObj }) => {
+  const oldText = `Copy The Item ${text}`;
   const copiedText = `Copied Item ${text}!`;
   const [state, dispatch] = useReducer(reducer, {
     copied: false,

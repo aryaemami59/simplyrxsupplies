@@ -6,14 +6,14 @@ import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 import { removeItems } from "../../../../Redux/addedSlice";
 import { useAppDispatch } from "../../../../Redux/hooks";
 
-const title = "Click Here to Remove The Item";
+const title = "Delete The Item";
 
 type Props = {
   vendorName: vendorNameType;
   itemObj: ItemObjType;
 };
 
-const RowRemoveButton: FC<Props> = ({ vendorName, itemObj }) => {
+const RowDeleteButton: FC<Props> = ({ vendorName, itemObj }) => {
   const [show, setShow] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -47,4 +47,4 @@ const RowRemoveButton: FC<Props> = ({ vendorName, itemObj }) => {
   );
 };
 
-export default memo<Props>(RowRemoveButton);
+export default memo<Props>(RowDeleteButton);

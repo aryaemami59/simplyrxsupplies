@@ -6,7 +6,7 @@ import {
   vendorNameType,
 } from "../../../customTypes/types";
 import RowSingleContainer from "./IndividualRowComponents/RowSingleContainer";
-import QRCodeImage from "./QRCodeComponents/QRCodeImage";
+import QRCodeImageContainer from "./QRCodeComponents/QRCodeImageContainer";
 import ColumnToggleItemBarcodesButton from "./ToggleComponents/ColumnToggleItemBarcodesButton";
 import ColumnToggleItemNumbersButton from "./ToggleComponents/ColumnToggleItemNumbersButton";
 import ColumnToggleNamesButton from "./ToggleComponents/ColumnToggleNamesButton";
@@ -27,7 +27,7 @@ const ColumnTopCardBody: FC<Props> = ({
   return (
     <>
       <CardContent key={`Card.Body-VendorColumn-${vendorName}`}>
-        <QRCodeImage
+        <QRCodeImageContainer
           vendorName={vendorName}
           key={`${vendorName}-VendorColumn-QRCodeImageComponent`}
         />
