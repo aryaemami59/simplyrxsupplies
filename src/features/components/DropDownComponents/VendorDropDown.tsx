@@ -60,33 +60,31 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
 
   return (
     <>
-      <div>
-        <Button
-          id={vendorName}
-          aria-haspopup="true"
-          variant="contained"
-          disableElevation
-          onClick={handleOpen}>
-          {officialVendorName}
-        </Button>
-        <Menu
-          keepMounted
-          id={officialVendorName}
-          MenuListProps={menuListProps}
-          anchorEl={anchorEl}
-          open={dropdownOpen}
-          onClose={handleClose}
-          transformOrigin={transformOrigin}
-          anchorOrigin={anchorOrigin}
-          PaperProps={paperProps}>
-          {items.map(itemObj => (
-            <SingleDropDown
-              key={`${itemObj.id}-${vendorName}`}
-              {...{ itemObj, vendorName }}
-            />
-          ))}
-        </Menu>
-      </div>
+      <Button
+        id={vendorName}
+        aria-haspopup="true"
+        variant="contained"
+        disableElevation
+        onClick={handleOpen}>
+        {officialVendorName}
+      </Button>
+      <Menu
+        keepMounted
+        id={officialVendorName}
+        MenuListProps={menuListProps}
+        anchorEl={anchorEl}
+        open={dropdownOpen}
+        onClose={handleClose}
+        transformOrigin={transformOrigin}
+        anchorOrigin={anchorOrigin}
+        PaperProps={paperProps}>
+        {items.map(itemObj => (
+          <SingleDropDown
+            key={`${itemObj.id}-${vendorName}`}
+            {...{ itemObj, vendorName }}
+          />
+        ))}
+      </Menu>
     </>
   );
 };
