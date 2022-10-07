@@ -1,4 +1,4 @@
-import { List } from "@mui/material";
+import { List, ListItemText } from "@mui/material";
 import { FC, memo } from "react";
 import { ItemObjType, vendorNameType } from "../../../../../customTypes/types";
 import { selectVendorOfficialName } from "../../../../../Redux/addedSlice";
@@ -39,10 +39,12 @@ const ModalBodyContent: FC<Props> = ({ itemObj, vendorName }) => {
               itemObj={itemObj}
               vendorName={vendorName}
             />
-            <VendorLink
-              officialVendorName={officialVendorName}
-              vendorName={vendorName}
-            />
+            <ListItemText>
+              <VendorLink
+                officialVendorName={officialVendorName}
+                vendorName={vendorName}
+              />
+            </ListItemText>
           </List>
         </div>
       </div>
