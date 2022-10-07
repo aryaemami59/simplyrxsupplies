@@ -41,7 +41,7 @@ const sortResults = (
   return 0;
 };
 
-const InputFieldComponent: FC = (): JSX.Element => {
+const InputFieldComponent: FC = () => {
   const items = useAppSelector(selectItemsArr, shallowEqual);
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null!);

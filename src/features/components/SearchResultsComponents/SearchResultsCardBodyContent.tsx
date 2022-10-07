@@ -14,7 +14,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const SearchResultsCardBodyContent: FC<Props> = ({ itemObj }): JSX.Element => {
+const SearchResultsCardBodyContent: FC<Props> = ({ itemObj }) => {
   const ifCompact = useAppSelector((state: RootState) => state.added.compact);
 
   return (

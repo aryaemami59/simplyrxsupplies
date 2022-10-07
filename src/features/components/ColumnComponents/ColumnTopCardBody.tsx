@@ -23,7 +23,7 @@ const ColumnTopCardBody: FC<Props> = ({
   addedItems,
   officialVendorName,
   vendorName,
-}): JSX.Element => {
+}) => {
   return (
     <>
       <CardContent key={`Card.Body-VendorColumn-${vendorName}`}>

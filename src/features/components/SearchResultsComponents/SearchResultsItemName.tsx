@@ -7,7 +7,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const SearchResultsItemName: FC<Props> = ({ itemObj }): JSX.Element => {
+const SearchResultsItemName: FC<Props> = ({ itemObj }) => {
   return (
     <>
       <CardHeader

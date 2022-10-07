@@ -12,7 +12,7 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-const RowBarcodeImage: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
+const RowBarcodeImage: FC<Props> = ({ itemObj, vendorName }) => {
   const itemBarcodeShown = useAppSelector(
     (state: RootState) => state.added.showItemBarcode
   );

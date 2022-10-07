@@ -21,11 +21,7 @@ type Props = {
   itemNumbers: ItemNumber;
 };
 
-const QRCodeModal: FC<Props> = ({
-  src,
-  vendorName,
-  itemNumbers,
-}): JSX.Element => {
+const QRCodeModal: FC<Props> = ({ src, vendorName, itemNumbers }) => {
   const { darkTheme } = useContext(DarkMode);
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);

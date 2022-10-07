@@ -3,7 +3,7 @@ import { Nav } from "react-bootstrap";
 import { DarkMode } from "../../../App";
 import SideBarAccordionList from "./SideBarAccordionList";
 
-const SideBarContainer: FC = (): JSX.Element => {
+const SideBarContainer: FC = () => {
   const { darkTheme } = useContext(DarkMode);
   const theme = darkTheme ? "custom-dark-mode" : "custom-light-mode";
 

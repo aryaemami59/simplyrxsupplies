@@ -11,10 +11,7 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-const RowSingleContainer: FC<Props> = ({
-  itemObj,
-  vendorName,
-}): JSX.Element => {
+const RowSingleContainer: FC<Props> = ({ itemObj, vendorName }) => {
   const [open, setOpen] = useState(true);
   const { name } = itemObj;
 

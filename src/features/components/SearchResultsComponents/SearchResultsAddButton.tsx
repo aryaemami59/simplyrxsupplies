@@ -19,7 +19,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const SearchResultsAddButton: FC<Props> = ({ itemObj }): JSX.Element => {
+const SearchResultsAddButton: FC<Props> = ({ itemObj }) => {
   // const [show, setShow] = useState(false);
   const IfAddedToAllVendors = useAppSelector(checkIfAddedToAllVendors(itemObj));
   const vendors = useAppSelector(selectVendorsToAddTo(itemObj), shallowEqual);

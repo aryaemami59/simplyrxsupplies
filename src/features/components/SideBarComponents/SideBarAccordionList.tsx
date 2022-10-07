@@ -4,7 +4,7 @@ import { selectCategoriesArr } from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
 import SideBarAccordion from "./SideBarAccordion";
 
-const SideBarAccordionList: FC = (): JSX.Element => {
+const SideBarAccordionList: FC = () => {
   const categoryList = useAppSelector(selectCategoriesArr, shallowEqual);
 
   return (

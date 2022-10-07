@@ -8,7 +8,7 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-const RowCounterBadge: FC<Props> = ({ vendorName }): JSX.Element => {
+const RowCounterBadge: FC<Props> = ({ vendorName }) => {
   const addedItemsLen = useAppSelector(addedItemsLength(vendorName));
 
   return (

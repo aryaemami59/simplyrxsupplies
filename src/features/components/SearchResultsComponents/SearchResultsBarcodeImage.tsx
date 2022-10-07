@@ -5,7 +5,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const SearchResultsBarcodeImage: FC<Props> = ({ itemObj }): JSX.Element => {
+const SearchResultsBarcodeImage: FC<Props> = ({ itemObj }) => {
   return (
     <img
       key={`img-SearchResultsBarcodeImageComponent-${itemObj.name}`}

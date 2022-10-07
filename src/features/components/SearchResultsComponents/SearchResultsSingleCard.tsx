@@ -1,7 +1,5 @@
 import { Card, CardContent } from "@mui/material";
-import { FC, memo, useContext } from "react";
-// import { Card } from "react-bootstrap";
-import { DarkMode } from "../../../App";
+import { FC, memo } from "react";
 import { ItemObjType } from "../../../customTypes/types";
 import SearchResultsCardBodyContent from "./SearchResultsCardBodyContent";
 
@@ -9,10 +7,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const SearchResultsSingleCard: FC<Props> = ({ itemObj }): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
-  // const theme = darkTheme ? "dark" : "light";
-
+const SearchResultsSingleCard: FC<Props> = ({ itemObj }) => {
   return (
     <>
       <Card

@@ -11,7 +11,7 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-const RowItemNumber: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
+const RowItemNumber: FC<Props> = ({ vendorName, itemObj }) => {
   const itemNumberShown = useAppSelector(
     (state: RootState) => state.added.showItemNumber
   );

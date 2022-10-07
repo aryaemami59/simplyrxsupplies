@@ -19,7 +19,7 @@ const VendorBadges: FC<Props> = ({
   itemObj,
   clickHandler,
   disabled,
-}): JSX.Element => {
+}) => {
   const ifAdded = useAppSelector(checkIfAddedToOneVendor(itemObj, vendorName));
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)

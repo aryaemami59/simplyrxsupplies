@@ -12,7 +12,7 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-const PrintIconQRCode: FC<Props> = ({ src, text, vendorName }): JSX.Element => {
+const PrintIconQRCode: FC<Props> = ({ src, text, vendorName }) => {
   // const { darkTheme } = useContext(DarkMode);
   const [show, setShow] = useState(false);
   // const target = useRef<SVGSVGElement & HTMLElement>(null!);

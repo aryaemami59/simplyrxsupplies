@@ -25,7 +25,7 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
+const VendorColumn: FC<Props> = ({ vendorName }) => {
   // const { darkTheme } = useContext(DarkMode);
   const [open, setOpen] = useState(false);
   const officialVendorName = useAppSelector(

@@ -10,7 +10,7 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-const QRCodeImage: FC<Props> = ({ vendorName }): JSX.Element => {
+const QRCodeImage: FC<Props> = ({ vendorName }) => {
   const itemNumbers: string = useAppSelector(selectQRCodeContent(vendorName));
 
   let src: string = "";

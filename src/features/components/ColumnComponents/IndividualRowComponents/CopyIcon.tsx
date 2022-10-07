@@ -1,11 +1,10 @@
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import IconButton from "@mui/material/IconButton";
+import { Button } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import { FC, memo, MouseEventHandler, useCallback, useReducer } from "react";
 import { Placement } from "react-bootstrap/esm/types";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
-import { Button } from "@mui/material";
 
 type reducerActionType = {
   type: typeof ACTIONS[keyof typeof ACTIONS];
@@ -73,7 +72,7 @@ const CopyIcon: FC<Props> = ({
   placement,
   vendorName,
   itemObj,
-}): JSX.Element => {
+}) => {
   const oldText = `Click to Copy The Item ${text}`;
   const copiedText = `Copied Item ${text}!`;
   const [state, dispatch] = useReducer(reducer, {

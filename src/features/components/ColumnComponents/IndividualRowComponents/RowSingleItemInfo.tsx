@@ -11,7 +11,7 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-const RowSingleItemInfo: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
+const RowSingleItemInfo: FC<Props> = ({ itemObj, vendorName }) => {
   return (
     <div
       className="container"

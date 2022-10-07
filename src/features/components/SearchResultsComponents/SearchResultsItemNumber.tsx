@@ -6,7 +6,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const SearchResultsItemNumber: FC<Props> = ({ itemObj }): JSX.Element => {
+const SearchResultsItemNumber: FC<Props> = ({ itemObj }) => {
   return (
     <>
       <Badge

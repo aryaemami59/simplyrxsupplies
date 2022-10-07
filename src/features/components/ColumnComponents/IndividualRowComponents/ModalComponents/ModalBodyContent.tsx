@@ -12,7 +12,7 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-const ModalBodyContent: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
+const ModalBodyContent: FC<Props> = ({ itemObj, vendorName }) => {
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );

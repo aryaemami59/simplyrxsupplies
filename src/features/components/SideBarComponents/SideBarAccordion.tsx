@@ -27,7 +27,7 @@ type Props = {
   category: Category;
 };
 
-const SideBarAccordion: FC<Props> = ({ category }): JSX.Element => {
+const SideBarAccordion: FC<Props> = ({ category }) => {
   const { darkTheme } = useContext(DarkMode);
 
   const sidebarItems = useAppSelector(selectCategories(category), shallowEqual);

@@ -6,7 +6,7 @@ import { ToggleItemBarcode } from "../../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../../Redux/hooks";
 import { RootState } from "../../../../Redux/store";
 
-const ColumnToggleItemBarcodesButton: FC = (): JSX.Element => {
+const ColumnToggleItemBarcodesButton: FC = () => {
   const dispatch = useAppDispatch();
   const itemBarcodeShown = useAppSelector(
     (state: RootState) => state.added.showItemBarcode

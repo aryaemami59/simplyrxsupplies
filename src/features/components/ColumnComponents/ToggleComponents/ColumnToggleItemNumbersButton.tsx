@@ -6,7 +6,7 @@ import { ToggleItemNumber } from "../../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../../Redux/hooks";
 import { RootState } from "../../../../Redux/store";
 
-const ColumnToggleItemNumbersButton: FC = (): JSX.Element => {
+const ColumnToggleItemNumbersButton: FC = () => {
   const dispatch = useAppDispatch();
   const itemNumberShown = useAppSelector(
     (state: RootState) => state.added.showItemNumber

@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useContext } from "react";
 import { DarkMode } from "../../../App";
 
-const DarkModeTogglerButton: FC = (): JSX.Element => {
+const DarkModeTogglerButton: FC = () => {
   const { setDarkTheme, darkTheme } = useContext(DarkMode);
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {

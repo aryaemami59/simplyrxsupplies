@@ -19,7 +19,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const RowBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
+const RowBarcodeModal: FC<Props> = ({ itemObj }) => {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
   const { darkTheme } = useContext(DarkMode);

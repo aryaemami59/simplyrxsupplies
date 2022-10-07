@@ -8,7 +8,7 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-const ModalItemName: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
+const ModalItemName: FC<Props> = ({ itemObj, vendorName }) => {
   return (
     <ListGroup.Item
       action

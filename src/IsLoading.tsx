@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
 import { Spinner } from "react-bootstrap";
 
-const IsLoading: FC = (): JSX.Element => {
+const IsLoading: FC = () => {
   return (
     <div
       key={`div-isLoading-App`}

@@ -15,12 +15,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const MinimizeButton: FC<Props> = ({
-  open,
-  toggle,
-  vendorName,
-  itemObj,
-}): JSX.Element => {
+const MinimizeButton: FC<Props> = ({ open, toggle, vendorName, itemObj }) => {
   const [show, setShow] = useState(false);
   const text = `Click Here to ${open ? COLLAPSE : EXPAND} The Item Info`;
 

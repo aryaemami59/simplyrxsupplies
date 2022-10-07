@@ -12,11 +12,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const PrintBarcodeIcon: FC<Props> = ({
-  text,
-  header,
-  itemObj,
-}): JSX.Element => {
+const PrintBarcodeIcon: FC<Props> = ({ text, header, itemObj }) => {
   const [show, setShow] = useState(false);
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {

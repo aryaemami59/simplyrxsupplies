@@ -38,7 +38,7 @@ export const DarkMode = createContext<myContextInterface>({
 const getLocalStorageTheme = (): boolean =>
   localStorage.getItem("theme") ? !!localStorage.getItem("theme") : true;
 
-const App: FC = (): JSX.Element => {
+const App: FC = () => {
   const [darkTheme, setDarkTheme] = useState<boolean>(getLocalStorageTheme);
   const dispatch = useAppDispatch();
 

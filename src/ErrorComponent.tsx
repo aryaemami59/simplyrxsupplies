@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
 import { Alert } from "react-bootstrap";
 
-const ErrorComponent: FC = (): JSX.Element => {
+const ErrorComponent: FC = () => {
   return (
     <>
       <div

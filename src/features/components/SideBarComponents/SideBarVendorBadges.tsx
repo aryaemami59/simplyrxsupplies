@@ -55,7 +55,7 @@ const SideBarVendorBadges: FC<Props> = ({
   clickHandler,
   checked,
   disabled,
-}): JSX.Element => {
+}) => {
   const { darkTheme } = useContext(DarkMode);
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)

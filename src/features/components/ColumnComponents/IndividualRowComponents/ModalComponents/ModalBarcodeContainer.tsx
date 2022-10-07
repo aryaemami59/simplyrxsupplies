@@ -11,10 +11,7 @@ type Props = {
   officialVendorName: officialVendorNameType;
 };
 
-const ModalBarcodeContainer: FC<Props> = ({
-  itemObj,
-  officialVendorName,
-}): JSX.Element => {
+const ModalBarcodeContainer: FC<Props> = ({ itemObj, officialVendorName }) => {
   return (
     <div className="my-4 container-fluid">
       <div className="row">

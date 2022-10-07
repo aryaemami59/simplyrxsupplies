@@ -63,7 +63,7 @@ const SwitchComponent: FC<myProps> = ({
   itemObj,
   vendorName,
   disabled,
-}): JSX.Element => {
+}) => {
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );

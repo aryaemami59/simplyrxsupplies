@@ -21,10 +21,7 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-const RowSingleContainerModal: FC<Props> = ({
-  itemObj,
-  vendorName,
-}): JSX.Element => {
+const RowSingleContainerModal: FC<Props> = ({ itemObj, vendorName }) => {
   const { darkTheme } = useContext(DarkMode);
 
   const [modalOpen, setModalOpen] = useState(false);

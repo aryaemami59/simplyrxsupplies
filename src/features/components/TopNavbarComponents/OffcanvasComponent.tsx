@@ -10,7 +10,7 @@ import { Navbar, Offcanvas } from "react-bootstrap";
 import { DarkMode } from "../../../App";
 import OffcanvasBodyContent from "./OffcanvasBodyContent";
 
-const OffcanvasComponent: FC = (): JSX.Element => {
+const OffcanvasComponent: FC = () => {
   const { darkTheme } = useContext(DarkMode);
   const [show, setShow] = useState(false);
 

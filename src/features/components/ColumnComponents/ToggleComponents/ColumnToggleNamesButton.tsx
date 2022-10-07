@@ -6,7 +6,7 @@ import { ToggleItemName } from "../../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../../Redux/hooks";
 import { RootState } from "../../../../Redux/store";
 
-const ColumnToggleNamesButton: FC = (): JSX.Element => {
+const ColumnToggleNamesButton: FC = () => {
   const dispatch = useAppDispatch();
   const itemNameShown = useAppSelector(
     (state: RootState) => state.added.showItemName

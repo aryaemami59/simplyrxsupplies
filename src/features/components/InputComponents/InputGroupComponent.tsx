@@ -9,7 +9,7 @@ import { RootState } from "../../../Redux/store";
 import SearchResultsContainer from "../SearchResultsComponents/SearchResultsContainer";
 import InputFieldComponent from "./InputFieldComponent";
 
-const InputGroupComponent: FC = (): JSX.Element => {
+const InputGroupComponent: FC = () => {
   const dispatch = useAppDispatch();
   const ifCompact = useAppSelector((state: RootState) => state.added.compact);
 

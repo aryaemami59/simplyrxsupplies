@@ -16,7 +16,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const RowRemoveButton: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
+const RowRemoveButton: FC<Props> = ({ vendorName, itemObj }) => {
   const [show, setShow] = useState(false);
   const dispatch = useAppDispatch();
 

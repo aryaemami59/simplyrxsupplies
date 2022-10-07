@@ -4,7 +4,7 @@ import { selectVendorsArr } from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
 import VendorDropDown from "./VendorDropDown";
 
-const VendorDropDownsList: FC = (): JSX.Element => {
+const VendorDropDownsList: FC = () => {
   const vendors = useAppSelector(selectVendorsArr, shallowEqual);
 
   return (

@@ -4,7 +4,7 @@ import { DarkMode } from "../../../App";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import SideBarAccordionList from "../SideBarComponents/SideBarAccordionList";
 
-const OffcanvasBodyContent: FC = (): JSX.Element => {
+const OffcanvasBodyContent: FC = () => {
   const { darkTheme } = useContext(DarkMode);
   const border = darkTheme ? "border-info" : "border-dark";
   return (

@@ -1,13 +1,12 @@
+import { List } from "@mui/material";
 import { FC, memo } from "react";
-// import { ListGroup } from "react-bootstrap";
 import { shallowEqual } from "react-redux";
 import { selectAllListItems } from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
 import VendorColumnModalComponent from "../InputComponents/VendorColumnModalComponent";
 import SearchResultsSingleCard from "./SearchResultsSingleCard";
-import { List } from "@mui/material";
 
-const SearchResultsContainer: FC = (): JSX.Element => {
+const SearchResultsContainer: FC = () => {
   const listItems = useAppSelector(selectAllListItems, shallowEqual);
 
   return (

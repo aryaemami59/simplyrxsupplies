@@ -25,7 +25,7 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-const VendorDropDown: FC<Props> = ({ vendorName }): JSX.Element => {
+const VendorDropDown: FC<Props> = ({ vendorName }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   // const { darkTheme } = useContext(DarkMode);
   const [dropdownOpen, setDropdownOpen] = useState(false);

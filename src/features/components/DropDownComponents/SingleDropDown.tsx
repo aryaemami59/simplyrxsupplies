@@ -13,7 +13,7 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-const SingleDropDown: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
+const SingleDropDown: FC<Props> = ({ itemObj, vendorName }) => {
   const { darkTheme } = useContext(DarkMode);
   const dispatch = useAppDispatch();
   const ifAddedToVendor = useAppSelector(

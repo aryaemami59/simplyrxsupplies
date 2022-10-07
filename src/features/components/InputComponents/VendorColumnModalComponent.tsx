@@ -11,7 +11,7 @@ import { Col, Modal, Row } from "react-bootstrap";
 import { DarkMode } from "../../../App";
 import VendorColumnList from "../ColumnComponents/VendorColumnList";
 
-const VendorColumnModalComponent: FC = (): JSX.Element => {
+const VendorColumnModalComponent: FC = () => {
   const { darkTheme } = useContext(DarkMode);
   const [show, setShow] = useState(false);
 

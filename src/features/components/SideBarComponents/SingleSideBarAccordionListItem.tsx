@@ -16,10 +16,7 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const SingleSideBarAccordionListItem: FC<Props> = ({
-  category,
-  itemObj,
-}): JSX.Element => {
+const SingleSideBarAccordionListItem: FC<Props> = ({ category, itemObj }) => {
   const { darkTheme } = useContext(DarkMode);
   const dispatch = useAppDispatch();
   const ifAddedToAllVendors = useAppSelector(checkIfAddedToAllVendors(itemObj));
