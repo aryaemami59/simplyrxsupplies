@@ -1,6 +1,6 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, IconButton } from "@mui/material";
+import { Button, IconButton, Tooltip } from "@mui/material";
 import {
   FC,
   memo,
@@ -13,12 +13,15 @@ import { Modal } from "react-bootstrap";
 import { DarkMode } from "../../../../../App";
 import { ItemObjType } from "../../../../../customTypes/types";
 
+const title = "Click Here to Take a Closer Look at The Barcode";
+
 type Props = {
   itemObj: ItemObjType;
 };
 
 const RowBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
   const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
   const { darkTheme } = useContext(DarkMode);
 
   const showModal: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
@@ -28,19 +31,30 @@ const RowBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
   const hideModal = useCallback(() => {
     setShow(false);
   }, []);
+
+  const showTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const hideTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+    setOpen(false);
+  }, []);
+
   return (
     <>
-      <IconButton
-        onClick={showModal}
-        className="d-block w-auto">
-        <FontAwesomeIcon
-          icon={faMagnifyingGlassPlus}
-          size="1x"
-          // className="btn w-auto"
-          // inverse={darkTheme ? true : false}
-          role="button"
-        />
-      </IconButton>
+      <Tooltip
+        title={title}
+        open={open}>
+        <Button
+          onMouseEnter={showTooltip}
+          onMouseLeave={hideTooltip}
+          variant="contained"
+          startIcon={<FontAwesomeIcon icon={faMagnifyingGlassPlus} />}
+          onClick={showModal}
+          className="w-auto">
+          Magnify
+        </Button>
+      </Tooltip>
       <Modal
         show={show}
         onHide={hideModal}>

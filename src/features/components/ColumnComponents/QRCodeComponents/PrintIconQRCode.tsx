@@ -1,18 +1,9 @@
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconButton, Tooltip } from "@mui/material";
+import { Button, IconButton, Tooltip } from "@mui/material";
 import printjs from "print-js";
-import {
-  FC,
-  memo,
-  MouseEventHandler,
-  useCallback,
-  useContext,
-  useRef,
-  useState,
-} from "react";
+import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 // import { Overlay, Tooltip } from "react-bootstrap";
-import { DarkMode } from "../../../../App";
 import { Src, vendorNameType } from "../../../../customTypes/types";
 
 type Props = {
@@ -22,7 +13,7 @@ type Props = {
 };
 
 const PrintIconQRCode: FC<Props> = ({ src, text, vendorName }): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
+  // const { darkTheme } = useContext(DarkMode);
   const [show, setShow] = useState(false);
   // const target = useRef<SVGSVGElement & HTMLElement>(null!);
 
@@ -49,35 +40,16 @@ const PrintIconQRCode: FC<Props> = ({ src, text, vendorName }): JSX.Element => {
       <Tooltip
         title={text}
         open={show}>
-        <IconButton
+        <Button
+          className="w-auto"
+          variant="contained"
+          startIcon={<FontAwesomeIcon icon={faPrint} />}
           onClick={clickHandler}
           onMouseEnter={openTooltip}
-          onMouseLeave={closeTooltip}
-          className="d-block w-auto">
-          <FontAwesomeIcon
-            focusable
-            // ref={target}
-            icon={faPrint}
-            size="1x"
-            role="button"
-            key={`${vendorName}-FontAwesomeIcon-PrintIconQRCodeComponent`}
-          />
-        </IconButton>
+          onMouseLeave={closeTooltip}>
+          Print QRCode
+        </Button>
       </Tooltip>
-      {/* <Overlay
-        key={`${vendorName}-PrintIconQRCodeComponent-Overlay`}
-        target={target.current}
-        show={show}
-        placement="bottom">
-        {props => (
-          <Tooltip
-            key={`PrintIconQRCodeComponent-tooltip-${vendorName}`}
-            id={`PrintIconQRCodeComponent-tooltip-${vendorName}`}
-            {...props}>
-            {text}
-          </Tooltip>
-        )}
-      </Overlay> */}
     </>
   );
 };

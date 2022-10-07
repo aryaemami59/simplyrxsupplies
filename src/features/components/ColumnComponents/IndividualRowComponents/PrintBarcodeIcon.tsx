@@ -1,6 +1,6 @@
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import IconButton from "@mui/material/IconButton";
+import { Button } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import printJS from "print-js";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
@@ -41,34 +41,16 @@ const PrintBarcodeIcon: FC<Props> = ({
       <Tooltip
         title={text}
         open={show}>
-        <IconButton
+        <Button
+          variant="contained"
+          startIcon={<FontAwesomeIcon icon={faPrint} />}
           onClick={clickHandler}
           onMouseEnter={openTooltip}
           onMouseLeave={closeTooltip}
-          className="d-block w-auto">
-          <FontAwesomeIcon
-            focusable
-            icon={faPrint}
-            size="1x"
-            role="button"
-            key={`${header}-PrintIconBarcodeComponent`}
-          />
-        </IconButton>
+          className="w-auto">
+          Print Barcode
+        </Button>
       </Tooltip>
-      {/* <Overlay
-        key={`Overlay-PrintIconBarcodeComponent-${itemObj.name}-${header}`}
-        target={target.current}
-        show={show}
-        placement="bottom">
-        {props => (
-          <Tooltip
-            key={`Tooltip-PrintIconBarcodeComponent-${itemObj.name}-${header}`}
-            id={`PrintIconBarcodeComponent-tooltip-${itemObj.name}-${itemObj.src}`}
-            {...props}>
-            {text}
-          </Tooltip>
-        )}
-      </Overlay> */}
     </>
   );
 };

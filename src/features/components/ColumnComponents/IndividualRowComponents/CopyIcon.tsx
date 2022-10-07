@@ -5,6 +5,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { FC, memo, MouseEventHandler, useCallback, useReducer } from "react";
 import { Placement } from "react-bootstrap/esm/types";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
+import { Button } from "@mui/material";
 
 type reducerActionType = {
   type: typeof ACTIONS[keyof typeof ACTIONS];
@@ -113,48 +114,15 @@ const CopyIcon: FC<Props> = ({
       <Tooltip
         title={tooltipText}
         open={open}>
-        <IconButton
+        <Button
+          variant="contained"
+          startIcon={<FontAwesomeIcon icon={faCopy} />}
           onClick={handleClick}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}>
-          <FontAwesomeIcon
-            focusable
-            icon={faCopy}
-            size="1x"
-            pull="right"
-            role="button"
-            key={`${itemObj.name}-${content}-${vendorName}-FontAwesomeIcon-CopyIconComponent`}
-          />
-        </IconButton>
+          Copy Item {text}
+        </Button>
       </Tooltip>
-      {/* <Overlay
-        target={ref.current}
-        show={copied}
-        placement={placement}
-        key={`${itemObj.name}-${vendorName}-${content}-first-overlay`}>
-        {props => (
-          <Tooltip
-            key={`${content}-${copiedText}-first-tooltip`}
-            id="overlay-example"
-            {...props}>
-            {copiedText}
-          </Tooltip>
-        )}
-      </Overlay>
-      <Overlay
-        target={ref.current}
-        show={hovered}
-        placement={placement}
-        key={`${itemObj.name}-${vendorName}-${content}-second-overlay`}>
-        {props => (
-          <Tooltip
-            id="overlay-example"
-            key={`${content}-${oldText}-second-tooltip`}
-            {...props}>
-            {oldText}
-          </Tooltip>
-        )}
-      </Overlay> */}
     </>
   );
 };

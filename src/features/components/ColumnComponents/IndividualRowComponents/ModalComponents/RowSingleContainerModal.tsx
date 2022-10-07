@@ -1,6 +1,6 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, IconButton, Tooltip } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import {
   FC,
   memo,
@@ -48,20 +48,6 @@ const RowSingleContainerModal: FC<Props> = ({
 
   return (
     <>
-      {/* <IconButton className="rounded-circle px-2 me-1 hover-inverse">
-        <ZoomInIcon
-        className="rounded-circle px-2 me-1 hover-inverse"
-        />
-      </IconButton> */}
-      {/* <IconButton
-        onClick={showModal}
-        size="medium">
-        <FontAwesomeIcon
-          icon={faMagnifyingGlassPlus}
-          size="1x"
-          role="button"
-        />
-      </IconButton> */}
       <Tooltip
         title={title}
         open={open}>

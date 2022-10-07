@@ -1,6 +1,5 @@
-import { ListItem } from "@mui/material";
+import { ListItem, ListItemButton, ListItemText } from "@mui/material";
 import { FC, memo } from "react";
-// import { ListGroup } from "react-bootstrap";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 import { useAppSelector } from "../../../../Redux/hooks";
 import { RootState } from "../../../../Redux/store";
@@ -20,19 +19,20 @@ const RowItemName: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
     <>
       {itemNameShown && (
         <ListItem
-          // action
-          className="rounded-top fw-bold"
-          // variant="success"
-          key={`${itemObj.name}-${vendorName}-VendorColumn-ListGroupItem-name`}>
-          Item Name: {itemObj.name}
+          divider
+          // disablePadding
+          key={`${itemObj.id}-${vendorName}-VendorColumn-ListGroupItem-name`}>
+          <ListItemText>Item Name: {itemObj.name}</ListItemText>
+          {/* <ListItemButton style={{ justifyContent: "flex-end" }}> */}
           <CopyIcon
-            key={`${vendorName}-${itemObj.name}-CopyIconComponent-ItemNameComponent`}
+            key={`${vendorName}-${itemObj.id}-CopyIconComponent-ItemNameComponent`}
             content={itemObj.name}
             text={"Name"}
             placement="top"
             itemObj={itemObj}
             vendorName={vendorName}
           />
+          {/* </ListItemButton> */}
         </ListItem>
       )}
     </>

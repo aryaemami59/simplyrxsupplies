@@ -1,3 +1,4 @@
+import { List } from "@mui/material";
 import { FC, memo } from "react";
 // import { Container } from "react-bootstrap";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
@@ -15,18 +16,20 @@ const RowSingleItemInfo: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
     <div
       className="container"
       key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
-      <RowItemName
-        itemObj={itemObj}
-        vendorName={vendorName}
-      />
-      <RowItemNumber
-        itemObj={itemObj}
-        vendorName={vendorName}
-      />
-      <RowBarcodeImage
-        itemObj={itemObj}
-        vendorName={vendorName}
-      />
+      <List>
+        <RowItemName
+          itemObj={itemObj}
+          vendorName={vendorName}
+        />
+        <RowItemNumber
+          itemObj={itemObj}
+          vendorName={vendorName}
+        />
+        <RowBarcodeImage
+          itemObj={itemObj}
+          vendorName={vendorName}
+        />
+      </List>
     </div>
   );
 };

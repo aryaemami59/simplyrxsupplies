@@ -1,15 +1,9 @@
-import {
-  faAdd,
-  faArrowsDownToLine,
-  faMinimize,
-  faMinus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMinimize } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import IconButton from "@mui/material/IconButton";
+import { Button } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
-import { Button } from "@mui/material";
 
 const EXPAND = "Expand" as const;
 const COLLAPSE = "Collapse" as const;
@@ -20,6 +14,7 @@ type Props = {
   vendorName: vendorNameType;
   itemObj: ItemObjType;
 };
+
 const MinimizeButton: FC<Props> = ({
   open,
   toggle,
@@ -50,33 +45,7 @@ const MinimizeButton: FC<Props> = ({
           startIcon={<FontAwesomeIcon icon={faMinimize} />}>
           Collapse
         </Button>
-        {/* <IconButton
-          onMouseEnter={openTooltip}
-          onMouseLeave={closeTooltip}
-          onClick={toggle}>
-          <FontAwesomeIcon
-            aria-label="collapse item info"
-            icon={open ? faMinus : faAdd}
-            size="1x"
-            role="button"
-            key={`${vendorName}-${itemObj.name}-MinimizeButton-FontAwesomeIcon`}
-          />
-        </IconButton> */}
       </Tooltip>
-      {/* <Overlay
-        key={`${vendorName}-RemoveButton-Overlay`}
-        target={target.current}
-        show={show}
-        placement="top">
-        {props => (
-          <Tooltip
-            key={`MinimizeButton-tooltip-${vendorName}-${itemObj.name}`}
-            id={`MinimizeButton-tooltip-${vendorName}-${itemObj.name}`}
-            {...props}>
-            Click Here to {open ? COLLAPSE : EXPAND} The Item Info
-          </Tooltip>
-        )}
-      </Overlay> */}
     </>
   );
 };

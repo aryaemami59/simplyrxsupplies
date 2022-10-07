@@ -1,6 +1,6 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, IconButton } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import {
   FC,
   memo,
@@ -12,6 +12,8 @@ import {
 import { Modal } from "react-bootstrap";
 import { DarkMode } from "../../../../App";
 import { ItemNumber, Src, vendorNameType } from "../../../../customTypes/types";
+
+const title = "Click Here to Take a Closer Look at The QRCode";
 
 type Props = {
   src: Src;
@@ -26,6 +28,7 @@ const QRCodeModal: FC<Props> = ({
 }): JSX.Element => {
   const { darkTheme } = useContext(DarkMode);
   const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const showModal: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     setShow(true);
@@ -35,19 +38,29 @@ const QRCodeModal: FC<Props> = ({
     setShow(false);
   }, []);
 
+  const showTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const hideTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+    setOpen(false);
+  }, []);
+
   return (
     <>
-      <IconButton
-        onClick={showModal}
-        className="d-block w-auto">
-        <FontAwesomeIcon
-          icon={faMagnifyingGlassPlus}
-          size="1x"
-          // className="btn w-auto"
-          // inverse={darkTheme ? true : false}
-          role="button"
-        />
-      </IconButton>
+      <Tooltip
+        title={title}
+        open={open}>
+        <Button
+          onMouseEnter={showTooltip}
+          onMouseLeave={hideTooltip}
+          variant="contained"
+          onClick={showModal}
+          startIcon={<FontAwesomeIcon icon={faMagnifyingGlassPlus} />}
+          className="w-auto">
+          Magnify
+        </Button>
+      </Tooltip>
       <Modal
         show={show}
         onHide={hideModal}>

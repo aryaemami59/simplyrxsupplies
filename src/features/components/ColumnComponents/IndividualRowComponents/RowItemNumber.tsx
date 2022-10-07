@@ -1,4 +1,4 @@
-import { ListItem } from "@mui/material";
+import { ListItem, ListItemButton, ListItemText } from "@mui/material";
 import { FC, memo } from "react";
 // import { ListGroup } from "react-bootstrap";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
@@ -20,11 +20,11 @@ const RowItemNumber: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
     <>
       {itemNumberShown && (
         <ListItem
-          // variant="primary"
-          className="rounded-bottom fw-bold"
-          // action
+          divider
+          // disablePadding
           key={`${itemObj.itemNumber}-${vendorName}-VendorColumn-ListGroupItem-itemNumber`}>
-          Item Number: {itemObj.itemNumber}
+          <ListItemText>Item Number: {itemObj.itemNumber}</ListItemText>
+          {/* <ListItemButton style={{ justifyContent: "flex-end" }}> */}
           <CopyIcon
             key={`${vendorName}-${itemObj.itemNumber}-CopyIconComponent-ItemNumberComponent`}
             content={itemObj.itemNumber}
@@ -33,6 +33,7 @@ const RowItemNumber: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
             itemObj={itemObj}
             vendorName={vendorName}
           />
+          {/* </ListItemButton> */}
         </ListItem>
       )}
     </>
