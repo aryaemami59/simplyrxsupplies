@@ -7,7 +7,7 @@ import {
   memo,
   SetStateAction,
   useEffect,
-  useState,
+  // useState,
 } from "react";
 import "./App.css";
 import ErrorComponent from "./ErrorComponent";
@@ -35,11 +35,11 @@ export const DarkMode = createContext<myContextInterface>({
   setDarkTheme: () => {},
 });
 
-const getLocalStorageTheme = (): boolean =>
-  localStorage.getItem("theme") ? !!localStorage.getItem("theme") : true;
+// const getLocalStorageTheme = (): boolean =>
+//   localStorage.getItem("theme") ? !!localStorage.getItem("theme") : true;
 
 const App: FC = () => {
-  const [darkTheme, setDarkTheme] = useState<boolean>(getLocalStorageTheme);
+  // const [darkTheme, setDarkTheme] = useState<boolean>(getLocalStorageTheme);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

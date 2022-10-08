@@ -24,17 +24,15 @@ const SearchResultsAddButton: FC<Props> = ({ itemObj }) => {
   }, [IfAddedToAllVendors, dispatch, itemObj, vendors]);
 
   return (
-    <>
-      <Button
-        disabled={IfAddedToAllVendors}
-        size="large"
-        variant="contained"
-        key={`Button-AddItemButtonComponent-${itemObj.id}`}
-        onClick={clickHandler}
-        startIcon={<AddCircleOutlineRoundedIcon />}>
-        Add Item
-      </Button>
-    </>
+    <Button
+      disabled={IfAddedToAllVendors}
+      size="large"
+      variant="contained"
+      key={`Button-AddItemButtonComponent-${itemObj.id}`}
+      onClick={clickHandler}
+      startIcon={<AddCircleOutlineRoundedIcon />}>
+      Add Item
+    </Button>
   );
 };
 

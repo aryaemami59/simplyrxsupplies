@@ -30,21 +30,19 @@ const RowDeleteButton: FC<Props> = ({ vendorName, itemObj }) => {
   }, []);
 
   return (
-    <>
-      <Tooltip
-        title={title}
-        open={show}>
-        <Button
-          className="flex-grow-1"
-          onClick={clickHandler}
-          onMouseEnter={openTooltip}
-          onMouseLeave={closeTooltip}
-          variant="contained"
-          startIcon={<DeleteIcon />}>
-          Delete
-        </Button>
-      </Tooltip>
-    </>
+    <Tooltip
+      title={title}
+      open={show}>
+      <Button
+        className="flex-grow-1"
+        onClick={clickHandler}
+        onMouseEnter={openTooltip}
+        onMouseLeave={closeTooltip}
+        variant="contained"
+        startIcon={<DeleteIcon />}>
+        Delete
+      </Button>
+    </Tooltip>
   );
 };
 

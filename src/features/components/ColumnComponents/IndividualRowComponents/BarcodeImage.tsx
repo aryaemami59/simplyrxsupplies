@@ -6,14 +6,12 @@ type Props = {
   className?: string;
 };
 
-const BarcodeImage: FC<Props> = ({ itemObj, className }) => {
-  return (
-    <img
-      src={itemObj.src}
-      alt={itemObj.name}
-      className={`${className} barcode-image`}
-    />
-  );
-};
+const BarcodeImage: FC<Props> = ({ itemObj, className }) => (
+  <img
+    src={itemObj.src}
+    alt={itemObj.name}
+    className={`${className} barcode-image`}
+  />
+);
 
 export default memo<Props>(BarcodeImage);

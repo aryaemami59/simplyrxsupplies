@@ -7,21 +7,17 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const SearchResultsSingleCard: FC<Props> = ({ itemObj }) => {
-  return (
-    <>
-      <Card
-        className="shadow"
-        variant="outlined"
-        key={`Card-SingleInputListItems`}>
-        <CardContent
-          key={`Card.Body-SingleInputListItems`}
-          className="row gy-2 justify-content-center">
-          <SearchResultsCardBodyContent itemObj={itemObj} />
-        </CardContent>
-      </Card>
-    </>
-  );
-};
+const SearchResultsSingleCard: FC<Props> = ({ itemObj }) => (
+  <Card
+    className="shadow"
+    variant="outlined"
+    key={`Card-SingleInputListItems`}>
+    <CardContent
+      key={`Card.Body-SingleInputListItems`}
+      className="row gy-2 justify-content-center">
+      <SearchResultsCardBodyContent itemObj={itemObj} />
+    </CardContent>
+  </Card>
+);
 
 export default memo<Props>(SearchResultsSingleCard);

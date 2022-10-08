@@ -15,7 +15,8 @@ const RowCounterBadge: FC<Props> = ({ vendorName }) => {
     <span className="float-end">
       <Badge
         badgeContent={addedItemsLen}
-        color="error"></Badge>
+        color="error"
+      />
     </span>
   );
 };

@@ -12,29 +12,25 @@ import { AppDispatch, RootState } from "../../../Redux/store";
 const mapStateToProps = (
   state: RootState,
   ownProps: ParentProps
-): { checked: boolean; disabled: boolean } => {
-  return {
-    checked: state.item[ownProps.itemObj.name]!.vendorsToAdd.includes(
-      ownProps.vendorName
-    ),
-    disabled: state.item[ownProps.itemObj.name]!.vendorsAdded.includes(
-      ownProps.vendorName
-    ),
-  };
-};
+): { checked: boolean; disabled: boolean } => ({
+  checked: state.item[ownProps.itemObj.name]!.vendorsToAdd.includes(
+    ownProps.vendorName
+  ),
+  disabled: state.item[ownProps.itemObj.name]!.vendorsAdded.includes(
+    ownProps.vendorName
+  ),
+});
 
-const mapDispatchToProps = (dispatch: AppDispatch, ownProps: ParentProps) => {
-  return {
-    clickHandler: () => {
-      dispatch(
-        setVendors({
-          itemObj: ownProps.itemObj,
-          vendorName: ownProps.vendorName,
-        })
-      );
-    },
-  };
-};
+const mapDispatchToProps = (dispatch: AppDispatch, ownProps: ParentProps) => ({
+  clickHandler: () => {
+    dispatch(
+      setVendors({
+        itemObj: ownProps.itemObj,
+        vendorName: ownProps.vendorName,
+      })
+    );
+  },
+});
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
@@ -59,18 +55,16 @@ const SideBarVendorBadges: FC<Props> = ({
   );
 
   return (
-    <>
-      <FormControlLabel
-        label={officialVendorName}
-        control={
-          <Checkbox
-            checked={checked}
-            disabled={disabled}
-            onChange={clickHandler}
-          />
-        }
-      />
-    </>
+    <FormControlLabel
+      label={officialVendorName}
+      control={
+        <Checkbox
+          checked={checked}
+          disabled={disabled}
+          onChange={clickHandler}
+        />
+      }
+    />
   );
 };
 

@@ -33,17 +33,16 @@ import { RootState } from "./store";
 const intersection = (firstArray: string[], secondArray: string[]): string[] =>
   firstArray.filter(e => !secondArray.includes(e));
 
-const createAsyncThunkFunc = (strVal: string, githubUrl: string) => {
-  return createAsyncThunk(`${strVal}/fetch${strVal}`, async () => {
+const createAsyncThunkFunc = (strVal: string, githubUrl: string) =>
+  createAsyncThunk(`${strVal}/fetch${strVal}`, async () => {
     const response: Response = await fetch(githubUrl);
     if (!response.ok) {
-      return Promise.reject("Unable to fetch, status: " + response.status);
+      return Promise.reject(`Unable to fetch, status: ${response.status}`);
     }
     const data = await response.json();
     const myItems = await data[strVal];
     return myItems;
   });
-};
 
 export const fetchItems: FetchItems = createAsyncThunkFunc(
   "items",

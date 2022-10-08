@@ -101,21 +101,19 @@ const CopyIcon: FC<Props> = ({ content, text, vendorName, itemObj }) => {
   }, [content, clickOnIcon, afterClick]);
 
   return (
-    <>
-      <Tooltip
-        title={tooltipText}
-        open={open}>
-        <Button
-          className="ms-5"
-          variant="contained"
-          startIcon={<FontAwesomeIcon icon={faCopy} />}
-          onClick={handleClick}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}>
-          Copy Item {text}
-        </Button>
-      </Tooltip>
-    </>
+    <Tooltip
+      title={tooltipText}
+      open={open}>
+      <Button
+        className="ms-5"
+        variant="contained"
+        startIcon={<FontAwesomeIcon icon={faCopy} />}
+        onClick={handleClick}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}>
+        Copy Item {text}
+      </Button>
+    </Tooltip>
   );
 };
 

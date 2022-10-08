@@ -8,18 +8,16 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-const ModalItemNumber: FC<Props> = ({ itemObj, vendorName }) => {
-  return (
-    <ListItem divider>
-      <ListItemText>Item Number: {itemObj.itemNumber}</ListItemText>
-      <CopyIcon
-        content={itemObj.itemNumber}
-        text={"Number"}
-        itemObj={itemObj}
-        vendorName={vendorName}
-      />
-    </ListItem>
-  );
-};
+const ModalItemNumber: FC<Props> = ({ itemObj, vendorName }) => (
+  <ListItem divider>
+    <ListItemText>Item Number: {itemObj.itemNumber}</ListItemText>
+    <CopyIcon
+      content={itemObj.itemNumber}
+      text={"Number"}
+      itemObj={itemObj}
+      vendorName={vendorName}
+    />
+  </ListItem>
+);
 
 export default memo<Props>(ModalItemNumber);

@@ -10,27 +10,25 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-const RowSingleItemInfo: FC<Props> = ({ itemObj, vendorName }) => {
-  return (
-    <div
-      className="container"
-      key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
-      <List>
-        <RowItemName
-          itemObj={itemObj}
-          vendorName={vendorName}
-        />
-        <RowItemNumber
-          itemObj={itemObj}
-          vendorName={vendorName}
-        />
-        <RowBarcodeImage
-          itemObj={itemObj}
-          vendorName={vendorName}
-        />
-      </List>
-    </div>
-  );
-};
+const RowSingleItemInfo: FC<Props> = ({ itemObj, vendorName }) => (
+  <div
+    className="container"
+    key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
+    <List>
+      <RowItemName
+        itemObj={itemObj}
+        vendorName={vendorName}
+      />
+      <RowItemNumber
+        itemObj={itemObj}
+        vendorName={vendorName}
+      />
+      <RowBarcodeImage
+        itemObj={itemObj}
+        vendorName={vendorName}
+      />
+    </List>
+  </div>
+);
 
 export default memo<Props>(RowSingleItemInfo);

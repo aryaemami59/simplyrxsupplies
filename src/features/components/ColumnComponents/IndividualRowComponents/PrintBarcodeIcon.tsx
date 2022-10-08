@@ -33,21 +33,19 @@ const PrintBarcodeIcon: FC<Props> = ({ text, header, itemObj }) => {
   }, []);
 
   return (
-    <>
-      <Tooltip
-        title={text}
-        open={show}>
-        <Button
-          variant="contained"
-          startIcon={<FontAwesomeIcon icon={faPrint} />}
-          onClick={clickHandler}
-          onMouseEnter={openTooltip}
-          onMouseLeave={closeTooltip}
-          className="w-auto">
-          Print Barcode
-        </Button>
-      </Tooltip>
-    </>
+    <Tooltip
+      title={text}
+      open={show}>
+      <Button
+        variant="contained"
+        startIcon={<FontAwesomeIcon icon={faPrint} />}
+        onClick={clickHandler}
+        onMouseEnter={openTooltip}
+        onMouseLeave={closeTooltip}
+        className="w-auto">
+        Print Barcode
+      </Button>
+    </Tooltip>
   );
 };
 

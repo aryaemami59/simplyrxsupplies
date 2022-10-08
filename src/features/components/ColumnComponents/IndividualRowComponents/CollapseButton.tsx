@@ -42,21 +42,19 @@ const CollapseButton: FC<Props> = ({ open, toggle, vendorName, itemObj }) => {
   const buttonText = open ? COLLAPSE : EXPAND;
 
   return (
-    <>
-      <Tooltip
-        title={text}
-        open={show}>
-        <Button
-          className="flex-grow-1"
-          onMouseEnter={openTooltip}
-          onMouseLeave={closeTooltip}
-          onClick={toggle}
-          variant="contained"
-          startIcon={startIcon}>
-          {buttonText}
-        </Button>
-      </Tooltip>
-    </>
+    <Tooltip
+      title={text}
+      open={show}>
+      <Button
+        className="flex-grow-1"
+        onMouseEnter={openTooltip}
+        onMouseLeave={closeTooltip}
+        onClick={toggle}
+        variant="contained"
+        startIcon={startIcon}>
+        {buttonText}
+      </Button>
+    </Tooltip>
   );
 };
 

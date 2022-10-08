@@ -35,21 +35,19 @@ const PrintIconQRCode: FC<Props> = ({ src, text, vendorName }) => {
   }, []);
 
   return (
-    <>
-      <Tooltip
-        title={text}
-        open={show}>
-        <Button
-          className="w-auto"
-          variant="contained"
-          startIcon={<FontAwesomeIcon icon={faPrint} />}
-          onClick={clickHandler}
-          onMouseEnter={openTooltip}
-          onMouseLeave={closeTooltip}>
-          Print QRCode
-        </Button>
-      </Tooltip>
-    </>
+    <Tooltip
+      title={text}
+      open={show}>
+      <Button
+        className="w-auto"
+        variant="contained"
+        startIcon={<FontAwesomeIcon icon={faPrint} />}
+        onClick={clickHandler}
+        onMouseEnter={openTooltip}
+        onMouseLeave={closeTooltip}>
+        Print QRCode
+      </Button>
+    </Tooltip>
   );
 };
 

@@ -6,16 +6,12 @@ type Props = {
   itemObj: ItemObjType;
 };
 
-const SearchResultsItemNumber: FC<Props> = ({ itemObj }) => {
-  return (
-    <>
-      <Badge
-        key={`Badge-SearchResultsItemNumberComponent-${itemObj.itemNumber}`}
-        className="fs-6 fw-normal">
-        Item Number: {itemObj.itemNumber}
-      </Badge>
-    </>
-  );
-};
+const SearchResultsItemNumber: FC<Props> = ({ itemObj }) => (
+  <Badge
+    key={`Badge-SearchResultsItemNumberComponent-${itemObj.itemNumber}`}
+    className="fs-6 fw-normal">
+    Item Number: {itemObj.itemNumber}
+  </Badge>
+);
 
 export default memo<Props>(SearchResultsItemNumber);

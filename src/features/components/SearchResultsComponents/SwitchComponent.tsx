@@ -17,32 +17,28 @@ type stateToPropsReturnType = {
 const mapStateToProps = (
   state: RootState,
   ownProps: ParentProps
-): stateToPropsReturnType => {
-  return {
-    checked: state.item[ownProps.itemObj.name]!.vendorsToAdd.includes(
-      ownProps.vendorName
-    ),
-    disabled: state.item[ownProps.itemObj.name]!.vendorsAdded.includes(
-      ownProps.vendorName
-    ),
-  };
-};
+): stateToPropsReturnType => ({
+  checked: state.item[ownProps.itemObj.name]!.vendorsToAdd.includes(
+    ownProps.vendorName
+  ),
+  disabled: state.item[ownProps.itemObj.name]!.vendorsAdded.includes(
+    ownProps.vendorName
+  ),
+});
 
 const mapDispatchToProps = (
   dispatch: AppDispatch,
   ownProps: ParentProps
-): { clickHandler: () => void } => {
-  return {
-    clickHandler: () => {
-      dispatch(
-        setVendors({
-          itemObj: ownProps.itemObj,
-          vendorName: ownProps.vendorName,
-        })
-      );
-    },
-  };
-};
+): { clickHandler: () => void } => ({
+  clickHandler: () => {
+    dispatch(
+      setVendors({
+        itemObj: ownProps.itemObj,
+        vendorName: ownProps.vendorName,
+      })
+    );
+  },
+});
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
@@ -65,19 +61,18 @@ const SwitchComponent: FC<myProps> = ({
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
+
   return (
-    <>
-      <FormControlLabel
-        control={
-          <Switch
-            checked={checked}
-            disabled={disabled}
-            onChange={clickHandler}
-          />
-        }
-        label={officialVendorName}
-      />
-    </>
+    <FormControlLabel
+      control={
+        <Switch
+          checked={checked}
+          disabled={disabled}
+          onChange={clickHandler}
+        />
+      }
+      label={officialVendorName}
+    />
   );
 };
 

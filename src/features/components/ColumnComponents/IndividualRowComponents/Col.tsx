@@ -16,13 +16,11 @@ interface ColumnProps
 const Col: FC<ColumnProps> = (props: ColumnProps) => {
   const { xs, sm, md, lg, xl, xxl, children } = props;
   return (
-    <>
-      <div
-        className={`col-${xs} col-sm-${sm} col-md-${md} col-lg-${lg} col-xl-${xl} col-xl-${xl} col-xxl-${xxl}`}
-        {...props}>
-        {children}
-      </div>
-    </>
+    <div
+      className={`col-${xs} col-sm-${sm} col-md-${md} col-lg-${lg} col-xl-${xl} col-xl-${xl} col-xxl-${xxl}`}
+      {...props}>
+      {children}
+    </div>
   );
 };
 
