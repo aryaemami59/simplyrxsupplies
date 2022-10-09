@@ -1,5 +1,5 @@
 import QRCode from "qrcode";
-import { FC, memo } from "react";
+import { FC, memo, useCallback, useState } from "react";
 import { vendorNameType } from "../../../../customTypes/types";
 import { selectQRCodeContent } from "../../../../Redux/addedSlice";
 import { useAppSelector } from "../../../../Redux/hooks";
@@ -13,11 +13,13 @@ type Props = {
 
 const QRCodeImageContainer: FC<Props> = ({ vendorName }) => {
   const QRCodeContent = useAppSelector(selectQRCodeContent(vendorName));
+  const [src, setSrc] = useState("");
 
-  let src = "";
-  QRCode.toDataURL(QRCodeContent, (err, url) => {
-    src = url;
-  });
+  useCallback(() => {
+    QRCode.toDataURL(QRCodeContent, (err, url) => {
+      setSrc(url);
+    });
+  }, [QRCodeContent]);
 
   return (
     <div className="mt-4 container-fluid">

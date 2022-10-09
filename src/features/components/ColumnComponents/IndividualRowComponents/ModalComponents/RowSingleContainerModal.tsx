@@ -12,8 +12,7 @@ type Props = {
   vendorName: vendorNameType;
 };
 
-// const TIMEOUT = 3000;
-let timer;
+const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />;
 
 const RowSingleContainerModal: FC<Props> = ({ itemObj, vendorName }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -28,16 +27,10 @@ const RowSingleContainerModal: FC<Props> = ({ itemObj, vendorName }) => {
   }, []);
 
   const showTooltip = useCallback(() => {
-    // timer = setTimeout(() => {
-    //   setOpen(true);
-    // }, 1000);
-    // timer = setTimeout(() => {
     setOpen(true);
-    // }, TIMEOUT);
   }, []);
 
   const hideTooltip = useCallback(() => {
-    // clearTimeout(timer);
     setOpen(false);
   }, []);
 
@@ -52,11 +45,9 @@ const RowSingleContainerModal: FC<Props> = ({ itemObj, vendorName }) => {
         open={open}>
         <Button
           className="flex-grow-1"
-          // onMouseEnter={showTooltip}
-          // onMouseLeave={hideTooltip}
           onClick={showModal}
           variant="contained"
-          startIcon={<FontAwesomeIcon icon={faMagnifyingGlassPlus} />}>
+          startIcon={startIcon}>
           Magnify
         </Button>
       </Tooltip>

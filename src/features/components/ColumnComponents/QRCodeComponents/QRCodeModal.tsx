@@ -38,22 +38,24 @@ const QRCodeModal: FC<Props> = ({ src, vendorName, itemNumbers }) => {
     setShow(false);
   }, []);
 
-  const showTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  const showTooltip = useCallback(() => {
     setOpen(true);
   }, []);
 
-  const hideTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  const hideTooltip = useCallback(() => {
     setOpen(false);
   }, []);
 
   return (
     <>
       <Tooltip
+        onOpen={showTooltip}
+        onClose={hideTooltip}
+        enterDelay={1500}
+        enterNextDelay={1500}
         title={title}
         open={open}>
         <Button
-          onMouseEnter={showTooltip}
-          onMouseLeave={hideTooltip}
           variant="contained"
           onClick={showModal}
           startIcon={<FontAwesomeIcon icon={faMagnifyingGlassPlus} />}
