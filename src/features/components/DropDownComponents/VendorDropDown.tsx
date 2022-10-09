@@ -25,15 +25,17 @@ const anchorOrigin: PopoverOrigin = { vertical: "bottom", horizontal: "left" };
 
 const menuListProps: MenuListProps = {
   "aria-labelledby": "customized-button",
+  className: "menu-list",
   style: {
     maxHeight: "calc(100vh - 54px)",
   },
 };
 
 const paperProps: PaperProps = {
-  style: {
-    width: 250,
-  },
+  className: "paper",
+  // style: {
+  //   width: 250,
+  // },
 };
 
 type Props = {
@@ -69,7 +71,7 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
         {officialVendorName}
       </Button>
       <Menu
-        keepMounted
+        // keepMounted
         id={officialVendorName}
         MenuListProps={menuListProps}
         anchorEl={anchorEl}

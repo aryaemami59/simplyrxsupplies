@@ -28,7 +28,7 @@ const VendorColumnModalComponent: FC = () => {
         Display Cart
       </Button>
       <Dialog
-        keepMounted
+        // keepMounted
         maxWidth="md"
         fullWidth
         onClose={hideModal}

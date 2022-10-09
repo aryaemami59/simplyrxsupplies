@@ -5,8 +5,6 @@ import { numbersOnQR, selectQRCodeContent } from "../../../../Redux/addedSlice";
 import { useAppSelector } from "../../../../Redux/hooks";
 
 type Props = {
-  // src: string;
-  // title: string;
   vendorName: vendorNameType;
   className?: string;
 };

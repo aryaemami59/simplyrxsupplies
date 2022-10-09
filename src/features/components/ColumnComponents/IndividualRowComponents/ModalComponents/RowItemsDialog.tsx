@@ -23,7 +23,7 @@ const RowItemsDialog: FC<Props> = ({
   vendorName,
 }) => (
   <Dialog
-    keepMounted
+    // keepMounted
     maxWidth="md"
     fullWidth
     onClose={hideModal}

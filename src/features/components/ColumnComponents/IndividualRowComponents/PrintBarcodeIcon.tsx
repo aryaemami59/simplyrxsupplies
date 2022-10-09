@@ -24,28 +24,30 @@ const PrintBarcodeIcon: FC<Props> = ({ text, header, itemObj }) => {
     });
   }, [header, itemObj.src]);
 
-  const openTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    setShow(true);
-  }, []);
+  // const openTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  //   setShow(true);
+  // }, []);
 
-  const closeTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    setShow(false);
-  }, []);
+  // const closeTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  //   setShow(false);
+  // }, []);
 
   return (
-    <Tooltip
-      title={text}
-      open={show}>
+    <>
+      {/* <Tooltip
+        title={text}
+        open={show}> */}
       <Button
         variant="contained"
         startIcon={<FontAwesomeIcon icon={faPrint} />}
         onClick={clickHandler}
-        onMouseEnter={openTooltip}
-        onMouseLeave={closeTooltip}
+        // onMouseEnter={openTooltip}
+        // onMouseLeave={closeTooltip}
         className="w-auto">
         Print Barcode
       </Button>
-    </Tooltip>
+      {/* </Tooltip> */}
+    </>
   );
 };
 

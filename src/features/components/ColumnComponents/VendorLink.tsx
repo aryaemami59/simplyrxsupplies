@@ -17,27 +17,27 @@ const VendorLink: FC<Props> = ({ officialVendorName, vendorName }) => {
   const [open, setOpen] = useState(false);
   const title = `Go to ${officialVendorName}'s Website`;
 
-  const showTooltip: MouseEventHandler<HTMLAnchorElement> = useCallback(() => {
-    setOpen(true);
-  }, []);
+  // const showTooltip: MouseEventHandler<HTMLAnchorElement> = useCallback(() => {
+  //   setOpen(true);
+  // }, []);
 
-  const hideTooltip: MouseEventHandler<HTMLAnchorElement> = useCallback(() => {
-    setOpen(false);
-  }, []);
+  // const hideTooltip: MouseEventHandler<HTMLAnchorElement> = useCallback(() => {
+  //   setOpen(false);
+  // }, []);
 
   return (
     <div className="row py-3 justify-content-center">
-      <Tooltip
+      {/* <Tooltip
         title={title}
-        open={open}>
-        <Link
-          className="w-auto"
-          onMouseEnter={showTooltip}
-          onMouseLeave={hideTooltip}
-          href={vendorLink}>
-          {officialVendorName} Website
-        </Link>
-      </Tooltip>
+        open={open}> */}
+      <Link
+        className="w-auto"
+        // onMouseEnter={showTooltip}
+        // onMouseLeave={hideTooltip}
+        href={vendorLink}>
+        {officialVendorName} Website
+      </Link>
+      {/* </Tooltip> */}
     </div>
   );
 };

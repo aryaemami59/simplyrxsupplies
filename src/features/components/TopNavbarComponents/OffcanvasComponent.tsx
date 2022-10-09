@@ -16,7 +16,7 @@ const paperProps: PaperProps = {
 };
 
 const modalProps: Partial<ModalProps<"div", {}>> = {
-  keepMounted: true,
+  // keepMounted: true,
 };
 
 const OffcanvasComponent: FC = () => {
@@ -44,7 +44,7 @@ const OffcanvasComponent: FC = () => {
       <SwipeableDrawer
         onOpen={handleOpen}
         open={show}
-        keepMounted
+        // keepMounted
         PaperProps={paperProps}
         ModalProps={modalProps}
         onClose={handleClose}>

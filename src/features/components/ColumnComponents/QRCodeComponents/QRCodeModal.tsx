@@ -1,25 +1,16 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Tooltip,
-} from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
-import { ItemNumber, Src, vendorNameType } from "../../../../customTypes/types";
+import { vendorNameType } from "../../../../customTypes/types";
 import { selectVendorOfficialName } from "../../../../Redux/addedSlice";
 import { useAppSelector } from "../../../../Redux/hooks";
-import QRCodeImage from "./QRCodeImage";
+import QRCodeDialog from "./QRCodeDialog";
 
 const title = "Take a Closer Look at The QRCode";
 
 type Props = {
-  // src: Src;
   vendorName: vendorNameType;
-  // itemNumbers: ItemNumber;
 };
 
 const QRCodeModal: FC<Props> = ({ vendorName }) => {
@@ -49,6 +40,7 @@ const QRCodeModal: FC<Props> = ({ vendorName }) => {
   return (
     <>
       <Tooltip
+        key={`QRCodeModal-${vendorName}`}
         onOpen={showTooltip}
         onClose={hideTooltip}
         enterDelay={1500}
@@ -63,33 +55,12 @@ const QRCodeModal: FC<Props> = ({ vendorName }) => {
           Magnify
         </Button>
       </Tooltip>
-      <Dialog
-        keepMounted
-        maxWidth="md"
-        fullWidth
-        open={show}
-        onClose={hideModal}>
-        <DialogTitle>
-          QRCode for Items Added to {officialVendorName}
-        </DialogTitle>
-        <DialogContent
-          dividers
-          className="justify-content-center d-flex">
-          <QRCodeImage
-            // src={src}
-            // title={itemNumbers}
-            vendorName={vendorName}
-            className="w-75"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button
-            variant="contained"
-            onClick={hideModal}>
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <QRCodeDialog
+        hideModal={hideModal}
+        officialVendorName={officialVendorName}
+        show={show}
+        vendorName={vendorName}
+      />
     </>
   );
 };

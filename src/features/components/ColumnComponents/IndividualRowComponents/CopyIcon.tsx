@@ -5,6 +5,8 @@ import Tooltip from "@mui/material/Tooltip";
 import { FC, memo, MouseEventHandler, useCallback, useReducer } from "react";
 import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
 
+const startIcon = <FontAwesomeIcon icon={faCopy} />;
+
 type reducerActionType = {
   type: typeof ACTIONS[keyof typeof ACTIONS];
   payload?: string;
@@ -95,25 +97,28 @@ const CopyIcon: FC<Props> = ({ content, text, vendorName, itemObj }) => {
   }, []);
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    clickOnIcon();
+    // clickOnIcon();
     navigator.clipboard.writeText(content);
-    setTimeout(afterClick, 200);
-  }, [content, clickOnIcon, afterClick]);
+    // setTimeout(afterClick, 200);
+  }, [content]);
 
   return (
-    <Tooltip
-      title={tooltipText}
-      open={open}>
+    <>
+      {/* <Tooltip
+        title={tooltipText}
+        open={open}> */}
       <Button
         className="ms-5"
         variant="contained"
-        startIcon={<FontAwesomeIcon icon={faCopy} />}
+        startIcon={startIcon}
         onClick={handleClick}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}>
+        // onMouseEnter={handleMouseEnter}
+        // onMouseLeave={handleMouseLeave}
+      >
         Copy Item {text}
       </Button>
-    </Tooltip>
+      {/* </Tooltip> */}
+    </>
   );
 };
 

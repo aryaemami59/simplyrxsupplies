@@ -2,10 +2,10 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 // import { whyDidYouUpdate } from "why-did-you-update";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import App from "./App";
 import "./index.css";
 import { store } from "./Redux/store";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 // if (process.env.NODE_ENV !== "production") {
 // const { whyDidYouUpdate } = require("why-did-you-update");

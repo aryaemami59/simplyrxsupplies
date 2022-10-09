@@ -30,22 +30,27 @@ const RowBarcodeModal: FC<Props> = ({ itemObj }) => {
     setShow(false);
   }, []);
 
-  const showTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  const showTooltip = useCallback(() => {
     setOpen(true);
   }, []);
 
-  const hideTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  const hideTooltip = useCallback(() => {
     setOpen(false);
   }, []);
 
   return (
     <>
       <Tooltip
+        key={`RowBarcodeModal-${itemObj.name}`}
+        onOpen={showTooltip}
+        onClose={hideTooltip}
+        enterDelay={1500}
+        enterNextDelay={1500}
         title={title}
         open={open}>
         <Button
-          onMouseEnter={showTooltip}
-          onMouseLeave={hideTooltip}
+          // onMouseEnter={showTooltip}
+          // onMouseLeave={hideTooltip}
           variant="contained"
           startIcon={<FontAwesomeIcon icon={faMagnifyingGlassPlus} />}
           onClick={showModal}
@@ -54,7 +59,7 @@ const RowBarcodeModal: FC<Props> = ({ itemObj }) => {
         </Button>
       </Tooltip>
       <Dialog
-        keepMounted
+        // keepMounted
         maxWidth="md"
         fullWidth
         open={show}

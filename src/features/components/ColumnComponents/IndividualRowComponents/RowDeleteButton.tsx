@@ -21,28 +21,30 @@ const RowDeleteButton: FC<Props> = ({ vendorName, itemObj }) => {
     dispatch(removeItems({ itemObj, vendorName }));
   }, [dispatch, itemObj, vendorName]);
 
-  const openTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    setShow(true);
-  }, []);
+  // const openTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  //   setShow(true);
+  // }, []);
 
-  const closeTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    setShow(false);
-  }, []);
+  // const closeTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  //   setShow(false);
+  // }, []);
 
   return (
-    <Tooltip
-      title={title}
-      open={show}>
+    <>
+      {/* <Tooltip
+        title={title}
+        open={show}> */}
       <Button
         className="flex-grow-1"
         onClick={clickHandler}
-        onMouseEnter={openTooltip}
-        onMouseLeave={closeTooltip}
+        // onMouseEnter={openTooltip}
+        // onMouseLeave={closeTooltip}
         variant="contained"
         startIcon={<DeleteIcon />}>
         Delete
       </Button>
-    </Tooltip>
+      {/* </Tooltip> */}
+    </>
   );
 };
 
