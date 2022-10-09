@@ -1,16 +1,9 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Tooltip,
-} from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import { ItemObjType, vendorNameType } from "../../../../../customTypes/types";
-import ModalBodyContent from "./ModalBodyContent";
+import RowItemsDialog from "./RowItemsDialog";
 
 const title = "Take a Closer Look at The Item Info";
 
@@ -18,6 +11,9 @@ type Props = {
   itemObj: ItemObjType;
   vendorName: vendorNameType;
 };
+
+// const TIMEOUT = 3000;
+let timer;
 
 const RowSingleContainerModal: FC<Props> = ({ itemObj, vendorName }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -31,51 +27,45 @@ const RowSingleContainerModal: FC<Props> = ({ itemObj, vendorName }) => {
     setModalOpen(false);
   }, []);
 
-  const showTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  const showTooltip = useCallback(() => {
+    // timer = setTimeout(() => {
+    //   setOpen(true);
+    // }, 1000);
+    // timer = setTimeout(() => {
     setOpen(true);
+    // }, TIMEOUT);
   }, []);
 
-  const hideTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  const hideTooltip = useCallback(() => {
+    // clearTimeout(timer);
     setOpen(false);
   }, []);
 
   return (
     <>
       <Tooltip
+        onOpen={showTooltip}
+        onClose={hideTooltip}
+        enterDelay={1500}
+        enterNextDelay={1500}
         title={title}
         open={open}>
         <Button
           className="flex-grow-1"
-          onMouseEnter={showTooltip}
-          onMouseLeave={hideTooltip}
+          // onMouseEnter={showTooltip}
+          // onMouseLeave={hideTooltip}
           onClick={showModal}
           variant="contained"
           startIcon={<FontAwesomeIcon icon={faMagnifyingGlassPlus} />}>
           Magnify
         </Button>
       </Tooltip>
-      <Dialog
-        keepMounted
-        maxWidth="md"
-        fullWidth
-        onClose={hideModal}
-        open={modalOpen}
-        aria-labelledby="contained-modal-title-vcenter">
-        <DialogTitle>Item Details</DialogTitle>
-        <DialogContent dividers>
-          <ModalBodyContent
-            itemObj={itemObj}
-            vendorName={vendorName}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button
-            variant="contained"
-            onClick={hideModal}>
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <RowItemsDialog
+        hideModal={hideModal}
+        itemObj={itemObj}
+        modalOpen={modalOpen}
+        vendorName={vendorName}
+      />
     </>
   );
 };

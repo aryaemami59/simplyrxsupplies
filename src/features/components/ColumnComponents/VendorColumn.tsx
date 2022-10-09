@@ -1,4 +1,4 @@
-import { Card, Collapse } from "@mui/material";
+import { Collapse } from "@mui/material";
 import Button from "@mui/material/Button";
 import { FC, KeyboardEvent, memo, useCallback, useState } from "react";
 import { shallowEqual } from "react-redux";
@@ -8,9 +8,8 @@ import {
   selectVendorOfficialName,
 } from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
-import ColumnTopCardBody from "./ColumnTopCardBody";
-import EmptyColumn from "./EmptyColumn";
 import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge";
+import VendorColumnCard from "./VendorColumnCard";
 
 type Props = {
   vendorName: vendorNameType;
@@ -47,19 +46,12 @@ const VendorColumn: FC<Props> = ({ vendorName }) => {
       </Button>
       <Collapse in={open}>
         <div>
-          <Card
-            tabIndex={0}
-            onKeyDown={handleKeyDown}>
-            {addedItems.length ? (
-              <ColumnTopCardBody
-                addedItems={addedItems}
-                vendorName={vendorName}
-                officialVendorName={officialVendorName}
-              />
-            ) : (
-              <EmptyColumn />
-            )}
-          </Card>
+          <VendorColumnCard
+            officialVendorName={officialVendorName}
+            addedItems={addedItems}
+            handleKeyDown={handleKeyDown}
+            vendorName={vendorName}
+          />
         </div>
       </Collapse>
     </>

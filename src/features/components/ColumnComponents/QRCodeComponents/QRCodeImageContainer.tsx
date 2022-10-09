@@ -12,7 +12,7 @@ type Props = {
 };
 
 const QRCodeImageContainer: FC<Props> = ({ vendorName }) => {
-  const QRCodeContent: string = useAppSelector(selectQRCodeContent(vendorName));
+  const QRCodeContent = useAppSelector(selectQRCodeContent(vendorName));
 
   let src = "";
   QRCode.toDataURL(QRCodeContent, (err, url) => {

@@ -65,11 +65,13 @@ const root = createRoot(container);
 // whyDidYouUpdate(React);
 
 root.render(
-  <React.StrictMode>
+  <>
+    {/* <React.StrictMode> */}
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <App />
       </Provider>
     </ThemeProvider>
-  </React.StrictMode>
+    {/* </React.StrictMode> */}
+  </>
 );
