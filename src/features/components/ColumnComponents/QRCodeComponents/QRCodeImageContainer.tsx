@@ -1,7 +1,6 @@
-import QRCode from "qrcode";
-import { FC, memo, useCallback, useState } from "react";
+import { FC, memo } from "react";
 import { vendorNameType } from "../../../../customTypes/types";
-import { selectQRCodeContent } from "../../../../Redux/addedSlice";
+import { numbersOnQR, selectQRCodeContent } from "../../../../Redux/addedSlice";
 import { useAppSelector } from "../../../../Redux/hooks";
 import PrintIconQRCode from "./PrintIconQRCode";
 import QRCodeImage from "./QRCodeImage";
@@ -12,14 +11,8 @@ type Props = {
 };
 
 const QRCodeImageContainer: FC<Props> = ({ vendorName }) => {
-  const QRCodeContent = useAppSelector(selectQRCodeContent(vendorName));
-  const [src, setSrc] = useState("");
-
-  useCallback(() => {
-    QRCode.toDataURL(QRCodeContent, (err, url) => {
-      setSrc(url);
-    });
-  }, [QRCodeContent]);
+  // const src = useAppSelector(selectQRCodeContent(vendorName));
+  // const QRCodeContent = useAppSelector(numbersOnQR(vendorName));
 
   return (
     <div className="mt-4 container-fluid">
@@ -28,19 +21,18 @@ const QRCodeImageContainer: FC<Props> = ({ vendorName }) => {
           <div className="justify-content-center row">
             <PrintIconQRCode
               vendorName={vendorName}
-              src={src}
-              text={"Print The QRCode"}
+              // text={"Print The QRCode"}
             />
             <QRCodeModal
-              src={src}
+              // src={src}
               vendorName={vendorName}
-              itemNumbers={QRCodeContent}
+              // itemNumbers={QRCodeContent}
             />
           </div>
           <div className="justify-content-center row">
             <QRCodeImage
-              src={src}
-              title={QRCodeContent}
+              // src={src}
+              // title={QRCodeContent}
               vendorName={vendorName}
               className="w-auto"
             />

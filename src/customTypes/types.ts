@@ -1,4 +1,5 @@
 import { AsyncThunk } from "@reduxjs/toolkit";
+import { string } from "prop-types";
 import { AppDispatch } from "../Redux/store";
 
 export type ItemObjType = {
@@ -29,7 +30,19 @@ export type categoriesObjType = Record<
   { id: number; items: number[] }
 >;
 
-type VendorsInAddedState = Partial<Record<vendorNameType, ItemObjType[]>>;
+// type VendorsInAddedState = Partial<Record<vendorNameType, ItemObjType[]>> & {
+//   QR: string;
+// };
+
+export type VendorsObjInAddedState = {
+  items: ItemObjType[];
+  qrContent: string;
+  qrText: string;
+};
+
+type VendorsInAddedState = Partial<
+  Record<vendorNameType, VendorsObjInAddedState>
+>;
 
 export type addedState = VendorsInAddedState & {
   listItems: ItemObjType[];

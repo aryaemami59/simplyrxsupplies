@@ -6,6 +6,7 @@ import {
   PayloadAction,
   Reducer,
 } from "@reduxjs/toolkit";
+import QRCode from "qrcode";
 import { createSelector } from "reselect";
 import {
   addedState,
@@ -21,6 +22,7 @@ import {
   Link,
   officialVendorNameType,
   vendorNameType,
+  VendorsObjInAddedState,
   vendorsObjType,
 } from "../customTypes/types";
 import {
@@ -61,6 +63,12 @@ export const fetchCategories: FetchCategories = createAsyncThunkFunc(
 
 const empty: [] = [];
 
+const emptyVendorObj: VendorsObjInAddedState = {
+  items: empty,
+  qrContent: "",
+  qrText: "",
+};
+
 const initialState: addedState = {
   listItems: empty,
   compact: false,
@@ -84,8 +92,17 @@ export const addedSlice = createSlice({
   reducers: {
     addItems: (state, action: PayloadAction<addItemsInterface>) => {
       action.payload.vendors.forEach((vendorName: vendorNameType) => {
-        if (!current(state[vendorName])!.includes(action.payload.itemObj)) {
-          state[vendorName]!.push(action.payload.itemObj);
+        if (
+          !current(state[vendorName])!.items.includes(action.payload.itemObj)
+        ) {
+          state[vendorName]!.items.push(action.payload.itemObj);
+          const qr = state[vendorName]!.items.map(
+            ({ itemNumber }) => itemNumber
+          ).join(state.vendorsObj![vendorName].joinChars);
+          QRCode.toDataURL(qr, (err, url) => {
+            state[vendorName]!.qrContent = url;
+          });
+          state[vendorName]!.qrText = qr;
           state.listItems = state.listItems.filter(
             ({ name }) => name !== action.payload.itemObj.name
           );
@@ -96,12 +113,12 @@ export const addedSlice = createSlice({
       state,
       action: PayloadAction<addItemsByVendorInterface>
     ) => {
-      state[action.payload.vendorName]!.push(action.payload.itemObj);
+      state[action.payload.vendorName]!.items.push(action.payload.itemObj);
     },
     removeItems: (state, action: PayloadAction<addItemsByVendorInterface>) => {
-      state[action.payload.vendorName] = state[
+      state[action.payload.vendorName]!.items = state[
         action.payload.vendorName
-      ]!.filter(
+      ]!.items.filter(
         ({ name }: ItemObjType) => name !== action.payload.itemObj.name
       );
     },
@@ -150,7 +167,7 @@ export const addedSlice = createSlice({
         state.vendorsObj = payload as vendorsObjType;
         let val: vendorNameType;
         for (val in payload) {
-          state[val] = empty;
+          state[val] = emptyVendorObj;
         }
         state.vendorsIsLoading = false;
         state.errMsg = "";
@@ -253,7 +270,7 @@ export const itemSlice = createSlice({
 export const selectByVendor =
   (vendorName: vendorNameType) =>
   (state: RootState): ItemObjType[] =>
-    state.added[vendorName]!;
+    state.added[vendorName]!.items;
 
 export const selectVendorsArr = (state: RootState): vendorNameType[] =>
   state.added.vendorsArr ? state.added.vendorsArr : empty;
@@ -269,7 +286,7 @@ export const selectCategoriesArr = (state: RootState): Category[] =>
 export const addedItemsLength =
   (vendorName: vendorNameType) =>
   (state: RootState): number =>
-    state.added[vendorName]!.length;
+    state.added[vendorName]!.items.length;
 
 export const checkIfAddedToOneVendor =
   (itemObj: ItemObjType, vendorName: vendorNameType) =>
@@ -298,9 +315,10 @@ export const selectCategories =
 export const selectQRCodeContent =
   (vendorName: vendorNameType) =>
   (state: RootState): string =>
-    state.added[vendorName]!.map(({ itemNumber }) => itemNumber).join(
-      state.added.vendorsObj?.[vendorName].joinChars
-    );
+    state.added[vendorName]!.qrContent;
+
+export const numbersOnQR = (vendorName: vendorNameType) => (state: RootState) =>
+  state.added[vendorName]!.qrText;
 
 export const checkIfAddedToAllVendors =
   (itemObj: ItemObjType) =>
@@ -326,6 +344,11 @@ export const selectAllVendorOfficialNames = (
     (vendorName: vendorNameType) =>
       state.added.vendorsObj![vendorName].officialName
   );
+
+// export const qr = (state: RootState) => (vendorName: vendorNameType) =>
+//   QRCode.toDataURL(QRCodeContent, (err, url) => {
+//     setSrc(url);
+//   });
 
 export const selectAllListItems = createSelector(
   (state: RootState): ItemObjType[] => state.added.listItems,

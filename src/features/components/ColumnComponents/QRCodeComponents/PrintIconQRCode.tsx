@@ -4,18 +4,19 @@ import { Button, Tooltip } from "@mui/material";
 import printjs from "print-js";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import { Src, vendorNameType } from "../../../../customTypes/types";
+import { selectQRCodeContent } from "../../../../Redux/addedSlice";
+import { useAppSelector } from "../../../../Redux/hooks";
 
 type Props = {
-  src: Src;
-  text: string;
   vendorName: vendorNameType;
 };
 
 const header =
   "You can scan this image on the vendor's website to pull up all the items at once.";
 
-const PrintIconQRCode: FC<Props> = ({ src, text, vendorName }) => {
-  const [show, setShow] = useState(false);
+const PrintIconQRCode: FC<Props> = ({ vendorName }) => {
+  const src = useAppSelector(selectQRCodeContent(vendorName));
+  // const [show, setShow] = useState(false);
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     printjs({
@@ -26,28 +27,31 @@ const PrintIconQRCode: FC<Props> = ({ src, text, vendorName }) => {
     });
   }, [src]);
 
-  const openTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    setShow(true);
-  }, []);
+  // const openTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  //   setShow(true);
+  // }, []);
 
-  const closeTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    setShow(false);
-  }, []);
+  // const closeTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  //   setShow(false);
+  // }, []);
 
   return (
-    <Tooltip
-      title={text}
-      open={show}>
+    <>
+      {/* <Tooltip
+        title={text}
+        open={show}> */}
       <Button
         className="w-auto"
         variant="contained"
         startIcon={<FontAwesomeIcon icon={faPrint} />}
         onClick={clickHandler}
-        onMouseEnter={openTooltip}
-        onMouseLeave={closeTooltip}>
+        // onMouseEnter={openTooltip}
+        // onMouseLeave={closeTooltip}
+      >
         Print QRCode
       </Button>
-    </Tooltip>
+      {/* </Tooltip> */}
+    </>
   );
 };
 

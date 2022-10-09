@@ -17,12 +17,12 @@ import QRCodeImage from "./QRCodeImage";
 const title = "Take a Closer Look at The QRCode";
 
 type Props = {
-  src: Src;
+  // src: Src;
   vendorName: vendorNameType;
-  itemNumbers: ItemNumber;
+  // itemNumbers: ItemNumber;
 };
 
-const QRCodeModal: FC<Props> = ({ src, vendorName, itemNumbers }) => {
+const QRCodeModal: FC<Props> = ({ vendorName }) => {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -76,8 +76,8 @@ const QRCodeModal: FC<Props> = ({ src, vendorName, itemNumbers }) => {
           dividers
           className="justify-content-center d-flex">
           <QRCodeImage
-            src={src}
-            title={itemNumbers}
+            // src={src}
+            // title={itemNumbers}
             vendorName={vendorName}
             className="w-75"
           />
