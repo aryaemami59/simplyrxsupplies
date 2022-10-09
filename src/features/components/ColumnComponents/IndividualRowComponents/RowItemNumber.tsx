@@ -10,11 +10,11 @@ type Props = {
 };
 
 const RowItemNumber: FC<Props> = ({ vendorName, itemObj }) => {
-  const itemNumberShown = useAppSelector(state => state.added.showItemNumber);
+  // const itemNumberShown = useAppSelector(state => state.added.showItemNumber);
 
   return (
     <>
-      {itemNumberShown && (
+      {/* {itemNumberShown && ( */}
         <ListItem divider>
           <ListItemText>Item Number: {itemObj.itemNumber}</ListItemText>
           <CopyIcon
@@ -24,7 +24,7 @@ const RowItemNumber: FC<Props> = ({ vendorName, itemObj }) => {
             vendorName={vendorName}
           />
         </ListItem>
-      )}
+      {/* )} */}
     </>
   );
 };

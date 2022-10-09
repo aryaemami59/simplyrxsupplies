@@ -1,5 +1,4 @@
 import { AsyncThunk } from "@reduxjs/toolkit";
-import { string } from "prop-types";
 import { AppDispatch } from "../Redux/store";
 
 export type ItemObjType = {
@@ -15,12 +14,15 @@ export type ItemObjType = {
 };
 
 type singleVendorObjType = {
-  id: number;
-  officialName: officialVendorNameType;
-  abbrName: vendorNameType;
-  link: Link;
-  joinChars: JoinChars;
-  items: number[];
+  readonly id: number;
+  readonly officialName: officialVendorNameType;
+  readonly abbrName: vendorNameType;
+  readonly link: Link;
+  readonly joinChars: JoinChars;
+  readonly items: number[];
+  itemsAdded?: ItemObjType[];
+  qrContent?: string;
+  qrText?: string;
 };
 
 export type vendorsObjType = Record<vendorNameType, singleVendorObjType>;
@@ -44,26 +46,53 @@ type VendorsInAddedState = Partial<
   Record<vendorNameType, VendorsObjInAddedState>
 >;
 
-export type addedState = VendorsInAddedState & {
+// type vendorsCartObjType = Record<>
+
+export type ItemsObj = Record<ItemNamesType, ItemObjType>;
+
+type EmptyObj = {};
+
+export type addedState = {
   listItems: ItemObjType[];
-  compact: boolean;
-  showItemNumber: boolean;
-  showItemBarcode: boolean;
-  showItemName: boolean;
-  vendorsIsLoading: boolean;
-  categoriesIsLoading: boolean;
   errMsg: string;
-  vendorsArr?: vendorNameType[];
-  vendorsObj?: vendorsObjType;
-  categoriesArr?: Category[];
-  categoriesObj?: categoriesObjType;
+  isLoading: boolean;
+  itemsArr: ItemNamesType[];
+  itemsObj: ItemsObj;
+  vendorsArr: vendorNameType[];
+  vendorsObj: vendorsObjType;
+  categoriesArr: Category[];
+  categoriesObj: categoriesObjType;
 };
 
-export type itemState = Partial<Record<ItemName, ItemObjType>> & {
-  itemsArr: ItemObjType[];
-  isLoading: boolean;
+export type addedStateInitial = {
+  listItems: ItemObjType[];
+  // compact: boolean;
+  // showItemNumber: boolean;
+  // showItemBarcode: boolean;
+  // showItemName: boolean;
+  // vendorsIsLoading: boolean;
+  // categoriesIsLoading: boolean;
+  // vendorsCartObj: {
+  //   [key: vendorNameType]: vendorsObjType & {itemsAdded: ItemObjType}
+  // } & {
+  // itemsCart: {
+  //   [key: ItemNamesType]: ItemObjType
+  // } & {
   errMsg: string;
+  isLoading: boolean;
+  itemsArr: ItemNamesType[] | [];
+  itemsObj: ItemsObj | {};
+  vendorsArr: vendorNameType[] | [];
+  vendorsObj: vendorsObjType | {};
+  categoriesArr: Category[] | [];
+  categoriesObj: categoriesObjType | EmptyObj;
 };
+
+// export type itemState = Partial<Record<ItemName, ItemObjType>> & {
+//   itemsArr: ItemObjType[];
+//   isLoading: boolean;
+//   errMsg: string;
+// };
 
 export type ItemName = ItemNamesType;
 export type ItemNumber = string;
@@ -487,8 +516,14 @@ export type addItemsByVendorInterface = {
   vendorName: vendorNameType;
 };
 
+type fetchedData = {
+  items: ItemObjType[];
+  vendors: vendorsObjType;
+  categories: categoriesObjType;
+};
+
 export type FetchItems = AsyncThunk<
-  ItemObjType[],
+  fetchedData,
   void,
   { dispatch: AppDispatch }
 >;

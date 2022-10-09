@@ -18,10 +18,10 @@ const mapStateToProps = (
   state: RootState,
   ownProps: ParentProps
 ): stateToPropsReturnType => ({
-  checked: state.item[ownProps.itemObj.name]!.vendorsToAdd.includes(
+  checked: state.added.itemsObj[ownProps.itemObj.name]!.vendorsToAdd.includes(
     ownProps.vendorName
   ),
-  disabled: state.item[ownProps.itemObj.name]!.vendorsAdded.includes(
+  disabled: state.added.itemsObj[ownProps.itemObj.name]!.vendorsAdded.includes(
     ownProps.vendorName
   ),
 });

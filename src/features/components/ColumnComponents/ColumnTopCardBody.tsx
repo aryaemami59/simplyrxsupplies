@@ -27,7 +27,7 @@ const ColumnTopCardBody: FC<Props> = ({
       officialVendorName={officialVendorName}
       vendorName={vendorName}
     />
-    <ColumnHideButtons />
+    {/* <ColumnHideButtons /> */}
     <List>
       {addedItems.map(itemObj => (
         <RowSingleContainer

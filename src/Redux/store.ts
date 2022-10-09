@@ -1,11 +1,11 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import logger from "redux-logger";
-import { addedReducer, itemReducer } from "../Redux/addedSlice";
+import { addedReducer } from "../Redux/addedSlice";
 
 export const store = configureStore({
   reducer: {
     added: addedReducer,
-    item: itemReducer,
+    // item: itemReducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat([logger]),
 });

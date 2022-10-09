@@ -12,7 +12,7 @@ type Props = {
 };
 
 const RowBarcodeImage: FC<Props> = ({ itemObj, vendorName }) => {
-  const itemBarcodeShown = useAppSelector(state => state.added.showItemBarcode);
+  // const itemBarcodeShown = useAppSelector(state => state.added.showItemBarcode);
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
@@ -21,7 +21,7 @@ const RowBarcodeImage: FC<Props> = ({ itemObj, vendorName }) => {
 
   return (
     <>
-      {itemBarcodeShown && (
+      {/* {itemBarcodeShown && ( */}
         <div className="my-4 container-fluid">
           <div className="row">
             <div className="col-md-12 position-relative">
@@ -42,7 +42,7 @@ const RowBarcodeImage: FC<Props> = ({ itemObj, vendorName }) => {
             </div>
           </div>
         </div>
-      )}
+      {/* )} */}
     </>
   );
 };

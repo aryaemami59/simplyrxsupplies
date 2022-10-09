@@ -18,9 +18,9 @@ import TopNavbar from "./features/components/TopNavbarComponents/TopNavbar";
 import IsLoading from "./IsLoading";
 import {
   checkIfLoading,
-  fetchCategories,
+  // fetchCategories,
   fetchItems,
-  fetchVendors,
+  // fetchVendors,
   selectErrMsg,
 } from "./Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "./Redux/hooks";
@@ -44,8 +44,8 @@ const App: FC = () => {
 
   useEffect(() => {
     dispatch(fetchItems());
-    dispatch(fetchVendors());
-    dispatch(fetchCategories());
+    // dispatch(fetchVendors());
+    // dispatch(fetchCategories());
   }, [dispatch]);
 
   const isLoading: boolean = useAppSelector(checkIfLoading);

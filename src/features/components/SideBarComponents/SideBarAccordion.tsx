@@ -25,10 +25,10 @@ const SideBarAccordion: FC<Props> = ({ category }) => {
 
   return (
     <div>
-      <Accordion
-        expanded={open}
-        onClick={toggle}>
-        <AccordionSummary className="shadow-sm">
+      <Accordion expanded={open}>
+        <AccordionSummary
+          onClick={toggle}
+          className="shadow-sm">
           <Typography>{category}</Typography>
         </AccordionSummary>
         <AccordionDetails>
