@@ -1,11 +1,11 @@
 import { Button } from "@mui/material";
 import { FC, memo, MouseEventHandler } from "react";
-import { ItemObjType, vendorNameType } from "../../../customTypes/types";
+import { ItemObjType, VendorNameType } from "../../../customTypes/types";
 import { selectVendorOfficialName } from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
 
 type Props = {
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
   itemObj: ItemObjType;
   clickHandler?: MouseEventHandler<HTMLButtonElement>;
   disabled: boolean;

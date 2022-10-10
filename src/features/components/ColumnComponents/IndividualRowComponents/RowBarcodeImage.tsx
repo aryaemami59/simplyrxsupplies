@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
+import { ItemObjType, VendorNameType } from "../../../../customTypes/types";
 import { selectVendorOfficialName } from "../../../../Redux/addedSlice";
 import { useAppSelector } from "../../../../Redux/hooks";
 import BarcodeImage from "./BarcodeImage";
@@ -8,7 +8,7 @@ import PrintBarcodeIcon from "./PrintBarcodeIcon";
 
 type Props = {
   itemObj: ItemObjType;
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
 };
 
 const RowBarcodeImage: FC<Props> = ({ itemObj, vendorName }) => {
@@ -22,26 +22,26 @@ const RowBarcodeImage: FC<Props> = ({ itemObj, vendorName }) => {
   return (
     <>
       {/* {itemBarcodeShown && ( */}
-        <div className="my-4 container-fluid">
-          <div className="row">
-            <div className="col-md-12 position-relative">
-              <div className="row justify-content-center">
-                <PrintBarcodeIcon
-                  itemObj={itemObj}
-                  text="Print This Barcode"
-                  header={header}
-                />
-                <RowBarcodeModal itemObj={itemObj} />
-              </div>
-              <div className="row justify-content-center">
-                <BarcodeImage
-                  itemObj={itemObj}
-                  className="w-auto"
-                />
-              </div>
+      <div className="my-4 container-fluid">
+        <div className="row">
+          <div className="col-md-12 position-relative">
+            <div className="row justify-content-center">
+              <PrintBarcodeIcon
+                itemObj={itemObj}
+                text="Print This Barcode"
+                header={header}
+              />
+              <RowBarcodeModal itemObj={itemObj} />
+            </div>
+            <div className="row justify-content-center">
+              <BarcodeImage
+                itemObj={itemObj}
+                className="w-auto"
+              />
             </div>
           </div>
         </div>
+      </div>
       {/* )} */}
     </>
   );

@@ -1,15 +1,15 @@
 import { Link, Tooltip } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import {
-  officialVendorNameType,
-  vendorNameType,
+  OfficialVendorNameType,
+  VendorNameType,
 } from "../../../customTypes/types";
 import { selectVendorsLinks } from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
 
 type Props = {
-  officialVendorName: officialVendorNameType;
-  vendorName: vendorNameType;
+  officialVendorName: OfficialVendorNameType;
+  vendorName: VendorNameType;
 };
 
 const VendorLink: FC<Props> = ({ officialVendorName, vendorName }) => {

@@ -4,15 +4,15 @@ import ColumnTopCardBody from "./ColumnTopCardBody";
 import EmptyColumn from "./EmptyColumn";
 import {
   ItemObjType,
-  vendorNameType,
-  officialVendorNameType,
+  VendorNameType,
+  OfficialVendorNameType,
 } from "../../../customTypes/types";
 
 type Props = {
   handleKeyDown: (e: KeyboardEvent<HTMLElement>) => void;
   addedItems: ItemObjType[];
-  vendorName: vendorNameType;
-  officialVendorName: officialVendorNameType;
+  vendorName: VendorNameType;
+  officialVendorName: OfficialVendorNameType;
 };
 
 const VendorColumnCard: FC<Props> = ({

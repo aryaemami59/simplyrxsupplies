@@ -1,11 +1,11 @@
 import { ListItem, ListItemText } from "@mui/material";
 import { FC, memo } from "react";
-import { ItemObjType, vendorNameType } from "../../../../../customTypes/types";
+import { ItemObjType, VendorNameType } from "../../../../../customTypes/types";
 import CopyIcon from "../CopyIcon";
 
 type Props = {
   itemObj: ItemObjType;
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
 };
 
 const ModalItemNumber: FC<Props> = ({ itemObj, vendorName }) => (

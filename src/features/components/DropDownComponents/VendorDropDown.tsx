@@ -6,10 +6,18 @@ import {
   PaperProps,
   PopoverOrigin,
 } from "@mui/material";
-import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
-import { shallowEqual } from "react-redux";
-import { vendorNameType } from "../../../customTypes/types";
 import {
+  FC,
+  memo,
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import { shallowEqual } from "react-redux";
+import { VendorNameType } from "../../../customTypes/types";
+import {
+  selectItemNamesByVendor,
   selectItemsByVendor,
   selectVendorOfficialName,
 } from "../../../Redux/addedSlice";
@@ -39,7 +47,7 @@ const paperProps: PaperProps = {
 };
 
 type Props = {
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
 };
 
 const VendorDropDown: FC<Props> = ({ vendorName }) => {
@@ -48,7 +56,16 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
-  const items = useAppSelector(selectItemsByVendor(vendorName), shallowEqual);
+
+  const itemNames = useAppSelector(
+    selectItemNamesByVendor(vendorName),
+    shallowEqual
+  );
+  // const items = useAppSelector(selectItemsByVendor(vendorName), shallowEqual);
+
+  useEffect(() => {
+    console.log("items changed");
+  }, [itemNames]);
 
   const handleOpen: MouseEventHandler<HTMLElement> = useCallback(event => {
     setAnchorEl(event.currentTarget);
@@ -71,7 +88,7 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
         {officialVendorName}
       </Button>
       <Menu
-        // keepMounted
+        keepMounted
         id={officialVendorName}
         MenuListProps={menuListProps}
         anchorEl={anchorEl}
@@ -80,10 +97,10 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
         transformOrigin={transformOrigin}
         anchorOrigin={anchorOrigin}
         PaperProps={paperProps}>
-        {items.map(itemObj => (
+        {itemNames.map(itemName => (
           <SingleDropDown
-            key={`${itemObj.id}-${vendorName}`}
-            {...{ itemObj, vendorName }}
+            key={`${itemName}-${vendorName}`}
+            {...{ itemName, vendorName }}
           />
         ))}
       </Menu>

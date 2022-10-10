@@ -1,11 +1,11 @@
 import { Badge } from "@mui/material";
 import { FC, memo } from "react";
-import { vendorNameType } from "../../../../customTypes/types";
+import { VendorNameType } from "../../../../customTypes/types";
 import { addedItemsLength } from "../../../../Redux/addedSlice";
 import { useAppSelector } from "../../../../Redux/hooks";
 
 type Props = {
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
 };
 
 const RowCounterBadge: FC<Props> = ({ vendorName }) => {

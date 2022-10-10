@@ -2,7 +2,7 @@ import { Collapse } from "@mui/material";
 import Button from "@mui/material/Button";
 import { FC, KeyboardEvent, memo, useCallback, useState } from "react";
 import { shallowEqual } from "react-redux";
-import { vendorNameType } from "../../../customTypes/types";
+import { VendorNameType } from "../../../customTypes/types";
 import {
   selectByVendor,
   selectVendorOfficialName,
@@ -12,7 +12,7 @@ import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge";
 import VendorColumnCard from "./VendorColumnCard";
 
 type Props = {
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
 };
 
 const VendorColumn: FC<Props> = ({ vendorName }) => {
@@ -44,7 +44,13 @@ const VendorColumn: FC<Props> = ({ vendorName }) => {
         {officialVendorName}
         <RowCounterBadge vendorName={vendorName} />
       </Button>
-      <Collapse in={open}>
+      <Collapse
+        in={open}
+        // enter
+        // mountOnEnter
+        // unmountOnExit
+        // appear
+      >
         <div>
           <VendorColumnCard
             officialVendorName={officialVendorName}

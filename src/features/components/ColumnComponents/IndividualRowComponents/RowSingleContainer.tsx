@@ -1,6 +1,6 @@
 import { Button, ButtonGroup, Collapse, Fade } from "@mui/material";
 import { FC, KeyboardEvent, memo, useCallback, useState } from "react";
-import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
+import { ItemObjType, VendorNameType } from "../../../../customTypes/types";
 import CollapseButton from "./CollapseButton";
 import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal";
 import RowDeleteButton from "./RowDeleteButton";
@@ -8,7 +8,7 @@ import RowSingleItemInfo from "./RowSingleItemInfo";
 
 type Props = {
   itemObj: ItemObjType;
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
 };
 
 const RowSingleContainer: FC<Props> = ({ itemObj, vendorName }) => {

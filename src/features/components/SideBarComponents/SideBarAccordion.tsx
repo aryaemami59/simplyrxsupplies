@@ -19,16 +19,18 @@ const SideBarAccordion: FC<Props> = ({ category }) => {
   const sidebarItems = useAppSelector(selectCategories(category), shallowEqual);
   const [open, setOpen] = useState(false);
 
-  const toggle: MouseEventHandler<HTMLDivElement> = useCallback(() => {
+  const toggle = useCallback(() => {
     setOpen(prev => !prev);
   }, []);
 
   return (
     <div>
-      <Accordion expanded={open}>
-        <AccordionSummary
-          onClick={toggle}
-          className="shadow-sm">
+      <Accordion
+        TransitionProps={{ unmountOnExit: true }}
+        expanded={open}
+        onChange={toggle}
+        variant="outlined">
+        <AccordionSummary className="shadow-sm">
           <Typography>{category}</Typography>
         </AccordionSummary>
         <AccordionDetails>

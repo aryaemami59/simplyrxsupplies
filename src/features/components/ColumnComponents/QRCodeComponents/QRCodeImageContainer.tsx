@@ -1,11 +1,11 @@
 import { FC, memo } from "react";
-import { vendorNameType } from "../../../../customTypes/types";
+import { VendorNameType } from "../../../../customTypes/types";
 import PrintIconQRCode from "./PrintIconQRCode";
 import QRCodeImage from "./QRCodeImage";
 import QRCodeModal from "./QRCodeModal";
 
 type Props = {
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
 };
 
 const QRCodeImageContainer: FC<Props> = ({ vendorName }) => (

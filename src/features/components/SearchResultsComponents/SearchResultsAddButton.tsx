@@ -20,7 +20,9 @@ const SearchResultsAddButton: FC<Props> = ({ itemObj }) => {
   const dispatch = useAppDispatch();
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    IfAddedToAllVendors || dispatch(addItems({ itemObj, vendors }));
+    IfAddedToAllVendors ||
+      !vendors.length ||
+      dispatch(addItems({ itemObj, vendors }));
   }, [IfAddedToAllVendors, dispatch, itemObj, vendors]);
 
   return (

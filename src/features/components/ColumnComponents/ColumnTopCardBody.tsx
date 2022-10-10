@@ -2,8 +2,8 @@ import { CardContent, List } from "@mui/material";
 import { FC, memo } from "react";
 import {
   ItemObjType,
-  officialVendorNameType,
-  vendorNameType,
+  OfficialVendorNameType,
+  VendorNameType,
 } from "../../../customTypes/types";
 import ColumnHideButtons from "./ColumnHideButtons";
 import RowSingleContainer from "./IndividualRowComponents/RowSingleContainer";
@@ -12,8 +12,8 @@ import VendorLink from "./VendorLink";
 
 type Props = {
   addedItems: ItemObjType[];
-  vendorName: vendorNameType;
-  officialVendorName: officialVendorNameType;
+  vendorName: VendorNameType;
+  officialVendorName: OfficialVendorNameType;
 };
 
 const ColumnTopCardBody: FC<Props> = ({

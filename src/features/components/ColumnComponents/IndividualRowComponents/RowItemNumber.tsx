@@ -1,12 +1,12 @@
 import { ListItem, ListItemText } from "@mui/material";
 import { FC, memo } from "react";
-import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
+import { ItemObjType, VendorNameType } from "../../../../customTypes/types";
 import { useAppSelector } from "../../../../Redux/hooks";
 import CopyIcon from "./CopyIcon";
 
 type Props = {
   itemObj: ItemObjType;
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
 };
 
 const RowItemNumber: FC<Props> = ({ vendorName, itemObj }) => {
@@ -15,15 +15,15 @@ const RowItemNumber: FC<Props> = ({ vendorName, itemObj }) => {
   return (
     <>
       {/* {itemNumberShown && ( */}
-        <ListItem divider>
-          <ListItemText>Item Number: {itemObj.itemNumber}</ListItemText>
-          <CopyIcon
-            content={itemObj.itemNumber}
-            text={"Number"}
-            itemObj={itemObj}
-            vendorName={vendorName}
-          />
-        </ListItem>
+      <ListItem divider>
+        <ListItemText>Item Number: {itemObj.itemNumber}</ListItemText>
+        <CopyIcon
+          content={itemObj.itemNumber}
+          text={"Number"}
+          itemObj={itemObj}
+          vendorName={vendorName}
+        />
+      </ListItem>
       {/* )} */}
     </>
   );

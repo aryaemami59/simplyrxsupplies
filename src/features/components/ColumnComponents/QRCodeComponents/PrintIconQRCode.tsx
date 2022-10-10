@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Tooltip } from "@mui/material";
 import printjs from "print-js";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
-import { Src, vendorNameType } from "../../../../customTypes/types";
+import { Src, VendorNameType } from "../../../../customTypes/types";
 import { selectQRCodeContent } from "../../../../Redux/addedSlice";
 import { useAppSelector } from "../../../../Redux/hooks";
 
 type Props = {
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
 };
 
 const header =

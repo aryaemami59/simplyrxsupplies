@@ -6,14 +6,14 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { FC, memo } from "react";
-import { ItemObjType, vendorNameType } from "../../../../../customTypes/types";
+import { ItemObjType, VendorNameType } from "../../../../../customTypes/types";
 import ModalBodyContent from "./ModalBodyContent";
 
 type Props = {
   hideModal: () => void;
   itemObj: ItemObjType;
   modalOpen: boolean;
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
 };
 
 const RowItemsDialog: FC<Props> = ({

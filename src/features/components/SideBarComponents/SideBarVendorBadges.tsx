@@ -1,7 +1,7 @@
 import { Checkbox, FormControlLabel } from "@mui/material";
 import { FC, memo } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { ItemObjType, vendorNameType } from "../../../customTypes/types";
+import { ItemObjType, VendorNameType } from "../../../customTypes/types";
 import {
   selectVendorOfficialName,
   setVendors,
@@ -37,7 +37,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type ParentProps = {
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
   itemObj: ItemObjType;
 };
 

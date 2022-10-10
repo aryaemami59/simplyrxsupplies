@@ -2,7 +2,7 @@ import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Tooltip } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
-import { vendorNameType } from "../../../../customTypes/types";
+import { VendorNameType } from "../../../../customTypes/types";
 import { selectVendorOfficialName } from "../../../../Redux/addedSlice";
 import { useAppSelector } from "../../../../Redux/hooks";
 import QRCodeDialog from "./QRCodeDialog";
@@ -10,7 +10,7 @@ import QRCodeDialog from "./QRCodeDialog";
 const title = "Take a Closer Look at The QRCode";
 
 type Props = {
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
 };
 
 const QRCodeModal: FC<Props> = ({ vendorName }) => {

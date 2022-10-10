@@ -1,11 +1,11 @@
 import src from "print-js";
 import { FC, memo } from "react";
-import { vendorNameType } from "../../../../customTypes/types";
+import { VendorNameType } from "../../../../customTypes/types";
 import { numbersOnQR, selectQRCodeContent } from "../../../../Redux/addedSlice";
 import { useAppSelector } from "../../../../Redux/hooks";
 
 type Props = {
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
   className?: string;
 };
 

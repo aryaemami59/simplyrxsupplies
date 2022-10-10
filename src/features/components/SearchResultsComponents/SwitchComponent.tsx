@@ -1,7 +1,7 @@
 import { FormControlLabel, Switch } from "@mui/material";
 import { FC, memo } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { ItemObjType, vendorNameType } from "../../../customTypes/types";
+import { ItemObjType, VendorNameType } from "../../../customTypes/types";
 import {
   selectVendorOfficialName,
   setVendors,
@@ -46,7 +46,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 type ParentProps = {
   itemObj: ItemObjType;
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
 };
 
 type myProps = ParentProps & PropsFromRedux;

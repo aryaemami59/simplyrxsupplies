@@ -10,7 +10,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
+import { ItemObjType, VendorNameType } from "../../../../customTypes/types";
 
 const EXPAND = "Expand" as const;
 const COLLAPSE = "Collapse" as const;
@@ -18,7 +18,7 @@ const COLLAPSE = "Collapse" as const;
 type Props = {
   open: boolean;
   toggle: MouseEventHandler<HTMLButtonElement>;
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
   itemObj: ItemObjType;
 };
 

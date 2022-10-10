@@ -7,92 +7,60 @@ export type ItemObjType = {
   readonly itemNumber: ItemNumber;
   readonly keywords: Keyword[];
   readonly category: Category[];
-  readonly vendors: vendorNameType[];
+  readonly vendors: VendorNameType[];
   readonly src: Src;
-  vendorsToAdd: vendorNameType[];
-  vendorsAdded: vendorNameType[];
+  vendorsToAdd: VendorNameType[];
+  vendorsAdded: VendorNameType[];
 };
 
-type singleVendorObjType = {
+export type SingleVendorObjType = {
   readonly id: number;
-  readonly officialName: officialVendorNameType;
-  readonly abbrName: vendorNameType;
+  readonly officialName: OfficialVendorNameType;
+  readonly abbrName: VendorNameType;
   readonly link: Link;
   readonly joinChars: JoinChars;
-  readonly items: number[];
-  itemsAdded?: ItemObjType[];
-  qrContent?: string;
-  qrText?: string;
-};
-
-export type vendorsObjType = Record<vendorNameType, singleVendorObjType>;
-
-export type categoriesObjType = Record<
-  Category,
-  { id: number; items: number[] }
->;
-
-// type VendorsInAddedState = Partial<Record<vendorNameType, ItemObjType[]>> & {
-//   QR: string;
-// };
-
-export type VendorsObjInAddedState = {
-  items: ItemObjType[];
+  readonly itemIds: number[];
+  itemsAdded: ItemObjType[];
   qrContent: string;
   qrText: string;
 };
 
-type VendorsInAddedState = Partial<
-  Record<vendorNameType, VendorsObjInAddedState>
->;
+export type VendorsObjType = Record<VendorNameType, SingleVendorObjType>;
 
-// type vendorsCartObjType = Record<>
+export type CategoriesObjType = Record<
+  Category,
+  { id: number; itemIds: number[] }
+>;
 
 export type ItemsObj = Record<ItemNamesType, ItemObjType>;
 
-type EmptyObj = {};
+export type EmptyObj = {};
 
-export type addedState = {
+export type EmptyArr = [];
+
+export type AddedState = {
   listItems: ItemObjType[];
   errMsg: string;
   isLoading: boolean;
   itemsArr: ItemNamesType[];
   itemsObj: ItemsObj;
-  vendorsArr: vendorNameType[];
-  vendorsObj: vendorsObjType;
+  vendorsArr: VendorNameType[];
+  vendorsObj: VendorsObjType;
   categoriesArr: Category[];
-  categoriesObj: categoriesObjType;
+  categoriesObj: CategoriesObjType;
 };
 
-export type addedStateInitial = {
+export type AddedStateInitial = {
   listItems: ItemObjType[];
-  // compact: boolean;
-  // showItemNumber: boolean;
-  // showItemBarcode: boolean;
-  // showItemName: boolean;
-  // vendorsIsLoading: boolean;
-  // categoriesIsLoading: boolean;
-  // vendorsCartObj: {
-  //   [key: vendorNameType]: vendorsObjType & {itemsAdded: ItemObjType}
-  // } & {
-  // itemsCart: {
-  //   [key: ItemNamesType]: ItemObjType
-  // } & {
   errMsg: string;
   isLoading: boolean;
-  itemsArr: ItemNamesType[] | [];
-  itemsObj: ItemsObj | {};
-  vendorsArr: vendorNameType[] | [];
-  vendorsObj: vendorsObjType | {};
-  categoriesArr: Category[] | [];
-  categoriesObj: categoriesObjType | EmptyObj;
+  itemsArr: ItemNamesType[] | EmptyArr;
+  itemsObj: ItemsObj | EmptyObj;
+  vendorsArr: VendorNameType[] | EmptyArr;
+  vendorsObj: VendorsObjType | EmptyObj;
+  categoriesArr: Category[] | EmptyArr;
+  categoriesObj: CategoriesObjType | EmptyObj;
 };
-
-// export type itemState = Partial<Record<ItemName, ItemObjType>> & {
-//   itemsArr: ItemObjType[];
-//   isLoading: boolean;
-//   errMsg: string;
-// };
 
 export type ItemName = ItemNamesType;
 export type ItemNumber = string;
@@ -102,7 +70,7 @@ export type Src = string;
 export type Link = string;
 export type JoinChars = string;
 
-export type vendorNameType =
+export type VendorNameType =
   | "OI"
   | "GNFR"
   | "SOC"
@@ -111,7 +79,7 @@ export type vendorNameType =
   | "COV"
   | "FORS";
 
-export type officialVendorNameType =
+export type OfficialVendorNameType =
   | "McKesson"
   | "OrderInsite"
   | "GNFR"
@@ -506,36 +474,36 @@ type ItemNamesType =
   | "Cisco 7962 IP Phone"
   | "TC70x Handheld";
 
-export type addItemsInterface = {
+export type AddItemsInterface = {
   itemObj: ItemObjType;
-  vendors: vendorNameType[];
+  vendors: VendorNameType[];
 };
 
-export type addItemsByVendorInterface = {
+export type AddItemsByVendorInterface = {
   itemObj: ItemObjType;
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
 };
 
-type fetchedData = {
+type FetchedData = {
   items: ItemObjType[];
-  vendors: vendorsObjType;
-  categories: categoriesObjType;
+  vendors: VendorsObjType;
+  categories: CategoriesObjType;
 };
 
 export type FetchItems = AsyncThunk<
-  fetchedData,
+  FetchedData,
   void,
   { dispatch: AppDispatch }
 >;
 
-export type FetchVendors = AsyncThunk<
-  vendorsObjType,
-  void,
-  { dispatch: AppDispatch }
->;
+// export type FetchVendors = AsyncThunk<
+//   vendorsObjType,
+//   void,
+//   { dispatch: AppDispatch }
+// >;
 
-export type FetchCategories = AsyncThunk<
-  categoriesObjType,
-  void,
-  { dispatch: AppDispatch }
->;
+// export type FetchCategories = AsyncThunk<
+//   categoriesObjType,
+//   void,
+//   { dispatch: AppDispatch }
+// >;

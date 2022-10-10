@@ -1,13 +1,13 @@
 import { List } from "@mui/material";
 import { FC, memo } from "react";
-import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
+import { ItemObjType, VendorNameType } from "../../../../customTypes/types";
 import RowBarcodeImage from "./RowBarcodeImage";
 import RowItemName from "./RowItemName";
 import RowItemNumber from "./RowItemNumber";
 
 type Props = {
   itemObj: ItemObjType;
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
 };
 
 const RowSingleItemInfo: FC<Props> = ({ itemObj, vendorName }) => (

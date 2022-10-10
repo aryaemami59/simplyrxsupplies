@@ -7,16 +7,16 @@ import {
 } from "@mui/material";
 import QRCodeImage from "./QRCodeImage";
 import {
-  officialVendorNameType,
-  vendorNameType,
+  OfficialVendorNameType,
+  VendorNameType,
 } from "../../../../customTypes/types";
 import { FC, memo } from "react";
 
 type Props = {
   hideModal: () => void;
-  officialVendorName: officialVendorNameType;
+  officialVendorName: OfficialVendorNameType;
   show: boolean;
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
 };
 
 const QRCodeDialog: FC<Props> = ({

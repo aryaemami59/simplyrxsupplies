@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
 import {
   ItemObjType,
-  officialVendorNameType,
+  OfficialVendorNameType,
 } from "../../../../../customTypes/types";
 import BarcodeImage from "../BarcodeImage";
 import PrintBarcodeIcon from "../PrintBarcodeIcon";
@@ -9,7 +9,7 @@ import RowBarcodeModal from "./RowBarcodeModal";
 
 type Props = {
   itemObj: ItemObjType;
-  officialVendorName: officialVendorNameType;
+  officialVendorName: OfficialVendorNameType;
 };
 
 const ModalBarcodeContainer: FC<Props> = ({ itemObj, officialVendorName }) => {

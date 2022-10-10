@@ -2,14 +2,14 @@ import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Tooltip } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
-import { ItemObjType, vendorNameType } from "../../../../../customTypes/types";
+import { ItemObjType, VendorNameType } from "../../../../../customTypes/types";
 import RowItemsDialog from "./RowItemsDialog";
 
 const title = "Take a Closer Look at The Item Info";
 
 type Props = {
   itemObj: ItemObjType;
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
 };
 
 const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />;

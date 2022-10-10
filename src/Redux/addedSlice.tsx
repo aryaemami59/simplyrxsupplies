@@ -1,36 +1,26 @@
 import {
-  AnyAction,
   createAsyncThunk,
   createSlice,
   current,
   PayloadAction,
-  Reducer,
 } from "@reduxjs/toolkit";
 import QRCode from "qrcode";
 import { createSelector } from "reselect";
 import {
-  addedStateInitial,
-  addItemsByVendorInterface,
-  addItemsInterface,
-  categoriesObjType,
+  AddedState,
+  AddItemsByVendorInterface,
+  AddItemsInterface,
+  CategoriesObjType,
   Category,
-  FetchCategories,
   FetchItems,
-  FetchVendors,
   ItemObjType,
   Link,
-  officialVendorNameType,
-  vendorNameType,
-  VendorsObjInAddedState,
-  vendorsObjType,
+  OfficialVendorNameType,
+  VendorNameType,
 } from "../customTypes/types";
-import {
-  GITHUB_URL_CATEGORIES,
-  GITHUB_URL_ITEMS,
-  GITHUB_URL_VENDORS,
-} from "./fetchInfo";
+import { GITHUB_URL_ITEMS } from "./fetchInfo";
 import { RootState } from "./store";
-import { ItemsObj, addedState } from "../customTypes/types";
+import { ItemName } from "../customTypes/types";
 
 const intersection = (firstArray: string[], secondArray: string[]): string[] =>
   firstArray.filter(e => !secondArray.includes(e));
@@ -41,9 +31,7 @@ const createAsyncThunkFunc = (strVal: string, githubUrl: string) =>
     if (!response.ok) {
       return Promise.reject(`Unable to fetch, status: ${response.status}`);
     }
-    const data = await response.json();
-    console.log(data);
-    return data;
+    return await response.json();
     // const myItems = await data[strVal];
     // return myItems;
   });
@@ -70,12 +58,6 @@ export const fetchItems: FetchItems = createAsyncThunkFunc(
 
 const emptyArr: [] = [];
 
-const emptyVendorObj: VendorsObjInAddedState = {
-  items: emptyArr,
-  qrContent: "",
-  qrText: "",
-};
-
 const initialState = {
   listItems: emptyArr,
   // compact: false,
@@ -92,7 +74,7 @@ const initialState = {
   vendorsObj: emptyObj,
   categoriesArr: emptyArr,
   categoriesObj: emptyObj,
-} as unknown as addedState;
+} as unknown as AddedState;
 
 // const itemInitialState: itemState = {
 //   itemsArr: empty,
@@ -104,8 +86,8 @@ export const addedSlice = createSlice({
   name: "added",
   initialState,
   reducers: {
-    addItems: (state, action: PayloadAction<addItemsInterface>) => {
-      action.payload.vendors.forEach((vendorName: vendorNameType) => {
+    addItems: (state, action: PayloadAction<AddItemsInterface>) => {
+      action.payload.vendors.forEach((vendorName: VendorNameType) => {
         if (
           !current(state.vendorsObj[vendorName])!.itemsAdded!.includes(
             action.payload.itemObj
@@ -133,24 +115,37 @@ export const addedSlice = createSlice({
             ? (intersection(
                 action.payload.itemObj.vendors,
                 state.itemsObj[action.payload.itemObj.name]!.vendorsAdded
-              ) as vendorNameType[])
+              ) as VendorNameType[])
             : emptyArr;
         }
       });
     },
     addItemsByVendor: (
       state,
-      action: PayloadAction<addItemsByVendorInterface>
+      action: PayloadAction<AddItemsByVendorInterface>
     ) => {
-      state.vendorsObj[action.payload.vendorName]!.itemsAdded!.push(
-        action.payload.itemObj
-      );
+      const { itemObj, vendorName } = action.payload;
+      state.vendorsObj[vendorName].itemsAdded.push(itemObj);
+      state.itemsObj[itemObj.name].vendorsAdded = [
+        ...state.itemsObj[itemObj.name].vendorsAdded,
+        vendorName,
+      ];
+      state.itemsObj[itemObj.name].vendorsToAdd = state.itemsObj[itemObj.name]
+        .vendorsToAdd.length
+        ? (intersection(
+            itemObj.vendors,
+            state.itemsObj[itemObj.name].vendorsAdded
+          ) as VendorNameType[])
+        : emptyArr;
     },
-    removeItems: (state, action: PayloadAction<addItemsByVendorInterface>) => {
-      state.vendorsObj![action.payload.vendorName]!.itemsAdded =
-        state.vendorsObj![action.payload.vendorName]!.itemsAdded!.filter(
-          ({ id }: ItemObjType) => id !== action.payload.itemObj.id
-        );
+    removeItems: (state, action: PayloadAction<AddItemsByVendorInterface>) => {
+      const { itemObj, vendorName } = action.payload;
+      state.vendorsObj[vendorName].itemsAdded = state.vendorsObj![
+        vendorName
+      ].itemsAdded.filter(({ id }) => id !== itemObj.id);
+      state.itemsObj[itemObj.name]!.vendorsAdded = state.itemsObj[
+        itemObj.name
+      ].vendorsAdded.filter(vendor => vendor !== vendorName);
     },
     setListItems: (state, action: PayloadAction<ItemObjType[]>) => {
       state.listItems = action.payload;
@@ -158,7 +153,7 @@ export const addedSlice = createSlice({
     clearListItems: state => {
       state.listItems = emptyArr;
     },
-    setVendors: (state, action: PayloadAction<addItemsByVendorInterface>) => {
+    setVendors: (state, action: PayloadAction<AddItemsByVendorInterface>) => {
       const { itemObj, vendorName } = action.payload;
       state.itemsObj[itemObj.name]!.vendorsToAdd = state.itemsObj[
         itemObj.name
@@ -199,10 +194,7 @@ export const addedSlice = createSlice({
           vendorsToAdd: itemObj.vendors,
         };
       }
-      state.vendorsArr = Object.keys(vendors) as vendorNameType[];
-      // vendors.
-      // state.vendorsObj = {...vendors, itemsAdded}
-
+      state.vendorsArr = Object.keys(vendors) as VendorNameType[];
       for (const vendorObj of Object.values(vendors)) {
         state.vendorsObj[vendorObj.abbrName] = {
           ...vendorObj,
@@ -213,13 +205,6 @@ export const addedSlice = createSlice({
       }
       state.categoriesArr = Object.keys(categories) as Category[];
       state.categoriesObj = { ...categories };
-      // for (const categoryObj of Object.values(categories)) {
-      //   state.vendorsObj[categoryObj.] = {
-      //     ...categoryObj,
-      //     itemsAdded: emptyObj,
-      //   };
-      // }
-
       state.isLoading = false;
       state.errMsg = "";
     });
@@ -349,17 +334,17 @@ export const addedSlice = createSlice({
 // });
 
 export const selectByVendor =
-  (vendorName: vendorNameType) =>
+  (vendorName: VendorNameType) =>
   (state: RootState): ItemObjType[] =>
-    state.added.vendorsObj[vendorName]!.items.map(
+    state.added.vendorsObj[vendorName]!.itemIds.map(
       e => Object.values(state.added.itemsObj).find(({ id }) => id === e)!
     );
 
-export const selectVendorsArr = (state: RootState): vendorNameType[] =>
+export const selectVendorsArr = (state: RootState): VendorNameType[] =>
   state.added.vendorsArr ? state.added.vendorsArr : emptyArr;
 
 export const selectVendorsLinks =
-  (vendorName: vendorNameType) =>
+  (vendorName: VendorNameType) =>
   (state: RootState): Link =>
     state.added.vendorsObj[vendorName]!.link;
 
@@ -367,44 +352,58 @@ export const selectCategoriesArr = (state: RootState): Category[] =>
   state.added.categoriesArr!;
 
 export const addedItemsLength =
-  (vendorName: vendorNameType) =>
+  (vendorName: VendorNameType) =>
   (state: RootState): number =>
     state.added.vendorsObj[vendorName]!.itemsAdded!.length;
 
 export const checkIfAddedToOneVendor =
-  (itemObj: ItemObjType, vendorName: vendorNameType) =>
+  (itemObj: ItemObjType, vendorName: VendorNameType) =>
   (state: RootState): boolean =>
     state.added[itemObj.name]!.vendorsAdded.includes(vendorName);
 
 export const selectItemsByVendor =
-  (vendorName: vendorNameType) =>
+  (vendorName: VendorNameType) =>
   (state: RootState): ItemObjType[] =>
-    state.added.vendorsObj![vendorName].items.map(
-      (itemId: number) =>
-        Object.values(state.added.itemsObj).find(({ id }) => id === itemId)!
+    Object.values(state.added.itemsObj).filter(({ vendors }) =>
+      vendors.includes(vendorName)
     );
+// state.added.vendorsObj![vendorName].itemIds.map(
+//   (itemId: number) =>
+//     Object.values(state.added.itemsObj).find(({ id }) => id === itemId)!
+// );
+
+export const selectItemNamesByVendor =
+  (vendorName: VendorNameType) => (state: RootState) =>
+    Object.values(state.added.itemsObj)
+      .filter(({ vendors }) => vendors.includes(vendorName))
+      .map(({ name }) => name);
 
 export const selectVendorsToAddTo =
   (itemObj: ItemObjType) =>
-  (state: RootState): vendorNameType[] =>
+  (state: RootState): VendorNameType[] =>
     state.added.itemsObj[itemObj.name]!.vendorsToAdd;
+
+export const selectItemObjByName =
+  (itemName: ItemName) =>
+  (state: RootState): ItemObjType =>
+    state.added.itemsObj[itemName];
 
 export const selectCategories =
   (category: Category) =>
   (state: RootState): ItemObjType[] => {
-    const categoriesObj = state.added.categoriesObj as categoriesObjType;
-    return categoriesObj[category].items.map(
+    const categoriesObj = state.added.categoriesObj as CategoriesObjType;
+    return categoriesObj[category].itemIds.map(
       itemId =>
         Object.values(state.added.itemsObj).find(({ id }) => id === itemId)!
     );
   };
 
 export const selectQRCodeContent =
-  (vendorName: vendorNameType) =>
+  (vendorName: VendorNameType) =>
   (state: RootState): string =>
     state.added.vendorsObj[vendorName]!.qrContent!;
 
-export const numbersOnQR = (vendorName: vendorNameType) => (state: RootState) =>
+export const numbersOnQR = (vendorName: VendorNameType) => (state: RootState) =>
   state.added.vendorsObj[vendorName]!.qrText!;
 
 export const checkIfAddedToAllVendors =
@@ -414,7 +413,7 @@ export const checkIfAddedToAllVendors =
     itemObj.vendors.length;
 
 export const checkIfItemAddedToOneVendor =
-  (vendorName: vendorNameType, itemObj: ItemObjType) =>
+  (vendorName: VendorNameType, itemObj: ItemObjType) =>
   (state: RootState): boolean =>
     state.added.itemsObj[itemObj.name]!.vendorsAdded.includes(vendorName);
 
@@ -422,22 +421,16 @@ export const selectItemsArr = (state: RootState): ItemObjType[] =>
   Object.values(state.added.itemsObj);
 
 export const selectVendorOfficialName =
-  (vendorName: vendorNameType) =>
-  (state: RootState): officialVendorNameType =>
+  (vendorName: VendorNameType) =>
+  (state: RootState): OfficialVendorNameType =>
     state.added.vendorsObj![vendorName].officialName;
 
 export const selectAllVendorOfficialNames = (
   state: RootState
-): officialVendorNameType[] =>
+): OfficialVendorNameType[] =>
   state.added.vendorsArr!.map(
-    (vendorName: vendorNameType) =>
-      state.added.vendorsObj![vendorName].officialName
+    vendorName => state.added.vendorsObj![vendorName].officialName
   );
-
-// export const qr = (state: RootState) => (vendorName: vendorNameType) =>
-//   QRCode.toDataURL(QRCodeContent, (err, url) => {
-//     setSrc(url);
-//   });
 
 export const selectAllListItems = createSelector(
   (state: RootState): ItemObjType[] => state.added.listItems,
@@ -446,8 +439,6 @@ export const selectAllListItems = createSelector(
 
 export const checkIfLoading = (state: RootState): boolean =>
   state.added.isLoading;
-// state.added.vendorsIsLoading ||
-// state.added.categoriesIsLoading;
 
 export const selectErrMsg = (state: RootState): string => state.added.errMsg;
 

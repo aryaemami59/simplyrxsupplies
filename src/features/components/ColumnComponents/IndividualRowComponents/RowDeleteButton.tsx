@@ -2,14 +2,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Button } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
-import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
+import { ItemObjType, VendorNameType } from "../../../../customTypes/types";
 import { removeItems } from "../../../../Redux/addedSlice";
 import { useAppDispatch } from "../../../../Redux/hooks";
 
 const title = "Delete The Item";
 
 type Props = {
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
   itemObj: ItemObjType;
 };
 

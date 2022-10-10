@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import { FC, memo, MouseEventHandler, useCallback, useReducer } from "react";
-import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
+import { ItemObjType, VendorNameType } from "../../../../customTypes/types";
 
 const startIcon = <FontAwesomeIcon icon={faCopy} />;
 
@@ -62,7 +62,7 @@ type reducerState = {
 type Props = {
   content: string;
   text: string;
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
   itemObj: ItemObjType;
 };
 

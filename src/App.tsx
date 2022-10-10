@@ -76,7 +76,7 @@ const App: FC = () => {
           <div className="col-11 col-md-6 col-lg-5 mt-5">
             <InputGroupComponent />
           </div>
-          <div className="col-11 col-md-6 col-lg-4 col-xl-5 my-5 justify-content-center">
+          <div className="col-11 col-md-6 col-lg-4 col-xl-5 my-5 justify-content-center px-5">
             <div className="d-none d-md-block">
               <VendorColumnList />
             </div>
