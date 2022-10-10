@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@mui/material";
-import { FC, memo } from "react";
+import { FC, lazy, memo } from "react";
 import { ItemName } from "../../../customTypes/types";
 import SearchResultsCardBodyContent from "./SearchResultsCardBodyContent";
 
@@ -20,4 +20,5 @@ const SearchResultsSingleCard: FC<Props> = ({ itemName }) => (
   </Card>
 );
 
+// export default lazy(SearchResultsSingleCard);
 export default memo<Props>(SearchResultsSingleCard);

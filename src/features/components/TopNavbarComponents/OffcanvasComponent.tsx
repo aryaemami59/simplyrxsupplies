@@ -33,13 +33,9 @@ const OffcanvasComponent: FC = () => {
   return (
     <>
       <IconButton
-        // size="large"
         onClick={handleOpen}
         className="align-self-start">
-        <MenuIcon
-          // fontSize="large"
-          className="text-white d-lg-none"
-        />
+        <MenuIcon className="text-white d-lg-none" />
       </IconButton>
       <SwipeableDrawer
         onOpen={handleOpen}

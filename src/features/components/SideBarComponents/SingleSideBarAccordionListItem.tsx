@@ -1,11 +1,10 @@
 import { Button, ButtonGroup } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
 import { shallowEqual } from "react-redux";
-import { Category, ItemObjType, ItemName } from "../../../customTypes/types";
+import { ItemName } from "../../../customTypes/types";
 import {
   addItems,
   checkIfAddedToAllVendors,
-  selectItemObjByName,
   selectVendorsByItemName,
   selectVendorsToAddTo,
 } from "../../../Redux/addedSlice";
@@ -13,14 +12,11 @@ import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 import SideBarVendorBadges from "./SideBarVendorBadges";
 
 type Props = {
-  // category: Category;
   itemName: ItemName;
-  // itemObj: ItemObjType;
 };
 
 const SingleSideBarAccordionListItem: FC<Props> = ({ itemName }) => {
   const dispatch = useAppDispatch();
-  // const itemObj = useAppSelector(selectItemObjByName(itemName), shallowEqual);
   const ifAddedToAllVendors = useAppSelector(
     checkIfAddedToAllVendors(itemName)
   );

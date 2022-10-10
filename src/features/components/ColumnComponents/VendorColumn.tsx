@@ -3,9 +3,7 @@ import Button from "@mui/material/Button";
 import { FC, KeyboardEvent, memo, useCallback, useState } from "react";
 import { shallowEqual } from "react-redux";
 import { VendorNameType } from "../../../customTypes/types";
-import {
-  selectVendorOfficialName,
-} from "../../../Redux/addedSlice";
+import { selectVendorOfficialName } from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
 import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge";
 import VendorColumnCard from "./VendorColumnCard";

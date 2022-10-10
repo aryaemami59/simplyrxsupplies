@@ -13,7 +13,6 @@ const TopNavbar: FC = () => (
         <VendorDropDownsList />
       </span>
     </div>
-    {/* <DarkModeTogglerButton /> */}
   </AppBar>
 );
 

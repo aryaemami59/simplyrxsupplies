@@ -6,15 +6,18 @@ import {
   memo,
   MouseEventHandler,
   useCallback,
+  useDeferredValue,
   useRef,
-  useState
+  useState,
+  useTransition,
 } from "react";
 import { Form } from "react-bootstrap";
 import { shallowEqual } from "react-redux";
 import { ItemName } from "../../../customTypes/types";
 import {
   clearListItems,
-  selectItemNamesArr, setListItems
+  selectItemNamesArr,
+  setListItems,
 } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 
@@ -41,6 +44,9 @@ const sortResults = (
 };
 
 const InputFieldComponent: FC = () => {
+  const [val, setVal] = useState("");
+  // const deferredVal = useDeferredValue(val);
+  const [isPending, startTransition] = useTransition();
   const itemNames = useAppSelector(selectItemNamesArr, shallowEqual);
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null!);
@@ -50,8 +56,6 @@ const InputFieldComponent: FC = () => {
     setVal("");
     inputRef.current?.focus();
   }, [dispatch]);
-
-  const [val, setVal] = useState("");
 
   const listItemsFunc = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -88,7 +92,10 @@ const InputFieldComponent: FC = () => {
     (e: ChangeEvent<HTMLInputElement>) => {
       const listItems = listItemsFunc(e);
       setVal(e.target.value);
-      dispatch(setListItems(listItems));
+      startTransition(() => {
+        dispatch(setListItems(listItems));
+      });
+      // dispatch(setListItems(listItems));
     },
     [dispatch, listItemsFunc]
   );

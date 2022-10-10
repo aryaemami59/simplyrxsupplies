@@ -1,6 +1,6 @@
 import { FormControlLabel, Switch } from "@mui/material";
-import { FC, memo, useCallback } from "react";
-import { ItemName, VendorNameType } from "../../../customTypes/types";
+import { FC, memo, useCallback, useMemo } from "react";
+import { VendorAndItemName } from "../../../customTypes/types";
 import {
   checkVendorsAdded,
   checkVendorsToAdd,
@@ -9,52 +9,7 @@ import {
 } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 
-// type stateToPropsReturnType = {
-//   checked: boolean;
-//   disabled: boolean;
-// };
-
-// const mapStateToProps = (
-//   state: RootState,
-//   ownProps: ParentProps
-// ): stateToPropsReturnType => ({
-//   checked: state.added.itemsObj[ownProps.itemName]!.vendorsToAdd.includes(
-//     ownProps.vendorName
-//   ),
-//   disabled: state.added.itemsObj[ownProps.itemName]!.vendorsAdded.includes(
-//     ownProps.vendorName
-//   ),
-// });
-
-// const mapDispatchToProps = (
-//   dispatch: AppDispatch,
-//   ownProps: ParentProps
-// ): { clickHandler: () => void } => ({
-//   clickHandler: () => {
-//     dispatch(
-//       setVendors({
-//         itemObj: ownProps.itemObj,
-//         vendorName: ownProps.vendorName,
-//       })
-//     );
-//   },
-// });
-
-// const connector = connect(mapStateToProps, mapDispatchToProps);
-
-// type PropsFromRedux = ConnectedProps<typeof connector>;
-
-// type ParentProps = {
-//   itemName: ItemName;
-//   vendorName: VendorNameType;
-// };
-
-// type myProps = ParentProps & PropsFromRedux;
-
-type Props = {
-  itemName: ItemName;
-  vendorName: VendorNameType;
-};
+type Props = VendorAndItemName;
 
 const SwitchComponent: FC<Props> = ({ itemName, vendorName }) => {
   const officialVendorName = useAppSelector(
@@ -71,15 +26,25 @@ const SwitchComponent: FC<Props> = ({ itemName, vendorName }) => {
     dispatch(setVendors({ itemName, vendorName }));
   }, [dispatch, itemName, vendorName]);
 
+  // const control = useMemo(
+  //   () => (
+  //     <Switch
+  //       checked={checked}
+  //       disabled={disabled}
+  //       onChange={clickHandler}
+  //     />
+  //   ),
+  //   [checked, clickHandler, disabled]
+  // );
+
   return (
     <FormControlLabel
-      control={
-        <Switch
-          checked={checked}
-          disabled={disabled}
-          onChange={clickHandler}
-        />
-      }
+      checked={checked}
+      disabled={disabled}
+      onChange={clickHandler}
+      disableTypography
+      control={<Switch />}
+      // control={control}
       label={officialVendorName}
     />
   );
