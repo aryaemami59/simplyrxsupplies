@@ -1,6 +1,11 @@
 import { List, ListItemText } from "@mui/material";
 import { FC, memo } from "react";
-import { ItemObjType, VendorNameType } from "../../../../../customTypes/types";
+import {
+  ItemName,
+  ItemObjType,
+  VendorAndItemName,
+  VendorNameType,
+} from "../../../../../customTypes/types";
 import { selectVendorOfficialName } from "../../../../../Redux/addedSlice";
 import { useAppSelector } from "../../../../../Redux/hooks";
 import VendorLink from "../../VendorLink";
@@ -8,12 +13,16 @@ import RowBarcodeImage from "../RowBarcodeImage";
 import RowItemName from "../RowItemName";
 import RowItemNumber from "../RowItemNumber";
 
-type Props = {
-  itemObj: ItemObjType;
-  vendorName: VendorNameType;
-};
+// type Props = {
+//   itemName: ItemName;
 
-const ModalBodyContent: FC<Props> = ({ itemObj, vendorName }) => {
+//   // itemObj: ItemObjType;
+//   vendorName: VendorNameType;
+// };
+
+type Props = VendorAndItemName;
+
+const ModalBodyContent: FC<Props> = ({ itemName, vendorName }) => {
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
@@ -25,18 +34,18 @@ const ModalBodyContent: FC<Props> = ({ itemObj, vendorName }) => {
         className="justify-content-center col-10">
         <div
           className="container"
-          key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
+          key={`${itemName}${vendorName}-VendorColumn-Container-name`}>
           <List>
             <RowItemName
-              itemObj={itemObj}
+              itemName={itemName}
               vendorName={vendorName}
             />
             <RowItemNumber
-              itemObj={itemObj}
+              itemName={itemName}
               vendorName={vendorName}
             />
             <RowBarcodeImage
-              itemObj={itemObj}
+              itemName={itemName}
               vendorName={vendorName}
             />
             <ListItemText>

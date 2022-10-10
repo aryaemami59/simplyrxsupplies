@@ -4,12 +4,12 @@ import { FC, KeyboardEvent, memo, useCallback, useState } from "react";
 import { shallowEqual } from "react-redux";
 import { VendorNameType } from "../../../customTypes/types";
 import {
-  selectByVendor,
   selectVendorOfficialName,
 } from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
 import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge";
 import VendorColumnCard from "./VendorColumnCard";
+import { selectAddedItemsByVendor } from "../../../Redux/addedSlice";
 
 type Props = {
   vendorName: VendorNameType;
@@ -20,7 +20,10 @@ const VendorColumn: FC<Props> = ({ vendorName }) => {
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
-  const addedItems = useAppSelector(selectByVendor(vendorName), shallowEqual);
+  const addedItems = useAppSelector(
+    selectAddedItemsByVendor(vendorName),
+    shallowEqual
+  );
 
   const buttonClick = useCallback(() => {
     setOpen(prev => !prev);
@@ -45,12 +48,11 @@ const VendorColumn: FC<Props> = ({ vendorName }) => {
         <RowCounterBadge vendorName={vendorName} />
       </Button>
       <Collapse
-        in={open}
         // enter
-        // mountOnEnter
-        // unmountOnExit
+        mountOnEnter
+        unmountOnExit
         // appear
-      >
+        in={open}>
         <div>
           <VendorColumnCard
             officialVendorName={officialVendorName}

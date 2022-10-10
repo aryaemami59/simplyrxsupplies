@@ -1,16 +1,7 @@
 import { faMaximize, faMinimize } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
-import Tooltip from "@mui/material/Tooltip";
-import {
-  FC,
-  memo,
-  MouseEventHandler,
-  useCallback,
-  useMemo,
-  useState,
-} from "react";
-import { ItemObjType, VendorNameType } from "../../../../customTypes/types";
+import { FC, memo, MouseEventHandler, useMemo } from "react";
 
 const EXPAND = "Expand" as const;
 const COLLAPSE = "Collapse" as const;
@@ -18,13 +9,13 @@ const COLLAPSE = "Collapse" as const;
 type Props = {
   open: boolean;
   toggle: MouseEventHandler<HTMLButtonElement>;
-  vendorName: VendorNameType;
-  itemObj: ItemObjType;
+  // vendorName: VendorNameType;
+  // itemObj: ItemObjType;
 };
 
-const CollapseButton: FC<Props> = ({ open, toggle, vendorName, itemObj }) => {
-  const [show, setShow] = useState(false);
-  const text = `${open ? COLLAPSE : EXPAND} The Item Info`;
+const CollapseButton: FC<Props> = ({ open, toggle }) => {
+  // const [show, setShow] = useState(false);
+  // const text = `${open ? COLLAPSE : EXPAND} The Item Info`;
 
   // const openTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
   //   setShow(true);

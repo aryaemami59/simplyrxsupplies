@@ -1,13 +1,13 @@
 import { Card, CardContent } from "@mui/material";
 import { FC, memo } from "react";
-import { ItemObjType } from "../../../customTypes/types";
+import { ItemName } from "../../../customTypes/types";
 import SearchResultsCardBodyContent from "./SearchResultsCardBodyContent";
 
 type Props = {
-  itemObj: ItemObjType;
+  itemName: ItemName;
 };
 
-const SearchResultsSingleCard: FC<Props> = ({ itemObj }) => (
+const SearchResultsSingleCard: FC<Props> = ({ itemName }) => (
   <Card
     className="shadow"
     variant="outlined"
@@ -15,7 +15,7 @@ const SearchResultsSingleCard: FC<Props> = ({ itemObj }) => (
     <CardContent
       key={`Card.Body-SingleInputListItems`}
       className="row gy-2 justify-content-center">
-      <SearchResultsCardBodyContent itemObj={itemObj} />
+      <SearchResultsCardBodyContent itemName={itemName} />
     </CardContent>
   </Card>
 );

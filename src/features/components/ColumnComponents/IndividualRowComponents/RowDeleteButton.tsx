@@ -1,25 +1,26 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Button } from "@mui/material";
-import Tooltip from "@mui/material/Tooltip";
-import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
-import { ItemObjType, VendorNameType } from "../../../../customTypes/types";
+import { FC, memo, MouseEventHandler, useCallback } from "react";
+import { VendorAndItemName } from "../../../../customTypes/types";
 import { removeItems } from "../../../../Redux/addedSlice";
 import { useAppDispatch } from "../../../../Redux/hooks";
 
-const title = "Delete The Item";
+// const title = "Delete The Item";
 
-type Props = {
-  vendorName: VendorNameType;
-  itemObj: ItemObjType;
-};
+// type Props = {
+//   vendorName: VendorNameType;
+//   itemObj: ItemObjType;
+// };
 
-const RowDeleteButton: FC<Props> = ({ vendorName, itemObj }) => {
-  const [show, setShow] = useState(false);
+type Props = VendorAndItemName;
+
+const RowDeleteButton: FC<Props> = ({ vendorName, itemName }) => {
+  // const [show, setShow] = useState(false);
   const dispatch = useAppDispatch();
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    dispatch(removeItems({ itemObj, vendorName }));
-  }, [dispatch, itemObj, vendorName]);
+    dispatch(removeItems({ itemName, vendorName }));
+  }, [dispatch, itemName, vendorName]);
 
   // const openTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
   //   setShow(true);

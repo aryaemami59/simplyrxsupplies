@@ -13,10 +13,10 @@ const SearchResultsContainer: FC = () => {
     <>
       <VendorColumnModalComponent />
       <List className="mt-5 px-4">
-        {listItems.map(itemObj => (
+        {listItems.map(itemName => (
           <SearchResultsSingleCard
-            itemObj={itemObj}
-            key={`${itemObj.id}-inputListItems`}
+            itemName={itemName}
+            key={`${itemName}-inputListItems`}
           />
         ))}
       </List>

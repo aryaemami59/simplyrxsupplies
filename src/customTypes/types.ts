@@ -20,7 +20,7 @@ export type SingleVendorObjType = {
   readonly link: Link;
   readonly joinChars: JoinChars;
   readonly itemIds: number[];
-  itemsAdded: ItemObjType[];
+  itemsAdded: ItemName[];
   qrContent: string;
   qrText: string;
 };
@@ -39,7 +39,7 @@ export type EmptyObj = {};
 export type EmptyArr = [];
 
 export type AddedState = {
-  listItems: ItemObjType[];
+  listItems: ItemName[];
   errMsg: string;
   isLoading: boolean;
   itemsArr: ItemNamesType[];
@@ -51,7 +51,7 @@ export type AddedState = {
 };
 
 export type AddedStateInitial = {
-  listItems: ItemObjType[];
+  listItems: ItemName[];
   errMsg: string;
   isLoading: boolean;
   itemsArr: ItemNamesType[] | EmptyArr;
@@ -475,12 +475,17 @@ type ItemNamesType =
   | "TC70x Handheld";
 
 export type AddItemsInterface = {
-  itemObj: ItemObjType;
-  vendors: VendorNameType[];
+  itemName: ItemName;
+  vendorsToAddTo: VendorNameType[];
+};
+
+export type VendorAndItemName = {
+  itemName: ItemName;
+  vendorName: VendorNameType;
 };
 
 export type AddItemsByVendorInterface = {
-  itemObj: ItemObjType;
+  itemName: ItemName;
   vendorName: VendorNameType;
 };
 

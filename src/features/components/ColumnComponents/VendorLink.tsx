@@ -1,5 +1,5 @@
-import { Link, Tooltip } from "@mui/material";
-import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
+import { Link } from "@mui/material";
+import { FC, memo } from "react";
 import {
   OfficialVendorNameType,
   VendorNameType,
@@ -14,8 +14,8 @@ type Props = {
 
 const VendorLink: FC<Props> = ({ officialVendorName, vendorName }) => {
   const vendorLink = useAppSelector(selectVendorsLinks(vendorName));
-  const [open, setOpen] = useState(false);
-  const title = `Go to ${officialVendorName}'s Website`;
+  // const [open, setOpen] = useState(false);
+  // const title = `Go to ${officialVendorName}'s Website`;
 
   // const showTooltip: MouseEventHandler<HTMLAnchorElement> = useCallback(() => {
   //   setOpen(true);

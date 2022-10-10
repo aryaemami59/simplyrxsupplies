@@ -1,19 +1,23 @@
 import { FC, memo } from "react";
 import {
-  ItemObjType,
+  ItemName,
   OfficialVendorNameType,
 } from "../../../../../customTypes/types";
+import { selectItemNumber } from "../../../../../Redux/addedSlice";
+import { useAppSelector } from "../../../../../Redux/hooks";
 import BarcodeImage from "../BarcodeImage";
 import PrintBarcodeIcon from "../PrintBarcodeIcon";
 import RowBarcodeModal from "./RowBarcodeModal";
 
 type Props = {
-  itemObj: ItemObjType;
+  itemName: ItemName;
   officialVendorName: OfficialVendorNameType;
 };
 
-const ModalBarcodeContainer: FC<Props> = ({ itemObj, officialVendorName }) => {
-  const header = `<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`;
+const ModalBarcodeContainer: FC<Props> = ({ itemName, officialVendorName }) => {
+  const itemNumber = useAppSelector(selectItemNumber(itemName));
+
+  const header = `<h2>Item Name: </h2><h1>${itemName}</h1><h2>Item Number: </h2><h1>${itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`;
 
   return (
     <div className="my-4 container-fluid">
@@ -21,14 +25,14 @@ const ModalBarcodeContainer: FC<Props> = ({ itemObj, officialVendorName }) => {
         <div className="position-relative col col-md-12">
           <div className="justify-content-center row">
             <PrintBarcodeIcon
-              itemObj={itemObj}
+              itemName={itemName}
               text={"Print This Barcode"}
               header={header}
             />
-            <RowBarcodeModal itemObj={itemObj} />
+            <RowBarcodeModal itemName={itemName} />
           </div>
           <div className="justify-content-center row">
-            <BarcodeImage itemObj={itemObj} />
+            <BarcodeImage itemName={itemName} />
           </div>
         </div>
       </div>

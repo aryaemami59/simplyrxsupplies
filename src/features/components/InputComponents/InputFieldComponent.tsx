@@ -7,49 +7,48 @@ import {
   MouseEventHandler,
   useCallback,
   useRef,
-  useState,
+  useState
 } from "react";
 import { Form } from "react-bootstrap";
 import { shallowEqual } from "react-redux";
-import { ItemObjType } from "../../../customTypes/types";
+import { ItemName } from "../../../customTypes/types";
 import {
   clearListItems,
-  selectItemsArr,
-  setListItems,
+  selectItemNamesArr, setListItems
 } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 
 const empty: [] = [];
 
 const sortResults = (
-  searchTerm: ItemObjType,
+  searchTerm: ItemName,
   re: RegExp,
   trimmedValue: string
 ): number => {
-  if (searchTerm.name.toLowerCase() === trimmedValue) {
+  if (searchTerm.toLowerCase() === trimmedValue) {
     return 100;
   }
-  if (searchTerm.name.toLowerCase().startsWith(trimmedValue)) {
+  if (searchTerm.toLowerCase().startsWith(trimmedValue)) {
     return 75;
   }
-  if (searchTerm.name.toLowerCase().includes(trimmedValue)) {
+  if (searchTerm.toLowerCase().includes(trimmedValue)) {
     return 50;
   }
-  if (searchTerm.name.toLowerCase().match(re)) {
-    return searchTerm.name.toLowerCase().match(re)!.length;
+  if (searchTerm.toLowerCase().match(re)) {
+    return searchTerm.toLowerCase().match(re)!.length;
   }
   return 0;
 };
 
 const InputFieldComponent: FC = () => {
-  const items = useAppSelector(selectItemsArr, shallowEqual);
+  const itemNames = useAppSelector(selectItemNamesArr, shallowEqual);
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null!);
 
   const clickHandler: MouseEventHandler<SVGSVGElement> = useCallback(() => {
     dispatch(clearListItems());
     setVal("");
-    inputRef.current && inputRef.current.focus();
+    inputRef.current?.focus();
   }, [dispatch]);
 
   const [val, setVal] = useState("");
@@ -72,17 +71,17 @@ const InputFieldComponent: FC = () => {
         .join("");
       const re: RegExp = new RegExp(`${reg}|${looseReg}`, "gi");
       return trimmedValue
-        ? items
-            .filter(({ name }) => name.toLowerCase().trim().match(re))
-            .slice(0, 100)
+        ? itemNames
+            .filter(itemName => itemName.toLowerCase().trim().match(re))
             .sort(
               (a, b) =>
                 sortResults(b, re, trimmedValue) -
                 sortResults(a, re, trimmedValue)
             )
+            .slice(0, 100)
         : empty;
     },
-    [items]
+    [itemNames]
   );
 
   const changeVal = useCallback(

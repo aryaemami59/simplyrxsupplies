@@ -1,24 +1,24 @@
 import { ListItem, ListItemText } from "@mui/material";
 import { FC, memo } from "react";
-import { ItemObjType, VendorNameType } from "../../../../customTypes/types";
-import { useAppSelector } from "../../../../Redux/hooks";
+import { VendorAndItemName } from "../../../../customTypes/types";
 import CopyIcon from "./CopyIcon";
 
-type Props = {
-  itemObj: ItemObjType;
-  vendorName: VendorNameType;
-};
+// type Props = {
+//   itemObj: ItemObjType;
+//   vendorName: VendorNameType;
+// };
+type Props = VendorAndItemName;
 
-const RowItemName: FC<Props> = ({ vendorName, itemObj }) => (
+const RowItemName: FC<Props> = ({ vendorName, itemName }) => (
   <>
     {/* {itemNameShown && ( */}
     <ListItem divider>
-      <ListItemText>Item Name: {itemObj.name}</ListItemText>
+      <ListItemText>Item Name: {itemName}</ListItemText>
       <CopyIcon
-        content={itemObj.name}
+        content={itemName}
         text={"Name"}
-        itemObj={itemObj}
-        vendorName={vendorName}
+        // itemName={itemName}
+        // vendorName={vendorName}
       />
     </ListItem>
     {/* )} */}

@@ -6,19 +6,19 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Tooltip,
+  Tooltip
 } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
-import { ItemObjType } from "../../../../../customTypes/types";
+import { ItemName } from "../../../../../customTypes/types";
 import BarcodeImage from "../BarcodeImage";
 
 const title = "Take a Closer Look at The Barcode";
 
 type Props = {
-  itemObj: ItemObjType;
+  itemName: ItemName;
 };
 
-const RowBarcodeModal: FC<Props> = ({ itemObj }) => {
+const RowBarcodeModal: FC<Props> = ({ itemName }) => {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -41,7 +41,7 @@ const RowBarcodeModal: FC<Props> = ({ itemObj }) => {
   return (
     <>
       <Tooltip
-        key={`RowBarcodeModal-${itemObj.name}`}
+        key={`RowBarcodeModal-${itemName}`}
         onOpen={showTooltip}
         onClose={hideTooltip}
         enterDelay={1500}
@@ -64,12 +64,12 @@ const RowBarcodeModal: FC<Props> = ({ itemObj }) => {
         fullWidth
         open={show}
         onClose={hideModal}>
-        <DialogTitle>{itemObj.name}</DialogTitle>
+        <DialogTitle>{itemName}</DialogTitle>
         <DialogContent
           dividers
           className="justify-content-center d-flex">
           <BarcodeImage
-            itemObj={itemObj}
+            itemName={itemName}
             className="w-100"
           />
         </DialogContent>

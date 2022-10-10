@@ -1,53 +1,38 @@
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
-import Tooltip from "@mui/material/Tooltip";
 import printJS from "print-js";
-import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
-import { ItemObjType } from "../../../../customTypes/types";
+import { FC, memo, MouseEventHandler, useCallback } from "react";
+import { ItemName } from "../../../../customTypes/types";
+import { selectItemSrc } from "../../../../Redux/addedSlice";
+import { useAppSelector } from "../../../../Redux/hooks";
 
 type Props = {
   text: string;
   header: string;
-  itemObj: ItemObjType;
+  itemName: ItemName;
 };
 
-const PrintBarcodeIcon: FC<Props> = ({ text, header, itemObj }) => {
-  const [show, setShow] = useState(false);
+const PrintBarcodeIcon: FC<Props> = ({ text, header, itemName }) => {
+  const src = useAppSelector(selectItemSrc(itemName));
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     printJS({
-      printable: itemObj.src,
+      printable: src,
       type: "image",
       header,
       imageStyle: "width:80%;margin-bottom:20px;",
     });
-  }, [header, itemObj.src]);
-
-  // const openTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-  //   setShow(true);
-  // }, []);
-
-  // const closeTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-  //   setShow(false);
-  // }, []);
+  }, [header, src]);
 
   return (
-    <>
-      {/* <Tooltip
-        title={text}
-        open={show}> */}
-      <Button
-        variant="contained"
-        startIcon={<FontAwesomeIcon icon={faPrint} />}
-        onClick={clickHandler}
-        // onMouseEnter={openTooltip}
-        // onMouseLeave={closeTooltip}
-        className="w-auto">
-        Print Barcode
-      </Button>
-      {/* </Tooltip> */}
-    </>
+    <Button
+      variant="contained"
+      startIcon={<FontAwesomeIcon icon={faPrint} />}
+      onClick={clickHandler}
+      className="w-auto">
+      Print Barcode
+    </Button>
   );
 };
 

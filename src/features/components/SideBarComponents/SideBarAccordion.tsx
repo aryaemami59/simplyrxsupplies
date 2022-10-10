@@ -4,10 +4,10 @@ import {
   AccordionSummary,
   Typography,
 } from "@mui/material";
-import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
+import { FC, memo, useCallback, useState } from "react";
 import { shallowEqual } from "react-redux";
 import { Category } from "../../../customTypes/types";
-import { selectCategories } from "../../../Redux/addedSlice";
+import { selectCategoriesItemNames } from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
 import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
 
@@ -16,7 +16,10 @@ type Props = {
 };
 
 const SideBarAccordion: FC<Props> = ({ category }) => {
-  const sidebarItems = useAppSelector(selectCategories(category), shallowEqual);
+  const sidebarItemNames = useAppSelector(
+    selectCategoriesItemNames(category),
+    shallowEqual
+  );
   const [open, setOpen] = useState(false);
 
   const toggle = useCallback(() => {
@@ -26,7 +29,7 @@ const SideBarAccordion: FC<Props> = ({ category }) => {
   return (
     <div>
       <Accordion
-        TransitionProps={{ unmountOnExit: true }}
+        TransitionProps={{ unmountOnExit: true, mountOnEnter: true }}
         expanded={open}
         onChange={toggle}
         variant="outlined">
@@ -34,10 +37,10 @@ const SideBarAccordion: FC<Props> = ({ category }) => {
           <Typography>{category}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {sidebarItems.map(itemObj => (
+          {sidebarItemNames.map(itemName => (
             <SingleSideBarAccordionListItem
-              key={`${itemObj.id}-SingleSideBarAccordionListItem`}
-              {...{ category, itemObj }}
+              key={`${itemName}-SingleSideBarAccordionListItem`}
+              {...{ category, itemName }}
             />
           ))}
         </AccordionDetails>

@@ -1,23 +1,30 @@
 import { FC, memo } from "react";
-import { ItemObjType, VendorNameType } from "../../../../customTypes/types";
-import { selectVendorOfficialName } from "../../../../Redux/addedSlice";
+import { VendorAndItemName } from "../../../../customTypes/types";
+import {
+  selectItemNumber,
+  selectVendorOfficialName,
+} from "../../../../Redux/addedSlice";
 import { useAppSelector } from "../../../../Redux/hooks";
 import BarcodeImage from "./BarcodeImage";
 import RowBarcodeModal from "./ModalComponents/RowBarcodeModal";
 import PrintBarcodeIcon from "./PrintBarcodeIcon";
 
-type Props = {
-  itemObj: ItemObjType;
-  vendorName: VendorNameType;
-};
+// type Props = {
+//   itemObj: ItemObjType;
+//   vendorName: VendorNameType;
+// };
 
-const RowBarcodeImage: FC<Props> = ({ itemObj, vendorName }) => {
+type Props = VendorAndItemName;
+
+const RowBarcodeImage: FC<Props> = ({ itemName, vendorName }) => {
   // const itemBarcodeShown = useAppSelector(state => state.added.showItemBarcode);
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
 
-  const header = `<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`;
+  const itemNumber = useAppSelector(selectItemNumber(itemName));
+
+  const header = `<h2>Item Name: </h2><h1>${itemName}</h1><h2>Item Number: </h2><h1>${itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`;
 
   return (
     <>
@@ -27,15 +34,15 @@ const RowBarcodeImage: FC<Props> = ({ itemObj, vendorName }) => {
           <div className="col-md-12 position-relative">
             <div className="row justify-content-center">
               <PrintBarcodeIcon
-                itemObj={itemObj}
+                itemName={itemName}
                 text="Print This Barcode"
                 header={header}
               />
-              <RowBarcodeModal itemObj={itemObj} />
+              <RowBarcodeModal itemName={itemName} />
             </div>
             <div className="row justify-content-center">
               <BarcodeImage
-                itemObj={itemObj}
+                itemName={itemName}
                 className="w-auto"
               />
             </div>

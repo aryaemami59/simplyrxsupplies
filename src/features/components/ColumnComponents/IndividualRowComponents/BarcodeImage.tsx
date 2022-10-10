@@ -1,17 +1,23 @@
 import { FC, memo } from "react";
-import { ItemObjType } from "../../../../customTypes/types";
+import { ItemName } from "../../../../customTypes/types";
+import { selectItemSrc } from "../../../../Redux/addedSlice";
+import { useAppSelector } from "../../../../Redux/hooks";
 
 type Props = {
-  itemObj: ItemObjType;
+  itemName: ItemName;
   className?: string;
 };
 
-const BarcodeImage: FC<Props> = ({ itemObj, className }) => (
-  <img
-    src={itemObj.src}
-    alt={itemObj.name}
-    className={`${className} barcode-image`}
-  />
-);
+const BarcodeImage: FC<Props> = ({ itemName, className }) => {
+  const src = useAppSelector(selectItemSrc(itemName));
+
+  return (
+    <img
+      src={src}
+      alt={itemName}
+      className={`${className} barcode-image`}
+    />
+  );
+};
 
 export default memo<Props>(BarcodeImage);

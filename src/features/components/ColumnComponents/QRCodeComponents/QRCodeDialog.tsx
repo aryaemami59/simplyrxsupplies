@@ -5,12 +5,12 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import QRCodeImage from "./QRCodeImage";
+import { FC, memo } from "react";
 import {
   OfficialVendorNameType,
   VendorNameType,
 } from "../../../../customTypes/types";
-import { FC, memo } from "react";
+import QRCodeImage from "./QRCodeImage";
 
 type Props = {
   hideModal: () => void;

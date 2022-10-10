@@ -3,7 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import { FC, memo, MouseEventHandler, useCallback, useReducer } from "react";
-import { ItemObjType, VendorNameType } from "../../../../customTypes/types";
+import {
+  ItemObjType,
+  VendorAndItemName,
+  VendorNameType,
+} from "../../../../customTypes/types";
 
 const startIcon = <FontAwesomeIcon icon={faCopy} />;
 
@@ -62,11 +66,11 @@ type reducerState = {
 type Props = {
   content: string;
   text: string;
-  vendorName: VendorNameType;
-  itemObj: ItemObjType;
+  // vendorName: VendorNameType;
+  // itemObj: ItemObjType;
 };
 
-const CopyIcon: FC<Props> = ({ content, text, vendorName, itemObj }) => {
+const CopyIcon: FC<Props> = ({ content, text }) => {
   const oldText = `Copy The Item ${text}`;
   const copiedText = `Copied Item ${text}!`;
   const [state, dispatch] = useReducer(reducer, {

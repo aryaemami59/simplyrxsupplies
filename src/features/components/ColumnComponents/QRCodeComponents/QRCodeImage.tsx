@@ -1,4 +1,3 @@
-import src from "print-js";
 import { FC, memo } from "react";
 import { VendorNameType } from "../../../../customTypes/types";
 import { numbersOnQR, selectQRCodeContent } from "../../../../Redux/addedSlice";

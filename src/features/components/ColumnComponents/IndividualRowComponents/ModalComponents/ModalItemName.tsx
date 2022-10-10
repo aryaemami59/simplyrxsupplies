@@ -1,24 +1,25 @@
 import { ListItem, ListItemText } from "@mui/material";
 import { FC, memo } from "react";
-import { ItemObjType, VendorNameType } from "../../../../../customTypes/types";
+import { VendorAndItemName } from "../../../../../customTypes/types";
 import CopyIcon from "../CopyIcon";
 
-type Props = {
-  itemObj: ItemObjType;
-  vendorName: VendorNameType;
-};
+// type Props = {
+//   itemObj: ItemObjType;
+//   vendorName: VendorNameType;
+// };
+type Props = VendorAndItemName;
 
-const ModalItemName: FC<Props> = ({ itemObj, vendorName }) => (
+const ModalItemName: FC<Props> = ({ itemName, vendorName }) => (
   <ListItem
     divider
-    key={`${itemObj.name}-${vendorName}-VendorColumn-ListGroupItem-name`}>
-    <ListItemText>Item Name: {itemObj.name}</ListItemText>
+    key={`${itemName}-${vendorName}-VendorColumn-ListGroupItem-name`}>
+    <ListItemText>Item Name: {itemName}</ListItemText>
     <CopyIcon
-      key={`${vendorName}-${itemObj.name}-CopyIconComponent-ItemNameComponent`}
-      content={itemObj.name}
+      key={`${vendorName}-${itemName}-CopyIconComponent-ItemNameComponent`}
+      content={itemName}
       text={"Name"}
-      itemObj={itemObj}
-      vendorName={vendorName}
+      // itemName={itemName}
+      // vendorName={vendorName}
     />
   </ListItem>
 );

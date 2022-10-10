@@ -13,14 +13,16 @@ import {
   CategoriesObjType,
   Category,
   FetchItems,
+  ItemName,
+  ItemNumber,
   ItemObjType,
   Link,
   OfficialVendorNameType,
+  Src,
   VendorNameType,
 } from "../customTypes/types";
 import { GITHUB_URL_ITEMS } from "./fetchInfo";
 import { RootState } from "./store";
-import { ItemName } from "../customTypes/types";
 
 const intersection = (firstArray: string[], secondArray: string[]): string[] =>
   firstArray.filter(e => !secondArray.includes(e));
@@ -87,34 +89,31 @@ export const addedSlice = createSlice({
   initialState,
   reducers: {
     addItems: (state, action: PayloadAction<AddItemsInterface>) => {
-      action.payload.vendors.forEach((vendorName: VendorNameType) => {
+      const { itemName, vendorsToAddTo } = action.payload;
+      vendorsToAddTo.forEach((vendorName: VendorNameType) => {
         if (
-          !current(state.vendorsObj[vendorName])!.itemsAdded!.includes(
-            action.payload.itemObj
-          )
+          !current(state.vendorsObj[vendorName])!.itemsAdded!.includes(itemName)
         ) {
-          state.vendorsObj[vendorName]!.itemsAdded!.push(
-            action.payload.itemObj
-          );
+          state.vendorsObj[vendorName]!.itemsAdded!.push(itemName);
           const qr = state.vendorsObj[vendorName]!.itemsAdded!.map(
-            ({ itemNumber }) => itemNumber
+            itemAddedName => state.itemsObj[itemAddedName].itemNumber
           ).join(state.vendorsObj![vendorName].joinChars);
           QRCode.toDataURL(qr, (err, url) => {
             state.vendorsObj[vendorName]!.qrContent = url;
           });
           state.vendorsObj[vendorName]!.qrText = qr;
           state.listItems = state.listItems.filter(
-            ({ name }) => name !== action.payload.itemObj.name
+            listItemName => listItemName !== itemName
           );
-          state.itemsObj[action.payload.itemObj.name]!.vendorsAdded = [
-            ...state.itemsObj[action.payload.itemObj.name]!.vendorsAdded,
-            ...state.itemsObj[action.payload.itemObj.name]!.vendorsToAdd,
+          state.itemsObj[itemName]!.vendorsAdded = [
+            ...state.itemsObj[itemName]!.vendorsAdded,
+            ...state.itemsObj[itemName]!.vendorsToAdd,
           ];
-          state.itemsObj[action.payload.itemObj.name]!.vendorsToAdd = state
-            .itemsObj[action.payload.itemObj.name]!.vendorsToAdd.length
+          state.itemsObj[itemName]!.vendorsToAdd = state.itemsObj[itemName]!
+            .vendorsToAdd.length
             ? (intersection(
-                action.payload.itemObj.vendors,
-                state.itemsObj[action.payload.itemObj.name]!.vendorsAdded
+                state.itemsObj[itemName].vendors,
+                state.itemsObj[itemName]!.vendorsAdded
               ) as VendorNameType[])
             : emptyArr;
         }
@@ -124,44 +123,44 @@ export const addedSlice = createSlice({
       state,
       action: PayloadAction<AddItemsByVendorInterface>
     ) => {
-      const { itemObj, vendorName } = action.payload;
-      state.vendorsObj[vendorName].itemsAdded.push(itemObj);
-      state.itemsObj[itemObj.name].vendorsAdded = [
-        ...state.itemsObj[itemObj.name].vendorsAdded,
+      const { itemName, vendorName } = action.payload;
+      state.vendorsObj[vendorName].itemsAdded.push(itemName);
+      state.itemsObj[itemName].vendorsAdded = [
+        ...state.itemsObj[itemName].vendorsAdded,
         vendorName,
       ];
-      state.itemsObj[itemObj.name].vendorsToAdd = state.itemsObj[itemObj.name]
+      state.itemsObj[itemName].vendorsToAdd = state.itemsObj[itemName]
         .vendorsToAdd.length
         ? (intersection(
-            itemObj.vendors,
-            state.itemsObj[itemObj.name].vendorsAdded
+            state.itemsObj[itemName].vendors,
+            state.itemsObj[itemName].vendorsAdded
           ) as VendorNameType[])
         : emptyArr;
     },
     removeItems: (state, action: PayloadAction<AddItemsByVendorInterface>) => {
-      const { itemObj, vendorName } = action.payload;
+      const { itemName, vendorName } = action.payload;
       state.vendorsObj[vendorName].itemsAdded = state.vendorsObj![
         vendorName
-      ].itemsAdded.filter(({ id }) => id !== itemObj.id);
-      state.itemsObj[itemObj.name]!.vendorsAdded = state.itemsObj[
-        itemObj.name
+      ].itemsAdded.filter(itemAddedName => itemAddedName !== itemName);
+      state.itemsObj[itemName]!.vendorsAdded = state.itemsObj[
+        itemName
       ].vendorsAdded.filter(vendor => vendor !== vendorName);
     },
-    setListItems: (state, action: PayloadAction<ItemObjType[]>) => {
+    setListItems: (state, action: PayloadAction<ItemName[]>) => {
       state.listItems = action.payload;
     },
     clearListItems: state => {
       state.listItems = emptyArr;
     },
     setVendors: (state, action: PayloadAction<AddItemsByVendorInterface>) => {
-      const { itemObj, vendorName } = action.payload;
-      state.itemsObj[itemObj.name]!.vendorsToAdd = state.itemsObj[
-        itemObj.name
+      const { itemName, vendorName } = action.payload;
+      state.itemsObj[itemName]!.vendorsToAdd = state.itemsObj[
+        itemName
       ]!.vendorsToAdd.includes(action.payload.vendorName)
-        ? state.itemsObj[itemObj.name]!.vendorsToAdd.filter(
+        ? state.itemsObj[itemName]!.vendorsToAdd.filter(
             vendorNameParam => vendorNameParam !== vendorName
           )
-        : state.itemsObj[itemObj.name]!.vendorsToAdd.concat(vendorName);
+        : state.itemsObj[itemName]!.vendorsToAdd.concat(vendorName);
     },
     // compactSearchResults: state => {
     //   state.compact = !state.compact;
@@ -198,7 +197,7 @@ export const addedSlice = createSlice({
       for (const vendorObj of Object.values(vendors)) {
         state.vendorsObj[vendorObj.abbrName] = {
           ...vendorObj,
-          itemsAdded: emptyArr as ItemObjType[],
+          itemsAdded: emptyArr as ItemName[],
           qrContent: "",
           qrText: "",
         };
@@ -340,6 +339,11 @@ export const selectByVendor =
       e => Object.values(state.added.itemsObj).find(({ id }) => id === e)!
     );
 
+export const selectAddedItemsByVendor =
+  (vendorName: VendorNameType) =>
+  (state: RootState): ItemName[] =>
+    state.added.vendorsObj[vendorName].itemsAdded;
+
 export const selectVendorsArr = (state: RootState): VendorNameType[] =>
   state.added.vendorsArr ? state.added.vendorsArr : emptyArr;
 
@@ -379,9 +383,9 @@ export const selectItemNamesByVendor =
       .map(({ name }) => name);
 
 export const selectVendorsToAddTo =
-  (itemObj: ItemObjType) =>
+  (itemName: ItemName) =>
   (state: RootState): VendorNameType[] =>
-    state.added.itemsObj[itemObj.name]!.vendorsToAdd;
+    state.added.itemsObj[itemName]!.vendorsToAdd;
 
 export const selectItemObjByName =
   (itemName: ItemName) =>
@@ -398,6 +402,16 @@ export const selectCategories =
     );
   };
 
+export const selectCategoriesItemNames =
+  (categoryParam: Category) =>
+  (state: RootState): ItemName[] =>
+    Object.values(state.added.itemsObj)
+      .filter(({ category }) => category.includes(categoryParam))
+      .map(({ name }) => name);
+
+export const selectItemNamesArr = (state: RootState): ItemName[] =>
+  state.added.itemsArr;
+
 export const selectQRCodeContent =
   (vendorName: VendorNameType) =>
   (state: RootState): string =>
@@ -407,18 +421,48 @@ export const numbersOnQR = (vendorName: VendorNameType) => (state: RootState) =>
   state.added.vendorsObj[vendorName]!.qrText!;
 
 export const checkIfAddedToAllVendors =
-  (itemObj: ItemObjType) =>
+  (itemName: ItemName) =>
   (state: RootState): boolean =>
-    state.added.itemsObj[itemObj.name]!.vendorsAdded.length ===
-    itemObj.vendors.length;
+    state.added.itemsObj[itemName]!.vendorsAdded.length ===
+    state.added.itemsObj[itemName]!.vendors.length;
+// export const checkIfAddedToAllVendors =
+//   (itemObj: ItemObjType) =>
+//   (state: RootState): boolean =>
+//     state.added.itemsObj[itemObj.name]!.vendorsAdded.length ===
+//     itemObj.vendors.length;
 
 export const checkIfItemAddedToOneVendor =
-  (vendorName: VendorNameType, itemObj: ItemObjType) =>
+  (vendorName: VendorNameType, itemName: ItemName) =>
   (state: RootState): boolean =>
-    state.added.itemsObj[itemObj.name]!.vendorsAdded.includes(vendorName);
+    state.added.itemsObj[itemName]!.vendorsAdded.includes(vendorName);
+
+export const checkVendorsToAdd =
+  (vendorName: VendorNameType, itemName: ItemName) =>
+  (state: RootState): boolean =>
+    state.added.itemsObj[itemName]!.vendorsToAdd.includes(vendorName);
+
+export const checkVendorsAdded =
+  (vendorName: VendorNameType, itemName: ItemName) =>
+  (state: RootState): boolean =>
+    state.added.itemsObj[itemName]!.vendorsAdded.includes(vendorName);
+
+export const selectItemNumber =
+  (itemName: ItemName) =>
+  (state: RootState): ItemNumber =>
+    state.added.itemsObj[itemName].itemNumber;
+
+export const selectItemSrc =
+  (itemName: ItemName) =>
+  (state: RootState): Src =>
+    state.added.itemsObj[itemName].src;
 
 export const selectItemsArr = (state: RootState): ItemObjType[] =>
   Object.values(state.added.itemsObj);
+
+export const selectVendorsByItemName =
+  (itemName: ItemName) =>
+  (state: RootState): VendorNameType[] =>
+    state.added.itemsObj[itemName].vendors;
 
 export const selectVendorOfficialName =
   (vendorName: VendorNameType) =>
@@ -433,8 +477,8 @@ export const selectAllVendorOfficialNames = (
   );
 
 export const selectAllListItems = createSelector(
-  (state: RootState): ItemObjType[] => state.added.listItems,
-  (listItems: ItemObjType[]): ItemObjType[] => listItems
+  (state: RootState): ItemName[] => state.added.listItems,
+  (listItems: ItemName[]): ItemName[] => listItems
 );
 
 export const checkIfLoading = (state: RootState): boolean =>

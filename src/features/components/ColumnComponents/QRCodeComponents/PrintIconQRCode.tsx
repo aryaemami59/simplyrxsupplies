@@ -1,9 +1,9 @@
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Tooltip } from "@mui/material";
+import { Button } from "@mui/material";
 import printjs from "print-js";
-import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
-import { Src, VendorNameType } from "../../../../customTypes/types";
+import { FC, memo, MouseEventHandler, useCallback } from "react";
+import { VendorNameType } from "../../../../customTypes/types";
 import { selectQRCodeContent } from "../../../../Redux/addedSlice";
 import { useAppSelector } from "../../../../Redux/hooks";
 

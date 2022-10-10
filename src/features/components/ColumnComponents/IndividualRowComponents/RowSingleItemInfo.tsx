@@ -1,30 +1,32 @@
 import { List } from "@mui/material";
 import { FC, memo } from "react";
-import { ItemObjType, VendorNameType } from "../../../../customTypes/types";
+import { VendorAndItemName } from "../../../../customTypes/types";
 import RowBarcodeImage from "./RowBarcodeImage";
 import RowItemName from "./RowItemName";
 import RowItemNumber from "./RowItemNumber";
 
-type Props = {
-  itemObj: ItemObjType;
-  vendorName: VendorNameType;
-};
+// type Props = {
+//   itemObj: ItemObjType;
+//   vendorName: VendorNameType;
+// };
 
-const RowSingleItemInfo: FC<Props> = ({ itemObj, vendorName }) => (
+type Props = VendorAndItemName;
+
+const RowSingleItemInfo: FC<Props> = ({ itemName, vendorName }) => (
   <div
     className="container"
-    key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
+    key={`${itemName}${vendorName}-VendorColumn-Container-name`}>
     <List>
       <RowItemName
-        itemObj={itemObj}
+        itemName={itemName}
         vendorName={vendorName}
       />
       <RowItemNumber
-        itemObj={itemObj}
+        itemName={itemName}
         vendorName={vendorName}
       />
       <RowBarcodeImage
-        itemObj={itemObj}
+        itemName={itemName}
         vendorName={vendorName}
       />
     </List>

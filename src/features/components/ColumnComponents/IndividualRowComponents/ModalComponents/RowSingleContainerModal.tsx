@@ -2,19 +2,20 @@ import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Tooltip } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
-import { ItemObjType, VendorNameType } from "../../../../../customTypes/types";
+import { ItemName, ItemObjType, VendorNameType } from "../../../../../customTypes/types";
 import RowItemsDialog from "./RowItemsDialog";
 
 const title = "Take a Closer Look at The Item Info";
 
 type Props = {
-  itemObj: ItemObjType;
+  itemName: ItemName;
+  // itemObj: ItemObjType;
   vendorName: VendorNameType;
 };
 
 const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />;
 
-const RowSingleContainerModal: FC<Props> = ({ itemObj, vendorName }) => {
+const RowSingleContainerModal: FC<Props> = ({ itemName, vendorName }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -53,7 +54,7 @@ const RowSingleContainerModal: FC<Props> = ({ itemObj, vendorName }) => {
       </Tooltip>
       <RowItemsDialog
         hideModal={hideModal}
-        itemObj={itemObj}
+        itemName={itemName}
         modalOpen={modalOpen}
         vendorName={vendorName}
       />

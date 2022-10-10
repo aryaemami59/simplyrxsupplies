@@ -1,19 +1,21 @@
 import { Button, ButtonGroup, Collapse, Fade } from "@mui/material";
 import { FC, KeyboardEvent, memo, useCallback, useState } from "react";
-import { ItemObjType, VendorNameType } from "../../../../customTypes/types";
+import { VendorAndItemName } from "../../../../customTypes/types";
 import CollapseButton from "./CollapseButton";
 import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal";
 import RowDeleteButton from "./RowDeleteButton";
 import RowSingleItemInfo from "./RowSingleItemInfo";
 
-type Props = {
-  itemObj: ItemObjType;
-  vendorName: VendorNameType;
-};
+// type Props = {
+//   itemName: ItemName;
+//   vendorName: VendorNameType;
+// };
 
-const RowSingleContainer: FC<Props> = ({ itemObj, vendorName }) => {
+type Props = VendorAndItemName;
+
+const RowSingleContainer: FC<Props> = ({ itemName, vendorName }) => {
   const [open, setOpen] = useState(true);
-  const { name } = itemObj;
+  // const { name } = itemObj;
 
   const toggleFade = useCallback(() => {
     setOpen(prev => !prev);
@@ -38,18 +40,18 @@ const RowSingleContainer: FC<Props> = ({ itemObj, vendorName }) => {
           <div className="col-xs-auto justify-content-center d-flex">
             <ButtonGroup className="flex-wrap justify-content-center">
               <RowSingleContainerModal
-                itemObj={itemObj}
+                itemName={itemName}
                 vendorName={vendorName}
               />
               <CollapseButton
                 open={open}
                 toggle={toggleFade}
-                vendorName={vendorName}
-                itemObj={itemObj}
+                // vendorName={vendorName}
+                // itemName={itemName}
               />
               <RowDeleteButton
                 vendorName={vendorName}
-                itemObj={itemObj}
+                itemName={itemName}
               />
             </ButtonGroup>
           </div>
@@ -62,7 +64,7 @@ const RowSingleContainer: FC<Props> = ({ itemObj, vendorName }) => {
                 variant="contained"
                 className="w-100"
                 onClick={toggleFade}>
-                {name}
+                {itemName}
               </Button>
             </Fade>
           </div>
@@ -71,7 +73,7 @@ const RowSingleContainer: FC<Props> = ({ itemObj, vendorName }) => {
       <Collapse in={open}>
         <div>
           <RowSingleItemInfo
-            itemObj={itemObj}
+            itemName={itemName}
             vendorName={vendorName}
           />
         </div>

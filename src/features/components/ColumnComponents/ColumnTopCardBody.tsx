@@ -1,17 +1,16 @@
 import { CardContent, List } from "@mui/material";
 import { FC, memo } from "react";
 import {
-  ItemObjType,
+  ItemName,
   OfficialVendorNameType,
   VendorNameType,
 } from "../../../customTypes/types";
-import ColumnHideButtons from "./ColumnHideButtons";
 import RowSingleContainer from "./IndividualRowComponents/RowSingleContainer";
 import QRCodeImageContainer from "./QRCodeComponents/QRCodeImageContainer";
 import VendorLink from "./VendorLink";
 
 type Props = {
-  addedItems: ItemObjType[];
+  addedItems: ItemName[];
   vendorName: VendorNameType;
   officialVendorName: OfficialVendorNameType;
 };
@@ -29,10 +28,10 @@ const ColumnTopCardBody: FC<Props> = ({
     />
     {/* <ColumnHideButtons /> */}
     <List>
-      {addedItems.map(itemObj => (
+      {addedItems.map(itemName => (
         <RowSingleContainer
-          key={`${itemObj.id}-${vendorName}-SingleVendorColumnListItem`}
-          {...{ itemObj, vendorName }}
+          key={`${itemName}-${vendorName}-SingleVendorColumnListItem`}
+          {...{ itemName, vendorName }}
         />
       ))}
     </List>

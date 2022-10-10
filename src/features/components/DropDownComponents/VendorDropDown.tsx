@@ -18,7 +18,6 @@ import { shallowEqual } from "react-redux";
 import { VendorNameType } from "../../../customTypes/types";
 import {
   selectItemNamesByVendor,
-  selectItemsByVendor,
   selectVendorOfficialName,
 } from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
@@ -88,7 +87,7 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
         {officialVendorName}
       </Button>
       <Menu
-        keepMounted
+        // keepMounted
         id={officialVendorName}
         MenuListProps={menuListProps}
         anchorEl={anchorEl}

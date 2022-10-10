@@ -1,34 +1,27 @@
 import { MenuItem } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
 import {
-  ItemName,
-  ItemObjType,
-  VendorNameType,
+  VendorAndItemName
 } from "../../../customTypes/types";
 import {
   addItemsByVendor,
-  checkIfItemAddedToOneVendor,
-  selectItemObjByName,
+  checkIfItemAddedToOneVendor
 } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 
-type Props = {
-  itemName: ItemName;
-  // itemObj: ItemObjType;
-  vendorName: VendorNameType;
-};
+type Props = VendorAndItemName;
 
 const SingleDropDown: FC<Props> = ({ itemName, vendorName }) => {
   const dispatch = useAppDispatch();
 
-  const itemObj = useAppSelector(selectItemObjByName(itemName));
+  // const itemObj = useAppSelector(selectItemObjByName(itemName));
   const ifAddedToVendor = useAppSelector(
-    checkIfItemAddedToOneVendor(vendorName, itemObj)
+    checkIfItemAddedToOneVendor(vendorName, itemName)
   );
 
   const clickHandler: MouseEventHandler<HTMLElement> = useCallback(() => {
-    ifAddedToVendor || dispatch(addItemsByVendor({ itemObj, vendorName }));
-  }, [ifAddedToVendor, dispatch, itemObj, vendorName]);
+    ifAddedToVendor || dispatch(addItemsByVendor({ itemName, vendorName }));
+  }, [ifAddedToVendor, dispatch, itemName, vendorName]);
 
   return (
     <MenuItem

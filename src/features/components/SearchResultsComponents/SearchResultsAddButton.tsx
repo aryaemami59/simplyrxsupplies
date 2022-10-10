@@ -1,8 +1,8 @@
+import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import { Button } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import { shallowEqual } from "react-redux";
-import { ItemObjType } from "../../../customTypes/types";
+import { ItemName } from "../../../customTypes/types";
 import {
   addItems,
   checkIfAddedToAllVendors,
@@ -11,26 +11,31 @@ import {
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 
 type Props = {
-  itemObj: ItemObjType;
+  itemName: ItemName;
 };
 
-const SearchResultsAddButton: FC<Props> = ({ itemObj }) => {
-  const IfAddedToAllVendors = useAppSelector(checkIfAddedToAllVendors(itemObj));
-  const vendors = useAppSelector(selectVendorsToAddTo(itemObj), shallowEqual);
+const SearchResultsAddButton: FC<Props> = ({ itemName }) => {
+  const IfAddedToAllVendors = useAppSelector(
+    checkIfAddedToAllVendors(itemName)
+  );
+  const vendorsToAddTo = useAppSelector(
+    selectVendorsToAddTo(itemName),
+    shallowEqual
+  );
   const dispatch = useAppDispatch();
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     IfAddedToAllVendors ||
-      !vendors.length ||
-      dispatch(addItems({ itemObj, vendors }));
-  }, [IfAddedToAllVendors, dispatch, itemObj, vendors]);
+      !vendorsToAddTo.length ||
+      dispatch(addItems({ itemName, vendorsToAddTo }));
+  }, [IfAddedToAllVendors, dispatch, itemName, vendorsToAddTo]);
 
   return (
     <Button
       disabled={IfAddedToAllVendors}
       size="large"
       variant="contained"
-      key={`Button-AddItemButtonComponent-${itemObj.id}`}
+      key={`Button-AddItemButtonComponent-${itemName}`}
       onClick={clickHandler}
       startIcon={<AddCircleOutlineRoundedIcon />}>
       Add Item

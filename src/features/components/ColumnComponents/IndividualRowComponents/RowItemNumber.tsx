@@ -1,27 +1,33 @@
 import { ListItem, ListItemText } from "@mui/material";
 import { FC, memo } from "react";
-import { ItemObjType, VendorNameType } from "../../../../customTypes/types";
+import {
+  VendorAndItemName
+} from "../../../../customTypes/types";
+import { selectItemNumber } from "../../../../Redux/addedSlice";
 import { useAppSelector } from "../../../../Redux/hooks";
 import CopyIcon from "./CopyIcon";
 
-type Props = {
-  itemObj: ItemObjType;
-  vendorName: VendorNameType;
-};
+// type Props = {
+//   itemObj: ItemObjType;
+//   vendorName: VendorNameType;
+// };
 
-const RowItemNumber: FC<Props> = ({ vendorName, itemObj }) => {
+type Props = VendorAndItemName;
+
+const RowItemNumber: FC<Props> = ({ vendorName, itemName }) => {
   // const itemNumberShown = useAppSelector(state => state.added.showItemNumber);
+  const itemNumber = useAppSelector(selectItemNumber(itemName));
 
   return (
     <>
       {/* {itemNumberShown && ( */}
       <ListItem divider>
-        <ListItemText>Item Number: {itemObj.itemNumber}</ListItemText>
+        <ListItemText>Item Number: {itemNumber}</ListItemText>
         <CopyIcon
-          content={itemObj.itemNumber}
+          content={itemNumber}
           text={"Number"}
-          itemObj={itemObj}
-          vendorName={vendorName}
+          // itemName={itemName}
+          // vendorName={vendorName}
         />
       </ListItem>
       {/* )} */}
