@@ -5,12 +5,8 @@ export const myContext = createContext();
 function AddedContext({ children }) {
   const [itemsAdded1, setItemsAdded] = useState([]);
 
-  const itemsAdded = useMemo(() => {
-    return itemsAdded1;
-  }, [itemsAdded1.length]);
-  const onAdd = useCallback(ev => {
-    return setItemsAdded(prev => [...prev, ev]);
-  }, []);
+  const itemsAdded = useMemo(() => itemsAdded1, [itemsAdded1]);
+  const onAdd = useCallback(ev => setItemsAdded(prev => [...prev, ev]), []);
   // const MCK = useMemo(() => {
   //   return itemsAdded.filter(({ McKesson }) => McKesson);
   // }, []);

@@ -26,7 +26,7 @@ const QRCodeDialog: FC<Props> = ({
   vendorName,
 }) => (
   <Dialog
-    // keepMounted
+    keepMounted
     maxWidth="md"
     fullWidth
     open={show}

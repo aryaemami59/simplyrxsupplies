@@ -6,16 +6,10 @@ import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal";
 import RowDeleteButton from "./RowDeleteButton";
 import RowSingleItemInfo from "./RowSingleItemInfo";
 
-// type Props = {
-//   itemName: ItemName;
-//   vendorName: VendorNameType;
-// };
-
 type Props = VendorAndItemName;
 
 const RowSingleContainer: FC<Props> = ({ itemName, vendorName }) => {
   const [open, setOpen] = useState(true);
-  // const { name } = itemObj;
 
   const toggleFade = useCallback(() => {
     setOpen(prev => !prev);
@@ -46,8 +40,6 @@ const RowSingleContainer: FC<Props> = ({ itemName, vendorName }) => {
               <CollapseButton
                 open={open}
                 toggle={toggleFade}
-                // vendorName={vendorName}
-                // itemName={itemName}
               />
               <RowDeleteButton
                 vendorName={vendorName}

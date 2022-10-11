@@ -6,21 +6,14 @@ import {
   PaperProps,
   PopoverOrigin,
 } from "@mui/material";
-import {
-  FC,
-  memo,
-  MouseEventHandler,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import { shallowEqual } from "react-redux";
 import { VendorNameType } from "../../../customTypes/types";
+import { useAppSelector } from "../../../Redux/hooks";
 import {
   selectItemNamesByVendor,
   selectVendorOfficialName,
-} from "../../../Redux/addedSlice";
-import { useAppSelector } from "../../../Redux/hooks";
+} from "../../../Redux/selectors";
 import SingleDropDown from "./SingleDropDown";
 
 const transformOrigin: PopoverOrigin = {
@@ -28,7 +21,10 @@ const transformOrigin: PopoverOrigin = {
   vertical: "top",
 };
 
-const anchorOrigin: PopoverOrigin = { vertical: "bottom", horizontal: "left" };
+const anchorOrigin: PopoverOrigin = {
+  vertical: "bottom",
+  horizontal: "left",
+};
 
 const menuListProps: MenuListProps = {
   "aria-labelledby": "customized-button",
@@ -60,11 +56,6 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
     selectItemNamesByVendor(vendorName),
     shallowEqual
   );
-  // const items = useAppSelector(selectItemsByVendor(vendorName), shallowEqual);
-
-  useEffect(() => {
-    console.log("items changed");
-  }, [itemNames]);
 
   const handleOpen: MouseEventHandler<HTMLElement> = useCallback(event => {
     setAnchorEl(event.currentTarget);
@@ -87,7 +78,7 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
         {officialVendorName}
       </Button>
       <Menu
-        // keepMounted
+        keepMounted
         id={officialVendorName}
         MenuListProps={menuListProps}
         anchorEl={anchorEl}

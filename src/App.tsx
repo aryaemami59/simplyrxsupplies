@@ -5,9 +5,7 @@ import {
   Dispatch,
   FC,
   memo,
-  SetStateAction,
-  Suspense,
-  useEffect,
+  SetStateAction, useEffect
 } from "react";
 import "./App.css";
 import ErrorComponent from "./ErrorComponent";
@@ -16,8 +14,9 @@ import InputGroupComponent from "./features/components/InputComponents/InputGrou
 import SideBarContainer from "./features/components/SideBarComponents/SideBarContainer";
 import TopNavbar from "./features/components/TopNavbarComponents/TopNavbar";
 import IsLoading from "./IsLoading";
-import { checkIfLoading, fetchItems, selectErrMsg } from "./Redux/addedSlice";
+import { fetchItems } from "./Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "./Redux/hooks";
+import { checkIfLoading, selectErrMsg } from "./Redux/selectors";
 
 export interface myContextInterface {
   darkTheme: boolean | (() => boolean);
@@ -48,30 +47,26 @@ const App: FC = () => {
   }
 
   return (
-    <>
-      {/* <Suspense fallback={<IsLoading />}> */}
-      <div className="App">
-        <TopNavbar />
-        <div className="container-fluid">
-          <div className="justify-content-center row">
-            <div
-              className="col-lg-3 col-xl-2 px-0 d-none d-lg-block sticky-top sidebar-col"
-              style={{ marginTop: 37 }}>
-              <SideBarContainer />
-            </div>
-            <div className="col-11 col-md-6 col-lg-5 mt-5">
-              <InputGroupComponent />
-            </div>
-            <div className="col-11 col-md-6 col-lg-4 col-xl-5 my-5 justify-content-center px-5">
-              <div className="d-none d-md-block">
-                <VendorColumnList />
-              </div>
+    <div className="App">
+      <TopNavbar />
+      <div className="container-fluid">
+        <div className="justify-content-center row">
+          <div
+            className="col-lg-3 col-xl-2 px-0 d-none d-lg-block sticky-top sidebar-col"
+            style={{ marginTop: 37 }}>
+            <SideBarContainer />
+          </div>
+          <div className="col-11 col-md-6 col-lg-5 mt-5">
+            <InputGroupComponent />
+          </div>
+          <div className="col-11 col-md-6 col-lg-4 col-xl-5 my-5 justify-content-center px-5">
+            <div className="d-none d-md-block">
+              <VendorColumnList />
             </div>
           </div>
         </div>
       </div>
-      {/* </Suspense> */}
-    </>
+    </div>
   );
 };
 

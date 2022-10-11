@@ -1,13 +1,7 @@
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
-import Tooltip from "@mui/material/Tooltip";
 import { FC, memo, MouseEventHandler, useCallback, useReducer } from "react";
-import {
-  ItemObjType,
-  VendorAndItemName,
-  VendorNameType,
-} from "../../../../customTypes/types";
 
 const startIcon = <FontAwesomeIcon icon={faCopy} />;
 
@@ -66,8 +60,6 @@ type reducerState = {
 type Props = {
   content: string;
   text: string;
-  // vendorName: VendorNameType;
-  // itemObj: ItemObjType;
 };
 
 const CopyIcon: FC<Props> = ({ content, text }) => {
@@ -101,28 +93,17 @@ const CopyIcon: FC<Props> = ({ content, text }) => {
   }, []);
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    // clickOnIcon();
     navigator.clipboard.writeText(content);
-    // setTimeout(afterClick, 200);
   }, [content]);
 
   return (
-    <>
-      {/* <Tooltip
-        title={tooltipText}
-        open={open}> */}
-      <Button
-        className="ms-5"
-        variant="contained"
-        startIcon={startIcon}
-        onClick={handleClick}
-        // onMouseEnter={handleMouseEnter}
-        // onMouseLeave={handleMouseLeave}
-      >
-        Copy Item {text}
-      </Button>
-      {/* </Tooltip> */}
-    </>
+    <Button
+      className="ms-5"
+      variant="contained"
+      startIcon={startIcon}
+      onClick={handleClick}>
+      Copy Item {text}
+    </Button>
   );
 };
 

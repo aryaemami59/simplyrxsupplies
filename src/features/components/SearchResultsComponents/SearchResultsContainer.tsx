@@ -1,20 +1,10 @@
 import { List } from "@mui/material";
-import {
-  FC,
-  memo,
-  useState,
-  useCallback,
-  useMemo,
-  Suspense,
-  lazy,
-} from "react";
+import { FC, lazy, memo, Suspense } from "react";
 import { shallowEqual } from "react-redux";
-import { selectAllListItems } from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
+import { selectAllListItems } from "../../../Redux/selectors";
 import VendorColumnModalComponent from "../InputComponents/VendorColumnModalComponent";
 // import SearchResultsSingleCard from "./SearchResultsSingleCard";
-import InfiniteScroll from "react-infinite-scroller";
-import { ItemName } from "../../../customTypes/types";
 
 const SearchResultsSingleCard = lazy(() => import("./SearchResultsSingleCard"));
 

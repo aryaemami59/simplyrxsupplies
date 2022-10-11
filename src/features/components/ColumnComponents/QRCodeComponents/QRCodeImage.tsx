@@ -3,7 +3,7 @@ import { VendorNameType } from "../../../../customTypes/types";
 import {
   selectQRText,
   selectQRCodeContent,
-} from "../../../../Redux/addedSlice";
+} from "../../../../Redux/selectors";
 import { useAppSelector } from "../../../../Redux/hooks";
 
 type Props = {

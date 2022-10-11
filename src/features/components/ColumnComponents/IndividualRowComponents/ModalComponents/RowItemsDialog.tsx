@@ -6,20 +6,12 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { FC, memo } from "react";
-import {
-  ItemName,
-  ItemObjType,
-  VendorNameType,
-} from "../../../../../customTypes/types";
+import { VendorAndItemName } from "../../../../../customTypes/types";
 import ModalBodyContent from "./ModalBodyContent";
 
-type Props = {
+type Props = VendorAndItemName & {
   hideModal: () => void;
-  itemName: ItemName;
-
-  // itemObj: ItemObjType;
   modalOpen: boolean;
-  vendorName: VendorNameType;
 };
 
 const RowItemsDialog: FC<Props> = ({
@@ -29,7 +21,7 @@ const RowItemsDialog: FC<Props> = ({
   vendorName,
 }) => (
   <Dialog
-    // keepMounted
+    keepMounted
     maxWidth="md"
     fullWidth
     onClose={hideModal}

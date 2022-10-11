@@ -7,7 +7,7 @@ import {
 import { FC, memo, useCallback, useState } from "react";
 import { shallowEqual } from "react-redux";
 import { Category } from "../../../customTypes/types";
-import { selectCategoriesItemNames } from "../../../Redux/addedSlice";
+import { selectCategoriesItemNames } from "../../../Redux/selectors";
 import { useAppSelector } from "../../../Redux/hooks";
 import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
 

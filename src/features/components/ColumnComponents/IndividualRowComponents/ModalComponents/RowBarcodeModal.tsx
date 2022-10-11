@@ -6,7 +6,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Tooltip
+  Tooltip,
 } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import { ItemName } from "../../../../../customTypes/types";
@@ -49,8 +49,6 @@ const RowBarcodeModal: FC<Props> = ({ itemName }) => {
         title={title}
         open={open}>
         <Button
-          // onMouseEnter={showTooltip}
-          // onMouseLeave={hideTooltip}
           variant="contained"
           startIcon={<FontAwesomeIcon icon={faMagnifyingGlassPlus} />}
           onClick={showModal}
@@ -59,7 +57,7 @@ const RowBarcodeModal: FC<Props> = ({ itemName }) => {
         </Button>
       </Tooltip>
       <Dialog
-        // keepMounted
+        keepMounted
         maxWidth="md"
         fullWidth
         open={show}

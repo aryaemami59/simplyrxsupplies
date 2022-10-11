@@ -1,13 +1,13 @@
 import { FormControlLabel, Switch } from "@mui/material";
 import { FC, memo, useCallback } from "react";
 import { VendorAndItemName } from "../../../customTypes/types";
+import { setVendors } from "../../../Redux/addedSlice";
+import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 import {
   checkVendorsAdded,
   checkVendorsToAdd,
-  selectVendorOfficialName,
-  setVendors
-} from "../../../Redux/addedSlice";
-import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
+  selectVendorOfficialName
+} from "../../../Redux/selectors";
 
 type Props = VendorAndItemName;
 

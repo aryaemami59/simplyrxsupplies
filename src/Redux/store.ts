@@ -1,10 +1,4 @@
-import {
-  Action,
-  configureStore,
-  getDefaultMiddleware,
-  ThunkAction,
-} from "@reduxjs/toolkit";
-import logger from "redux-logger";
+import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { addedReducer } from "../Redux/addedSlice";
 
 export const store = configureStore({

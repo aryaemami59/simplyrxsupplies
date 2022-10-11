@@ -1,28 +1,21 @@
 import { ListItem, ListItemText } from "@mui/material";
 import { FC, memo } from "react";
-import { VendorAndItemName } from "../../../../customTypes/types";
+import { ItemName, VendorNameType } from "../../../../customTypes/types";
 import CopyIcon from "./CopyIcon";
 
-// type Props = {
-//   itemObj: ItemObjType;
-//   vendorName: VendorNameType;
-// };
-type Props = VendorAndItemName;
+type Props = {
+  itemName: ItemName;
+  vendorName: VendorNameType;
+};
 
-const RowItemName: FC<Props> = ({ vendorName, itemName }) => (
-  <>
-    {/* {itemNameShown && ( */}
-    <ListItem divider>
-      <ListItemText>Item Name: {itemName}</ListItemText>
-      <CopyIcon
-        content={itemName}
-        text={"Name"}
-        // itemName={itemName}
-        // vendorName={vendorName}
-      />
-    </ListItem>
-    {/* )} */}
-  </>
+const RowItemName: FC<Props> = ({ itemName, vendorName }) => (
+  <ListItem divider>
+    <ListItemText>Item Name: {itemName}</ListItemText>
+    <CopyIcon
+      content={itemName}
+      text={"Name"}
+    />
+  </ListItem>
 );
 
 export default memo<Props>(RowItemName);

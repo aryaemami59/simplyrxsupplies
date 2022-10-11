@@ -1,7 +1,7 @@
 import { FC, memo } from "react";
 import { Badge } from "react-bootstrap";
 import { ItemName } from "../../../customTypes/types";
-import { selectItemNumber } from "../../../Redux/addedSlice";
+import { selectItemNumber } from "../../../Redux/selectors";
 import { useAppSelector } from "../../../Redux/hooks";
 
 type Props = {

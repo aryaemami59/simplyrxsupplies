@@ -5,11 +5,6 @@ import RowBarcodeImage from "./RowBarcodeImage";
 import RowItemName from "./RowItemName";
 import RowItemNumber from "./RowItemNumber";
 
-// type Props = {
-//   itemObj: ItemObjType;
-//   vendorName: VendorNameType;
-// };
-
 type Props = VendorAndItemName;
 
 const RowSingleItemInfo: FC<Props> = ({ itemName, vendorName }) => (

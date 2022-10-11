@@ -476,7 +476,7 @@ type ItemNamesType =
 
 export type AddItemsInterface = {
   itemName: ItemName;
-  vendorsToAddTo: VendorNameType[];
+  // vendorsToAddTo: VendorNameType[];
 };
 
 export type VendorAndItemName = {
@@ -500,15 +500,3 @@ export type FetchItems = AsyncThunk<
   void,
   { dispatch: AppDispatch }
 >;
-
-// export type FetchVendors = AsyncThunk<
-//   vendorsObjType,
-//   void,
-//   { dispatch: AppDispatch }
-// >;
-
-// export type FetchCategories = AsyncThunk<
-//   categoriesObjType,
-//   void,
-//   { dispatch: AppDispatch }
-// >;

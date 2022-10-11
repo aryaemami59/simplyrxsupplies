@@ -6,7 +6,6 @@ import {
   memo,
   MouseEventHandler,
   useCallback,
-  useDeferredValue,
   useRef,
   useState,
   useTransition,
@@ -14,12 +13,9 @@ import {
 import { Form } from "react-bootstrap";
 import { shallowEqual } from "react-redux";
 import { ItemName } from "../../../customTypes/types";
-import {
-  clearListItems,
-  selectItemNamesArr,
-  setListItems,
-} from "../../../Redux/addedSlice";
+import { clearListItems, setListItems } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
+import { selectItemNamesArr } from "../../../Redux/selectors";
 
 const empty: [] = [];
 

@@ -1,6 +1,6 @@
 import { FC, memo } from "react";
 import { ItemName } from "../../../customTypes/types";
-import { selectVendorsByItemName } from "../../../Redux/addedSlice";
+import { selectVendorsByItemName } from "../../../Redux/selectors";
 import { useAppSelector } from "../../../Redux/hooks";
 import SearchResultsAddButton from "./SearchResultsAddButton";
 import SearchResultsItemName from "./SearchResultsItemName";

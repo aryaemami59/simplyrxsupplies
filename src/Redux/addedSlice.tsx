@@ -5,7 +5,6 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import QRCode from "qrcode";
-import { createSelector } from "reselect";
 import {
   AddedState,
   AddItemsByVendorInterface,
@@ -13,15 +12,9 @@ import {
   Category,
   FetchItems,
   ItemName,
-  ItemNumber,
-  ItemObjType,
-  Link,
-  OfficialVendorNameType,
-  Src,
   VendorNameType,
 } from "../customTypes/types";
 import { GITHUB_URL_ITEMS } from "./fetchInfo";
-import { RootState } from "./store";
 
 const intersection = (firstArray: string[], secondArray: string[]): string[] =>
   firstArray.filter(e => !secondArray.includes(e));
@@ -42,7 +35,7 @@ export const fetchItems: FetchItems = createAsyncThunkFunc(
   GITHUB_URL_ITEMS
 );
 
-const emptyArr: [] = [];
+export const emptyArr: [] = [];
 
 const initialState = {
   listItems: emptyArr,
@@ -61,35 +54,40 @@ export const addedSlice = createSlice({
   initialState,
   reducers: {
     addItems: (state, action: PayloadAction<AddItemsInterface>) => {
-      const { itemName, vendorsToAddTo } = action.payload;
-      vendorsToAddTo.forEach((vendorName: VendorNameType) => {
-        if (
-          !current(state.vendorsObj[vendorName])!.itemsAdded!.includes(itemName)
-        ) {
-          state.vendorsObj[vendorName]!.itemsAdded!.push(itemName);
-          const qr = state.vendorsObj[vendorName]!.itemsAdded!.map(
-            itemAddedName => state.itemsObj[itemAddedName].itemNumber
-          ).join(state.vendorsObj![vendorName].joinChars);
-          QRCode.toDataURL(qr, (err, url) => {
-            state.vendorsObj[vendorName]!.qrContent = url;
-          });
-          state.vendorsObj[vendorName]!.qrText = qr;
-          state.listItems = state.listItems.filter(
-            listItemName => listItemName !== itemName
-          );
-          state.itemsObj[itemName]!.vendorsAdded = [
-            ...state.itemsObj[itemName]!.vendorsAdded,
-            ...state.itemsObj[itemName]!.vendorsToAdd,
-          ];
-          state.itemsObj[itemName]!.vendorsToAdd = state.itemsObj[itemName]!
-            .vendorsToAdd.length
-            ? (intersection(
-                state.itemsObj[itemName].vendors,
-                state.itemsObj[itemName]!.vendorsAdded
-              ) as VendorNameType[])
-            : emptyArr;
+      const { itemName } = action.payload;
+      if (!state.itemsObj[itemName].vendorsToAdd.length) {
+        return;
+      }
+      state.itemsObj[itemName].vendorsToAdd.forEach(
+        (vendorName: VendorNameType) => {
+          if (
+            !current(state.vendorsObj[vendorName]).itemsAdded.includes(itemName)
+          ) {
+            state.vendorsObj[vendorName].itemsAdded.push(itemName);
+            const qr = state.vendorsObj[vendorName].itemsAdded
+              .map(itemAddedName => state.itemsObj[itemAddedName].itemNumber)
+              .join(state.vendorsObj[vendorName].joinChars);
+            QRCode.toDataURL(qr, (err, url) => {
+              state.vendorsObj[vendorName].qrContent = url;
+            });
+            state.vendorsObj[vendorName].qrText = qr;
+            state.listItems = state.listItems.filter(
+              listItemName => listItemName !== itemName
+            );
+            state.itemsObj[itemName].vendorsAdded = [
+              ...state.itemsObj[itemName].vendorsAdded,
+              ...state.itemsObj[itemName].vendorsToAdd,
+            ];
+            state.itemsObj[itemName].vendorsToAdd = state.itemsObj[itemName]
+              .vendorsToAdd.length
+              ? (intersection(
+                  state.itemsObj[itemName].vendors,
+                  state.itemsObj[itemName].vendorsAdded
+                ) as VendorNameType[])
+              : emptyArr;
+          }
         }
-      });
+      );
     },
     addItemsByVendor: (
       state,
@@ -169,130 +167,6 @@ export const addedSlice = createSlice({
     });
   },
 });
-
-export const selectByVendor =
-  (vendorName: VendorNameType) =>
-  (state: RootState): ItemObjType[] =>
-    state.added.vendorsObj[vendorName]!.itemIds.map(
-      e => Object.values(state.added.itemsObj).find(({ id }) => id === e)!
-    );
-
-export const selectAddedItemsByVendor =
-  (vendorName: VendorNameType) =>
-  (state: RootState): ItemName[] =>
-    state.added.vendorsObj[vendorName].itemsAdded;
-
-export const selectVendorsArr = (state: RootState): VendorNameType[] =>
-  state.added.vendorsArr ? state.added.vendorsArr : emptyArr;
-
-export const selectVendorsLinks =
-  (vendorName: VendorNameType) =>
-  (state: RootState): Link =>
-    state.added.vendorsObj[vendorName].link;
-
-export const selectCategoriesArr = (state: RootState): Category[] =>
-  state.added.categoriesArr;
-
-export const addedItemsLength =
-  (vendorName: VendorNameType) =>
-  (state: RootState): number =>
-    state.added.vendorsObj[vendorName].itemsAdded.length;
-
-export const selectItemNamesByVendor =
-  (vendorName: VendorNameType) => (state: RootState) =>
-    Object.values(state.added.itemsObj)
-      .filter(({ vendors }) => vendors.includes(vendorName))
-      .map(({ name }) => name);
-
-export const selectVendorsToAddTo =
-  (itemName: ItemName) =>
-  (state: RootState): VendorNameType[] =>
-    state.added.itemsObj[itemName]!.vendorsToAdd;
-
-export const selectItemObjByName =
-  (itemName: ItemName) =>
-  (state: RootState): ItemObjType =>
-    state.added.itemsObj[itemName];
-
-export const selectCategoriesItemNames =
-  (categoryParam: Category) =>
-  (state: RootState): ItemName[] =>
-    Object.values(state.added.itemsObj)
-      .filter(({ category }) => category.includes(categoryParam))
-      .map(({ name }) => name);
-
-export const selectItemNamesArr = (state: RootState): ItemName[] =>
-  state.added.itemsArr;
-
-export const selectQRCodeContent =
-  (vendorName: VendorNameType) =>
-  (state: RootState): string =>
-    state.added.vendorsObj[vendorName].qrContent;
-
-export const selectQRText =
-  (vendorName: VendorNameType) => (state: RootState) =>
-    state.added.vendorsObj[vendorName].qrText;
-
-export const checkIfAddedToAllVendors =
-  (itemName: ItemName) =>
-  (state: RootState): boolean =>
-    state.added.itemsObj[itemName].vendorsAdded.length ===
-    state.added.itemsObj[itemName].vendors.length;
-
-export const checkIfItemAddedToOneVendor =
-  (vendorName: VendorNameType, itemName: ItemName) =>
-  (state: RootState): boolean =>
-    state.added.itemsObj[itemName]!.vendorsAdded.includes(vendorName);
-
-export const checkVendorsToAdd =
-  (vendorName: VendorNameType, itemName: ItemName) =>
-  (state: RootState): boolean =>
-    state.added.itemsObj[itemName]!.vendorsToAdd.includes(vendorName);
-
-export const checkVendorsAdded =
-  (vendorName: VendorNameType, itemName: ItemName) =>
-  (state: RootState): boolean =>
-    state.added.itemsObj[itemName]!.vendorsAdded.includes(vendorName);
-
-export const selectItemNumber =
-  (itemName: ItemName) =>
-  (state: RootState): ItemNumber =>
-    state.added.itemsObj[itemName].itemNumber;
-
-export const selectItemSrc =
-  (itemName: ItemName) =>
-  (state: RootState): Src =>
-    state.added.itemsObj[itemName].src;
-
-export const selectItemsArr = (state: RootState): ItemObjType[] =>
-  Object.values(state.added.itemsObj);
-
-export const selectVendorsByItemName =
-  (itemName: ItemName) =>
-  (state: RootState): VendorNameType[] =>
-    state.added.itemsObj[itemName].vendors;
-
-export const selectVendorOfficialName =
-  (vendorName: VendorNameType) =>
-  (state: RootState): OfficialVendorNameType =>
-    state.added.vendorsObj[vendorName].officialName;
-
-export const selectAllVendorOfficialNames = (
-  state: RootState
-): OfficialVendorNameType[] =>
-  state.added.vendorsArr!.map(
-    vendorName => state.added.vendorsObj![vendorName].officialName
-  );
-
-export const selectAllListItems = createSelector(
-  (state: RootState): ItemName[] => state.added.listItems,
-  (listItems: ItemName[]): ItemName[] => listItems
-);
-
-export const checkIfLoading = (state: RootState): boolean =>
-  state.added.isLoading;
-
-export const selectErrMsg = (state: RootState): string => state.added.errMsg;
 
 export const {
   addItems,

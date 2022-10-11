@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import printjs from "print-js";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
 import { VendorNameType } from "../../../../customTypes/types";
-import { selectQRCodeContent } from "../../../../Redux/addedSlice";
+import { selectQRCodeContent } from "../../../../Redux/selectors";
 import { useAppSelector } from "../../../../Redux/hooks";
 
 type Props = {
@@ -14,9 +14,10 @@ type Props = {
 const header =
   "You can scan this image on the vendor's website to pull up all the items at once.";
 
+const startIcon = <FontAwesomeIcon icon={faPrint} />;
+
 const PrintIconQRCode: FC<Props> = ({ vendorName }) => {
   const src = useAppSelector(selectQRCodeContent(vendorName));
-  // const [show, setShow] = useState(false);
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     printjs({
@@ -27,31 +28,14 @@ const PrintIconQRCode: FC<Props> = ({ vendorName }) => {
     });
   }, [src]);
 
-  // const openTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-  //   setShow(true);
-  // }, []);
-
-  // const closeTooltip: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-  //   setShow(false);
-  // }, []);
-
   return (
-    <>
-      {/* <Tooltip
-        title={text}
-        open={show}> */}
-      <Button
-        className="w-auto"
-        variant="contained"
-        startIcon={<FontAwesomeIcon icon={faPrint} />}
-        onClick={clickHandler}
-        // onMouseEnter={openTooltip}
-        // onMouseLeave={closeTooltip}
-      >
-        Print QRCode
-      </Button>
-      {/* </Tooltip> */}
-    </>
+    <Button
+      className="w-auto"
+      variant="contained"
+      startIcon={startIcon}
+      onClick={clickHandler}>
+      Print QRCode
+    </Button>
   );
 };
 

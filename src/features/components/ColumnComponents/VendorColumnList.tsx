@@ -1,8 +1,7 @@
 import { FC, memo } from "react";
 import { shallowEqual } from "react-redux";
-import { selectVendorsArr } from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
-import Col from "./IndividualRowComponents/Col";
+import { selectVendorsArr } from "../../../Redux/selectors";
 import VendorColumn from "./VendorColumn";
 
 const VendorColumnList: FC = () => {

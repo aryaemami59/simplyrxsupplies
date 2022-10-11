@@ -3,11 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Tooltip } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import { VendorNameType } from "../../../../customTypes/types";
-import { selectVendorOfficialName } from "../../../../Redux/addedSlice";
+import { selectVendorOfficialName } from "../../../../Redux/selectors";
 import { useAppSelector } from "../../../../Redux/hooks";
 import QRCodeDialog from "./QRCodeDialog";
 
 const title = "Take a Closer Look at The QRCode";
+
+const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />;
 
 type Props = {
   vendorName: VendorNameType;
@@ -50,7 +52,7 @@ const QRCodeModal: FC<Props> = ({ vendorName }) => {
         <Button
           variant="contained"
           onClick={showModal}
-          startIcon={<FontAwesomeIcon icon={faMagnifyingGlassPlus} />}
+          startIcon={startIcon}
           className="w-auto">
           Magnify
         </Button>

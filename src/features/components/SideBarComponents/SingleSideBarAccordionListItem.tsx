@@ -1,14 +1,12 @@
 import { Button, ButtonGroup } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
-import { shallowEqual } from "react-redux";
 import { ItemName } from "../../../customTypes/types";
+import { addItems } from "../../../Redux/addedSlice";
+import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 import {
-  addItems,
   checkIfAddedToAllVendors,
   selectVendorsByItemName,
-  selectVendorsToAddTo,
-} from "../../../Redux/addedSlice";
-import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
+} from "../../../Redux/selectors";
 import SideBarVendorBadges from "./SideBarVendorBadges";
 
 type Props = {
@@ -20,18 +18,16 @@ const SingleSideBarAccordionListItem: FC<Props> = ({ itemName }) => {
   const ifAddedToAllVendors = useAppSelector(
     checkIfAddedToAllVendors(itemName)
   );
-  const vendorsToAddTo = useAppSelector(
-    selectVendorsToAddTo(itemName),
-    shallowEqual
-  );
+  // const vendorsToAddTo = useAppSelector(
+  //   selectVendorsToAddTo(itemName),
+  //   shallowEqual
+  // );
 
   const vendors = useAppSelector(selectVendorsByItemName(itemName));
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    ifAddedToAllVendors ||
-      !vendorsToAddTo.length ||
-      dispatch(addItems({ itemName, vendorsToAddTo }));
-  }, [ifAddedToAllVendors, vendorsToAddTo, dispatch, itemName]);
+    ifAddedToAllVendors || dispatch(addItems({ itemName }));
+  }, [ifAddedToAllVendors, dispatch, itemName]);
 
   return (
     <>

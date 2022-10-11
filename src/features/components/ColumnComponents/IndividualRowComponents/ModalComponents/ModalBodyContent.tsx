@@ -1,24 +1,12 @@
 import { List, ListItemText } from "@mui/material";
 import { FC, memo } from "react";
-import {
-  ItemName,
-  ItemObjType,
-  VendorAndItemName,
-  VendorNameType,
-} from "../../../../../customTypes/types";
-import { selectVendorOfficialName } from "../../../../../Redux/addedSlice";
+import { VendorAndItemName } from "../../../../../customTypes/types";
 import { useAppSelector } from "../../../../../Redux/hooks";
+import { selectVendorOfficialName } from "../../../../../Redux/selectors";
 import VendorLink from "../../VendorLink";
 import RowBarcodeImage from "../RowBarcodeImage";
 import RowItemName from "../RowItemName";
 import RowItemNumber from "../RowItemNumber";
-
-// type Props = {
-//   itemName: ItemName;
-
-//   // itemObj: ItemObjType;
-//   vendorName: VendorNameType;
-// };
 
 type Props = VendorAndItemName;
 
@@ -40,10 +28,7 @@ const ModalBodyContent: FC<Props> = ({ itemName, vendorName }) => {
               itemName={itemName}
               vendorName={vendorName}
             />
-            <RowItemNumber
-              itemName={itemName}
-              vendorName={vendorName}
-            />
+            <RowItemNumber itemName={itemName} />
             <RowBarcodeImage
               itemName={itemName}
               vendorName={vendorName}

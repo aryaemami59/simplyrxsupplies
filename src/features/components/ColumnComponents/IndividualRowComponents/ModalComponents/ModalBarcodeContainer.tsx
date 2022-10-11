@@ -3,7 +3,7 @@ import {
   ItemName,
   OfficialVendorNameType,
 } from "../../../../../customTypes/types";
-import { selectItemNumber } from "../../../../../Redux/addedSlice";
+import { selectItemNumber } from "../../../../../Redux/selectors";
 import { useAppSelector } from "../../../../../Redux/hooks";
 import BarcodeImage from "../BarcodeImage";
 import PrintBarcodeIcon from "../PrintBarcodeIcon";

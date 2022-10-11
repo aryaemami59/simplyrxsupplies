@@ -1,6 +1,6 @@
 import { FC, memo } from "react";
 import { shallowEqual } from "react-redux";
-import { selectCategoriesArr } from "../../../Redux/addedSlice";
+import { selectCategoriesArr } from "../../../Redux/selectors";
 import { useAppSelector } from "../../../Redux/hooks";
 import SideBarAccordion from "./SideBarAccordion";
 

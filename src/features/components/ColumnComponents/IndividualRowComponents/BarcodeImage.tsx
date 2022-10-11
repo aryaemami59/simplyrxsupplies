@@ -1,6 +1,6 @@
 import { FC, memo } from "react";
 import { ItemName } from "../../../../customTypes/types";
-import { selectItemSrc } from "../../../../Redux/addedSlice";
+import { selectItemSrc } from "../../../../Redux/selectors";
 import { useAppSelector } from "../../../../Redux/hooks";
 
 type Props = {

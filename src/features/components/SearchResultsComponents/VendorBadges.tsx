@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { FC, memo, MouseEventHandler } from "react";
 import { ItemObjType, VendorNameType } from "../../../customTypes/types";
-import { selectVendorOfficialName } from "../../../Redux/addedSlice";
+import { selectVendorOfficialName } from "../../../Redux/selectors";
 import { useAppSelector } from "../../../Redux/hooks";
 
 type Props = {
