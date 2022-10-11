@@ -18,16 +18,12 @@ const SingleSideBarAccordionListItem: FC<Props> = ({ itemName }) => {
   const ifAddedToAllVendors = useAppSelector(
     checkIfAddedToAllVendors(itemName)
   );
-  // const vendorsToAddTo = useAppSelector(
-  //   selectVendorsToAddTo(itemName),
-  //   shallowEqual
-  // );
 
   const vendors = useAppSelector(selectVendorsByItemName(itemName));
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    ifAddedToAllVendors || dispatch(addItems({ itemName }));
-  }, [ifAddedToAllVendors, dispatch, itemName]);
+    dispatch(addItems({ itemName }));
+  }, [dispatch, itemName]);
 
   return (
     <>

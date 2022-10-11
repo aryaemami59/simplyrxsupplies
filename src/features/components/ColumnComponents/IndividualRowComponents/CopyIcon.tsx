@@ -1,61 +1,9 @@
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "@mui/material";
-import { FC, memo, MouseEventHandler, useCallback, useReducer } from "react";
+import { Button, Tooltip } from "@mui/material";
+import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 
 const startIcon = <FontAwesomeIcon icon={faCopy} />;
-
-type reducerActionType = {
-  type: typeof ACTIONS[keyof typeof ACTIONS];
-  payload?: string;
-};
-
-const ACTIONS = {
-  CLICK_ON_ICON: "clickOnIcon",
-  HOVER_OVER_ICON: "hoverOverIcon",
-  HOVER_LEAVE: "hoverLeave",
-  AFTER_CLICK: "afterClick",
-} as const;
-
-const reducer = (
-  state: reducerState,
-  action: reducerActionType
-): reducerState => {
-  switch (action.type) {
-    case ACTIONS.CLICK_ON_ICON:
-      return {
-        copied: true,
-        hovered: false,
-        tooltipText: action.payload!,
-      };
-    case ACTIONS.HOVER_OVER_ICON:
-      return {
-        copied: state.copied,
-        hovered: true,
-        tooltipText: action.payload!,
-      };
-    case ACTIONS.HOVER_LEAVE:
-      return {
-        copied: state.copied,
-        hovered: false,
-        tooltipText: state.tooltipText,
-      };
-    case ACTIONS.AFTER_CLICK:
-      return {
-        copied: false,
-        hovered: false,
-        tooltipText: state.tooltipText,
-      };
-    default:
-      return state;
-  }
-};
-
-type reducerState = {
-  copied: boolean;
-  hovered: boolean;
-  tooltipText: string;
-};
 
 type Props = {
   content: string;
@@ -63,47 +11,28 @@ type Props = {
 };
 
 const CopyIcon: FC<Props> = ({ content, text }) => {
-  const oldText = `Copy The Item ${text}`;
   const copiedText = `Copied Item ${text}!`;
-  const [state, dispatch] = useReducer(reducer, {
-    copied: false,
-    hovered: false,
-    tooltipText: oldText,
-  });
-  const { copied, hovered, tooltipText } = state;
-  const open = copied || hovered;
 
-  const clickOnIcon = useCallback(
-    () => dispatch({ type: ACTIONS.CLICK_ON_ICON, payload: copiedText }),
-    [copiedText]
-  );
-
-  const handleMouseEnter: MouseEventHandler<HTMLButtonElement> = useCallback(
-    () => dispatch({ type: ACTIONS.HOVER_OVER_ICON, payload: oldText }),
-    [oldText]
-  );
-
-  const handleMouseLeave: MouseEventHandler<HTMLButtonElement> = useCallback(
-    () => dispatch({ type: ACTIONS.HOVER_LEAVE }),
-    []
-  );
-
-  const afterClick: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    dispatch({ type: ACTIONS.AFTER_CLICK });
-  }, []);
+  const [show, setShow] = useState(false);
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+    setShow(true);
     navigator.clipboard.writeText(content);
+    setTimeout(() => setShow(false), 1000);
   }, [content]);
 
   return (
-    <Button
-      className="ms-5"
-      variant="contained"
-      startIcon={startIcon}
-      onClick={handleClick}>
-      Copy Item {text}
-    </Button>
+    <Tooltip
+      title={copiedText}
+      open={show}>
+      <Button
+        size="small"
+        variant="contained"
+        startIcon={startIcon}
+        onClick={handleClick}>
+        Copy Item {text}
+      </Button>
+    </Tooltip>
   );
 };
 

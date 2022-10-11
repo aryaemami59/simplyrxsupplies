@@ -26,7 +26,6 @@ const ModalBodyContent: FC<Props> = ({ itemName, vendorName }) => {
           <List>
             <RowItemName
               itemName={itemName}
-              vendorName={vendorName}
             />
             <RowItemNumber itemName={itemName} />
             <RowBarcodeImage

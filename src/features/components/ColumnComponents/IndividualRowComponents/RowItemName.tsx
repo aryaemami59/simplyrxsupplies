@@ -1,16 +1,17 @@
 import { ListItem, ListItemText } from "@mui/material";
 import { FC, memo } from "react";
-import { ItemName, VendorNameType } from "../../../../customTypes/types";
+import { ItemName } from "../../../../customTypes/types";
 import CopyIcon from "./CopyIcon";
 
 type Props = {
   itemName: ItemName;
-  vendorName: VendorNameType;
 };
 
-const RowItemName: FC<Props> = ({ itemName, vendorName }) => (
+const RowItemName: FC<Props> = ({ itemName }) => (
   <ListItem divider>
-    <ListItemText>Item Name: {itemName}</ListItemText>
+    <ListItemText primaryTypographyProps={{ className: "pe- mw-7 ms-0" }}>
+      Item Name: {itemName}
+    </ListItemText>
     <CopyIcon
       content={itemName}
       text={"Name"}

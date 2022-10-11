@@ -46,10 +46,8 @@ const VendorColumn: FC<Props> = ({ vendorName }) => {
         <RowCounterBadge vendorName={vendorName} />
       </Button>
       <Collapse
-        // enter
         mountOnEnter
         unmountOnExit
-        // appear
         in={open}>
         <div>
           <VendorColumnCard

@@ -14,11 +14,9 @@ const RowSingleItemInfo: FC<Props> = ({ itemName, vendorName }) => (
     <List>
       <RowItemName
         itemName={itemName}
-        vendorName={vendorName}
       />
       <RowItemNumber
         itemName={itemName}
-        vendorName={vendorName}
       />
       <RowBarcodeImage
         itemName={itemName}

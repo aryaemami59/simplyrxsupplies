@@ -55,7 +55,11 @@ export const addedSlice = createSlice({
   reducers: {
     addItems: (state, action: PayloadAction<AddItemsInterface>) => {
       const { itemName } = action.payload;
-      if (!state.itemsObj[itemName].vendorsToAdd.length) {
+      if (
+        !state.itemsObj[itemName].vendorsToAdd.length ||
+        state.itemsObj[itemName].vendorsAdded.length ===
+          state.itemsObj[itemName].vendors.length
+      ) {
         return;
       }
       state.itemsObj[itemName].vendorsToAdd.forEach(

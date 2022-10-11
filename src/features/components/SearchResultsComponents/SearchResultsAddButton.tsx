@@ -6,23 +6,21 @@ import { addItems } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 import { checkIfAddedToAllVendors } from "../../../Redux/selectors";
 
+const startIcon = <AddCircleOutlineRoundedIcon />;
+
 type Props = {
   itemName: ItemName;
 };
 
 const SearchResultsAddButton: FC<Props> = ({ itemName }) => {
+  const dispatch = useAppDispatch();
   const IfAddedToAllVendors = useAppSelector(
     checkIfAddedToAllVendors(itemName)
   );
-  // const vendorsToAddTo = useAppSelector(
-  //   selectVendorsToAddTo(itemName),
-  //   shallowEqual
-  // );
-  const dispatch = useAppDispatch();
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    IfAddedToAllVendors || dispatch(addItems({ itemName }));
-  }, [IfAddedToAllVendors, dispatch, itemName]);
+    dispatch(addItems({ itemName }));
+  }, [dispatch, itemName]);
 
   return (
     <Button
@@ -31,7 +29,7 @@ const SearchResultsAddButton: FC<Props> = ({ itemName }) => {
       variant="contained"
       key={`Button-AddItemButtonComponent-${itemName}`}
       onClick={clickHandler}
-      startIcon={<AddCircleOutlineRoundedIcon />}>
+      startIcon={startIcon}>
       Add Item
     </Button>
   );

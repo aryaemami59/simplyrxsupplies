@@ -476,7 +476,6 @@ type ItemNamesType =
 
 export type AddItemsInterface = {
   itemName: ItemName;
-  // vendorsToAddTo: VendorNameType[];
 };
 
 export type VendorAndItemName = {

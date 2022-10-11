@@ -84,17 +84,17 @@ export const checkIfAddedToAllVendors =
 export const checkIfItemAddedToOneVendor =
   (vendorName: VendorNameType, itemName: ItemName) =>
   (state: RootState): boolean =>
-    state.added.itemsObj[itemName]!.vendorsAdded.includes(vendorName);
+    state.added.itemsObj[itemName].vendorsAdded.includes(vendorName);
 
 export const checkVendorsToAdd =
   (vendorName: VendorNameType, itemName: ItemName) =>
   (state: RootState): boolean =>
-    state.added.itemsObj[itemName]!.vendorsToAdd.includes(vendorName);
+    state.added.itemsObj[itemName].vendorsToAdd.includes(vendorName);
 
 export const checkVendorsAdded =
   (vendorName: VendorNameType, itemName: ItemName) =>
   (state: RootState): boolean =>
-    state.added.itemsObj[itemName]!.vendorsAdded.includes(vendorName);
+    state.added.itemsObj[itemName].vendorsAdded.includes(vendorName);
 
 export const selectItemNumber =
   (itemName: ItemName) =>
@@ -122,7 +122,7 @@ export const selectVendorOfficialName =
 export const selectAllVendorOfficialNames = (
   state: RootState
 ): OfficialVendorNameType[] =>
-  state.added.vendorsArr!.map(
+  state.added.vendorsArr.map(
     vendorName => state.added.vendorsObj![vendorName].officialName
   );
 

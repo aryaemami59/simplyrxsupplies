@@ -43,7 +43,20 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          "argsIgnorePattern": "^_",
+          "varsIgnorePattern": "^_"
+        }
+      ],
+      "react/jsx-no-bind": 1,
+      "react/no-array-index-key": 1,
+      "react/display-name": 1,
+      "react/self-closing-comp": 1
+    }
   },
   "browserslist": {
     "production": [
@@ -78,10 +91,10 @@
     "@types/why-did-you-update": "^0.0.12",
     "@welldone-software/why-did-you-render": "^7.0.1",
     "eslint": "^8.25.0",
+    "eslint-plugin-react": "^7.31.10",
     "gh-pages": "^4.0.0",
     "install": "^0.13.0",
     "npm": "^8.19.2",
-    "prettier": "^2.7.1",
     "typescript": "^4.8.4"
   }
 }

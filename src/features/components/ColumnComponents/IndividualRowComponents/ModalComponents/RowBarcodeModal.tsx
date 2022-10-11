@@ -14,6 +14,8 @@ import BarcodeImage from "../BarcodeImage";
 
 const title = "Take a Closer Look at The Barcode";
 
+const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />;
+
 type Props = {
   itemName: ItemName;
 };
@@ -50,7 +52,7 @@ const RowBarcodeModal: FC<Props> = ({ itemName }) => {
         open={open}>
         <Button
           variant="contained"
-          startIcon={<FontAwesomeIcon icon={faMagnifyingGlassPlus} />}
+          startIcon={startIcon}
           onClick={showModal}
           className="w-auto">
           Magnify

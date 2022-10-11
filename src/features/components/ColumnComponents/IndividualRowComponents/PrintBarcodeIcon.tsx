@@ -13,7 +13,7 @@ type Props = {
   itemName: ItemName;
 };
 
-const PrintBarcodeIcon: FC<Props> = ({ text, header, itemName }) => {
+const PrintBarcodeIcon: FC<Props> = ({ header, itemName }) => {
   const src = useAppSelector(selectItemSrc(itemName));
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {

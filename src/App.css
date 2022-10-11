@@ -271,3 +271,11 @@ div.loading-spinner {
 img.barcode-image {
   aspect-ratio: 156 / 112;
 }
+
+.mw-75 {
+  max-width: 75%;
+}
+
+.minw-180 {
+  min-width: 180px;
+}
