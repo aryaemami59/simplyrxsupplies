@@ -10,7 +10,6 @@ import {
   AddedState,
   AddItemsByVendorInterface,
   AddItemsInterface,
-  CategoriesObjType,
   Category,
   FetchItems,
   ItemName,
@@ -34,40 +33,19 @@ const createAsyncThunkFunc = (strVal: string, githubUrl: string) =>
       return Promise.reject(`Unable to fetch, status: ${response.status}`);
     }
     return await response.json();
-    // const myItems = await data[strVal];
-    // return myItems;
   });
 
 const emptyObj = {};
-// emptyObj;
-
-// export const fetchItems = createAsyncThunk();
 
 export const fetchItems: FetchItems = createAsyncThunkFunc(
   "items",
   GITHUB_URL_ITEMS
 );
 
-// export const fetchVendors: FetchVendors = createAsyncThunkFunc(
-//   "vendors",
-//   GITHUB_URL_VENDORS
-// );
-
-// export const fetchCategories: FetchCategories = createAsyncThunkFunc(
-//   "categories",
-//   GITHUB_URL_CATEGORIES
-// );
-
 const emptyArr: [] = [];
 
 const initialState = {
   listItems: emptyArr,
-  // compact: false,
-  // showItemNumber: true,
-  // showItemBarcode: true,
-  // showItemName: true,
-  // vendorsIsLoading: true,
-  // categoriesIsLoading: true,
   errMsg: "",
   isLoading: true,
   itemsArr: emptyArr,
@@ -77,12 +55,6 @@ const initialState = {
   categoriesArr: emptyArr,
   categoriesObj: emptyObj,
 } as unknown as AddedState;
-
-// const itemInitialState: itemState = {
-//   itemsArr: empty,
-//   isLoading: true,
-//   errMsg: "",
-// };
 
 export const addedSlice = createSlice({
   name: "added",
@@ -162,18 +134,6 @@ export const addedSlice = createSlice({
           )
         : state.itemsObj[itemName]!.vendorsToAdd.concat(vendorName);
     },
-    // compactSearchResults: state => {
-    //   state.compact = !state.compact;
-    // },
-    // ToggleItemNumber: state => {
-    //   state.showItemNumber = !state.showItemNumber;
-    // },
-    // ToggleItemBarcode: state => {
-    //   state.showItemBarcode = !state.showItemBarcode;
-    // },
-    // ToggleItemName: state => {
-    //   state.showItemName = !state.showItemName;
-    // },
   },
   extraReducers: builder => {
     builder.addCase(fetchItems.pending, state => {
@@ -207,130 +167,8 @@ export const addedSlice = createSlice({
       state.isLoading = false;
       state.errMsg = "";
     });
-    // builder.addCase(fetchVendors.pending, state => {
-    //   state.vendorsIsLoading = true;
-    // });
-    // builder.addCase(fetchCategories.pending, state => {
-    //   state.categoriesIsLoading = true;
-    // });
-    // builder.addCase(
-    //   fetchCategories.fulfilled,
-    //   (state, action: PayloadAction<categoriesObjType>) => {
-    //     state.categoriesObj = action.payload;
-    //     const keys = Object.keys(action.payload) as Category[];
-    //     state.categoriesArr = keys;
-    //     state.categoriesIsLoading = false;
-    //     state.errMsg = "";
-    //   }
-    // );
-    // builder.addCase(
-    //   fetchVendors.fulfilled,
-    //   (state, action: PayloadAction<vendorsObjType>) => {
-    //     const payload: vendorsObjType = action.payload;
-    //     const keys = Object.keys(payload) as vendorNameType[];
-    //     state.vendorsArr = keys;
-    //     state.vendorsObj = payload as vendorsObjType;
-    //     let val: vendorNameType;
-    //     for (val in payload) {
-    //       state[val] = emptyVendorObj;
-    //     }
-    //     state.vendorsIsLoading = false;
-    //     state.errMsg = "";
-    //   }
-    // );
-    // builder.addCase(fetchVendors.rejected, (state, action) => {
-    //   state.vendorsIsLoading = false;
-    //   state.errMsg = action.error.message || "Fetch failed";
-    // });
-    // builder.addCase(fetchCategories.rejected, (state, action) => {
-    //   state.categoriesIsLoading = false;
-    //   state.errMsg = action.error.message || "Fetch failed";
-    // });
   },
 });
-
-// export const itemSlice = createSlice({
-//   name: "item",
-//   initialState: itemInitialState,
-//   reducers: {
-//     setVendors: (state, action: PayloadAction<addItemsByVendorInterface>) => {
-//       state[action.payload.itemObj.name]!.vendorsToAdd = state[
-//         action.payload.itemObj.name
-//       ]!.vendorsToAdd.includes(action.payload.vendorName)
-//         ? state[action.payload.itemObj.name]!.vendorsToAdd.filter(
-//             vendorName => vendorName !== action.payload.vendorName
-//           )
-//         : state[action.payload.itemObj.name]!.vendorsToAdd.concat(
-//             action.payload.vendorName
-//           );
-//     },
-//   },
-//   extraReducers: builder => {
-//     builder.addCase(fetchItems.pending, (state: itemState) => {
-//       state.isLoading = true;
-//     });
-//     builder.addCase(
-//       fetchItems.fulfilled,
-//       (state, action: PayloadAction<ItemObjType[]>) => {
-//         for (const itemObj of action.payload) {
-//           state[itemObj.name] = {
-//             ...itemObj,
-//             vendorsToAdd: itemObj.vendors,
-//             vendorsAdded: empty,
-//           };
-//         }
-//         state.isLoading = false;
-//         state.errMsg = "";
-//         state.itemsArr = action.payload;
-//       }
-//     );
-//     builder.addCase(fetchItems.rejected, (state, action) => {
-//       state.isLoading = false;
-//       state.errMsg = action.error.message || "Fetch failed";
-//     });
-//     builder.addCase(addItems, (state, action) => {
-//       state[action.payload.itemObj.name]!.vendorsAdded = [
-//         ...state[action.payload.itemObj.name]!.vendorsAdded,
-//         ...state[action.payload.itemObj.name]!.vendorsToAdd,
-//       ];
-//       state[action.payload.itemObj.name]!.vendorsToAdd = state[
-//         action.payload.itemObj.name
-//       ]!.vendorsToAdd.length
-//         ? (intersection(
-//             action.payload.itemObj.vendors,
-//             state[action.payload.itemObj.name]!.vendorsAdded
-//           ) as vendorNameType[])
-//         : empty;
-//     });
-//     builder.addCase(
-//       addItemsByVendor,
-//       (state, action: PayloadAction<addItemsByVendorInterface>) => {
-//         state[action.payload.itemObj.name]!.vendorsAdded = [
-//           ...state[action.payload.itemObj.name]!.vendorsAdded,
-//           action.payload.vendorName,
-//         ];
-//         state[action.payload.itemObj.name]!.vendorsToAdd = state[
-//           action.payload.itemObj.name
-//         ]!.vendorsToAdd.length
-//           ? (intersection(
-//               action.payload.itemObj.vendors,
-//               state[action.payload.itemObj.name]!.vendorsAdded
-//             ) as vendorNameType[])
-//           : empty;
-//       }
-//     );
-//     builder.addCase(
-//       removeItems,
-//       (state, action: PayloadAction<addItemsByVendorInterface>) => {
-//         state[action.payload.itemObj.name]!.vendorsAdded = state[
-//           action.payload.itemObj.name
-//         ]!.vendorsAdded.filter(
-//           vendorName => vendorName !== action.payload.vendorName
-//         );
-//       }
-//     );
-//   },
-// });
 
 export const selectByVendor =
   (vendorName: VendorNameType) =>
@@ -350,31 +188,15 @@ export const selectVendorsArr = (state: RootState): VendorNameType[] =>
 export const selectVendorsLinks =
   (vendorName: VendorNameType) =>
   (state: RootState): Link =>
-    state.added.vendorsObj[vendorName]!.link;
+    state.added.vendorsObj[vendorName].link;
 
 export const selectCategoriesArr = (state: RootState): Category[] =>
-  state.added.categoriesArr!;
+  state.added.categoriesArr;
 
 export const addedItemsLength =
   (vendorName: VendorNameType) =>
   (state: RootState): number =>
-    state.added.vendorsObj[vendorName]!.itemsAdded!.length;
-
-export const checkIfAddedToOneVendor =
-  (itemObj: ItemObjType, vendorName: VendorNameType) =>
-  (state: RootState): boolean =>
-    state.added[itemObj.name]!.vendorsAdded.includes(vendorName);
-
-export const selectItemsByVendor =
-  (vendorName: VendorNameType) =>
-  (state: RootState): ItemObjType[] =>
-    Object.values(state.added.itemsObj).filter(({ vendors }) =>
-      vendors.includes(vendorName)
-    );
-// state.added.vendorsObj![vendorName].itemIds.map(
-//   (itemId: number) =>
-//     Object.values(state.added.itemsObj).find(({ id }) => id === itemId)!
-// );
+    state.added.vendorsObj[vendorName].itemsAdded.length;
 
 export const selectItemNamesByVendor =
   (vendorName: VendorNameType) => (state: RootState) =>
@@ -392,16 +214,6 @@ export const selectItemObjByName =
   (state: RootState): ItemObjType =>
     state.added.itemsObj[itemName];
 
-export const selectCategories =
-  (category: Category) =>
-  (state: RootState): ItemObjType[] => {
-    const categoriesObj = state.added.categoriesObj as CategoriesObjType;
-    return categoriesObj[category].itemIds.map(
-      itemId =>
-        Object.values(state.added.itemsObj).find(({ id }) => id === itemId)!
-    );
-  };
-
 export const selectCategoriesItemNames =
   (categoryParam: Category) =>
   (state: RootState): ItemName[] =>
@@ -415,21 +227,17 @@ export const selectItemNamesArr = (state: RootState): ItemName[] =>
 export const selectQRCodeContent =
   (vendorName: VendorNameType) =>
   (state: RootState): string =>
-    state.added.vendorsObj[vendorName]!.qrContent!;
+    state.added.vendorsObj[vendorName].qrContent;
 
-export const numbersOnQR = (vendorName: VendorNameType) => (state: RootState) =>
-  state.added.vendorsObj[vendorName]!.qrText!;
+export const selectQRText =
+  (vendorName: VendorNameType) => (state: RootState) =>
+    state.added.vendorsObj[vendorName].qrText;
 
 export const checkIfAddedToAllVendors =
   (itemName: ItemName) =>
   (state: RootState): boolean =>
-    state.added.itemsObj[itemName]!.vendorsAdded.length ===
-    state.added.itemsObj[itemName]!.vendors.length;
-// export const checkIfAddedToAllVendors =
-//   (itemObj: ItemObjType) =>
-//   (state: RootState): boolean =>
-//     state.added.itemsObj[itemObj.name]!.vendorsAdded.length ===
-//     itemObj.vendors.length;
+    state.added.itemsObj[itemName].vendorsAdded.length ===
+    state.added.itemsObj[itemName].vendors.length;
 
 export const checkIfItemAddedToOneVendor =
   (vendorName: VendorNameType, itemName: ItemName) =>
@@ -467,7 +275,7 @@ export const selectVendorsByItemName =
 export const selectVendorOfficialName =
   (vendorName: VendorNameType) =>
   (state: RootState): OfficialVendorNameType =>
-    state.added.vendorsObj![vendorName].officialName;
+    state.added.vendorsObj[vendorName].officialName;
 
 export const selectAllVendorOfficialNames = (
   state: RootState
@@ -493,14 +301,6 @@ export const {
   setListItems,
   clearListItems,
   setVendors,
-  // compactSearchResults,
-  // ToggleItemNumber,
-  // ToggleItemBarcode,
-  // ToggleItemName,
 } = addedSlice.actions;
-
-// export const { setVendors } = itemSlice.actions;
-
-// export const itemReducer: Reducer<itemState, AnyAction> = itemSlice.reducer;
 
 export const addedReducer = addedSlice.reducer;

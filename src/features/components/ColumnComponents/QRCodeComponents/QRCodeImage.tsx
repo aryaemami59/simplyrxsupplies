@@ -1,6 +1,9 @@
 import { FC, memo } from "react";
 import { VendorNameType } from "../../../../customTypes/types";
-import { numbersOnQR, selectQRCodeContent } from "../../../../Redux/addedSlice";
+import {
+  selectQRText,
+  selectQRCodeContent,
+} from "../../../../Redux/addedSlice";
 import { useAppSelector } from "../../../../Redux/hooks";
 
 type Props = {
@@ -9,7 +12,7 @@ type Props = {
 };
 
 const QRCodeImage: FC<Props> = ({ vendorName, className }) => {
-  const title = useAppSelector(numbersOnQR(vendorName));
+  const title = useAppSelector(selectQRText(vendorName));
   const src = useAppSelector(selectQRCodeContent(vendorName));
 
   return (
