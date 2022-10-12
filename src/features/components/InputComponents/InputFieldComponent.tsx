@@ -1,5 +1,8 @@
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
+import { grey } from "@mui/material/colors";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import {
   ChangeEvent,
   FC,
@@ -10,12 +13,12 @@ import {
   useState,
   useTransition,
 } from "react";
-import { Form } from "react-bootstrap";
 import { shallowEqual } from "react-redux";
 import { ItemName } from "../../../customTypes/types";
 import { clearListItems, setListItems } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 import { selectItemNamesArr } from "../../../Redux/selectors";
+import { MAIN_COLOR, SEARCH_FIELD_BG } from "../../shared/sharedStyles";
 
 const empty: [] = [];
 
@@ -47,7 +50,7 @@ const InputFieldComponent: FC = () => {
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null!);
 
-  const clickHandler: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+  const clickHandler = useCallback(() => {
     dispatch(clearListItems());
     setVal("");
     inputRef.current?.focus();
@@ -69,7 +72,11 @@ const InputFieldComponent: FC = () => {
         .split(/\s+/gi)
         .map((f: string) => `(?=.*${f})`)
         .join("");
-      const re: RegExp = new RegExp(`${reg}|${looseReg}`, "gi");
+      const re: RegExp = new RegExp(
+        `${reg}|${looseReg}
+      `,
+        "gi"
+      );
       return trimmedValue
         ? itemNames
             .filter(itemName => itemName.toLowerCase().trim().match(re))
@@ -98,25 +105,58 @@ const InputFieldComponent: FC = () => {
 
   return (
     <>
-      {/* <TextField
+      <TextField
         autoFocus
         fullWidth
         onChange={changeVal}
         value={val}
+        color="primary"
         label="Search"
-        variant="filled"
-        className="rounded-pill ps-4 text-white c-bg"
-      /> */}
-      <Form.Control
+        variant="outlined"
+        className="mt-4"
+        type={"search"}
+        InputProps={{
+          endAdornment: (
+            <>
+              {val && (
+                <InputAdornment position="end">
+                  <IconButton
+                    color="white"
+                    style={{ color: grey[300] }}
+                    onClick={clickHandler}>
+                    <CloseRoundedIcon
+                    // style={{ fill: "white", color: "white" }}
+                    />
+                  </IconButton>
+                </InputAdornment>
+              )}
+            </>
+          ),
+        }}
+        // inputProps={{ endAdornment:  }}
+        sx={{
+          "& label": {
+            color: grey[300],
+          },
+          "& label.Mui-focused": {
+            color: MAIN_COLOR,
+          },
+          "& fieldset": {
+            borderRadius: "30px",
+            backgroundColor: SEARCH_FIELD_BG,
+          },
+        }}
+      />
+      {/* <Form.Control
         ref={inputRef}
         placeholder="Search..."
         type="search"
         className="rounded-pill ps-4 text-white border-0 c-bg"
         onChange={changeVal}
         value={val}
-      />
+      /> */}
       <>
-        {val && (
+        {/* {val && (
           <FontAwesomeIcon
             onClick={clickHandler}
             className="rounded-circle p-2 position-absolute top-0 end-0 me-5 mt-1 text-white-50"
@@ -126,7 +166,7 @@ const InputFieldComponent: FC = () => {
             focusable="auto"
             icon={faX}
           />
-        )}
+        )} */}
       </>
     </>
   );

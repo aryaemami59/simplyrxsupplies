@@ -8,7 +8,9 @@ import InputFieldComponent from "./InputFieldComponent";
 const InputGroupComponent: FC = () => (
   <div className="row justify-content-center">
     <div className="col-12 col-md-11 col-xxl-10 justify-content-center">
-      <Form.Floating>
+      <InputFieldComponent />
+
+      {/* <Form.Floating>
         <InputFieldComponent />
         <label
           className="w-auto h-auto ps-4 text-white-50"
@@ -21,7 +23,7 @@ const InputGroupComponent: FC = () => (
           size="2x"
           icon={faMagnifyingGlass}
         />
-      </Form.Floating>
+      </Form.Floating> */}
       <SearchResultsContainer />
     </div>
   </div>

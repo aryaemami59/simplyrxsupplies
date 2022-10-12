@@ -50,6 +50,7 @@ const theme = createTheme({
       main: "#0071dc",
       darker: "#053e85",
     },
+    mode: "light",
     neutral: {
       main: "#64748B",
       contrastText: "#fff",
@@ -67,11 +68,11 @@ const root = createRoot(container);
 root.render(
   <>
     {/* <React.StrictMode> */}
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </ThemeProvider>
+    {/* <ThemeProvider theme={theme}> */}
+    <Provider store={store}>
+      <App />
+    </Provider>
+    {/* </ThemeProvider> */}
     {/* </React.StrictMode> */}
   </>
 );
