@@ -14,10 +14,10 @@ const TopNavbar: FC = () => (
       <span>
         <OffcanvasComponent />
       </span>
+      <DarkModeTogglerButton />
       <span className="d-none d-lg-inline-block m-auto">
         <VendorDropDownsList />
       </span>
-      <DarkModeTogglerButton />
     </div>
   </AppBar>
 );

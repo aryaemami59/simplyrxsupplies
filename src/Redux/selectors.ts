@@ -9,15 +9,8 @@ import {
   Src,
   VendorNameType,
 } from "../customTypes/types";
-import { emptyArr } from "./addedSlice";
+import { emptyArr } from "../features/shared/utilityFunctions";
 import { RootState } from "./store";
-
-export const selectByVendor =
-  (vendorName: VendorNameType) =>
-  (state: RootState): ItemObjType[] =>
-    state.added.vendorsObj[vendorName]!.itemIds.map(
-      e => Object.values(state.added.itemsObj).find(({ id }) => id === e)!
-    );
 
 export const selectAddedItemsByVendor =
   (vendorName: VendorNameType) =>
@@ -45,16 +38,6 @@ export const selectItemNamesByVendor =
     Object.values(state.added.itemsObj)
       .filter(({ vendors }) => vendors.includes(vendorName))
       .map(({ name }) => name);
-
-export const selectVendorsToAddTo =
-  (itemName: ItemName) =>
-  (state: RootState): VendorNameType[] =>
-    state.added.itemsObj[itemName]!.vendorsToAdd;
-
-export const selectItemObjByName =
-  (itemName: ItemName) =>
-  (state: RootState): ItemObjType =>
-    state.added.itemsObj[itemName];
 
 export const selectCategoriesItemNames =
   (categoryParam: Category) =>
@@ -106,9 +89,6 @@ export const selectItemSrc =
   (state: RootState): Src =>
     state.added.itemsObj[itemName].src;
 
-export const selectItemsArr = (state: RootState): ItemObjType[] =>
-  Object.values(state.added.itemsObj);
-
 export const selectVendorsByItemName =
   (itemName: ItemName) =>
   (state: RootState): VendorNameType[] =>
@@ -118,13 +98,6 @@ export const selectVendorOfficialName =
   (vendorName: VendorNameType) =>
   (state: RootState): OfficialVendorNameType =>
     state.added.vendorsObj[vendorName].officialName;
-
-export const selectAllVendorOfficialNames = (
-  state: RootState
-): OfficialVendorNameType[] =>
-  state.added.vendorsArr.map(
-    vendorName => state.added.vendorsObj![vendorName].officialName
-  );
 
 export const selectAllListItems = createSelector(
   (state: RootState): ItemName[] => state.added.listItems,

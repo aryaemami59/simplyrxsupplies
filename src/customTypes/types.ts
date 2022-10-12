@@ -34,7 +34,7 @@ export type CategoriesObjType = Record<
 
 export type ItemsObj = Record<ItemNamesType, ItemObjType>;
 
-export type EmptyObj = {};
+export type EmptyObj = Record<string, never>;
 
 export type EmptyArr = [];
 
@@ -48,18 +48,6 @@ export type AddedState = {
   vendorsObj: VendorsObjType;
   categoriesArr: Category[];
   categoriesObj: CategoriesObjType;
-};
-
-export type AddedStateInitial = {
-  listItems: ItemName[];
-  errMsg: string;
-  isLoading: boolean;
-  itemsArr: ItemNamesType[] | EmptyArr;
-  itemsObj: ItemsObj | EmptyObj;
-  vendorsArr: VendorNameType[] | EmptyArr;
-  vendorsObj: VendorsObjType | EmptyObj;
-  categoriesArr: Category[] | EmptyArr;
-  categoriesObj: CategoriesObjType | EmptyObj;
 };
 
 export type ItemName = ItemNamesType;
