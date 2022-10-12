@@ -18,67 +18,23 @@ import VendorColumnList from "./features/components/ColumnComponents/VendorColum
 import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
 import SideBarContainer from "./features/components/SideBarComponents/SideBarContainer";
 import TopNavbar from "./features/components/TopNavbarComponents/TopNavbar";
+import { lightTheme, darkTheme } from "./features/shared/themes";
 import IsLoading from "./IsLoading";
 import { fetchItems } from "./Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "./Redux/hooks";
 import { checkIfLoading, selectErrMsg } from "./Redux/selectors";
 
-declare module "@mui/material/styles" {
-  interface Theme {
-    status: {
-      danger: React.CSSProperties["color"];
-    };
-  }
+// export interface myContextInterface {
+//   darkTheme: boolean | (() => boolean);
+//   setDarkTheme: Dispatch<SetStateAction<boolean>>;
+// }
 
-  interface Palette {
-    neutral: Palette["primary"];
-    white: Palette["primary"];
-  }
-  interface PaletteOptions {
-    neutral: PaletteOptions["primary"];
-    white: PaletteOptions["primary"];
-  }
-
-  interface PaletteColor {
-    darker?: string;
-  }
-  interface SimplePaletteColorOptions {
-    darker?: string;
-  }
-  interface ThemeOptions {
-    status: {
-      danger: React.CSSProperties["color"];
-    };
-  }
-}
-
-declare module "@mui/material/Button" {
-  interface ButtonPropsColorOverrides {
-    neutral: true;
-    white: true;
-  }
-}
-
-declare module "@mui/material/IconButton" {
-  interface IconButtonPropsColorOverrides {
-    neutral: true;
-    white: true;
-  }
-}
-
-export interface myContextInterface {
-  darkTheme: boolean | (() => boolean);
-  setDarkTheme: Dispatch<SetStateAction<boolean>>;
-}
-
-export const DarkModeContext = createContext<myContextInterface>({
-  darkTheme: true,
-  setDarkTheme: () => {},
-});
+// export const DarkModeContext = createContext<myContextInterface>({
+//   darkTheme: true,
+//   setDarkTheme: () => {},
+// });
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
-
-const defaultTheme = createTheme();
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
@@ -100,58 +56,7 @@ const App: FC = () => {
   const errMsg: string = useAppSelector(selectErrMsg);
 
   const theme = useMemo(
-    () =>
-      createTheme({
-        status: {
-          danger: "#e53e3e",
-        },
-
-        palette: {
-          neutral: {
-            main: "#64748B",
-            contrastText: "#fff",
-          },
-          white: {
-            main: "#fff",
-          },
-          // white: defaultTheme.palette.augmentColor({
-          //   color: { main: "#fff" },
-          //   name: "white",
-          // }),
-          primary: {
-            main: "#0071dc",
-          },
-          mode,
-          ...(mode === "light"
-            ? {
-                // palette values for light mode
-                // primary: amber,
-                // divider: amber[200],
-
-                background: {
-                  default: "rgb(255, 255, 255)",
-                  paper: "rgb(255, 255, 255)",
-                },
-                text: {
-                  primary: grey[900],
-                  secondary: grey[800],
-                },
-              }
-            : {
-                // palette values for dark mode
-                // primary: deepOrange,
-                // divider: deepOrange[700],
-                background: {
-                  default: "rgb(21, 32, 43)",
-                  paper: "rgb(21, 32, 43)",
-                },
-                text: {
-                  primary: "#fff",
-                  secondary: grey[500],
-                },
-              }),
-        },
-      }),
+    () => (mode === "light" ? lightTheme : darkTheme),
     [mode]
   );
 

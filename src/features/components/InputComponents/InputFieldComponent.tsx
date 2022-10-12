@@ -2,7 +2,7 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import CloseIcon from "@mui/icons-material/Close";
 import {
   ChangeEvent,
   FC,
@@ -110,42 +110,38 @@ const InputFieldComponent: FC = () => {
         fullWidth
         onChange={changeVal}
         value={val}
-        color="primary"
         label="Search"
         variant="outlined"
         className="mt-4"
-        type={"search"}
         InputProps={{
+          style: { borderRadius: "30px", backgroundColor: SEARCH_FIELD_BG },
           endAdornment: (
             <>
               {val && (
                 <InputAdornment position="end">
-                  <IconButton
-                    color="white"
-                    style={{ color: grey[300] }}
-                    onClick={clickHandler}>
-                    <CloseRoundedIcon
-                    // style={{ fill: "white", color: "white" }}
-                    />
+                  <IconButton onClick={clickHandler}>
+                    <CloseIcon />
                   </IconButton>
                 </InputAdornment>
               )}
             </>
           ),
         }}
-        // inputProps={{ endAdornment:  }}
-        sx={{
-          "& label": {
-            color: grey[300],
-          },
-          "& label.Mui-focused": {
-            color: MAIN_COLOR,
-          },
-          "& fieldset": {
-            borderRadius: "30px",
-            backgroundColor: SEARCH_FIELD_BG,
-          },
-        }}
+        sx={
+          {
+            // "& label": {
+            //   color: grey[300],
+            // },
+            // "& label.Mui-focused": {
+            //   color: MAIN_COLOR,
+            // },
+            // "& fieldset": {
+            //   borderRadius: "30px",
+            // backgroundColor: SEARCH_FIELD_BG,
+            // color: "white",
+            // },
+          }
+        }
       />
       {/* <Form.Control
         ref={inputRef}
