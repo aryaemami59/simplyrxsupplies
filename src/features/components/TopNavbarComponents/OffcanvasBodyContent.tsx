@@ -1,17 +1,15 @@
 import { DialogContent, DialogTitle } from "@mui/material";
 import { FC, memo } from "react";
-import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import SideBarAccordionList from "../SideBarComponents/SideBarAccordionList";
+import OffcanvasVendorAccordionList from "./OffcanvasVendorAccordionList";
 
 const OffcanvasBodyContent: FC = () => (
   <DialogContent dividers>
-    <DialogTitle className="mb-">By Vendor</DialogTitle>
-    <DialogContent
-      dividers
-      className="d-flex flex-column justify-content-center align-items-start">
-      <VendorDropDownsList />
+    <DialogTitle>By Vendor</DialogTitle>
+    <DialogContent dividers>
+      <OffcanvasVendorAccordionList />
     </DialogContent>
-    <DialogTitle className="mb-">By Category</DialogTitle>
+    <DialogTitle>By Category</DialogTitle>
     <DialogContent dividers>
       <SideBarAccordionList />
     </DialogContent>

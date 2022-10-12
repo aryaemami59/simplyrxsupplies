@@ -9,13 +9,13 @@ import { shallowEqual } from "react-redux";
 import { Category } from "../../../customTypes/types";
 import { selectCategoriesItemNames } from "../../../Redux/selectors";
 import { useAppSelector } from "../../../Redux/hooks";
-import SingleSideBarAccordionListItem from "./SingleSideBarAccordionListItem";
+import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem";
 
 type Props = {
   category: Category;
 };
 
-const SideBarAccordion: FC<Props> = ({ category }) => {
+const SideBarAccordionCategories: FC<Props> = ({ category }) => {
   const sidebarItemNames = useAppSelector(
     selectCategoriesItemNames(category),
     shallowEqual
@@ -38,7 +38,7 @@ const SideBarAccordion: FC<Props> = ({ category }) => {
         </AccordionSummary>
         <AccordionDetails>
           {sidebarItemNames.map(itemName => (
-            <SingleSideBarAccordionListItem
+            <SingleSideBarCategoryListItem
               key={`${itemName}-SingleSideBarAccordionListItem`}
               {...{ category, itemName }}
             />
@@ -49,4 +49,4 @@ const SideBarAccordion: FC<Props> = ({ category }) => {
   );
 };
 
-export default memo<Props>(SideBarAccordion);
+export default memo<Props>(SideBarAccordionCategories);

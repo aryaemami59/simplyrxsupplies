@@ -78,10 +78,11 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
         {officialVendorName}
       </Button>
       <Menu
-        keepMounted
+        // keepMounted
         id={officialVendorName}
         MenuListProps={menuListProps}
         anchorEl={anchorEl}
+        variant="selectedMenu"
         open={dropdownOpen}
         onClose={handleClose}
         transformOrigin={transformOrigin}

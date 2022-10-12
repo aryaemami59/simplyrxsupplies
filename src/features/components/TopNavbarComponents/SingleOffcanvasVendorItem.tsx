@@ -1,13 +1,13 @@
-import { MenuItem } from "@mui/material";
+import { Button } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
 import { VendorAndItemName } from "../../../customTypes/types";
 import { addItemsByVendor } from "../../../Redux/addedSlice";
-import { checkIfItemAddedToOneVendor } from "../../../Redux/selectors";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
+import { checkIfItemAddedToOneVendor } from "../../../Redux/selectors";
 
 type Props = VendorAndItemName;
 
-const SingleDropDown: FC<Props> = ({ itemName, vendorName }) => {
+const SingleOffcanvasVendorItem: FC<Props> = ({ itemName, vendorName }) => {
   const dispatch = useAppDispatch();
 
   const ifAddedToVendor = useAppSelector(
@@ -19,14 +19,17 @@ const SingleDropDown: FC<Props> = ({ itemName, vendorName }) => {
   }, [ifAddedToVendor, dispatch, itemName, vendorName]);
 
   return (
-    <MenuItem
-      disabled={ifAddedToVendor}
-      className="text-wrap"
-      key={itemName}
-      onClick={clickHandler}>
-      {itemName}
-    </MenuItem>
+    <div>
+      <Button
+        size="large"
+        disabled={ifAddedToVendor}
+        className="fw-bold w-100 my-1"
+        variant="contained"
+        onClick={clickHandler}>
+        {itemName}
+      </Button>
+    </div>
   );
 };
 
-export default memo<Props>(SingleDropDown);
+export default memo<Props>(SingleOffcanvasVendorItem);

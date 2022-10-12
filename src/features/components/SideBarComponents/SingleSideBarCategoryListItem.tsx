@@ -13,7 +13,7 @@ type Props = {
   itemName: ItemName;
 };
 
-const SingleSideBarAccordionListItem: FC<Props> = ({ itemName }) => {
+const SingleSideBarCategoryListItem: FC<Props> = ({ itemName }) => {
   const dispatch = useAppDispatch();
   const ifAddedToAllVendors = useAppSelector(
     checkIfAddedToAllVendors(itemName)
@@ -51,4 +51,4 @@ const SingleSideBarAccordionListItem: FC<Props> = ({ itemName }) => {
   );
 };
 
-export default memo<Props>(SingleSideBarAccordionListItem);
+export default memo<Props>(SingleSideBarCategoryListItem);
