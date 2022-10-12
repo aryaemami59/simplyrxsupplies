@@ -3,7 +3,6 @@ import {
   Category,
   ItemName,
   ItemNumber,
-  ItemObjType,
   Link,
   OfficialVendorNameType,
   Src,

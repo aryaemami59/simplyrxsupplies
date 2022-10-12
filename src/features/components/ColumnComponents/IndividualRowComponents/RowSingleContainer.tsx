@@ -1,5 +1,5 @@
 import { Button, ButtonGroup, Collapse, Fade } from "@mui/material";
-import { FC, KeyboardEvent, memo, useCallback, useState } from "react";
+import { FC, memo, useCallback, useState } from "react";
 import { VendorAndItemName } from "../../../../customTypes/types";
 import CollapseButton from "./CollapseButton";
 import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal";
@@ -15,20 +15,8 @@ const RowSingleContainer: FC<Props> = ({ itemName, vendorName }) => {
     setOpen(prev => !prev);
   }, []);
 
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLDivElement>) => {
-      if (e.key === "c") {
-        toggleFade();
-      }
-    },
-    [toggleFade]
-  );
-
   return (
-    <div
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
-      className="rounded border mb-4">
+    <div className="rounded border mb-4">
       <div className="my-3 container-fluid">
         <div className="justify-content-evenly align-items-center row">
           <div className="col-xs-auto justify-content-center d-flex">
@@ -50,6 +38,7 @@ const RowSingleContainer: FC<Props> = ({ itemName, vendorName }) => {
           <div className="col-12 col-xl-7 col-xxl-9">
             <Fade
               in={!open}
+              mountOnEnter
               unmountOnExit>
               <Button
                 aria-controls="maximize content"

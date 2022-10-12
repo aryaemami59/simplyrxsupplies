@@ -20,6 +20,7 @@ const SingleDropDown: FC<Props> = ({ itemName, vendorName }) => {
 
   return (
     <MenuItem
+      autoFocus
       disabled={ifAddedToVendor}
       className="text-wrap"
       key={itemName}

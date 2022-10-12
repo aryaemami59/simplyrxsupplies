@@ -43,6 +43,7 @@
     "extends": [
       "react-app",
       "react-app/jest",
+      "plugin:jsx-a11y/recommended",
       "plugin:@typescript-eslint/recommended"
     ],
     "rules": {
@@ -53,7 +54,9 @@
           "varsIgnorePattern": "^_"
         }
       ],
+      "jsx-a11y/no-noninteractive-element-interactions": 2,
       "@typescript-eslint/no-non-null-assertion": 0,
+      "@typescript-eslint/no-empty-function": 0,
       "react/jsx-no-bind": 1,
       "react/no-array-index-key": 1,
       "react/display-name": 1,
@@ -93,6 +96,7 @@
     "@types/why-did-you-update": "^0.0.12",
     "@welldone-software/why-did-you-render": "^7.0.1",
     "eslint": "^8.25.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-react": "^7.31.10",
     "gh-pages": "^4.0.0",
     "install": "^0.13.0",

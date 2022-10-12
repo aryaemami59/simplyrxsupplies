@@ -1,5 +1,5 @@
 import { Card } from "@mui/material";
-import { FC, KeyboardEvent, memo } from "react";
+import { FC, memo } from "react";
 import {
   ItemName,
   OfficialVendorNameType,
@@ -9,7 +9,6 @@ import ColumnTopCardBody from "./ColumnTopCardBody";
 import EmptyColumn from "./EmptyColumn";
 
 type Props = {
-  handleKeyDown: (e: KeyboardEvent<HTMLElement>) => void;
   addedItems: ItemName[];
   vendorName: VendorNameType;
   officialVendorName: OfficialVendorNameType;
@@ -17,13 +16,10 @@ type Props = {
 
 const VendorColumnCard: FC<Props> = ({
   addedItems,
-  handleKeyDown,
   officialVendorName,
   vendorName,
 }) => (
-  <Card
-    tabIndex={0}
-    onKeyDown={handleKeyDown}>
+  <Card>
     {addedItems.length ? (
       <ColumnTopCardBody
         addedItems={addedItems}

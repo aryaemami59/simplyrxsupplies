@@ -78,11 +78,14 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
         {officialVendorName}
       </Button>
       <Menu
+        // autoFocus
+        aria-expanded={dropdownOpen}
         // keepMounted
         id={officialVendorName}
         MenuListProps={menuListProps}
         anchorEl={anchorEl}
-        variant="selectedMenu"
+        variant="menu"
+        // variant="selectedMenu"
         open={dropdownOpen}
         onClose={handleClose}
         transformOrigin={transformOrigin}

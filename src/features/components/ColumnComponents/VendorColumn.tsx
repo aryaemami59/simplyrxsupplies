@@ -1,13 +1,15 @@
 import { Collapse } from "@mui/material";
 import Button from "@mui/material/Button";
-import { FC, KeyboardEvent, memo, useCallback, useState } from "react";
+import { FC, memo, useCallback, useState } from "react";
 import { shallowEqual } from "react-redux";
 import { VendorNameType } from "../../../customTypes/types";
-import { selectVendorOfficialName } from "../../../Redux/selectors";
 import { useAppSelector } from "../../../Redux/hooks";
+import {
+  selectAddedItemsByVendor,
+  selectVendorOfficialName,
+} from "../../../Redux/selectors";
 import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge";
 import VendorColumnCard from "./VendorColumnCard";
-import { selectAddedItemsByVendor } from "../../../Redux/selectors";
 
 type Props = {
   vendorName: VendorNameType;
@@ -27,15 +29,6 @@ const VendorColumn: FC<Props> = ({ vendorName }) => {
     setOpen(prev => !prev);
   }, []);
 
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLElement>) => {
-      if (e.key === "m") {
-        buttonClick();
-      }
-    },
-    [buttonClick]
-  );
-
   return (
     <>
       <Button
@@ -53,7 +46,6 @@ const VendorColumn: FC<Props> = ({ vendorName }) => {
           <VendorColumnCard
             officialVendorName={officialVendorName}
             addedItems={addedItems}
-            handleKeyDown={handleKeyDown}
             vendorName={vendorName}
           />
         </div>

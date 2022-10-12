@@ -1,11 +1,10 @@
 import MenuIcon from "@mui/icons-material/Menu";
 import {
-  IconButton,
-  SwipeableDrawer,
-  DialogActions,
   Button,
+  DialogActions,
+  IconButton,
   PaperProps,
-  ModalProps,
+  SwipeableDrawer,
 } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import OffcanvasBodyContent from "./OffcanvasBodyContent";
@@ -13,10 +12,6 @@ import OffcanvasBodyContent from "./OffcanvasBodyContent";
 const paperProps: PaperProps = {
   className: "mw-75",
   style: { maxWidth: "75%" },
-};
-
-const modalProps: Partial<ModalProps<"div", {}>> = {
-  // keepMounted: true,
 };
 
 const OffcanvasComponent: FC = () => {
@@ -42,7 +37,6 @@ const OffcanvasComponent: FC = () => {
         open={show}
         // keepMounted
         PaperProps={paperProps}
-        ModalProps={modalProps}
         onClose={handleClose}>
         <OffcanvasBodyContent />
         <DialogActions>

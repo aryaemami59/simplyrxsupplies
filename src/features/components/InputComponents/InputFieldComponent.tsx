@@ -42,7 +42,6 @@ const InputFieldComponent: FC = () => {
 
   return (
     <TextField
-      autoFocus
       fullWidth
       onChange={changeVal}
       value={val}
