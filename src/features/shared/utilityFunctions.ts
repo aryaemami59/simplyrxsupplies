@@ -6,9 +6,6 @@ export const sortResults = (
   re: RegExp,
   trimmedValue: string
 ): number => {
-  console.log(searchTerm, trimmedValue, re);
-  console.log(searchTerm.toLowerCase().includes(trimmedValue));
-  // console.log()
   if (searchTerm.toLowerCase() === trimmedValue) {
     return 100;
   }
@@ -47,11 +44,7 @@ export const search = (
     .split(/\s+/gi)
     .map((f: string) => `(?=.*${f})`)
     .join("");
-  const re = new RegExp(
-    `${reg}|${looseReg}
-  `,
-    "gi"
-  );
+  const re = new RegExp(`${reg}|${looseReg}`, "gi");
   return trimmedValue
     ? itemNames
         .filter(itemName => itemName.toLowerCase().trim().match(re))

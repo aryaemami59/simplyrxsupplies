@@ -1,0 +1,17 @@
+import { InputAdornment, IconButton } from "@mui/material";
+import { FC, memo } from "react";
+import CloseIcon from "@mui/icons-material/Close";
+
+type Props = {
+  clickHandler: () => void;
+};
+
+const InputEndAdornment: FC<Props> = ({ clickHandler }) => (
+  <InputAdornment position="end">
+    <IconButton onClick={clickHandler}>
+      <CloseIcon />
+    </IconButton>
+  </InputAdornment>
+);
+
+export default memo<Props>(InputEndAdornment);

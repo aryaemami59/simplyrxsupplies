@@ -1,5 +1,6 @@
 import { Button, ButtonGroup } from "@mui/material";
 import { FC, memo, MouseEventHandler, RefObject, useCallback } from "react";
+import { shallowEqual } from "react-redux";
 import { ItemName } from "../../../customTypes/types";
 import { addItems } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
@@ -8,9 +9,6 @@ import {
   selectVendorsByItemName,
 } from "../../../Redux/selectors";
 import SideBarVendorBadges from "./SideBarVendorBadges";
-import useUpdateLogger from "../../customHooks/useUpdateLogger";
-import useStatus from "../../customHooks/useStatus";
-import { shallowEqual } from "react-redux";
 
 type Props = {
   itemName: ItemName;
@@ -27,9 +25,6 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemName, target }) => {
     selectVendorsByItemName(itemName),
     shallowEqual
   );
-
-  // useUpdateLogger(vendors);
-  // useStatus("SingleSideBarCategoryListItem");
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     dispatch(addItems({ itemName }));
