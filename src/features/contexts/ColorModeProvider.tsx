@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@mui/material/styles";
-import { createContext, FC, memo, ReactNode, useMemo, useState } from "react";
+import { createContext, FC, memo, ReactNode, useMemo } from "react";
+import useLocalStorageTheme from "../customHooks/useLocalStorageTheme";
 import { darkTheme, lightTheme } from "../shared/themes";
-import useLocalStorage from "../customHooks/useLocalStorage";
 
 type Props = {
   children: ReactNode;
@@ -13,19 +13,19 @@ export const ColorModeContext = createContext({
 });
 
 const ColorModeProvider: FC<Props> = ({ children }) => {
-  const [theme, setTheme] = useState(lightTheme);
-  const [val, setVal] = useLocalStorage("theme", theme.palette.mode);
+  const [theme, setTheme] = useLocalStorageTheme();
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        setTheme(prev => (prev === lightTheme ? darkTheme : lightTheme));
-        setVal((prev: "dark" | "light") =>
-          prev === "light" ? "dark" : "light"
-        );
+        setTheme(prev => {
+          const currentTheme = prev === lightTheme ? darkTheme : lightTheme;
+          localStorage.setItem("theme", currentTheme.palette.mode);
+          return currentTheme;
+        });
       },
       theme,
     }),
-    [setVal, theme]
+    [setTheme, theme]
   );
 
   return (
