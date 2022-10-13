@@ -250,8 +250,12 @@ input.cursor-pointer {
 }
 
 .sidebar-col {
-  height: calc(100vh - 37px);
-  top: 37px;
+  margin-top: 40px;
+}
+
+.sidebar-container {
+  height: calc(100vh - 40px);
+  top: 40px;
 }
 
 div.menu-list {

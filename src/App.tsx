@@ -8,7 +8,7 @@ import VendorColumnList from "./features/components/ColumnComponents/VendorColum
 import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
 import SideBarContainer from "./features/components/SideBarComponents/SideBarContainer";
 import TopNavbar from "./features/components/TopNavbarComponents/TopNavbar";
-import ColorModeProvider from "./features/contexts/ColorModeProvider"; // ColorModeContext,
+import ColorModeProvider from "./features/contexts/ColorModeProvider";
 import IsLoading from "./IsLoading";
 import { fetchItems } from "./Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "./Redux/hooks";
@@ -34,9 +34,7 @@ const App: FC = () => {
         <TopNavbar />
         <div className="container-fluid">
           <div className="justify-content-center row">
-            <div
-              className="col-lg-3 col-xl-2 px-0 d-none d-lg-block sticky-top sidebar-col"
-              style={{ marginTop: 37 }}>
+            <div className="col-lg-3 col-xl-2 px-0 d-none d-lg-block sidebar-col">
               <SideBarContainer />
             </div>
             <div className="col-11 col-md-6 col-lg-5 mt-5">

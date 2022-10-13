@@ -1,4 +1,3 @@
-// import { Props } from "@fortawesome/react-fontawesome";
 import {
   Button,
   Menu,
@@ -27,8 +26,9 @@ const anchorOrigin: PopoverOrigin = {
 };
 
 const menuListProps: MenuListProps = {
-  "aria-labelledby": "customized-button",
+  "aria-labelledby": "menu-list",
   className: "menu-list",
+  autoFocus: true,
   style: {
     maxHeight: "calc(100vh - 54px)",
   },
@@ -36,9 +36,6 @@ const menuListProps: MenuListProps = {
 
 const paperProps: PaperProps = {
   className: "paper",
-  // style: {
-  //   width: 250,
-  // },
 };
 
 type Props = {
@@ -47,7 +44,7 @@ type Props = {
 
 const VendorDropDown: FC<Props> = ({ vendorName }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const open = !!anchorEl;
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
@@ -59,18 +56,18 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
 
   const handleOpen: MouseEventHandler<HTMLElement> = useCallback(event => {
     setAnchorEl(event.currentTarget);
-    setDropdownOpen(true);
   }, []);
 
   const handleClose: MouseEventHandler<HTMLElement> = useCallback(() => {
     setAnchorEl(null);
-    setDropdownOpen(false);
   }, []);
 
   return (
     <>
       <Button
         id={vendorName}
+        aria-controls={open ? "dropdown-menu" : undefined}
+        aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
         variant="contained"
         disableElevation
@@ -78,15 +75,14 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
         {officialVendorName}
       </Button>
       <Menu
-        // autoFocus
-        aria-expanded={dropdownOpen}
-        // keepMounted
+        autoFocus
+        aria-expanded={open}
+        aria-labelledby={vendorName}
         id={officialVendorName}
         MenuListProps={menuListProps}
         anchorEl={anchorEl}
         variant="menu"
-        // variant="selectedMenu"
-        open={dropdownOpen}
+        open={open}
         onClose={handleClose}
         transformOrigin={transformOrigin}
         anchorOrigin={anchorOrigin}
