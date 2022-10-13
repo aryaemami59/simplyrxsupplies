@@ -12,19 +12,22 @@ import {
   selectItemNamesByVendor,
 } from "../../../Redux/selectors";
 import SingleOffcanvasVendorItem from "./SingleOffcanvasVendorItem";
+import { shallowEqual } from "react-redux";
 
 type Props = {
   vendorName: VendorNameType;
 };
 
 const OffcanvasVendorAccordion: FC<Props> = ({ vendorName }) => {
+  const [open, setOpen] = useState(false);
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
 
-  const vendorItemNames = useAppSelector(selectItemNamesByVendor(vendorName));
-
-  const [open, setOpen] = useState(false);
+  const vendorItemNames = useAppSelector(
+    selectItemNamesByVendor(vendorName),
+    shallowEqual
+  );
 
   const toggle = useCallback(() => {
     setOpen(prev => !prev);

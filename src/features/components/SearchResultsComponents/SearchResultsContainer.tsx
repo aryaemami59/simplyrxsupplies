@@ -5,11 +5,13 @@ import { useAppSelector } from "../../../Redux/hooks";
 import { selectAllListItems } from "../../../Redux/selectors";
 import VendorColumnModalComponent from "../InputComponents/VendorColumnModalComponent";
 // import SearchResultsSingleCard from "./SearchResultsSingleCard";
+import useUpdateLogger from "../../customHooks/useUpdateLogger";
 
 const SearchResultsSingleCard = lazy(() => import("./SearchResultsSingleCard"));
 
 const SearchResultsContainer: FC = () => {
-  const listItems = useAppSelector(selectAllListItems, shallowEqual);
+  const listItems = useAppSelector(selectAllListItems);
+  // useUpdateLogger(listItems);
   // const slicedList = useMemo(() => listItems.slice(0, 10), [listItems]);
 
   // const [list, setList] = useState<ItemName[]>([]);

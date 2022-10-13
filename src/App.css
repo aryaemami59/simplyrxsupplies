@@ -104,7 +104,7 @@ svg.hover-inverse:hover {
 }
 
 div.c-overflow-x-hidden {
-  overflow-x: hidden !important;
+  overflow-x: hidden ;
 }
 
 input.custom-shadow {

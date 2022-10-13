@@ -6,6 +6,9 @@ export const sortResults = (
   re: RegExp,
   trimmedValue: string
 ): number => {
+  console.log(searchTerm, trimmedValue, re);
+  console.log(searchTerm.toLowerCase().includes(trimmedValue));
+  // console.log()
   if (searchTerm.toLowerCase() === trimmedValue) {
     return 100;
   }
@@ -30,7 +33,7 @@ export const search = (
   e: ChangeEvent<HTMLInputElement>,
   itemNames: ItemName[]
 ) => {
-  const trimmedValue: string = e.target.value
+  const trimmedValue = e.target.value
     .trim()
     .toLowerCase()
     .replace(/\s{2,}/, " ");

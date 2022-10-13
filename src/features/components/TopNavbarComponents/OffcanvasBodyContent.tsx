@@ -4,7 +4,9 @@ import SideBarAccordionList from "../SideBarComponents/SideBarAccordionList";
 import OffcanvasVendorAccordionList from "./OffcanvasVendorAccordionList";
 
 const OffcanvasBodyContent: FC = () => (
-  <DialogContent dividers>
+  <DialogContent
+    dividers
+    className="w-100">
     <DialogTitle>By Vendor</DialogTitle>
     <DialogContent dividers>
       <OffcanvasVendorAccordionList />

@@ -98,10 +98,7 @@ export const selectVendorOfficialName =
   (state: RootState): OfficialVendorNameType =>
     state.added.vendorsObj[vendorName].officialName;
 
-export const selectAllListItems = createSelector(
-  (state: RootState): ItemName[] => state.added.listItems,
-  (listItems: ItemName[]): ItemName[] => listItems
-);
+export const selectAllListItems = (state: RootState) => state.added.listItems;
 
 export const checkIfLoading = (state: RootState): boolean =>
   state.added.isLoading;

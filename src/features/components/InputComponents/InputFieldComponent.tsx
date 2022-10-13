@@ -10,11 +10,12 @@ import {
   useTransition,
 } from "react";
 import { shallowEqual } from "react-redux";
+import { ItemName } from "../../../customTypes/types";
 import { clearListItems, setListItems } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 import { selectItemNamesArr } from "../../../Redux/selectors";
 import { SEARCH_FIELD_BG } from "../../shared/sharedStyles";
-import { search } from "../../shared/utilityFunctions";
+import { emptyArr, search, sortResults } from "../../shared/utilityFunctions";
 
 const InputFieldComponent: FC = () => {
   const [val, setVal] = useState("");
@@ -22,6 +23,40 @@ const InputFieldComponent: FC = () => {
   const itemNames = useAppSelector(selectItemNamesArr, shallowEqual);
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const search = useCallback((
+    e: ChangeEvent<HTMLInputElement>,
+    itemNames: ItemName[]
+  ) => {
+    const trimmedValue = e.target.value
+      .trim()
+      .toLowerCase()
+      .replace(/\s{2,}/, " ");
+    const reg = trimmedValue
+      .split(/\s+/gi)
+      .map((f: string, i: number, arr: string[]) =>
+        i !== arr.length - 1 ? `(\\b(${f})+\\b)` : `(\\b(${f}))`
+      )
+      .join(".*");
+    const looseReg = trimmedValue
+      .split(/\s+/gi)
+      .map((f: string) => `(?=.*${f})`)
+      .join("");
+    const re = new RegExp(
+      `${reg}|${looseReg}
+    `,
+      "gi"
+    );
+    return trimmedValue
+      ? itemNames
+          .filter(itemName => itemName.toLowerCase().trim().match(re))
+          .sort(
+            (a, b) =>
+              sortResults(b, re, trimmedValue) - sortResults(a, re, trimmedValue)
+          )
+          .slice(0, 100)
+      : emptyArr;
+  }, []);
 
   const clickHandler = useCallback(() => {
     dispatch(clearListItems());
@@ -31,8 +66,8 @@ const InputFieldComponent: FC = () => {
 
   const changeVal = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      const listItems = search(e, itemNames);
       setVal(e.target.value);
+      const listItems = search(e, itemNames);
       startTransition(() => {
         dispatch(setListItems(listItems));
       });

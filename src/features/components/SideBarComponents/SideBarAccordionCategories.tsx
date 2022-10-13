@@ -4,18 +4,21 @@ import {
   AccordionSummary,
   Typography,
 } from "@mui/material";
-import { FC, memo, useCallback, useState } from "react";
+import { FC, memo, useCallback, useRef, useState } from "react";
 import { shallowEqual } from "react-redux";
 import { Category } from "../../../customTypes/types";
 import { selectCategoriesItemNames } from "../../../Redux/selectors";
 import { useAppSelector } from "../../../Redux/hooks";
 import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem";
+import useStatus from "../../customHooks/useStatus";
+import useUpdateLogger from "../../customHooks/useUpdateLogger";
 
 type Props = {
   category: Category;
 };
 
 const SideBarAccordionCategories: FC<Props> = ({ category }) => {
+  const ref = useRef<HTMLDivElement>(null);
   const sidebarItemNames = useAppSelector(
     selectCategoriesItemNames(category),
     shallowEqual
@@ -26,6 +29,10 @@ const SideBarAccordionCategories: FC<Props> = ({ category }) => {
     setOpen(prev => !prev);
   }, []);
 
+  // useUpdateLogger(sidebarItemNames);
+
+  // useStatus("SideBarAccordionCategories");
+
   return (
     <div>
       <Accordion
@@ -33,12 +40,15 @@ const SideBarAccordionCategories: FC<Props> = ({ category }) => {
         expanded={open}
         onChange={toggle}
         variant="outlined">
-        <AccordionSummary className="shadow-sm">
+        <AccordionSummary
+          ref={ref}
+          className="shadow-sm">
           <Typography>{category}</Typography>
         </AccordionSummary>
-        <AccordionDetails>
+        <AccordionDetails className="text-center mw-7">
           {sidebarItemNames.map(itemName => (
             <SingleSideBarCategoryListItem
+              target={ref}
               key={`${itemName}-SingleSideBarAccordionListItem`}
               {...{ category, itemName }}
             />

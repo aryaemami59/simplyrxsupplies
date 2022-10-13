@@ -11,7 +11,6 @@ import OffcanvasBodyContent from "./OffcanvasBodyContent";
 
 const paperProps: PaperProps = {
   className: "mw-75",
-  style: { maxWidth: "75%" },
 };
 
 const OffcanvasComponent: FC = () => {
@@ -35,7 +34,6 @@ const OffcanvasComponent: FC = () => {
       <SwipeableDrawer
         onOpen={handleOpen}
         open={show}
-        // keepMounted
         PaperProps={paperProps}
         onClose={handleClose}>
         <OffcanvasBodyContent />
