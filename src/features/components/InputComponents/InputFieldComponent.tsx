@@ -37,9 +37,10 @@ const InputFieldComponent: FC = () => {
 
   const changeVal = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      setVal(e.target.value);
-      const listItems = search(e, itemNames);
+      const { value } = e.target;
+      setVal(value);
       startTransition(() => {
+        const listItems = search(value, itemNames);
         dispatch(setListItems(listItems));
       });
     },

@@ -11,7 +11,7 @@ const TopNavbar: FC = () => (
     elevation={0}
     variant="outlined">
     <div className="d-flex align-items-center">
-      <span className="d-inline-block d-lg-non">
+      <span className="d-inline-block d-lg-none">
         <OffcanvasComponent />
       </span>
       <DarkModeTogglerButton />

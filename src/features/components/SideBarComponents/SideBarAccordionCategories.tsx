@@ -7,11 +7,9 @@ import {
 import { FC, memo, useCallback, useRef, useState } from "react";
 import { shallowEqual } from "react-redux";
 import { Category } from "../../../customTypes/types";
-import { selectCategoriesItemNames } from "../../../Redux/selectors";
 import { useAppSelector } from "../../../Redux/hooks";
+import { selectCategoriesItemNames } from "../../../Redux/selectors";
 import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem";
-import useStatus from "../../customHooks/useStatus";
-import useUpdateLogger from "../../customHooks/useUpdateLogger";
 
 type Props = {
   category: Category;
@@ -28,10 +26,6 @@ const SideBarAccordionCategories: FC<Props> = ({ category }) => {
   const toggle = useCallback(() => {
     setOpen(prev => !prev);
   }, []);
-
-  // useUpdateLogger(sidebarItemNames);
-
-  // useStatus("SideBarAccordionCategories");
 
   return (
     <div>

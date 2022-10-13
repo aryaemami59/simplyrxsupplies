@@ -1,5 +1,4 @@
-import { ChangeEvent } from "react";
-import { ItemName, EmptyObj, EmptyArr } from "../../customTypes/types";
+import { EmptyArr, EmptyObj, ItemName } from "../../customTypes/types";
 
 export const sortResults = (
   searchTerm: ItemName,
@@ -26,11 +25,8 @@ export const intersection = (
   secondArray: string[]
 ): string[] => firstArray.filter(e => !secondArray.includes(e));
 
-export const search = (
-  e: ChangeEvent<HTMLInputElement>,
-  itemNames: ItemName[]
-) => {
-  const trimmedValue = e.target.value
+export const search = (value: string, itemNames: ItemName[]) => {
+  const trimmedValue = value
     .trim()
     .toLowerCase()
     .replace(/\s{2,}/, " ");
