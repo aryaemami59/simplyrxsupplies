@@ -13,8 +13,12 @@ const RowItemNumber: FC<Props> = ({ itemName }) => {
   const itemNumber = useAppSelector(selectItemNumber(itemName));
 
   return (
-    <ListItem divider>
-      <ListItemText>Item Number: {itemNumber}</ListItemText>
+    <ListItem
+      divider
+      className="row row-cols-1 row-cols-sm-2">
+      <ListItemText primaryTypographyProps={{ className: "ms-0" }}>
+        Item Number: {itemNumber}
+      </ListItemText>
       <CopyIcon
         content={itemNumber}
         text="Number"
