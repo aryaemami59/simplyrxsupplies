@@ -1,32 +1,29 @@
+import { List } from "@mui/material";
 import { FC, memo } from "react";
-import { Container } from "react-bootstrap";
-import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
+import { VendorAndItemName } from "../../../../customTypes/types";
 import RowBarcodeImage from "./RowBarcodeImage";
 import RowItemName from "./RowItemName";
 import RowItemNumber from "./RowItemNumber";
 
-type Props = {
-  itemObj: ItemObjType;
-  vendorName: vendorNameType;
-};
+type Props = VendorAndItemName;
 
-const RowSingleItemInfo: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
-  return (
-    <Container key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
+const RowSingleItemInfo: FC<Props> = ({ itemName, vendorName }) => (
+  <div
+    className="container"
+    key={`${itemName}${vendorName}-VendorColumn-Container-name`}>
+    <List>
       <RowItemName
-        itemObj={itemObj}
-        vendorName={vendorName}
+        itemName={itemName}
       />
       <RowItemNumber
-        itemObj={itemObj}
-        vendorName={vendorName}
+        itemName={itemName}
       />
       <RowBarcodeImage
-        itemObj={itemObj}
+        itemName={itemName}
         vendorName={vendorName}
       />
-    </Container>
-  );
-};
+    </List>
+  </div>
+);
 
 export default memo<Props>(RowSingleItemInfo);

@@ -1,42 +1,25 @@
+import { ListItem, ListItemText } from "@mui/material";
 import { FC, memo } from "react";
-import { ListGroup } from "react-bootstrap";
-import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
+import { ItemName } from "../../../../customTypes/types";
 import { useAppSelector } from "../../../../Redux/hooks";
-import { RootState } from "../../../../Redux/store";
+import { selectItemNumber } from "../../../../Redux/selectors";
 import CopyIcon from "./CopyIcon";
 
 type Props = {
-  itemObj: ItemObjType;
-  vendorName: vendorNameType;
+  itemName: ItemName;
 };
 
-const RowItemNumber: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
-  const itemNumberShown = useAppSelector(
-    (state: RootState) => state.added.showItemNumber
-  );
+const RowItemNumber: FC<Props> = ({ itemName }) => {
+  const itemNumber = useAppSelector(selectItemNumber(itemName));
 
   return (
-    <>
-      {itemNumberShown ? (
-        <ListGroup.Item
-          variant="primary"
-          className="rounded-bottom fw-bold"
-          action
-          key={`${itemObj.itemNumber}-${vendorName}-VendorColumn-ListGroupItem-itemNumber`}>
-          Item Number: {itemObj.itemNumber}
-          <CopyIcon
-            key={`${vendorName}-${itemObj.itemNumber}-CopyIconComponent-ItemNumberComponent`}
-            content={itemObj.itemNumber}
-            text={"Number"}
-            placement="bottom"
-            itemObj={itemObj}
-            vendorName={vendorName}
-          />
-        </ListGroup.Item>
-      ) : (
-        ""
-      )}
-    </>
+    <ListItem divider>
+      <ListItemText>Item Number: {itemNumber}</ListItemText>
+      <CopyIcon
+        content={itemNumber}
+        text="Number"
+      />
+    </ListItem>
   );
 };
 

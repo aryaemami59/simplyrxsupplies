@@ -1,35 +1,19 @@
-import { faCircleHalfStroke } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FC, memo, MouseEventHandler, useCallback, useContext } from "react";
-import { Button } from "react-bootstrap";
-import { DarkMode } from "../../../App";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import { IconButton } from "@mui/material";
+import { FC, memo } from "react";
+import useColorMode from "../../customHooks/useColorMode";
+import { darkTheme } from "../../shared/themes";
 
-const DarkModeTogglerButton: FC = (): JSX.Element => {
-  const { setDarkTheme, darkTheme } = useContext(DarkMode);
-
-  const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    setDarkTheme(prev => {
-      !prev
-        ? localStorage.setItem("theme", (!prev).toString())
-        : localStorage.removeItem("theme");
-      return !prev;
-    });
-  }, [setDarkTheme]);
-
-  const inverse = darkTheme ? true : false;
+const DarkModeTogglerButton: FC = () => {
+  const { theme, toggleColorMode } = useColorMode();
 
   return (
-    <Button
-      onClick={clickHandler}
-      variant="">
-      <FontAwesomeIcon
-        size="lg"
-        inverse={inverse}
-        pull="right"
-        key={`FontAwesomeIcon-NavbarComponent`}
-        icon={faCircleHalfStroke}
-      />
-    </Button>
+    <IconButton
+      onClick={toggleColorMode}
+      color="inherit">
+      {theme === darkTheme ? <Brightness7Icon /> : <Brightness4Icon />}
+    </IconButton>
   );
 };
 

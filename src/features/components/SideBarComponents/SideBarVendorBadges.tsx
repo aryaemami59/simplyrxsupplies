@@ -1,86 +1,44 @@
-import { FC, memo, useContext } from "react";
-import { Form } from "react-bootstrap";
-import { connect, ConnectedProps } from "react-redux";
-import { DarkMode } from "../../../App";
-import { ItemObjType, vendorNameType } from "../../../customTypes/types";
+import { Checkbox, FormControlLabel } from "@mui/material";
+import { FC, memo, useCallback } from "react";
+import { VendorAndItemName } from "../../../customTypes/types";
+import { setVendors } from "../../../Redux/addedSlice";
 import {
+  checkIfItemAddedToOneVendor,
+  checkVendorsToAdd,
   selectVendorOfficialName,
-  setVendors,
-} from "../../../Redux/addedSlice";
-import { useAppSelector } from "../../../Redux/hooks";
-import { AppDispatch, RootState } from "../../../Redux/store";
+} from "../../../Redux/selectors";
+import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 
-const mapStateToProps = (
-  state: RootState,
-  ownProps: ParentProps
-): { checked: boolean; disabled: boolean } => {
-  return {
-    checked: state.item[ownProps.itemObj.name]!.vendorsToAdd.includes(
-      ownProps.vendorName
-    ),
-    disabled: state.item[ownProps.itemObj.name]!.vendorsAdded.includes(
-      ownProps.vendorName
-    ),
-  };
-};
+type Props = VendorAndItemName;
 
-const mapDispatchToProps = (dispatch: AppDispatch, ownProps: ParentProps) => {
-  return {
-    clickHandler: () => {
-      dispatch(
-        setVendors({
-          itemObj: ownProps.itemObj,
-          vendorName: ownProps.vendorName,
-        })
-      );
-    },
-  };
-};
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type ParentProps = {
-  vendorName: vendorNameType;
-  itemObj: ItemObjType;
-};
-
-type Props = ParentProps & PropsFromRedux;
-
-const SideBarVendorBadges: FC<Props> = ({
-  vendorName,
-  itemObj,
-  clickHandler,
-  checked,
-  disabled,
-}): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
+const SideBarVendorBadges: FC<Props> = ({ vendorName, itemName }) => {
+  const dispatch = useAppDispatch();
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
 
+  const checked = useAppSelector(checkVendorsToAdd(vendorName, itemName));
+
+  const disabled = useAppSelector(
+    checkIfItemAddedToOneVendor(vendorName, itemName)
+  );
+
+  const clickHandler = useCallback(() => {
+    dispatch(setVendors({ itemName, vendorName }));
+  }, [dispatch, itemName, vendorName]);
+
   return (
-    <Form.Check
-      type="checkbox"
-      className={darkTheme ? "text-info custom-text-shadow-whit" : "text-dark"}
-      id={`Form.Check-SideBarVendorBadges-${itemObj.id}-${vendorName}`}
-      key={`${itemObj.id}-Badge-SideBarVendorBadges-`}>
-      <Form.Check.Input
-        disabled={disabled}
-        onChange={clickHandler}
-        checked={checked}
-        className={`cursor-pointer ${darkTheme ? "custom-checkbox-bg" : ""}`}
-        type="checkbox"
-        key={`Form.Check.Input-SideBarVendorBadges-${itemObj.id}`}
-      />
-      <Form.Check.Label
-        className="cursor-pointer"
-        htmlFor={`Form.Check-SideBarVendorBadges-${itemObj.id}-${vendorName}`}>
-        {officialVendorName}
-      </Form.Check.Label>
-    </Form.Check>
+    <FormControlLabel
+      label={officialVendorName}
+      control={
+        <Checkbox
+          checked={checked}
+          disabled={disabled}
+          onChange={clickHandler}
+        />
+      }
+    />
   );
 };
 
-export default connector(memo<Props>(SideBarVendorBadges));
+export default memo<Props>(SideBarVendorBadges);

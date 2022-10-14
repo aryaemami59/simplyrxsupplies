@@ -1,32 +1,21 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  FC,
-  memo,
-  MouseEventHandler,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
-import { Button, Modal } from "react-bootstrap";
-import { DarkMode } from "../../../../../App";
-import { ItemObjType, vendorNameType } from "../../../../../customTypes/types";
-import ModalBodyContent from "./ModalBodyContent";
+import { Button, Tooltip } from "@mui/material";
+import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
+import { VendorAndItemName } from "../../../../../customTypes/types";
+import RowItemsDialog from "./RowItemsDialog";
 
-type Props = {
-  itemObj: ItemObjType;
-  vendorName: vendorNameType;
-};
+const title = "Take a Closer Look at The Item Info";
 
-const RowSingleContainerModal: FC<Props> = ({
-  itemObj,
-  vendorName,
-}): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
+type Props = VendorAndItemName;
 
+const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />;
+
+const RowSingleContainerModal: FC<Props> = ({ itemName, vendorName }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  const showModal: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+  const showModal: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     setModalOpen(true);
   }, []);
 
@@ -34,41 +23,37 @@ const RowSingleContainerModal: FC<Props> = ({
     setModalOpen(false);
   }, []);
 
+  const showTooltip = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const hideTooltip = useCallback(() => {
+    setOpen(false);
+  }, []);
+
   return (
     <>
-      <FontAwesomeIcon
-        onClick={showModal}
-        icon={faMagnifyingGlassPlus}
-        inverse
-        className="btn rounded-circle px-2 me-1 hover-inverse"
-        size="2x"
-        role="button"
+      <Tooltip
+        onOpen={showTooltip}
+        onClose={hideTooltip}
+        enterDelay={1500}
+        enterNextDelay={1500}
+        title={title}
+        open={open}>
+        <Button
+          className="flex-grow-1"
+          onClick={showModal}
+          variant="contained"
+          startIcon={startIcon}>
+          Magnify
+        </Button>
+      </Tooltip>
+      <RowItemsDialog
+        hideModal={hideModal}
+        itemName={itemName}
+        modalOpen={modalOpen}
+        vendorName={vendorName}
       />
-      <Modal
-        scrollable
-        onHide={hideModal}
-        show={modalOpen}
-        size="xl"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered>
-        <Modal.Header
-          className={darkTheme ? "bg-dark text-info" : "bg-light"}
-          closeButton
-          closeVariant={darkTheme ? "white" : "none"}>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Item Details
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body className={darkTheme ? "bg-dark text-info" : "bg-light"}>
-          <ModalBodyContent
-            itemObj={itemObj}
-            vendorName={vendorName}
-          />
-        </Modal.Body>
-        <Modal.Footer className={darkTheme ? "bg-dark" : "bg-light"}>
-          <Button onClick={hideModal}>Close</Button>
-        </Modal.Footer>
-      </Modal>
     </>
   );
 };

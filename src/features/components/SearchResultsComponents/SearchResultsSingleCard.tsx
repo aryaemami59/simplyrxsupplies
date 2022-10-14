@@ -1,30 +1,23 @@
-import { FC, memo, useContext } from "react";
-import { Card } from "react-bootstrap";
-import { DarkMode } from "../../../App";
-import { ItemObjType } from "../../../customTypes/types";
+import { Card, CardContent } from "@mui/material";
+import { FC, memo } from "react";
+import { ItemName } from "../../../customTypes/types";
 import SearchResultsCardBodyContent from "./SearchResultsCardBodyContent";
 
 type Props = {
-  itemObj: ItemObjType;
+  itemName: ItemName;
 };
 
-const SearchResultsSingleCard: FC<Props> = ({ itemObj }): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
-  const theme = darkTheme ? "dark" : "light";
-
-  return (
-    <Card
-      bg={theme}
-      border="info"
-      text={theme}
-      key={`Card-SingleInputListItems`}>
-      <Card.Body
-        key={`Card.Body-SingleInputListItems`}
-        className="row gy-2 justify-content-center">
-        <SearchResultsCardBodyContent itemObj={itemObj} />
-      </Card.Body>
-    </Card>
-  );
-};
+const SearchResultsSingleCard: FC<Props> = ({ itemName }) => (
+  <Card
+    className="shadow"
+    variant="outlined"
+    key={`Card-SingleInputListItems`}>
+    <CardContent
+      key={`Card.Body-SingleInputListItems`}
+      className="row gy-2 justify-content-center">
+      <SearchResultsCardBodyContent itemName={itemName} />
+    </CardContent>
+  </Card>
+);
 
 export default memo<Props>(SearchResultsSingleCard);

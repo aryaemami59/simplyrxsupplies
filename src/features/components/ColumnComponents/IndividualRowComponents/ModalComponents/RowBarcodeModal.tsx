@@ -1,63 +1,86 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  FC,
-  memo,
-  MouseEventHandler,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
-import { Button, Modal } from "react-bootstrap";
-import { DarkMode } from "../../../../../App";
-import { ItemObjType } from "../../../../../customTypes/types";
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Tooltip,
+} from "@mui/material";
+import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
+import { ItemName } from "../../../../../customTypes/types";
+import BarcodeImage from "../BarcodeImage";
+
+const title = "Take a Closer Look at The Barcode";
+
+const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />;
 
 type Props = {
-  itemObj: ItemObjType;
+  itemName: ItemName;
 };
 
-const RowBarcodeModal: FC<Props> = ({ itemObj }): JSX.Element => {
+const RowBarcodeModal: FC<Props> = ({ itemName }) => {
   const [show, setShow] = useState(false);
-  const { darkTheme } = useContext(DarkMode);
+  const [open, setOpen] = useState(false);
 
-  const showModal: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+  const showModal: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     setShow(true);
   }, []);
 
   const hideModal = useCallback(() => {
     setShow(false);
   }, []);
+
+  const showTooltip = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const hideTooltip = useCallback(() => {
+    setOpen(false);
+  }, []);
+
   return (
     <>
-      <FontAwesomeIcon
-        icon={faMagnifyingGlassPlus}
-        size="lg"
-        className="btn w-auto"
-        inverse={darkTheme ? true : false}
-        role="button"
-        onClick={showModal}
-      />
-      <Modal
-        show={show}
-        onHide={hideModal}>
-        <Modal.Header
-          className={darkTheme ? "bg-dark" : "bg-light"}
-          closeButton
-          closeVariant={darkTheme ? "white" : ""}></Modal.Header>
-        <Modal.Body
-          className={`d-flex justify-content-center align-items-center ${
-            darkTheme ? "bg-dark" : "bg-light"
-          }`}>
-          <img
-            src={itemObj.src}
-            alt={itemObj.itemNumber}
+      <Tooltip
+        key={`RowBarcodeModal-${itemName}`}
+        onOpen={showTooltip}
+        onClose={hideTooltip}
+        enterDelay={1500}
+        enterNextDelay={1500}
+        title={title}
+        open={open}>
+        <Button
+          variant="contained"
+          startIcon={startIcon}
+          onClick={showModal}
+          className="w-auto">
+          Magnify
+        </Button>
+      </Tooltip>
+      <Dialog
+        keepMounted
+        maxWidth="md"
+        fullWidth
+        open={show}
+        onClose={hideModal}>
+        <DialogTitle>{itemName}</DialogTitle>
+        <DialogContent
+          dividers
+          className="justify-content-center d-flex">
+          <BarcodeImage
+            itemName={itemName}
             className="w-100"
           />
-        </Modal.Body>
-        <Modal.Footer className={darkTheme ? "bg-dark" : "bg-light"}>
-          <Button onClick={hideModal}>Close</Button>
-        </Modal.Footer>
-      </Modal>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="contained"
+            onClick={hideModal}>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

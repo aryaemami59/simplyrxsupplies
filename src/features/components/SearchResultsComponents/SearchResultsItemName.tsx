@@ -1,19 +1,13 @@
+import { CardHeader } from "@mui/material";
 import { FC, memo } from "react";
-import { Card } from "react-bootstrap";
-import { ItemObjType } from "../../../customTypes/types";
+import { ItemName } from "../../../customTypes/types";
 
 type Props = {
-  itemObj: ItemObjType;
+  itemName: ItemName;
 };
 
-const SearchResultsItemName: FC<Props> = ({ itemObj }): JSX.Element => {
-  return (
-    <Card.Title
-      className="bg-primary text-white p-3 m-0 rounded fw-normal"
-      key={`Card.Title-${itemObj.name}-SearchResultsItemNameComponent`}>
-      {itemObj.name}
-    </Card.Title>
-  );
-};
+const SearchResultsItemName: FC<Props> = ({ itemName }) => (
+  <CardHeader title={itemName} />
+);
 
 export default memo<Props>(SearchResultsItemName);

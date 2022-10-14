@@ -1,65 +1,100 @@
-import { FC, memo, useCallback, useContext, useState } from "react";
-import { Dropdown } from "react-bootstrap";
-import { shallowEqual } from "react-redux";
-import { DarkMode } from "../../../App";
-import { vendorNameType } from "../../../customTypes/types";
 import {
-  selectItemsByVendor,
-  selectVendorOfficialName,
-} from "../../../Redux/addedSlice";
+  Button,
+  Menu,
+  MenuListProps,
+  PaperProps,
+  PopoverOrigin,
+} from "@mui/material";
+import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
+import { shallowEqual } from "react-redux";
+import { VendorNameType } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
+import {
+  selectItemNamesByVendor,
+  selectVendorOfficialName,
+} from "../../../Redux/selectors";
 import SingleDropDown from "./SingleDropDown";
 
-type Props = {
-  vendorName: vendorNameType;
+const transformOrigin: PopoverOrigin = {
+  horizontal: "left",
+  vertical: "top",
 };
 
-const VendorDropDown: FC<Props> = ({ vendorName }): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+const anchorOrigin: PopoverOrigin = {
+  vertical: "bottom",
+  horizontal: "left",
+};
+
+const menuListProps: MenuListProps = {
+  "aria-labelledby": "menu-list",
+  className: "menu-list",
+  autoFocus: true,
+  style: {
+    maxHeight: "calc(100vh - 54px)",
+  },
+};
+
+const paperProps: PaperProps = {
+  className: "paper",
+};
+
+type Props = {
+  vendorName: VendorNameType;
+};
+
+const VendorDropDown: FC<Props> = ({ vendorName }) => {
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const open = !!anchorEl;
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
-  const items = useAppSelector(selectItemsByVendor(vendorName), shallowEqual);
 
-  const toggle = useCallback(() => {
-    setDropdownOpen(prev => !prev);
+  const itemNames = useAppSelector(
+    selectItemNamesByVendor(vendorName),
+    shallowEqual
+  );
+
+  const handleOpen: MouseEventHandler<HTMLElement> = useCallback(event => {
+    setAnchorEl(event.currentTarget);
   }, []);
 
-  const dropdownOpenColor: "text-white btn-info" | "text-white btn-dark" =
-    darkTheme ? "text-white btn-info" : "text-white btn-dark";
-  const border = darkTheme
-    ? "border-info bg-dark text-info"
-    : "border-dark bg-light text-dark";
-  const theme = darkTheme ? "dark" : "light";
-  const textColor = darkTheme ? "text-info" : "btn-light";
-  const toggleClassName = dropdownOpen ? dropdownOpenColor : "";
+  const handleClose: MouseEventHandler<HTMLElement> = useCallback(() => {
+    setAnchorEl(null);
+  }, []);
 
   return (
-    <Dropdown
-      autoClose="outside"
-      title={officialVendorName}
-      show={dropdownOpen}
-      focusFirstItemOnShow="keyboard"
-      onToggle={toggle}>
-      <Dropdown.Toggle
-        className={`custom-text-shadow-whit btn ${textColor} ${toggleClassName}`}
-        as="button">
+    <>
+      <Button
+        id={vendorName}
+        aria-controls={open ? "dropdown-menu" : undefined}
+        aria-expanded={open ? "true" : undefined}
+        aria-haspopup="true"
+        variant="contained"
+        disableElevation
+        onClick={handleOpen}>
         {officialVendorName}
-      </Dropdown.Toggle>
-      <Dropdown.Menu
-        variant={theme}
-        renderOnMount
-        className={`border ${border}`}
-        show={dropdownOpen}>
-        {items.map(itemObj => (
+      </Button>
+      <Menu
+        autoFocus
+        aria-expanded={open}
+        aria-labelledby={vendorName}
+        id={officialVendorName}
+        MenuListProps={menuListProps}
+        anchorEl={anchorEl}
+        variant="menu"
+        open={open}
+        onClose={handleClose}
+        transformOrigin={transformOrigin}
+        anchorOrigin={anchorOrigin}
+        PaperProps={paperProps}>
+        {itemNames.map(itemName => (
           <SingleDropDown
-            key={`${itemObj.id}-${vendorName}`}
-            {...{ itemObj, vendorName }}
+            key={`${itemName}-${vendorName}`}
+            {...{ itemName, vendorName }}
           />
         ))}
-      </Dropdown.Menu>
-    </Dropdown>
+      </Menu>
+    </>
   );
 };
 

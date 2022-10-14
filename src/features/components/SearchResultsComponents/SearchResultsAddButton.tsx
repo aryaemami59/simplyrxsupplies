@@ -1,76 +1,36 @@
-import {
-  FC,
-  memo,
-  MouseEventHandler,
-  useCallback,
-  useRef,
-  useState,
-} from "react";
-import { Badge, Button, Collapse, Fade } from "react-bootstrap";
-import { shallowEqual } from "react-redux";
-import { ItemObjType } from "../../../customTypes/types";
-import {
-  addItems,
-  checkIfAddedToAllVendors,
-  selectVendorsToAddTo,
-} from "../../../Redux/addedSlice";
+import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
+import { Button } from "@mui/material";
+import { FC, memo, MouseEventHandler, useCallback } from "react";
+import { ItemName } from "../../../customTypes/types";
+import { addItems } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
+import { checkIfAddedToAllVendors } from "../../../Redux/selectors";
+
+const startIcon = <AddCircleOutlineRoundedIcon />;
 
 type Props = {
-  itemObj: ItemObjType;
+  itemName: ItemName;
 };
 
-const SearchResultsAddButton: FC<Props> = ({ itemObj }): JSX.Element => {
-  const [show, setShow] = useState(false);
-  const IfAddedToAllVendors = useAppSelector(checkIfAddedToAllVendors(itemObj));
-  const vendors = useAppSelector(selectVendorsToAddTo(itemObj), shallowEqual);
+const SearchResultsAddButton: FC<Props> = ({ itemName }) => {
   const dispatch = useAppDispatch();
-  const target = useRef<null>(null);
-
-  const showBadge = useCallback(() => {
-    setShow(true);
-  }, []);
-  const hideBadge = useCallback(() => {
-    setShow(false);
-  }, []);
-
-  const showThenHide = useCallback(() => {
-    showBadge();
-    setTimeout(hideBadge, 1500);
-  }, [showBadge, hideBadge]);
+  const IfAddedToAllVendors = useAppSelector(
+    checkIfAddedToAllVendors(itemName)
+  );
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    IfAddedToAllVendors
-      ? showThenHide()
-      : dispatch(addItems({ itemObj, vendors }));
-  }, [IfAddedToAllVendors, showThenHide, dispatch, itemObj, vendors]);
+    dispatch(addItems({ itemName }));
+  }, [dispatch, itemName]);
 
   return (
     <Button
-      ref={target}
-      size="lg"
-      key={`Button-AddItemButtonComponent-${itemObj.id}`}
+      disabled={IfAddedToAllVendors}
+      size="large"
+      variant="contained"
+      key={`Button-AddItemButtonComponent-${itemName}`}
       onClick={clickHandler}
-      className="btn btn-success d-block w-100 position-relative mb-2 fw-bold rounded-pill shadow custom-text-shadow-white">
+      startIcon={startIcon}>
       Add Item
-      <Collapse
-        in={show}
-        timeout={500}
-        key={`Collapse-AddItemButtonComponent-${itemObj.id}`}>
-        <div key={`div-AddItemButtonComponent-${itemObj.id}`}>
-          <Fade
-            in={show}
-            timeout={500}
-            key={`Fade-AddItemButtonComponent-${itemObj.id}`}>
-            <Badge
-              bg="danger"
-              className="d-block fw-light"
-              key={`Badge-AddItemButtonComponent-${itemObj.id}`}>
-              This Item Has Already Been Added!
-            </Badge>
-          </Fade>
-        </div>
-      </Collapse>
     </Button>
   );
 };

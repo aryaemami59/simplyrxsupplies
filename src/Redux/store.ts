@@ -1,13 +1,16 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
-import logger from "redux-logger";
-import { addedReducer, itemReducer } from "../Redux/addedSlice";
+import { addedReducer } from "../Redux/addedSlice";
 
 export const store = configureStore({
   reducer: {
     added: addedReducer,
-    item: itemReducer,
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat([logger]),
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      thunk: true,
+      serializableCheck: false,
+      immutableCheck: false,
+    }),
 });
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

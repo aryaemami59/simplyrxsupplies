@@ -1,80 +1,53 @@
-import {
-  FC,
-  KeyboardEvent,
-  memo,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
-import { Button, Card, Collapse } from "react-bootstrap";
+import { Collapse } from "@mui/material";
+import Button from "@mui/material/Button";
+import { FC, memo, useCallback, useState } from "react";
 import { shallowEqual } from "react-redux";
-import { DarkMode } from "../../../App";
-import { vendorNameType } from "../../../customTypes/types";
-import {
-  selectByVendor,
-  selectVendorOfficialName,
-} from "../../../Redux/addedSlice";
+import { VendorNameType } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
-import ColumnTopCardBody from "./ColumnTopCardBody";
-import EmptyColumn from "./EmptyColumn";
+import {
+  selectAddedItemsByVendor,
+  selectVendorOfficialName,
+} from "../../../Redux/selectors";
 import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge";
+import VendorColumnCard from "./VendorColumnCard";
 
 type Props = {
-  vendorName: vendorNameType;
+  vendorName: VendorNameType;
 };
 
-const VendorColumn: FC<Props> = ({ vendorName }): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
+const VendorColumn: FC<Props> = ({ vendorName }) => {
   const [open, setOpen] = useState(false);
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
-  const addedItems = useAppSelector(selectByVendor(vendorName), shallowEqual);
+  const addedItems = useAppSelector(
+    selectAddedItemsByVendor(vendorName),
+    shallowEqual
+  );
 
   const buttonClick = useCallback(() => {
     setOpen(prev => !prev);
   }, []);
 
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLElement>) => {
-      if (e.key === "m") {
-        buttonClick();
-      }
-    },
-    [buttonClick]
-  );
-
-  const theme = darkTheme ? "custom-bg-color-2" : "custom-light-mode";
-
   return (
     <>
       <Button
         className="position-relative d-block w-100"
-        variant="primary"
+        variant="contained"
         onClick={buttonClick}>
         {officialVendorName}
         <RowCounterBadge vendorName={vendorName} />
       </Button>
       <Collapse
-        key={`Collapse-VendorColumn-${vendorName}`}
+        mountOnEnter
+        unmountOnExit
         in={open}>
-        <div key={`div-VendorColumn-${vendorName}`}>
-          <Card
-            key={`Card-VendorColumn-${vendorName}`}
-            tabIndex={0}
-            className={theme}
-            onKeyDown={handleKeyDown}>
-            {addedItems.length ? (
-              <ColumnTopCardBody
-                addedItems={addedItems}
-                vendorName={vendorName}
-                officialVendorName={officialVendorName}
-                // {...{ addedItems, vendorName, officialVendorName }}
-              />
-            ) : (
-              <EmptyColumn />
-            )}
-          </Card>
+        <div>
+          <VendorColumnCard
+            officialVendorName={officialVendorName}
+            addedItems={addedItems}
+            vendorName={vendorName}
+          />
         </div>
       </Collapse>
     </>

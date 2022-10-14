@@ -1,41 +1,31 @@
-import { FC, memo, MouseEventHandler, useCallback, useContext } from "react";
-import { Dropdown } from "react-bootstrap";
-import { DarkMode } from "../../../App";
-import { ItemObjType, vendorNameType } from "../../../customTypes/types";
-import {
-  addItemsByVendor,
-  checkIfItemAddedToOneVendor,
-} from "../../../Redux/addedSlice";
+import { MenuItem } from "@mui/material";
+import { FC, memo, MouseEventHandler, useCallback } from "react";
+import { VendorAndItemName } from "../../../customTypes/types";
+import { addItemsByVendor } from "../../../Redux/addedSlice";
+import { checkIfItemAddedToOneVendor } from "../../../Redux/selectors";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 
-type Props = {
-  itemObj: ItemObjType;
-  vendorName: vendorNameType;
-};
+type Props = VendorAndItemName;
 
-const SingleDropDown: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
+const SingleDropDown: FC<Props> = ({ itemName, vendorName }) => {
   const dispatch = useAppDispatch();
+
   const ifAddedToVendor = useAppSelector(
-    checkIfItemAddedToOneVendor(vendorName, itemObj)
+    checkIfItemAddedToOneVendor(vendorName, itemName)
   );
 
-  const addedColor = darkTheme ? "bg-info text-white" : "bg-dark text-white";
-  const border = darkTheme ? "border-info text-info" : "border-dark";
-
   const clickHandler: MouseEventHandler<HTMLElement> = useCallback(() => {
-    ifAddedToVendor || dispatch(addItemsByVendor({ itemObj, vendorName }));
-  }, [dispatch, itemObj, vendorName, ifAddedToVendor]);
+    ifAddedToVendor || dispatch(addItemsByVendor({ itemName, vendorName }));
+  }, [ifAddedToVendor, dispatch, itemName, vendorName]);
 
   return (
-    <Dropdown.Item
-      as="button"
-      className={`custom-text-shadow-whit text-wrap border-bottom btn-info ${border} ${
-        ifAddedToVendor && addedColor
-      }`}
+    <MenuItem
+      disabled={ifAddedToVendor}
+      className="text-wrap"
+      key={itemName}
       onClick={clickHandler}>
-      {itemObj.name}
-    </Dropdown.Item>
+      {itemName}
+    </MenuItem>
   );
 };
 

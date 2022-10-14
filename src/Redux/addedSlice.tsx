@@ -1,345 +1,171 @@
 import {
-  AnyAction,
   createAsyncThunk,
   createSlice,
   current,
   PayloadAction,
-  Reducer,
 } from "@reduxjs/toolkit";
-import { createSelector } from "reselect";
+import QRCode from "qrcode";
 import {
-  addedState,
-  addItemsByVendorInterface,
-  addItemsInterface,
-  categoriesObjType,
+  AddedState,
+  AddItemsByVendorInterface,
+  AddItemsInterface,
   Category,
-  FetchCategories,
   FetchItems,
-  FetchVendors,
-  ItemObjType,
-  itemState,
-  Link,
-  officialVendorNameType,
-  vendorNameType,
-  vendorsObjType,
+  ItemName,
+  VendorNameType,
 } from "../customTypes/types";
 import {
-  GITHUB_URL_CATEGORIES,
-  GITHUB_URL_ITEMS,
-  GITHUB_URL_VENDORS,
-} from "./fetchInfo";
-import { RootState } from "./store";
+  emptyArr,
+  emptyObj,
+  intersection,
+} from "../features/shared/utilityFunctions";
+import { GITHUB_URL_ITEMS } from "./fetchInfo";
 
-const intersection = (firstArray: string[], secondArray: string[]): string[] =>
-  firstArray.filter(e => !secondArray.includes(e));
-
-const createAsyncThunkFunc = (strVal: string, githubUrl: string) => {
-  return createAsyncThunk(`${strVal}/fetch${strVal}`, async () => {
-    const response: Response = await fetch(githubUrl);
+export const fetchItems: FetchItems = createAsyncThunk(
+  `items/fetchitems`,
+  async () => {
+    const response: Response = await fetch(GITHUB_URL_ITEMS);
     if (!response.ok) {
-      return Promise.reject("Unable to fetch, status: " + response.status);
+      return Promise.reject(`Unable to fetch, status: ${response.status}`);
     }
-    const data = await response.json();
-    const myItems = await data[strVal];
-    return myItems;
-  });
-};
-
-export const fetchItems: FetchItems = createAsyncThunkFunc(
-  "items",
-  GITHUB_URL_ITEMS
+    return await response.json();
+  }
 );
 
-export const fetchVendors: FetchVendors = createAsyncThunkFunc(
-  "vendors",
-  GITHUB_URL_VENDORS
-);
-
-export const fetchCategories: FetchCategories = createAsyncThunkFunc(
-  "categories",
-  GITHUB_URL_CATEGORIES
-);
-
-const empty: [] = [];
-
-const initialState: addedState = {
-  listItems: empty,
-  compact: false,
-  showItemNumber: true,
-  showItemBarcode: true,
-  showItemName: true,
-  vendorsIsLoading: true,
-  categoriesIsLoading: true,
+const initialState = {
+  listItems: emptyArr,
   errMsg: "",
-};
-
-const itemInitialState: itemState = {
-  itemsArr: empty,
   isLoading: true,
-  errMsg: "",
-};
+  itemsArr: emptyArr,
+  itemsObj: emptyObj,
+  vendorsArr: emptyArr,
+  vendorsObj: emptyObj,
+  categoriesArr: emptyArr,
+  categoriesObj: emptyObj,
+} as unknown as AddedState;
 
 export const addedSlice = createSlice({
   name: "added",
   initialState,
   reducers: {
-    addItems: (state, action: PayloadAction<addItemsInterface>) => {
-      action.payload.vendors.forEach((vendorName: vendorNameType) => {
-        if (!current(state[vendorName])!.includes(action.payload.itemObj)) {
-          state[vendorName]!.push(action.payload.itemObj);
-          state.listItems = state.listItems.filter(
-            ({ name }) => name !== action.payload.itemObj.name
-          );
+    addItems: (state, action: PayloadAction<AddItemsInterface>) => {
+      const { itemName } = action.payload;
+      if (
+        !state.itemsObj[itemName].vendorsToAdd.length ||
+        state.itemsObj[itemName].vendorsAdded.length ===
+          state.itemsObj[itemName].vendors.length
+      ) {
+        return;
+      }
+      state.itemsObj[itemName].vendorsToAdd.forEach(
+        (vendorName: VendorNameType) => {
+          if (
+            !current(state.vendorsObj[vendorName]).itemsAdded.includes(itemName)
+          ) {
+            state.vendorsObj[vendorName].itemsAdded.push(itemName);
+            const qr = state.vendorsObj[vendorName].itemsAdded
+              .map(itemAddedName => state.itemsObj[itemAddedName].itemNumber)
+              .join(state.vendorsObj[vendorName].joinChars);
+            QRCode.toDataURL(qr, (err, url) => {
+              state.vendorsObj[vendorName].qrContent = url;
+            });
+            state.vendorsObj[vendorName].qrText = qr;
+            state.listItems = state.listItems.filter(
+              listItemName => listItemName !== itemName
+            );
+            state.itemsObj[itemName].vendorsAdded = [
+              ...state.itemsObj[itemName].vendorsAdded,
+              ...state.itemsObj[itemName].vendorsToAdd,
+            ];
+            state.itemsObj[itemName].vendorsToAdd = state.itemsObj[itemName]
+              .vendorsToAdd.length
+              ? (intersection(
+                  state.itemsObj[itemName].vendors,
+                  state.itemsObj[itemName].vendorsAdded
+                ) as VendorNameType[])
+              : emptyArr;
+          }
         }
-      });
+      );
     },
     addItemsByVendor: (
       state,
-      action: PayloadAction<addItemsByVendorInterface>
+      action: PayloadAction<AddItemsByVendorInterface>
     ) => {
-      state[action.payload.vendorName]!.push(action.payload.itemObj);
+      const { itemName, vendorName } = action.payload;
+      state.vendorsObj[vendorName].itemsAdded.push(itemName);
+      state.itemsObj[itemName].vendorsAdded = [
+        ...state.itemsObj[itemName].vendorsAdded,
+        vendorName,
+      ];
+      state.itemsObj[itemName].vendorsToAdd = state.itemsObj[itemName]
+        .vendorsToAdd.length
+        ? (intersection(
+            state.itemsObj[itemName].vendors,
+            state.itemsObj[itemName].vendorsAdded
+          ) as VendorNameType[])
+        : emptyArr;
     },
-    removeItems: (state, action: PayloadAction<addItemsByVendorInterface>) => {
-      state[action.payload.vendorName] = state[
-        action.payload.vendorName
-      ]!.filter(
-        ({ name }: ItemObjType) => name !== action.payload.itemObj.name
-      );
+    removeItems: (state, action: PayloadAction<AddItemsByVendorInterface>) => {
+      const { itemName, vendorName } = action.payload;
+      state.vendorsObj[vendorName].itemsAdded = state.vendorsObj![
+        vendorName
+      ].itemsAdded.filter(itemAddedName => itemAddedName !== itemName);
+      state.itemsObj[itemName]!.vendorsAdded = state.itemsObj[
+        itemName
+      ].vendorsAdded.filter(vendor => vendor !== vendorName);
     },
-    setListItems: (state, action: PayloadAction<ItemObjType[]>) => {
+    setListItems: (state, action: PayloadAction<ItemName[]>) => {
       state.listItems = action.payload;
     },
     clearListItems: state => {
-      state.listItems = empty;
+      state.listItems = emptyArr;
     },
-    compactSearchResults: state => {
-      state.compact = !state.compact;
-    },
-    ToggleItemNumber: state => {
-      state.showItemNumber = !state.showItemNumber;
-    },
-    ToggleItemBarcode: state => {
-      state.showItemBarcode = !state.showItemBarcode;
-    },
-    ToggleItemName: state => {
-      state.showItemName = !state.showItemName;
-    },
-  },
-  extraReducers: builder => {
-    builder.addCase(fetchVendors.pending, state => {
-      state.vendorsIsLoading = true;
-    });
-    builder.addCase(fetchCategories.pending, state => {
-      state.categoriesIsLoading = true;
-    });
-    builder.addCase(
-      fetchCategories.fulfilled,
-      (state, action: PayloadAction<categoriesObjType>) => {
-        state.categoriesObj = action.payload;
-        const keys = Object.keys(action.payload) as Category[];
-        state.categoriesArr = keys;
-        state.categoriesIsLoading = false;
-        state.errMsg = "";
-      }
-    );
-    builder.addCase(
-      fetchVendors.fulfilled,
-      (state, action: PayloadAction<vendorsObjType>) => {
-        const payload: vendorsObjType = action.payload;
-        const keys = Object.keys(payload) as vendorNameType[];
-        state.vendorsArr = keys;
-        state.vendorsObj = payload as vendorsObjType;
-        let val: vendorNameType;
-        for (val in payload) {
-          state[val] = empty;
-        }
-        state.vendorsIsLoading = false;
-        state.errMsg = "";
-      }
-    );
-    builder.addCase(fetchVendors.rejected, (state, action) => {
-      state.vendorsIsLoading = false;
-      state.errMsg = action.error.message || "Fetch failed";
-    });
-    builder.addCase(fetchCategories.rejected, (state, action) => {
-      state.categoriesIsLoading = false;
-      state.errMsg = action.error.message || "Fetch failed";
-    });
-  },
-});
-
-export const itemSlice = createSlice({
-  name: "item",
-  initialState: itemInitialState,
-  reducers: {
-    setVendors: (state, action: PayloadAction<addItemsByVendorInterface>) => {
-      state[action.payload.itemObj.name]!.vendorsToAdd = state[
-        action.payload.itemObj.name
+    setVendors: (state, action: PayloadAction<AddItemsByVendorInterface>) => {
+      const { itemName, vendorName } = action.payload;
+      state.itemsObj[itemName]!.vendorsToAdd = state.itemsObj[
+        itemName
       ]!.vendorsToAdd.includes(action.payload.vendorName)
-        ? state[action.payload.itemObj.name]!.vendorsToAdd.filter(
-            vendorName => vendorName !== action.payload.vendorName
+        ? state.itemsObj[itemName]!.vendorsToAdd.filter(
+            vendorNameParam => vendorNameParam !== vendorName
           )
-        : state[action.payload.itemObj.name]!.vendorsToAdd.concat(
-            action.payload.vendorName
-          );
+        : state.itemsObj[itemName]!.vendorsToAdd.concat(vendorName);
     },
   },
   extraReducers: builder => {
-    builder.addCase(fetchItems.pending, (state: itemState) => {
+    builder.addCase(fetchItems.pending, state => {
       state.isLoading = true;
     });
-    builder.addCase(
-      fetchItems.fulfilled,
-      (state, action: PayloadAction<ItemObjType[]>) => {
-        for (const itemObj of action.payload) {
-          state[itemObj.name] = {
-            ...itemObj,
-            vendorsToAdd: itemObj.vendors,
-            vendorsAdded: empty,
-          };
-        }
-        state.isLoading = false;
-        state.errMsg = "";
-        state.itemsArr = action.payload;
-      }
-    );
     builder.addCase(fetchItems.rejected, (state, action) => {
       state.isLoading = false;
       state.errMsg = action.error.message || "Fetch failed";
     });
-    builder.addCase(addItems, (state, action) => {
-      state[action.payload.itemObj.name]!.vendorsAdded = [
-        ...state[action.payload.itemObj.name]!.vendorsAdded,
-        ...state[action.payload.itemObj.name]!.vendorsToAdd,
-      ];
-      state[action.payload.itemObj.name]!.vendorsToAdd = state[
-        action.payload.itemObj.name
-      ]!.vendorsToAdd.length
-        ? (intersection(
-            action.payload.itemObj.vendors,
-            state[action.payload.itemObj.name]!.vendorsAdded
-          ) as vendorNameType[])
-        : empty;
+    builder.addCase(fetchItems.fulfilled, (state, action) => {
+      const { categories, items, vendors } = action.payload;
+      state.itemsArr = items.map(({ name }) => name);
+      for (const itemObj of items) {
+        state.itemsObj![itemObj.name] = {
+          ...itemObj,
+          vendorsAdded: emptyArr,
+          vendorsToAdd: itemObj.vendors,
+        };
+      }
+      state.vendorsArr = Object.keys(vendors) as VendorNameType[];
+      for (const vendorObj of Object.values(vendors)) {
+        state.vendorsObj[vendorObj.abbrName] = {
+          ...vendorObj,
+          itemsAdded: emptyArr as ItemName[],
+          qrContent: "",
+          qrText: "",
+        };
+      }
+      state.categoriesArr = Object.keys(categories) as Category[];
+      state.categoriesObj = { ...categories };
+      state.isLoading = false;
+      state.errMsg = "";
     });
-    builder.addCase(
-      addItemsByVendor,
-      (state, action: PayloadAction<addItemsByVendorInterface>) => {
-        state[action.payload.itemObj.name]!.vendorsAdded = [
-          ...state[action.payload.itemObj.name]!.vendorsAdded,
-          action.payload.vendorName,
-        ];
-        state[action.payload.itemObj.name]!.vendorsToAdd = state[
-          action.payload.itemObj.name
-        ]!.vendorsToAdd.length
-          ? (intersection(
-              action.payload.itemObj.vendors,
-              state[action.payload.itemObj.name]!.vendorsAdded
-            ) as vendorNameType[])
-          : empty;
-      }
-    );
-    builder.addCase(
-      removeItems,
-      (state, action: PayloadAction<addItemsByVendorInterface>) => {
-        state[action.payload.itemObj.name]!.vendorsAdded = state[
-          action.payload.itemObj.name
-        ]!.vendorsAdded.filter(
-          vendorName => vendorName !== action.payload.vendorName
-        );
-      }
-    );
   },
 });
-
-export const selectByVendor =
-  (vendorName: vendorNameType) =>
-  (state: RootState): ItemObjType[] =>
-    state.added[vendorName]!;
-
-export const selectVendorsArr = (state: RootState): vendorNameType[] =>
-  state.added.vendorsArr ? state.added.vendorsArr : empty;
-
-export const selectVendorsLinks =
-  (vendorName: vendorNameType) =>
-  (state: RootState): Link =>
-    state.added.vendorsObj ? state.added.vendorsObj[vendorName].link : "";
-
-export const selectCategoriesArr = (state: RootState): Category[] =>
-  state.added.categoriesArr ? state.added.categoriesArr : empty;
-
-export const addedItemsLength =
-  (vendorName: vendorNameType) =>
-  (state: RootState): number =>
-    state.added[vendorName]!.length;
-
-export const checkIfAddedToOneVendor =
-  (itemObj: ItemObjType, vendorName: vendorNameType) =>
-  (state: RootState): boolean =>
-    state.item[itemObj.name]!.vendorsAdded.includes(vendorName);
-
-export const selectItemsByVendor =
-  (vendorName: vendorNameType) =>
-  (state: RootState): ItemObjType[] =>
-    state.added.vendorsObj![vendorName].items.map(
-      (e: number) => state.item.itemsArr.find((f: ItemObjType) => f.id === e)!
-    );
-
-export const selectVendorsToAddTo =
-  (itemObj: ItemObjType) =>
-  (state: RootState): vendorNameType[] =>
-    state.item[itemObj.name]!.vendorsToAdd;
-
-export const selectCategories =
-  (category: Category) =>
-  (state: RootState): ItemObjType[] =>
-    state.added.categoriesObj![category].items.map(
-      itemId => state.item.itemsArr.find(({ id }) => id === itemId)!
-    );
-
-export const selectQRCodeContent =
-  (vendorName: vendorNameType) =>
-  (state: RootState): string =>
-    state.added[vendorName]!.map(({ itemNumber }) => itemNumber).join(
-      state.added.vendorsObj?.[vendorName].joinChars
-    );
-
-export const checkIfAddedToAllVendors =
-  (itemObj: ItemObjType) =>
-  (state: RootState): boolean =>
-    state.item[itemObj.name]!.vendorsAdded.length === itemObj.vendors.length;
-
-export const checkIfItemAddedToOneVendor =
-  (vendorName: vendorNameType, itemObj: ItemObjType) =>
-  (state: RootState): boolean =>
-    state.item[itemObj.name]!.vendorsAdded.includes(vendorName);
-
-export const selectItemsArr = (state: RootState): ItemObjType[] =>
-  state.item.itemsArr;
-
-export const selectVendorOfficialName =
-  (vendorName: vendorNameType) => (state: RootState) =>
-    state.added.vendorsObj![vendorName].officialName;
-
-export const selectAllVendorOfficialNames = (
-  state: RootState
-): officialVendorNameType[] =>
-  state.added.vendorsArr!.map(
-    (vendorName: vendorNameType) =>
-      state.added.vendorsObj![vendorName].officialName
-  );
-
-export const selectAllListItems = createSelector(
-  (state: RootState): ItemObjType[] => state.added.listItems,
-  (listItems: ItemObjType[]): ItemObjType[] => listItems
-);
-
-export const checkIfLoading = (state: RootState): boolean =>
-  state.item.isLoading ||
-  state.added.vendorsIsLoading ||
-  state.added.categoriesIsLoading;
-
-export const selectErrMsg = (state: RootState): string =>
-  state.item.errMsg || state.added.errMsg;
 
 export const {
   addItems,
@@ -347,14 +173,7 @@ export const {
   addItemsByVendor,
   setListItems,
   clearListItems,
-  compactSearchResults,
-  ToggleItemNumber,
-  ToggleItemBarcode,
-  ToggleItemName,
+  setVendors,
 } = addedSlice.actions;
 
-export const { setVendors } = itemSlice.actions;
-
-export const itemReducer: Reducer<itemState, AnyAction> = itemSlice.reducer;
-
-export const addedReducer: Reducer<addedState, AnyAction> = addedSlice.reducer;
+export const addedReducer = addedSlice.reducer;

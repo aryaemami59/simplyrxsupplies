@@ -1,27 +1,31 @@
-import { FC, memo } from "react";
-import { ListGroup } from "react-bootstrap";
+import { List } from "@mui/material";
+import { FC, lazy, memo, Suspense } from "react";
 import { shallowEqual } from "react-redux";
-import { selectAllListItems } from "../../../Redux/addedSlice";
+import IsLoading from "../../shared/IsLoading";
 import { useAppSelector } from "../../../Redux/hooks";
+import { selectAllListItems } from "../../../Redux/selectors";
 import VendorColumnModalComponent from "../InputComponents/VendorColumnModalComponent";
-import SearchResultsSingleCard from "./SearchResultsSingleCard";
 
-const SearchResultsContainer: FC = (): JSX.Element => {
+const SearchResultsSingleCard = lazy(() => import("./SearchResultsSingleCard"));
+
+const SearchResultsContainer: FC = () => {
   const listItems = useAppSelector(selectAllListItems, shallowEqual);
 
   return (
     <>
-      <VendorColumnModalComponent key={`VendorColumnModalComponent-`} />
-      <ListGroup
-        className="mt-5 px-xxl-4"
-        key={`ListGroup-InputListItems`}>
-        {listItems.map(itemObj => (
-          <SearchResultsSingleCard
-            itemObj={itemObj}
-            key={`${itemObj.id}-inputListItems`}
-          />
-        ))}
-      </ListGroup>
+      <VendorColumnModalComponent />
+      <List
+        dense
+        className="mt-5 px-4">
+        <Suspense fallback={<IsLoading />}>
+          {listItems.map(itemName => (
+            <SearchResultsSingleCard
+              itemName={itemName}
+              key={`${itemName}-inputListItems`}
+            />
+          ))}
+        </Suspense>
+      </List>
     </>
   );
 };

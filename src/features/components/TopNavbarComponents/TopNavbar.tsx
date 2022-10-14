@@ -1,31 +1,25 @@
-import { FC, memo, useContext } from "react";
-import { Nav, Navbar } from "react-bootstrap";
-import { DarkMode } from "../../../App";
+import { AppBar } from "@mui/material";
+import { FC, memo } from "react";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import DarkModeTogglerButton from "./DarkModeTogglerButton";
 import OffcanvasComponent from "./OffcanvasComponent";
 
-const TopNavbar: FC = (): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
-  const theme = darkTheme ? "dark" : "light";
-
-  return (
-    <Navbar
-      bg={theme}
-      expand="lg"
-      sticky="top"
-      variant={theme}
-      className="d-flex justify-content-start shadow">
-      <OffcanvasComponent />
-      <Nav
-        fill
-        navbar
-        className="d-none d-lg-flex">
-        <VendorDropDownsList />
-      </Nav>
+const TopNavbar: FC = () => (
+  <AppBar
+    color="primary"
+    enableColorOnDark
+    elevation={0}
+    variant="outlined">
+    <div className="d-flex align-items-center">
+      <span className="d-inline-block d-lg-none">
+        <OffcanvasComponent />
+      </span>
       <DarkModeTogglerButton />
-    </Navbar>
-  );
-};
+      <span className="d-none d-lg-inline-block m-auto">
+        <VendorDropDownsList />
+      </span>
+    </div>
+  </AppBar>
+);
 
 export default memo(TopNavbar);

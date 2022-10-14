@@ -1,10 +1,10 @@
 import { FC, memo } from "react";
 import { shallowEqual } from "react-redux";
-import { selectVendorsArr } from "../../../Redux/addedSlice";
+import { selectVendorsArr } from "../../../Redux/selectors";
 import { useAppSelector } from "../../../Redux/hooks";
 import VendorDropDown from "./VendorDropDown";
 
-const VendorDropDownsList: FC = (): JSX.Element => {
+const VendorDropDownsList: FC = () => {
   const vendors = useAppSelector(selectVendorsArr, shallowEqual);
 
   return (

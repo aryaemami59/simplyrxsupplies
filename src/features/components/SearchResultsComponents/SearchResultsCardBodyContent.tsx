@@ -1,85 +1,45 @@
 import { FC, memo } from "react";
-import { Col, Row } from "react-bootstrap";
-import { ItemObjType } from "../../../customTypes/types";
+import { ItemName } from "../../../customTypes/types";
+import { selectVendorsByItemName } from "../../../Redux/selectors";
 import { useAppSelector } from "../../../Redux/hooks";
-import { RootState } from "../../../Redux/store";
 import SearchResultsAddButton from "./SearchResultsAddButton";
-import SearchResultsBarcodeImage from "./SearchResultsBarcodeImage";
 import SearchResultsItemName from "./SearchResultsItemName";
-import SearchResultsItemNumber from "./SearchResultsItemNumber";
 import SwitchComponent from "./SwitchComponent";
 
 type Props = {
-  itemObj: ItemObjType;
+  itemName: ItemName;
 };
 
-const SearchResultsCardBodyContent: FC<Props> = ({ itemObj }): JSX.Element => {
-  const ifCompact = useAppSelector((state: RootState) => state.added.compact);
+const SearchResultsCardBodyContent: FC<Props> = ({ itemName }) => {
+  const vendors = useAppSelector(selectVendorsByItemName(itemName));
 
   return (
     <>
-      <Col
-        xs={ifCompact ? 6 : 12}
-        md={12}>
-        <Row className="m-0">
-          <SearchResultsItemName
-            itemObj={itemObj}
-            key={`SearchResultsItemNameComponent-SingleInputListItems`}
-          />
-        </Row>
-      </Col>
-      {!ifCompact && (
-        <Col xs={ifCompact ? 6 : 12}>
-          <Row className="mx-0">
-            <SearchResultsItemNumber
-              itemObj={itemObj}
-              key={`SearchResultsItemNumberComponent-${itemObj.name}-${itemObj.itemNumber}`}
-            />
-          </Row>
-        </Col>
-      )}
-      <Col
-        xs={ifCompact ? 6 : 12}
-        md={12}>
-        <Row className="justify-content-center justify-content-sm-center align-items-center m-0 ">
-          <Col
-            xs={ifCompact ? 12 : 7}
-            lg={ifCompact ? 12 : 8}
-            className="pe-0">
-            <Row
-              md={"auto"}
-              className="m-0">
-              {itemObj.vendors.map(e => (
+      <div className={`col-md-12 col-12`}>
+        <div className="m-0 row">
+          <SearchResultsItemName itemName={itemName} />
+        </div>
+      </div>
+      <div className={`col-md-12 col-12`}>
+        <div className="justify-content-center justify-content-sm-center align-items-center m-0 row">
+          <div className={`pe-0 col-lg-8 col-7`}>
+            <div className="m-0 row w-100">
+              {vendors.map(vendorName => (
                 <SwitchComponent
-                  key={`SwitchComponent-${itemObj.name}${e}`}
-                  itemObj={itemObj}
-                  vendorName={e}
+                  key={`SwitchComponent-${itemName}${vendorName}`}
+                  itemName={itemName}
+                  vendorName={vendorName}
                 />
               ))}
-            </Row>
-          </Col>
-          {!ifCompact && (
-            <Col
-              xs={5}
-              lg={4}>
-              <Row className="justify-content-center">
-                <SearchResultsBarcodeImage
-                  itemObj={itemObj}
-                  key={`SearchResultsBarcodeImageComponent-SingleInputListItems`}
-                />
-              </Row>
-            </Col>
-          )}
-        </Row>
-      </Col>
-      <Col xs={12}>
-        <Row className="m-0">
-          <SearchResultsAddButton
-            itemObj={itemObj}
-            key={`AddItemButtonComponent-SingleInputListItems`}
-          />
-        </Row>
-      </Col>
+            </div>
+          </div>
+          <div className="col-5 col-lg-4">
+            <div className="justify-content-center row">
+              <SearchResultsAddButton itemName={itemName} />
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

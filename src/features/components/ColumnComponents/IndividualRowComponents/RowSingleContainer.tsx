@@ -1,110 +1,60 @@
-import { FC, KeyboardEvent, memo, useCallback, useState } from "react";
-import {
-  Button,
-  ButtonGroup,
-  Col,
-  Collapse,
-  Container,
-  Fade,
-  Row,
-} from "react-bootstrap";
-import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
-import MinimizeButton from "./MinimizeButton";
+import { Button, ButtonGroup, Collapse, Fade } from "@mui/material";
+import { FC, memo, useCallback, useState } from "react";
+import { VendorAndItemName } from "../../../../customTypes/types";
+import CollapseButton from "./CollapseButton";
 import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal";
-import RowRemoveButton from "./RowRemoveButton";
+import RowDeleteButton from "./RowDeleteButton";
 import RowSingleItemInfo from "./RowSingleItemInfo";
 
-type Props = {
-  itemObj: ItemObjType;
-  vendorName: vendorNameType;
-};
+type Props = VendorAndItemName;
 
-const RowSingleContainer: FC<Props> = ({
-  itemObj,
-  vendorName,
-}): JSX.Element => {
+const RowSingleContainer: FC<Props> = ({ itemName, vendorName }) => {
   const [open, setOpen] = useState(true);
-  const { name } = itemObj;
 
   const toggleFade = useCallback(() => {
     setOpen(prev => !prev);
   }, []);
 
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLDivElement>) => {
-      if (e.key === "c") {
-        toggleFade();
-      }
-    },
-    [toggleFade]
-  );
-
   return (
-    <div
-      key={`div-SingleVendorColumnListItem-${vendorName}-${name}`}
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
-      className="rounded border mb-4">
-      <Container
-        key={`Container-SingleVendorColumnListItem-${vendorName}-${name}`}
-        fluid
-        className="my-3">
-        <Row
-          key={`Row-SingleVendorColumnListItem-${vendorName}-${name}`}
-          className="justify-content-evenly align-items-center">
-          <Col
-            key={`Col-SingleVendorColumnListItem-${vendorName}-${name}-first`}
-            xs={12}
-            xl={7}
-            xxl={9}
-            className="">
-            <Fade
-              key={`Fade-SingleVendorColumnListItem-${vendorName}-${name}`}
-              in={!open}
-              unmountOnExit>
-              <Button
-                key={`Button-SingleVendorColumnListItem-${vendorName}-${name}`}
-                aria-controls="maximize content"
-                variant="success"
-                className="w-100"
-                onClick={toggleFade}>
-                {name}
-              </Button>
-            </Fade>
-          </Col>
-          <Col
-            key={`Col-SingleVendorColumnListItem-${vendorName}-${name}-second`}
-            className=""
-            xs={"auto"}>
-            <ButtonGroup
-              key={`ButtonGroup-SingleVendorColumnListItem-${vendorName}-${name}`}
-              className="my-2">
+    <div className="rounded border mb-4">
+      <div className="my-3 container-fluid">
+        <div className="justify-content-evenly align-items-center row">
+          <div className="col-xs-auto justify-content-center d-flex">
+            <ButtonGroup className="flex-wrap justify-content-center">
               <RowSingleContainerModal
-                itemObj={itemObj}
+                itemName={itemName}
                 vendorName={vendorName}
               />
-              <MinimizeButton
-                key={`MinimizeButton-SingleVendorColumnListItem-${vendorName}-${name}`}
+              <CollapseButton
                 open={open}
                 toggle={toggleFade}
-                vendorName={vendorName}
-                itemObj={itemObj}
               />
-              <RowRemoveButton
+              <RowDeleteButton
                 vendorName={vendorName}
-                itemObj={itemObj}
-                key={`RemoveButton-SingleVendorColumnListItem-${vendorName}-${name}`}
+                itemName={itemName}
               />
             </ButtonGroup>
-          </Col>
-        </Row>
-      </Container>
-      <Collapse
-        key={`Collapse-SingleVendorColumnListItem-${vendorName}-${name}`}
-        in={open}>
+          </div>
+          <div className="col-12 col-xl-7 col-xxl-9">
+            <Fade
+              in={!open}
+              mountOnEnter
+              unmountOnExit>
+              <Button
+                aria-controls="maximize content"
+                variant="contained"
+                className="w-100"
+                onClick={toggleFade}>
+                {itemName}
+              </Button>
+            </Fade>
+          </div>
+        </div>
+      </div>
+      <Collapse in={open}>
         <div>
           <RowSingleItemInfo
-            itemObj={itemObj}
+            itemName={itemName}
             vendorName={vendorName}
           />
         </div>

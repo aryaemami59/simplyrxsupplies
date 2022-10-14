@@ -1,92 +1,53 @@
-import { FC, memo } from "react";
-import { Form } from "react-bootstrap";
-import { connect, ConnectedProps } from "react-redux";
-import { ItemObjType, vendorNameType } from "../../../customTypes/types";
+import { FormControlLabel, Switch } from "@mui/material";
+import { FC, memo, useCallback } from "react";
+import { VendorAndItemName } from "../../../customTypes/types";
 import { setVendors } from "../../../Redux/addedSlice";
-import { AppDispatch, RootState } from "../../../Redux/store";
-import VendorBadges from "./VendorBadges";
+import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
+import {
+  checkVendorsAdded,
+  checkVendorsToAdd,
+  selectVendorOfficialName
+} from "../../../Redux/selectors";
 
-type stateToPropsReturnType = {
-  checked: boolean;
-  disabled: boolean;
-};
+type Props = VendorAndItemName;
 
-const mapStateToProps = (
-  state: RootState,
-  ownProps: ParentProps
-): stateToPropsReturnType => {
-  return {
-    checked: state.item[ownProps.itemObj.name]!.vendorsToAdd.includes(
-      ownProps.vendorName
-    ),
-    disabled: state.item[ownProps.itemObj.name]!.vendorsAdded.includes(
-      ownProps.vendorName
-    ),
-  };
-};
+const SwitchComponent: FC<Props> = ({ itemName, vendorName }) => {
+  const officialVendorName = useAppSelector(
+    selectVendorOfficialName(vendorName)
+  );
 
-const mapDispatchToProps = (
-  dispatch: AppDispatch,
-  ownProps: ParentProps
-): { clickHandler: () => void } => {
-  return {
-    clickHandler: () => {
-      dispatch(
-        setVendors({
-          itemObj: ownProps.itemObj,
-          vendorName: ownProps.vendorName,
-        })
-      );
-    },
-  };
-};
+  const dispatch = useAppDispatch();
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+  const checked = useAppSelector(checkVendorsToAdd(vendorName, itemName));
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
+  const disabled = useAppSelector(checkVendorsAdded(vendorName, itemName));
 
-type ParentProps = {
-  itemObj: ItemObjType;
-  vendorName: vendorNameType;
-};
+  const clickHandler = useCallback(() => {
+    dispatch(setVendors({ itemName, vendorName }));
+  }, [dispatch, itemName, vendorName]);
 
-type myProps = ParentProps & PropsFromRedux;
+  // const control = useMemo(
+  //   () => (
+  //     <Switch
+  //       checked={checked}
+  //       disabled={disabled}
+  //       onChange={clickHandler}
+  //     />
+  //   ),
+  //   [checked, clickHandler, disabled]
+  // );
 
-const SwitchComponent: FC<myProps> = ({
-  clickHandler,
-  checked,
-  itemObj,
-  vendorName,
-  disabled,
-}): JSX.Element => {
   return (
-    <Form.Check
-      type="switch"
-      id={`${itemObj.name}-${vendorName}-SwitchComponent-SwitchComponent-${vendorName}`}
+    <FormControlLabel
+      checked={checked}
       disabled={disabled}
-      className="d-flex align-items-center row bg-outline-primary w-100 pe-0"
-      key={`div-SwitchComponent-${vendorName}`}>
-      <Form.Check.Input
-        disabled={disabled}
-        onChange={clickHandler}
-        checked={checked}
-        className="col-1 custom-checkbox-bg cursor-pointer"
-        key={`input-SwitchComponent-${vendorName}`}
-      />
-      <Form.Check.Label
-        key={`label-SwitchComponent-${vendorName}`}
-        className="col pe-0"
-        htmlFor={`${itemObj.name}-${vendorName}-SwitchComponent-SwitchComponent-${vendorName}`}>
-        <VendorBadges
-          disabled={disabled}
-          clickHandler={clickHandler}
-          vendorName={vendorName}
-          itemObj={itemObj}
-          key={`VendorBadges-SwitchComponent-${vendorName}`}
-        />
-      </Form.Check.Label>
-    </Form.Check>
+      onChange={clickHandler}
+      disableTypography
+      control={<Switch />}
+      // control={control}
+      label={officialVendorName}
+    />
   );
 };
 
-export default connector(memo<myProps>(SwitchComponent));
+export default memo<Props>(SwitchComponent);

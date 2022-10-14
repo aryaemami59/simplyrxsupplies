@@ -1,57 +1,46 @@
 import { FC, memo } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
-import { selectVendorOfficialName } from "../../../../Redux/addedSlice";
+import { VendorAndItemName } from "../../../../customTypes/types";
+import {
+  selectItemNumber,
+  selectVendorOfficialName,
+} from "../../../../Redux/selectors";
 import { useAppSelector } from "../../../../Redux/hooks";
-import { RootState } from "../../../../Redux/store";
+import BarcodeImage from "./BarcodeImage";
 import RowBarcodeModal from "./ModalComponents/RowBarcodeModal";
 import PrintBarcodeIcon from "./PrintBarcodeIcon";
 
-type Props = {
-  itemObj: ItemObjType;
-  vendorName: vendorNameType;
-};
+type Props = VendorAndItemName;
 
-const RowBarcodeImage: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
-  const itemBarcodeShown = useAppSelector(
-    (state: RootState) => state.added.showItemBarcode
-  );
+const RowBarcodeImage: FC<Props> = ({ itemName, vendorName }) => {
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
 
+  const itemNumber = useAppSelector(selectItemNumber(itemName));
+
+  const header = `<h2>Item Name: </h2><h1>${itemName}</h1><h2>Item Number: </h2><h1>${itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`;
+
   return (
-    <>
-      {itemBarcodeShown ? (
-        <Container
-          fluid
-          className="my-4">
-          <Row>
-            <Col
-              md={12}
-              className="position-relative">
-              <Row className="justify-content-center">
-                <PrintBarcodeIcon
-                  itemObj={itemObj}
-                  text={"Print This Barcode"}
-                  header={`<h2>Item Name: </h2><h1>${itemObj.name}</h1><h2>Item Number: </h2><h1>${itemObj.itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`}
-                />
-                <RowBarcodeModal itemObj={itemObj} />
-              </Row>
-              <Row className="justify-content-center">
-                <img
-                  src={itemObj.src}
-                  alt={itemObj.itemNumber}
-                  className="my-4 w-auto p-0"
-                />
-              </Row>
-            </Col>
-          </Row>
-        </Container>
-      ) : (
-        ""
-      )}
-    </>
+    <div className="my-4 container-fluid">
+      <div className="row">
+        <div className="col-md-12 position-relative">
+          <div className="row justify-content-center">
+            <PrintBarcodeIcon
+              itemName={itemName}
+              text="Print This Barcode"
+              header={header}
+            />
+            <RowBarcodeModal itemName={itemName} />
+          </div>
+          <div className="row justify-content-center">
+            <BarcodeImage
+              itemName={itemName}
+              className="w-auto"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

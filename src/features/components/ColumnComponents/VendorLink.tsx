@@ -1,26 +1,28 @@
+import { Link } from "@mui/material";
 import { FC, memo } from "react";
-import { Alert } from "react-bootstrap";
 import {
-  officialVendorNameType,
-  vendorNameType,
+  OfficialVendorNameType,
+  VendorNameType,
 } from "../../../customTypes/types";
-import { selectVendorsLinks } from "../../../Redux/addedSlice";
 import { useAppSelector } from "../../../Redux/hooks";
+import { selectVendorsLinks } from "../../../Redux/selectors";
 
 type Props = {
-  officialVendorName: officialVendorNameType;
-  vendorName: vendorNameType;
+  officialVendorName: OfficialVendorNameType;
+  vendorName: VendorNameType;
 };
 
-const VendorLink: FC<Props> = ({
-  officialVendorName,
-  vendorName,
-}): JSX.Element => {
+const VendorLink: FC<Props> = ({ officialVendorName, vendorName }) => {
   const vendorLink = useAppSelector(selectVendorsLinks(vendorName));
+
   return (
-    <Alert variant="info">
-      <Alert.Link href={vendorLink}>{officialVendorName} Website</Alert.Link>
-    </Alert>
+    <div className="row py-3 justify-content-center">
+      <Link
+        className="w-auto"
+        href={vendorLink}>
+        {officialVendorName} Website
+      </Link>
+    </div>
   );
 };
 

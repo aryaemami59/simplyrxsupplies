@@ -1,47 +1,47 @@
+import { List, ListItemText } from "@mui/material";
 import { FC, memo } from "react";
-import { Col, Container, ListGroup, Row } from "react-bootstrap";
-import { ItemObjType, vendorNameType } from "../../../../../customTypes/types";
-import { selectVendorOfficialName } from "../../../../../Redux/addedSlice";
+import { VendorAndItemName } from "../../../../../customTypes/types";
 import { useAppSelector } from "../../../../../Redux/hooks";
-import ModalBarcodeContainer from "./ModalBarcodeContainer";
-import ModalItemName from "./ModalItemName";
-import ModalItemNumber from "./ModalItemNumber";
+import { selectVendorOfficialName } from "../../../../../Redux/selectors";
+import VendorLink from "../../VendorLink";
+import RowBarcodeImage from "../RowBarcodeImage";
+import RowItemName from "../RowItemName";
+import RowItemNumber from "../RowItemNumber";
 
-type Props = {
-  itemObj: ItemObjType;
-  vendorName: vendorNameType;
-};
+type Props = VendorAndItemName;
 
-const ModalBodyContent: FC<Props> = ({ itemObj, vendorName }): JSX.Element => {
+const ModalBodyContent: FC<Props> = ({ itemName, vendorName }) => {
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
 
   return (
-    <Row className="justify-content-center text-center fs-4">
-      <Col
+    <div className="justify-content-center text-center fs-4 row">
+      <div
         key={`Col-thirdCol-App`}
-        xs={10}
-        className="justify-content-center">
-        <Container
-          key={`${itemObj.name}${vendorName}-VendorColumn-Container-name`}>
-          <ListGroup>
-            <ModalItemName
-              itemObj={itemObj}
+        className="justify-content-center col-10">
+        <div
+          className="container"
+          key={`${itemName}${vendorName}-VendorColumn-Container-name`}>
+          <List>
+            <RowItemName
+              itemName={itemName}
+            />
+            <RowItemNumber itemName={itemName} />
+            <RowBarcodeImage
+              itemName={itemName}
               vendorName={vendorName}
             />
-            <ModalItemNumber
-              itemObj={itemObj}
-              vendorName={vendorName}
-            />
-            <ModalBarcodeContainer
-              itemObj={itemObj}
-              officialVendorName={officialVendorName}
-            />
-          </ListGroup>
-        </Container>
-      </Col>
-    </Row>
+            <ListItemText>
+              <VendorLink
+                officialVendorName={officialVendorName}
+                vendorName={vendorName}
+              />
+            </ListItemText>
+          </List>
+        </div>
+      </div>
+    </div>
   );
 };
 

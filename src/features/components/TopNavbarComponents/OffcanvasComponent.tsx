@@ -1,17 +1,19 @@
+import MenuIcon from "@mui/icons-material/Menu";
 import {
-  FC,
-  memo,
-  MouseEventHandler,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
-import { Navbar, Offcanvas } from "react-bootstrap";
-import { DarkMode } from "../../../App";
+  Button,
+  DialogActions,
+  IconButton,
+  PaperProps,
+  SwipeableDrawer,
+} from "@mui/material";
+import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import OffcanvasBodyContent from "./OffcanvasBodyContent";
 
-const OffcanvasComponent: FC = (): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
+const paperProps: PaperProps = {
+  className: "mw-75",
+};
+
+const OffcanvasComponent: FC = () => {
   const [show, setShow] = useState(false);
 
   const handleOpen: MouseEventHandler<HTMLElement> = useCallback(() => {
@@ -22,33 +24,27 @@ const OffcanvasComponent: FC = (): JSX.Element => {
     setShow(false);
   }, []);
 
-  const theme = darkTheme ? "text-bg-dark" : "text-bg-light";
-
   return (
     <>
-      <Navbar.Toggle
-        key={`Navbar.Toggle-OffcanvasComponent`}
-        className="d-lg-none mx-4 navbar-toggler"
+      <IconButton
         onClick={handleOpen}
-      />
-      <Offcanvas
-        className={theme}
-        key={`Offcanvas-OffcanvasComponent`}
-        show={show}
-        scroll
-        onHide={handleClose}>
-        <Offcanvas.Header
-          closeButton
-          closeVariant="white"
-          key={`Offcanvas.Header-OffcanvasComponent`}>
-          <Offcanvas.Title key={`Offcanvas.Title-OffcanvasComponent-Add Items`}>
-            Add Items
-          </Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          <OffcanvasBodyContent />
-        </Offcanvas.Body>
-      </Offcanvas>
+        className="align-self-start">
+        <MenuIcon className="text-white d-lg-none" />
+      </IconButton>
+      <SwipeableDrawer
+        onOpen={handleOpen}
+        open={show}
+        PaperProps={paperProps}
+        onClose={handleClose}>
+        <OffcanvasBodyContent />
+        <DialogActions>
+          <Button
+            variant="contained"
+            onClick={handleClose}>
+            Close
+          </Button>
+        </DialogActions>
+      </SwipeableDrawer>
     </>
   );
 };

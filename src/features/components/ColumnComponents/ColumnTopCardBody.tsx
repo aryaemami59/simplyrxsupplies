@@ -1,55 +1,40 @@
+import { CardContent, List } from "@mui/material";
 import { FC, memo } from "react";
-import { ButtonGroup, Card, ListGroup } from "react-bootstrap";
 import {
-  ItemObjType,
-  officialVendorNameType,
-  vendorNameType,
+  ItemName,
+  OfficialVendorNameType,
+  VendorNameType,
 } from "../../../customTypes/types";
 import RowSingleContainer from "./IndividualRowComponents/RowSingleContainer";
-import QRCodeImage from "./QRCodeComponents/QRCodeImage";
-import ColumnToggleItemBarcodesButton from "./ToggleComponents/ColumnToggleItemBarcodesButton";
-import ColumnToggleItemNumbersButton from "./ToggleComponents/ColumnToggleItemNumbersButton";
-import ColumnToggleNamesButton from "./ToggleComponents/ColumnToggleNamesButton";
+import QRCodeImageContainer from "./QRCodeComponents/QRCodeImageContainer";
 import VendorLink from "./VendorLink";
 
 type Props = {
-  addedItems: ItemObjType[];
-  vendorName: vendorNameType;
-  officialVendorName: officialVendorNameType;
+  addedItems: ItemName[];
+  vendorName: VendorNameType;
+  officialVendorName: OfficialVendorNameType;
 };
 
 const ColumnTopCardBody: FC<Props> = ({
   addedItems,
   officialVendorName,
   vendorName,
-}): JSX.Element => {
-  return (
-    <>
-      <Card.Body key={`Card.Body-VendorColumn-${vendorName}`}>
-        <QRCodeImage
-          vendorName={vendorName}
-          key={`${vendorName}-VendorColumn-QRCodeImageComponent`}
+}) => (
+  <CardContent>
+    <QRCodeImageContainer vendorName={vendorName} />
+    <VendorLink
+      officialVendorName={officialVendorName}
+      vendorName={vendorName}
+    />
+    <List>
+      {addedItems.map(itemName => (
+        <RowSingleContainer
+          key={`${itemName}-${vendorName}-SingleVendorColumnListItem`}
+          {...{ itemName, vendorName }}
         />
-        <VendorLink
-          officialVendorName={officialVendorName}
-          vendorName={vendorName}
-        />
-        <ButtonGroup className="mb-3">
-          <ColumnToggleNamesButton />
-          <ColumnToggleItemNumbersButton />
-          <ColumnToggleItemBarcodesButton />
-        </ButtonGroup>
-        <ListGroup key={`ListGroup-VendorColumn-${vendorName}`}>
-          {addedItems.map(itemObj => (
-            <RowSingleContainer
-              key={`${itemObj.id}-${vendorName}-SingleVendorColumnListItem`}
-              {...{ itemObj, vendorName }}
-            />
-          ))}
-        </ListGroup>
-      </Card.Body>
-    </>
-  );
-};
+      ))}
+    </List>
+  </CardContent>
+);
 
 export default memo<Props>(ColumnTopCardBody);

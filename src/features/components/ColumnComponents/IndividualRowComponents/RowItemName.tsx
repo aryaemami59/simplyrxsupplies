@@ -1,43 +1,22 @@
+import { ListItem, ListItemText } from "@mui/material";
 import { FC, memo } from "react";
-import { ListGroup } from "react-bootstrap";
-import { ItemObjType, vendorNameType } from "../../../../customTypes/types";
-import { useAppSelector } from "../../../../Redux/hooks";
-import { RootState } from "../../../../Redux/store";
+import { ItemName } from "../../../../customTypes/types";
 import CopyIcon from "./CopyIcon";
 
 type Props = {
-  itemObj: ItemObjType;
-  vendorName: vendorNameType;
+  itemName: ItemName;
 };
 
-const RowItemName: FC<Props> = ({ vendorName, itemObj }): JSX.Element => {
-  const itemNameShown = useAppSelector(
-    (state: RootState) => state.added.showItemName
-  );
-
-  return (
-    <>
-      {itemNameShown ? (
-        <ListGroup.Item
-          action
-          className="rounded-top fw-bold"
-          variant="success"
-          key={`${itemObj.name}-${vendorName}-VendorColumn-ListGroupItem-name`}>
-          Item Name: {itemObj.name}
-          <CopyIcon
-            key={`${vendorName}-${itemObj.name}-CopyIconComponent-ItemNameComponent`}
-            content={itemObj.name}
-            text={"Name"}
-            placement="top"
-            itemObj={itemObj}
-            vendorName={vendorName}
-          />
-        </ListGroup.Item>
-      ) : (
-        ""
-      )}
-    </>
-  );
-};
+const RowItemName: FC<Props> = ({ itemName }) => (
+  <ListItem divider>
+    <ListItemText primaryTypographyProps={{ className: "pe- mw-7 ms-0" }}>
+      Item Name: {itemName}
+    </ListItemText>
+    <CopyIcon
+      content={itemName}
+      text={"Name"}
+    />
+  </ListItem>
+);
 
 export default memo<Props>(RowItemName);

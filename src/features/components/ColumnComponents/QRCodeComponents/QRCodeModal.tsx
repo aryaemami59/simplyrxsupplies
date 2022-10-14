@@ -1,32 +1,29 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  FC,
-  memo,
-  MouseEventHandler,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
-import { Button, Modal } from "react-bootstrap";
-import { DarkMode } from "../../../../App";
-import { ItemNumber, Src, vendorNameType } from "../../../../customTypes/types";
+import { Button, Tooltip } from "@mui/material";
+import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
+import { VendorNameType } from "../../../../customTypes/types";
+import { selectVendorOfficialName } from "../../../../Redux/selectors";
+import { useAppSelector } from "../../../../Redux/hooks";
+import QRCodeDialog from "./QRCodeDialog";
+
+const title = "Take a Closer Look at The QRCode";
+
+const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />;
 
 type Props = {
-  src: Src;
-  vendorName: vendorNameType;
-  itemNumbers: ItemNumber;
+  vendorName: VendorNameType;
 };
 
-const QRCodeModal: FC<Props> = ({
-  src,
-  vendorName,
-  itemNumbers,
-}): JSX.Element => {
-  const { darkTheme } = useContext(DarkMode);
+const QRCodeModal: FC<Props> = ({ vendorName }) => {
   const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  const showModal: MouseEventHandler<SVGSVGElement> = useCallback(() => {
+  const officialVendorName = useAppSelector(
+    selectVendorOfficialName(vendorName)
+  );
+
+  const showModal: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     setShow(true);
   }, []);
 
@@ -34,39 +31,38 @@ const QRCodeModal: FC<Props> = ({
     setShow(false);
   }, []);
 
+  const showTooltip = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const hideTooltip = useCallback(() => {
+    setOpen(false);
+  }, []);
+
   return (
     <>
-      <FontAwesomeIcon
-        icon={faMagnifyingGlassPlus}
-        size="lg"
-        className="btn w-auto"
-        inverse={darkTheme ? true : false}
-        role="button"
-        onClick={showModal}
-      />
-      <Modal
+      <Tooltip
+        key={`QRCodeModal-${vendorName}`}
+        onOpen={showTooltip}
+        onClose={hideTooltip}
+        enterDelay={1500}
+        enterNextDelay={1500}
+        title={title}
+        open={open}>
+        <Button
+          variant="contained"
+          onClick={showModal}
+          startIcon={startIcon}
+          className="w-auto">
+          Magnify
+        </Button>
+      </Tooltip>
+      <QRCodeDialog
+        hideModal={hideModal}
+        officialVendorName={officialVendorName}
         show={show}
-        onHide={hideModal}>
-        <Modal.Header
-          className={darkTheme ? "bg-dark" : "bg-light"}
-          closeButton
-          closeVariant={darkTheme ? "white" : "none"}></Modal.Header>
-        <Modal.Body
-          className={`d-flex justify-content-center align-items-center ${
-            darkTheme ? "bg-dark" : "bg-light"
-          }`}>
-          <img
-            src={src}
-            className="w-100"
-            alt={`${vendorName}-QRCode`}
-            key={`${vendorName}-QRCode-image-QRCodeImageComponent`}
-            title={itemNumbers}
-          />
-        </Modal.Body>
-        <Modal.Footer className={darkTheme ? "bg-dark text-info" : "bg-light"}>
-          <Button onClick={hideModal}>Close</Button>
-        </Modal.Footer>
-      </Modal>
+        vendorName={vendorName}
+      />
     </>
   );
 };
