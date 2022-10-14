@@ -1,6 +1,6 @@
 import { EmptyArr, EmptyObj, ItemName } from "../../customTypes/types";
 
-export const sortResults = (
+const sortResults = (
   searchTerm: ItemName,
   re: RegExp,
   trimmedValue: string

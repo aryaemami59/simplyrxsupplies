@@ -1,7 +1,7 @@
 import { List } from "@mui/material";
 import { FC, lazy, memo, Suspense } from "react";
 import { shallowEqual } from "react-redux";
-import IsLoading from "../../../IsLoading";
+import IsLoading from "../../shared/IsLoading";
 import { useAppSelector } from "../../../Redux/hooks";
 import { selectAllListItems } from "../../../Redux/selectors";
 import VendorColumnModalComponent from "../InputComponents/VendorColumnModalComponent";

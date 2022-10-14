@@ -4,7 +4,6 @@ import { addedReducer } from "../Redux/addedSlice";
 export const store = configureStore({
   reducer: {
     added: addedReducer,
-    // item: itemReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -12,7 +11,6 @@ export const store = configureStore({
       serializableCheck: false,
       immutableCheck: false,
     }),
-  // middleware: getDefaultMiddleware => getDefaultMiddleware().concat([logger]),
 });
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

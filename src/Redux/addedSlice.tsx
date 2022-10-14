@@ -14,7 +14,11 @@ import {
   ItemName,
   VendorNameType,
 } from "../customTypes/types";
-import { emptyArr, emptyObj, intersection } from "../features/shared/utilityFunctions";
+import {
+  emptyArr,
+  emptyObj,
+  intersection,
+} from "../features/shared/utilityFunctions";
 import { GITHUB_URL_ITEMS } from "./fetchInfo";
 
 export const fetchItems: FetchItems = createAsyncThunk(
