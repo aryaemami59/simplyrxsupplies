@@ -1,18 +1,15 @@
 import {
-  AccordionSummary,
-  Typography,
   Accordion,
   AccordionDetails,
+  AccordionSummary,
+  Typography,
 } from "@mui/material";
 import { FC, memo, useCallback, useState } from "react";
 import { VendorNameType } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
-import {
-  selectVendorOfficialName,
-  selectItemNamesByVendor,
-} from "../../../Redux/selectors";
+import { selectVendorOfficialName } from "../../../Redux/selectors";
+import useItemNames from "../../customHooks/useItemNames";
 import SingleOffcanvasVendorItem from "./SingleOffcanvasVendorItem";
-import { shallowEqual } from "react-redux";
 
 type Props = {
   vendorName: VendorNameType;
@@ -24,10 +21,7 @@ const OffcanvasVendorAccordion: FC<Props> = ({ vendorName }) => {
     selectVendorOfficialName(vendorName)
   );
 
-  const vendorItemNames = useAppSelector(
-    selectItemNamesByVendor(vendorName),
-    shallowEqual
-  );
+  const vendorItemNames = useItemNames(vendorName);
 
   const toggle = useCallback(() => {
     setOpen(prev => !prev);

@@ -6,13 +6,10 @@ import {
   PopoverOrigin,
 } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
-import { shallowEqual } from "react-redux";
 import { VendorNameType } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
-import {
-  selectItemNamesByVendor,
-  selectVendorOfficialName,
-} from "../../../Redux/selectors";
+import { selectVendorOfficialName } from "../../../Redux/selectors";
+import useItemNames from "../../customHooks/useItemNames";
 import SingleDropDown from "./SingleDropDown";
 
 const transformOrigin: PopoverOrigin = {
@@ -49,10 +46,7 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
     selectVendorOfficialName(vendorName)
   );
 
-  const itemNames = useAppSelector(
-    selectItemNamesByVendor(vendorName),
-    shallowEqual
-  );
+  const itemNames = useItemNames(vendorName);
 
   const handleOpen: MouseEventHandler<HTMLElement> = useCallback(event => {
     setAnchorEl(event.currentTarget);

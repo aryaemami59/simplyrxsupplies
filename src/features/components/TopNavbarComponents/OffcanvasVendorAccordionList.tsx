@@ -1,14 +1,13 @@
 import { FC, memo } from "react";
-import { useAppSelector } from "../../../Redux/hooks";
-import { selectVendorsArr } from "../../../Redux/selectors";
+import useVendorNamesList from "../../customHooks/useVendorNamesList";
 import OffcanvasVendorAccordion from "./OffcanvasVendorAccordion";
 
 const OffcanvasVendorAccordionList: FC = () => {
-  const vendorList = useAppSelector(selectVendorsArr);
+  const vendorNames = useVendorNamesList();
 
   return (
     <>
-      {vendorList.map(vendorName => (
+      {vendorNames.map(vendorName => (
         <OffcanvasVendorAccordion
           key={`${vendorName}-OffcanvasVendorAccordionList`}
           vendorName={vendorName}

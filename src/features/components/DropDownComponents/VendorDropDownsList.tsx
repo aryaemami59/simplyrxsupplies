@@ -1,15 +1,13 @@
 import { FC, memo } from "react";
-import { shallowEqual } from "react-redux";
-import { selectVendorsArr } from "../../../Redux/selectors";
-import { useAppSelector } from "../../../Redux/hooks";
+import useVendorNamesList from "../../customHooks/useVendorNamesList";
 import VendorDropDown from "./VendorDropDown";
 
 const VendorDropDownsList: FC = () => {
-  const vendors = useAppSelector(selectVendorsArr, shallowEqual);
+  const vendorNames = useVendorNamesList();
 
   return (
     <>
-      {vendors.map(vendorName => (
+      {vendorNames.map(vendorName => (
         <VendorDropDown
           key={`${vendorName}-VendorDropDownsList-VendorDropDown`}
           vendorName={vendorName}

@@ -5,13 +5,17 @@ import { useAppSelector } from "../../../Redux/hooks";
 import SearchResultsAddButton from "./SearchResultsAddButton";
 import SearchResultsItemName from "./SearchResultsItemName";
 import SwitchComponent from "./SwitchComponent";
+import { shallowEqual } from "react-redux";
 
 type Props = {
   itemName: ItemName;
 };
 
 const SearchResultsCardBodyContent: FC<Props> = ({ itemName }) => {
-  const vendors = useAppSelector(selectVendorsByItemName(itemName));
+  const vendors = useAppSelector(
+    selectVendorsByItemName(itemName),
+    shallowEqual
+  );
 
   return (
     <>
