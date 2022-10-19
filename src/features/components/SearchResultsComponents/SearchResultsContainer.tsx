@@ -7,6 +7,7 @@ import { selectAllListItems } from "../../../Redux/selectors";
 import VendorColumnModalComponent from "../InputComponents/VendorColumnModalComponent";
 
 const SearchResultsSingleCard = lazy(() => import("./SearchResultsSingleCard"));
+const fallback = <IsLoading />;
 
 const SearchResultsContainer: FC = () => {
   const listItems = useAppSelector(selectAllListItems, shallowEqual);
@@ -17,7 +18,7 @@ const SearchResultsContainer: FC = () => {
       <List
         dense
         className="mt-5 px-4">
-        <Suspense fallback={<IsLoading />}>
+        <Suspense fallback={fallback}>
           {listItems.map(itemName => (
             <SearchResultsSingleCard
               itemName={itemName}

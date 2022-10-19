@@ -7,11 +7,13 @@ type Props = {
   itemName: ItemName;
 };
 
+const primaryTypographyProps = { className: "ms-0" };
+
 const RowItemName: FC<Props> = ({ itemName }) => (
   <ListItem
     divider
     className="row row-cols-1 row-cols-sm-2">
-    <ListItemText primaryTypographyProps={{ className: "ms-0" }}>
+    <ListItemText primaryTypographyProps={primaryTypographyProps}>
       Item Name: {itemName}
     </ListItemText>
     <CopyIcon

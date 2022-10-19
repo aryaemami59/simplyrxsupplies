@@ -4,6 +4,7 @@ import {
   AccordionSummary,
   Typography,
 } from "@mui/material";
+import { TransitionProps } from "@mui/material/transitions";
 import { FC, memo, useCallback, useRef, useState } from "react";
 import { shallowEqual } from "react-redux";
 import { Category } from "../../../customTypes/types";
@@ -13,6 +14,11 @@ import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem";
 
 type Props = {
   category: Category;
+};
+
+const transitionProps: TransitionProps = {
+  unmountOnExit: true,
+  mountOnEnter: true,
 };
 
 const SideBarAccordionCategories: FC<Props> = ({ category }) => {
@@ -30,7 +36,7 @@ const SideBarAccordionCategories: FC<Props> = ({ category }) => {
   return (
     <div>
       <Accordion
-        TransitionProps={{ unmountOnExit: true, mountOnEnter: true }}
+        TransitionProps={transitionProps}
         expanded={open}
         onChange={toggle}
         variant="outlined">

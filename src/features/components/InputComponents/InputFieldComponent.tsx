@@ -5,6 +5,7 @@ import {
   FC,
   memo,
   useCallback,
+  useMemo,
   useRef,
   useState,
   useTransition,
@@ -47,10 +48,13 @@ const InputFieldComponent: FC = () => {
     [dispatch, itemNames]
   );
 
-  const inputProps = {
-    style,
-    endAdornment: val && <InputEndAdornment clickHandler={clickHandler} />,
-  };
+  const inputProps = useMemo(
+    () => ({
+      style,
+      endAdornment: val && <InputEndAdornment clickHandler={clickHandler} />,
+    }),
+    [clickHandler, val]
+  );
 
   return (
     <TextField

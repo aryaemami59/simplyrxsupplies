@@ -10,9 +10,15 @@ import { useAppSelector } from "../../../Redux/hooks";
 import { selectVendorOfficialName } from "../../../Redux/selectors";
 import useItemNames from "../../customHooks/useItemNames";
 import SingleOffcanvasVendorItem from "./SingleOffcanvasVendorItem";
+import { TransitionProps } from "@mui/material/transitions";
 
 type Props = {
   vendorName: VendorNameType;
+};
+
+const transitionProps: TransitionProps = {
+  unmountOnExit: true,
+  mountOnEnter: true,
 };
 
 const OffcanvasVendorAccordion: FC<Props> = ({ vendorName }) => {
@@ -29,7 +35,7 @@ const OffcanvasVendorAccordion: FC<Props> = ({ vendorName }) => {
 
   return (
     <Accordion
-      TransitionProps={{ unmountOnExit: true, mountOnEnter: true }}
+      TransitionProps={transitionProps}
       expanded={open}
       onChange={toggle}
       variant="outlined">
