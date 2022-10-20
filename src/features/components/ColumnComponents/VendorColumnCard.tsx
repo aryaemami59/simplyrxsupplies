@@ -1,35 +1,27 @@
 import { Card } from "@mui/material";
 import { FC, memo } from "react";
-import {
-  ItemName,
-  OfficialVendorNameType,
-  VendorNameType,
-} from "../../../customTypes/types";
+import { VendorNameType } from "../../../customTypes/types";
+import { useAppSelector } from "../../../Redux/hooks";
+import { checkIfAnyAddedToOneVendor } from "../../../Redux/selectors";
 import ColumnTopCardBody from "./ColumnTopCardBody";
 import EmptyColumn from "./EmptyColumn";
 
 type Props = {
-  addedItems: ItemName[];
   vendorName: VendorNameType;
-  officialVendorName: OfficialVendorNameType;
 };
 
-const VendorColumnCard: FC<Props> = ({
-  addedItems,
-  officialVendorName,
-  vendorName,
-}) => (
-  <Card>
-    {addedItems.length ? (
-      <ColumnTopCardBody
-        addedItems={addedItems}
-        vendorName={vendorName}
-        officialVendorName={officialVendorName}
-      />
-    ) : (
-      <EmptyColumn />
-    )}
-  </Card>
-);
+const VendorColumnCard: FC<Props> = ({ vendorName }) => {
+  const anyAdded = useAppSelector(checkIfAnyAddedToOneVendor(vendorName));
+
+  return (
+    <Card>
+      {anyAdded ? (
+        <ColumnTopCardBody vendorName={vendorName} />
+      ) : (
+        <EmptyColumn />
+      )}
+    </Card>
+  );
+};
 
 export default memo<Props>(VendorColumnCard);

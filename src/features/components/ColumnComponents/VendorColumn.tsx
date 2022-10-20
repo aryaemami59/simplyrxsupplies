@@ -1,13 +1,9 @@
 import { Collapse } from "@mui/material";
 import Button from "@mui/material/Button";
 import { FC, memo, useCallback, useState } from "react";
-import { shallowEqual } from "react-redux";
 import { VendorNameType } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
-import {
-  selectAddedItemsByVendor,
-  selectVendorOfficialName,
-} from "../../../Redux/selectors";
+import { selectVendorOfficialName } from "../../../Redux/selectors";
 import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge";
 import VendorColumnCard from "./VendorColumnCard";
 
@@ -19,10 +15,6 @@ const VendorColumn: FC<Props> = ({ vendorName }) => {
   const [open, setOpen] = useState(false);
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
-  );
-  const addedItems = useAppSelector(
-    selectAddedItemsByVendor(vendorName),
-    shallowEqual
   );
 
   const buttonClick = useCallback(() => {
@@ -43,11 +35,7 @@ const VendorColumn: FC<Props> = ({ vendorName }) => {
         unmountOnExit
         in={open}>
         <div>
-          <VendorColumnCard
-            officialVendorName={officialVendorName}
-            addedItems={addedItems}
-            vendorName={vendorName}
-          />
+          <VendorColumnCard vendorName={vendorName} />
         </div>
       </Collapse>
     </>

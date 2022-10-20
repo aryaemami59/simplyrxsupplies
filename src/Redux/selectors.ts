@@ -77,6 +77,11 @@ export const checkVendorsAdded =
   (state: RootState): boolean =>
     state.added.itemsObj[itemName].vendorsAdded.includes(vendorName);
 
+export const checkIfAnyAddedToOneVendor =
+  (vendorName: VendorNameType) =>
+  (state: RootState): boolean =>
+    !!state.added.vendorsObj[vendorName].itemsAdded.length;
+
 export const selectItemNumber =
   (itemName: ItemName) =>
   (state: RootState): ItemNumber =>

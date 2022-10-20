@@ -1,16 +1,9 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Tooltip,
-} from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import { ItemName } from "../../../../../customTypes/types";
-import BarcodeImage from "../BarcodeImage";
+import RowBarcodeDialog from "./RowBarcodeDialog";
 
 const title = "Take a Closer Look at The Barcode";
 
@@ -58,29 +51,11 @@ const RowBarcodeModal: FC<Props> = ({ itemName }) => {
           Magnify
         </Button>
       </Tooltip>
-      <Dialog
-        keepMounted
-        maxWidth="md"
-        fullWidth
-        open={show}
-        onClose={hideModal}>
-        <DialogTitle>{itemName}</DialogTitle>
-        <DialogContent
-          dividers
-          className="justify-content-center d-flex">
-          <BarcodeImage
-            itemName={itemName}
-            className="w-100"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button
-            variant="contained"
-            onClick={hideModal}>
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <RowBarcodeDialog
+        hideModal={hideModal}
+        itemName={itemName}
+        show={show}
+      />
     </>
   );
 };

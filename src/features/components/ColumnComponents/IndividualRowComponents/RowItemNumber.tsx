@@ -1,4 +1,4 @@
-import { ListItem, ListItemText } from "@mui/material";
+import { ListItem, ListItemText, TypographyProps } from "@mui/material";
 import { FC, memo } from "react";
 import { ItemName } from "../../../../customTypes/types";
 import { useAppSelector } from "../../../../Redux/hooks";
@@ -9,7 +9,8 @@ type Props = {
   itemName: ItemName;
 };
 
-const primaryTypographyProps = { className: "ms-0" };
+const primaryTypographyProps: TypographyProps<"span", { component?: "span" }> =
+  { className: "ms-0" };
 
 const RowItemNumber: FC<Props> = ({ itemName }) => {
   const itemNumber = useAppSelector(selectItemNumber(itemName));

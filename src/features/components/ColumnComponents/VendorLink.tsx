@@ -1,19 +1,21 @@
 import { Link } from "@mui/material";
 import { FC, memo } from "react";
-import {
-  OfficialVendorNameType,
-  VendorNameType,
-} from "../../../customTypes/types";
+import { VendorNameType } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
-import { selectVendorsLinks } from "../../../Redux/selectors";
+import {
+  selectVendorOfficialName,
+  selectVendorsLinks,
+} from "../../../Redux/selectors";
 
 type Props = {
-  officialVendorName: OfficialVendorNameType;
   vendorName: VendorNameType;
 };
 
-const VendorLink: FC<Props> = ({ officialVendorName, vendorName }) => {
+const VendorLink: FC<Props> = ({ vendorName }) => {
   const vendorLink = useAppSelector(selectVendorsLinks(vendorName));
+  const officialVendorName = useAppSelector(
+    selectVendorOfficialName(vendorName)
+  );
 
   return (
     <div className="row py-3 justify-content-center">
