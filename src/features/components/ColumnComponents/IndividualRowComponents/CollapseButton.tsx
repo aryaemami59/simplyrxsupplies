@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { faMaximize, faMinimize } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
@@ -28,6 +29,11 @@ const CollapseButton: FC<Props> = ({ open, toggle }) => {
       {buttonText}
     </Button>
   );
+};
+
+CollapseButton.propTypes = {
+  open: PropTypes.bool.isRequired,
+  toggle: PropTypes.func.isRequired,
 };
 
 export default memo<Props>(CollapseButton);

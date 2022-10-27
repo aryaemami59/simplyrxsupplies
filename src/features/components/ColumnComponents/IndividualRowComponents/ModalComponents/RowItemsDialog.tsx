@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {
   Button,
   Dialog,
@@ -34,5 +35,10 @@ const RowItemsDialog: FC<Props> = ({ hideModal, modalOpen }) => (
     </DialogActions>
   </Dialog>
 );
+
+RowItemsDialog.propTypes = {
+  hideModal: PropTypes.func.isRequired,
+  modalOpen: PropTypes.bool.isRequired,
+};
 
 export default memo<Props>(RowItemsDialog);

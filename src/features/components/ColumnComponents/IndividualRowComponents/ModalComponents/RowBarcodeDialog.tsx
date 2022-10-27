@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {
   Dialog,
   DialogActions,
@@ -39,6 +40,11 @@ const RowBarcodeDialog: FC<Props> = ({ hideModal, show }) => {
       </DialogActions>
     </Dialog>
   );
+};
+
+RowBarcodeDialog.propTypes = {
+  hideModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
 };
 
 export default memo<Props>(RowBarcodeDialog);

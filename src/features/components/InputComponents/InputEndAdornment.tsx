@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { InputAdornment, IconButton } from "@mui/material";
 import { FC, memo } from "react";
 import CloseIcon from "@mui/icons-material/Close";
@@ -13,5 +14,9 @@ const InputEndAdornment: FC<Props> = ({ clickHandler }) => (
     </IconButton>
   </InputAdornment>
 );
+
+InputEndAdornment.propTypes = {
+  clickHandler: PropTypes.func.isRequired,
+};
 
 export default memo<Props>(InputEndAdornment);

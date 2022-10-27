@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {
   Button,
   Dialog,
@@ -41,6 +42,11 @@ const QRCodeDialog: FC<Props> = ({ hideModal, show }) => {
       </DialogActions>
     </Dialog>
   );
+};
+
+QRCodeDialog.propTypes = {
+  hideModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
 };
 
 export default memo<Props>(QRCodeDialog);

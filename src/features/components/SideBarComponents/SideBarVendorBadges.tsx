@@ -1,6 +1,11 @@
 import { Checkbox, FormControlLabel } from "@mui/material";
+import PropTypes from "prop-types";
 import { FC, memo, useCallback } from "react";
-import { VendorAndItemName } from "../../../customTypes/types";
+import {
+  itemNames,
+  VendorAndItemName,
+  vendorNames,
+} from "../../../customTypes/types";
 import { setVendors } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 import {
@@ -37,6 +42,11 @@ const SideBarVendorBadges: FC<Props> = ({ vendorName, itemName }) => {
       }
     />
   );
+};
+
+SideBarVendorBadges.propTypes = {
+  itemName: PropTypes.oneOf(itemNames).isRequired,
+  vendorName: PropTypes.oneOf(vendorNames).isRequired,
 };
 
 export default memo<Props>(SideBarVendorBadges);

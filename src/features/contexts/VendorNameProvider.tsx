@@ -1,5 +1,6 @@
+import PropTypes from "prop-types";
 import { createContext, FC, memo, ReactNode } from "react";
-import { VendorNameType } from "../../customTypes/types";
+import { VendorNameType, vendorNames } from "../../customTypes/types";
 
 type Props = {
   children: ReactNode;
@@ -13,5 +14,10 @@ const VendorNameProvider: FC<Props> = ({ children, vendorName }) => (
     {children}
   </VendorNameContext.Provider>
 );
+
+VendorNameProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+  vendorName: PropTypes.oneOf(vendorNames).isRequired,
+};
 
 export default memo<Props>(VendorNameProvider);

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {
   Button,
   Menu,
@@ -6,7 +7,7 @@ import {
   PopoverOrigin,
 } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
-import { VendorNameType } from "../../../customTypes/types";
+import { VendorNameType, vendorNames } from "../../../customTypes/types";
 import useItemNames from "../../customHooks/useItemNames";
 import useOfficialVendorName from "../../customHooks/useOfficialVendorName";
 import SingleDropDown from "./SingleDropDown";
@@ -88,6 +89,10 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
       </Menu>
     </>
   );
+};
+
+VendorDropDown.propTypes = {
+  vendorName: PropTypes.oneOf(vendorNames).isRequired,
 };
 
 export default memo<Props>(VendorDropDown);

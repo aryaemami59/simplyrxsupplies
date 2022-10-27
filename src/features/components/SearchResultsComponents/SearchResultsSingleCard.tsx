@@ -1,6 +1,7 @@
+import PropTypes from "prop-types";
 import { Card, CardContent } from "@mui/material";
 import { FC, memo } from "react";
-import { ItemName } from "../../../customTypes/types";
+import { ItemName, itemNames } from "../../../customTypes/types";
 import SearchResultsCardBodyContent from "./SearchResultsCardBodyContent";
 
 type Props = {
@@ -19,5 +20,9 @@ const SearchResultsSingleCard: FC<Props> = ({ itemName }) => (
     </CardContent>
   </Card>
 );
+
+SearchResultsSingleCard.propTypes = {
+  itemName: PropTypes.oneOf(itemNames).isRequired,
+};
 
 export default memo<Props>(SearchResultsSingleCard);

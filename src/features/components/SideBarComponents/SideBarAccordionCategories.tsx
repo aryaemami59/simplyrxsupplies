@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {
   Accordion,
   AccordionDetails,
@@ -7,7 +8,7 @@ import {
 import { TransitionProps } from "@mui/material/transitions";
 import { FC, memo, useCallback, useRef, useState } from "react";
 import { shallowEqual } from "react-redux";
-import { Category } from "../../../customTypes/types";
+import { Category, categoryNames } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
 import { selectCategoriesItemNames } from "../../../Redux/selectors";
 import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem";
@@ -57,6 +58,10 @@ const SideBarAccordionCategories: FC<Props> = ({ category }) => {
       </Accordion>
     </div>
   );
+};
+
+SideBarAccordionCategories.propTypes = {
+  category: PropTypes.oneOf(categoryNames).isRequired,
 };
 
 export default memo<Props>(SideBarAccordionCategories);

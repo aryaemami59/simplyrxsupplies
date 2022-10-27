@@ -1,9 +1,14 @@
 import { MenuItem } from "@mui/material";
+import PropTypes from "prop-types";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
-import { VendorAndItemName } from "../../../customTypes/types";
+import {
+  itemNames,
+  VendorAndItemName,
+  vendorNames,
+} from "../../../customTypes/types";
 import { addItemsByVendor } from "../../../Redux/addedSlice";
-import { checkIfItemAddedToOneVendor } from "../../../Redux/selectors";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
+import { checkIfItemAddedToOneVendor } from "../../../Redux/selectors";
 
 type Props = VendorAndItemName;
 
@@ -27,6 +32,11 @@ const SingleDropDown: FC<Props> = ({ itemName, vendorName }) => {
       {itemName}
     </MenuItem>
   );
+};
+
+SingleDropDown.propTypes = {
+  itemName: PropTypes.oneOf(itemNames).isRequired,
+  vendorName: PropTypes.oneOf(vendorNames).isRequired,
 };
 
 export default memo<Props>(SingleDropDown);

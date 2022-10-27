@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
@@ -36,6 +37,11 @@ const PrintBarcodeIcon: FC<Props> = ({ header }) => {
       Print Barcode
     </Button>
   );
+};
+
+PrintBarcodeIcon.propTypes = {
+  header: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
 };
 
 export default memo<Props>(PrintBarcodeIcon);

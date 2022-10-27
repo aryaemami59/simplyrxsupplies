@@ -1,6 +1,7 @@
+import PropTypes from "prop-types";
 import { CardHeader } from "@mui/material";
 import { FC, memo } from "react";
-import { ItemName } from "../../../customTypes/types";
+import { ItemName, itemNames } from "../../../customTypes/types";
 
 type Props = {
   itemName: ItemName;
@@ -9,5 +10,9 @@ type Props = {
 const SearchResultsItemName: FC<Props> = ({ itemName }) => (
   <CardHeader title={itemName} />
 );
+
+SearchResultsItemName.propTypes = {
+  itemName: PropTypes.oneOf(itemNames).isRequired,
+};
 
 export default memo<Props>(SearchResultsItemName);

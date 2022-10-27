@@ -1,7 +1,8 @@
+import PropTypes from "prop-types";
 import { Button, ButtonGroup } from "@mui/material";
 import { FC, memo, MouseEventHandler, RefObject, useCallback } from "react";
 import { shallowEqual } from "react-redux";
-import { ItemName } from "../../../customTypes/types";
+import { ItemName, itemNames } from "../../../customTypes/types";
 import { addItems } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 import {
@@ -57,6 +58,13 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemName, target }) => {
       </ButtonGroup>
     </>
   );
+};
+
+SingleSideBarCategoryListItem.propTypes = {
+  itemName: PropTypes.oneOf(itemNames).isRequired,
+  target: PropTypes.shape({
+    current: PropTypes.instanceOf(HTMLDivElement).isRequired,
+  }).isRequired,
 };
 
 export default memo<Props>(SingleSideBarCategoryListItem);

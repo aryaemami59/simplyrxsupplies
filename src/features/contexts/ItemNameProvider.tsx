@@ -1,5 +1,6 @@
+import PropTypes from "prop-types";
 import { createContext, FC, memo, ReactNode } from "react";
-import { ItemName } from "../../customTypes/types";
+import { ItemName, itemNames } from "../../customTypes/types";
 
 type Props = {
   children: ReactNode;
@@ -13,5 +14,10 @@ const ItemNameProvider: FC<Props> = ({ children, itemName }) => (
     {children}
   </ItemNameContext.Provider>
 );
+
+ItemNameProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+  itemName: PropTypes.oneOf(itemNames).isRequired,
+};
 
 export default memo<Props>(ItemNameProvider);

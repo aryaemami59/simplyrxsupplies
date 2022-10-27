@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { FC, memo } from "react";
 import { useAppSelector } from "../../../../Redux/hooks";
 import { selectQRCodeContent, selectQRText } from "../../../../Redux/selectors";
@@ -20,6 +21,10 @@ const QRCodeImage: FC<Props> = ({ className }) => {
       title={title}
     />
   );
+};
+
+QRCodeImage.propTypes = {
+  className: PropTypes.string,
 };
 
 export default memo<Props>(QRCodeImage);

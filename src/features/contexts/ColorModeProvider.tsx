@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { ThemeProvider } from "@mui/material/styles";
 import { createContext, FC, memo, ReactNode, useMemo } from "react";
 import useLocalStorageTheme from "../customHooks/useLocalStorageTheme";
@@ -33,6 +34,10 @@ const ColorModeProvider: FC<Props> = ({ children }) => {
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ColorModeContext.Provider>
   );
+};
+
+ColorModeProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default memo<Props>(ColorModeProvider);
