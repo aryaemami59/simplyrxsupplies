@@ -1,17 +1,18 @@
 import { FC, memo } from "react";
-import { VendorAndItemName } from "../../../../customTypes/types";
+import { useAppSelector } from "../../../../Redux/hooks";
 import {
   selectItemNumber,
   selectVendorOfficialName,
 } from "../../../../Redux/selectors";
-import { useAppSelector } from "../../../../Redux/hooks";
+import useItemName from "../../../customHooks/useItemName";
+import useVendorName from "../../../customHooks/useVendorName";
 import BarcodeImage from "./BarcodeImage";
 import RowBarcodeModal from "./ModalComponents/RowBarcodeModal";
 import PrintBarcodeIcon from "./PrintBarcodeIcon";
 
-type Props = VendorAndItemName;
-
-const RowBarcodeImage: FC<Props> = ({ itemName, vendorName }) => {
+const RowBarcodeImage: FC = () => {
+  const vendorName = useVendorName();
+  const itemName = useItemName();
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
@@ -26,17 +27,13 @@ const RowBarcodeImage: FC<Props> = ({ itemName, vendorName }) => {
         <div className="col-md-12 position-relative">
           <div className="row justify-content-center">
             <PrintBarcodeIcon
-              itemName={itemName}
               text="Print This Barcode"
               header={header}
             />
-            <RowBarcodeModal itemName={itemName} />
+            <RowBarcodeModal />
           </div>
           <div className="row justify-content-center">
-            <BarcodeImage
-              itemName={itemName}
-              className="w-auto"
-            />
+            <BarcodeImage className="w-auto" />
           </div>
         </div>
       </div>
@@ -44,4 +41,4 @@ const RowBarcodeImage: FC<Props> = ({ itemName, vendorName }) => {
   );
 };
 
-export default memo<Props>(RowBarcodeImage);
+export default memo(RowBarcodeImage);

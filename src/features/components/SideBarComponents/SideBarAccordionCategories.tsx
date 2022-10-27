@@ -50,7 +50,7 @@ const SideBarAccordionCategories: FC<Props> = ({ category }) => {
             <SingleSideBarCategoryListItem
               target={ref}
               key={`${itemName}-SingleSideBarAccordionListItem`}
-              {...{ category, itemName }}
+              itemName={itemName}
             />
           ))}
         </AccordionDetails>

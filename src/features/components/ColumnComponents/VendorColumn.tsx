@@ -1,17 +1,15 @@
 import { Collapse } from "@mui/material";
 import Button from "@mui/material/Button";
 import { FC, memo, useCallback, useState } from "react";
-import { VendorNameType } from "../../../customTypes/types";
+
 import { useAppSelector } from "../../../Redux/hooks";
 import { selectVendorOfficialName } from "../../../Redux/selectors";
+import useVendorName from "../../customHooks/useVendorName";
 import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge";
 import VendorColumnCard from "./VendorColumnCard";
 
-type Props = {
-  vendorName: VendorNameType;
-};
-
-const VendorColumn: FC<Props> = ({ vendorName }) => {
+const VendorColumn: FC = () => {
+  const vendorName = useVendorName();
   const [open, setOpen] = useState(false);
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
@@ -24,22 +22,22 @@ const VendorColumn: FC<Props> = ({ vendorName }) => {
   return (
     <>
       <Button
-        className="position-relative d-block w-100"
+        className="d-block w-100"
         variant="contained"
         onClick={buttonClick}>
         {officialVendorName}
-        <RowCounterBadge vendorName={vendorName} />
+        <RowCounterBadge />
       </Button>
       <Collapse
-        mountOnEnter
-        unmountOnExit
+        // mountOnEnter
+        // unmountOnExit
         in={open}>
         <div>
-          <VendorColumnCard vendorName={vendorName} />
+          <VendorColumnCard />
         </div>
       </Collapse>
     </>
   );
 };
 
-export default memo<Props>(VendorColumn);
+export default memo(VendorColumn);

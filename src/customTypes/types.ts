@@ -59,6 +59,7 @@ export type Link = string;
 export type JoinChars = string;
 
 export type VendorNameType =
+  | "MCK"
   | "OI"
   | "GNFR"
   | "SOC"

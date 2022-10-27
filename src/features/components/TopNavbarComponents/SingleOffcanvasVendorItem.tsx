@@ -1,13 +1,14 @@
 import { Button } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
-import { VendorAndItemName } from "../../../customTypes/types";
 import { addItemsByVendor } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 import { checkIfItemAddedToOneVendor } from "../../../Redux/selectors";
+import useItemName from "../../customHooks/useItemName";
+import useVendorName from "../../customHooks/useVendorName";
 
-type Props = VendorAndItemName;
-
-const SingleOffcanvasVendorItem: FC<Props> = ({ itemName, vendorName }) => {
+const SingleOffcanvasVendorItem: FC = () => {
+  const vendorName = useVendorName();
+  const itemName = useItemName();
   const dispatch = useAppDispatch();
 
   const ifAddedToVendor = useAppSelector(
@@ -32,4 +33,4 @@ const SingleOffcanvasVendorItem: FC<Props> = ({ itemName, vendorName }) => {
   );
 };
 
-export default memo<Props>(SingleOffcanvasVendorItem);
+export default memo(SingleOffcanvasVendorItem);

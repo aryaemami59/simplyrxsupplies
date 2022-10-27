@@ -1,14 +1,13 @@
 import { Button, ButtonGroup, Collapse, Fade } from "@mui/material";
 import { FC, memo, useCallback, useState } from "react";
-import { VendorAndItemName } from "../../../../customTypes/types";
+import useItemName from "../../../customHooks/useItemName";
 import CollapseButton from "./CollapseButton";
 import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal";
 import RowDeleteButton from "./RowDeleteButton";
 import RowSingleItemInfo from "./RowSingleItemInfo";
 
-type Props = VendorAndItemName;
-
-const RowSingleContainer: FC<Props> = ({ itemName, vendorName }) => {
+const RowSingleContainer: FC = () => {
+  const itemName = useItemName();
   const [open, setOpen] = useState(true);
 
   const toggleFade = useCallback(() => {
@@ -21,18 +20,12 @@ const RowSingleContainer: FC<Props> = ({ itemName, vendorName }) => {
         <div className="justify-content-evenly align-items-center row">
           <div className="col-xs-auto justify-content-center d-flex">
             <ButtonGroup className="flex-wrap justify-content-center">
-              <RowSingleContainerModal
-                itemName={itemName}
-                vendorName={vendorName}
-              />
+              <RowSingleContainerModal />
               <CollapseButton
                 open={open}
                 toggle={toggleFade}
               />
-              <RowDeleteButton
-                vendorName={vendorName}
-                itemName={itemName}
-              />
+              <RowDeleteButton />
             </ButtonGroup>
           </div>
           <div className="col-12 col-xl-7 col-xxl-9">
@@ -53,14 +46,11 @@ const RowSingleContainer: FC<Props> = ({ itemName, vendorName }) => {
       </div>
       <Collapse in={open}>
         <div>
-          <RowSingleItemInfo
-            itemName={itemName}
-            vendorName={vendorName}
-          />
+          <RowSingleItemInfo />
         </div>
       </Collapse>
     </div>
   );
 };
 
-export default memo<Props>(RowSingleContainer);
+export default memo(RowSingleContainer);

@@ -84,7 +84,8 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
         {itemNames.map(itemName => (
           <SingleDropDown
             key={`${itemName}-${vendorName}`}
-            {...{ itemName, vendorName }}
+            itemName={itemName}
+            vendorName={vendorName}
           />
         ))}
       </Menu>

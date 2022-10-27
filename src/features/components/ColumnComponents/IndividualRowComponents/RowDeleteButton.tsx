@@ -1,13 +1,16 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Button } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
-import { VendorAndItemName } from "../../../../customTypes/types";
 import { removeItems } from "../../../../Redux/addedSlice";
 import { useAppDispatch } from "../../../../Redux/hooks";
+import useItemName from "../../../customHooks/useItemName";
+import useVendorName from "../../../customHooks/useVendorName";
 
-type Props = VendorAndItemName;
+const startIcon = <DeleteIcon />;
 
-const RowDeleteButton: FC<Props> = ({ vendorName, itemName }) => {
+const RowDeleteButton: FC = () => {
+  const itemName = useItemName();
+  const vendorName = useVendorName();
   const dispatch = useAppDispatch();
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
@@ -19,10 +22,10 @@ const RowDeleteButton: FC<Props> = ({ vendorName, itemName }) => {
       className="flex-grow-1"
       onClick={clickHandler}
       variant="contained"
-      startIcon={<DeleteIcon />}>
+      startIcon={startIcon}>
       Delete
     </Button>
   );
 };
 
-export default memo<Props>(RowDeleteButton);
+export default memo(RowDeleteButton);

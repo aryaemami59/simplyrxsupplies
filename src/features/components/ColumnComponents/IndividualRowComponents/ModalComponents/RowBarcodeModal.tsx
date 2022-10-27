@@ -2,18 +2,13 @@ import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Tooltip } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
-import { ItemName } from "../../../../../customTypes/types";
 import RowBarcodeDialog from "./RowBarcodeDialog";
 
 const title = "Take a Closer Look at The Barcode";
 
 const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />;
 
-type Props = {
-  itemName: ItemName;
-};
-
-const RowBarcodeModal: FC<Props> = ({ itemName }) => {
+const RowBarcodeModal: FC = () => {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -36,7 +31,6 @@ const RowBarcodeModal: FC<Props> = ({ itemName }) => {
   return (
     <>
       <Tooltip
-        key={`RowBarcodeModal-${itemName}`}
         onOpen={showTooltip}
         onClose={hideTooltip}
         enterDelay={1500}
@@ -53,11 +47,10 @@ const RowBarcodeModal: FC<Props> = ({ itemName }) => {
       </Tooltip>
       <RowBarcodeDialog
         hideModal={hideModal}
-        itemName={itemName}
         show={show}
       />
     </>
   );
 };
 
-export default memo<Props>(RowBarcodeModal);
+export default memo(RowBarcodeModal);

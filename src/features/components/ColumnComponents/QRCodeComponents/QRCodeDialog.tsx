@@ -6,18 +6,18 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { FC, memo } from "react";
-import { VendorNameType } from "../../../../customTypes/types";
 import { useAppSelector } from "../../../../Redux/hooks";
 import { selectVendorOfficialName } from "../../../../Redux/selectors";
+import useVendorName from "../../../customHooks/useVendorName";
 import QRCodeImage from "./QRCodeImage";
 
 type Props = {
   hideModal: () => void;
   show: boolean;
-  vendorName: VendorNameType;
 };
 
-const QRCodeDialog: FC<Props> = ({ hideModal, show, vendorName }) => {
+const QRCodeDialog: FC<Props> = ({ hideModal, show }) => {
+  const vendorName = useVendorName();
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
   );
@@ -33,10 +33,7 @@ const QRCodeDialog: FC<Props> = ({ hideModal, show, vendorName }) => {
       <DialogContent
         dividers
         className="justify-content-center d-flex">
-        <QRCodeImage
-          vendorName={vendorName}
-          className="w-75"
-        />
+        <QRCodeImage className="w-75" />
       </DialogContent>
       <DialogActions>
         <Button

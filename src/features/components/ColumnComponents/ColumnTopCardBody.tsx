@@ -1,18 +1,16 @@
 import { CardContent, List } from "@mui/material";
 import { FC, memo } from "react";
 import { shallowEqual } from "react-redux";
-import { VendorNameType } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
 import { selectAddedItemsByVendor } from "../../../Redux/selectors";
+import ItemNameProvider from "../../contexts/ItemNameProvider";
+import useVendorName from "../../customHooks/useVendorName";
 import RowSingleContainer from "./IndividualRowComponents/RowSingleContainer";
 import QRCodeImageContainer from "./QRCodeComponents/QRCodeImageContainer";
 import VendorLink from "./VendorLink";
 
-type Props = {
-  vendorName: VendorNameType;
-};
-
-const ColumnTopCardBody: FC<Props> = ({ vendorName }) => {
+const ColumnTopCardBody: FC = () => {
+  const vendorName = useVendorName();
   const addedItems = useAppSelector(
     selectAddedItemsByVendor(vendorName),
     shallowEqual
@@ -20,18 +18,21 @@ const ColumnTopCardBody: FC<Props> = ({ vendorName }) => {
 
   return (
     <CardContent>
-      <QRCodeImageContainer vendorName={vendorName} />
-      <VendorLink vendorName={vendorName} />
+      <QRCodeImageContainer />
+      <VendorLink />
       <List>
         {addedItems.map(itemName => (
-          <RowSingleContainer
-            key={`${itemName}-${vendorName}-SingleVendorColumnListItem`}
-            {...{ itemName, vendorName }}
-          />
+          <ItemNameProvider
+            key={`${itemName}-${vendorName}`}
+            itemName={itemName}>
+            <RowSingleContainer
+              key={`${itemName}-${vendorName}-SingleVendorColumnListItem`}
+            />
+          </ItemNameProvider>
         ))}
       </List>
     </CardContent>
   );
 };
 
-export default memo<Props>(ColumnTopCardBody);
+export default memo(ColumnTopCardBody);

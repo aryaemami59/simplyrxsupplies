@@ -1,14 +1,11 @@
 import { Badge } from "@mui/material";
 import { FC, memo } from "react";
-import { VendorNameType } from "../../../../customTypes/types";
-import { addedItemsLength } from "../../../../Redux/selectors";
 import { useAppSelector } from "../../../../Redux/hooks";
+import { addedItemsLength } from "../../../../Redux/selectors";
+import useVendorName from "../../../customHooks/useVendorName";
 
-type Props = {
-  vendorName: VendorNameType;
-};
-
-const RowCounterBadge: FC<Props> = ({ vendorName }) => {
+const RowCounterBadge: FC = () => {
+  const vendorName = useVendorName();
   const addedItemsLen = useAppSelector(addedItemsLength(vendorName));
 
   return (
@@ -21,4 +18,4 @@ const RowCounterBadge: FC<Props> = ({ vendorName }) => {
   );
 };
 
-export default memo<Props>(RowCounterBadge);
+export default memo(RowCounterBadge);

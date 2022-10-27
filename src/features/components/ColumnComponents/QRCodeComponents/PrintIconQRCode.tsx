@@ -3,20 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
 import printjs from "print-js";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
-import { VendorNameType } from "../../../../customTypes/types";
-import { selectQRCodeContent } from "../../../../Redux/selectors";
 import { useAppSelector } from "../../../../Redux/hooks";
-
-type Props = {
-  vendorName: VendorNameType;
-};
+import { selectQRCodeContent } from "../../../../Redux/selectors";
+import useVendorName from "../../../customHooks/useVendorName";
 
 const header =
   "You can scan this image on the vendor's website to pull up all the items at once.";
 
 const startIcon = <FontAwesomeIcon icon={faPrint} />;
 
-const PrintIconQRCode: FC<Props> = ({ vendorName }) => {
+const PrintIconQRCode: FC = () => {
+  const vendorName = useVendorName();
   const src = useAppSelector(selectQRCodeContent(vendorName));
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
@@ -39,4 +36,4 @@ const PrintIconQRCode: FC<Props> = ({ vendorName }) => {
   );
 };
 
-export default memo<Props>(PrintIconQRCode);
+export default memo(PrintIconQRCode);

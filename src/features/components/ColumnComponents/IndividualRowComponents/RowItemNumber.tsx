@@ -1,18 +1,15 @@
 import { ListItem, ListItemText, TypographyProps } from "@mui/material";
 import { FC, memo } from "react";
-import { ItemName } from "../../../../customTypes/types";
 import { useAppSelector } from "../../../../Redux/hooks";
 import { selectItemNumber } from "../../../../Redux/selectors";
 import CopyIcon from "./CopyIcon";
-
-type Props = {
-  itemName: ItemName;
-};
+import useItemName from "../../../customHooks/useItemName";
 
 const primaryTypographyProps: TypographyProps<"span", { component?: "span" }> =
   { className: "ms-0" };
 
-const RowItemNumber: FC<Props> = ({ itemName }) => {
+const RowItemNumber: FC = () => {
+  const itemName = useItemName();
   const itemNumber = useAppSelector(selectItemNumber(itemName));
 
   return (
@@ -30,4 +27,4 @@ const RowItemNumber: FC<Props> = ({ itemName }) => {
   );
 };
 
-export default memo<Props>(RowItemNumber);
+export default memo(RowItemNumber);

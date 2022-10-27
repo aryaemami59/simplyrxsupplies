@@ -4,24 +4,22 @@ import {
   AccordionSummary,
   Typography,
 } from "@mui/material";
+import { TransitionProps } from "@mui/material/transitions";
 import { FC, memo, useCallback, useState } from "react";
-import { VendorNameType } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
 import { selectVendorOfficialName } from "../../../Redux/selectors";
 import useItemNames from "../../customHooks/useItemNames";
 import SingleOffcanvasVendorItem from "./SingleOffcanvasVendorItem";
-import { TransitionProps } from "@mui/material/transitions";
-
-type Props = {
-  vendorName: VendorNameType;
-};
+import useVendorName from "../../customHooks/useVendorName";
+import ItemNameProvider from "../../contexts/ItemNameProvider";
 
 const transitionProps: TransitionProps = {
   unmountOnExit: true,
   mountOnEnter: true,
 };
 
-const OffcanvasVendorAccordion: FC<Props> = ({ vendorName }) => {
+const OffcanvasVendorAccordion: FC = () => {
+  const vendorName = useVendorName();
   const [open, setOpen] = useState(false);
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
@@ -44,14 +42,15 @@ const OffcanvasVendorAccordion: FC<Props> = ({ vendorName }) => {
       </AccordionSummary>
       <AccordionDetails>
         {vendorItemNames.map(itemName => (
-          <SingleOffcanvasVendorItem
-            key={`${itemName}-OffcanvasVendorAccordion`}
-            {...{ vendorName, itemName }}
-          />
+          <ItemNameProvider itemName={itemName}>
+            <SingleOffcanvasVendorItem
+              key={`${itemName}-OffcanvasVendorAccordion`}
+            />
+          </ItemNameProvider>
         ))}
       </AccordionDetails>
     </Accordion>
   );
 };
 
-export default memo<Props>(OffcanvasVendorAccordion);
+export default memo(OffcanvasVendorAccordion);

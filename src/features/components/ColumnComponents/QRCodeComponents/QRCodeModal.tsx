@@ -2,18 +2,13 @@ import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Tooltip } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
-import { VendorNameType } from "../../../../customTypes/types";
 import QRCodeDialog from "./QRCodeDialog";
 
 const title = "Take a Closer Look at The QRCode";
 
 const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />;
 
-type Props = {
-  vendorName: VendorNameType;
-};
-
-const QRCodeModal: FC<Props> = ({ vendorName }) => {
+const QRCodeModal: FC = () => {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -36,7 +31,6 @@ const QRCodeModal: FC<Props> = ({ vendorName }) => {
   return (
     <>
       <Tooltip
-        key={`QRCodeModal-${vendorName}`}
         onOpen={showTooltip}
         onClose={hideTooltip}
         enterDelay={1500}
@@ -54,10 +48,9 @@ const QRCodeModal: FC<Props> = ({ vendorName }) => {
       <QRCodeDialog
         hideModal={hideModal}
         show={show}
-        vendorName={vendorName}
       />
     </>
   );
 };
 
-export default memo<Props>(QRCodeModal);
+export default memo(QRCodeModal);

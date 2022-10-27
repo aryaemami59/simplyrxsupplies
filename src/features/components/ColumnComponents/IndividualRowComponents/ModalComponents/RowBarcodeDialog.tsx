@@ -6,39 +6,39 @@ import {
 } from "@mui/material";
 import { FC, memo } from "react";
 import { Button } from "react-bootstrap";
-import { ItemName } from "../../../../../customTypes/types";
 import BarcodeImage from "../BarcodeImage";
+import useItemName from "../../../../customHooks/useItemName";
 
 type Props = {
   hideModal: () => void;
-  itemName: ItemName;
   show: boolean;
 };
 
-const RowBarcodeDialog: FC<Props> = ({ hideModal, itemName, show }) => (
-  <Dialog
-    keepMounted
-    maxWidth="md"
-    fullWidth
-    open={show}
-    onClose={hideModal}>
-    <DialogTitle>{itemName}</DialogTitle>
-    <DialogContent
-      dividers
-      className="justify-content-center d-flex">
-      <BarcodeImage
-        itemName={itemName}
-        className="w-100"
-      />
-    </DialogContent>
-    <DialogActions>
-      <Button
-        variant="contained"
-        onClick={hideModal}>
-        Close
-      </Button>
-    </DialogActions>
-  </Dialog>
-);
+const RowBarcodeDialog: FC<Props> = ({ hideModal, show }) => {
+  const itemName = useItemName();
+
+  return (
+    <Dialog
+      keepMounted
+      maxWidth="md"
+      fullWidth
+      open={show}
+      onClose={hideModal}>
+      <DialogTitle>{itemName}</DialogTitle>
+      <DialogContent
+        dividers
+        className="justify-content-center d-flex">
+        <BarcodeImage className="w-100" />
+      </DialogContent>
+      <DialogActions>
+        <Button
+          variant="contained"
+          onClick={hideModal}>
+          Close
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
 
 export default memo<Props>(RowBarcodeDialog);

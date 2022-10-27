@@ -1,4 +1,5 @@
 import { FC, memo } from "react";
+import VendorNameProvider from "../../contexts/VendorNameProvider";
 import useVendorNamesList from "../../customHooks/useVendorNamesList";
 import OffcanvasVendorAccordion from "./OffcanvasVendorAccordion";
 
@@ -8,10 +9,11 @@ const OffcanvasVendorAccordionList: FC = () => {
   return (
     <>
       {vendorNames.map(vendorName => (
-        <OffcanvasVendorAccordion
-          key={`${vendorName}-OffcanvasVendorAccordionList`}
-          vendorName={vendorName}
-        />
+        <VendorNameProvider vendorName={vendorName}>
+          <OffcanvasVendorAccordion
+            key={`${vendorName}-OffcanvasVendorAccordionList`}
+          />
+        </VendorNameProvider>
       ))}
     </>
   );

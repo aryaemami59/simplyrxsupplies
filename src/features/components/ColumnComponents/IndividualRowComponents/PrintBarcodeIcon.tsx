@@ -3,17 +3,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
 import printJS from "print-js";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
-import { ItemName } from "../../../../customTypes/types";
-import { selectItemSrc } from "../../../../Redux/selectors";
 import { useAppSelector } from "../../../../Redux/hooks";
+import { selectItemSrc } from "../../../../Redux/selectors";
+import useItemName from "../../../customHooks/useItemName";
 
 type Props = {
   text: string;
   header: string;
-  itemName: ItemName;
 };
 
-const PrintBarcodeIcon: FC<Props> = ({ header, itemName }) => {
+const startIcon = <FontAwesomeIcon icon={faPrint} />;
+
+const PrintBarcodeIcon: FC<Props> = ({ header }) => {
+  const itemName = useItemName();
   const src = useAppSelector(selectItemSrc(itemName));
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
@@ -28,7 +30,7 @@ const PrintBarcodeIcon: FC<Props> = ({ header, itemName }) => {
   return (
     <Button
       variant="contained"
-      startIcon={<FontAwesomeIcon icon={faPrint} />}
+      startIcon={startIcon}
       onClick={clickHandler}
       className="w-auto">
       Print Barcode

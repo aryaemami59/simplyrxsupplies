@@ -1,17 +1,14 @@
 import { Link } from "@mui/material";
 import { FC, memo } from "react";
-import { VendorNameType } from "../../../customTypes/types";
 import { useAppSelector } from "../../../Redux/hooks";
 import {
   selectVendorOfficialName,
   selectVendorsLinks,
 } from "../../../Redux/selectors";
+import useVendorName from "../../customHooks/useVendorName";
 
-type Props = {
-  vendorName: VendorNameType;
-};
-
-const VendorLink: FC<Props> = ({ vendorName }) => {
+const VendorLink: FC = () => {
+  const vendorName = useVendorName();
   const vendorLink = useAppSelector(selectVendorsLinks(vendorName));
   const officialVendorName = useAppSelector(
     selectVendorOfficialName(vendorName)
@@ -28,4 +25,4 @@ const VendorLink: FC<Props> = ({ vendorName }) => {
   );
 };
 
-export default memo<Props>(VendorLink);
+export default memo(VendorLink);

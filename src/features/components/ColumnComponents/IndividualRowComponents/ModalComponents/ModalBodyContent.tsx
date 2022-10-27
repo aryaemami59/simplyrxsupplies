@@ -1,30 +1,20 @@
 import { List, ListItemText } from "@mui/material";
 import { FC, memo } from "react";
-import { VendorAndItemName } from "../../../../../customTypes/types";
 import VendorLink from "../../VendorLink";
 import RowBarcodeImage from "../RowBarcodeImage";
 import RowItemName from "../RowItemName";
 import RowItemNumber from "../RowItemNumber";
 
-type Props = VendorAndItemName;
-
-const ModalBodyContent: FC<Props> = ({ itemName, vendorName }) => (
+const ModalBodyContent: FC = () => (
   <div className="justify-content-center text-center fs-4 row">
-    <div
-      key={`Col-thirdCol-App`}
-      className="justify-content-center col-10">
-      <div
-        className="container"
-        key={`${itemName}${vendorName}-VendorColumn-Container-name`}>
+    <div className="justify-content-center col-10">
+      <div className="container">
         <List>
-          <RowItemName itemName={itemName} />
-          <RowItemNumber itemName={itemName} />
-          <RowBarcodeImage
-            itemName={itemName}
-            vendorName={vendorName}
-          />
+          <RowItemName />
+          <RowItemNumber />
+          <RowBarcodeImage />
           <ListItemText>
-            <VendorLink vendorName={vendorName} />
+            <VendorLink />
           </ListItemText>
         </List>
       </div>
@@ -32,4 +22,4 @@ const ModalBodyContent: FC<Props> = ({ itemName, vendorName }) => (
   </div>
 );
 
-export default memo<Props>(ModalBodyContent);
+export default memo(ModalBodyContent);

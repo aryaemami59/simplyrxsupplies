@@ -50,7 +50,8 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemName, target }) => {
         {vendors.map(vendorName => (
           <SideBarVendorBadges
             key={`SideBarVendorBadges-${itemName}${vendorName}`}
-            {...{ itemName, vendorName }}
+            itemName={itemName}
+            vendorName={vendorName}
           />
         ))}
       </ButtonGroup>
