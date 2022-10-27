@@ -1,10 +1,8 @@
 import { FC, memo } from "react";
 import { useAppSelector } from "../../../../Redux/hooks";
-import {
-  selectItemNumber,
-  selectVendorOfficialName,
-} from "../../../../Redux/selectors";
+import { selectItemNumber } from "../../../../Redux/selectors";
 import useItemName from "../../../customHooks/useItemName";
+import useOfficialVendorName from "../../../customHooks/useOfficialVendorName";
 import useVendorName from "../../../customHooks/useVendorName";
 import BarcodeImage from "./BarcodeImage";
 import RowBarcodeModal from "./ModalComponents/RowBarcodeModal";
@@ -13,9 +11,7 @@ import PrintBarcodeIcon from "./PrintBarcodeIcon";
 const RowBarcodeImage: FC = () => {
   const vendorName = useVendorName();
   const itemName = useItemName();
-  const officialVendorName = useAppSelector(
-    selectVendorOfficialName(vendorName)
-  );
+  const officialVendorName = useOfficialVendorName(vendorName);
 
   const itemNumber = useAppSelector(selectItemNumber(itemName));
 

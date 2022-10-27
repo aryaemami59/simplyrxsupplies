@@ -6,8 +6,7 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { FC, memo } from "react";
-import { useAppSelector } from "../../../../Redux/hooks";
-import { selectVendorOfficialName } from "../../../../Redux/selectors";
+import useOfficialVendorName from "../../../customHooks/useOfficialVendorName";
 import useVendorName from "../../../customHooks/useVendorName";
 import QRCodeImage from "./QRCodeImage";
 
@@ -18,9 +17,7 @@ type Props = {
 
 const QRCodeDialog: FC<Props> = ({ hideModal, show }) => {
   const vendorName = useVendorName();
-  const officialVendorName = useAppSelector(
-    selectVendorOfficialName(vendorName)
-  );
+  const officialVendorName = useOfficialVendorName(vendorName);
 
   return (
     <Dialog

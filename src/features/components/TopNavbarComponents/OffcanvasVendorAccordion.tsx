@@ -6,12 +6,11 @@ import {
 } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
 import { FC, memo, useCallback, useState } from "react";
-import { useAppSelector } from "../../../Redux/hooks";
-import { selectVendorOfficialName } from "../../../Redux/selectors";
-import useItemNames from "../../customHooks/useItemNames";
-import SingleOffcanvasVendorItem from "./SingleOffcanvasVendorItem";
-import useVendorName from "../../customHooks/useVendorName";
 import ItemNameProvider from "../../contexts/ItemNameProvider";
+import useItemNames from "../../customHooks/useItemNames";
+import useOfficialVendorName from "../../customHooks/useOfficialVendorName";
+import useVendorName from "../../customHooks/useVendorName";
+import SingleOffcanvasVendorItem from "./SingleOffcanvasVendorItem";
 
 const transitionProps: TransitionProps = {
   unmountOnExit: true,
@@ -21,9 +20,7 @@ const transitionProps: TransitionProps = {
 const OffcanvasVendorAccordion: FC = () => {
   const vendorName = useVendorName();
   const [open, setOpen] = useState(false);
-  const officialVendorName = useAppSelector(
-    selectVendorOfficialName(vendorName)
-  );
+  const officialVendorName = useOfficialVendorName(vendorName);
 
   const vendorItemNames = useItemNames(vendorName);
 

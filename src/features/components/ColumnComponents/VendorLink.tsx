@@ -1,18 +1,14 @@
 import { Link } from "@mui/material";
 import { FC, memo } from "react";
 import { useAppSelector } from "../../../Redux/hooks";
-import {
-  selectVendorOfficialName,
-  selectVendorsLinks,
-} from "../../../Redux/selectors";
+import { selectVendorsLinks } from "../../../Redux/selectors";
+import useOfficialVendorName from "../../customHooks/useOfficialVendorName";
 import useVendorName from "../../customHooks/useVendorName";
 
 const VendorLink: FC = () => {
   const vendorName = useVendorName();
   const vendorLink = useAppSelector(selectVendorsLinks(vendorName));
-  const officialVendorName = useAppSelector(
-    selectVendorOfficialName(vendorName)
-  );
+  const officialVendorName = useOfficialVendorName(vendorName);
 
   return (
     <div className="row py-3 justify-content-center">

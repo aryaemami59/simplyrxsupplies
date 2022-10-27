@@ -2,20 +2,18 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 import { FC, memo, useCallback } from "react";
 import { VendorAndItemName } from "../../../customTypes/types";
 import { setVendors } from "../../../Redux/addedSlice";
+import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 import {
   checkIfItemAddedToOneVendor,
   checkVendorsToAdd,
-  selectVendorOfficialName,
 } from "../../../Redux/selectors";
-import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
+import useOfficialVendorName from "../../customHooks/useOfficialVendorName";
 
 type Props = VendorAndItemName;
 
 const SideBarVendorBadges: FC<Props> = ({ vendorName, itemName }) => {
   const dispatch = useAppDispatch();
-  const officialVendorName = useAppSelector(
-    selectVendorOfficialName(vendorName)
-  );
+  const officialVendorName = useOfficialVendorName(vendorName);
 
   const checked = useAppSelector(checkVendorsToAdd(vendorName, itemName));
 

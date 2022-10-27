@@ -7,9 +7,8 @@ import {
 } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import { VendorNameType } from "../../../customTypes/types";
-import { useAppSelector } from "../../../Redux/hooks";
-import { selectVendorOfficialName } from "../../../Redux/selectors";
 import useItemNames from "../../customHooks/useItemNames";
+import useOfficialVendorName from "../../customHooks/useOfficialVendorName";
 import SingleDropDown from "./SingleDropDown";
 
 const transformOrigin: PopoverOrigin = {
@@ -42,9 +41,7 @@ type Props = {
 const VendorDropDown: FC<Props> = ({ vendorName }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const open = !!anchorEl;
-  const officialVendorName = useAppSelector(
-    selectVendorOfficialName(vendorName)
-  );
+  const officialVendorName = useOfficialVendorName(vendorName);
 
   const itemNames = useItemNames(vendorName);
 

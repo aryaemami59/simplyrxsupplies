@@ -3,18 +3,15 @@ import { FC, memo, useCallback } from "react";
 import { VendorAndItemName } from "../../../customTypes/types";
 import { setVendors } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
-import {
-  checkVendorsAdded,
-  checkVendorsToAdd,
-  selectVendorOfficialName
-} from "../../../Redux/selectors";
+import { checkVendorsAdded, checkVendorsToAdd } from "../../../Redux/selectors";
+import useOfficialVendorName from "../../customHooks/useOfficialVendorName";
+
+const control = <Switch />;
 
 type Props = VendorAndItemName;
 
 const SwitchComponent: FC<Props> = ({ itemName, vendorName }) => {
-  const officialVendorName = useAppSelector(
-    selectVendorOfficialName(vendorName)
-  );
+  const officialVendorName = useOfficialVendorName(vendorName);
 
   const dispatch = useAppDispatch();
 
@@ -26,25 +23,13 @@ const SwitchComponent: FC<Props> = ({ itemName, vendorName }) => {
     dispatch(setVendors({ itemName, vendorName }));
   }, [dispatch, itemName, vendorName]);
 
-  // const control = useMemo(
-  //   () => (
-  //     <Switch
-  //       checked={checked}
-  //       disabled={disabled}
-  //       onChange={clickHandler}
-  //     />
-  //   ),
-  //   [checked, clickHandler, disabled]
-  // );
-
   return (
     <FormControlLabel
       checked={checked}
       disabled={disabled}
       onChange={clickHandler}
       disableTypography
-      control={<Switch />}
-      // control={control}
+      control={control}
       label={officialVendorName}
     />
   );
