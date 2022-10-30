@@ -28,7 +28,7 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemName, target }) => {
   );
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    dispatch(addItems({ itemName }));
+    dispatch(addItems(itemName));
     target.current?.focus();
   }, [dispatch, itemName, target]);
 

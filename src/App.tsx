@@ -3,16 +3,16 @@ import { Paper } from "@mui/material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FC, memo, useEffect } from "react";
 import "./App.css";
-import ErrorComponent from "./features/shared/ErrorComponent";
 import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";
 import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
 import SideBarContainer from "./features/components/SideBarComponents/SideBarContainer";
 import TopNavbar from "./features/components/TopNavbarComponents/TopNavbar";
 import ColorModeProvider from "./features/contexts/ColorModeProvider";
+import ErrorComponent from "./features/shared/ErrorComponent";
 import IsLoading from "./features/shared/IsLoading";
+import useIsLoading from "./features/shared/useIsLoading";
 import { fetchItems } from "./Redux/addedSlice";
-import { useAppDispatch, useAppSelector } from "./Redux/hooks";
-import { checkIfLoading, selectErrMsg } from "./Redux/selectors";
+import { useAppDispatch } from "./Redux/hooks";
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
@@ -21,8 +21,7 @@ const App: FC = () => {
     dispatch(fetchItems());
   }, [dispatch]);
 
-  const isLoading: boolean = useAppSelector(checkIfLoading);
-  const errMsg: string = useAppSelector(selectErrMsg);
+  const [isLoading, errMsg] = useIsLoading();
 
   if (isLoading) return <IsLoading />;
 

@@ -1,6 +1,3 @@
-import { AsyncThunk } from "@reduxjs/toolkit";
-import { AppDispatch } from "../Redux/store";
-
 export type ItemObjType = {
   readonly id: number;
   readonly name: ItemName;
@@ -861,28 +858,13 @@ type ItemNamesType =
   | "Cisco 7962 IP Phone"
   | "TC70x Handheld";
 
-export type AddItemsInterface = {
-  itemName: ItemName;
-};
-
 export type VendorAndItemName = {
   itemName: ItemName;
   vendorName: VendorNameType;
 };
 
-export type AddItemsByVendorInterface = {
-  itemName: ItemName;
-  vendorName: VendorNameType;
-};
-
-type FetchedData = {
+export type FetchedData = {
   items: ItemObjType[];
   vendors: VendorsObjType;
   categories: CategoriesObjType;
 };
-
-export type FetchItems = AsyncThunk<
-  FetchedData,
-  void,
-  { dispatch: AppDispatch }
->;

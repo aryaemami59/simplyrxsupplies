@@ -20,7 +20,7 @@ const SearchResultsAddButton: FC<Props> = ({ itemName }) => {
   );
 
   const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    dispatch(addItems({ itemName }));
+    dispatch(addItems(itemName));
   }, [dispatch, itemName]);
 
   return (

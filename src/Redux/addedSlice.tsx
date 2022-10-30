@@ -4,14 +4,14 @@ import {
   current,
   PayloadAction,
 } from "@reduxjs/toolkit";
+import axios from "axios";
 import QRCode from "qrcode";
 import {
   AddedState,
-  AddItemsByVendorInterface,
-  AddItemsInterface,
   Category,
-  FetchItems,
+  FetchedData,
   ItemName,
+  VendorAndItemName,
   VendorNameType,
 } from "../customTypes/types";
 import {
@@ -21,14 +21,17 @@ import {
 } from "../features/shared/utilityFunctions";
 import { GITHUB_URL_ITEMS } from "./fetchInfo";
 
-export const fetchItems: FetchItems = createAsyncThunk(
+export const fetchItems = createAsyncThunk<FetchedData, void>(
   `items/fetchitems`,
   async () => {
-    const response: Response = await fetch(GITHUB_URL_ITEMS);
-    if (!response.ok) {
-      return Promise.reject(`Unable to fetch, status: ${response.status}`);
+    try {
+      const response = await axios.get<FetchedData>(GITHUB_URL_ITEMS, {
+        timeout: 1000,
+      });
+      return response.data;
+    } catch (err) {
+      throw axios.isAxiosError(err) ? err.message : "Unable to fetch";
     }
-    return await response.json();
   }
 );
 
@@ -48,8 +51,7 @@ export const addedSlice = createSlice({
   name: "added",
   initialState,
   reducers: {
-    addItems: (state, action: PayloadAction<AddItemsInterface>) => {
-      const { itemName } = action.payload;
+    addItems: (state, { payload: itemName }: PayloadAction<ItemName>) => {
       if (
         !state.itemsObj[itemName].vendorsToAdd.length ||
         state.itemsObj[itemName].vendorsAdded.length ===
@@ -88,10 +90,7 @@ export const addedSlice = createSlice({
         }
       );
     },
-    addItemsByVendor: (
-      state,
-      action: PayloadAction<AddItemsByVendorInterface>
-    ) => {
+    addItemsByVendor: (state, action: PayloadAction<VendorAndItemName>) => {
       const { itemName, vendorName } = action.payload;
       state.vendorsObj[vendorName].itemsAdded.push(itemName);
       state.itemsObj[itemName].vendorsAdded = [
@@ -113,7 +112,7 @@ export const addedSlice = createSlice({
       });
       state.vendorsObj[vendorName].qrText = qr;
     },
-    removeItems: (state, action: PayloadAction<AddItemsByVendorInterface>) => {
+    removeItems: (state, action: PayloadAction<VendorAndItemName>) => {
       const { itemName, vendorName } = action.payload;
       state.vendorsObj[vendorName].itemsAdded = state.vendorsObj![
         vendorName
@@ -135,7 +134,7 @@ export const addedSlice = createSlice({
     clearListItems: state => {
       state.listItems = emptyArr;
     },
-    setVendors: (state, action: PayloadAction<AddItemsByVendorInterface>) => {
+    setVendors: (state, action: PayloadAction<VendorAndItemName>) => {
       const { itemName, vendorName } = action.payload;
       state.itemsObj[itemName]!.vendorsToAdd = state.itemsObj[
         itemName
