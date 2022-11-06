@@ -3,16 +3,16 @@ import { Paper } from "@mui/material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FC, memo, useEffect } from "react";
 import "./App.css";
-import VendorColumnList from "./features/components/ColumnComponents/VendorColumnList";
-import InputGroupComponent from "./features/components/InputComponents/InputGroupComponent";
-import SideBarContainer from "./features/components/SideBarComponents/SideBarContainer";
-import TopNavbar from "./features/components/TopNavbarComponents/TopNavbar";
-import ColorModeProvider from "./features/contexts/ColorModeProvider";
-import ErrorComponent from "./features/shared/ErrorComponent";
-import IsLoading from "./features/shared/IsLoading";
-import useIsLoading from "./features/shared/useIsLoading";
+import VendorColumnList from "./components/ColumnComponents/VendorColumnList";
+import InputGroupComponent from "./components/InputComponents/InputGroupComponent";
+import SideBarContainer from "./components/SideBarComponents/SideBarContainer";
+import TopNavbar from "./components/TopNavbarComponents/TopNavbar";
+import ColorModeProvider from "./contexts/ColorModeProvider";
+import useIsLoading from "./hooks/useIsLoading";
 import { fetchItems } from "./Redux/addedSlice";
 import { useAppDispatch } from "./Redux/hooks";
+import ErrorComponent from "./shared/components/ErrorComponent";
+import IsLoading from "./shared/components/IsLoading";
 
 const App: FC = () => {
   const dispatch = useAppDispatch();

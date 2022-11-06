@@ -14,12 +14,10 @@ import {
   VendorAndItemName,
   VendorNameType,
 } from "../custom_types/types";
-import {
-  emptyArr,
-  emptyObj,
-  intersection,
-} from "../features/shared/utilityFunctions";
-import { GITHUB_URL_ITEMS } from "./fetchInfo";
+import GITHUB_URL_ITEMS from "../data/fetchInfo";
+import emptyArr from "../utils/emptyArr";
+import emptyObj from "../utils/emptyObj";
+import intersection from "../utils/intersection";
 
 export const fetchItems = createAsyncThunk<FetchedData, void>(
   `items/fetchitems`,
@@ -81,10 +79,10 @@ export const addedSlice = createSlice({
             ];
             state.itemsObj[itemName].vendorsToAdd = state.itemsObj[itemName]
               .vendorsToAdd.length
-              ? (intersection(
+              ? intersection(
                   state.itemsObj[itemName].vendors,
                   state.itemsObj[itemName].vendorsAdded
-                ) as VendorNameType[])
+                )
               : emptyArr;
           }
         }

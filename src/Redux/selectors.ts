@@ -7,7 +7,7 @@ import {
   Src,
   VendorNameType,
 } from "../custom_types/types";
-import { emptyArr } from "../features/shared/utilityFunctions";
+import emptyArr from "../utils/emptyArr";
 import { RootState } from "./store";
 
 export const selectAddedItemsByVendor =
