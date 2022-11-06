@@ -2,8 +2,8 @@ import { Link } from "@mui/material";
 import { FC, memo } from "react";
 import { useAppSelector } from "../../../Redux/hooks";
 import { selectVendorsLinks } from "../../../Redux/selectors";
-import useOfficialVendorName from "../../customHooks/useOfficialVendorName";
-import useVendorName from "../../customHooks/useVendorName";
+import useOfficialVendorName from "../../hooks/useOfficialVendorName";
+import useVendorName from "../../hooks/useVendorName";
 
 const VendorLink: FC = () => {
   const vendorName = useVendorName();

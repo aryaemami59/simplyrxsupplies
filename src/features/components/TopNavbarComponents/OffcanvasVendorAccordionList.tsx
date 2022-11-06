@@ -1,6 +1,6 @@
 import { FC, memo } from "react";
 import VendorNameProvider from "../../contexts/VendorNameProvider";
-import useVendorNamesList from "../../customHooks/useVendorNamesList";
+import useVendorNamesList from "../../hooks/useVendorNamesList";
 import OffcanvasVendorAccordion from "./OffcanvasVendorAccordion";
 
 const OffcanvasVendorAccordionList: FC = () => {

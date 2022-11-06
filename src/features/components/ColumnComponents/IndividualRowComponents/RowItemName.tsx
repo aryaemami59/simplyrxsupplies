@@ -1,6 +1,6 @@
 import { ListItem, ListItemText, TypographyProps } from "@mui/material";
 import { FC, memo } from "react";
-import useItemName from "../../../customHooks/useItemName";
+import useItemName from "../../../hooks/useItemName";
 import CopyIcon from "./CopyIcon";
 
 const primaryTypographyProps: TypographyProps<"span", { component?: "span" }> =

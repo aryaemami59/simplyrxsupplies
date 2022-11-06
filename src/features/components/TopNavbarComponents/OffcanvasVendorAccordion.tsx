@@ -7,9 +7,9 @@ import {
 import { TransitionProps } from "@mui/material/transitions";
 import { FC, memo, useCallback, useState } from "react";
 import ItemNameProvider from "../../contexts/ItemNameProvider";
-import useItemNames from "../../customHooks/useItemNames";
-import useOfficialVendorName from "../../customHooks/useOfficialVendorName";
-import useVendorName from "../../customHooks/useVendorName";
+import useItemNames from "../../hooks/useItemNames";
+import useOfficialVendorName from "../../hooks/useOfficialVendorName";
+import useVendorName from "../../hooks/useVendorName";
 import SingleOffcanvasVendorItem from "./SingleOffcanvasVendorItem";
 
 const transitionProps: TransitionProps = {

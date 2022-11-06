@@ -2,7 +2,7 @@ import { Badge } from "@mui/material";
 import { FC, memo } from "react";
 import { useAppSelector } from "../../../../Redux/hooks";
 import { addedItemsLength } from "../../../../Redux/selectors";
-import useVendorName from "../../../customHooks/useVendorName";
+import useVendorName from "../../../hooks/useVendorName";
 
 const RowCounterBadge: FC = () => {
   const vendorName = useVendorName();

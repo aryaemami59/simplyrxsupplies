@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { FC, memo } from "react";
 import { useAppSelector } from "../../../../Redux/hooks";
 import { selectItemSrc } from "../../../../Redux/selectors";
-import useItemName from "../../../customHooks/useItemName";
+import useItemName from "../../../hooks/useItemName";
 
 type Props = {
   className?: string;

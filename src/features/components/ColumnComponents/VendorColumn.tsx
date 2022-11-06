@@ -1,8 +1,8 @@
 import { Collapse } from "@mui/material";
 import Button from "@mui/material/Button";
 import { FC, memo, useCallback, useState } from "react";
-import useOfficialVendorName from "../../customHooks/useOfficialVendorName";
-import useVendorName from "../../customHooks/useVendorName";
+import useOfficialVendorName from "../../hooks/useOfficialVendorName";
+import useVendorName from "../../hooks/useVendorName";
 import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge";
 import VendorColumnCard from "./VendorColumnCard";
 

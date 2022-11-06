@@ -4,7 +4,7 @@ import { shallowEqual } from "react-redux";
 import { useAppSelector } from "../../../Redux/hooks";
 import { selectAddedItemsByVendor } from "../../../Redux/selectors";
 import ItemNameProvider from "../../contexts/ItemNameProvider";
-import useVendorName from "../../customHooks/useVendorName";
+import useVendorName from "../../hooks/useVendorName";
 import RowSingleContainer from "./IndividualRowComponents/RowSingleContainer";
 import QRCodeImageContainer from "./QRCodeComponents/QRCodeImageContainer";
 import VendorLink from "./VendorLink";

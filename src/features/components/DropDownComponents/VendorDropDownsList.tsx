@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import useVendorNamesList from "../../customHooks/useVendorNamesList";
+import useVendorNamesList from "../../hooks/useVendorNamesList";
 import VendorDropDown from "./VendorDropDown";
 
 const VendorDropDownsList: FC = () => {

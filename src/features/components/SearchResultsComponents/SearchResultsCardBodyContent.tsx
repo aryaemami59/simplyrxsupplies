@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { FC, memo } from "react";
-import { ItemName, itemNames } from "../../../customTypes/types";
+import { ItemName, itemNames } from "../../../custom_types/types";
 import { selectVendorsByItemName } from "../../../Redux/selectors";
 import { useAppSelector } from "../../../Redux/hooks";
 import SearchResultsAddButton from "./SearchResultsAddButton";

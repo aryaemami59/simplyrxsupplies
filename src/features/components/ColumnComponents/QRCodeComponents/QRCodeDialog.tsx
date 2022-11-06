@@ -7,8 +7,8 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { FC, memo } from "react";
-import useOfficialVendorName from "../../../customHooks/useOfficialVendorName";
-import useVendorName from "../../../customHooks/useVendorName";
+import useOfficialVendorName from "../../../hooks/useOfficialVendorName";
+import useVendorName from "../../../hooks/useVendorName";
 import QRCodeImage from "./QRCodeImage";
 
 type Props = {

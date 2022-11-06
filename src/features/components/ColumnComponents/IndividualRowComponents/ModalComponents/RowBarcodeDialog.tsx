@@ -8,7 +8,7 @@ import {
 import { FC, memo } from "react";
 import { Button } from "react-bootstrap";
 import BarcodeImage from "../BarcodeImage";
-import useItemName from "../../../../customHooks/useItemName";
+import useItemName from "../../../../hooks/useItemName";
 
 type Props = {
   hideModal: () => void;

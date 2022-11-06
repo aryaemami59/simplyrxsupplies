@@ -1,9 +1,9 @@
 import { FC, memo } from "react";
 import { useAppSelector } from "../../../../Redux/hooks";
 import { selectItemNumber } from "../../../../Redux/selectors";
-import useItemName from "../../../customHooks/useItemName";
-import useOfficialVendorName from "../../../customHooks/useOfficialVendorName";
-import useVendorName from "../../../customHooks/useVendorName";
+import useItemName from "../../../hooks/useItemName";
+import useOfficialVendorName from "../../../hooks/useOfficialVendorName";
+import useVendorName from "../../../hooks/useVendorName";
 import BarcodeImage from "./BarcodeImage";
 import RowBarcodeModal from "./ModalComponents/RowBarcodeModal";
 import PrintBarcodeIcon from "./PrintBarcodeIcon";

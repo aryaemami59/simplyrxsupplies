@@ -1,4 +1,4 @@
-import { EmptyArr, EmptyObj, ItemName } from "../../customTypes/types";
+import { EmptyArr, EmptyObj, ItemName } from "../../custom_types/types";
 
 const sortResults = (
   searchTerm: ItemName,

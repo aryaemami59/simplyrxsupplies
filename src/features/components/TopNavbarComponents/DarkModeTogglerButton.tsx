@@ -2,7 +2,7 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { IconButton } from "@mui/material";
 import { FC, memo, useMemo } from "react";
-import useColorMode from "../../customHooks/useColorMode";
+import useColorMode from "../../hooks/useColorMode";
 import { darkTheme } from "../../shared/themes";
 
 const DarkModeTogglerButton: FC = () => {

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { FC, memo } from "react";
 import { useAppSelector } from "../../../../Redux/hooks";
 import { selectQRCodeContent, selectQRText } from "../../../../Redux/selectors";
-import useVendorName from "../../../customHooks/useVendorName";
+import useVendorName from "../../../hooks/useVendorName";
 
 type Props = {
   className?: string;

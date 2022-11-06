@@ -5,11 +5,11 @@ import {
   VendorAndItemName,
   itemNames,
   vendorNames,
-} from "../../../customTypes/types";
+} from "../../../custom_types/types";
 import { setVendors } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 import { checkVendorsAdded, checkVendorsToAdd } from "../../../Redux/selectors";
-import useOfficialVendorName from "../../customHooks/useOfficialVendorName";
+import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 
 const control = <Switch />;
 

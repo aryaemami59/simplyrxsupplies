@@ -5,7 +5,7 @@ import {
   itemNames,
   VendorAndItemName,
   vendorNames,
-} from "../../../customTypes/types";
+} from "../../../custom_types/types";
 import { addItemsByVendor } from "../../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
 import { checkIfItemAddedToOneVendor } from "../../../Redux/selectors";

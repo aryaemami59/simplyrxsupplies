@@ -6,7 +6,7 @@ import {
   OfficialVendorNameType,
   Src,
   VendorNameType,
-} from "../customTypes/types";
+} from "../custom_types/types";
 import { emptyArr } from "../features/shared/utilityFunctions";
 import { RootState } from "./store";
 

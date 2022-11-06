@@ -3,8 +3,8 @@ import { Button } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
 import { removeItems } from "../../../../Redux/addedSlice";
 import { useAppDispatch } from "../../../../Redux/hooks";
-import useItemName from "../../../customHooks/useItemName";
-import useVendorName from "../../../customHooks/useVendorName";
+import useItemName from "../../../hooks/useItemName";
+import useVendorName from "../../../hooks/useVendorName";
 
 const startIcon = <DeleteIcon />;
 

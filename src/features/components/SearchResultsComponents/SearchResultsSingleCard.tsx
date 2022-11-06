@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Card, CardContent } from "@mui/material";
 import { FC, memo } from "react";
-import { ItemName, itemNames } from "../../../customTypes/types";
+import { ItemName, itemNames } from "../../../custom_types/types";
 import SearchResultsCardBodyContent from "./SearchResultsCardBodyContent";
 
 type Props = {

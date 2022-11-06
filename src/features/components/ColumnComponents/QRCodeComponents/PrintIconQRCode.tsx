@@ -5,7 +5,7 @@ import printjs from "print-js";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
 import { useAppSelector } from "../../../../Redux/hooks";
 import { selectQRCodeContent } from "../../../../Redux/selectors";
-import useVendorName from "../../../customHooks/useVendorName";
+import useVendorName from "../../../hooks/useVendorName";
 
 const header =
   "You can scan this image on the vendor's website to pull up all the items at once.";

@@ -13,7 +13,7 @@ import {
   ItemName,
   VendorAndItemName,
   VendorNameType,
-} from "../customTypes/types";
+} from "../custom_types/types";
 import {
   emptyArr,
   emptyObj,

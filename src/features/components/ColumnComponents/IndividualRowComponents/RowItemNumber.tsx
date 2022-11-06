@@ -3,7 +3,7 @@ import { FC, memo } from "react";
 import { useAppSelector } from "../../../../Redux/hooks";
 import { selectItemNumber } from "../../../../Redux/selectors";
 import CopyIcon from "./CopyIcon";
-import useItemName from "../../../customHooks/useItemName";
+import useItemName from "../../../hooks/useItemName";
 
 const primaryTypographyProps: TypographyProps<"span", { component?: "span" }> =
   { className: "ms-0" };

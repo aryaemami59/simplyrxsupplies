@@ -6,7 +6,7 @@ import printJS from "print-js";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
 import { useAppSelector } from "../../../../Redux/hooks";
 import { selectItemSrc } from "../../../../Redux/selectors";
-import useItemName from "../../../customHooks/useItemName";
+import useItemName from "../../../hooks/useItemName";
 
 type Props = {
   text: string;

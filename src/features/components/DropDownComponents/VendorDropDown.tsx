@@ -7,9 +7,9 @@ import {
   PopoverOrigin,
 } from "@mui/material";
 import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
-import { VendorNameType, vendorNames } from "../../../customTypes/types";
-import useItemNames from "../../customHooks/useItemNames";
-import useOfficialVendorName from "../../customHooks/useOfficialVendorName";
+import { VendorNameType, vendorNames } from "../../../custom_types/types";
+import useItemNames from "../../hooks/useItemNames";
+import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 import SingleDropDown from "./SingleDropDown";
 
 const transformOrigin: PopoverOrigin = {
