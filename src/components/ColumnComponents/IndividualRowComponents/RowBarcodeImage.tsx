@@ -22,10 +22,7 @@ const RowBarcodeImage: FC = () => {
       <div className="row">
         <div className="col-md-12 position-relative">
           <div className="row justify-content-center">
-            <PrintBarcodeIcon
-              text="Print This Barcode"
-              header={header}
-            />
+            <PrintBarcodeIcon header={header} />
             <RowBarcodeModal />
           </div>
           <div className="row justify-content-center">
