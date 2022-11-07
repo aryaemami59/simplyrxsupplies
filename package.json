@@ -32,33 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext .tsx --ext .ts src/"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "plugin:jsx-a11y/recommended",
-      "plugin:react-perf/recommended",
-      "plugin:@typescript-eslint/recommended"
-    ],
-    "rules": {
-      "@typescript-eslint/no-unused-vars": [
-        1,
-        {
-          "argsIgnorePattern": "^_",
-          "varsIgnorePattern": "^_"
-        }
-      ],
-      "jsx-a11y/no-autofocus": 0,
-      "jsx-a11y/no-noninteractive-element-interactions": 2,
-      "@typescript-eslint/no-non-null-assertion": 0,
-      "@typescript-eslint/no-empty-function": 0,
-      "react/jsx-no-bind": 1,
-      "react/no-array-index-key": 1,
-      "react/display-name": 1,
-      "react/self-closing-comp": 1
-    }
+    "lint": "eslint --ext .tsx,.ts src/"
   },
   "browserslist": {
     "production": [
@@ -93,7 +67,7 @@
     "@types/why-did-you-update": "^0.0.12",
     "@welldone-software/why-did-you-render": "^7.0.1",
     "babel-plugin-typescript-to-proptypes": "^2.0.0",
-    "eslint": "^8.25.0",
+    "eslint": "^8.27.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-perf": "^3.3.1",

@@ -5,7 +5,10 @@ import { shallowEqual } from "react-redux";
 import SideBarVendorBadges from "./SideBarVendorBadges";
 import { addItems } from "../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
-import { checkIfAddedToAllVendors, selectVendorsByItemName } from "../../Redux/selectors";
+import {
+  checkIfAddedToAllVendors,
+  selectVendorsByItemName,
+} from "../../Redux/selectors";
 import { ItemName, itemNames } from "../../custom_types/api";
 
 type Props = {

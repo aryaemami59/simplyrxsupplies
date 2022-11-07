@@ -10,7 +10,7 @@ const VendorColumnCard: FC = () => {
   const vendorName = useVendorName();
   const anyAdded = useAppSelector(checkIfAnyAddedToOneVendor(vendorName));
 
-  return <Card  >{anyAdded ? <ColumnTopCardBody /> : <EmptyColumn />}</Card>;
+  return <Card>{anyAdded ? <ColumnTopCardBody /> : <EmptyColumn />}</Card>;
 };
 
 export default memo(VendorColumnCard);

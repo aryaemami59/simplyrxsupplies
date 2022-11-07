@@ -17,8 +17,8 @@ const ErrorComponent: FC = () => (
       <p
         className="fs-2"
         key={`p-errMsg-App`}>
-        Looks like there was a problem loading the page. Either refresh the
-        page or try again later.
+        Looks like there was a problem loading the page. Either refresh the page
+        or try again later.
       </p>
     </Alert>
   </div>
