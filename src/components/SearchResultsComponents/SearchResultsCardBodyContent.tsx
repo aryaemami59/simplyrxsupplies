@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import { FC, memo } from "react";
+import { shallowEqual } from "react-redux";
+import { ItemName, itemNames } from "../../custom_types/api";
+import { useAppSelector } from "../../Redux/hooks";
+import { selectVendorsByItemName } from "../../Redux/selectors";
 import SearchResultsAddButton from "./SearchResultsAddButton";
 import SearchResultsItemName from "./SearchResultsItemName";
 import SwitchComponent from "./SwitchComponent";
-import { shallowEqual } from "react-redux";
-import { useAppSelector } from "../../Redux/hooks";
-import { selectVendorsByItemName } from "../../Redux/selectors";
-import { ItemName, itemNames } from "../../custom_types/api";
 
 type Props = {
   itemName: ItemName;
@@ -20,14 +20,14 @@ const SearchResultsCardBodyContent: FC<Props> = ({ itemName }) => {
 
   return (
     <>
-      <div className={`col-md-12 col-12`}>
+      <div className="col-md-12 col-12">
         <div className="m-0 row">
           <SearchResultsItemName itemName={itemName} />
         </div>
       </div>
-      <div className={`col-md-12 col-12`}>
+      <div className="col-md-12 col-12">
         <div className="justify-content-center justify-content-sm-center align-items-center m-0 row">
-          <div className={`pe-0 col-lg-8 col-7`}>
+          <div className="pe-0 col-lg-8 col-7">
             <div className="m-0 row w-100">
               {vendors.map(vendorName => (
                 <SwitchComponent

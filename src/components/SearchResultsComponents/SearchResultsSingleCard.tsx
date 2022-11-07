@@ -12,9 +12,9 @@ const SearchResultsSingleCard: FC<Props> = ({ itemName }) => (
   <Card
     className="shadow"
     variant="outlined"
-    key={`Card-SingleInputListItems`}>
+    key="Card-SingleInputListItems">
     <CardContent
-      key={`Card.Body-SingleInputListItems`}
+      key="Card.Body-SingleInputListItems"
       className="row gy-2 justify-content-center">
       <SearchResultsCardBodyContent itemName={itemName} />
     </CardContent>

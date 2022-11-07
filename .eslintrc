@@ -1,13 +1,45 @@
 {
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": ["./tsconfig.json"],
+    "tsconfigRootDir": "./"
+  },
   "extends": [
+    "eslint:recommended",
+    "airbnb-base",
+    // "airbnb",
     "react-app",
-    "react-app/jest",
-    "plugin:jsx-a11y/recommended",
-    "plugin:react-perf/recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "react-app/jest",
+    "plugin:prettier/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:react-perf/all"
   ],
   "rules": {
+    "prettier/prettier": [
+      2,
+      {
+        "bracketSameLine": true,
+        "arrowParens": "avoid",
+        "singleAttributePerLine": true,
+        "parser": "typescript"
+      }
+    ],
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+    "no-unused-expressions": [
+      2,
+      { "allowShortCircuit": true, "allowTernary": false }
+    ],
     "@typescript-eslint/no-unused-vars": [
       2,
       {
@@ -15,6 +47,12 @@
         "varsIgnorePattern": "^_"
       }
     ],
+    "quotes": [0, "double"],
+    "no-console": 0,
+    "no-param-reassign": 0,
+    "@typescript-eslint/no-floating-promises": 0,
+    "react/jsx-filename-extension": [2, { "extensions": [".tsx", ".jsx"] }],
+    "import/extensions": [2, { "ts": "never", "tsx": "never" }],
     "jsx-a11y/no-autofocus": 0,
     "jsx-a11y/no-noninteractive-element-interactions": 2,
     "@typescript-eslint/no-non-null-assertion": 0,
@@ -22,8 +60,28 @@
     "react/jsx-no-bind": 1,
     "react/no-array-index-key": 1,
     "react/display-name": 1,
+    "comma-dangle": [0, "always-multiline"],
     "react/react-in-jsx-scope": 0,
-    // "react/jsx-key": 2,
+    "react/jsx-key": 2,
     "react/self-closing-comp": 1
-  }
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  //   "import/resolver": {
+  //     "node": {
+  //       "extensions": [".js", ".jsx", ".ts", ".tsx"]
+  //     },
+  //     "typescript": {
+  //       "alwaysTryTypes": true,
+  //       "project": ["./tsconfig.json", "packages/*/tsconfig.json"]
+  //     }
+  //   },
+  //   "import/parsers": {
+  //     "@typescript-eslint/parser": [".ts", ".tsx"]
+  //   }
+  // },
+  "root": true
 }

@@ -3,7 +3,7 @@ import { Spinner } from "react-bootstrap";
 
 const IsLoading: FC = () => (
   <div
-    key={`div-isLoading-App`}
+    key="div-isLoading-App"
     className="d-flex justify-content-center">
     <Spinner
       animation="border"

@@ -9,7 +9,6 @@ import { useAppSelector } from "../../../Redux/hooks";
 import { selectItemSrc } from "../../../Redux/selectors";
 
 type Props = {
-  text: string;
   header: string;
 };
 
@@ -41,7 +40,6 @@ const PrintBarcodeIcon: FC<Props> = ({ header }) => {
 
 PrintBarcodeIcon.propTypes = {
   header: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
 };
 
 export default memo<Props>(PrintBarcodeIcon);

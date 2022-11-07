@@ -1,5 +1,6 @@
 /// <reference types="react-scripts" />
 import "@mui/material/styles";
+
 declare module "@mui/material/styles" {
   interface Palette {
     white: Palette["primary"];

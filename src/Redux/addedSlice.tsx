@@ -94,10 +94,10 @@ export const addedSlice = createSlice({
       ];
       state.itemsObj[itemName].vendorsToAdd = state.itemsObj[itemName]
         .vendorsToAdd.length
-        ? (intersection(
+        ? intersection(
             state.itemsObj[itemName].vendors,
             state.itemsObj[itemName].vendorsAdded
-          ) as VendorNameType[])
+          )
         : emptyArr;
       const qr = state.vendorsObj[vendorName].itemsAdded
         .map(itemAddedName => state.itemsObj[itemAddedName].itemNumber)
@@ -109,7 +109,7 @@ export const addedSlice = createSlice({
     },
     removeItems: (state, action: PayloadAction<VendorAndItemName>) => {
       const { itemName, vendorName } = action.payload;
-      state.vendorsObj[vendorName].itemsAdded = state.vendorsObj![
+      state.vendorsObj[vendorName].itemsAdded = state.vendorsObj[
         vendorName
       ].itemsAdded.filter(itemAddedName => itemAddedName !== itemName);
       state.itemsObj[itemName]!.vendorsAdded = state.itemsObj[
@@ -151,22 +151,22 @@ export const addedSlice = createSlice({
     builder.addCase(fetchItems.fulfilled, (state, action) => {
       const { categories, items, vendors } = action.payload;
       state.itemsArr = items.map(({ name }) => name);
-      for (const itemObj of items) {
-        state.itemsObj![itemObj.name] = {
+      items.forEach(itemObj => {
+        state.itemsObj[itemObj.name] = {
           ...itemObj,
           vendorsAdded: emptyArr,
           vendorsToAdd: itemObj.vendors,
         };
-      }
+      });
       state.vendorsArr = Object.keys(vendors) as VendorNameType[];
-      for (const vendorObj of Object.values(vendors)) {
+      Object.values(vendors).forEach(vendorObj => {
         state.vendorsObj[vendorObj.abbrName] = {
           ...vendorObj,
           itemsAdded: emptyArr as ItemName[],
           qrContent: "",
           qrText: "",
         };
-      }
+      });
       state.categoriesArr = Object.keys(categories) as Category[];
       state.categoriesObj = { ...categories };
       state.isLoading = false;

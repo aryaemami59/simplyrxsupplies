@@ -1,6 +1,6 @@
 import { Checkbox, FormControlLabel } from "@mui/material";
 import PropTypes from "prop-types";
-import { FC, memo, useCallback } from "react";
+import { FC, memo, useCallback, useMemo } from "react";
 import {
   VendorAndItemName,
   itemNames,
@@ -30,16 +30,21 @@ const SideBarVendorBadges: FC<Props> = ({ vendorName, itemName }) => {
     dispatch(setVendors({ itemName, vendorName }));
   }, [dispatch, itemName, vendorName]);
 
+  const control = useMemo(
+    () => (
+      <Checkbox
+        checked={checked}
+        disabled={disabled}
+        onChange={clickHandler}
+      />
+    ),
+    [checked, clickHandler, disabled]
+  );
+
   return (
     <FormControlLabel
       label={officialVendorName}
-      control={
-        <Checkbox
-          checked={checked}
-          disabled={disabled}
-          onChange={clickHandler}
-        />
-      }
+      control={control}
     />
   );
 };

@@ -1,5 +1,5 @@
-import { lightTheme, darkTheme } from "../shared/themes";
 import { useState } from "react";
+import { darkTheme, lightTheme } from "../shared/themes";
 
 const currentTheme: "dark" | "light" = localStorage.getItem("theme")
   ? (localStorage.getItem("theme") as "dark" | "light")

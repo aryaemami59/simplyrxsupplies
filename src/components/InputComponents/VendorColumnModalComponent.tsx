@@ -24,7 +24,7 @@ const VendorColumnModalComponent: FC = () => {
         variant="contained"
         size="large"
         onClick={showModal}
-        className={`my-3 d-inline-block d-md-none w-75 rounded custom-text-shadow-white text-white shadow`}>
+        className="my-3 d-inline-block d-md-none w-75 rounded custom-text-shadow-white text-white shadow">
         Display Cart
       </Button>
       <Dialog
