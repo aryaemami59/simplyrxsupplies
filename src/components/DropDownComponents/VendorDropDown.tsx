@@ -10,7 +10,7 @@ import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
 import useItemNames from "../../hooks/useItemNames";
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 import SingleDropDown from "./SingleDropDown";
-import { VendorNameType, vendorNames } from "../../custom_types/types";
+import { VendorNameType, vendorNames } from "../../custom_types/api";
 
 const transformOrigin: PopoverOrigin = {
   horizontal: "left",

@@ -1,4 +1,4 @@
-import { EmptyObj } from "../custom_types/types";
+import { EmptyObj } from "../custom_types/redux";
 
 const emptyObj: EmptyObj = {};
 

@@ -1,5 +1,5 @@
 import { shallowEqual } from "react-redux";
-import { VendorNameType } from "../custom_types/types";
+import { VendorNameType } from "../custom_types/api";
 import { useAppSelector } from "../Redux/hooks";
 import { selectItemNamesByVendor } from "../Redux/selectors";
 

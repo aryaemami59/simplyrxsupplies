@@ -9,9 +9,9 @@ import { TransitionProps } from "@mui/material/transitions";
 import { FC, memo, useCallback, useRef, useState } from "react";
 import { shallowEqual } from "react-redux";
 import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem";
-import { Category, categoryNames } from "../../custom_types/types";
 import { useAppSelector } from "../../Redux/hooks";
 import { selectCategoriesItemNames } from "../../Redux/selectors";
+import { Category, categoryNames } from "../../custom_types/api";
 
 type Props = {
   category: Category;

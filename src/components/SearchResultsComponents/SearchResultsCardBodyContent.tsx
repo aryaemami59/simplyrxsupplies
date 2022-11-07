@@ -4,9 +4,9 @@ import SearchResultsAddButton from "./SearchResultsAddButton";
 import SearchResultsItemName from "./SearchResultsItemName";
 import SwitchComponent from "./SwitchComponent";
 import { shallowEqual } from "react-redux";
-import { ItemName, itemNames } from "../../custom_types/types";
 import { useAppSelector } from "../../Redux/hooks";
 import { selectVendorsByItemName } from "../../Redux/selectors";
+import { ItemName, itemNames } from "../../custom_types/api";
 
 type Props = {
   itemName: ItemName;

@@ -92,6 +92,7 @@
     "@types/testing-library__jest-dom": "^5.14.5",
     "@types/why-did-you-update": "^0.0.12",
     "@welldone-software/why-did-you-render": "^7.0.1",
+    "babel-plugin-typescript-to-proptypes": "^2.0.0",
     "eslint": "^8.25.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-react": "^7.31.10",

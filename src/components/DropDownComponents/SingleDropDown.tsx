@@ -1,7 +1,7 @@
 import { MenuItem } from "@mui/material";
 import PropTypes from "prop-types";
 import { FC, memo, MouseEventHandler, useCallback } from "react";
-import { VendorAndItemName, itemNames, vendorNames } from "../../custom_types/types";
+import { VendorAndItemName, itemNames, vendorNames } from "../../custom_types/api";
 import { addItemsByVendor } from "../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
 import { checkIfItemAddedToOneVendor } from "../../Redux/selectors";

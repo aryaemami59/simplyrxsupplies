@@ -3,10 +3,10 @@ import { Button, ButtonGroup } from "@mui/material";
 import { FC, memo, MouseEventHandler, RefObject, useCallback } from "react";
 import { shallowEqual } from "react-redux";
 import SideBarVendorBadges from "./SideBarVendorBadges";
-import { ItemName, itemNames } from "../../custom_types/types";
 import { addItems } from "../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
 import { checkIfAddedToAllVendors, selectVendorsByItemName } from "../../Redux/selectors";
+import { ItemName, itemNames } from "../../custom_types/api";
 
 type Props = {
   itemName: ItemName;

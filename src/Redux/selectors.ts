@@ -1,12 +1,4 @@
-import {
-  Category,
-  ItemName,
-  ItemNumber,
-  Link,
-  OfficialVendorNameType,
-  Src,
-  VendorNameType,
-} from "../custom_types/types";
+import { VendorNameType, ItemName, Category, ItemNumber, Src, OfficialVendorNameType, Link } from "../custom_types/api";
 import emptyArr from "../utils/emptyArr";
 import { RootState } from "./store";
 

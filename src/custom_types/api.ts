@@ -31,22 +31,6 @@ export type CategoriesObjType = Record<
 
 export type ItemsObj = Record<ItemNamesType, ItemObjType>;
 
-export type EmptyObj = Record<string, never>;
-
-export type EmptyArr = [];
-
-export type AddedState = {
-  listItems: ItemName[];
-  errMsg: string;
-  isLoading: boolean;
-  itemsArr: ItemNamesType[];
-  itemsObj: ItemsObj;
-  vendorsArr: VendorNameType[];
-  vendorsObj: VendorsObjType;
-  categoriesArr: Category[];
-  categoriesObj: CategoriesObjType;
-};
-
 export type ItemName = ItemNamesType;
 export type ItemNumber = string;
 export type Keyword = string;
@@ -861,10 +845,4 @@ type ItemNamesType =
 export type VendorAndItemName = {
   itemName: ItemName;
   vendorName: VendorNameType;
-};
-
-export type FetchedData = {
-  items: ItemObjType[];
-  vendors: VendorsObjType;
-  categories: CategoriesObjType;
 };

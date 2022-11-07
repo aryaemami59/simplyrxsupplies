@@ -7,13 +7,12 @@ import {
 import axios from "axios";
 import QRCode from "qrcode";
 import {
-  AddedState,
-  Category,
-  FetchedData,
   ItemName,
   VendorAndItemName,
   VendorNameType,
-} from "../custom_types/types";
+  Category,
+} from "../custom_types/api";
+import { AddedState, FetchedData } from "../custom_types/redux";
 import GITHUB_URL_ITEMS from "../data/fetchInfo";
 import emptyArr from "../utils/emptyArr";
 import emptyObj from "../utils/emptyObj";
@@ -57,36 +56,34 @@ export const addedSlice = createSlice({
       ) {
         return;
       }
-      state.itemsObj[itemName].vendorsToAdd.forEach(
-        (vendorName: VendorNameType) => {
-          if (
-            !current(state.vendorsObj[vendorName]).itemsAdded.includes(itemName)
-          ) {
-            state.vendorsObj[vendorName].itemsAdded.push(itemName);
-            const qr = state.vendorsObj[vendorName].itemsAdded
-              .map(itemAddedName => state.itemsObj[itemAddedName].itemNumber)
-              .join(state.vendorsObj[vendorName].joinChars);
-            QRCode.toDataURL(qr, (err, url) => {
-              state.vendorsObj[vendorName].qrContent = url;
-            });
-            state.vendorsObj[vendorName].qrText = qr;
-            state.listItems = state.listItems.filter(
-              listItemName => listItemName !== itemName
-            );
-            state.itemsObj[itemName].vendorsAdded = [
-              ...state.itemsObj[itemName].vendorsAdded,
-              ...state.itemsObj[itemName].vendorsToAdd,
-            ];
-            state.itemsObj[itemName].vendorsToAdd = state.itemsObj[itemName]
-              .vendorsToAdd.length
-              ? intersection(
-                  state.itemsObj[itemName].vendors,
-                  state.itemsObj[itemName].vendorsAdded
-                )
-              : emptyArr;
-          }
+      state.itemsObj[itemName].vendorsToAdd.forEach(vendorName => {
+        if (
+          !current(state.vendorsObj[vendorName]).itemsAdded.includes(itemName)
+        ) {
+          state.vendorsObj[vendorName].itemsAdded.push(itemName);
+          const qr = state.vendorsObj[vendorName].itemsAdded
+            .map(itemAddedName => state.itemsObj[itemAddedName].itemNumber)
+            .join(state.vendorsObj[vendorName].joinChars);
+          QRCode.toDataURL(qr, (err, url) => {
+            state.vendorsObj[vendorName].qrContent = url;
+          });
+          state.vendorsObj[vendorName].qrText = qr;
+          state.listItems = state.listItems.filter(
+            listItemName => listItemName !== itemName
+          );
+          state.itemsObj[itemName].vendorsAdded = [
+            ...state.itemsObj[itemName].vendorsAdded,
+            ...state.itemsObj[itemName].vendorsToAdd,
+          ];
+          state.itemsObj[itemName].vendorsToAdd = state.itemsObj[itemName]
+            .vendorsToAdd.length
+            ? intersection(
+                state.itemsObj[itemName].vendors,
+                state.itemsObj[itemName].vendorsAdded
+              )
+            : emptyArr;
         }
-      );
+      });
     },
     addItemsByVendor: (state, action: PayloadAction<VendorAndItemName>) => {
       const { itemName, vendorName } = action.payload;
