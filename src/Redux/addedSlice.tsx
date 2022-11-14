@@ -18,7 +18,7 @@ import emptyArr from "../utils/emptyArr";
 import emptyObj from "../utils/emptyObj";
 import intersection from "../utils/intersection";
 
-export const fetchItems = createAsyncThunk<FetchedData, void>(
+export const fetchItems = createAsyncThunk<FetchedData>(
   `items/fetchitems`,
   async () => {
     try {
@@ -112,7 +112,7 @@ export const addedSlice = createSlice({
       state.vendorsObj[vendorName].itemsAdded = state.vendorsObj[
         vendorName
       ].itemsAdded.filter(itemAddedName => itemAddedName !== itemName);
-      state.itemsObj[itemName]!.vendorsAdded = state.itemsObj[
+      state.itemsObj[itemName].vendorsAdded = state.itemsObj[
         itemName
       ].vendorsAdded.filter(vendor => vendor !== vendorName);
       const qr = state.vendorsObj[vendorName].itemsAdded
@@ -131,13 +131,13 @@ export const addedSlice = createSlice({
     },
     setVendors: (state, action: PayloadAction<VendorAndItemName>) => {
       const { itemName, vendorName } = action.payload;
-      state.itemsObj[itemName]!.vendorsToAdd = state.itemsObj[
+      state.itemsObj[itemName].vendorsToAdd = state.itemsObj[
         itemName
-      ]!.vendorsToAdd.includes(action.payload.vendorName)
-        ? state.itemsObj[itemName]!.vendorsToAdd.filter(
+      ].vendorsToAdd.includes(action.payload.vendorName)
+        ? state.itemsObj[itemName].vendorsToAdd.filter(
             vendorNameParam => vendorNameParam !== vendorName
           )
-        : state.itemsObj[itemName]!.vendorsToAdd.concat(vendorName);
+        : state.itemsObj[itemName].vendorsToAdd.concat(vendorName);
     },
   },
   extraReducers: builder => {
@@ -146,7 +146,7 @@ export const addedSlice = createSlice({
     });
     builder.addCase(fetchItems.rejected, (state, action) => {
       state.isLoading = false;
-      state.errMsg = action.error.message || "Fetch failed";
+      state.errMsg = action.error.message ?? "Fetch failed";
     });
     builder.addCase(fetchItems.fulfilled, (state, action) => {
       const { categories, items, vendors } = action.payload;

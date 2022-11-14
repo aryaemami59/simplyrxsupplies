@@ -16,7 +16,7 @@ const QRCodeImage: FC<Props> = ({ className }) => {
   return (
     <img
       src={src}
-      className={`${className || ""}`}
+      className={`${className ?? ""}`}
       alt={`${vendorName} QRCode`}
       title={title}
     />

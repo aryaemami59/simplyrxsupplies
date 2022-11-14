@@ -2,22 +2,22 @@
 import "@mui/material/styles";
 
 declare module "@mui/material/styles" {
-  interface Palette {
+  type Palette = {
     white: Palette["primary"];
-  }
-  interface PaletteOptions {
+  };
+  type PaletteOptions = {
     white: PaletteOptions["primary"];
-  }
+  };
 }
 
 declare module "@mui/material/Button" {
-  interface ButtonPropsColorOverrides {
+  type ButtonPropsColorOverrides = {
     white: true;
-  }
+  };
 }
 
 declare module "@mui/material/IconButton" {
-  interface IconButtonPropsColorOverrides {
+  type IconButtonPropsColorOverrides = {
     white: true;
-  }
+  };
 }

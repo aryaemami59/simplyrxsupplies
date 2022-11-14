@@ -4,20 +4,31 @@
     "project": ["./tsconfig.json"],
     "tsconfigRootDir": "./"
   },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "eslint-plugin-prettier",
+    "react-perf",
+    "prettier",
+    "jsx-a11y"
+  ],
   "extends": [
     "eslint:recommended",
-    "airbnb-base",
-    // "airbnb",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "airbnb",
+    "airbnb-typescript",
+    "airbnb/hooks",
     "react-app",
     "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
     "plugin:@typescript-eslint/recommended",
-    "react-app/jest",
-    "plugin:prettier/recommended",
-    "plugin:jsx-a11y/recommended",
-    "plugin:import/typescript",
-    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:jsx-a11y/strict",
+    "plugin:react-redux/all",
+    "plugin:react-perf/all",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:react-perf/all"
+    "plugin:@typescript-eslint/strict",
+    "prettier/prettier",
+    "plugin:prettier/recommended"
   ],
   "rules": {
     "prettier/prettier": [
@@ -36,52 +47,23 @@
         "unnamedComponents": "arrow-function"
       }
     ],
-    "no-unused-expressions": [
-      2,
-      { "allowShortCircuit": true, "allowTernary": false }
-    ],
-    "@typescript-eslint/no-unused-vars": [
+    "no-console": 0,
+    "no-param-reassign": [
       2,
       {
-        "argsIgnorePattern": "^_",
-        "varsIgnorePattern": "^_"
+        "props": false
       }
     ],
-    "quotes": [0, "double"],
-    "no-console": 0,
-    "no-param-reassign": 0,
-    "@typescript-eslint/no-floating-promises": 0,
-    "react/jsx-filename-extension": [2, { "extensions": [".tsx", ".jsx"] }],
-    "import/extensions": [2, { "ts": "never", "tsx": "never" }],
-    "jsx-a11y/no-autofocus": 0,
-    "jsx-a11y/no-noninteractive-element-interactions": 2,
-    "@typescript-eslint/no-non-null-assertion": 0,
-    "@typescript-eslint/no-empty-function": 0,
-    "react/jsx-no-bind": 1,
-    "react/no-array-index-key": 1,
-    "react/display-name": 1,
-    "comma-dangle": [0, "always-multiline"],
-    "react/react-in-jsx-scope": 0,
-    "react/jsx-key": 2,
-    "react/self-closing-comp": 1
+    "@typescript-eslint/no-floating-promises": [0],
+    "react/require-default-props": [0],
+    "@typescript-eslint/no-throw-literal": [0],
+    "@typescript-eslint/naming-convention": [0],
+    "@typescript-eslint/consistent-type-definitions": [2, "type"]
   },
   "settings": {
     "react": {
       "version": "detect"
     }
   },
-  //   "import/resolver": {
-  //     "node": {
-  //       "extensions": [".js", ".jsx", ".ts", ".tsx"]
-  //     },
-  //     "typescript": {
-  //       "alwaysTryTypes": true,
-  //       "project": ["./tsconfig.json", "packages/*/tsconfig.json"]
-  //     }
-  //   },
-  //   "import/parsers": {
-  //     "@typescript-eslint/parser": [".ts", ".tsx"]
-  //   }
-  // },
   "root": true
 }

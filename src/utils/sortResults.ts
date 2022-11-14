@@ -15,7 +15,7 @@ const sortResults = (
     return 50;
   }
   if (searchTerm.toLowerCase().match(re)) {
-    return searchTerm.toLowerCase().match(re)!.length;
+    return searchTerm.toLowerCase().match(re)?.length ?? 0;
   }
   return 0;
 };

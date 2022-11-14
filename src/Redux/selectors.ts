@@ -16,7 +16,7 @@ export const selectAddedItemsByVendor =
     state.added.vendorsObj[vendorName].itemsAdded;
 
 export const selectVendorsArr = (state: RootState): VendorNameType[] =>
-  state.added.vendorsArr ? state.added.vendorsArr : emptyArr;
+  state.added.vendorsArr.length ? state.added.vendorsArr : emptyArr;
 
 export const selectVendorsLinks =
   (vendorName: VendorNameType) =>

@@ -25,7 +25,7 @@ const style: CSSProperties = {
 
 const InputFieldComponent: FC = () => {
   const [val, setVal] = useState("");
-  const [_isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
   const itemNames = useAppSelector(selectItemNamesArr, shallowEqual);
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
