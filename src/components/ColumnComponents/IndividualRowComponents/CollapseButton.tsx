@@ -2,7 +2,8 @@ import PropTypes from "prop-types";
 import { faMaximize, faMinimize } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@mui/material";
-import { FC, memo, MouseEventHandler, useMemo } from "react";
+import type { FC, MouseEventHandler } from "react";
+import { memo, useMemo } from "react";
 
 const EXPAND = "Expand" as const;
 const COLLAPSE = "Collapse" as const;

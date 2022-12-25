@@ -1,5 +1,6 @@
 import { Button, ButtonGroup, Collapse, Fade } from "@mui/material";
-import { FC, memo, useCallback, useState } from "react";
+import type { FC } from "react";
+import { memo, useCallback, useState } from "react";
 import useItemName from "../../../hooks/useItemName";
 import CollapseButton from "./CollapseButton";
 import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal";

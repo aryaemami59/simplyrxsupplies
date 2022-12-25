@@ -6,9 +6,9 @@ export const lightTheme = createTheme({
     primary: {
       main: "#0071dc",
     },
-    white: {
-      main: "#fff",
-    },
+    // white: {
+    //   main: "#fff",
+    // },
     background: {
       default: "rgb(255, 255, 255)",
       paper: "rgb(255, 255, 255)",
@@ -26,9 +26,9 @@ export const darkTheme = createTheme({
     primary: {
       main: "#0071dc",
     },
-    white: {
-      main: "#fff",
-    },
+    // white: {
+    //   main: "#fff",
+    // },
     background: {
       default: "rgb(21, 32, 43)",
       paper: "rgb(21, 32, 43)",

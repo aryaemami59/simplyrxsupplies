@@ -1,16 +1,13 @@
+import type { MenuListProps, PaperProps, PopoverOrigin } from "@mui/material";
+import { Button, Menu } from "@mui/material";
 import PropTypes from "prop-types";
-import {
-  Button,
-  Menu,
-  MenuListProps,
-  PaperProps,
-  PopoverOrigin,
-} from "@mui/material";
-import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
+import type { FC, MouseEventHandler } from "react";
+import { memo, useCallback, useState } from "react";
+import type { VendorNameType } from "../../custom_types/api";
+import { vendorNames } from "../../custom_types/api";
 import useItemNames from "../../hooks/useItemNames";
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 import SingleDropDown from "./SingleDropDown";
-import { VendorNameType, vendorNames } from "../../custom_types/api";
 
 const transformOrigin: PopoverOrigin = {
   horizontal: "left",

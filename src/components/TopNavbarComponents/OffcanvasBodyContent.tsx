@@ -1,5 +1,6 @@
 import { DialogContent, DialogTitle } from "@mui/material";
-import { FC, memo } from "react";
+import type { FC } from "react";
+import { memo } from "react";
 import SideBarAccordionList from "../SideBarComponents/SideBarAccordionList";
 import OffcanvasVendorAccordionList from "./OffcanvasVendorAccordionList";
 

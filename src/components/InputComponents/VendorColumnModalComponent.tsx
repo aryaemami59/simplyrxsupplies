@@ -5,7 +5,8 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
+import type { FC, MouseEventHandler } from "react";
+import { memo, useCallback, useState } from "react";
 import VendorColumnList from "../ColumnComponents/VendorColumnList";
 
 const VendorColumnModalComponent: FC = () => {

@@ -1,5 +1,6 @@
 import { AppBar } from "@mui/material";
-import { FC, memo } from "react";
+import type { FC } from "react";
+import { memo } from "react";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import DarkModeTogglerButton from "./DarkModeTogglerButton";
 import OffcanvasComponent from "./OffcanvasComponent";

@@ -1,10 +1,11 @@
 import { CardContent, List } from "@mui/material";
-import { FC, memo } from "react";
+import type { FC } from "react";
+import { memo } from "react";
 import { shallowEqual } from "react-redux";
-import ItemNameProvider from "../../contexts/ItemNameProvider";
-import useVendorName from "../../hooks/useVendorName";
 import { useAppSelector } from "../../Redux/hooks";
 import { selectAddedItemsByVendor } from "../../Redux/selectors";
+import ItemNameProvider from "../../contexts/ItemNameProvider";
+import useVendorName from "../../hooks/useVendorName";
 import RowSingleContainer from "./IndividualRowComponents/RowSingleContainer";
 import QRCodeImageContainer from "./QRCodeComponents/QRCodeImageContainer";
 import VendorLink from "./VendorLink";

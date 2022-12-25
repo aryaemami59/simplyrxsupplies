@@ -1,4 +1,5 @@
-import { FC, memo } from "react";
+import type { FC } from "react";
+import { memo } from "react";
 import useItemName from "../../../hooks/useItemName";
 import useOfficialVendorName from "../../../hooks/useOfficialVendorName";
 import useVendorName from "../../../hooks/useVendorName";

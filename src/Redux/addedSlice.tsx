@@ -1,18 +1,14 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  current,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
 import QRCode from "qrcode";
-import {
+import type {
   ItemName,
   VendorAndItemName,
   VendorNameType,
   Category,
 } from "../custom_types/api";
-import { AddedState, FetchedData } from "../custom_types/redux";
+import type { AddedState, FetchedData } from "../custom_types/redux";
 import GITHUB_URL_ITEMS from "../data/fetchInfo";
 import emptyArr from "../utils/emptyArr";
 import emptyObj from "../utils/emptyObj";

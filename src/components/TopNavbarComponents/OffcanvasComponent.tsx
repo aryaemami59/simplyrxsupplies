@@ -1,12 +1,13 @@
 import MenuIcon from "@mui/icons-material/Menu";
+import type { PaperProps } from "@mui/material";
 import {
   Button,
   DialogActions,
   IconButton,
-  PaperProps,
   SwipeableDrawer,
 } from "@mui/material";
-import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
+import type { FC, MouseEventHandler } from "react";
+import { memo, useCallback, useState } from "react";
 import OffcanvasBodyContent from "./OffcanvasBodyContent";
 
 const paperProps: PaperProps = {

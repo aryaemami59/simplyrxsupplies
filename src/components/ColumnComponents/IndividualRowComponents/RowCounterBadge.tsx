@@ -1,5 +1,6 @@
 import { Badge } from "@mui/material";
-import { FC, memo } from "react";
+import type { FC } from "react";
+import { memo } from "react";
 import useVendorName from "../../../hooks/useVendorName";
 import { useAppSelector } from "../../../Redux/hooks";
 import { addedItemsLength } from "../../../Redux/selectors";

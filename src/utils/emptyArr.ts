@@ -1,5 +1,5 @@
-import { EmptyArr } from "../custom_types/redux";
+import type { EmptyArray } from "../custom_types/redux";
 
-const emptyArr: EmptyArr = [];
+const emptyArr: EmptyArray = [];
 
 export default emptyArr;

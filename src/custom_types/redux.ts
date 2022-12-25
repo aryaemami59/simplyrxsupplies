@@ -1,16 +1,24 @@
-import {
+import type {
+  CategoriesObjType,
+  Category,
   ItemName,
+  ItemObjType,
+  ItemsObj,
   VendorNameType,
   VendorsObjType,
-  Category,
-  ItemObjType,
-  CategoriesObjType,
-  ItemsObj,
 } from "./api";
 
-export type EmptyObj = Record<string, never>;
+export type EmptyObject = Record<string, never>;
 
-export type EmptyArr = [];
+export type AnyObject = Record<string, unknown>;
+
+export type AnyArray = unknown[];
+
+export type AnyFunction = () => void;
+
+export type EmptyArray = [];
+
+export type Composite = AnyFunction | AnyArray | AnyObject;
 
 export type AddedState = {
   listItems: ItemName[];

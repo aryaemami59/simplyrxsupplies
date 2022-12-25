@@ -6,7 +6,8 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import { FC, memo } from "react";
+import type { FC } from "react";
+import { memo } from "react";
 import ModalBodyContent from "./ModalBodyContent";
 
 type Props = {

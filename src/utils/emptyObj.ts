@@ -1,5 +1,5 @@
-import { EmptyObj } from "../custom_types/redux";
+import type { EmptyObject } from "../custom_types/redux";
 
-const emptyObj: EmptyObj = {};
+const emptyObj: EmptyObject = {};
 
 export default emptyObj;

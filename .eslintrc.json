@@ -2,6 +2,9 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": ["./tsconfig.json"],
+    "sourceType": "module",
+    "ecmaVersion": "latest",
+    "ecmaFeatures": { "jsx": true },
     "tsconfigRootDir": "./"
   },
   "plugins": [
@@ -30,6 +33,10 @@
     "prettier/prettier",
     "plugin:prettier/recommended"
   ],
+  "env": {
+    "browser": true,
+    "es2022": true
+  },
   "rules": {
     "prettier/prettier": [
       2,
@@ -55,7 +62,8 @@
       }
     ],
     "@typescript-eslint/no-floating-promises": [0],
-    "react/jsx-props-no-spreading": 0,
+    "react/jsx-props-no-spreading": [0],
+    "@typescript-eslint/consistent-type-imports": [2],
     "react/require-default-props": [0],
     "@typescript-eslint/no-throw-literal": [0],
     "@typescript-eslint/naming-convention": [0],

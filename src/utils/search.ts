@@ -1,4 +1,4 @@
-import { ItemName } from "../custom_types/api";
+import type { ItemName } from "../custom_types/api";
 import emptyArr from "./emptyArr";
 import sortResults from "./sortResults";
 

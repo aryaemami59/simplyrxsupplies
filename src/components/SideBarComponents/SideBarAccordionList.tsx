@@ -1,4 +1,5 @@
-import { FC, memo } from "react";
+import type { FC } from "react";
+import { memo } from "react";
 import { shallowEqual } from "react-redux";
 import { useAppSelector } from "../../Redux/hooks";
 import { selectCategoriesArr } from "../../Redux/selectors";

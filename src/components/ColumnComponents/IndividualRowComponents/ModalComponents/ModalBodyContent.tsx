@@ -1,5 +1,6 @@
 import { List, ListItemText } from "@mui/material";
-import { FC, memo } from "react";
+import type { FC } from "react";
+import { memo } from "react";
 import VendorLink from "../../VendorLink";
 import RowBarcodeImage from "../RowBarcodeImage";
 import RowItemName from "../RowItemName";

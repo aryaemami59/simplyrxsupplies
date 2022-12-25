@@ -1,11 +1,13 @@
 import PropTypes from "prop-types";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import { Button } from "@mui/material";
-import { FC, memo, MouseEventHandler, useCallback } from "react";
+import type { FC, MouseEventHandler } from "react";
+import { memo, useCallback } from "react";
 import { addItems } from "../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
 import { checkIfAddedToAllVendors } from "../../Redux/selectors";
-import { ItemName, itemNames } from "../../custom_types/api";
+import type { ItemName } from "../../custom_types/api";
+import { itemNames } from "../../custom_types/api";
 
 const startIcon = <AddCircleOutlineRoundedIcon />;
 

@@ -5,13 +5,15 @@ import {
   AccordionSummary,
   Typography,
 } from "@mui/material";
-import { TransitionProps } from "@mui/material/transitions";
-import { FC, memo, useCallback, useRef, useState } from "react";
+import type { TransitionProps } from "@mui/material/transitions";
+import type { FC } from "react";
+import { memo, useCallback, useRef, useState } from "react";
 import { shallowEqual } from "react-redux";
 import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem";
 import { useAppSelector } from "../../Redux/hooks";
 import { selectCategoriesItemNames } from "../../Redux/selectors";
-import { Category, categoryNames } from "../../custom_types/api";
+import type { Category } from "../../custom_types/api";
+import { categoryNames } from "../../custom_types/api";
 
 type Props = {
   category: Category;

@@ -5,7 +5,8 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import { FC, memo } from "react";
+import type { FC } from "react";
+import { memo } from "react";
 import { Button } from "react-bootstrap";
 import BarcodeImage from "../BarcodeImage";
 import useItemName from "../../../../hooks/useItemName";

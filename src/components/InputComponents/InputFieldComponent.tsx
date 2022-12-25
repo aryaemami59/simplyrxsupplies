@@ -1,8 +1,6 @@
 import { TextField } from "@mui/material";
+import type { ChangeEvent, CSSProperties, FC } from "react";
 import {
-  ChangeEvent,
-  CSSProperties,
-  FC,
   memo,
   useCallback,
   useMemo,

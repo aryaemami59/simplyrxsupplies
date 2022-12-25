@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { ThemeProvider } from "@mui/material/styles";
-import { createContext, FC, memo, ReactNode, useMemo } from "react";
+import type { FC, ReactNode } from "react";
+import { createContext, memo, useMemo } from "react";
 import useLocalStorageTheme from "../hooks/useLocalStorageTheme";
 import { darkTheme, lightTheme } from "../shared/themes";
 

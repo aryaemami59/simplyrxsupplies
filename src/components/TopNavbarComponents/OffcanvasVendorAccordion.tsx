@@ -4,8 +4,9 @@ import {
   AccordionSummary,
   Typography,
 } from "@mui/material";
-import { TransitionProps } from "@mui/material/transitions";
-import { FC, memo, useCallback, useState } from "react";
+import type { TransitionProps } from "@mui/material/transitions";
+import type { FC } from "react";
+import { memo, useCallback, useState } from "react";
 import ItemNameProvider from "../../contexts/ItemNameProvider";
 import useItemNames from "../../hooks/useItemNames";
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";

@@ -1,4 +1,5 @@
-import { FC, memo } from "react";
+import type { FC } from "react";
+import { memo } from "react";
 import VendorNameProvider from "../../contexts/VendorNameProvider";
 import useVendorNamesList from "../../hooks/useVendorNamesList";
 import OffcanvasVendorAccordion from "./OffcanvasVendorAccordion";

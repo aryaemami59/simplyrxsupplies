@@ -1,7 +1,8 @@
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Paper } from "@mui/material";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { FC, memo, useEffect } from "react";
+import type { FC } from "react";
+import { memo, useEffect } from "react";
 import "./App.css";
 import VendorColumnList from "./components/ColumnComponents/VendorColumnList";
 import InputGroupComponent from "./components/InputComponents/InputGroupComponent";

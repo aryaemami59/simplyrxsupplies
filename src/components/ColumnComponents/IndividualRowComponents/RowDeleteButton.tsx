@@ -1,6 +1,7 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Button } from "@mui/material";
-import { FC, memo, MouseEventHandler, useCallback } from "react";
+import type { FC, MouseEventHandler } from "react";
+import { memo, useCallback } from "react";
 import useItemName from "../../../hooks/useItemName";
 import useVendorName from "../../../hooks/useVendorName";
 import { removeItems } from "../../../Redux/addedSlice";

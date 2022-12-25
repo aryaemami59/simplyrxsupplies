@@ -1,7 +1,8 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Tooltip } from "@mui/material";
-import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
+import type { FC, MouseEventHandler } from "react";
+import { memo, useCallback, useState } from "react";
 import RowItemsDialog from "./RowItemsDialog";
 
 const title = "Take a Closer Look at The Item Info";

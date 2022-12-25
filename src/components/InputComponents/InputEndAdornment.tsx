@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { InputAdornment, IconButton } from "@mui/material";
-import { FC, memo } from "react";
+import type { FC } from "react";
+import { memo } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 
 type Props = {

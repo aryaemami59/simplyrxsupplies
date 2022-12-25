@@ -1,8 +1,9 @@
-import PropTypes from "prop-types";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Tooltip } from "@mui/material";
-import { FC, memo, MouseEventHandler, useCallback, useState } from "react";
+import PropTypes from "prop-types";
+import type { FC, MouseEventHandler } from "react";
+import { memo, useCallback, useState } from "react";
 
 const startIcon = <FontAwesomeIcon icon={faCopy} />;
 

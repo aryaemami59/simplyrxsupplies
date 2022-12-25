@@ -1,4 +1,4 @@
-import {
+import type {
   VendorNameType,
   ItemName,
   Category,
@@ -8,7 +8,7 @@ import {
   Link,
 } from "../custom_types/api";
 import emptyArr from "../utils/emptyArr";
-import { RootState } from "./store";
+import type { RootState } from "./store";
 
 export const selectAddedItemsByVendor =
   (vendorName: VendorNameType) =>
