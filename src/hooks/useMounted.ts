@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { useDebugValue, useEffect } from "react";
-import type { AnyObject, EmptyObject } from "../types/redux";
+import type { AnyObject, EmptyObject } from "../types/missingTypes";
 
 /**
  * Checks when component mounts and unmounts

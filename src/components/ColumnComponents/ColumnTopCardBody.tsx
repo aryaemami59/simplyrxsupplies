@@ -5,6 +5,7 @@ import { shallowEqual } from "react-redux";
 import { useAppSelector } from "../../Redux/hooks";
 import { selectAddedItemsByVendor } from "../../Redux/selectors";
 import ItemNameProvider from "../../contexts/ItemNameProvider";
+import useOnMount from "../../hooks/useOnMount";
 import useVendorName from "../../hooks/useVendorName";
 import RowSingleContainer from "./IndividualRowComponents/RowSingleContainer";
 import QRCodeImageContainer from "./QRCodeComponents/QRCodeImageContainer";
@@ -16,6 +17,8 @@ const ColumnTopCardBody: FC = () => {
     selectAddedItemsByVendor(vendorName),
     shallowEqual
   );
+
+  useOnMount(() => console.log("mounted"));
 
   return (
     <CardContent>

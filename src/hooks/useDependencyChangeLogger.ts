@@ -1,5 +1,5 @@
 import { useDebugValue, useEffect, useRef } from "react";
-import type { Composite } from "../types/redux";
+import type { Composite } from "../types/missingTypes";
 import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
 
 /**
