@@ -1,4 +1,4 @@
-import type { EmptyObject } from "../custom_types/redux";
+import type { EmptyObject } from "@reduxjs/toolkit";
 
 const emptyObj: EmptyObject = {};
 

@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import {
   Accordion,
   AccordionDetails,
@@ -6,14 +5,15 @@ import {
   Typography,
 } from "@mui/material";
 import type { TransitionProps } from "@mui/material/transitions";
+import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo, useCallback, useRef, useState } from "react";
 import { shallowEqual } from "react-redux";
-import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem";
 import { useAppSelector } from "../../Redux/hooks";
 import { selectCategoriesItemNames } from "../../Redux/selectors";
-import type { Category } from "../../custom_types/api";
-import { categoryNames } from "../../custom_types/api";
+import type { Category } from "../../types/api";
+import { categoryNames } from "../../types/api";
+import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem";
 
 type Props = {
   category: Category;

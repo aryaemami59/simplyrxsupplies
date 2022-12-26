@@ -2,15 +2,15 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo, useCallback, useMemo } from "react";
-import type { VendorAndItemName } from "../../custom_types/api";
-import { itemNames, vendorNames } from "../../custom_types/api";
-import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 import { setVendors } from "../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
 import {
-  checkVendorsToAdd,
   checkIfItemAddedToOneVendor,
+  checkVendorsToAdd,
 } from "../../Redux/selectors";
+import useOfficialVendorName from "../../hooks/useOfficialVendorName";
+import type { VendorAndItemName } from "../../types/api";
+import { itemNames, vendorNames } from "../../types/api";
 
 type Props = VendorAndItemName;
 

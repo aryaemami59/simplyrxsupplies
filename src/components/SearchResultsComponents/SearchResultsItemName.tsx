@@ -1,9 +1,9 @@
-import PropTypes from "prop-types";
 import { CardHeader } from "@mui/material";
+import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo } from "react";
-import type { ItemName } from "../../custom_types/api";
-import { itemNames } from "../../custom_types/api";
+import type { ItemName } from "../../types/api";
+import { itemNames } from "../../types/api";
 
 type Props = {
   itemName: ItemName;

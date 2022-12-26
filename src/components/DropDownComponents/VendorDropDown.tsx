@@ -3,10 +3,10 @@ import { Button, Menu } from "@mui/material";
 import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
-import type { VendorNameType } from "../../custom_types/api";
-import { vendorNames } from "../../custom_types/api";
 import useItemNames from "../../hooks/useItemNames";
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
+import type { VendorNameType } from "../../types/api";
+import { vendorNames } from "../../types/api";
 import SingleDropDown from "./SingleDropDown";
 
 const transformOrigin: PopoverOrigin = {

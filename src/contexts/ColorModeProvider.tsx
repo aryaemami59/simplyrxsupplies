@@ -19,12 +19,11 @@ const ColorModeProvider: FC<Props> = ({ children }) => {
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        setTheme(prev => (prev === lightTheme ? darkTheme : lightTheme));
-        // setTheme(prev => {
-        //   const currentTheme = prev === lightTheme ? darkTheme : lightTheme;
-        //   localStorage.setItem("theme", currentTheme.palette.mode);
-        //   return currentTheme;
-        // });
+        setTheme(prev => {
+          const currentTheme = prev === lightTheme ? darkTheme : lightTheme;
+          localStorage.setItem("theme", currentTheme.palette.mode);
+          return currentTheme;
+        });
       },
       theme,
     }),

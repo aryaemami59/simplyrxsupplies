@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { useDebugValue, useEffect, useRef } from "react";
-import type { AnyObject, EmptyObject } from "../custom_types/redux";
+import type { AnyObject, EmptyObject } from "../types/redux";
 
 /**
  * Counts how many times the component re-renders

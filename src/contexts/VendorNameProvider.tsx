@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import type { FC, ReactNode } from "react";
 import { createContext, memo } from "react";
-import type { VendorNameType } from "../custom_types/api";
-import { vendorNames } from "../custom_types/api";
+import type { VendorNameType } from "../types/api";
+import { vendorNames } from "../types/api";
 
 type Props = {
   children: ReactNode;

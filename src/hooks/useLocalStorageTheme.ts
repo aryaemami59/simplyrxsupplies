@@ -1,6 +1,5 @@
-import type { Theme } from "@mui/material/styles/createTheme";
+import { useState } from "react";
 import { darkTheme, lightTheme } from "../shared/themes";
-import useLocalStorage from "./useLocalStorage";
 
 const currentTheme: "dark" | "light" = localStorage.getItem("theme")
   ? (localStorage.getItem("theme") as "dark" | "light")
@@ -8,9 +7,6 @@ const currentTheme: "dark" | "light" = localStorage.getItem("theme")
 
 const currentThemeObj = currentTheme === "light" ? lightTheme : darkTheme;
 
-const themeObjStr = JSON.stringify(currentThemeObj);
-
-const useLocalStorageTheme = () => useLocalStorage<Theme>("theme", themeObjStr);
-// const useLocalStorageTheme = () => useState(currentThemeObj);
+const useLocalStorageTheme = () => useState(currentThemeObj);
 
 export default useLocalStorageTheme;

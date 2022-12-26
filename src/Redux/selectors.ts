@@ -1,12 +1,12 @@
 import type {
-  VendorNameType,
-  ItemName,
   Category,
+  ItemName,
   ItemNumber,
-  Src,
-  OfficialVendorNameType,
   Link,
-} from "../custom_types/api";
+  OfficialVendorNameType,
+  Src,
+  VendorNameType,
+} from "../types/api";
 import emptyArr from "../utils/emptyArr";
 import type { RootState } from "./store";
 

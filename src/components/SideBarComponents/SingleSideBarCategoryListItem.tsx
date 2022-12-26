@@ -1,17 +1,17 @@
-import PropTypes from "prop-types";
 import { Button, ButtonGroup } from "@mui/material";
+import PropTypes from "prop-types";
 import type { FC, MouseEventHandler, RefObject } from "react";
 import { memo, useCallback } from "react";
 import { shallowEqual } from "react-redux";
-import SideBarVendorBadges from "./SideBarVendorBadges";
 import { addItems } from "../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
 import {
   checkIfAddedToAllVendors,
   selectVendorsByItemName,
 } from "../../Redux/selectors";
-import type { ItemName } from "../../custom_types/api";
-import { itemNames } from "../../custom_types/api";
+import type { ItemName } from "../../types/api";
+import { itemNames } from "../../types/api";
+import SideBarVendorBadges from "./SideBarVendorBadges";
 
 type Props = {
   itemName: ItemName;

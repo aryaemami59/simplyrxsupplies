@@ -1,4 +1,4 @@
-import type { ItemName } from "../custom_types/api";
+import type { ItemName } from "../types/api";
 
 const sortResults = (
   searchTerm: ItemName,
