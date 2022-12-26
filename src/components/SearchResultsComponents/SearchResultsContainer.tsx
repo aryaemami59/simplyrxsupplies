@@ -4,9 +4,6 @@ import { Suspense, lazy, memo } from "react";
 import { shallowEqual } from "react-redux";
 import { useAppSelector } from "../../Redux/hooks";
 import { selectAllListItems } from "../../Redux/selectors";
-import useCountRender from "../../hooks/useCountRender";
-import useDependencyChangeLogger from "../../hooks/useDependencyChangeLogger";
-import useMounted from "../../hooks/useMounted";
 import IsLoading from "../../shared/components/IsLoading";
 import VendorColumnModalComponent from "../InputComponents/VendorColumnModalComponent";
 
@@ -15,9 +12,6 @@ const fallback = <IsLoading />;
 
 const SearchResultsContainer: FC = () => {
   const listItems = useAppSelector(selectAllListItems, shallowEqual);
-  useDependencyChangeLogger(listItems, "listItems");
-  useCountRender(SearchResultsContainer);
-  useMounted(SearchResultsContainer);
 
   return (
     <>

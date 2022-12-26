@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
 import { ThemeProvider } from "@mui/material/styles";
+import PropTypes from "prop-types";
 import type { FC, ReactNode } from "react";
 import { createContext, memo, useMemo } from "react";
 import useLocalStorageTheme from "../hooks/useLocalStorageTheme";
@@ -19,11 +19,12 @@ const ColorModeProvider: FC<Props> = ({ children }) => {
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        setTheme(prev => {
-          const currentTheme = prev === lightTheme ? darkTheme : lightTheme;
-          localStorage.setItem("theme", currentTheme.palette.mode);
-          return currentTheme;
-        });
+        setTheme(prev => (prev === lightTheme ? darkTheme : lightTheme));
+        // setTheme(prev => {
+        //   const currentTheme = prev === lightTheme ? darkTheme : lightTheme;
+        //   localStorage.setItem("theme", currentTheme.palette.mode);
+        //   return currentTheme;
+        // });
       },
       theme,
     }),

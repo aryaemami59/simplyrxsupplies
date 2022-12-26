@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material";
-import type { ChangeEvent, CSSProperties, FC } from "react";
+import type { CSSProperties, ChangeEvent, FC } from "react";
 import {
   memo,
   useCallback,
@@ -10,7 +10,7 @@ import {
 } from "react";
 import { shallowEqual } from "react-redux";
 import { clearListItems, setListItems } from "../../Redux/addedSlice";
-import { useAppSelector, useAppDispatch } from "../../Redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
 import { selectItemNamesArr } from "../../Redux/selectors";
 import { SEARCH_FIELD_BG } from "../../shared/sharedStyles";
 import search from "../../utils/search";
