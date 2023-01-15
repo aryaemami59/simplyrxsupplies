@@ -6,7 +6,7 @@ export type AnyFunction = () => unknown;
 
 export type EmptyObject = Record<string, never>;
 
-export type EmptyArray = [];
+export type EmptyArray = never[];
 
 export type Composite = AnyFunction | AnyArray | AnyObject;
 

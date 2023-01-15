@@ -12,7 +12,7 @@ import type {
 import type { AddedState, FetchedData } from "../types/redux";
 import emptyArr from "../utils/emptyArr";
 import emptyObj from "../utils/emptyObj";
-import intersection from "../utils/intersection";
+import difference from "../utils/difference";
 
 export const fetchItems = createAsyncThunk<FetchedData>(
   `items/fetchitems`,
@@ -73,7 +73,7 @@ export const addedSlice = createSlice({
           ];
           state.itemsObj[itemName].vendorsToAdd = state.itemsObj[itemName]
             .vendorsToAdd.length
-            ? intersection(
+            ? difference(
                 state.itemsObj[itemName].vendors,
                 state.itemsObj[itemName].vendorsAdded
               )
@@ -90,7 +90,7 @@ export const addedSlice = createSlice({
       ];
       state.itemsObj[itemName].vendorsToAdd = state.itemsObj[itemName]
         .vendorsToAdd.length
-        ? intersection(
+        ? difference(
             state.itemsObj[itemName].vendors,
             state.itemsObj[itemName].vendorsAdded
           )
