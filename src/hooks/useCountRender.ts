@@ -11,10 +11,10 @@ const useCountRender = <P extends AnyObject = EmptyObject>(
   component: FC<P>
 ) => {
   const { name } = component;
-  const ref = useRef(0);
-  const didMount = useRef(false);
+  const ref = useRef<number>(0);
+  const didMount = useRef<boolean>(false);
 
-  useDebugValue([name, ref.current], e => e);
+  useDebugValue([name, ref.current] as const, e => e);
 
   useEffect(() => {
     didMount.current = false;

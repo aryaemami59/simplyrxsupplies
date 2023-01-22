@@ -1,11 +1,11 @@
 import type {
-  CategoriesObjType,
-  Category,
+  CategoriesObj,
+  CategoryName,
   ItemName,
-  ItemObjType,
   ItemsObj,
-  VendorNameType,
-  VendorsObjType,
+  SingleItemObj,
+  VendorName,
+  VendorsObj,
 } from "./api";
 
 export type AddedState = {
@@ -14,14 +14,14 @@ export type AddedState = {
   isLoading: boolean;
   itemsArr: ItemName[];
   itemsObj: ItemsObj;
-  vendorsArr: VendorNameType[];
-  vendorsObj: VendorsObjType;
-  categoriesArr: Category[];
-  categoriesObj: CategoriesObjType;
+  vendorsArr: VendorName[];
+  vendorsObj: VendorsObj;
+  categoriesArr: CategoryName[];
+  categoriesObj: CategoriesObj;
 };
 
 export type FetchedData = {
-  items: ItemObjType[];
-  vendors: VendorsObjType;
-  categories: CategoriesObjType;
+  items: SingleItemObj[];
+  vendors: VendorsObj;
+  categories: CategoriesObj;
 };

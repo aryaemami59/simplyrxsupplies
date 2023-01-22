@@ -1,60 +1,61 @@
 import type {
-  Category,
+  CategoryName,
   ItemName,
   ItemNumber,
   Link,
-  OfficialVendorNameType,
+  OfficialVendorName,
+  SingleItemObj,
   Src,
-  VendorNameType,
+  VendorName,
 } from "../types/api";
 import emptyArr from "../utils/emptyArr";
 import type { RootState } from "./store";
 
 export const selectAddedItemsByVendor =
-  (vendorName: VendorNameType) =>
+  (vendorName: VendorName) =>
   (state: RootState): ItemName[] =>
     state.added.vendorsObj[vendorName].itemsAdded;
 
-export const selectVendorsArr = (state: RootState): VendorNameType[] =>
+export const selectVendorsArr = (state: RootState): VendorName[] =>
   state.added.vendorsArr.length ? state.added.vendorsArr : emptyArr;
 
 export const selectVendorsLinks =
-  (vendorName: VendorNameType) =>
+  (vendorName: VendorName) =>
   (state: RootState): Link =>
     state.added.vendorsObj[vendorName].link;
 
-export const selectCategoriesArr = (state: RootState): Category[] =>
+export const selectCategoriesArr = (state: RootState): CategoryName[] =>
   state.added.categoriesArr;
 
 export const addedItemsLength =
-  (vendorName: VendorNameType) =>
+  (vendorName: VendorName) =>
   (state: RootState): number =>
     state.added.vendorsObj[vendorName].itemsAdded.length;
 
 export const selectItemNamesByVendor =
-  (vendorName: VendorNameType) => (state: RootState) =>
+  (vendorName: VendorName) =>
+  (state: RootState): ItemName[] =>
     Object.values(state.added.itemsObj)
-      .filter(({ vendors }) => vendors.includes(vendorName))
+      .filter(({ vendors }: SingleItemObj) => vendors.includes(vendorName))
       .map(({ name }) => name);
 
 export const selectCategoriesItemNames =
-  (categoryParam: Category) =>
+  (categoryParam: CategoryName) =>
   (state: RootState): ItemName[] =>
     Object.values(state.added.itemsObj)
-      .filter(({ category }) => category.includes(categoryParam))
+      .filter(({ category }) => category.includes(categoryParam as never))
       .map(({ name }) => name);
 
 export const selectItemNamesArr = (state: RootState): ItemName[] =>
   state.added.itemsArr;
 
 export const selectQRCodeContent =
-  (vendorName: VendorNameType) =>
+  (vendorName: VendorName) =>
   (state: RootState): string =>
     state.added.vendorsObj[vendorName].qrContent;
 
-export const selectQRText =
-  (vendorName: VendorNameType) => (state: RootState) =>
-    state.added.vendorsObj[vendorName].qrText;
+export const selectQRText = (vendorName: VendorName) => (state: RootState) =>
+  state.added.vendorsObj[vendorName].qrText;
 
 export const checkIfAddedToAllVendors =
   (itemName: ItemName) =>
@@ -63,22 +64,22 @@ export const checkIfAddedToAllVendors =
     state.added.itemsObj[itemName].vendors.length;
 
 export const checkIfItemAddedToOneVendor =
-  (vendorName: VendorNameType, itemName: ItemName) =>
+  (vendorName: VendorName, itemName: ItemName) =>
   (state: RootState): boolean =>
     state.added.itemsObj[itemName].vendorsAdded.includes(vendorName);
 
 export const checkVendorsToAdd =
-  (vendorName: VendorNameType, itemName: ItemName) =>
+  (vendorName: VendorName, itemName: ItemName) =>
   (state: RootState): boolean =>
     state.added.itemsObj[itemName].vendorsToAdd.includes(vendorName);
 
 export const checkVendorsAdded =
-  (vendorName: VendorNameType, itemName: ItemName) =>
+  (vendorName: VendorName, itemName: ItemName) =>
   (state: RootState): boolean =>
     state.added.itemsObj[itemName].vendorsAdded.includes(vendorName);
 
 export const checkIfAnyAddedToOneVendor =
-  (vendorName: VendorNameType) =>
+  (vendorName: VendorName) =>
   (state: RootState): boolean =>
     !!state.added.vendorsObj[vendorName].itemsAdded.length;
 
@@ -94,12 +95,12 @@ export const selectItemSrc =
 
 export const selectVendorsByItemName =
   (itemName: ItemName) =>
-  (state: RootState): VendorNameType[] =>
+  (state: RootState): VendorName[] =>
     state.added.itemsObj[itemName].vendors;
 
 export const selectVendorOfficialName =
-  (vendorName: VendorNameType) =>
-  (state: RootState): OfficialVendorNameType =>
+  (vendorName: VendorName) =>
+  (state: RootState): OfficialVendorName =>
     state.added.vendorsObj[vendorName].officialName;
 
 export const selectAllListItems = (state: RootState) => state.added.listItems;

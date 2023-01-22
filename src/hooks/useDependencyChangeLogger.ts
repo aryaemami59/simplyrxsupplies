@@ -13,12 +13,12 @@ const useDependencyChangeLogger = <T extends Composite>(
   dependency: T,
   depName = ""
 ) => {
-  const didMount = useRef(false);
+  const didMount = useRef<boolean>(false);
   const depType = Array.isArray(dependency)
     ? "Array"
     : capitalizeFirstLetter(typeof dependency);
 
-  useDebugValue([depName, dependency], e => e);
+  useDebugValue([depName, dependency] as const, e => e);
 
   useEffect(() => {
     didMount.current = false;

@@ -11,12 +11,12 @@ import { memo, useCallback, useRef, useState } from "react";
 import { shallowEqual } from "react-redux";
 import { useAppSelector } from "../../Redux/hooks";
 import { selectCategoriesItemNames } from "../../Redux/selectors";
-import type { Category } from "../../types/api";
+import type { CategoryName } from "../../types/api";
 import { categoryNames } from "../../types/api";
 import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem";
 
 type Props = {
-  category: Category;
+  category: CategoryName;
 };
 
 const transitionProps: TransitionProps = {

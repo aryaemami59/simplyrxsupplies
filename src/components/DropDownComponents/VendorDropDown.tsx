@@ -5,7 +5,7 @@ import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
 import useItemNames from "../../hooks/useItemNames";
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
-import type { VendorNameType } from "../../types/api";
+import type { VendorName } from "../../types/api";
 import { vendorNames } from "../../types/api";
 import SingleDropDown from "./SingleDropDown";
 
@@ -33,7 +33,7 @@ const paperProps: PaperProps = {
 };
 
 type Props = {
-  vendorName: VendorNameType;
+  vendorName: VendorName;
 };
 
 const VendorDropDown: FC<Props> = ({ vendorName }) => {

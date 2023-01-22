@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
 import type { FC, ReactNode } from "react";
 import { createContext, memo } from "react";
-import type { VendorNameType } from "../types/api";
+import type { VendorName } from "../types/api";
 import { vendorNames } from "../types/api";
 
 type Props = {
   children: ReactNode;
-  vendorName: VendorNameType;
+  vendorName: VendorName;
 };
 
-export const VendorNameContext = createContext<VendorNameType>("MCK");
+export const VendorNameContext = createContext<VendorName>("MCK");
 
 const VendorNameProvider: FC<Props> = ({ children, vendorName }) => (
   <VendorNameContext.Provider value={vendorName}>
