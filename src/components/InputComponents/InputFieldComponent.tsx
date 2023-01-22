@@ -57,6 +57,7 @@ const InputFieldComponent: FC = () => {
   return (
     <TextField
       fullWidth
+      inputRef={inputRef}
       onChange={changeVal}
       value={val}
       label="Search"
