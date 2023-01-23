@@ -31,6 +31,7 @@ const SideBarVendorBadges: FC<Props> = ({ vendorName, itemName }) => {
   const control = useMemo(
     () => (
       <Checkbox
+        size="small"
         checked={checked}
         disabled={disabled}
         onChange={clickHandler}
@@ -41,6 +42,8 @@ const SideBarVendorBadges: FC<Props> = ({ vendorName, itemName }) => {
 
   return (
     <FormControlLabel
+      className="fs-7"
+      disableTypography
       label={officialVendorName}
       control={control}
     />

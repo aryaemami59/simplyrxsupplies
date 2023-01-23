@@ -1,6 +1,6 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Tooltip } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
 import QRCodeDialog from "./QRCodeDialog";
@@ -34,17 +34,24 @@ const QRCodeModal: FC = () => {
       <Tooltip
         onOpen={showTooltip}
         onClose={hideTooltip}
-        enterDelay={1500}
-        enterNextDelay={1500}
+        enterDelay={500}
+        enterNextDelay={500}
         title={title}
         open={open}>
-        <Button
+        <IconButton
+          onClick={showModal}
+          size="large"
+          className="d-inline-block w-auto">
+          {startIcon}
+        </IconButton>
+        {/* <Button
+          size="small"
           variant="contained"
           onClick={showModal}
           startIcon={startIcon}
           className="w-auto">
           Magnify
-        </Button>
+        </Button> */}
       </Tooltip>
       <QRCodeDialog
         hideModal={hideModal}

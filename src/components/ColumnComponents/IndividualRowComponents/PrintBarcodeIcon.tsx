@@ -1,13 +1,13 @@
-import PropTypes from "prop-types";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import printJS from "print-js";
+import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
-import { memo, useCallback } from "react";
-import useItemName from "../../../hooks/useItemName";
+import { memo, useCallback, useState } from "react";
 import { useAppSelector } from "../../../Redux/hooks";
 import { selectItemSrc } from "../../../Redux/selectors";
+import useItemName from "../../../hooks/useItemName";
 
 type Props = {
   header: string;
@@ -15,7 +15,10 @@ type Props = {
 
 const startIcon = <FontAwesomeIcon icon={faPrint} />;
 
+const title = "Print Barcode";
+
 const PrintBarcodeIcon: FC<Props> = ({ header }) => {
+  const [open, setOpen] = useState(false);
   const itemName = useItemName();
   const src = useAppSelector(selectItemSrc(itemName));
 
@@ -28,14 +31,29 @@ const PrintBarcodeIcon: FC<Props> = ({ header }) => {
     });
   }, [header, src]);
 
+  const showTooltip = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const hideTooltip = useCallback(() => {
+    setOpen(false);
+  }, []);
+
   return (
-    <Button
-      variant="contained"
-      startIcon={startIcon}
-      onClick={clickHandler}
-      className="w-auto">
-      Print Barcode
-    </Button>
+    <Tooltip
+      onOpen={showTooltip}
+      onClose={hideTooltip}
+      enterDelay={500}
+      enterNextDelay={500}
+      title={title}
+      open={open}>
+      <IconButton
+        size="small"
+        onClick={clickHandler}
+        className="d-inline-block w-auto">
+        {startIcon}
+      </IconButton>
+    </Tooltip>
   );
 };
 

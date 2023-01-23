@@ -8,6 +8,7 @@ import {
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
 import VendorColumnList from "../ColumnComponents/VendorColumnList";
+import DisplayCartButton from "./DisplayCartButton";
 
 const VendorColumnModalComponent: FC = () => {
   const [show, setShow] = useState(false);
@@ -21,13 +22,15 @@ const VendorColumnModalComponent: FC = () => {
 
   return (
     <>
-      <Button
+      <DisplayCartButton showModal={showModal} />
+      {/* <Button
         variant="contained"
         size="large"
         onClick={showModal}
+        startIcon={startIcon}
         className="my-3 d-inline-block d-md-none w-75 rounded custom-text-shadow-white text-white shadow">
         Display Cart
-      </Button>
+      </Button> */}
       <Dialog
         // keepMounted
         maxWidth="md"
@@ -35,9 +38,11 @@ const VendorColumnModalComponent: FC = () => {
         onClose={hideModal}
         open={show}>
         <DialogTitle>Item Vendors</DialogTitle>
-        <DialogContent dividers>
+        <DialogContent
+          className="px-0"
+          dividers>
           <div className="row justify-content-center">
-            <div className="col-10 justify-content-center">
+            <div className="col-10 justify-content-center px-0">
               <VendorColumnList />
             </div>
           </div>

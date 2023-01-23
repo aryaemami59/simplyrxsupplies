@@ -17,7 +17,7 @@ const SearchResultsSingleCard: FC<Props> = ({ itemName }) => (
     key="Card-SingleInputListItems">
     <CardContent
       key="Card.Body-SingleInputListItems"
-      className="row gy-2 justify-content-center">
+      className="row gy- justify-content-center p-2">
       <SearchResultsCardBodyContent itemName={itemName} />
     </CardContent>
   </Card>

@@ -248,3 +248,7 @@ img.barcode-image {
 .minw-180 {
   min-width: 180px;
 }
+
+.fs-7 {
+  font-size: 0.90rem !important;
+}

@@ -1,27 +1,24 @@
-import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconButton, Tooltip } from "@mui/material";
-import type { FC, MouseEventHandler } from "react";
+import type { FC } from "react";
 import { memo, useCallback, useState } from "react";
-import { removeItems } from "../../../Redux/addedSlice";
+import { removeAllItems } from "../../../Redux/addedSlice";
 import { useAppDispatch } from "../../../Redux/hooks";
-import useItemName from "../../../hooks/useItemName";
 import useVendorName from "../../../hooks/useVendorName";
 
-const startIcon = <FontAwesomeIcon icon={faDeleteLeft} />;
-// const startIcon = <DeleteIcon />;
+const startIcon = <FontAwesomeIcon icon={faTrashCan} />;
 
-const title = "Delete This Item";
+const title = "Remove All Items";
 
-const RowDeleteButton: FC = () => {
+const RemoveAllButton: FC = () => {
   const [open, setOpen] = useState(false);
-  const itemName = useItemName();
   const vendorName = useVendorName();
   const dispatch = useAppDispatch();
 
-  const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    dispatch(removeItems({ itemName, vendorName }));
-  }, [dispatch, itemName, vendorName]);
+  const clickHandler = useCallback(() => {
+    dispatch(removeAllItems(vendorName));
+  }, [dispatch, vendorName]);
 
   const showTooltip = useCallback(() => {
     setOpen(true);
@@ -40,13 +37,13 @@ const RowDeleteButton: FC = () => {
       title={title}
       open={open}>
       <IconButton
-        size="medium"
-        className="w-auto d-inline-block"
-        onClick={clickHandler}>
+        onClick={clickHandler}
+        className="d-inline-block w-auto"
+        size="large">
         {startIcon}
       </IconButton>
     </Tooltip>
   );
 };
 
-export default memo(RowDeleteButton);
+export default memo(RemoveAllButton);

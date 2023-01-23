@@ -28,7 +28,7 @@ const SearchResultsAddButton: FC<Props> = ({ itemName }) => {
   return (
     <Button
       disabled={IfAddedToAllVendors}
-      size="large"
+      size="small"
       variant="contained"
       key={`Button-AddItemButtonComponent-${itemName}`}
       onClick={clickHandler}

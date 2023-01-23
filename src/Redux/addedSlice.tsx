@@ -119,6 +119,21 @@ export const addedSlice = createSlice({
       });
       state.vendorsObj[vendorName].qrText = qr;
     },
+    removeAllItems: (state, action: PayloadAction<VendorName>) => {
+      const { payload: vendorName } = action;
+      state.vendorsObj[vendorName].itemsAdded.forEach(itemName => {
+        state.itemsObj[itemName].vendorsAdded = state.itemsObj[
+          itemName
+        ].vendorsAdded.filter(vendor => vendor !== vendorName);
+        state.itemsObj[itemName].vendorsToAdd.includes(vendorName) ||
+          state.itemsObj[itemName].vendorsToAdd.push(vendorName);
+        // removeItems({ itemName: e, vendorName });
+      });
+      state.vendorsObj[vendorName].qrContent = "";
+      state.vendorsObj[vendorName].qrText = "";
+      // removeItems()
+      state.vendorsObj[vendorName].itemsAdded = emptyArr;
+    },
     setListItems: (state, action: PayloadAction<ItemName[]>) => {
       state.listItems = action.payload;
     },
@@ -129,7 +144,7 @@ export const addedSlice = createSlice({
       const { itemName, vendorName } = action.payload;
       state.itemsObj[itemName].vendorsToAdd = state.itemsObj[
         itemName
-      ].vendorsToAdd.includes(action.payload.vendorName)
+      ].vendorsToAdd.includes(vendorName)
         ? state.itemsObj[itemName].vendorsToAdd.filter(
             vendorNameParam => vendorNameParam !== vendorName
           )
@@ -178,6 +193,7 @@ export const {
   setListItems,
   clearListItems,
   setVendors,
+  removeAllItems,
 } = addedSlice.actions;
 
 export const addedReducer = addedSlice.reducer;

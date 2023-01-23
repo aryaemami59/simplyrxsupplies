@@ -7,7 +7,12 @@ import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal";
 import RowDeleteButton from "./RowDeleteButton";
 import RowSingleItemInfo from "./RowSingleItemInfo";
 
-const RowSingleContainer: FC = () => {
+type Props = {
+  toggleCollapse: () => void;
+  allCollapsed: boolean;
+};
+
+const RowSingleContainer: FC<Props> = ({ allCollapsed, toggleCollapse }) => {
   const itemName = useItemName();
   const [open, setOpen] = useState(true);
 
@@ -19,11 +24,14 @@ const RowSingleContainer: FC = () => {
     <div className="rounded border mb-4">
       <div className="my-3 container-fluid">
         <div className="justify-content-evenly align-items-center row">
-          <div className="col-xs-auto justify-content-center d-flex">
-            <ButtonGroup className="flex-wrap justify-content-center">
+          <div className="col-xs-auto d-flex">
+            <ButtonGroup
+              fullWidth
+              className="flex-wrap justify-content-between">
               <RowSingleContainerModal />
               <CollapseButton
                 open={open}
+                allCollapsed={allCollapsed}
                 toggle={toggleFade}
               />
               <RowDeleteButton />
@@ -31,7 +39,8 @@ const RowSingleContainer: FC = () => {
           </div>
           <div className="col-12 col-xl-7 col-xxl-9">
             <Fade
-              in={!open}
+              // in={!open}
+              in={!open || !allCollapsed}
               mountOnEnter
               unmountOnExit>
               <Button
@@ -45,7 +54,7 @@ const RowSingleContainer: FC = () => {
           </div>
         </div>
       </div>
-      <Collapse in={open}>
+      <Collapse in={open && allCollapsed}>
         <div>
           <RowSingleItemInfo />
         </div>
@@ -54,4 +63,4 @@ const RowSingleContainer: FC = () => {
   );
 };
 
-export default memo(RowSingleContainer);
+export default memo<Props>(RowSingleContainer);

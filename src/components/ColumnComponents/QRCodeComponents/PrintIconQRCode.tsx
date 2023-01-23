@@ -1,19 +1,22 @@
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import printjs from "print-js";
 import type { FC, MouseEventHandler } from "react";
-import { memo, useCallback } from "react";
-import useVendorName from "../../../hooks/useVendorName";
+import { memo, useCallback, useState } from "react";
 import { useAppSelector } from "../../../Redux/hooks";
 import { selectQRCodeContent } from "../../../Redux/selectors";
+import useVendorName from "../../../hooks/useVendorName";
 
 const header =
   "You can scan this image on the vendor's website to pull up all the items at once.";
 
 const startIcon = <FontAwesomeIcon icon={faPrint} />;
 
+const title = "Print QRCode";
+
 const PrintIconQRCode: FC = () => {
+  const [open, setOpen] = useState(false);
   const vendorName = useVendorName();
   const src = useAppSelector(selectQRCodeContent(vendorName));
 
@@ -26,14 +29,29 @@ const PrintIconQRCode: FC = () => {
     });
   }, [src]);
 
+  const showTooltip = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const hideTooltip = useCallback(() => {
+    setOpen(false);
+  }, []);
+
   return (
-    <Button
-      className="w-auto"
-      variant="contained"
-      startIcon={startIcon}
-      onClick={clickHandler}>
-      Print QRCode
-    </Button>
+    <Tooltip
+      onOpen={showTooltip}
+      onClose={hideTooltip}
+      enterDelay={500}
+      enterNextDelay={500}
+      title={title}
+      open={open}>
+      <IconButton
+        size="large"
+        className="d-inline-block w-auto"
+        onClick={clickHandler}>
+        {startIcon}
+      </IconButton>
+    </Tooltip>
   );
 };
 

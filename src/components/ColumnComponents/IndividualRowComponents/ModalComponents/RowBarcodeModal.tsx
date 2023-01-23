@@ -1,6 +1,6 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Tooltip } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
 import RowBarcodeDialog from "./RowBarcodeDialog";
@@ -34,17 +34,16 @@ const RowBarcodeModal: FC = () => {
       <Tooltip
         onOpen={showTooltip}
         onClose={hideTooltip}
-        enterDelay={1500}
-        enterNextDelay={1500}
+        enterDelay={500}
+        enterNextDelay={500}
         title={title}
         open={open}>
-        <Button
-          variant="contained"
-          startIcon={startIcon}
+        <IconButton
+          size="small"
           onClick={showModal}
-          className="w-auto">
-          Magnify
-        </Button>
+          className="d-inline-block w-auto">
+          {startIcon}
+        </IconButton>
       </Tooltip>
       <RowBarcodeDialog
         hideModal={hideModal}

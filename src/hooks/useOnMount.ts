@@ -3,7 +3,7 @@ import type { AnyFunction } from "../types/missingTypes";
 import useDependencyChangeLogger from "./useDependencyChangeLogger";
 
 const useOnMount = <T extends AnyFunction>(callback: T) => {
-  const didMount = useRef(false);
+  const didMount = useRef<boolean>(false);
 
   const memomizedCB = useCallback(() => {
     callback();

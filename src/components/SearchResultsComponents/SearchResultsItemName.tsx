@@ -10,7 +10,12 @@ type Props = {
 };
 
 const SearchResultsItemName: FC<Props> = ({ itemName }) => (
-  <CardHeader title={itemName} />
+  <CardHeader
+    // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
+    titleTypographyProps={{ className: "fs-5" }}
+    className="p-1 p-lg-auto"
+    title={itemName}
+  />
 );
 
 SearchResultsItemName.propTypes = {

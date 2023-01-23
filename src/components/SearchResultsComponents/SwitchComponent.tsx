@@ -9,7 +9,19 @@ import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 import type { VendorAndItemName } from "../../types/api";
 import { itemNames, vendorNames } from "../../types/api";
 
-const control = <Switch />;
+const control = (
+  <Switch
+    size="small"
+    // className="fs-6"
+    // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
+    // style={{ width: "48px", height: "48px" }}
+    // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
+    inputProps={{
+      className: "shadow",
+      // style: { width: "12px", height: "12px" },
+    }}
+  />
+);
 
 type Props = VendorAndItemName;
 
@@ -32,6 +44,7 @@ const SwitchComponent: FC<Props> = ({ itemName, vendorName }) => {
       disabled={disabled}
       onChange={clickHandler}
       disableTypography
+      className="p-0 fs-7"
       control={control}
       label={officialVendorName}
     />

@@ -1,6 +1,6 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Tooltip } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
 import RowItemsDialog from "./RowItemsDialog";
@@ -34,17 +34,16 @@ const RowSingleContainerModal: FC = () => {
       <Tooltip
         onOpen={showTooltip}
         onClose={hideTooltip}
-        enterDelay={1500}
-        enterNextDelay={1500}
+        enterDelay={500}
+        enterNextDelay={500}
         title={title}
         open={open}>
-        <Button
-          className="flex-grow-1"
-          onClick={showModal}
-          variant="contained"
-          startIcon={startIcon}>
-          Magnify
-        </Button>
+        <IconButton
+          size="medium"
+          className="w-auto d-inline-block"
+          onClick={showModal}>
+          {startIcon}
+        </IconButton>
       </Tooltip>
       <RowItemsDialog
         hideModal={hideModal}

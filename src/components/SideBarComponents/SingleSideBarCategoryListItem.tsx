@@ -38,7 +38,7 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemName, target }) => {
     <>
       <div>
         <Button
-          size="large"
+          size="small"
           disabled={ifAddedToAllVendors}
           className="fw-bold"
           variant="contained"
