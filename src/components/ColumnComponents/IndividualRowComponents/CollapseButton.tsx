@@ -11,18 +11,16 @@ const COLLAPSE = "Collapse" as const;
 type Props = {
   open: boolean;
   toggle: MouseEventHandler<HTMLButtonElement>;
-  allCollapsed: boolean;
 };
 
-const CollapseButton: FC<Props> = ({ open, toggle, allCollapsed }) => {
+const CollapseButton: FC<Props> = ({ open, toggle }) => {
   const [show, setShow] = useState(false);
-  const collapsed = open || allCollapsed;
   const startIcon = useMemo(
-    () => <FontAwesomeIcon icon={collapsed ? faMinimize : faMaximize} />,
-    [collapsed]
+    () => <FontAwesomeIcon icon={open ? faMaximize : faMinimize} />,
+    [open]
   );
 
-  const buttonText = collapsed ? COLLAPSE : EXPAND;
+  const buttonText = open ? EXPAND : COLLAPSE;
 
   const showTooltip = useCallback(() => {
     setShow(true);

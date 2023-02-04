@@ -4768,9 +4768,12 @@ export type GetVendors<T extends ItemVendors> = T extends readonly [...infer U]
   : never;
 
 type Mutable<T> = { -readonly [P in keyof T]: T[P] };
+
+export type MinimizedItemIds = VendorItemIds[number][];
 export type SingleVendorObj = Omit<Vendors[VendorName], "itemIds"> & {
   readonly itemIds: VendorItemIds;
   itemsAdded: ItemName[];
+  minimizedItemIds: MinimizedItemIds;
   qrContent: string;
   qrText: string;
 };

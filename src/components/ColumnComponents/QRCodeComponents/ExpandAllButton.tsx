@@ -1,19 +1,23 @@
-import { faMinimize } from "@fortawesome/free-solid-svg-icons";
+import { faMaximize } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconButton, Tooltip } from "@mui/material";
 import type { FC } from "react";
 import { memo, useCallback, useState } from "react";
 import useVendorName from "../../../hooks/useVendorName";
-import { minimizeAll } from "../../../Redux/addedSlice";
+import { maximizeAll } from "../../../Redux/addedSlice";
 import { useAppDispatch } from "../../../Redux/hooks";
 
-const title = "Collapse All Items";
+const title = "Expand All Items";
 
-const startIcon = <FontAwesomeIcon icon={faMinimize} />;
+const startIcon = <FontAwesomeIcon icon={faMaximize} />;
 
-const CollapseAllButton: FC = () => {
+const ExpandAllButton: FC = () => {
   const vendorName = useVendorName();
   const dispatch = useAppDispatch();
+
+  const toggleCollapse = useCallback(() => {
+    dispatch(maximizeAll(vendorName));
+  }, [dispatch, vendorName]);
 
   const [open, setOpen] = useState(false);
 
@@ -24,10 +28,6 @@ const CollapseAllButton: FC = () => {
   const hideTooltip = useCallback(() => {
     setOpen(false);
   }, []);
-
-  const toggleCollapse = useCallback(() => {
-    dispatch(minimizeAll(vendorName));
-  }, [dispatch, vendorName]);
 
   return (
     <Tooltip
@@ -47,4 +47,4 @@ const CollapseAllButton: FC = () => {
   );
 };
 
-export default memo(CollapseAllButton);
+export default memo(ExpandAllButton);

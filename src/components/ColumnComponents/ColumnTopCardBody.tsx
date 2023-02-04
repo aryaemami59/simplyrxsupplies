@@ -1,6 +1,6 @@
 import { CardContent, List } from "@mui/material";
 import type { FC } from "react";
-import { memo, useCallback, useState } from "react";
+import { memo } from "react";
 import { shallowEqual } from "react-redux";
 import { useAppSelector } from "../../Redux/hooks";
 import { selectAddedItemsByVendor } from "../../Redux/selectors";
@@ -11,23 +11,15 @@ import QRCodeImageContainer from "./QRCodeComponents/QRCodeImageContainer";
 import VendorLink from "./VendorLink";
 
 const ColumnTopCardBody: FC = () => {
-  const [allCollapsed, setAllCollapsed] = useState(true);
   const vendorName = useVendorName();
   const addedItems = useAppSelector(
     selectAddedItemsByVendor(vendorName),
     shallowEqual
   );
 
-  const toggleCollapse = useCallback(() => {
-    setAllCollapsed(prev => !prev);
-  }, []);
-
   return (
     <CardContent className="p-2">
-      <QRCodeImageContainer
-        toggleCollapse={toggleCollapse}
-        allCollapsed={allCollapsed}
-      />
+      <QRCodeImageContainer />
       <VendorLink />
       <List>
         {addedItems.map(itemName => (
@@ -35,8 +27,6 @@ const ColumnTopCardBody: FC = () => {
             key={`${itemName}-${vendorName}`}
             itemName={itemName}>
             <RowSingleContainer
-              toggleCollapse={toggleCollapse}
-              allCollapsed={allCollapsed}
               key={`${itemName}-${vendorName}-SingleVendorColumnListItem`}
             />
           </ItemNameProvider>

@@ -3,6 +3,7 @@ import type {
   ItemName,
   ItemNumber,
   Link,
+  MinimizedItemIds,
   OfficialVendorName,
   SingleItemObj,
   Src,
@@ -102,6 +103,24 @@ export const selectVendorOfficialName =
   (vendorName: VendorName) =>
   (state: RootState): OfficialVendorName =>
     state.added.vendorsObj[vendorName].officialName;
+
+export const selectMinimized =
+  (vendorName: VendorName) =>
+  (state: RootState): MinimizedItemIds =>
+    state.added.vendorsObj[vendorName].minimizedItemIds;
+
+export const checkIfMinimizedIsFull =
+  (vendorName: VendorName) =>
+  (state: RootState): boolean =>
+    state.added.vendorsObj[vendorName].minimizedItemIds.length ===
+    state.added.vendorsObj[vendorName].itemsAdded.length;
+
+export const checkIfMinimized =
+  (vendorName: VendorName, itemName: ItemName) =>
+  (state: RootState): boolean =>
+    state.added.vendorsObj[vendorName].minimizedItemIds.includes(
+      state.added.itemsObj[itemName].id
+    );
 
 export const selectAllListItems = (state: RootState) => state.added.listItems;
 

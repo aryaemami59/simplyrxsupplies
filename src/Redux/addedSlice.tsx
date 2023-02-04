@@ -150,6 +150,28 @@ export const addedSlice = createSlice({
           )
         : state.itemsObj[itemName].vendorsToAdd.concat(vendorName);
     },
+    minimizeItem: (state, action: PayloadAction<VendorAndItemName>) => {
+      const { itemName, vendorName } = action.payload;
+      const { id } = state.itemsObj[itemName];
+      state.vendorsObj[vendorName].minimizedItemIds = state.vendorsObj[
+        vendorName
+      ].minimizedItemIds.includes(id)
+        ? state.vendorsObj[vendorName].minimizedItemIds.filter(e => e !== id)
+        : state.vendorsObj[vendorName].minimizedItemIds.concat(id);
+    },
+    minimizeAll: (state, action: PayloadAction<VendorName>) => {
+      const { payload: vendorName } = action;
+      const { itemsAdded, minimizedItemIds } = state.vendorsObj[vendorName];
+      const itemsAddedIds = itemsAdded.map(e => state.itemsObj[e].id);
+      state.vendorsObj[vendorName].minimizedItemIds = [
+        ...minimizedItemIds,
+        ...itemsAddedIds,
+      ];
+    },
+    maximizeAll: (state, action: PayloadAction<VendorName>) => {
+      const { payload: vendorName } = action;
+      state.vendorsObj[vendorName].minimizedItemIds = emptyArr;
+    },
   },
   extraReducers: builder => {
     builder.addCase(fetchItems.pending, state => {
@@ -174,6 +196,7 @@ export const addedSlice = createSlice({
         state.vendorsObj[vendorObj.abbrName] = {
           ...vendorObj,
           itemsAdded: emptyArr as ItemName[],
+          minimizedItemIds: [],
           qrContent: "",
           qrText: "",
         };
@@ -194,6 +217,9 @@ export const {
   clearListItems,
   setVendors,
   removeAllItems,
+  minimizeItem,
+  minimizeAll,
+  maximizeAll,
 } = addedSlice.actions;
 
 export const addedReducer = addedSlice.reducer;

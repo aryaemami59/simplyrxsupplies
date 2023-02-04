@@ -1,17 +1,13 @@
 import type { FC } from "react";
 import { memo } from "react";
 import CollapseAllButton from "./CollapseAllButton";
+import ExpandAllButton from "./ExpandAllButton";
 import PrintIconQRCode from "./PrintIconQRCode";
 import QRCodeImage from "./QRCodeImage";
 import QRCodeModal from "./QRCodeModal";
 import RemoveAllButton from "./RemoveAllButton";
 
-type Props = {
-  toggleCollapse: () => void;
-  allCollapsed: boolean;
-};
-
-const QRCodeImageContainer: FC<Props> = ({ allCollapsed, toggleCollapse }) => (
+const QRCodeImageContainer: FC = () => (
   <div className="container-fluid">
     <div className="row">
       <div className="position-relative col-md-12">
@@ -20,9 +16,11 @@ const QRCodeImageContainer: FC<Props> = ({ allCollapsed, toggleCollapse }) => (
           <QRCodeModal />
           <RemoveAllButton />
           <CollapseAllButton
-            allCollapsed={allCollapsed}
-            toggleCollapse={toggleCollapse}
+          // vendorName={ve}
+          // allCollapsed={allCollapsed}
+          // toggleCollapse={toggleCollapse}
           />
+          <ExpandAllButton />
         </div>
         <div className="justify-content-center row">
           <QRCodeImage className="w-auto" />
@@ -32,4 +30,4 @@ const QRCodeImageContainer: FC<Props> = ({ allCollapsed, toggleCollapse }) => (
   </div>
 );
 
-export default memo<Props>(QRCodeImageContainer);
+export default memo(QRCodeImageContainer);

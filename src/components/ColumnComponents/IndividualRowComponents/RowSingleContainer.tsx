@@ -1,24 +1,30 @@
 import { Button, ButtonGroup, Collapse, Fade } from "@mui/material";
 import type { FC } from "react";
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback } from "react";
 import useItemName from "../../../hooks/useItemName";
+import useVendorName from "../../../hooks/useVendorName";
+import { minimizeItem } from "../../../Redux/addedSlice";
+import { useAppDispatch, useAppSelector } from "../../../Redux/hooks";
+import { checkIfMinimized } from "../../../Redux/selectors";
 import CollapseButton from "./CollapseButton";
 import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal";
 import RowDeleteButton from "./RowDeleteButton";
 import RowSingleItemInfo from "./RowSingleItemInfo";
 
-type Props = {
-  toggleCollapse: () => void;
-  allCollapsed: boolean;
-};
-
-const RowSingleContainer: FC<Props> = ({ allCollapsed, toggleCollapse }) => {
+const RowSingleContainer: FC = () => {
   const itemName = useItemName();
-  const [open, setOpen] = useState(true);
+  const vendorName = useVendorName();
+  const dispatch = useAppDispatch();
+  const open = useAppSelector(checkIfMinimized(vendorName, itemName));
+  // const [open, setOpen] = useState(true);
+
+  // const toggleFade = useCallback(() => {
+  //   setOpen(prev => !prev);
+  // }, []);
 
   const toggleFade = useCallback(() => {
-    setOpen(prev => !prev);
-  }, []);
+    dispatch(minimizeItem({ itemName, vendorName }));
+  }, [dispatch, itemName, vendorName]);
 
   return (
     <div className="rounded border mb-4">
@@ -31,7 +37,6 @@ const RowSingleContainer: FC<Props> = ({ allCollapsed, toggleCollapse }) => {
               <RowSingleContainerModal />
               <CollapseButton
                 open={open}
-                allCollapsed={allCollapsed}
                 toggle={toggleFade}
               />
               <RowDeleteButton />
@@ -39,8 +44,7 @@ const RowSingleContainer: FC<Props> = ({ allCollapsed, toggleCollapse }) => {
           </div>
           <div className="col-12 col-xl-7 col-xxl-9">
             <Fade
-              // in={!open}
-              in={!open || !allCollapsed}
+              in={open}
               mountOnEnter
               unmountOnExit>
               <Button
@@ -54,7 +58,7 @@ const RowSingleContainer: FC<Props> = ({ allCollapsed, toggleCollapse }) => {
           </div>
         </div>
       </div>
-      <Collapse in={open && allCollapsed}>
+      <Collapse in={!open}>
         <div>
           <RowSingleItemInfo />
         </div>
@@ -63,4 +67,4 @@ const RowSingleContainer: FC<Props> = ({ allCollapsed, toggleCollapse }) => {
   );
 };
 
-export default memo<Props>(RowSingleContainer);
+export default memo(RowSingleContainer);
