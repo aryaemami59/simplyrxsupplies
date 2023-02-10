@@ -127,11 +127,9 @@ export const addedSlice = createSlice({
         ].vendorsAdded.filter(vendor => vendor !== vendorName);
         state.itemsObj[itemName].vendorsToAdd.includes(vendorName) ||
           state.itemsObj[itemName].vendorsToAdd.push(vendorName);
-        // removeItems({ itemName: e, vendorName });
       });
       state.vendorsObj[vendorName].qrContent = "";
       state.vendorsObj[vendorName].qrText = "";
-      // removeItems()
       state.vendorsObj[vendorName].itemsAdded = emptyArr;
     },
     setListItems: (state, action: PayloadAction<ItemName[]>) => {
@@ -140,8 +138,8 @@ export const addedSlice = createSlice({
     clearListItems: state => {
       state.listItems = emptyArr;
     },
-    setVendors: (state, action: PayloadAction<VendorAndItemName>) => {
-      const { itemName, vendorName } = action.payload;
+    setVendors: (state, { payload }: PayloadAction<VendorAndItemName>) => {
+      const { itemName, vendorName } = payload;
       state.itemsObj[itemName].vendorsToAdd = state.itemsObj[
         itemName
       ].vendorsToAdd.includes(vendorName)
@@ -171,6 +169,58 @@ export const addedSlice = createSlice({
     maximizeAll: (state, action: PayloadAction<VendorName>) => {
       const { payload: vendorName } = action;
       state.vendorsObj[vendorName].minimizedItemIds = emptyArr;
+    },
+    setVendorsForAllCheck: (
+      state,
+      { payload: vendorName }: PayloadAction<VendorName>
+    ) => {
+      Object.values(state.itemsObj)
+        .filter(({ vendors }) => vendors.includes(vendorName))
+        .forEach(({ name }) => {
+          // vendorsToAdd.includes(vendorName) || vendorsToAdd.push(vendorName);
+          // state.itemsObj[name].vendorsToAdd.includes(vendorName) ||
+          //   state.itemsObj[name].vendorsToAdd.concat(vendorName);
+          if (!state.itemsObj[name].vendorsToAdd.includes(vendorName)) {
+            state.itemsObj[name].vendorsToAdd = [
+              ...state.itemsObj[name].vendorsToAdd,
+              vendorName,
+            ];
+          }
+          // state.itemsObj[name].vendorsToAdd = state.itemsObj[
+          //   name
+          // ].vendorsToAdd.includes(vendorName)
+          //   ? vendorsToAdd.filter(v => v !== vendorName)
+          //   : [...vendorsToAdd, vendorName];
+          // console.log(name, state.itemsObj[name]);
+          // state.itemsObj[name].vendorsToAdd = state.itemsObj[
+          //   name
+          // ].vendorsToAdd.includes(vendorName)
+          //   ? state.itemsObj[name].vendorsToAdd.filter(
+          //       vendorNameParam => vendorNameParam !== vendorName
+          //     )
+          //   : state.itemsObj[name].vendorsToAdd.concat(vendorName);
+        });
+    },
+    setVendorsForAllUncheck: (
+      state,
+      { payload: vendorName }: PayloadAction<VendorName>
+    ) => {
+      state.itemsArr.forEach(itemName => {
+        if (
+          state.itemsObj[itemName].vendorsToAdd.indexOf(vendorName) ===
+          state.itemsObj[itemName].vendorsToAdd.length - 1
+        ) {
+          state.itemsObj[itemName].vendorsToAdd.pop();
+        } else if (
+          state.itemsObj[itemName].vendorsToAdd.indexOf(vendorName) === 0
+        ) {
+          state.itemsObj[itemName].vendorsToAdd.shift();
+        } else if (state.itemsObj[itemName].vendorsToAdd.includes(vendorName)) {
+          state.itemsObj[itemName].vendorsToAdd = state.itemsObj[
+            itemName
+          ].vendorsToAdd.filter(vendor => vendor !== vendorName);
+        }
+      });
     },
   },
   extraReducers: builder => {
@@ -220,6 +270,8 @@ export const {
   minimizeItem,
   minimizeAll,
   maximizeAll,
+  setVendorsForAllCheck,
+  setVendorsForAllUncheck,
 } = addedSlice.actions;
 
 export const addedReducer = addedSlice.reducer;

@@ -16,11 +16,6 @@ const RowSingleContainer: FC = () => {
   const vendorName = useVendorName();
   const dispatch = useAppDispatch();
   const open = useAppSelector(checkIfMinimized(vendorName, itemName));
-  // const [open, setOpen] = useState(true);
-
-  // const toggleFade = useCallback(() => {
-  //   setOpen(prev => !prev);
-  // }, []);
 
   const toggleFade = useCallback(() => {
     dispatch(minimizeItem({ itemName, vendorName }));
