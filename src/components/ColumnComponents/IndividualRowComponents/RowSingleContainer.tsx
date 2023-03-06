@@ -23,7 +23,7 @@ const RowSingleContainer: FC = () => {
 
   return (
     <div className="rounded border mb-4">
-      <div className="my-3 container-fluid">
+      <div className="my-1 container-fluid">
         <div className="justify-content-evenly align-items-center row">
           <div className="col-xs-auto d-flex">
             <ButtonGroup
