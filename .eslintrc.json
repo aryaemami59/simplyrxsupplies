@@ -10,9 +10,9 @@
   "plugins": [
     "react",
     "@typescript-eslint",
-    "eslint-plugin-prettier",
     "react-perf",
     "prettier",
+    "prefer-arrow",
     "jsx-a11y"
   ],
   "extends": [
@@ -54,29 +54,16 @@
         "unnamedComponents": "arrow-function"
       }
     ],
-    "no-console": 0,
-    "no-param-reassign": [
-      2,
-      {
-        "props": false
-      }
-    ],
+    "no-console": [0],
+    "no-param-reassign": [2, { "props": false }],
     "@typescript-eslint/no-floating-promises": [0],
     "react/jsx-props-no-spreading": [0],
     "@typescript-eslint/consistent-type-imports": [2],
     "react/require-default-props": [0],
     "@typescript-eslint/no-throw-literal": [0],
     "@typescript-eslint/naming-convention": [0],
+    "prefer-arrow/prefer-arrow-functions": [2],
     "@typescript-eslint/consistent-type-definitions": [2, "type"]
-    // "@typescript-eslint/ban-types": [
-    //   2,
-    //   {
-    //     "extendDefaults": true,
-    //     "types": {
-    //       "{}": false
-    //     }
-    //   }
-    // ]
   },
   "settings": {
     "react": {
