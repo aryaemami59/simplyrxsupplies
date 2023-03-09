@@ -11,7 +11,7 @@ import {
 import { shallowEqual } from "react-redux";
 import { clearListItems, setListItems } from "../../Redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
-import { selectItemNamesArr } from "../../Redux/selectors";
+import { selectItemNamesAndKeywords } from "../../Redux/selectors";
 import { SEARCH_FIELD_BG } from "../../shared/sharedStyles";
 import search from "../../utils/search";
 import InputEndAdornment from "./InputEndAdornment";
@@ -24,7 +24,11 @@ const style: CSSProperties = {
 const InputFieldComponent: FC = () => {
   const [val, setVal] = useState("");
   const [, startTransition] = useTransition();
-  const itemNames = useAppSelector(selectItemNamesArr, shallowEqual);
+  // const itemNames = useAppSelector(selectItemNamesArr, shallowEqual);
+  const itemNamesAndKeywords = useAppSelector(
+    selectItemNamesAndKeywords,
+    shallowEqual
+  );
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -39,11 +43,12 @@ const InputFieldComponent: FC = () => {
       const { value } = e.target;
       setVal(value);
       startTransition(() => {
-        const listItems = search(value, itemNames);
+        const listItems = search(value, itemNamesAndKeywords);
+        // const listItems = search(value, itemNames);
         dispatch(setListItems(listItems));
       });
     },
-    [dispatch, itemNames]
+    [dispatch, itemNamesAndKeywords]
   );
 
   const inputProps = useMemo(

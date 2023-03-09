@@ -1,21 +1,26 @@
-import type { ItemName } from "../types/api";
+import type { ItemNamesAndKeywords } from "../types/api";
 
 const sortResults = (
-  itemName: ItemName,
+  itemNameAndKeyword: ItemNamesAndKeywords,
   searchRegExp: RegExp,
   inputValue: string
 ): number => {
-  if (itemName.toLowerCase() === inputValue) {
+  if (itemNameAndKeyword.name.toLowerCase() === inputValue) {
     return 100;
   }
-  if (itemName.toLowerCase().startsWith(inputValue)) {
+  if (itemNameAndKeyword.name.toLowerCase().startsWith(inputValue)) {
     return 75;
   }
-  if (itemName.toLowerCase().includes(inputValue)) {
+  if (itemNameAndKeyword.name.toLowerCase().includes(inputValue)) {
     return 50;
   }
-  if (itemName.toLowerCase().match(searchRegExp)) {
-    return itemName.toLowerCase().match(searchRegExp)?.length ?? 0;
+  if (itemNameAndKeyword.name.toLowerCase().match(searchRegExp)) {
+    return (
+      itemNameAndKeyword.name.toLowerCase().match(searchRegExp)?.length ?? 0
+    );
+  }
+  if ((itemNameAndKeyword.keywords as string[]).includes(inputValue)) {
+    return 1;
   }
   return 0;
 };

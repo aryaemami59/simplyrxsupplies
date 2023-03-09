@@ -4804,3 +4804,8 @@ export type VendorAndItemName = {
   itemName: ItemName;
   vendorName: VendorName;
 };
+
+export type ItemNamesAndKeywords = Pick<
+  ItemsObj[ItemName],
+  "name" | "keywords"
+>;

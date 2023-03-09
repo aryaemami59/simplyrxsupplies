@@ -1,6 +1,7 @@
 import type {
   CategoryName,
   ItemName,
+  ItemNamesAndKeywords,
   ItemNumber,
   Keywords,
   Link,
@@ -124,6 +125,22 @@ export const checkIfMinimized =
     );
 
 export const selectAllListItems = (state: RootState) => state.added.listItems;
+
+export const selectItemNamesAndKeywords = (
+  state: RootState
+  // ): Record<keyof ItemsObj, ItemsObj[ItemName]["keywords"]>[] =>
+): ItemNamesAndKeywords[] =>
+  state.added.itemsArr.map(itemName => {
+    //   return {
+    //     [state.added.itemsObj[itemName].name satisfies ItemName]:
+    //       state.added.itemsObj[itemName].keywords,
+    //   };
+    const { name, keywords } = state.added.itemsObj[itemName];
+    return {
+      name,
+      keywords,
+    };
+  });
 
 export const selectKeywords =
   (itemName: ItemName) =>

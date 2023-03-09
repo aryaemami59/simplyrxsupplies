@@ -1,8 +1,11 @@
-import type { ItemName } from "../types/api";
+import type { ItemNamesAndKeywords } from "../types/api";
 import emptyArr from "./emptyArr";
 import sortResults from "./sortResults";
 
-const search = (value: string, itemNames: ItemName[]) => {
+const search = (
+  value: string,
+  itemNamesAndKeywords: ItemNamesAndKeywords[]
+) => {
   const inputValue = value
     .trim()
     .toLowerCase()
@@ -26,13 +29,20 @@ const search = (value: string, itemNames: ItemName[]) => {
   );
 
   return inputValue
-    ? itemNames
-        .filter(itemName => itemName.toLowerCase().trim().match(searchRegExp))
+    ? itemNamesAndKeywords
+        .filter(
+          ({ name, keywords }) =>
+            name.toLowerCase().trim().match(searchRegExp) ??
+            keywords.some(keyword =>
+              keyword.toLowerCase().trim().match(searchRegExp)
+            )
+        )
         .sort(
           (a, b) =>
             sortResults(b, searchRegExp, inputValue) -
             sortResults(a, searchRegExp, inputValue)
         )
+        .map(({ name }) => name)
     : // .slice(0, 20)
       emptyArr;
 };
