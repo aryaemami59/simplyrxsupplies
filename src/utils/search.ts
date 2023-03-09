@@ -3,30 +3,38 @@ import emptyArr from "./emptyArr";
 import sortResults from "./sortResults";
 
 const search = (value: string, itemNames: ItemName[]) => {
-  const trimmedValue = value
+  const inputValue = value
     .trim()
     .toLowerCase()
     .replace(/\s{2,}/, " ");
-  const reg = trimmedValue
+
+  const strictSearchValue = inputValue
     .split(/\s+/gi)
     .map((f: string, i: number, arr: string[]) =>
       i !== arr.length - 1 ? `(\\b(${f})+\\b)` : `(\\b(${f}))`
     )
     .join(".*");
-  const looseReg = trimmedValue
+
+  const looseSearchValue = inputValue
     .split(/\s+/gi)
     .map((f: string) => `(?=.*${f})`)
     .join("");
-  const re = new RegExp(`${reg}|${looseReg}`, "gi");
-  return trimmedValue
+
+  const searchRegExp = new RegExp(
+    `${strictSearchValue}|${looseSearchValue}`,
+    "gi"
+  );
+
+  return inputValue
     ? itemNames
-        .filter(itemName => itemName.toLowerCase().trim().match(re))
+        .filter(itemName => itemName.toLowerCase().trim().match(searchRegExp))
         .sort(
           (a, b) =>
-            sortResults(b, re, trimmedValue) - sortResults(a, re, trimmedValue)
+            sortResults(b, searchRegExp, inputValue) -
+            sortResults(a, searchRegExp, inputValue)
         )
-        .slice(0, 100)
-    : emptyArr;
+    : // .slice(0, 20)
+      emptyArr;
 };
 
 export default search;

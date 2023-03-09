@@ -1,21 +1,21 @@
 import type { ItemName } from "../types/api";
 
 const sortResults = (
-  searchTerm: ItemName,
-  re: RegExp,
-  trimmedValue: string
+  itemName: ItemName,
+  searchRegExp: RegExp,
+  inputValue: string
 ): number => {
-  if (searchTerm.toLowerCase() === trimmedValue) {
+  if (itemName.toLowerCase() === inputValue) {
     return 100;
   }
-  if (searchTerm.toLowerCase().startsWith(trimmedValue)) {
+  if (itemName.toLowerCase().startsWith(inputValue)) {
     return 75;
   }
-  if (searchTerm.toLowerCase().includes(trimmedValue)) {
+  if (itemName.toLowerCase().includes(inputValue)) {
     return 50;
   }
-  if (searchTerm.toLowerCase().match(re)) {
-    return searchTerm.toLowerCase().match(re)?.length ?? 0;
+  if (itemName.toLowerCase().match(searchRegExp)) {
+    return itemName.toLowerCase().match(searchRegExp)?.length ?? 0;
   }
   return 0;
 };

@@ -30,7 +30,9 @@ const App: FC = () => {
 
   return (
     <ColorModeProvider>
-      <Paper className="App">
+      <Paper
+        className="App"
+        id="App">
         <TopNavbar />
         <div className="container-fluid">
           <div className="justify-content-center row">

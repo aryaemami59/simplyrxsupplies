@@ -4758,7 +4758,7 @@ export type SingleItemObj = Omit<
   VendorName | "keywords" | "category" | "vendors"
 > & {
   readonly vendors: VendorName[];
-  readonly keywords: Keyword;
+  readonly keywords: Keywords;
   readonly category: CategoryName[];
   vendorsToAdd: VendorName[];
   vendorsAdded: VendorName[];
@@ -4788,7 +4788,7 @@ export type CategoryName = keyof Categories;
 export type ItemName = SingleItemObj["name"];
 
 export type ItemNumber = SingleItemObj["itemNumber"];
-export type Keyword = Mutable<SingleItem["keywords"]>;
+export type Keywords = Mutable<SingleItem["keywords"]>;
 export type Src = SingleItemObj["src"];
 
 export type OfficialVendorName = SingleVendorObj["officialName"];

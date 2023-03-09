@@ -11,7 +11,7 @@ import useComponentDidUpdate from "../useComponentDidUpdate";
  */
 const useDependencyChangeLogger = <T>(dependency: T, depName = "") => {
   const componentName =
-    new Error().stack?.split("\\n")[2].split(" ")[5] ?? "Component";
+    new Error().stack?.split("\n")[2]?.split(" ")[5] ?? "Component";
   const depType = Array.isArray(dependency)
     ? "Array"
     : capitalizeFirstLetter(typeof dependency);

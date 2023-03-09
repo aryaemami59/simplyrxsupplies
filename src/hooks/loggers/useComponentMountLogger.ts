@@ -7,7 +7,7 @@ import { useDebugValue, useEffect } from "react";
  */
 const useComponentMountLogger = () => {
   const componentName =
-    new Error().stack?.split("\\n")[2].split(" ")[5] ?? "Component";
+    new Error().stack?.split("\n")[2].split(" ")[5] ?? "Component";
 
   useDebugValue(componentName, e => e);
 

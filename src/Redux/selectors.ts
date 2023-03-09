@@ -2,6 +2,7 @@ import type {
   CategoryName,
   ItemName,
   ItemNumber,
+  Keywords,
   Link,
   MinimizedItemIds,
   OfficialVendorName,
@@ -123,6 +124,15 @@ export const checkIfMinimized =
     );
 
 export const selectAllListItems = (state: RootState) => state.added.listItems;
+
+export const selectKeywords =
+  (itemName: ItemName) =>
+  (state: RootState): Keywords =>
+    state.added.itemsObj[itemName].keywords;
+// export const selectKeywords =
+//   (itemNames: ItemName[]) =>
+//   (state: RootState): Keyword[] =>
+//     itemNames.map(itemName => state.added.itemsObj[itemName].keywords);
 
 export const checkIfLoading = (state: RootState): boolean =>
   state.added.isLoading;
