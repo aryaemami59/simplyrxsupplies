@@ -6,6 +6,7 @@ import PrintIconQRCode from "./PrintIconQRCode";
 import QRCodeImage from "./QRCodeImage";
 import QRCodeModal from "./QRCodeModal";
 import RemoveAllButton from "./RemoveAllButton";
+import ShareButton from "./ShareButton";
 
 const QRCodeImageContainer: FC = () => (
   <div className="container-fluid">
@@ -21,6 +22,7 @@ const QRCodeImageContainer: FC = () => (
           // toggleCollapse={toggleCollapse}
           />
           <ExpandAllButton />
+          <ShareButton />
         </div>
         <div className="justify-content-center row">
           <QRCodeImage className="w-auto" />
