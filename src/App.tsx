@@ -1,5 +1,5 @@
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { Paper } from "@mui/material";
+import Paper from "@mui/material/Paper";
 import "bootstrap/dist/css/bootstrap.min.css";
 import type { FC } from "react";
 import { memo, useEffect } from "react";

@@ -1,15 +1,13 @@
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 import PropTypes from "prop-types";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from "@mui/material";
 import type { FC } from "react";
 import { memo } from "react";
-import { Button } from "react-bootstrap";
-import BarcodeImage from "../BarcodeImage";
+import Button from "react-bootstrap/Button";
 import useItemName from "../../../../hooks/useItemName";
+import BarcodeImage from "../BarcodeImage";
 
 type Props = {
   hideModal: () => void;

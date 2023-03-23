@@ -1,4 +1,5 @@
-import { Button, ButtonGroup } from "@mui/material";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
 import PropTypes from "prop-types";
 import type { FC, MouseEventHandler, RefObject } from "react";
 import { memo, useCallback } from "react";

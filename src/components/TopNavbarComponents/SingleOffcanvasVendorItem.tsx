@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import Button from "@mui/material/Button";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback } from "react";
 import useItemName from "../../hooks/useItemName";

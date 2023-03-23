@@ -1,13 +1,14 @@
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconButton, Tooltip } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 import printJS from "print-js";
 import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
+import useItemName from "../../../hooks/useItemName";
 import { useAppSelector } from "../../../Redux/hooks";
 import { selectItemSrc } from "../../../Redux/selectors";
-import useItemName from "../../../hooks/useItemName";
 
 type Props = {
   header: string;

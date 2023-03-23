@@ -5,7 +5,7 @@
 // import { itemNames, ItemName } from '../../types/api';
 // import SearchResultsCardBodyContent from "./SearchResultsCardBodyContent";
 
-import { CardContent } from "@mui/material";
+import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 // const SearchResultsSingleCard = forwardRef<HTMLDivElement, Props>(
 //   ({ itemName }, ref) => {

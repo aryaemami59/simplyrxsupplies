@@ -1,4 +1,5 @@
-import { Checkbox, FormControlLabel } from "@mui/material";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo, useCallback, useMemo } from "react";

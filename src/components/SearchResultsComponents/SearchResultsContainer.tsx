@@ -1,4 +1,4 @@
-import { List } from "@mui/material";
+import List from "@mui/material/List";
 import type { FC } from "react";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";

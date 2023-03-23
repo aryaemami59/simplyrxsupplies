@@ -1,5 +1,6 @@
-import type { TypographyProps } from "@mui/material";
-import { ListItem, ListItemText } from "@mui/material";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import type { TypographyProps } from "@mui/material/Typography";
 import type { FC } from "react";
 import { memo } from "react";
 import useItemName from "../../../hooks/useItemName";

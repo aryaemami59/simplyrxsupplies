@@ -1,4 +1,5 @@
-import { FormControlLabel, Switch } from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
 import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo, useCallback } from "react";

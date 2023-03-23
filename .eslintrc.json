@@ -13,7 +13,9 @@
     "react-perf",
     "prettier",
     "prefer-arrow",
-    "jsx-a11y"
+    "jsx-a11y",
+    "material-ui",
+    "mui-path-imports"
   ],
   "extends": [
     "eslint:recommended",
@@ -63,7 +65,9 @@
     "@typescript-eslint/no-throw-literal": [0],
     "@typescript-eslint/naming-convention": [0],
     "prefer-arrow/prefer-arrow-functions": [2],
-    "@typescript-eslint/consistent-type-definitions": [2, "type"]
+    "@typescript-eslint/consistent-type-definitions": [2, "type"],
+    "mui-path-imports/mui-path-imports": [2]
+    // "no-restricted-imports": [2, { "patterns": ["@mui/*/*"] }]
   },
   "settings": {
     "react": {

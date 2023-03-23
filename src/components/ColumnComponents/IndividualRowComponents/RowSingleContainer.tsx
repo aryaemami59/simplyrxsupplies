@@ -1,4 +1,7 @@
-import { Button, ButtonGroup, Collapse, Fade } from "@mui/material";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Collapse from "@mui/material/Collapse";
+import Fade from "@mui/material/Fade";
 import type { FC } from "react";
 import { memo, useCallback } from "react";
 import useItemName from "../../../hooks/useItemName";

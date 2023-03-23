@@ -1,4 +1,4 @@
-import { AppBar } from "@mui/material";
+import AppBar from "@mui/material/AppBar";
 import type { FC } from "react";
 import { memo } from "react";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";

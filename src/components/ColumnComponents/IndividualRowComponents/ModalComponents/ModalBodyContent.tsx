@@ -1,4 +1,5 @@
-import { List, ListItemText } from "@mui/material";
+import List from "@mui/material/List";
+import ListItemText from "@mui/material/ListItemText";
 import type { FC } from "react";
 import { memo } from "react";
 import VendorLink from "../../VendorLink";

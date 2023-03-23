@@ -1,12 +1,13 @@
 import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconButton, Tooltip } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
-import { removeItems } from "../../../Redux/addedSlice";
-import { useAppDispatch } from "../../../Redux/hooks";
 import useItemName from "../../../hooks/useItemName";
 import useVendorName from "../../../hooks/useVendorName";
+import { removeItems } from "../../../Redux/addedSlice";
+import { useAppDispatch } from "../../../Redux/hooks";
 
 const startIcon = <FontAwesomeIcon icon={faDeleteLeft} />;
 // const startIcon = <DeleteIcon />;

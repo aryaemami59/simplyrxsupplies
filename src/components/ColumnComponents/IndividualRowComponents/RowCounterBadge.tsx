@@ -1,4 +1,4 @@
-import { Badge } from "@mui/material";
+import Badge from "@mui/material/Badge";
 import type { FC } from "react";
 import { memo } from "react";
 import useVendorName from "../../../hooks/useVendorName";

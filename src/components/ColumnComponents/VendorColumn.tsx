@@ -1,5 +1,5 @@
-import { Collapse } from "@mui/material";
 import Button from "@mui/material/Button";
+import Collapse from "@mui/material/Collapse";
 import type { FC } from "react";
 import { memo, useCallback, useState } from "react";
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";

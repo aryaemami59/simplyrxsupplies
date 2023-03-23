@@ -1,4 +1,4 @@
-import { MenuItem } from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
 import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback } from "react";

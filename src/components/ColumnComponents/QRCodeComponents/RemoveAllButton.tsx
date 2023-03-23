@@ -1,11 +1,12 @@
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconButton, Tooltip } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 import type { FC } from "react";
 import { memo, useCallback, useState } from "react";
+import useVendorName from "../../../hooks/useVendorName";
 import { removeAllItems } from "../../../Redux/addedSlice";
 import { useAppDispatch } from "../../../Redux/hooks";
-import useVendorName from "../../../hooks/useVendorName";
 
 const startIcon = <FontAwesomeIcon icon={faTrashCan} />;
 

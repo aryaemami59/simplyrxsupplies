@@ -1,6 +1,6 @@
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconButton } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 import type { FC, MouseEventHandler } from "react";
 import { memo } from "react";
 

@@ -1,4 +1,4 @@
-import { CardHeader } from "@mui/material";
+import CardHeader from "@mui/material/CardHeader";
 import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo } from "react";

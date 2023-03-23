@@ -1,7 +1,7 @@
 import { faShareNodes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import IosShareIcon from "@mui/icons-material/IosShare";
-import { IconButton } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 import type { FC } from "react";
 import { memo, useCallback, useMemo } from "react";
 import { shareOnMobile } from "react-mobile-share";
