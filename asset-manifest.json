@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/simplyrxsupplies/static/css/main.0ebd071b.css",
-    "main.js": "/simplyrxsupplies/static/js/main.b18e27cc.js",
+    "main.js": "/simplyrxsupplies/static/js/main.220ccf3d.js",
     "static/media/fa-solid-900.ttf": "/simplyrxsupplies/static/media/fa-solid-900.2877d54f94f30c5d563c.ttf",
     "static/media/fa-brands-400.ttf": "/simplyrxsupplies/static/media/fa-brands-400.13e40630e5866f777de8.ttf",
     "static/media/fa-solid-900.woff2": "/simplyrxsupplies/static/media/fa-solid-900.bdb9e23299f9d1320a8b.woff2",
@@ -12,10 +12,10 @@
     "static/media/fa-v4compatibility.woff2": "/simplyrxsupplies/static/media/fa-v4compatibility.497d535001197a9c5b38.woff2",
     "index.html": "/simplyrxsupplies/index.html",
     "main.0ebd071b.css.map": "/simplyrxsupplies/static/css/main.0ebd071b.css.map",
-    "main.b18e27cc.js.map": "/simplyrxsupplies/static/js/main.b18e27cc.js.map"
+    "main.220ccf3d.js.map": "/simplyrxsupplies/static/js/main.220ccf3d.js.map"
   },
   "entrypoints": [
     "static/css/main.0ebd071b.css",
-    "static/js/main.b18e27cc.js"
+    "static/js/main.220ccf3d.js"
   ]
 }
