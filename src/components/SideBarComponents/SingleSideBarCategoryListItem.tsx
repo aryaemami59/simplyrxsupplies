@@ -41,7 +41,7 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemName, target }) => {
         <Button
           size="small"
           disabled={ifAddedToAllVendors}
-          className="fw-bold"
+          className="fw-bold p-auto shadow-sm rounded-pill text-none"
           variant="contained"
           onClick={clickHandler}>
           {itemName}

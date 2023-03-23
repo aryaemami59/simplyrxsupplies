@@ -1,8 +1,27 @@
 import { createTheme } from "@mui/material";
 import grey from "@mui/material/colors/grey";
 
+const selectedLightModeBG = "rgb(230, 241, 252)";
+const selectedDarkModeBG = "rgb(0, 30, 60)";
+
 export const lightTheme = createTheme({
+  components: {
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          "&.Mui-expanded": {
+            backgroundColor: selectedLightModeBG,
+          },
+        },
+      },
+    },
+  },
+
   palette: {
+    // action: {
+    //   active: "rgb(230, 241, 252)",
+    //   selected: "rgb(230, 241, 252)",
+    // },
     primary: {
       main: "#0071dc",
     },
@@ -10,8 +29,10 @@ export const lightTheme = createTheme({
     //   main: "#fff",
     // },
     background: {
-      default: "rgb(255, 255, 255)",
-      paper: "rgb(255, 255, 255)",
+      // default: "rgb(230, 241, 252)",
+      // default: "rgb(255, 255, 255)",
+      // paper: "rgb(230, 241, 252)",
+      // paper: "rgb(255, 255, 255)",
     },
     text: {
       primary: grey[900],
@@ -22,6 +43,17 @@ export const lightTheme = createTheme({
 });
 
 export const darkTheme = createTheme({
+  components: {
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          "&.Mui-expanded": {
+            backgroundColor: selectedDarkModeBG,
+          },
+        },
+      },
+    },
+  },
   palette: {
     primary: {
       main: "#0071dc",

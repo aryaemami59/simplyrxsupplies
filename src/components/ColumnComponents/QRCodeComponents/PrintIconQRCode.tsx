@@ -47,6 +47,7 @@ const PrintIconQRCode: FC = () => {
       title={title}
       open={open}>
       <IconButton
+        // color="primary"
         size="large"
         className="d-inline-block w-auto"
         onClick={clickHandler}>

@@ -29,7 +29,6 @@ const SearchResultsAddButton: FC<Props> = ({ itemName }) => {
     <Button
       className="fw-bold w-auto p-auto shadow-sm rounded-pill text-none"
       disabled={IfAddedToAllVendors}
-      color="primary"
       variant="contained"
       key={`Button-AddItemButtonComponent-${itemName}`}
       onClick={clickHandler}

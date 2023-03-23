@@ -25,7 +25,7 @@ const SingleOffcanvasVendorItem: FC = () => {
       <Button
         size="large"
         disabled={ifAddedToVendor}
-        className="fw-bold w-100 my-1"
+        className="fw-bold w-100 my-1 fw-bold w-auto p-auto shadow-sm rounded-pill text-none"
         variant="contained"
         onClick={clickHandler}>
         {itemName}

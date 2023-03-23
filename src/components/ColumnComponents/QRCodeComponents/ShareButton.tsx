@@ -42,8 +42,7 @@ const ShareButton: FC = () => {
     <IconButton
       onClick={clickHandler}
       className="d-inline-block w-auto"
-      size="large"
-      color="inherit">
+      size="large">
       {startIcon}
     </IconButton>
   );

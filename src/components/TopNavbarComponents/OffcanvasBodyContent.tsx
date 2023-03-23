@@ -8,13 +8,17 @@ import OffcanvasVendorAccordionList from "./OffcanvasVendorAccordionList";
 const OffcanvasBodyContent: FC = () => (
   <DialogContent
     dividers
-    className="w-100">
+    className="w-100 p-0">
     <DialogTitle>By Vendor</DialogTitle>
-    <DialogContent dividers>
+    <DialogContent
+      dividers
+      className="p-2">
       <OffcanvasVendorAccordionList />
     </DialogContent>
     <DialogTitle>By Category</DialogTitle>
-    <DialogContent dividers>
+    <DialogContent
+      dividers
+      className="p-2">
       <SideBarAccordionList />
     </DialogContent>
   </DialogContent>

@@ -29,6 +29,7 @@ const CopyIcon: FC<Props> = ({ content, text }) => {
       title={copiedText}
       open={show}>
       <Button
+        className="fw-bold w-auto p-auto shadow-sm rounded-pill text-none"
         size="small"
         variant="contained"
         startIcon={startIcon}

@@ -39,7 +39,7 @@ const SearchResultsContainer: FC = () => {
   return (
     <List
       dense
-      className="mt-3 px-2">
+      className="mt-3 px-1">
       <InfiniteScroll
         next={next}
         hasMore={hasMore}

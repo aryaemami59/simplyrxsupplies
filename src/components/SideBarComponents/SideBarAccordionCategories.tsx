@@ -1,8 +1,10 @@
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
+import type { AccordionSummaryProps } from "@mui/material/AccordionSummary";
 import AccordionSummary from "@mui/material/AccordionSummary";
-import Typography from "@mui/material/Typography";
 import type { TransitionProps } from "@mui/material/transitions";
+import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo, useCallback, useRef, useState } from "react";
@@ -12,6 +14,8 @@ import { selectCategoriesItemNames } from "../../Redux/selectors";
 import type { CategoryName } from "../../types/api";
 import { categoryNames } from "../../types/api";
 import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem";
+
+const expandIcon: AccordionSummaryProps["expandIcon"] = <ExpandMoreIcon />;
 
 type Props = {
   category: CategoryName;
@@ -43,6 +47,7 @@ const SideBarAccordionCategories: FC<Props> = ({ category }) => {
         variant="outlined">
         <AccordionSummary
           ref={ref}
+          expandIcon={expandIcon}
           className="shadow-sm">
           <Typography>{category}</Typography>
         </AccordionSummary>
