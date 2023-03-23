@@ -55,6 +55,7 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
   return (
     <>
       <Button
+        className="rounded-pill"
         id={vendorName}
         aria-controls={open ? "dropdown-menu" : undefined}
         aria-expanded={open ? "true" : undefined}
@@ -64,6 +65,14 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
         onClick={handleOpen}>
         {officialVendorName}
       </Button>
+      {/* <Chip
+        id={vendorName}
+        aria-controls={open ? "dropdown-menu" : undefined}
+        aria-expanded={open ? "true" : undefined}
+        aria-haspopup="true"
+        onClick={handleOpen}
+        label={officialVendorName}
+      /> */}
       <Menu
         autoFocus
         aria-expanded={open}

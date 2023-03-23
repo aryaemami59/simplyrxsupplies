@@ -252,3 +252,7 @@ img.barcode-image {
 .fs-7 {
   font-size: 0.90rem !important;
 }
+
+.text-none {
+  text-transform: none !important;
+}
