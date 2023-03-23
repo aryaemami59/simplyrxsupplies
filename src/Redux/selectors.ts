@@ -146,6 +146,12 @@ export const selectKeywords =
   (itemName: ItemName) =>
   (state: RootState): Keywords =>
     state.added.itemsObj[itemName].keywords;
+
+export const checkIfAnyItemsAdded = (state: RootState): boolean =>
+  Object.values(state.added.vendorsObj).reduce(
+    (acc, { itemsAdded }) => !!itemsAdded.length || acc,
+    false
+  );
 // export const selectKeywords =
 //   (itemNames: ItemName[]) =>
 //   (state: RootState): Keyword[] =>

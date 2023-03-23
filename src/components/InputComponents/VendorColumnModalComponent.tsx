@@ -1,4 +1,5 @@
 import Button from "@mui/material/Button";
+import type { DialogProps } from "@mui/material/Dialog";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -7,6 +8,10 @@ import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
 import VendorColumnList from "../ColumnComponents/VendorColumnList";
 import DisplayCartButton from "./DisplayCartButton";
+
+const paperProps: DialogProps["PaperProps"] = {
+  className: "m-0 w-100",
+};
 
 const VendorColumnModalComponent: FC = () => {
   const [show, setShow] = useState(false);
@@ -32,6 +37,7 @@ const VendorColumnModalComponent: FC = () => {
       <Dialog
         // keepMounted
         maxWidth="md"
+        PaperProps={paperProps}
         fullWidth
         onClose={hideModal}
         open={show}>
