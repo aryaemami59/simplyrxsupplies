@@ -2,8 +2,8 @@ import Card from "@mui/material/Card";
 import type { FC } from "react";
 import { memo } from "react";
 import useVendorName from "../../hooks/useVendorName";
-import { useAppSelector } from "../../Redux/hooks";
-import { checkIfAnyAddedToOneVendor } from "../../Redux/selectors";
+import { useAppSelector } from "../../redux/hooks";
+import { checkIfAnyAddedToOneVendor } from "../../redux/selectors";
 import ColumnTopCardBody from "./ColumnTopCardBody";
 import EmptyColumn from "./EmptyColumn";
 

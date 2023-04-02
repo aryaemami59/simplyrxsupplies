@@ -270,4 +270,5 @@ export const {
   setVendorsForAllUncheck,
 } = addedSlice.actions;
 
-export const addedReducer = addedSlice.reducer;
+// export const addedReducer = addedSlice.reducer;
+export default addedSlice.reducer;

@@ -3,8 +3,8 @@ import type { FC } from "react";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { shallowEqual } from "react-redux";
-import { useAppSelector } from "../../Redux/hooks";
-import { selectAllListItems } from "../../Redux/selectors";
+import { useAppSelector } from "../../redux/hooks";
+import { selectAllListItems } from "../../redux/selectors";
 import IsLoading from "../../shared/components/IsLoading";
 import SearchResultsSingleCard from "./SearchResultsSingleCard";
 

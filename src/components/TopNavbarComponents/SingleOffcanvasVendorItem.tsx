@@ -3,9 +3,9 @@ import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback } from "react";
 import useItemName from "../../hooks/useItemName";
 import useVendorName from "../../hooks/useVendorName";
-import { addItemsByVendor } from "../../Redux/addedSlice";
-import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
-import { checkIfItemAddedToOneVendor } from "../../Redux/selectors";
+import { addItemsByVendor } from "../../redux/addedSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { checkIfItemAddedToOneVendor } from "../../redux/selectors";
 
 const SingleOffcanvasVendorItem: FC = () => {
   const vendorName = useVendorName();

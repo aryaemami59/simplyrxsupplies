@@ -9,9 +9,9 @@ import {
   useTransition,
 } from "react";
 import { shallowEqual } from "react-redux";
-import { clearListItems, setListItems } from "../../Redux/addedSlice";
-import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
-import { selectItemNamesAndKeywords } from "../../Redux/selectors";
+import { clearListItems, setListItems } from "../../redux/addedSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { selectItemNamesAndKeywords } from "../../redux/selectors";
 import { SEARCH_FIELD_BG } from "../../shared/sharedStyles";
 import search from "../../utils/search";
 import InputEndAdornment from "./InputEndAdornment";

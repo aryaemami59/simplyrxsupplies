@@ -7,8 +7,8 @@ import useVendorName from "../../hooks/useVendorName";
 import {
   setVendorsForAllCheck,
   setVendorsForAllUncheck,
-} from "../../Redux/addedSlice";
-import { useAppDispatch } from "../../Redux/hooks";
+} from "../../redux/addedSlice";
+import { useAppDispatch } from "../../redux/hooks";
 
 const ExcludeVendorSingleCheckbox: FC = () => {
   const vendorName = useVendorName();

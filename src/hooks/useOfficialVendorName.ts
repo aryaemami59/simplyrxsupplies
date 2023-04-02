@@ -1,5 +1,5 @@
-import { useAppSelector } from "../Redux/hooks";
-import { selectVendorOfficialName } from "../Redux/selectors";
+import { useAppSelector } from "../redux/hooks";
+import { selectVendorOfficialName } from "../redux/selectors";
 import type { VendorName } from "../types/api";
 
 const useOfficialVendorName = (vendorName: VendorName) =>

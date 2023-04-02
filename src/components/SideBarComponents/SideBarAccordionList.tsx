@@ -1,8 +1,8 @@
 import type { FC } from "react";
 import { memo } from "react";
 import { shallowEqual } from "react-redux";
-import { useAppSelector } from "../../Redux/hooks";
-import { selectCategoriesArr } from "../../Redux/selectors";
+import { useAppSelector } from "../../redux/hooks";
+import { selectCategoriesArr } from "../../redux/selectors";
 import SideBarAccordionCategories from "./SideBarAccordionCategories";
 
 const SideBarAccordionList: FC = () => {

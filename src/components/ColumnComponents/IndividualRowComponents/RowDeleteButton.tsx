@@ -6,8 +6,8 @@ import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
 import useItemName from "../../../hooks/useItemName";
 import useVendorName from "../../../hooks/useVendorName";
-import { removeItems } from "../../../Redux/addedSlice";
-import { useAppDispatch } from "../../../Redux/hooks";
+import { removeItems } from "../../../redux/addedSlice";
+import { useAppDispatch } from "../../../redux/hooks";
 
 const startIcon = <FontAwesomeIcon icon={faDeleteLeft} />;
 // const startIcon = <DeleteIcon />;

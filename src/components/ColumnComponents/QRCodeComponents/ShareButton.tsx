@@ -6,11 +6,11 @@ import type { FC } from "react";
 import { memo, useCallback, useMemo } from "react";
 import { shareOnMobile } from "react-mobile-share";
 import useVendorName from "../../../hooks/useVendorName";
-import { useAppSelector } from "../../../Redux/hooks";
+import { useAppSelector } from "../../../redux/hooks";
 import {
   selectAddedItemsByVendor,
   selectQRCodeContent,
-} from "../../../Redux/selectors";
+} from "../../../redux/selectors";
 
 const startIcon = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? (
   <IosShareIcon fontSize="large" />

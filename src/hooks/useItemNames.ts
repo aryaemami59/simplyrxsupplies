@@ -1,6 +1,6 @@
 import { shallowEqual } from "react-redux";
-import { useAppSelector } from "../Redux/hooks";
-import { selectItemNamesByVendor } from "../Redux/selectors";
+import { useAppSelector } from "../redux/hooks";
+import { selectItemNamesByVendor } from "../redux/selectors";
 import type { ItemName, VendorName } from "../types/api";
 
 const useItemNames = (vendorName: VendorName): ItemName[] =>

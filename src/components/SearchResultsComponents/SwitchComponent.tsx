@@ -3,10 +3,10 @@ import Switch from "@mui/material/Switch";
 import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo, useCallback } from "react";
-import { setVendors } from "../../Redux/addedSlice";
-import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
-import { checkVendorsAdded, checkVendorsToAdd } from "../../Redux/selectors";
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
+import { setVendors } from "../../redux/addedSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { checkVendorsAdded, checkVendorsToAdd } from "../../redux/selectors";
 import type { VendorAndItemName } from "../../types/api";
 import { itemNames, vendorNames } from "../../types/api";
 

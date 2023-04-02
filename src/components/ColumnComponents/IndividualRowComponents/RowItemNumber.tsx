@@ -4,8 +4,8 @@ import type { TypographyProps } from "@mui/material/Typography";
 import type { FC } from "react";
 import { memo } from "react";
 import useItemName from "../../../hooks/useItemName";
-import { useAppSelector } from "../../../Redux/hooks";
-import { selectItemNumber } from "../../../Redux/selectors";
+import { useAppSelector } from "../../../redux/hooks";
+import { selectItemNumber } from "../../../redux/selectors";
 import CopyIcon from "./CopyIcon";
 
 const primaryTypographyProps: TypographyProps<"span", { component?: "span" }> =

@@ -4,8 +4,8 @@ import Badge from "@mui/material/Badge";
 import IconButton from "@mui/material/IconButton";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useMemo } from "react";
-import { useAppSelector } from "../../Redux/hooks";
-import { checkIfAnyItemsAdded } from "../../Redux/selectors";
+import { useAppSelector } from "../../redux/hooks";
+import { checkIfAnyItemsAdded } from "../../redux/selectors";
 
 // const startIcon = (
 //   <FontAwesomeIcon

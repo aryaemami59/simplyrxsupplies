@@ -4,12 +4,12 @@ import PropTypes from "prop-types";
 import type { FC, MouseEventHandler, RefObject } from "react";
 import { memo, useCallback } from "react";
 import { shallowEqual } from "react-redux";
-import { addItems } from "../../Redux/addedSlice";
-import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
+import { addItems } from "../../redux/addedSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   checkIfAddedToAllVendors,
   selectVendorsByItemName,
-} from "../../Redux/selectors";
+} from "../../redux/selectors";
 import type { ItemName } from "../../types/api";
 import { itemNames } from "../../types/api";
 import SideBarVendorBadges from "./SideBarVendorBadges";

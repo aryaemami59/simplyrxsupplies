@@ -4,12 +4,12 @@ import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo, useCallback, useMemo } from "react";
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
-import { setVendors } from "../../Redux/addedSlice";
-import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
+import { setVendors } from "../../redux/addedSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   checkIfItemAddedToOneVendor,
   checkVendorsToAdd,
-} from "../../Redux/selectors";
+} from "../../redux/selectors";
 import type { VendorAndItemName } from "../../types/api";
 import { itemNames, vendorNames } from "../../types/api";
 

@@ -5,8 +5,8 @@ import Tooltip from "@mui/material/Tooltip";
 import type { FC } from "react";
 import { memo, useCallback, useState } from "react";
 import useVendorName from "../../../hooks/useVendorName";
-import { minimizeAll } from "../../../Redux/addedSlice";
-import { useAppDispatch } from "../../../Redux/hooks";
+import { minimizeAll } from "../../../redux/addedSlice";
+import { useAppDispatch } from "../../../redux/hooks";
 
 const title = "Collapse All Items";
 

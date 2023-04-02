@@ -3,9 +3,9 @@ import Button from "@mui/material/Button";
 import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback } from "react";
-import { addItems } from "../../Redux/addedSlice";
-import { useAppDispatch, useAppSelector } from "../../Redux/hooks";
-import { checkIfAddedToAllVendors } from "../../Redux/selectors";
+import { addItems } from "../../redux/addedSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { checkIfAddedToAllVendors } from "../../redux/selectors";
 import type { ItemName } from "../../types/api";
 import { itemNames } from "../../types/api";
 

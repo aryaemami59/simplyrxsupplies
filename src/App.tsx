@@ -10,8 +10,8 @@ import SideBarContainer from "./components/SideBarComponents/SideBarContainer";
 import TopNavbar from "./components/TopNavbarComponents/TopNavbar";
 import ColorModeProvider from "./contexts/ColorModeProvider";
 import useIsLoading from "./hooks/useIsLoading";
-import { fetchItems } from "./Redux/addedSlice";
-import { useAppDispatch } from "./Redux/hooks";
+import { fetchItems } from "./redux/addedSlice";
+import { useAppDispatch } from "./redux/hooks";
 import ErrorComponent from "./shared/components/ErrorComponent";
 import IsLoading from "./shared/components/IsLoading";
 
