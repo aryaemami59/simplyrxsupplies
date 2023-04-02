@@ -14,9 +14,7 @@ export const fetchItems = createAsyncThunk<FetchedData>(
   `items/fetchitems`,
   async () => {
     try {
-      const response = await axios.get<FetchedData>(GITHUB_URL_ITEMS, {
-        // timeout: 1000,
-      });
+      const response = await axios.get<FetchedData>(GITHUB_URL_ITEMS, {});
       return response.data;
     } catch (err) {
       throw axios.isAxiosError(err) ? err.message : "Unable to fetch";
