@@ -3,16 +3,12 @@ import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
 import QRCode from "qrcode";
 import GITHUB_URL_ITEMS from "../data/fetchInfo";
-import type {
-  CategoryName,
-  ItemName,
-  VendorAndItemName,
-  VendorName,
-} from "../types/api";
+import type { ItemName, VendorAndItemName, VendorName } from "../types/api";
 import type { AddedState, FetchedData } from "../types/redux";
 import difference from "../utils/difference";
 import emptyArr from "../utils/emptyArr";
 import emptyObj from "../utils/emptyObj";
+import objectKeys from "../utils/objectKeys";
 
 export const fetchItems = createAsyncThunk<FetchedData>(
   `items/fetchitems`,
@@ -241,7 +237,7 @@ export const addedSlice = createSlice({
           vendorsToAdd: itemObj.vendors,
         };
       });
-      state.vendorsArr = Object.keys(vendors) as VendorName[];
+      state.vendorsArr = objectKeys(vendors);
       Object.values(vendors).forEach(vendorObj => {
         state.vendorsObj[vendorObj.abbrName] = {
           ...vendorObj,
@@ -251,7 +247,7 @@ export const addedSlice = createSlice({
           qrText: "",
         };
       });
-      state.categoriesArr = Object.keys(categories) as CategoryName[];
+      state.categoriesArr = objectKeys(categories);
       state.categoriesObj = { ...categories };
       state.isLoading = false;
       state.errMsg = "";

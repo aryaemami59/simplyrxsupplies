@@ -1,3 +1,4 @@
+import objectKeys from "../utils/objectKeys";
 import type { Mutable } from "./missingTypes";
 
 export const main = {
@@ -4393,9 +4394,9 @@ export const main = {
   },
 } as const;
 
-export const vendorNames = Object.keys(main.vendors) as VendorName[];
+export const vendorNames = objectKeys(main.vendors);
 export const itemNames = main.items.map(({ name }) => name);
-export const categoryNames = Object.keys(main.categories) as CategoryName[];
+export const categoryNames = objectKeys(main.categories);
 
 export type Items = typeof main.items;
 export type Vendors = typeof main.vendors;
