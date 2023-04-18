@@ -1,7 +1,8 @@
 node_modules
 build
+dist
 .git
 .vscode
 public
 netlify.toml
-tsconfig.json
+vite.config.ts

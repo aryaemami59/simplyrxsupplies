@@ -30,19 +30,18 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-mobile-share": "^1.0.30",
     "react-redux": "^8.0.5",
-    "react-scripts": "5.0.1",
     "react-transition-group": "^4.4.5",
     "redux-logger": "^3.0.6",
     "reselect": "^4.1.8",
     "web-vitals": "^3.3.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint . --ext .tsx,.ts,.js ",
-    "format": "eslint . --fix --ext .tsx,.ts,.js"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "start": "npm run dev",
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "format": "eslint . --fix --ext .js,.ts,.tsx"
   },
   "browserslist": {
     "production": [
@@ -57,20 +56,20 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
     "@types/qrcode": "^1.5.0",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@types/redux-logger": "^3.0.9",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
+    "@vitejs/plugin-react": "^3.1.0",
     "@welldone-software/why-did-you-render": "^7.0.1",
     "babel-plugin-typescript-to-proptypes": "^2.1.0",
     "eslint": "^8.38.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.8.0",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-material-ui": "^1.0.1",
     "eslint-plugin-mui-path-imports": "^0.0.15",
@@ -81,6 +80,7 @@
     "eslint-plugin-react-redux": "^4.0.0",
     "gh-pages": "^5.0.0",
     "prettier": "^2.8.7",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "vite": "^4.2.1"
   }
 }

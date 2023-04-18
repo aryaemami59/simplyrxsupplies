@@ -1,4 +1,4 @@
-/// <reference types="react-scripts" />
+/// <reference types="vite/client" />
 import "@mui/material/styles";
 
 declare module "@mui/material/styles" {
