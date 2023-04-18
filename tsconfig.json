@@ -16,7 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "noUnusedLocals": true,
-    "typeRoots": ["./src/types"],
     "noImplicitAny": true
   }
 }
