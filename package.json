@@ -7,7 +7,7 @@
   },
   "name": "simply-rx-supplies",
   "description": "Simply RX Supplies is a web application that serves as a tool to help make ordering pharmacy supplies easier.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "Arya Emami",
     "email": "aryaemami59@yahoo.com"
@@ -42,7 +42,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "serve": "serve -s dist",
     "start": "npm run dev",
