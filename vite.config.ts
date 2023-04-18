@@ -8,6 +8,5 @@ export default defineConfig({
     open: "http://localhost:3000/",
   },
   base: "/simplyrxsupplies/",
-
   plugins: [react()],
 });
