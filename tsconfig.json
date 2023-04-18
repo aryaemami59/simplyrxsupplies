@@ -16,7 +16,8 @@
     "target": "ESNext",
     "types": ["vite/client"],
     "useDefineForClassFields": true
-  },"include": ["src"],
+  },
+  "include": ["src"],
   "references": [
     {
       "path": "./tsconfig.node.json"

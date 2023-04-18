@@ -1,5 +1,6 @@
 {
   "homepage": "https://simplyrxsupplies.netlify.app",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/aryaemami59/simplyrxsupplies"
