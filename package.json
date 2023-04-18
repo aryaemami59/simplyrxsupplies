@@ -1,5 +1,9 @@
 {
   "homepage": "https://simplyrxsupplies.netlify.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aryaemami59/simplyrxsupplies"
+  },
   "name": "simply-rx-supplies",
   "description": "Simply RX Supplies is a web application that serves as a tool to help make ordering pharmacy supplies easier.",
   "version": "0.1.0",
@@ -44,18 +48,6 @@
     "start": "npm run dev",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "format": "eslint . --fix --ext .js,.ts,.tsx"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   },
   "devDependencies": {
     "@types/qrcode": "^1.5.0",
