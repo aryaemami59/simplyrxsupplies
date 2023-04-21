@@ -44,6 +44,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "serve": "serve -s dist",
     "start": "npm run dev",
     "lint": "eslint . --ext .js,.ts,.tsx",
