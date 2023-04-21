@@ -35,10 +35,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-mobile-share": "^1.0.30",
     "react-redux": "^8.0.5",
-    "react-transition-group": "^4.4.5",
-    "redux-logger": "^3.0.6",
-    "reselect": "^4.1.8",
-    "web-vitals": "^3.3.1"
+    "redux-logger": "^3.0.6"
   },
   "scripts": {
     "dev": "vite",
@@ -53,15 +50,13 @@
   },
   "devDependencies": {
     "@types/qrcode": "^1.5.0",
-    "@types/react": "^18.0.37",
+    "@types/react": "^18.0.38",
     "@types/react-dom": "^18.0.11",
     "@types/redux-logger": "^3.0.9",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
     "@vitejs/plugin-react": "^4.0.0",
-    "@welldone-software/why-did-you-render": "^7.0.1",
-    "babel-plugin-typescript-to-proptypes": "^2.1.0",
-    "eslint": "^8.38.0",
+    "eslint": "^8.39.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.8.0",
