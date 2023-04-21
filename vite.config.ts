@@ -7,6 +7,5 @@ export default defineConfig({
     port: 3000,
     open: "http://localhost:3000/",
   },
-  // base: "/simplyrxsupplies/",
   plugins: [react()],
 });
