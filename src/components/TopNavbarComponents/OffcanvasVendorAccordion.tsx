@@ -42,7 +42,7 @@ const OffcanvasVendorAccordion: FC = () => {
         className="shadow-sm">
         <Typography>{officialVendorName}</Typography>
       </AccordionSummary>
-      <AccordionDetails className="justify-content-center d-flex flex-column align-items-center">
+      <AccordionDetails className="justify-content-center d-flex flex-column align-items-cente">
         {vendorItemNames.map(itemName => (
           <ItemNameProvider
             key={`${itemName}-OffcanvasVendorAccordion`}
