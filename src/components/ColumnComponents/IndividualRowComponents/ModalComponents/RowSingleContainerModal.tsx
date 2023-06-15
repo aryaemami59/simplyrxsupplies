@@ -34,16 +34,16 @@ const RowSingleContainerModal: FC = () => {
   return (
     <>
       <Tooltip
-        onOpen={showTooltip}
-        onClose={hideTooltip}
         enterDelay={500}
         enterNextDelay={500}
-        title={title}
-        open={open}>
+        onClose={hideTooltip}
+        onOpen={showTooltip}
+        open={open}
+        title={title}>
         <IconButton
-          size="medium"
           className="w-auto d-inline-block"
-          onClick={showModal}>
+          onClick={showModal}
+          size="medium">
           {startIcon}
         </IconButton>
       </Tooltip>

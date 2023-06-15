@@ -1,4 +1,5 @@
 import FormControlLabel from "@mui/material/FormControlLabel";
+import type { SwitchProps } from "@mui/material/Switch";
 import Switch from "@mui/material/Switch";
 import PropTypes from "prop-types";
 import type { FC } from "react";
@@ -11,17 +12,14 @@ import { checkVendorsAdded, checkVendorsToAdd } from "../../redux/selectors";
 import type { VendorAndItemName } from "../../types/api";
 import { itemNames, vendorNames } from "../../types/api";
 
+const inputProps: SwitchProps["inputProps"] = {
+  className: "shadow",
+} as const;
+
 const control = (
   <Switch
+    inputProps={inputProps}
     size="small"
-    // className="fs-6"
-    // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
-    // style={{ width: "48px", height: "48px" }}
-    // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
-    inputProps={{
-      className: "shadow",
-      // style: { width: "12px", height: "12px" },
-    }}
   />
 );
 
@@ -43,12 +41,12 @@ const SwitchComponent: FC<Props> = ({ itemName, vendorName }) => {
   return (
     <FormControlLabel
       checked={checked}
-      disabled={disabled}
-      onChange={clickHandler}
-      disableTypography
       className="p-0 fs-7"
       control={control}
+      disabled={disabled}
+      disableTypography
       label={officialVendorName}
+      onChange={clickHandler}
     />
   );
 };

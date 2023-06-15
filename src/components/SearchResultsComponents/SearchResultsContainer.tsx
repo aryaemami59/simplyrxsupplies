@@ -39,18 +39,18 @@ const SearchResultsContainer: FC = () => {
 
   return (
     <List
-      dense
-      className="mt-3 px-1">
+      className="mt-3 px-1"
+      dense>
       <InfiniteScroll
-        next={next}
+        dataLength={list.length}
         hasMore={hasMore}
-        scrollableTarget="App"
         loader={loader}
-        dataLength={list.length}>
+        next={next}
+        scrollableTarget="App">
         {list.map(itemName => (
           <SearchResultsSingleCard
-            itemName={itemName}
             key={`${itemName}-inputListItems`}
+            itemName={itemName}
           />
         ))}
       </InfiniteScroll>

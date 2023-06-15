@@ -15,8 +15,8 @@ const RowItemName: FC = () => {
 
   return (
     <ListItem
-      divider
-      className="row row-cols-1 row-cols-sm-2">
+      className="row row-cols-1 row-cols-sm-2"
+      divider>
       <ListItemText primaryTypographyProps={primaryTypographyProps}>
         Item Name: {itemName}
       </ListItemText>

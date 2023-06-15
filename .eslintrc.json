@@ -156,12 +156,8 @@
       }
     ],
     "simple-import-sort/exports": [2],
-    "simple-import-sort/imports": [
-      2
-      // {
-      //   "groups": [["^\\u0000", "^node:", "^@?\\w", "^", "^\\."]]
-      // }
-    ]
+    "simple-import-sort/imports": [2],
+    "react/jsx-sort-props": [2]
   },
   "settings": {
     "react": {

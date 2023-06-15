@@ -21,8 +21,8 @@ const VendorColumn: FC = () => {
     <>
       <Button
         className="d-block w-100"
-        variant="contained"
-        onClick={buttonClick}>
+        onClick={buttonClick}
+        variant="contained">
         {officialVendorName}
         <RowCounterBadge />
       </Button>

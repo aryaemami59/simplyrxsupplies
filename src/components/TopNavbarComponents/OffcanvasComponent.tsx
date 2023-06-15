@@ -27,20 +27,20 @@ const OffcanvasComponent: FC = () => {
   return (
     <>
       <IconButton
-        onClick={handleOpen}
-        className="align-self-start">
+        className="align-self-start"
+        onClick={handleOpen}>
         <MenuIcon className="text-white d-lg-none" />
       </IconButton>
       <SwipeableDrawer
+        onClose={handleClose}
         onOpen={handleOpen}
         open={show}
-        PaperProps={paperProps}
-        onClose={handleClose}>
+        PaperProps={paperProps}>
         <OffcanvasBodyContent />
         <DialogActions>
           <Button
-            variant="contained"
-            onClick={handleClose}>
+            onClick={handleClose}
+            variant="contained">
             Close
           </Button>
         </DialogActions>

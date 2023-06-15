@@ -28,12 +28,12 @@ const SearchResultsAddButton: FC<Props> = ({ itemName }) => {
 
   return (
     <Button
+      key={`Button-AddItemButtonComponent-${itemName}`}
       className="fw-bold w-auto p-auto shadow-sm rounded-pill text-none"
       disabled={ifAddedToAllVendors}
-      variant="contained"
-      key={`Button-AddItemButtonComponent-${itemName}`}
       onClick={clickHandler}
-      startIcon={startIcon}>
+      startIcon={startIcon}
+      variant="contained">
       Add
     </Button>
   );

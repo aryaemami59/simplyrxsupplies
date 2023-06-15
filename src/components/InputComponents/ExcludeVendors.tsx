@@ -25,8 +25,8 @@ const ExcludeVendors: FC = () => {
       >
         {vendorNames.map(vendorName => (
           <VendorNameProvider
-            vendorName={vendorName}
-            key={vendorName}>
+            key={vendorName}
+            vendorName={vendorName}>
             <ExcludeVendorSingleCheckbox />
             {/* <FormControlLabel
               className="fs-7"

@@ -16,20 +16,20 @@ type Props = {
 
 const RowItemsDialog: FC<Props> = ({ hideModal, modalOpen }) => (
   <Dialog
+    aria-labelledby="contained-modal-title-vcenter"
+    fullWidth
     keepMounted
     maxWidth="md"
-    fullWidth
     onClose={hideModal}
-    open={modalOpen}
-    aria-labelledby="contained-modal-title-vcenter">
+    open={modalOpen}>
     <DialogTitle>Item Details</DialogTitle>
     <DialogContent dividers>
       <ModalBodyContent />
     </DialogContent>
     <DialogActions>
       <Button
-        variant="contained"
-        onClick={hideModal}>
+        onClick={hideModal}
+        variant="contained">
         Close
       </Button>
     </DialogActions>

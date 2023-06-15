@@ -34,13 +34,13 @@ const OffcanvasVendorAccordion: FC = () => {
 
   return (
     <Accordion
-      TransitionProps={transitionProps}
       expanded={open}
       onChange={toggle}
+      TransitionProps={transitionProps}
       variant="outlined">
       <AccordionSummary
-        expandIcon={expandIcon}
-        className="shadow-sm">
+        className="shadow-sm"
+        expandIcon={expandIcon}>
         <Typography>{officialVendorName}</Typography>
       </AccordionSummary>
       <AccordionDetails className="justify-content-center d-flex flex-column align-items-cente">

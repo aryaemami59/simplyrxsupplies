@@ -31,8 +31,8 @@ const RowSingleContainer: FC = () => {
         <div className="justify-content-evenly align-items-center row">
           <div className="col-xs-auto d-flex">
             <ButtonGroup
-              fullWidth
-              className="flex-wrap justify-content-between">
+              className="flex-wrap justify-content-between"
+              fullWidth>
               <RowSingleContainerModal />
               <CollapseButton
                 open={open}
@@ -48,9 +48,9 @@ const RowSingleContainer: FC = () => {
               unmountOnExit>
               <Button
                 aria-controls="maximize content"
-                variant="contained"
                 className="w-100"
-                onClick={toggleFade}>
+                onClick={toggleFade}
+                variant="contained">
                 {itemName}
               </Button>
             </Fade>

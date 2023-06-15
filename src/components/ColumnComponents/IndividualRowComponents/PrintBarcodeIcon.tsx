@@ -43,16 +43,16 @@ const PrintBarcodeIcon: FC<Props> = ({ header }) => {
 
   return (
     <Tooltip
-      onOpen={showTooltip}
-      onClose={hideTooltip}
       enterDelay={500}
       enterNextDelay={500}
-      title={title}
-      open={open}>
+      onClose={hideTooltip}
+      onOpen={showTooltip}
+      open={open}
+      title={title}>
       <IconButton
-        size="small"
+        className="d-inline-block w-auto"
         onClick={clickHandler}
-        className="d-inline-block w-auto">
+        size="small">
         {startIcon}
       </IconButton>
     </Tooltip>

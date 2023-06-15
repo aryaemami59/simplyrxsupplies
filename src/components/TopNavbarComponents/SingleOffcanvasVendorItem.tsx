@@ -24,11 +24,11 @@ const SingleOffcanvasVendorItem: FC = () => {
   return (
     <div>
       <Button
-        size="large"
-        disabled={ifAddedToVendor}
         className="fw-bold w-100 my-1 fw-bold shadow-sm rounded-pill text-none"
-        variant="contained"
-        onClick={clickHandler}>
+        disabled={ifAddedToVendor}
+        onClick={clickHandler}
+        size="large"
+        variant="contained">
         {itemName}
       </Button>
     </div>

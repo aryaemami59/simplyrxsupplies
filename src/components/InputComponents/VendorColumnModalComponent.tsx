@@ -37,11 +37,11 @@ const VendorColumnModalComponent: FC = () => {
       </Button> */}
       <Dialog
         // keepMounted
-        maxWidth="md"
-        PaperProps={paperProps}
         fullWidth
+        maxWidth="md"
         onClose={hideModal}
-        open={show}>
+        open={show}
+        PaperProps={paperProps}>
         <DialogTitle>Item Vendors</DialogTitle>
         <DialogContent
           className="px-0"
@@ -54,8 +54,8 @@ const VendorColumnModalComponent: FC = () => {
         </DialogContent>
         <DialogActions>
           <Button
-            variant="contained"
-            onClick={hideModal}>
+            onClick={hideModal}
+            variant="contained">
             Close
           </Button>
         </DialogActions>

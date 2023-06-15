@@ -24,9 +24,9 @@ const SingleDropDown: FC<Props> = ({ itemName, vendorName }) => {
 
   return (
     <MenuItem
-      disabled={ifAddedToVendor}
-      className="text-wrap"
       key={itemName}
+      className="text-wrap"
+      disabled={ifAddedToVendor}
       onClick={clickHandler}>
       {itemName}
     </MenuItem>

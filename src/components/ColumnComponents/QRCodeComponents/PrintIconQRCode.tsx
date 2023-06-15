@@ -41,17 +41,17 @@ const PrintIconQRCode: FC = () => {
 
   return (
     <Tooltip
-      onOpen={showTooltip}
-      onClose={hideTooltip}
       enterDelay={500}
       enterNextDelay={500}
-      title={title}
-      open={open}>
+      onClose={hideTooltip}
+      onOpen={showTooltip}
+      open={open}
+      title={title}>
       <IconButton
         // color="primary"
-        size="large"
         className="d-inline-block w-auto"
-        onClick={clickHandler}>
+        onClick={clickHandler}
+        size="large">
         {startIcon}
       </IconButton>
     </Tooltip>

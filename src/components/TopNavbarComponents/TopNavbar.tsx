@@ -10,8 +10,8 @@ import OffcanvasComponent from "./OffcanvasComponent";
 const TopNavbar: FC = () => (
   <AppBar
     color="primary"
-    enableColorOnDark
     elevation={0}
+    enableColorOnDark
     variant="outlined">
     <div className="d-flex align-items-center">
       <span className="d-inline-block d-lg-none">

@@ -16,8 +16,8 @@ const DarkModeTogglerButton: FC = () => {
 
   return (
     <IconButton
-      onClick={toggleColorMode}
-      color="inherit">
+      color="inherit"
+      onClick={toggleColorMode}>
       {icon}
     </IconButton>
   );

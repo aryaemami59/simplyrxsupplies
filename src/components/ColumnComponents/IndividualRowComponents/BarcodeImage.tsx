@@ -16,9 +16,9 @@ const BarcodeImage: FC<Props> = ({ className }) => {
 
   return (
     <img
-      src={src}
       alt={itemName}
       className={`${className ?? ""} barcode-image`}
+      src={src}
     />
   );
 };

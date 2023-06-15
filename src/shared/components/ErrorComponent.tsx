@@ -8,16 +8,16 @@ const ErrorComponent: FC = () => (
     className="justify-content-center d-flex mt-5 w-100">
     <Alert
       key="Alert-errMsg-App"
-      variant="danger"
-      className="w-75">
+      className="w-75"
+      variant="danger">
       <Alert.Heading
         key="Alert.Heading-errMsg-App"
         className="fs-1">
         Oh snap! You got an error!
       </Alert.Heading>
       <p
-        className="fs-2"
-        key="p-errMsg-App">
+        key="p-errMsg-App"
+        className="fs-2">
         Looks like there was a problem loading the page. Either refresh the page
         or try again later.
       </p>

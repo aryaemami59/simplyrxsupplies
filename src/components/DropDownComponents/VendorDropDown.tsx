@@ -56,14 +56,14 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
   return (
     <>
       <Button
-        className="rounded-pill"
-        id={vendorName}
         aria-controls={open ? "dropdown-menu" : undefined}
         aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
-        variant="contained"
+        className="rounded-pill"
         disableElevation
-        onClick={handleOpen}>
+        id={vendorName}
+        onClick={handleOpen}
+        variant="contained">
         {officialVendorName}
       </Button>
       {/* <Chip
@@ -75,18 +75,18 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
         label={officialVendorName}
       /> */}
       <Menu
-        autoFocus
+        anchorEl={anchorElement}
+        anchorOrigin={anchorOrigin}
         aria-expanded={open}
         aria-labelledby={vendorName}
+        autoFocus
         id={officialVendorName}
         MenuListProps={menuListProps}
-        anchorEl={anchorElement}
-        variant="menu"
-        open={open}
         onClose={handleClose}
+        open={open}
+        PaperProps={paperProps}
         transformOrigin={transformOrigin}
-        anchorOrigin={anchorOrigin}
-        PaperProps={paperProps}>
+        variant="menu">
         {itemNames.map(itemName => (
           <SingleDropDown
             key={`${itemName}-${vendorName}`}

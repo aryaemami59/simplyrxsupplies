@@ -33,16 +33,16 @@ const CollapseButton: FC<Props> = ({ open, toggle }) => {
 
   return (
     <Tooltip
-      onOpen={showTooltip}
-      onClose={hideTooltip}
       enterDelay={500}
       enterNextDelay={500}
-      title={`${buttonText} Item Info`}
-      open={show}>
+      onClose={hideTooltip}
+      onOpen={showTooltip}
+      open={show}
+      title={`${buttonText} Item Info`}>
       <IconButton
-        size="medium"
         className="w-auto d-inline-block"
-        onClick={toggle}>
+        onClick={toggle}
+        size="medium">
         {startIcon}
       </IconButton>
     </Tooltip>

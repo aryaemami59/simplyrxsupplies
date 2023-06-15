@@ -23,10 +23,10 @@ const DisplayCartButton: FC<Props> = ({ showModal }) => {
   const startIcon = useMemo(
     () => (
       <Badge
+        color="error"
         invisible={!ifAdded}
-        variant="dot"
         overlap="circular"
-        color="error">
+        variant="dot">
         {ifAdded ? <ShoppingCartIcon /> : <ShoppingCartOutlinedIcon />}
       </Badge>
     ),
@@ -46,9 +46,9 @@ const DisplayCartButton: FC<Props> = ({ showModal }) => {
     <IconButton
       // color="default"
       // size="large"
+      className="d-inline-block d-md-none"
       color="inherit"
-      onClick={showModal}
-      className="d-inline-block d-md-none">
+      onClick={showModal}>
       {/* <ShoppingCartOutlinedIcon /> */}
       {startIcon}
     </IconButton>

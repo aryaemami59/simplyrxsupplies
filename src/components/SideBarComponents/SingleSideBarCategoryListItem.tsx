@@ -40,18 +40,18 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemName, target }) => {
     <>
       <div>
         <Button
-          size="small"
-          disabled={ifAddedToAllVendors}
           className="fw-bold p-auto shadow-sm rounded-pill text-none"
-          variant="contained"
-          onClick={clickHandler}>
+          disabled={ifAddedToAllVendors}
+          onClick={clickHandler}
+          size="small"
+          variant="contained">
           {itemName}
         </Button>
       </div>
       <ButtonGroup
         className="text-center"
-        size="small"
-        orientation="vertical">
+        orientation="vertical"
+        size="small">
         {vendors.map(vendorName => (
           <SideBarVendorBadges
             key={`SideBarVendorBadges-${itemName}${vendorName}`}

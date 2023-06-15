@@ -43,9 +43,9 @@ type Props = {
 
 const SearchResultsSingleCard: FC<Props> = ({ itemName }) => (
   <Card
+    key="Card-SingleInputListItems"
     className="shadow"
-    variant="outlined"
-    key="Card-SingleInputListItems">
+    variant="outlined">
     <CardContent
       key="Card.Body-SingleInputListItems"
       className="row gy- justify-content-center p-2">

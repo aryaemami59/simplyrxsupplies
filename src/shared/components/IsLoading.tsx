@@ -8,8 +8,8 @@ const IsLoading: FC = () => (
     className="d-flex justify-content-center">
     <Spinner
       animation="border"
-      role="status"
       className="my-5 loading-spinner"
+      role="status"
       variant="info">
       <span className="visually-hidden">Loading...</span>
     </Spinner>

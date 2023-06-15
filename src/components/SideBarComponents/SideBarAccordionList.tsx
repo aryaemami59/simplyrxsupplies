@@ -13,8 +13,8 @@ const SideBarAccordionList: FC = () => {
     <>
       {categoryList.map(category => (
         <SideBarAccordionCategories
-          category={category}
           key={`${category}-SideBarAccordion-SideBarAccordionList`}
+          category={category}
         />
       ))}
     </>

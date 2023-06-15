@@ -1,3 +1,4 @@
+import type { CardHeaderProps } from "@mui/material/CardHeader";
 import CardHeader from "@mui/material/CardHeader";
 import PropTypes from "prop-types";
 import type { FC } from "react";
@@ -10,12 +11,15 @@ type Props = {
   itemName: ItemName;
 };
 
+const titleTypographyProps: CardHeaderProps["titleTypographyProps"] = {
+  className: "fs-5",
+} as const;
+
 const SearchResultsItemName: FC<Props> = ({ itemName }) => (
   <CardHeader
-    // eslint-disable-next-line react-perf/jsx-no-new-object-as-prop
-    titleTypographyProps={{ className: "fs-5" }}
     className="p-1 p-lg-auto"
     title={itemName}
+    titleTypographyProps={titleTypographyProps}
   />
 );
 

@@ -37,11 +37,11 @@ const ExcludeVendorSingleCheckbox: FC = () => {
 
   return (
     <FormControlLabel
-      labelPlacement="top"
       className="fs-7"
+      control={control}
       disableTypography
       label={officialVendorName}
-      control={control}
+      labelPlacement="top"
     />
   );
 };

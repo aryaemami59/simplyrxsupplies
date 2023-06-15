@@ -42,22 +42,22 @@ const SideBarAccordionCategories: FC<Props> = ({ category }) => {
   return (
     <div>
       <Accordion
-        TransitionProps={transitionProps}
         expanded={open}
         onChange={toggle}
+        TransitionProps={transitionProps}
         variant="outlined">
         <AccordionSummary
           ref={ref}
-          expandIcon={expandIcon}
-          className="shadow-sm">
+          className="shadow-sm"
+          expandIcon={expandIcon}>
           <Typography>{category}</Typography>
         </AccordionSummary>
         <AccordionDetails className="text-center mw-7">
           {sidebarItemNames.map(itemName => (
             <SingleSideBarCategoryListItem
-              target={ref}
               key={`${itemName}-SingleSideBarAccordionListItem`}
               itemName={itemName}
+              target={ref}
             />
           ))}
         </AccordionDetails>

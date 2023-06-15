@@ -20,21 +20,21 @@ const RowBarcodeDialog: FC<Props> = ({ hideModal, show }) => {
 
   return (
     <Dialog
+      fullWidth
       keepMounted
       maxWidth="md"
-      fullWidth
-      open={show}
-      onClose={hideModal}>
+      onClose={hideModal}
+      open={show}>
       <DialogTitle>{itemName}</DialogTitle>
       <DialogContent
-        dividers
-        className="justify-content-center d-flex">
+        className="justify-content-center d-flex"
+        dividers>
         <BarcodeImage className="w-100" />
       </DialogContent>
       <DialogActions>
         <Button
-          variant="contained"
-          onClick={hideModal}>
+          onClick={hideModal}
+          variant="contained">
           Close
         </Button>
       </DialogActions>

@@ -28,14 +28,14 @@ const CopyIcon: FC<Props> = ({ content, text }) => {
 
   return (
     <Tooltip
-      title={copiedText}
-      open={show}>
+      open={show}
+      title={copiedText}>
       <Button
         className="fw-bold w-auto p-auto shadow-sm rounded-pill text-none"
+        onClick={handleClick}
         size="small"
-        variant="contained"
         startIcon={startIcon}
-        onClick={handleClick}>
+        variant="contained">
         Copy Item {text}
       </Button>
     </Tooltip>

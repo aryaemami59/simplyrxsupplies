@@ -41,8 +41,8 @@ const ShareButton: FC = () => {
 
   return (
     <IconButton
-      onClick={clickHandler}
       className="d-inline-block w-auto"
+      onClick={clickHandler}
       size="large">
       {startIcon}
     </IconButton>

@@ -64,14 +64,14 @@ const InputFieldComponent: FC = () => {
 
   return (
     <TextField
+      className="mt-4"
       fullWidth
+      InputProps={inputProps}
       inputRef={inputRef}
+      label="Search"
       onChange={changeValue}
       value={inputValue}
-      label="Search"
       variant="outlined"
-      className="mt-4"
-      InputProps={inputProps}
     />
   );
 };
