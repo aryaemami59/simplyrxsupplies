@@ -1,27 +1,27 @@
 import type {
-  CategoriesObj,
+  CategoriesObject,
   CategoryName,
   ItemName,
-  ItemsObj,
-  SingleItemObj,
+  ItemsObject,
+  SingleItemObject,
   VendorName,
-  VendorsObj,
+  VendorsObject,
 } from "./api";
 
 export type AddedState = {
   listItems: ItemName[];
-  errMsg: string;
+  errorMessage: string;
   isLoading: boolean;
-  itemsArr: ItemName[];
-  itemsObj: ItemsObj;
-  vendorsArr: VendorName[];
-  vendorsObj: VendorsObj;
-  categoriesArr: CategoryName[];
-  categoriesObj: CategoriesObj;
+  itemsArray: ItemName[];
+  itemsObject: ItemsObject;
+  vendorsArray: VendorName[];
+  vendorsObject: VendorsObject;
+  categoriesArray: CategoryName[];
+  categoriesObject: CategoriesObject;
 };
 
 export type FetchedData = {
-  items: SingleItemObj[];
-  vendors: VendorsObj;
-  categories: CategoriesObj;
+  items: SingleItemObject[];
+  vendors: VendorsObject;
+  categories: CategoriesObject;
 };

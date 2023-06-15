@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo } from "react";
 import { shallowEqual } from "react-redux";
+
 import { useAppSelector } from "../../redux/hooks";
 import { selectVendorsByItemName } from "../../redux/selectors";
 import type { ItemName } from "../../types/api";

@@ -2,6 +2,7 @@ import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import type { FC } from "react";
 import { memo } from "react";
+
 import VendorLink from "../../VendorLink";
 import RowBarcodeImage from "../RowBarcodeImage";
 import RowItemName from "../RowItemName";

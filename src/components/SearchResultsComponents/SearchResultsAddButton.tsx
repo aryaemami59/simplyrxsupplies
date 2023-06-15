@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback } from "react";
+
 import { addItems } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { checkIfAddedToAllVendors } from "../../redux/selectors";
@@ -17,7 +18,7 @@ type Props = {
 
 const SearchResultsAddButton: FC<Props> = ({ itemName }) => {
   const dispatch = useAppDispatch();
-  const IfAddedToAllVendors = useAppSelector(
+  const ifAddedToAllVendors = useAppSelector(
     checkIfAddedToAllVendors(itemName)
   );
 
@@ -28,7 +29,7 @@ const SearchResultsAddButton: FC<Props> = ({ itemName }) => {
   return (
     <Button
       className="fw-bold w-auto p-auto shadow-sm rounded-pill text-none"
-      disabled={IfAddedToAllVendors}
+      disabled={ifAddedToAllVendors}
       variant="contained"
       key={`Button-AddItemButtonComponent-${itemName}`}
       onClick={clickHandler}

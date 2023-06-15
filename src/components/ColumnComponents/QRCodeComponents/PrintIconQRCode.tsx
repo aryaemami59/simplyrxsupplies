@@ -5,6 +5,7 @@ import Tooltip from "@mui/material/Tooltip";
 import printjs from "print-js";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
+
 import useVendorName from "../../../hooks/useVendorName";
 import { useAppSelector } from "../../../redux/hooks";
 import { selectQRCodeContent } from "../../../redux/selectors";

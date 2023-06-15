@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import { memo } from "react";
+
 import SideBarAccordionList from "./SideBarAccordionList";
 
 const SideBarContainer: FC = () => (

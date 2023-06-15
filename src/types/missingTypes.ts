@@ -8,7 +8,7 @@ export type EmptyObject = Record<string, never>;
 
 export type EmptyArray = never[];
 
-export type Composite = AnyFunction | AnyArray | AnyObject;
+export type Composite = AnyArray | AnyFunction | AnyObject;
 
 export type ObjectOrArray = AnyArray | AnyObject;
 
@@ -20,7 +20,7 @@ export type Equals<X, Y> = (<T>() => T extends X ? 1 : 2) extends <
 
 export type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
 export type XOR<T, U> = T | U extends object
-  ? (Without<T, U> & U) | (Without<U, T> & T)
+  ? (T & Without<U, T>) | (U & Without<T, U>)
   : T | U;
 
 export type Mutable<T> = { -readonly [P in keyof T]: T[P] };

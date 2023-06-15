@@ -7,121 +7,121 @@ import type {
   Link,
   MinimizedItemIds,
   OfficialVendorName,
-  SingleItemObj,
-  Src,
+  SingleItemObject,
+  Src as Source,
   VendorName,
 } from "../types/api";
-import emptyArr from "../utils/emptyArr";
+import emptyArray from "../utils/emptyArray";
 import type { RootState } from "./store";
 
 export const selectAddedItemsByVendor =
   (vendorName: VendorName) =>
   (state: RootState): ItemName[] =>
-    state.added.vendorsObj[vendorName].itemsAdded;
+    state.added.vendorsObject[vendorName].itemsAdded;
 
-export const selectVendorsArr = (state: RootState): VendorName[] =>
-  state.added.vendorsArr.length ? state.added.vendorsArr : emptyArr;
+export const selectVendorsArray = (state: RootState): VendorName[] =>
+  state.added.vendorsArray.length > 0 ? state.added.vendorsArray : emptyArray;
 
 export const selectVendorsLinks =
   (vendorName: VendorName) =>
   (state: RootState): Link =>
-    state.added.vendorsObj[vendorName].link;
+    state.added.vendorsObject[vendorName].link;
 
-export const selectCategoriesArr = (state: RootState): CategoryName[] =>
-  state.added.categoriesArr;
+export const selectCategoriesArray = (state: RootState): CategoryName[] =>
+  state.added.categoriesArray;
 
-export const addedItemsLength =
+export const selectAddedItemsLength =
   (vendorName: VendorName) =>
   (state: RootState): number =>
-    state.added.vendorsObj[vendorName].itemsAdded.length;
+    state.added.vendorsObject[vendorName].itemsAdded.length;
 
 export const selectItemNamesByVendor =
   (vendorName: VendorName) =>
   (state: RootState): ItemName[] =>
-    Object.values(state.added.itemsObj)
-      .filter(({ vendors }: SingleItemObj) => vendors.includes(vendorName))
+    Object.values(state.added.itemsObject)
+      .filter(({ vendors }: SingleItemObject) => vendors.includes(vendorName))
       .map(({ name }) => name);
 
 export const selectCategoriesItemNames =
-  (categoryParam: CategoryName) =>
+  (categoryParameter: CategoryName) =>
   (state: RootState): ItemName[] =>
-    Object.values(state.added.itemsObj)
-      .filter(({ category }) => category.includes(categoryParam as never))
+    Object.values(state.added.itemsObject)
+      .filter(({ category }) => category.includes(categoryParameter as never))
       .map(({ name }) => name);
 
-export const selectItemNamesArr = (state: RootState): ItemName[] =>
-  state.added.itemsArr;
+export const selectItemNamesArray = (state: RootState): ItemName[] =>
+  state.added.itemsArray;
 
 export const selectQRCodeContent =
   (vendorName: VendorName) =>
   (state: RootState): string =>
-    state.added.vendorsObj[vendorName].qrContent;
+    state.added.vendorsObject[vendorName].qrContent;
 
 export const selectQRText = (vendorName: VendorName) => (state: RootState) =>
-  state.added.vendorsObj[vendorName].qrText;
+  state.added.vendorsObject[vendorName].qrText;
 
 export const checkIfAddedToAllVendors =
   (itemName: ItemName) =>
   (state: RootState): boolean =>
-    state.added.itemsObj[itemName].vendorsAdded.length ===
-    state.added.itemsObj[itemName].vendors.length;
+    state.added.itemsObject[itemName].vendorsAdded.length ===
+    state.added.itemsObject[itemName].vendors.length;
 
 export const checkIfItemAddedToOneVendor =
   (vendorName: VendorName, itemName: ItemName) =>
   (state: RootState): boolean =>
-    state.added.itemsObj[itemName].vendorsAdded.includes(vendorName);
+    state.added.itemsObject[itemName].vendorsAdded.includes(vendorName);
 
 export const checkVendorsToAdd =
   (vendorName: VendorName, itemName: ItemName) =>
   (state: RootState): boolean =>
-    state.added.itemsObj[itemName].vendorsToAdd.includes(vendorName);
+    state.added.itemsObject[itemName].vendorsToAdd.includes(vendorName);
 
 export const checkVendorsAdded =
   (vendorName: VendorName, itemName: ItemName) =>
   (state: RootState): boolean =>
-    state.added.itemsObj[itemName].vendorsAdded.includes(vendorName);
+    state.added.itemsObject[itemName].vendorsAdded.includes(vendorName);
 
 export const checkIfAnyAddedToOneVendor =
   (vendorName: VendorName) =>
   (state: RootState): boolean =>
-    !!state.added.vendorsObj[vendorName].itemsAdded.length;
+    state.added.vendorsObject[vendorName].itemsAdded.length > 0;
 
 export const selectItemNumber =
   (itemName: ItemName) =>
   (state: RootState): ItemNumber =>
-    state.added.itemsObj[itemName].itemNumber;
+    state.added.itemsObject[itemName].itemNumber;
 
 export const selectItemSrc =
   (itemName: ItemName) =>
-  (state: RootState): Src =>
-    state.added.itemsObj[itemName].src;
+  (state: RootState): Source =>
+    state.added.itemsObject[itemName].src;
 
 export const selectVendorsByItemName =
   (itemName: ItemName) =>
   (state: RootState): VendorName[] =>
-    state.added.itemsObj[itemName].vendors;
+    state.added.itemsObject[itemName].vendors;
 
 export const selectVendorOfficialName =
   (vendorName: VendorName) =>
   (state: RootState): OfficialVendorName =>
-    state.added.vendorsObj[vendorName].officialName;
+    state.added.vendorsObject[vendorName].officialName;
 
 export const selectMinimized =
   (vendorName: VendorName) =>
   (state: RootState): MinimizedItemIds =>
-    state.added.vendorsObj[vendorName].minimizedItemIds;
+    state.added.vendorsObject[vendorName].minimizedItemIds;
 
 export const checkIfMinimizedIsFull =
   (vendorName: VendorName) =>
   (state: RootState): boolean =>
-    state.added.vendorsObj[vendorName].minimizedItemIds.length ===
-    state.added.vendorsObj[vendorName].itemsAdded.length;
+    state.added.vendorsObject[vendorName].minimizedItemIds.length ===
+    state.added.vendorsObject[vendorName].itemsAdded.length;
 
 export const checkIfMinimized =
   (vendorName: VendorName, itemName: ItemName) =>
   (state: RootState): boolean =>
-    state.added.vendorsObj[vendorName].minimizedItemIds.includes(
-      state.added.itemsObj[itemName].id
+    state.added.vendorsObject[vendorName].minimizedItemIds.includes(
+      state.added.itemsObject[itemName].id
     );
 
 export const selectAllListItems = (state: RootState) => state.added.listItems;
@@ -130,12 +130,12 @@ export const selectItemNamesAndKeywords = (
   state: RootState
   // ): Record<keyof ItemsObj, ItemsObj[ItemName]["keywords"]>[] =>
 ): ItemNamesAndKeywords[] =>
-  state.added.itemsArr.map(itemName => {
+  state.added.itemsArray.map(itemName => {
     //   return {
     //     [state.added.itemsObj[itemName].name satisfies ItemName]:
     //       state.added.itemsObj[itemName].keywords,
     //   };
-    const { name, keywords } = state.added.itemsObj[itemName];
+    const { name, keywords } = state.added.itemsObject[itemName];
     return {
       name,
       keywords,
@@ -145,11 +145,11 @@ export const selectItemNamesAndKeywords = (
 export const selectKeywords =
   (itemName: ItemName) =>
   (state: RootState): Keywords =>
-    state.added.itemsObj[itemName].keywords;
+    state.added.itemsObject[itemName].keywords;
 
 export const checkIfAnyItemsAdded = (state: RootState): boolean =>
-  Object.values(state.added.vendorsObj).reduce(
-    (acc, { itemsAdded }) => !!itemsAdded.length || acc,
+  Object.values(state.added.vendorsObject).reduce(
+    (accumulator, { itemsAdded }) => itemsAdded.length > 0 || accumulator,
     false
   );
 // export const selectKeywords =
@@ -160,4 +160,5 @@ export const checkIfAnyItemsAdded = (state: RootState): boolean =>
 export const checkIfLoading = (state: RootState): boolean =>
   state.added.isLoading;
 
-export const selectErrMsg = (state: RootState): string => state.added.errMsg;
+export const selectErrorMessage = (state: RootState): string =>
+  state.added.errorMessage;

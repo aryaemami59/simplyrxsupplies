@@ -20,8 +20,10 @@ const CopyIcon: FC<Props> = ({ content, text }) => {
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
     setShow(true);
-    navigator.clipboard.writeText(content);
-    setTimeout(() => setShow(false), 1000);
+    void navigator.clipboard.writeText(content);
+    setTimeout(() => {
+      setShow(false);
+    }, 1000);
   }, [content]);
 
   return (

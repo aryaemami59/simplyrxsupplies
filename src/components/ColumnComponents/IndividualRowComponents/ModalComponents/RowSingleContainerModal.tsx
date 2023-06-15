@@ -4,6 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
+
 import RowItemsDialog from "./RowItemsDialog";
 
 const title = "Take a Closer Look at The Item Info";

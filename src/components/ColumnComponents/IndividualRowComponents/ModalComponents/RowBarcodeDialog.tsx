@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo } from "react";
 import Button from "react-bootstrap/Button";
+
 import useItemName from "../../../../hooks/useItemName";
 import BarcodeImage from "../BarcodeImage";
 

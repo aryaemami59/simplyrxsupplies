@@ -1,6 +1,7 @@
 import Link from "@mui/material/Link";
 import type { FC } from "react";
 import { memo } from "react";
+
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 import useVendorName from "../../hooks/useVendorName";
 import { useAppSelector } from "../../redux/hooks";

@@ -1,10 +1,10 @@
 import { useAppSelector } from "../redux/hooks";
-import { checkIfLoading, selectErrMsg } from "../redux/selectors";
+import { checkIfLoading, selectErrorMessage } from "../redux/selectors";
 
 const useIsLoading = () => {
   const isLoading = useAppSelector(checkIfLoading);
-  const errMsg = useAppSelector(selectErrMsg);
-  return [isLoading, errMsg] as const;
+  const errorMessage = useAppSelector(selectErrorMessage);
+  return [isLoading, errorMessage] as const;
 };
 
 export default useIsLoading;

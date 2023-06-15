@@ -2,12 +2,13 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
 import QRCode from "qrcode";
+
 import GITHUB_URL_ITEMS from "../data/fetchInfo";
 import type { ItemName, VendorAndItemName, VendorName } from "../types/api";
 import type { AddedState, FetchedData } from "../types/redux";
 import difference from "../utils/difference";
-import emptyArr from "../utils/emptyArr";
-import emptyObj from "../utils/emptyObj";
+import emptyArray from "../utils/emptyArray";
+import emptyObject from "../utils/emptyObject";
 import objectKeys from "../utils/objectKeys";
 
 export const fetchItems = createAsyncThunk<FetchedData>(
@@ -16,22 +17,24 @@ export const fetchItems = createAsyncThunk<FetchedData>(
     try {
       const response = await axios.get<FetchedData>(GITHUB_URL_ITEMS, {});
       return response.data;
-    } catch (err) {
-      throw axios.isAxiosError(err) ? err.message : "Unable to fetch";
+    } catch (error) {
+      throw axios.isAxiosError(error)
+        ? new Error(error.message)
+        : new Error("Unable to fetch");
     }
   }
 );
 
 const initialState = {
-  listItems: emptyArr,
-  errMsg: "",
+  listItems: emptyArray,
+  errorMessage: "",
   isLoading: true,
-  itemsArr: emptyArr,
-  itemsObj: emptyObj,
-  vendorsArr: emptyArr,
-  vendorsObj: emptyObj,
-  categoriesArr: emptyArr,
-  categoriesObj: emptyObj,
+  itemsArray: emptyArray,
+  itemsObject: emptyObject,
+  vendorsArray: emptyArray,
+  vendorsObject: emptyObject,
+  categoriesArray: emptyArray,
+  categoriesObject: emptyObject,
 } as unknown as AddedState;
 
 export const addedSlice = createSlice({
@@ -40,143 +43,147 @@ export const addedSlice = createSlice({
   reducers: {
     addItems: (state, { payload: itemName }: PayloadAction<ItemName>) => {
       if (
-        !state.itemsObj[itemName].vendorsToAdd.length ||
-        state.itemsObj[itemName].vendorsAdded.length ===
-          state.itemsObj[itemName].vendors.length
+        state.itemsObject[itemName].vendorsToAdd.length === 0 ||
+        state.itemsObject[itemName].vendorsAdded.length ===
+          state.itemsObject[itemName].vendors.length
       ) {
         return;
       }
-      state.itemsObj[itemName].vendorsToAdd.forEach(vendorName => {
+      state.itemsObject[itemName].vendorsToAdd.forEach(vendorName => {
         if (
-          !current(state.vendorsObj[vendorName]).itemsAdded.includes(itemName)
+          !current(state.vendorsObject[vendorName]).itemsAdded.includes(
+            itemName
+          )
         ) {
-          state.vendorsObj[vendorName].itemsAdded.push(itemName);
-          const qr = state.vendorsObj[vendorName].itemsAdded
-            .map(itemAddedName => state.itemsObj[itemAddedName].itemNumber)
-            .join(state.vendorsObj[vendorName].joinChars);
-          QRCode.toDataURL(qr, (err, url) => {
-            state.vendorsObj[vendorName].qrContent = url;
+          state.vendorsObject[vendorName].itemsAdded.push(itemName);
+          const qr = state.vendorsObject[vendorName].itemsAdded
+            .map(itemAddedName => state.itemsObject[itemAddedName].itemNumber)
+            .join(state.vendorsObject[vendorName].joinChars);
+          QRCode.toDataURL(qr, (error, url) => {
+            state.vendorsObject[vendorName].qrContent = url;
           });
-          state.vendorsObj[vendorName].qrText = qr;
+          state.vendorsObject[vendorName].qrText = qr;
           state.listItems = state.listItems.filter(
             listItemName => listItemName !== itemName
           );
-          state.itemsObj[itemName].vendorsAdded = [
-            ...state.itemsObj[itemName].vendorsAdded,
-            ...state.itemsObj[itemName].vendorsToAdd,
+          state.itemsObject[itemName].vendorsAdded = [
+            ...state.itemsObject[itemName].vendorsAdded,
+            ...state.itemsObject[itemName].vendorsToAdd,
           ];
-          state.itemsObj[itemName].vendorsToAdd = state.itemsObj[itemName]
-            .vendorsToAdd.length
-            ? difference(
-                state.itemsObj[itemName].vendors,
-                state.itemsObj[itemName].vendorsAdded
-              )
-            : emptyArr;
+          state.itemsObject[itemName].vendorsToAdd =
+            state.itemsObject[itemName].vendorsToAdd.length > 0
+              ? difference(
+                  state.itemsObject[itemName].vendors,
+                  state.itemsObject[itemName].vendorsAdded
+                )
+              : emptyArray;
         }
       });
     },
     addItemsByVendor: (state, action: PayloadAction<VendorAndItemName>) => {
       const { itemName, vendorName } = action.payload;
-      state.vendorsObj[vendorName].itemsAdded.push(itemName);
-      state.itemsObj[itemName].vendorsAdded = [
-        ...state.itemsObj[itemName].vendorsAdded,
+      state.vendorsObject[vendorName].itemsAdded.push(itemName);
+      state.itemsObject[itemName].vendorsAdded = [
+        ...state.itemsObject[itemName].vendorsAdded,
         vendorName,
       ];
-      state.itemsObj[itemName].vendorsToAdd = state.itemsObj[itemName]
-        .vendorsToAdd.length
-        ? difference(
-            state.itemsObj[itemName].vendors,
-            state.itemsObj[itemName].vendorsAdded
-          )
-        : emptyArr;
-      const qr = state.vendorsObj[vendorName].itemsAdded
-        .map(itemAddedName => state.itemsObj[itemAddedName].itemNumber)
-        .join(state.vendorsObj[vendorName].joinChars);
-      QRCode.toDataURL(qr, (err, url) => {
-        state.vendorsObj[vendorName].qrContent = url;
+      state.itemsObject[itemName].vendorsToAdd =
+        state.itemsObject[itemName].vendorsToAdd.length > 0
+          ? difference(
+              state.itemsObject[itemName].vendors,
+              state.itemsObject[itemName].vendorsAdded
+            )
+          : emptyArray;
+      const qr = state.vendorsObject[vendorName].itemsAdded
+        .map(itemAddedName => state.itemsObject[itemAddedName].itemNumber)
+        .join(state.vendorsObject[vendorName].joinChars);
+      QRCode.toDataURL(qr, (error, url) => {
+        state.vendorsObject[vendorName].qrContent = url;
       });
-      state.vendorsObj[vendorName].qrText = qr;
+      state.vendorsObject[vendorName].qrText = qr;
     },
     removeItems: (state, action: PayloadAction<VendorAndItemName>) => {
       const { itemName, vendorName } = action.payload;
-      state.vendorsObj[vendorName].itemsAdded = state.vendorsObj[
+      state.vendorsObject[vendorName].itemsAdded = state.vendorsObject[
         vendorName
       ].itemsAdded.filter(itemAddedName => itemAddedName !== itemName);
-      state.itemsObj[itemName].vendorsAdded = state.itemsObj[
+      state.itemsObject[itemName].vendorsAdded = state.itemsObject[
         itemName
       ].vendorsAdded.filter(vendor => vendor !== vendorName);
-      const qr = state.vendorsObj[vendorName].itemsAdded
-        .map(itemAddedName => state.itemsObj[itemAddedName].itemNumber)
-        .join(state.vendorsObj[vendorName].joinChars);
-      QRCode.toDataURL(qr, (err, url) => {
-        state.vendorsObj[vendorName].qrContent = url;
+      const qr = state.vendorsObject[vendorName].itemsAdded
+        .map(itemAddedName => state.itemsObject[itemAddedName].itemNumber)
+        .join(state.vendorsObject[vendorName].joinChars);
+      QRCode.toDataURL(qr, (error, url) => {
+        state.vendorsObject[vendorName].qrContent = url;
       });
-      state.vendorsObj[vendorName].qrText = qr;
+      state.vendorsObject[vendorName].qrText = qr;
     },
     removeAllItems: (state, action: PayloadAction<VendorName>) => {
       const { payload: vendorName } = action;
-      state.vendorsObj[vendorName].itemsAdded.forEach(itemName => {
-        state.itemsObj[itemName].vendorsAdded = state.itemsObj[
+      state.vendorsObject[vendorName].itemsAdded.forEach(itemName => {
+        state.itemsObject[itemName].vendorsAdded = state.itemsObject[
           itemName
         ].vendorsAdded.filter(vendor => vendor !== vendorName);
-        state.itemsObj[itemName].vendorsToAdd.includes(vendorName) ||
-          state.itemsObj[itemName].vendorsToAdd.push(vendorName);
+        state.itemsObject[itemName].vendorsToAdd.includes(vendorName) ||
+          state.itemsObject[itemName].vendorsToAdd.push(vendorName);
       });
-      state.vendorsObj[vendorName].qrContent = "";
-      state.vendorsObj[vendorName].qrText = "";
-      state.vendorsObj[vendorName].itemsAdded = emptyArr;
+      state.vendorsObject[vendorName].qrContent = "";
+      state.vendorsObject[vendorName].qrText = "";
+      state.vendorsObject[vendorName].itemsAdded = emptyArray;
     },
     setListItems: (state, action: PayloadAction<ItemName[]>) => {
       state.listItems = action.payload;
     },
     clearListItems: state => {
-      state.listItems = emptyArr;
+      state.listItems = emptyArray;
     },
     setVendors: (state, { payload }: PayloadAction<VendorAndItemName>) => {
       const { itemName, vendorName } = payload;
-      state.itemsObj[itemName].vendorsToAdd = state.itemsObj[
+      state.itemsObject[itemName].vendorsToAdd = state.itemsObject[
         itemName
       ].vendorsToAdd.includes(vendorName)
-        ? state.itemsObj[itemName].vendorsToAdd.filter(
-            vendorNameParam => vendorNameParam !== vendorName
+        ? state.itemsObject[itemName].vendorsToAdd.filter(
+            vendorNameParameter => vendorNameParameter !== vendorName
           )
-        : state.itemsObj[itemName].vendorsToAdd.concat(vendorName);
+        : state.itemsObject[itemName].vendorsToAdd.concat(vendorName);
     },
     minimizeItem: (state, action: PayloadAction<VendorAndItemName>) => {
       const { itemName, vendorName } = action.payload;
-      const { id } = state.itemsObj[itemName];
-      state.vendorsObj[vendorName].minimizedItemIds = state.vendorsObj[
+      const { id } = state.itemsObject[itemName];
+      state.vendorsObject[vendorName].minimizedItemIds = state.vendorsObject[
         vendorName
       ].minimizedItemIds.includes(id)
-        ? state.vendorsObj[vendorName].minimizedItemIds.filter(e => e !== id)
-        : state.vendorsObj[vendorName].minimizedItemIds.concat(id);
+        ? state.vendorsObject[vendorName].minimizedItemIds.filter(
+            minimizedItemId => minimizedItemId !== id
+          )
+        : state.vendorsObject[vendorName].minimizedItemIds.concat(id);
     },
     minimizeAll: (state, action: PayloadAction<VendorName>) => {
       const { payload: vendorName } = action;
-      const { itemsAdded, minimizedItemIds } = state.vendorsObj[vendorName];
-      const itemsAddedIds = itemsAdded.map(e => state.itemsObj[e].id);
-      state.vendorsObj[vendorName].minimizedItemIds = [
+      const { itemsAdded, minimizedItemIds } = state.vendorsObject[vendorName];
+      const itemsAddedIds = itemsAdded.map(item => state.itemsObject[item].id);
+      state.vendorsObject[vendorName].minimizedItemIds = [
         ...minimizedItemIds,
         ...itemsAddedIds,
       ];
     },
     maximizeAll: (state, action: PayloadAction<VendorName>) => {
       const { payload: vendorName } = action;
-      state.vendorsObj[vendorName].minimizedItemIds = emptyArr;
+      state.vendorsObject[vendorName].minimizedItemIds = emptyArray;
     },
     setVendorsForAllCheck: (
       state,
       { payload: vendorName }: PayloadAction<VendorName>
     ) => {
-      Object.values(state.itemsObj)
+      Object.values(state.itemsObject)
         .filter(({ vendors }) => vendors.includes(vendorName))
         .forEach(({ name }) => {
           // vendorsToAdd.includes(vendorName) || vendorsToAdd.push(vendorName);
           // state.itemsObj[name].vendorsToAdd.includes(vendorName) ||
           //   state.itemsObj[name].vendorsToAdd.concat(vendorName);
-          if (!state.itemsObj[name].vendorsToAdd.includes(vendorName)) {
-            state.itemsObj[name].vendorsToAdd = [
-              ...state.itemsObj[name].vendorsToAdd,
+          if (!state.itemsObject[name].vendorsToAdd.includes(vendorName)) {
+            state.itemsObject[name].vendorsToAdd = [
+              ...state.itemsObject[name].vendorsToAdd,
               vendorName,
             ];
           }
@@ -199,18 +206,20 @@ export const addedSlice = createSlice({
       state,
       { payload: vendorName }: PayloadAction<VendorName>
     ) => {
-      state.itemsArr.forEach(itemName => {
+      state.itemsArray.forEach(itemName => {
         if (
-          state.itemsObj[itemName].vendorsToAdd.indexOf(vendorName) ===
-          state.itemsObj[itemName].vendorsToAdd.length - 1
+          state.itemsObject[itemName].vendorsToAdd.indexOf(vendorName) ===
+          state.itemsObject[itemName].vendorsToAdd.length - 1
         ) {
-          state.itemsObj[itemName].vendorsToAdd.pop();
+          state.itemsObject[itemName].vendorsToAdd.pop();
         } else if (
-          state.itemsObj[itemName].vendorsToAdd.indexOf(vendorName) === 0
+          state.itemsObject[itemName].vendorsToAdd.indexOf(vendorName) === 0
         ) {
-          state.itemsObj[itemName].vendorsToAdd.shift();
-        } else if (state.itemsObj[itemName].vendorsToAdd.includes(vendorName)) {
-          state.itemsObj[itemName].vendorsToAdd = state.itemsObj[
+          state.itemsObject[itemName].vendorsToAdd.shift();
+        } else if (
+          state.itemsObject[itemName].vendorsToAdd.includes(vendorName)
+        ) {
+          state.itemsObject[itemName].vendorsToAdd = state.itemsObject[
             itemName
           ].vendorsToAdd.filter(vendor => vendor !== vendorName);
         }
@@ -223,32 +232,32 @@ export const addedSlice = createSlice({
     });
     builder.addCase(fetchItems.rejected, (state, action) => {
       state.isLoading = false;
-      state.errMsg = action.error.message ?? "Fetch failed";
+      state.errorMessage = action.error.message ?? "Fetch failed";
     });
     builder.addCase(fetchItems.fulfilled, (state, action) => {
       const { categories, items, vendors } = action.payload;
-      state.itemsArr = items.map(({ name }) => name);
-      items.forEach(itemObj => {
-        state.itemsObj[itemObj.name] = {
-          ...itemObj,
-          vendorsAdded: emptyArr,
-          vendorsToAdd: itemObj.vendors,
+      state.itemsArray = items.map(({ name }) => name);
+      items.forEach(itemObject => {
+        state.itemsObject[itemObject.name] = {
+          ...itemObject,
+          vendorsAdded: emptyArray,
+          vendorsToAdd: itemObject.vendors,
         };
       });
-      state.vendorsArr = objectKeys(vendors);
-      Object.values(vendors).forEach(vendorObj => {
-        state.vendorsObj[vendorObj.abbrName] = {
-          ...vendorObj,
-          itemsAdded: emptyArr as ItemName[],
+      state.vendorsArray = objectKeys(vendors);
+      Object.values(vendors).forEach(vendorObject => {
+        state.vendorsObject[vendorObject.abbrName] = {
+          ...vendorObject,
+          itemsAdded: emptyArray as ItemName[],
           minimizedItemIds: [],
           qrContent: "",
           qrText: "",
         };
       });
-      state.categoriesArr = objectKeys(categories);
-      state.categoriesObj = { ...categories };
+      state.categoriesArray = objectKeys(categories);
+      state.categoriesObject = { ...categories };
       state.isLoading = false;
-      state.errMsg = "";
+      state.errorMessage = "";
     });
   },
 });

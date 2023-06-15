@@ -3,6 +3,7 @@ import ListItemText from "@mui/material/ListItemText";
 import type { TypographyProps } from "@mui/material/Typography";
 import type { FC } from "react";
 import { memo } from "react";
+
 import useItemName from "../../../hooks/useItemName";
 import CopyIcon from "./CopyIcon";
 

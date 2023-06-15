@@ -2,6 +2,7 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import type { FC } from "react";
 import { memo, useCallback, useMemo, useState } from "react";
+
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 import useVendorName from "../../hooks/useVendorName";
 import {

@@ -5,12 +5,11 @@
 // import { itemNames, ItemName } from '../../types/api';
 // import SearchResultsCardBodyContent from "./SearchResultsCardBodyContent";
 
-import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 // const SearchResultsSingleCard = forwardRef<HTMLDivElement, Props>(
 //   ({ itemName }, ref) => {
 //     console.log(ref);
-
 //     return (
 //       <Card
 //         ref={ref}
@@ -26,18 +25,15 @@ import Card from "@mui/material/Card";
 //     );
 //   }
 // );
-
 // SearchResultsSingleCard.displayName = "SearchResultsSingleCard";
-
 // SearchResultsSingleCard.propTypes = {
 //   itemName: PropTypes.oneOf(itemNames).isRequired,
 // };
-
 // export default SearchResultsSingleCard;
 // export default memo<Props>(SearchResultsSingleCard);
-
 import type { FC } from "react";
 import { memo } from "react";
+
 import type { ItemName } from "../../types/api";
 import SearchResultsCardBodyContent from "./SearchResultsCardBodyContent";
 

@@ -3,6 +3,7 @@ import List from "@mui/material/List";
 import type { FC } from "react";
 import { memo } from "react";
 import { shallowEqual } from "react-redux";
+
 import ItemNameProvider from "../../contexts/ItemNameProvider";
 import useVendorName from "../../hooks/useVendorName";
 import { useAppSelector } from "../../redux/hooks";

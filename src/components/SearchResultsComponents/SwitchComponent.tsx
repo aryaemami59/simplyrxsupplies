@@ -3,6 +3,7 @@ import Switch from "@mui/material/Switch";
 import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo, useCallback } from "react";
+
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 import { setVendors } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";

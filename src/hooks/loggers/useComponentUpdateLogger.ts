@@ -1,4 +1,5 @@
 import { useDebugValue, useRef } from "react";
+
 import useComponentDidUpdate from "../useComponentDidUpdate";
 
 /**
@@ -11,7 +12,7 @@ const useComponentUpdateLogger = () => {
     new Error().stack?.split("\n")[2].split(" ")[5] ?? "Component";
   const renderCount = useRef(0);
 
-  useDebugValue([componentName, renderCount.current], e => e);
+  useDebugValue([componentName, renderCount.current], value => value);
 
   useComponentDidUpdate(() => {
     renderCount.current += 1;

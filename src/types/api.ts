@@ -4441,9 +4441,9 @@ export type SingleItem = Items[number];
 export type ItemVendors = Mutable<SingleItem["vendors"]>;
 export type VendorsToAdd = GetVendors<ItemVendors>;
 
-export type SingleItemObj = Omit<
+export type SingleItemObject = Omit<
   SingleItem,
-  VendorName | "keywords" | "category" | "vendors"
+  VendorName | "category" | "keywords" | "vendors"
 > & {
   readonly vendors: VendorName[];
   readonly keywords: Keywords;
@@ -4456,7 +4456,7 @@ export type GetVendors<T extends ItemVendors> = T extends readonly [...infer U]
   : never;
 
 export type MinimizedItemIds = VendorItemIds[number][];
-export type SingleVendorObj = Omit<Vendors[VendorName], "itemIds"> & {
+export type SingleVendorObject = Omit<Vendors[VendorName], "itemIds"> & {
   readonly itemIds: VendorItemIds;
   itemsAdded: ItemName[];
   minimizedItemIds: MinimizedItemIds;
@@ -4467,24 +4467,24 @@ export type SingleCategory = Omit<Categories[CategoryName], "itemIds"> & {
   readonly itemIds: CategoryItemIds;
 };
 
-export type CategoriesObj = Record<CategoryName, SingleCategory>;
+export type CategoriesObject = Record<CategoryName, SingleCategory>;
 
 export type VendorName = keyof Vendors;
 export type CategoryName = keyof Categories;
-export type ItemName = SingleItemObj["name"];
+export type ItemName = SingleItemObject["name"];
 
-export type ItemNumber = SingleItemObj["itemNumber"];
+export type ItemNumber = SingleItemObject["itemNumber"];
 export type Keywords = Mutable<SingleItem["keywords"]>;
-export type Src = SingleItemObj["src"];
+export type Src = SingleItemObject["src"];
 
-export type OfficialVendorName = SingleVendorObj["officialName"];
-export type Link = SingleVendorObj["link"];
-export type JoinChars = SingleVendorObj["joinChars"];
+export type OfficialVendorName = SingleVendorObject["officialName"];
+export type Link = SingleVendorObject["link"];
+export type JoinChars = SingleVendorObject["joinChars"];
 export type VendorItemIds = Mutable<Vendors[VendorName]["itemIds"]>;
 export type CategoryItemIds = Mutable<Categories[CategoryName]["itemIds"]>;
 
-export type ItemsObj = Record<ItemName, SingleItemObj>;
-export type VendorsObj = Record<VendorName, SingleVendorObj>;
+export type ItemsObject = Record<ItemName, SingleItemObject>;
+export type VendorsObject = Record<VendorName, SingleVendorObject>;
 
 export type VendorAndItemName = {
   itemName: ItemName;
@@ -4492,6 +4492,6 @@ export type VendorAndItemName = {
 };
 
 export type ItemNamesAndKeywords = Pick<
-  ItemsObj[ItemName],
-  "name" | "keywords"
+  ItemsObject[ItemName],
+  "keywords" | "name"
 >;

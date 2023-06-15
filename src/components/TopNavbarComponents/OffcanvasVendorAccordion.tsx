@@ -7,6 +7,7 @@ import type { TransitionProps } from "@mui/material/transitions";
 import Typography from "@mui/material/Typography";
 import type { FC } from "react";
 import { memo, useCallback, useState } from "react";
+
 import ItemNameProvider from "../../contexts/ItemNameProvider";
 import useItemNames from "../../hooks/useItemNames";
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";

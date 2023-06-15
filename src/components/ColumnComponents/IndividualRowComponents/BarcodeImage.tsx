@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo } from "react";
+
 import useItemName from "../../../hooks/useItemName";
 import { useAppSelector } from "../../../redux/hooks";
 import { selectItemSrc } from "../../../redux/selectors";
@@ -20,6 +21,10 @@ const BarcodeImage: FC<Props> = ({ className }) => {
       className={`${className ?? ""} barcode-image`}
     />
   );
+};
+
+BarcodeImage.defaultProps = {
+  className: undefined,
 };
 
 BarcodeImage.propTypes = {

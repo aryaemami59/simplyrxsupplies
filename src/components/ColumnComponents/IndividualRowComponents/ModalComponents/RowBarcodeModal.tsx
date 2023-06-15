@@ -4,6 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
+
 import RowBarcodeDialog from "./RowBarcodeDialog";
 
 const title = "Take a Closer Look at The Barcode";

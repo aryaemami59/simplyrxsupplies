@@ -6,6 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
+
 import VendorColumnList from "../ColumnComponents/VendorColumnList";
 import DisplayCartButton from "./DisplayCartButton";
 

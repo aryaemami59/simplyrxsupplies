@@ -1,6 +1,7 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
+
 import addedReducer from "./addedSlice";
 
 export const store = configureStore({

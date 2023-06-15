@@ -4,6 +4,7 @@ import Menu from "@mui/material/Menu";
 import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
+
 import useItemNames from "../../hooks/useItemNames";
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 import type { VendorName } from "../../types/api";
@@ -38,18 +39,18 @@ type Props = {
 };
 
 const VendorDropDown: FC<Props> = ({ vendorName }) => {
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const open = !!anchorEl;
+  const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null);
+  const open = !!anchorElement;
   const officialVendorName = useOfficialVendorName(vendorName);
 
   const itemNames = useItemNames(vendorName);
 
   const handleOpen: MouseEventHandler<HTMLElement> = useCallback(event => {
-    setAnchorEl(event.currentTarget);
+    setAnchorElement(event.currentTarget);
   }, []);
 
   const handleClose: MouseEventHandler<HTMLElement> = useCallback(() => {
-    setAnchorEl(null);
+    setAnchorElement(null);
   }, []);
 
   return (
@@ -79,7 +80,7 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
         aria-labelledby={vendorName}
         id={officialVendorName}
         MenuListProps={menuListProps}
-        anchorEl={anchorEl}
+        anchorEl={anchorElement}
         variant="menu"
         open={open}
         onClose={handleClose}

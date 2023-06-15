@@ -4,6 +4,7 @@ import Collapse from "@mui/material/Collapse";
 import Fade from "@mui/material/Fade";
 import type { FC } from "react";
 import { memo, useCallback } from "react";
+
 import useItemName from "../../../hooks/useItemName";
 import useVendorName from "../../../hooks/useVendorName";
 import { minimizeItem } from "../../../redux/addedSlice";

@@ -9,7 +9,7 @@ const useComponentMountLogger = () => {
   const componentName =
     new Error().stack?.split("\n")[2].split(" ")[5] ?? "Component";
 
-  useDebugValue(componentName, e => e);
+  useDebugValue(componentName, value => value);
 
   useEffect(() => {
     console.log(

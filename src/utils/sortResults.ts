@@ -14,7 +14,7 @@ const sortResults = (
   if (itemNameAndKeyword.name.toLowerCase().includes(inputValue)) {
     return 50;
   }
-  if (itemNameAndKeyword.name.toLowerCase().match(searchRegExp)) {
+  if (searchRegExp.test(itemNameAndKeyword.name.toLowerCase())) {
     return (
       itemNameAndKeyword.name.toLowerCase().match(searchRegExp)?.length ?? 0
     );

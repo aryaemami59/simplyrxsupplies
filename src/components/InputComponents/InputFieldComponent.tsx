@@ -9,6 +9,7 @@ import {
   useTransition,
 } from "react";
 import { shallowEqual } from "react-redux";
+
 import { clearListItems, setListItems } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectItemNamesAndKeywords } from "../../redux/selectors";
@@ -22,7 +23,7 @@ const style: CSSProperties = {
 };
 
 const InputFieldComponent: FC = () => {
-  const [val, setVal] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [, startTransition] = useTransition();
   // const itemNames = useAppSelector(selectItemNamesArr, shallowEqual);
   const itemNamesAndKeywords = useAppSelector(
@@ -34,14 +35,14 @@ const InputFieldComponent: FC = () => {
 
   const clickHandler = useCallback(() => {
     dispatch(clearListItems());
-    setVal("");
+    setInputValue("");
     inputRef.current?.focus();
   }, [dispatch]);
 
-  const changeVal = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const { value } = e.target;
-      setVal(value);
+  const changeValue = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
+      setInputValue(value);
       startTransition(() => {
         const listItems = search(value, itemNamesAndKeywords);
         // const listItems = search(value, itemNames);
@@ -54,17 +55,19 @@ const InputFieldComponent: FC = () => {
   const inputProps = useMemo(
     () => ({
       style,
-      endAdornment: val && <InputEndAdornment clickHandler={clickHandler} />,
+      endAdornment: inputValue && (
+        <InputEndAdornment clickHandler={clickHandler} />
+      ),
     }),
-    [clickHandler, val]
+    [clickHandler, inputValue]
   );
 
   return (
     <TextField
       fullWidth
       inputRef={inputRef}
-      onChange={changeVal}
-      value={val}
+      onChange={changeValue}
+      value={inputValue}
       label="Search"
       variant="outlined"
       className="mt-4"

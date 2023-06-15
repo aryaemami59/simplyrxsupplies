@@ -1,9 +1,11 @@
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import Paper from "@mui/material/Paper";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+
+import Paper from "@mui/material/Paper";
 import type { FC } from "react";
 import { memo, useEffect } from "react";
-import "./App.css";
+
 import VendorColumnList from "./components/ColumnComponents/VendorColumnList";
 import InputGroupComponent from "./components/InputComponents/InputGroupComponent";
 import SideBarContainer from "./components/SideBarComponents/SideBarContainer";
@@ -19,14 +21,14 @@ const App: FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchItems());
+    void dispatch(fetchItems());
   }, [dispatch]);
 
-  const [isLoading, errMsg] = useIsLoading();
+  const [isLoading, errorMessage] = useIsLoading();
 
   if (isLoading) return <IsLoading />;
 
-  if (errMsg) return <ErrorComponent />;
+  if (errorMessage) return <ErrorComponent />;
 
   return (
     <ColorModeProvider>

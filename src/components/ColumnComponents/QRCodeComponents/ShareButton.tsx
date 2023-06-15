@@ -5,6 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import type { FC } from "react";
 import { memo, useCallback, useMemo } from "react";
 import { shareOnMobile } from "react-mobile-share";
+
 import useVendorName from "../../../hooks/useVendorName";
 import { useAppSelector } from "../../../redux/hooks";
 import {
@@ -12,7 +13,7 @@ import {
   selectQRCodeContent,
 } from "../../../redux/selectors";
 
-const startIcon = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? (
+const startIcon = /iphone|ipad|ipod/i.test(navigator.userAgent) ? (
   <IosShareIcon fontSize="large" />
 ) : (
   <FontAwesomeIcon icon={faShareNodes} />

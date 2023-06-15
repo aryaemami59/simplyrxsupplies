@@ -1,5 +1,5 @@
 import type { ItemNamesAndKeywords } from "../types/api";
-import emptyArr from "./emptyArr";
+import emptyArray from "./emptyArray";
 import sortResults from "./sortResults";
 
 const search = (
@@ -13,8 +13,8 @@ const search = (
 
   const strictSearchValue = inputValue
     .split(/\s+/gi)
-    .map((f: string, i: number, arr: string[]) =>
-      i !== arr.length - 1 ? `(\\b(${f})+\\b)` : `(\\b(${f}))`
+    .map((f: string, index: number, array: string[]) =>
+      index === array.length - 1 ? `(\\b(${f}))` : `(\\b(${f})+\\b)`
     )
     .join(".*");
 
@@ -44,7 +44,7 @@ const search = (
         )
         .map(({ name }) => name)
     : // .slice(0, 20)
-      emptyArr;
+      emptyArray;
 };
 
 export default search;

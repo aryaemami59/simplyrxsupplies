@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
+
 import OffcanvasBodyContent from "./OffcanvasBodyContent";
 
 const paperProps: PaperProps = {
