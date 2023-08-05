@@ -1,20 +1,26 @@
 {
   "compilerOptions": {
-    "allowImportingTsExtensions": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "noEmit": true,
+    "noErrorTruncation": true,
     "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
     "target": "ESNext",
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "useDefineForClassFields": true,
+    "useUnknownInCatchVariables": true
   },
-  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

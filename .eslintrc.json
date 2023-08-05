@@ -1,7 +1,7 @@
 {
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": ["./tsconfig.json"],
+    "project": true,
     "sourceType": "module",
     "ecmaVersion": "latest",
     "ecmaFeatures": { "jsx": true },
@@ -12,13 +12,13 @@
     "@typescript-eslint",
     "react-perf",
     "prettier",
-    "prefer-arrow",
     "jsx-a11y",
     "material-ui",
     "mui-path-imports",
     "promise",
     "sonarjs",
     "unicorn",
+    "prefer-arrow-functions",
     "simple-import-sort"
   ],
   "extends": [
@@ -45,24 +45,22 @@
   ],
   "ignorePatterns": [
     "node_modules",
+    ".vscode",
     "build",
     "dist",
     ".git",
-    ".vscode",
     "public",
     "netlify.toml",
     "vite.config.ts"
   ],
-  "env": {
-    "browser": true,
-    "es2022": true
-  },
+  "env": { "browser": true, "es2022": true },
   "rules": {
     "prettier/prettier": [
       2,
       {
         "bracketSameLine": true,
         "arrowParens": "avoid",
+        "endOfLine": "auto",
         "singleAttributePerLine": true,
         "parser": "typescript"
       }
@@ -105,12 +103,9 @@
         "modifiers": ["requiresQuotes"],
         "selector": ["objectLiteralProperty"]
       },
-      {
-        "format": ["camelCase"],
-        "selector": ["parameter"]
-      }
+      { "format": ["camelCase"], "selector": ["parameter"] }
     ],
-    "prefer-arrow/prefer-arrow-functions": [2],
+    "prefer-arrow-functions/prefer-arrow-functions": [2],
     "mui-path-imports/mui-path-imports": [2],
     "no-void": [2, { "allowAsStatement": true }],
     "promise/prefer-await-to-then": [2],
@@ -159,10 +154,6 @@
     "simple-import-sort/imports": [2],
     "react/jsx-sort-props": [2]
   },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
+  "settings": { "react": { "version": "detect" } },
   "root": true
 }

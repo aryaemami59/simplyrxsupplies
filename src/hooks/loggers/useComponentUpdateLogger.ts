@@ -9,7 +9,7 @@ import useComponentDidUpdate from "../useComponentDidUpdate";
  */
 const useComponentUpdateLogger = () => {
   const componentName =
-    new Error().stack?.split("\n")[2].split(" ")[5] ?? "Component";
+    new Error().stack?.split("\n")[2]?.split(" ")[5] ?? "Component";
   const renderCount = useRef(0);
 
   useDebugValue([componentName, renderCount.current], value => value);
