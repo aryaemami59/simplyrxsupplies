@@ -1,7 +1,8 @@
+import { createSelector } from "@reduxjs/toolkit";
+
 import type {
   CategoryName,
   ItemName,
-  ItemNamesAndKeywords,
   ItemNumber,
   Keywords,
   Link,
@@ -126,36 +127,27 @@ export const checkIfMinimized =
 
 export const selectAllListItems = (state: RootState) => state.added.listItems;
 
-export const selectItemNamesAndKeywords = (
-  state: RootState
-  // ): Record<keyof ItemsObj, ItemsObj[ItemName]["keywords"]>[] =>
-): ItemNamesAndKeywords[] =>
-  state.added.itemsArray.map(itemName => {
-    //   return {
-    //     [state.added.itemsObj[itemName].name satisfies ItemName]:
-    //       state.added.itemsObj[itemName].keywords,
-    //   };
-    const { name, keywords } = state.added.itemsObject[itemName];
-    return {
-      name,
-      keywords,
-    };
-  });
+export const selectItemsObject = (state: RootState) => state.added.itemsObject;
 
 export const selectKeywords =
   (itemName: ItemName) =>
   (state: RootState): Keywords =>
     state.added.itemsObject[itemName].keywords;
 
+export const selectItemNamesAndKeywords = createSelector(
+  [selectItemNamesArray, selectItemsObject],
+  (itemsArray, itemsObject) =>
+    itemsArray.map(itemName => ({
+      name: itemsObject[itemName].name,
+      keywords: itemsObject[itemName].keywords,
+    }))
+);
+
 export const checkIfAnyItemsAdded = (state: RootState): boolean =>
   Object.values(state.added.vendorsObject).reduce(
     (accumulator, { itemsAdded }) => itemsAdded.length > 0 || accumulator,
     false
   );
-// export const selectKeywords =
-//   (itemNames: ItemName[]) =>
-//   (state: RootState): Keyword[] =>
-//     itemNames.map(itemName => state.added.itemsObj[itemName].keywords);
 
 export const checkIfLoading = (state: RootState): boolean =>
   state.added.isLoading;

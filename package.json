@@ -45,14 +45,16 @@
     "deploy": "gh-pages -d dist",
     "serve": "serve -s dist",
     "start": "npm run dev",
-    "lint": "eslint . --ext .js,.ts,.tsx",
-    "format": "eslint . --fix --ext .js,.ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "format": "eslint . --fix --ext .ts,.tsx"
   },
   "devDependencies": {
     "@types/qrcode": "^1.5.1",
     "@types/react": "^18.2.18",
     "@types/react-dom": "^18.2.7",
     "@types/redux-logger": "^3.0.9",
+    "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "^6.2.1",
     "@vitejs/plugin-react": "^4.0.4",
     "eslint": "^8.46.0",
     "eslint-config-airbnb": "^19.0.4",

@@ -8,7 +8,6 @@ import {
   useState,
   useTransition,
 } from "react";
-import { shallowEqual } from "react-redux";
 
 import { clearListItems, setListItems } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -26,10 +25,7 @@ const InputFieldComponent: FC = () => {
   const [inputValue, setInputValue] = useState("");
   const [, startTransition] = useTransition();
   // const itemNames = useAppSelector(selectItemNamesArr, shallowEqual);
-  const itemNamesAndKeywords = useAppSelector(
-    selectItemNamesAndKeywords,
-    shallowEqual
-  );
+  const itemNamesAndKeywords = useAppSelector(selectItemNamesAndKeywords);
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
 

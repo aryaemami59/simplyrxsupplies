@@ -124,8 +124,11 @@ export const addedSlice = createSlice({
         state.itemsObject[itemName].vendorsAdded = state.itemsObject[
           itemName
         ].vendorsAdded.filter(vendor => vendor !== vendorName);
-        state.itemsObject[itemName].vendorsToAdd.includes(vendorName) ||
+        if (!state.itemsObject[itemName].vendorsToAdd.includes(vendorName)) {
           state.itemsObject[itemName].vendorsToAdd.push(vendorName);
+        }
+        // state.itemsObject[itemName].vendorsToAdd.includes(vendorName) ||
+        //   state.itemsObject[itemName].vendorsToAdd.push(vendorName);
       });
       state.vendorsObject[vendorName].qrContent = "";
       state.vendorsObject[vendorName].qrText = "";

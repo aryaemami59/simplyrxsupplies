@@ -4339,24 +4339,29 @@ export const main = {
     Vials: {
       id: 0,
       itemIds: [0, 1, 2, 3, 4],
+      name: "Vials",
     },
     Caps: {
       id: 1,
       itemIds: [5, 6],
+      name: "Caps",
     },
     "Liquid Bottles": {
       id: 2,
       itemIds: [7, 8, 9, 10, 11, 12],
+      name: "Liquid Bottles",
     },
     Paper: {
       id: 3,
       itemIds: [13, 106, 201, 231],
+      name: "Paper",
     },
     FLAVORx: {
       id: 4,
       itemIds: [
         18, 19, 20, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
       ],
+      name: "FLAVORx",
     },
     "Immunization Supplies": {
       id: 5,
@@ -4364,10 +4369,12 @@ export const main = {
         21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 51, 52, 53, 54, 55, 57, 85, 223,
         230, 234, 240, 241, 322, 323, 324, 325, 326, 327, 328, 329,
       ],
+      name: "Immunization Supplies",
     },
     PPE: {
       id: 6,
       itemIds: [56, 209, 210, 211, 212, 232, 233],
+      name: "PPE",
     },
     "BD Syringes": {
       id: 7,
@@ -4375,26 +4382,32 @@ export const main = {
         58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75,
         76, 77, 78, 79, 80, 81, 82, 83, 84,
       ],
+      name: "BD Syringes",
     },
     "ReliOn Novolin Vials": {
       id: 8,
       itemIds: [86, 87, 88],
+      name: "ReliOn Novolin Vials",
     },
     "ReliOn Novolin Flexpens": {
       id: 9,
       itemIds: [89, 90, 91],
+      name: "ReliOn Novolin Flexpens",
     },
     "ReliOn Insulin Syringes": {
       id: 10,
       itemIds: [92, 93, 94, 95, 96, 97],
+      name: "ReliOn Insulin Syringes",
     },
     "ReliOn Pen Needles": {
       id: 11,
       itemIds: [98, 99, 100],
+      name: "ReliOn Pen Needles",
     },
     "RX Bags": {
       id: 12,
       itemIds: [119, 120],
+      name: "RX Bags",
     },
     "Neighborhood Technician Smocks": {
       id: 13,
@@ -4402,6 +4415,7 @@ export const main = {
         144, 146, 148, 150, 152, 154, 156, 158, 160, 162, 164, 166, 168, 170,
         172, 174, 176, 178, 180,
       ],
+      name: "Neighborhood Technician Smocks",
     },
     "Supercenter Technician Smocks": {
       id: 14,
@@ -4409,6 +4423,7 @@ export const main = {
         145, 147, 149, 151, 153, 155, 157, 159, 161, 163, 165, 167, 169, 171,
         173, 175, 177, 179, 181,
       ],
+      name: "Supercenter Technician Smocks",
     },
     "Pharmacist Coats": {
       id: 15,
@@ -4416,16 +4431,19 @@ export const main = {
         182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195,
         196, 197, 198, 199, 200,
       ],
+      name: "Pharmacist Coats",
     },
     Equipment: {
       id: 16,
       itemIds: [208, 227, 228, 237, 239, 360, 361, 362, 363],
+      name: "Equipment",
     },
     "CardioCheck and A1C": {
       id: 17,
       itemIds: [
         330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343,
       ],
+      name: "CardioCheck and A1C",
     },
   },
 } as const;
@@ -4451,6 +4469,8 @@ export type SingleItemObject = Omit<
   vendorsToAdd: VendorName[];
   vendorsAdded: VendorName[];
 };
+// type Props = Keywords[number] & string;
+// export const element: Props = "a";
 export type GetVendors<T extends ItemVendors> = T extends readonly [...infer U]
   ? U[number][]
   : never;
@@ -4474,7 +4494,7 @@ export type CategoryName = keyof Categories;
 export type ItemName = SingleItemObject["name"];
 
 export type ItemNumber = SingleItemObject["itemNumber"];
-export type Keywords = Mutable<SingleItem["keywords"]>;
+export type Keywords = SingleItem["keywords"][number][];
 export type Src = SingleItemObject["src"];
 
 export type OfficialVendorName = SingleVendorObject["officialName"];

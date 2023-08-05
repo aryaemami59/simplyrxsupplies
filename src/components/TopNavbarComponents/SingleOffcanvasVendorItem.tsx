@@ -18,7 +18,9 @@ const SingleOffcanvasVendorItem: FC = () => {
   );
 
   const clickHandler: MouseEventHandler<HTMLElement> = useCallback(() => {
-    ifAddedToVendor || dispatch(addItemsByVendor({ itemName, vendorName }));
+    if (!ifAddedToVendor) {
+      dispatch(addItemsByVendor({ itemName, vendorName }));
+    }
   }, [ifAddedToVendor, dispatch, itemName, vendorName]);
 
   return (

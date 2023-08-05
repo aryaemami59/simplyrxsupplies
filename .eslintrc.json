@@ -1,33 +1,12 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": true,
-    "sourceType": "module",
-    "ecmaVersion": "latest",
-    "ecmaFeatures": { "jsx": true },
-    "tsconfigRootDir": "./"
-  },
-  "plugins": [
-    "react",
-    "@typescript-eslint",
-    "react-perf",
-    "prettier",
-    "jsx-a11y",
-    "material-ui",
-    "mui-path-imports",
-    "promise",
-    "sonarjs",
-    "unicorn",
-    "prefer-arrow-functions",
-    "simple-import-sort"
-  ],
+  "env": { "browser": true, "es2024": true },
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "airbnb",
     "airbnb-typescript",
     "airbnb/hooks",
-    "react-app",
+    // "react-app",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:jsx-a11y/strict",
@@ -53,35 +32,33 @@
     "netlify.toml",
     "vite.config.ts"
   ],
-  "env": { "browser": true, "es2022": true },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": { "jsx": true },
+    "ecmaVersion": "latest",
+    "project": true,
+    "sourceType": "module",
+    "tsconfigRootDir": "./"
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "react-perf",
+    "prettier",
+    "jsx-a11y",
+    "material-ui",
+    "mui-path-imports",
+    "promise",
+    "sonarjs",
+    "unicorn",
+    "prefer-arrow-functions",
+    "simple-import-sort"
+  ],
+  "root": true,
   "rules": {
-    "prettier/prettier": [
-      2,
-      {
-        "bracketSameLine": true,
-        "arrowParens": "avoid",
-        "endOfLine": "auto",
-        "singleAttributePerLine": true,
-        "parser": "typescript"
-      }
-    ],
-    "react/function-component-definition": [
-      2,
-      {
-        "namedComponents": "arrow-function",
-        "unnamedComponents": "arrow-function"
-      }
-    ],
-    "no-console": [0],
-    "no-param-reassign": [2, { "props": false }],
-    "react/jsx-props-no-spreading": [0],
-    "@typescript-eslint/no-type-alias": [0],
-    "@typescript-eslint/no-magic-numbers": [0],
-    "@typescript-eslint/prefer-readonly-parameter-types": [0],
+    "@typescript-eslint/consistent-type-definitions": [2, "type"],
     "@typescript-eslint/explicit-function-return-type": [0],
     "@typescript-eslint/explicit-module-boundary-types": [0],
-    "@typescript-eslint/consistent-type-definitions": [2, "type"],
-    "@typescript-eslint/strict-boolean-expressions": [0],
     "@typescript-eslint/naming-convention": [
       2,
       {
@@ -105,55 +82,79 @@
       },
       { "format": ["camelCase"], "selector": ["parameter"] }
     ],
-    "prefer-arrow-functions/prefer-arrow-functions": [2],
+    "@typescript-eslint/no-magic-numbers": [0],
+    "@typescript-eslint/no-type-alias": [0],
+    "@typescript-eslint/prefer-readonly-parameter-types": [0],
+    "@typescript-eslint/strict-boolean-expressions": [0],
     "mui-path-imports/mui-path-imports": [2],
+    "no-console": [0],
+    "no-param-reassign": [2, { "props": false }],
     "no-void": [2, { "allowAsStatement": true }],
-    "promise/prefer-await-to-then": [2],
-    "sonarjs/no-duplicate-string": [0, 5],
-    "unicorn/prevent-abbreviations": [
+    "prefer-arrow-functions/prefer-arrow-functions": [2],
+    "prettier/prettier": [
       2,
       {
-        "extendDefaultReplacements": true,
-        "extendDefaultAllowList": true,
-        "checkFilenames": true,
-        "checkVariables": true,
-        "checkProperties": true,
-        "checkShorthandProperties": true,
-        "checkShorthandImports": "internal",
-        "checkDefaultAndNamespaceImports": "internal",
-        "replacements": {},
-        "allowList": {
-          "Props": true,
-          "Ref": true,
-          "ref": true,
-          "Src": true,
-          "src": true,
-          "prev": true,
-          "str": true,
-          "args": true,
-          "env": true
-        },
-        "ignore": []
+        "arrowParens": "avoid",
+        "bracketSameLine": true,
+        "endOfLine": "auto",
+        "parser": "typescript",
+        "singleAttributePerLine": true,
+        "trailingComma": "es5"
       }
     ],
-    "unicorn/prefer-spread": [0],
-    "unicorn/no-array-for-each": [0],
-    "unicorn/prefer-query-selector": [0],
-    "unicorn/error-message": [0],
-    "unicorn/no-null": [0],
-    "unicorn/no-array-reduce": [0],
+    "promise/prefer-await-to-then": [2],
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+    "react/jsx-props-no-spreading": [0],
+    "react/jsx-sort-props": [2],
+    "simple-import-sort/exports": [2],
+    "simple-import-sort/imports": [2],
     "sonarjs/cognitive-complexity": [2, 10],
+    "sonarjs/no-duplicate-string": [0, { "threshold": 5 }],
+    "unicorn/error-message": [0],
     "unicorn/filename-case": [
       2,
       {
-        "cases": { "camelCase": true, "pascalCase": true, "kebabCase": true },
+        "cases": { "camelCase": true, "kebabCase": true, "pascalCase": true },
         "ignore": ["QRCode"]
       }
     ],
-    "simple-import-sort/exports": [2],
-    "simple-import-sort/imports": [2],
-    "react/jsx-sort-props": [2]
+    "unicorn/no-array-for-each": [0],
+    "unicorn/no-array-reduce": [0],
+    "unicorn/no-null": [0],
+    "unicorn/prefer-query-selector": [0],
+    "unicorn/prefer-spread": [0],
+    "unicorn/prevent-abbreviations": [
+      2,
+      {
+        "allowList": {
+          "args": true,
+          "env": true,
+          "prev": true,
+          "Props": true,
+          "ref": true,
+          "Ref": true,
+          "src": true,
+          "Src": true,
+          "str": true
+        },
+        "checkDefaultAndNamespaceImports": "internal",
+        "checkFilenames": true,
+        "checkProperties": true,
+        "checkShorthandImports": "internal",
+        "checkShorthandProperties": true,
+        "checkVariables": true,
+        "extendDefaultAllowList": true,
+        "extendDefaultReplacements": true,
+        "ignore": [],
+        "replacements": {}
+      }
+    ]
   },
-  "settings": { "react": { "version": "detect" } },
-  "root": true
+  "settings": { "react": { "version": "detect" } }
 }
