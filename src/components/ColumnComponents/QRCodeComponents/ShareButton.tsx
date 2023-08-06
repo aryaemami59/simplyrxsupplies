@@ -6,6 +6,7 @@ import type { FC } from "react";
 import { memo, useCallback, useMemo } from "react";
 import { shareOnMobile } from "react-mobile-share";
 
+import useDependencyChangeLogger from "../../../hooks/loggers/useDependencyChangeLogger";
 import useVendorName from "../../../hooks/useVendorName";
 import { useAppSelector } from "../../../redux/hooks";
 import {
@@ -22,6 +23,7 @@ const startIcon = /iphone|ipad|ipod/i.test(navigator.userAgent) ? (
 const ShareButton: FC = () => {
   const vendorName = useVendorName();
   const itemNames = useAppSelector(selectAddedItemsByVendor(vendorName));
+  useDependencyChangeLogger(itemNames, "itemNames");
   const text = itemNames.join(", ");
   const title = `QR Code for items:\n${text}`;
   const qrContent = useAppSelector(selectQRCodeContent(vendorName));

@@ -4469,8 +4469,6 @@ export type SingleItemObject = Omit<
   vendorsToAdd: VendorName[];
   vendorsAdded: VendorName[];
 };
-// type Props = Keywords[number] & string;
-// export const element: Props = "a";
 export type GetVendors<T extends ItemVendors> = T extends readonly [...infer U]
   ? U[number][]
   : never;

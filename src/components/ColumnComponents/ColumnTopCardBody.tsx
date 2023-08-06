@@ -5,6 +5,7 @@ import { memo } from "react";
 import { shallowEqual } from "react-redux";
 
 import ItemNameProvider from "../../contexts/ItemNameProvider";
+import useDependencyChangeLogger from "../../hooks/loggers/useDependencyChangeLogger";
 import useVendorName from "../../hooks/useVendorName";
 import { useAppSelector } from "../../redux/hooks";
 import { selectAddedItemsByVendor } from "../../redux/selectors";
@@ -18,7 +19,7 @@ const ColumnTopCardBody: FC = () => {
     selectAddedItemsByVendor(vendorName),
     shallowEqual
   );
-
+  useDependencyChangeLogger(addedItems, "addedItems");
   return (
     <CardContent className="p-2">
       <QRCodeImageContainer />

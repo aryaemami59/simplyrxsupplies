@@ -8,7 +8,9 @@ import {
   useState,
   useTransition,
 } from "react";
+import { shallowEqual } from "react-redux";
 
+import useDependencyChangeLogger from "../../hooks/loggers/useDependencyChangeLogger";
 import { clearListItems, setListItems } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectItemNamesAndKeywords } from "../../redux/selectors";
@@ -24,8 +26,11 @@ const style: CSSProperties = {
 const InputFieldComponent: FC = () => {
   const [inputValue, setInputValue] = useState("");
   const [, startTransition] = useTransition();
-  // const itemNames = useAppSelector(selectItemNamesArr, shallowEqual);
-  const itemNamesAndKeywords = useAppSelector(selectItemNamesAndKeywords);
+  const itemNamesAndKeywords = useAppSelector(
+    selectItemNamesAndKeywords,
+    shallowEqual
+  );
+  useDependencyChangeLogger(itemNamesAndKeywords, "itemNamesAndKeywords");
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
 

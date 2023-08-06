@@ -6,7 +6,7 @@ const getSavedValue = <T extends string | (() => string) = string>(
   initialValue: T
 ): string => {
   const savedValue = localStorage.getItem(key);
-  if (savedValue) return savedValue;
+  if (savedValue != null) return savedValue;
   if (initialValue instanceof Function) return initialValue();
   return initialValue as Extract<T, string>;
 };

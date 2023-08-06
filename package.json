@@ -35,7 +35,8 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-mobile-share": "^1.0.30",
     "react-redux": "^8.1.2",
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "reselect": "^4.1.8"
   },
   "scripts": {
     "dev": "vite",
@@ -56,6 +57,7 @@
     "@typescript-eslint/eslint-plugin": "^6.2.1",
     "@typescript-eslint/parser": "^6.2.1",
     "@vitejs/plugin-react": "^4.0.4",
+    "@welldone-software/why-did-you-render": "^7.0.1",
     "eslint": "^8.46.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.1.0",

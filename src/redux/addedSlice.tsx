@@ -37,6 +37,11 @@ const initialState = {
   categoriesObject: emptyObject,
 } as unknown as AddedState;
 
+// export const selectVendorsObject = selectAddedProperty(
+//   initialState,
+//   "vendorsObject"
+// );
+
 export const addedSlice = createSlice({
   name: "added",
   initialState,
