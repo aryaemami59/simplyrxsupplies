@@ -1,8 +1,8 @@
 import MenuIcon from "@mui/icons-material/Menu";
-import type { PaperProps } from "@mui/material";
 import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
+import type { PaperProps } from "@mui/material/Paper";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";

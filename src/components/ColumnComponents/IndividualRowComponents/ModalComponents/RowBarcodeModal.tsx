@@ -1,4 +1,4 @@
-import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons/faMagnifyingGlassPlus";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";

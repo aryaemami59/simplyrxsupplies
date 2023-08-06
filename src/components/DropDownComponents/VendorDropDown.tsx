@@ -1,6 +1,8 @@
-import type { MenuListProps, PaperProps, PopoverOrigin } from "@mui/material";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
+import type { MenuListProps } from "@mui/material/MenuList";
+import type { PaperProps } from "@mui/material/Paper";
+import type { PopoverOrigin } from "@mui/material/Popover";
 import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";

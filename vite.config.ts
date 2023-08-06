@@ -1,22 +1,33 @@
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
-import { PluginOption, defineConfig } from "vite";
+import { defineConfig } from "vite";
+import macrosPlugin from "vite-plugin-babel-macros";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  esbuild: { drop: ["console", "debugger"] },
   server: {
-    port: 3000,
-    open: "http://localhost:3000/",
+    open: true,
   },
-  // base: "/simplyrxsupplies/",
   plugins: [
-    react(),
+    react({
+      babel: {
+        plugins: [
+          [
+            "babel-plugin-transform-react-remove-prop-types",
+            { removeImport: true },
+          ],
+          ["macros", { "fontawesome-svg-core": { license: "free" } }],
+        ],
+      },
+    }),
+    macrosPlugin(),
     visualizer({
-      template: "treemap", // or sunburst
+      template: "treemap",
       open: true,
       gzipSize: true,
       brotliSize: true,
       filename: "analyze.html",
-    }) as PluginOption,
+    }),
   ],
 });

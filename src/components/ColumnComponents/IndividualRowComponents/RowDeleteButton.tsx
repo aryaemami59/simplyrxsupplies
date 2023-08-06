@@ -1,4 +1,4 @@
-import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons";
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
@@ -10,7 +10,9 @@ import useVendorName from "../../../hooks/useVendorName";
 import { removeItems } from "../../../redux/addedSlice";
 import { useAppDispatch } from "../../../redux/hooks";
 
-const startIcon = <FontAwesomeIcon icon={faDeleteLeft} />;
+const startIcon = <FontAwesomeIcon icon={icon({ name: "delete-left" })} />;
+// const startIcon = <FontAwesomeIcon icon={faDeleteLeft} />;
+console.log(startIcon);
 // const startIcon = <DeleteIcon />;
 
 const title = "Delete This Item";

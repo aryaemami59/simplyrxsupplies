@@ -27,8 +27,7 @@
     "dist",
     ".git",
     "public",
-    "netlify.toml",
-    "vite.config.ts"
+    "netlify.toml"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -50,7 +49,8 @@
     "promise",
     "sonarjs",
     "unicorn",
-    "simple-import-sort"
+    "simple-import-sort",
+    "@reverecre/fontawesome"
   ],
   "root": true,
   "rules": {
@@ -149,9 +149,10 @@
     ],
     "import/no-extraneous-dependencies": [
       2,
-      { "devDependencies": ["src/main.tsx"] }
+      { "devDependencies": ["src/main.tsx", "vite.config.ts"] }
     ],
-    "sonarjs/no-identical-functions": [2, 4]
+    "sonarjs/no-identical-functions": [2, 4],
+    "@reverecre/fontawesome/shakeable-imports": [2]
   },
   "settings": { "react": { "version": "detect" } }
 }

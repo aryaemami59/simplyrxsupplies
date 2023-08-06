@@ -1,5 +1,5 @@
-import { createTheme } from "@mui/material";
 import grey from "@mui/material/colors/grey";
+import createTheme from "@mui/material/styles/createTheme";
 
 const selectedLightModeBG = "rgb(230, 241, 252)";
 const selectedDarkModeBG = "rgb(0, 30, 60)";

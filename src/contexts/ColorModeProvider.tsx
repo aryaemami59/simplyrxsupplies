@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@mui/material/styles";
+import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import PropTypes from "prop-types";
 import type { FC, ReactNode } from "react";
 import { createContext, memo, useMemo } from "react";

@@ -10,7 +10,6 @@ import {
 } from "react";
 import { shallowEqual } from "react-redux";
 
-import useDependencyChangeLogger from "../../hooks/loggers/useDependencyChangeLogger";
 import { clearListItems, setListItems } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectItemNamesAndKeywords } from "../../redux/selectors";
@@ -30,7 +29,6 @@ const InputFieldComponent: FC = () => {
     selectItemNamesAndKeywords,
     shallowEqual
   );
-  useDependencyChangeLogger(itemNamesAndKeywords, "itemNamesAndKeywords");
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -46,7 +44,6 @@ const InputFieldComponent: FC = () => {
       setInputValue(value);
       startTransition(() => {
         const listItems = search(value, itemNamesAndKeywords);
-        // const listItems = search(value, itemNames);
         dispatch(setListItems(listItems));
       });
     },
