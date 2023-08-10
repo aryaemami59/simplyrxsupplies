@@ -6,8 +6,8 @@ import { memo, useCallback } from "react";
 import { addItemsByVendor } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { checkIfItemAddedToOneVendor } from "../../redux/selectors";
-import type { VendorAndItemName } from "../../types/api";
-import { itemNames, vendorNames } from "../../types/api";
+import type { VendorAndItemName } from "../../types/aa";
+import { itemNames, vendorNames } from "../../types/aa";
 
 type Props = VendorAndItemName;
 

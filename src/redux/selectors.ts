@@ -5,7 +5,7 @@ import type {
   ItemName,
   SingleVendorObject,
   VendorName,
-} from "../types/api";
+} from "../types/aa";
 import emptyArray from "../utils/emptyArray";
 import type { RootState } from "./store";
 
@@ -28,7 +28,7 @@ export const selectItemNamesArray = createSelector(
 
 export const selectAllListItems = createSelector(
   [selectAdded],
-  added => added.listItems
+  added => added.searchResultsItemNames
 );
 
 export const selectCategoriesArray = createSelector(

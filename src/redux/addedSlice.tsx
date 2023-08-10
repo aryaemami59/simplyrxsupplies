@@ -1,10 +1,15 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createEntityAdapter,
+  createSlice,
+  current,
+} from "@reduxjs/toolkit";
 import axios from "axios";
 import QRCode from "qrcode";
 
 import GITHUB_URL_ITEMS from "../data/fetchInfo";
-import type { ItemName, VendorAndItemName, VendorName } from "../types/api";
+import type { ItemName, VendorAndItemName, VendorName } from "../types/aa";
 import type { AddedState, FetchedData } from "../types/redux";
 import difference from "../utils/difference";
 import emptyArray from "../utils/emptyArray";
@@ -25,8 +30,11 @@ export const fetchItems = createAsyncThunk<FetchedData>(
   }
 );
 
-const initialState = {
-  listItems: emptyArray,
+export const addedAdapter = createEntityAdapter();
+console.log(addedAdapter.getInitialState());
+
+const initialState: AddedState = {
+  searchResultsItemNames: emptyArray,
   errorMessage: "",
   isLoading: true,
   itemsArray: emptyArray,
@@ -35,12 +43,7 @@ const initialState = {
   vendorsObject: emptyObject,
   categoriesArray: emptyArray,
   categoriesObject: emptyObject,
-} as unknown as AddedState;
-
-// export const selectVendorsObject = selectAddedProperty(
-//   initialState,
-//   "vendorsObject"
-// );
+} as unknown as AddedState satisfies AddedState;
 
 export const addedSlice = createSlice({
   name: "added",
@@ -68,7 +71,7 @@ export const addedSlice = createSlice({
             state.vendorsObject[vendorName].qrContent = url;
           });
           state.vendorsObject[vendorName].qrText = qr;
-          state.listItems = state.listItems.filter(
+          state.searchResultsItemNames = state.searchResultsItemNames.filter(
             listItemName => listItemName !== itemName
           );
           state.itemsObject[itemName].vendorsAdded = [
@@ -132,18 +135,16 @@ export const addedSlice = createSlice({
         if (!state.itemsObject[itemName].vendorsToAdd.includes(vendorName)) {
           state.itemsObject[itemName].vendorsToAdd.push(vendorName);
         }
-        // state.itemsObject[itemName].vendorsToAdd.includes(vendorName) ||
-        //   state.itemsObject[itemName].vendorsToAdd.push(vendorName);
       });
       state.vendorsObject[vendorName].qrContent = "";
       state.vendorsObject[vendorName].qrText = "";
       state.vendorsObject[vendorName].itemsAdded = emptyArray;
     },
     setListItems: (state, action: PayloadAction<ItemName[]>) => {
-      state.listItems = action.payload;
+      state.searchResultsItemNames = action.payload;
     },
     clearListItems: state => {
-      state.listItems = emptyArray;
+      state.searchResultsItemNames = emptyArray;
     },
     setVendors: (state, { payload }: PayloadAction<VendorAndItemName>) => {
       const { itemName, vendorName } = payload;
@@ -186,28 +187,12 @@ export const addedSlice = createSlice({
       Object.values(state.itemsObject)
         .filter(({ vendors }) => vendors.includes(vendorName))
         .forEach(({ name }) => {
-          // vendorsToAdd.includes(vendorName) || vendorsToAdd.push(vendorName);
-          // state.itemsObj[name].vendorsToAdd.includes(vendorName) ||
-          //   state.itemsObj[name].vendorsToAdd.concat(vendorName);
           if (!state.itemsObject[name].vendorsToAdd.includes(vendorName)) {
             state.itemsObject[name].vendorsToAdd = [
               ...state.itemsObject[name].vendorsToAdd,
               vendorName,
             ];
           }
-          // state.itemsObj[name].vendorsToAdd = state.itemsObj[
-          //   name
-          // ].vendorsToAdd.includes(vendorName)
-          //   ? vendorsToAdd.filter(v => v !== vendorName)
-          //   : [...vendorsToAdd, vendorName];
-          // console.log(name, state.itemsObj[name]);
-          // state.itemsObj[name].vendorsToAdd = state.itemsObj[
-          //   name
-          // ].vendorsToAdd.includes(vendorName)
-          //   ? state.itemsObj[name].vendorsToAdd.filter(
-          //       vendorNameParam => vendorNameParam !== vendorName
-          //     )
-          //   : state.itemsObj[name].vendorsToAdd.concat(vendorName);
         });
     },
     setVendorsForAllUncheck: (

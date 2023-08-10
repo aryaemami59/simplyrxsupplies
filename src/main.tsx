@@ -12,7 +12,7 @@ if (import.meta.env.DEV) {
 
   whyDidYouRender(React, {
     trackAllPureComponents: true,
-    include: [/./gi],
+    // include: [/./gi],
     collapseGroups: true,
   });
 }

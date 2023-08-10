@@ -7,8 +7,8 @@ import { memo, useCallback } from "react";
 import { addItems } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { checkIfAddedToAllVendors } from "../../redux/selectors";
-import type { ItemName } from "../../types/api";
-import { itemNames } from "../../types/api";
+import type { ItemName } from "../../types/aa";
+import { itemNames } from "../../types/aa";
 
 const startIcon = <AddIcon />;
 

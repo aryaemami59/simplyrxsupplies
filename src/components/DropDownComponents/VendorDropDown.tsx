@@ -9,8 +9,8 @@ import { memo, useCallback, useState } from "react";
 
 import useItemNames from "../../hooks/useItemNames";
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
-import type { VendorName } from "../../types/api";
-import { vendorNames } from "../../types/api";
+import type { VendorName } from "../../types/aa";
+import { vendorNames } from "../../types/aa";
 import SingleDropDown from "./SingleDropDown";
 
 const transformOrigin: PopoverOrigin = {

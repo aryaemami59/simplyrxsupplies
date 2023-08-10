@@ -12,8 +12,8 @@ import { shallowEqual } from "react-redux";
 
 import { useAppSelector } from "../../redux/hooks";
 import { selectCategoriesItemNames } from "../../redux/selectors";
-import type { CategoryName } from "../../types/api";
-import { categoryNames } from "../../types/api";
+import type { CategoryName } from "../../types/aa";
+import { categoryNames } from "../../types/aa";
 import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem";
 
 const expandIcon: AccordionSummaryProps["expandIcon"] = <ExpandMoreIcon />;

@@ -1,4 +1,4 @@
-import type { ItemNamesAndKeywords, Keywords } from "../types/api";
+import type { ItemNamesAndKeywords, Keywords } from "../types/aa";
 
 const sortResults = (
   itemNameAndKeyword: ItemNamesAndKeywords,

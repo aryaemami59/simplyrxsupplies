@@ -6,17 +6,17 @@ import type {
   SingleItemObject,
   VendorName,
   VendorsObject,
-} from "./api";
+} from "./aa";
 
 export type AddedState = {
-  listItems: ItemName[];
+  searchResultsItemNames: ItemName[];
   errorMessage: string;
   isLoading: boolean;
-  itemsArray: ItemName[];
+  readonly itemsArray: ItemName[];
   itemsObject: ItemsObject;
-  vendorsArray: VendorName[];
+  readonly vendorsArray: VendorName[];
   vendorsObject: VendorsObject;
-  categoriesArray: CategoryName[];
+  readonly categoriesArray: CategoryName[];
   categoriesObject: CategoriesObject;
 };
 

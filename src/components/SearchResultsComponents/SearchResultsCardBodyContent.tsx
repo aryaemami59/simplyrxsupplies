@@ -5,8 +5,8 @@ import { shallowEqual } from "react-redux";
 
 import { useAppSelector } from "../../redux/hooks";
 import { selectVendorsByItemName } from "../../redux/selectors";
-import type { ItemName } from "../../types/api";
-import { itemNames } from "../../types/api";
+import type { ItemName } from "../../types/aa";
+import { itemNames } from "../../types/aa";
 import SearchResultsAddButton from "./SearchResultsAddButton";
 import SearchResultsItemName from "./SearchResultsItemName";
 import SwitchComponent from "./SwitchComponent";
