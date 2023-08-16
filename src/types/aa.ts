@@ -4505,9 +4505,13 @@ export type ItemsObject = Record<ItemName, SingleItemObject>;
 export type VendorsObject = Record<VendorName, SingleVendorObject>;
 
 export type VendorAndItemName = {
-  itemName: ItemName;
+  itemName: string;
   vendorName: VendorName;
 };
+// export type VendorAndItemName = {
+//   itemName: ItemName;
+//   vendorName: VendorName;
+// };
 
 export type ItemNamesAndKeywords = Pick<
   ItemsObject[ItemName],

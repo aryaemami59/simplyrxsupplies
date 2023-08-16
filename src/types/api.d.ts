@@ -1,3 +1,5 @@
+import type { RecursiveMutable } from ".";
+
 // Categories
 export type CategoryName =
   | "BD Syringes"
@@ -21,14 +23,14 @@ export type CategoryName =
 
 export type Category = {
   readonly id: number;
-  readonly itemIds: readonly number[];
+  readonly itemIds: number[];
   readonly name: CategoryName;
 };
 
 export type Categories = {
   readonly [K in CategoryName]: {
     readonly id: number;
-    readonly itemIds: readonly number[];
+    readonly itemIds: number[];
     readonly name: K;
   };
 };
@@ -56,7 +58,7 @@ export type Vendors = {
     readonly abbrName: K;
     readonly link: string;
     readonly joinChars: string;
-    readonly itemIds: readonly number[];
+    readonly itemIds: number[];
   };
 };
 
@@ -67,16 +69,41 @@ export type Item = {
   readonly id: number;
   readonly name: string;
   readonly itemNumber: string;
-  readonly keywords: readonly string[];
-  readonly category: readonly [] | readonly CategoryName[];
-  readonly vendors: readonly VendorName[];
+  readonly keywords: string[];
+  readonly category: CategoryName[];
+  readonly vendors: VendorName[];
   readonly src: string;
 };
 
-export type Items = readonly Item[];
+export type Items = Item[];
 
-export type Main = {
+export type Supplies = {
   readonly items: Items;
   readonly vendors: Vendors;
   readonly categories: Categories;
 };
+
+// Additional Types
+export type VendorAndItemName = {
+  itemName: string;
+  vendorName: VendorName;
+};
+
+export type VendorObject = Record<
+  VendorName,
+  Vendors[VendorName] & {
+    readonly itemIds: number[];
+    itemsAdded: string[];
+    minimizedItemIds: number[];
+    qrContent: string;
+    qrText: string;
+  }
+>;
+
+export type SingleItemObject = RecursiveMutable<Item> & {
+  vendorsToAdd: VendorName[];
+  vendorsAdded: VendorName[];
+  // keywords: string[];
+};
+
+// const element: VendorObject = {}

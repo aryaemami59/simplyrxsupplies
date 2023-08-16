@@ -1,11 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 
-import type {
-  CategoryName,
-  ItemName,
-  SingleVendorObject,
-  VendorName,
-} from "../types/aa";
+import type { CategoryName, VendorName, VendorObject } from "../types/api";
 import emptyArray from "../utils/emptyArray";
 import type { RootState } from "./store";
 
@@ -42,7 +37,7 @@ export const selectVendorsArray = createSelector([selectAdded], added =>
 
 export const selectItemsAddedByVendorName = (
   state: RootState,
-  singleVendorObject: SingleVendorObject
+  singleVendorObject: VendorObject[keyof VendorObject]
 ) => singleVendorObject.itemsAdded;
 
 export const selectAddedItemsByVendor = (vendorName: VendorName) =>
@@ -94,30 +89,33 @@ export const selectQRText = (vendorName: VendorName) =>
     vendorsObject => vendorsObject[vendorName].qrText
   );
 
-export const checkIfAddedToAllVendors = (itemName: ItemName) =>
+export const checkIfAddedToAllVendors = (itemName: string) =>
   createSelector(
     [selectItemsObject],
     itemsObject =>
-      itemsObject[itemName].vendorsAdded.length ===
-      itemsObject[itemName].vendors.length
+      itemsObject[itemName]?.vendorsAdded.length ===
+      itemsObject[itemName]?.vendors.length
   );
 
 export const checkIfItemAddedToOneVendor = (
   vendorName: VendorName,
-  itemName: ItemName
+  itemName: string
 ) =>
-  createSelector([selectItemsObject], itemsObject =>
-    itemsObject[itemName].vendorsAdded.includes(vendorName)
+  createSelector(
+    [selectItemsObject],
+    itemsObject => itemsObject[itemName]?.vendorsAdded.includes(vendorName)
   );
 
-export const checkVendorsToAdd = (vendorName: VendorName, itemName: ItemName) =>
-  createSelector([selectItemsObject], itemsObject =>
-    itemsObject[itemName].vendorsToAdd.includes(vendorName)
+export const checkVendorsToAdd = (vendorName: VendorName, itemName: string) =>
+  createSelector(
+    [selectItemsObject],
+    itemsObject => itemsObject[itemName]?.vendorsToAdd.includes(vendorName)
   );
 
-export const checkVendorsAdded = (vendorName: VendorName, itemName: ItemName) =>
-  createSelector([selectItemsObject], itemsObject =>
-    itemsObject[itemName].vendorsAdded.includes(vendorName)
+export const checkVendorsAdded = (vendorName: VendorName, itemName: string) =>
+  createSelector(
+    [selectItemsObject],
+    itemsObject => itemsObject[itemName]?.vendorsAdded.includes(vendorName)
   );
 
 export const checkIfAnyAddedToOneVendor = (vendorName: VendorName) =>
@@ -126,19 +124,22 @@ export const checkIfAnyAddedToOneVendor = (vendorName: VendorName) =>
     vendorsObject => vendorsObject[vendorName].itemsAdded.length > 0
   );
 
-export const selectItemNumber = (itemName: ItemName) =>
+export const selectItemNumber = (itemName: string) =>
   createSelector(
     [selectItemsObject],
-    itemsObject => itemsObject[itemName].itemNumber
+    itemsObject => itemsObject[itemName]?.itemNumber
   );
 
-export const selectItemSrc = (itemName: ItemName) =>
-  createSelector([selectItemsObject], itemsObject => itemsObject[itemName].src);
-
-export const selectVendorsByItemName = (itemName: ItemName) =>
+export const selectItemSrc = (itemName: string) =>
   createSelector(
     [selectItemsObject],
-    itemsObject => itemsObject[itemName].vendors
+    itemsObject => itemsObject[itemName]?.src
+  );
+
+export const selectVendorsByItemName = (itemName: string) =>
+  createSelector(
+    [selectItemsObject],
+    itemsObject => itemsObject[itemName]?.vendors
   );
 
 export const selectVendorOfficialName = (vendorName: VendorName) =>
@@ -161,27 +162,27 @@ export const checkIfMinimizedIsFull = (vendorName: VendorName) =>
       vendorsObject[vendorName].itemsAdded.length
   );
 
-export const checkIfMinimized = (vendorName: VendorName, itemName: ItemName) =>
+export const checkIfMinimized = (vendorName: VendorName, itemName: string) =>
   createSelector(
     [selectVendorsObject, selectItemsObject],
     (vendorsObject, itemsObject) =>
       vendorsObject[vendorName].minimizedItemIds.includes(
-        itemsObject[itemName].id
+        itemsObject[itemName]!.id
       )
   );
 
-export const selectKeywords = (itemName: ItemName) =>
+export const selectKeywords = (itemName: string) =>
   createSelector(
     [selectItemsObject],
-    itemsObject => itemsObject[itemName].keywords
+    itemsObject => itemsObject[itemName]?.keywords
   );
 
 export const selectItemNamesAndKeywords = createSelector(
   [selectItemNamesArray, selectItemsObject],
   (itemsArray, itemsObject) =>
     itemsArray.map(itemName => ({
-      name: itemsObject[itemName].name,
-      keywords: itemsObject[itemName].keywords,
+      name: itemsObject[itemName]?.name,
+      keywords: itemsObject[itemName]?.keywords,
     }))
 );
 
@@ -199,12 +200,12 @@ export const checkIfAnyItemsAdded = createSelector(
     )
 );
 
-export const checkIfLoading = createSelector(
-  [selectAdded],
-  added => added.isLoading
-);
+// export const checkIfLoading = createSelector(
+//   [selectAdded],
+//   added => added.isLoading
+// );
 
-export const selectErrorMessage = createSelector(
-  [selectAdded],
-  added => added.errorMessage
-);
+// export const selectErrorMessage = createSelector(
+//   [selectAdded],
+//   added => added.errorMessage
+// );

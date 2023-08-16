@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 
 import App from "./App";
+import { apiSlice } from "./redux/apiSlice";
 import { store } from "./redux/store";
 
 if (import.meta.env.DEV) {
@@ -19,6 +20,8 @@ if (import.meta.env.DEV) {
 
 const container = document.getElementById("root") as HTMLDivElement;
 const root = createRoot(container);
+
+await store.dispatch(apiSlice.endpoints.getMain.initiate());
 
 root.render(
   <React.StrictMode>

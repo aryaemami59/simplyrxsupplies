@@ -1,27 +1,25 @@
 import type {
-  CategoriesObject,
+  Categories,
   CategoryName,
-  ItemName,
-  ItemsObject,
   SingleItemObject,
   VendorName,
-  VendorsObject,
-} from "./aa";
+  VendorObject,
+} from "./api";
 
 export type AddedState = {
-  searchResultsItemNames: ItemName[];
-  errorMessage: string;
-  isLoading: boolean;
-  readonly itemsArray: ItemName[];
-  itemsObject: ItemsObject;
+  searchResultsItemNames: string[];
+  // errorMessage: string;
+  // isLoading: boolean;
+  readonly itemsArray: string[];
+  itemsObject: Record<string, SingleItemObject>;
   readonly vendorsArray: VendorName[];
-  vendorsObject: VendorsObject;
+  vendorsObject: VendorObject;
   readonly categoriesArray: CategoryName[];
-  categoriesObject: CategoriesObject;
+  categoriesObject: Categories;
 };
 
-export type FetchedData = {
-  items: SingleItemObject[];
-  vendors: VendorsObject;
-  categories: CategoriesObject;
-};
+// export type FetchedData = {
+//   items: SingleItemObject[];
+//   vendors: VendorsObject;
+//   categories: CategoriesObject;
+// };

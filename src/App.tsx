@@ -4,31 +4,30 @@ import "./App.css";
 
 import Paper from "@mui/material/Paper";
 import type { FC } from "react";
-import { memo, useEffect } from "react";
+import { memo } from "react";
 
 import VendorColumnList from "./components/ColumnComponents/VendorColumnList";
 import InputGroupComponent from "./components/InputComponents/InputGroupComponent";
 import SideBarContainer from "./components/SideBarComponents/SideBarContainer";
 import TopNavbar from "./components/TopNavbarComponents/TopNavbar";
 import ColorModeProvider from "./contexts/ColorModeProvider";
-import useIsLoading from "./hooks/useIsLoading";
-import { fetchItems } from "./redux/addedSlice";
-import { useAppDispatch } from "./redux/hooks";
+import { useGetMainQuery } from "./redux/apiSlice";
 import ErrorComponent from "./shared/components/ErrorComponent";
 import IsLoading from "./shared/components/IsLoading";
 
 const App: FC = () => {
-  const dispatch = useAppDispatch();
+  const { isError, isLoading } = useGetMainQuery();
+  // const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    void dispatch(fetchItems());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   void dispatch(fetchItems());
+  // }, [dispatch]);
 
-  const [isLoading, errorMessage] = useIsLoading();
+  // const [isLoading, errorMessage] = useIsLoading();
 
   if (isLoading) return <IsLoading />;
 
-  if (errorMessage) return <ErrorComponent />;
+  if (isError) return <ErrorComponent />;
 
   return (
     <ColorModeProvider>

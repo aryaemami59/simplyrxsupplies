@@ -1,42 +1,36 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
-import {
-  createAsyncThunk,
-  createEntityAdapter,
-  createSlice,
-  current,
-} from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice, current } from "@reduxjs/toolkit";
 import QRCode from "qrcode";
 
-import GITHUB_URL_ITEMS from "../data/fetchInfo";
-import type { ItemName, VendorAndItemName, VendorName } from "../types/aa";
-import type { AddedState, FetchedData } from "../types/redux";
+import type { VendorAndItemName, VendorName } from "../types/api";
+import type { AddedState } from "../types/redux";
 import difference from "../utils/difference";
 import emptyArray from "../utils/emptyArray";
 import emptyObject from "../utils/emptyObject";
 import objectKeys from "../utils/objectKeys";
+import { apiSlice } from "./apiSlice";
 
-export const fetchItems = createAsyncThunk<FetchedData>(
-  `items/fetchitems`,
-  async () => {
-    try {
-      const response = await axios.get<FetchedData>(GITHUB_URL_ITEMS, {});
-      return response.data;
-    } catch (error) {
-      throw axios.isAxiosError(error)
-        ? new Error(error.message)
-        : new Error("Unable to fetch");
-    }
-  }
-);
+// export const fetchItems = createAsyncThunk<FetchedData>(
+//   `items/fetchitems`,
+//   async () => {
+//     try {
+//       const response = await axios.get<FetchedData>(GITHUB_URL_ITEMS, {});
+//       return response.data;
+//     } catch (error) {
+//       throw axios.isAxiosError(error)
+//         ? new Error(error.message)
+//         : new Error("Unable to fetch");
+//     }
+//   }
+// );
 
-export const addedAdapter = createEntityAdapter();
-console.log(addedAdapter.getInitialState());
+// export const addedAdapter = createEntityAdapter<Supplies>();
+// console.log(addedAdapter.getInitialState());
 
 const initialState: AddedState = {
   searchResultsItemNames: emptyArray,
-  errorMessage: "",
-  isLoading: true,
+  // errorMessage: "",
+  // isLoading: true,
   itemsArray: emptyArray,
   itemsObject: emptyObject,
   vendorsArray: emptyArray,
@@ -49,7 +43,7 @@ export const addedSlice = createSlice({
   name: "added",
   initialState,
   reducers: {
-    addItems: (state, { payload: itemName }: PayloadAction<ItemName>) => {
+    addItems: (state, { payload: itemName }: PayloadAction<string>) => {
       if (
         state.itemsObject[itemName].vendorsToAdd.length === 0 ||
         state.itemsObject[itemName].vendorsAdded.length ===
@@ -140,7 +134,7 @@ export const addedSlice = createSlice({
       state.vendorsObject[vendorName].qrText = "";
       state.vendorsObject[vendorName].itemsAdded = emptyArray;
     },
-    setListItems: (state, action: PayloadAction<ItemName[]>) => {
+    setListItems: (state, action: PayloadAction<string[]>) => {
       state.searchResultsItemNames = action.payload;
     },
     clearListItems: state => {
@@ -220,38 +214,66 @@ export const addedSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addCase(fetchItems.pending, state => {
-      state.isLoading = true;
-    });
-    builder.addCase(fetchItems.rejected, (state, action) => {
-      state.isLoading = false;
-      state.errorMessage = action.error.message ?? "Fetch failed";
-    });
-    builder.addCase(fetchItems.fulfilled, (state, action) => {
-      const { categories, items, vendors } = action.payload;
-      state.itemsArray = items.map(({ name }) => name);
-      items.forEach(itemObject => {
-        state.itemsObject[itemObject.name] = {
-          ...itemObject,
-          vendorsAdded: emptyArray,
-          vendorsToAdd: itemObject.vendors,
-        };
-      });
-      state.vendorsArray = objectKeys(vendors);
-      Object.values(vendors).forEach(vendorObject => {
-        state.vendorsObject[vendorObject.abbrName] = {
-          ...vendorObject,
-          itemsAdded: emptyArray as ItemName[],
-          minimizedItemIds: [],
-          qrContent: "",
-          qrText: "",
-        };
-      });
-      state.categoriesArray = objectKeys(categories);
-      state.categoriesObject = { ...categories };
-      state.isLoading = false;
-      state.errorMessage = "";
-    });
+    // builder.addCase(fetchItems.pending, state => {
+    //   state.isLoading = true;
+    // });
+    // builder.addCase(fetchItems.rejected, (state, action) => {
+    //   state.isLoading = false;
+    //   state.errorMessage = action.error.message ?? "Fetch failed";
+    // });
+    // builder.addCase(fetchItems.fulfilled, (state, action) => {
+    //   const { categories, items, vendors } = action.payload;
+    //   state.itemsArray = items.map(({ name }) => name);
+    //   items.forEach(itemObject => {
+    //     state.itemsObject[itemObject.name] = {
+    //       ...itemObject,
+    //       vendorsAdded: emptyArray,
+    //       vendorsToAdd: itemObject.vendors,
+    //     };
+    //   });
+    //   state.vendorsArray = objectKeys(vendors);
+    //   Object.values(vendors).forEach(vendorObject => {
+    //     state.vendorsObject[vendorObject.abbrName] = {
+    //       ...vendorObject,
+    //       itemsAdded: emptyArray as ItemName[],
+    //       minimizedItemIds: [],
+    //       qrContent: "",
+    //       qrText: "",
+    //     };
+    //   });
+    //   state.categoriesArray = objectKeys(categories);
+    //   state.categoriesObject = { ...categories };
+    //   state.isLoading = false;
+    //   state.errorMessage = "";
+    // });
+    builder.addMatcher(
+      apiSlice.endpoints.getMain.matchFulfilled,
+      (state, action) => {
+        const { categories, items, vendors } = action.payload;
+        state.itemsArray = items.map(({ name }) => name);
+        items.forEach(itemObject => {
+          state.itemsObject[itemObject.name] = {
+            ...itemObject,
+            vendorsAdded: emptyArray,
+            vendorsToAdd: itemObject.vendors,
+          };
+        });
+        state.vendorsArray = objectKeys(vendors);
+        Object.values(vendors).forEach(vendorObject => {
+          state.vendorsObject[vendorObject.abbrName] = {
+            ...vendorObject,
+            itemsAdded: emptyArray as string[],
+            minimizedItemIds: [],
+            qrContent: "",
+            qrText: "",
+          };
+        });
+        state.categoriesArray = objectKeys(categories);
+        state.categoriesObject = { ...categories };
+        // state.isLoading = false;
+        // state.errorMessage = "";
+      }
+    );
   },
 });
 

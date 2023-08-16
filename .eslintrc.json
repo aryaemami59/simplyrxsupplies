@@ -11,9 +11,9 @@
     "plugin:jsx-a11y/strict",
     "plugin:react-redux/all",
     "plugin:react-perf/all",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:@typescript-eslint/strict",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:@typescript-eslint/stylistic-type-checked",
+    "plugin:@typescript-eslint/strict-type-checked",
     "plugin:@typescript-eslint/all",
     "plugin:promise/recommended",
     "plugin:sonarjs/recommended",
@@ -122,7 +122,7 @@
     "unicorn/prefer-query-selector": [0],
     "unicorn/prefer-spread": [0],
     "unicorn/prevent-abbreviations": [
-      2,
+      0,
       {
         "allowList": {
           "args": true,
@@ -152,7 +152,8 @@
       { "devDependencies": ["src/main.tsx", "vite.config.ts"] }
     ],
     "sonarjs/no-identical-functions": [2, 4],
-    "@reverecre/fontawesome/shakeable-imports": [2]
+    "@reverecre/fontawesome/shakeable-imports": [2],
+    "@typescript-eslint/no-invalid-void-type": [0]
   },
   "settings": { "react": { "version": "detect" } }
 }
