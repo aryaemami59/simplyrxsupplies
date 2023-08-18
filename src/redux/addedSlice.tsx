@@ -9,6 +9,7 @@ import emptyArray from "../utils/emptyArray";
 import emptyObject from "../utils/emptyObject";
 import objectKeys from "../utils/objectKeys";
 import { apiSlice } from "./apiSlice";
+import { selectItem, selectVendorsToAdd } from "./draftSafeSelectors";
 
 // export const fetchItems = createAsyncThunk<FetchedData>(
 //   `items/fetchitems`,
@@ -44,14 +45,15 @@ export const addedSlice = createSlice({
   initialState,
   reducers: {
     addItems: (state, { payload: itemName }: PayloadAction<string>) => {
+      const item = selectItem(state, itemName);
+      const vendorsToAdd = selectVendorsToAdd(state, itemName);
       if (
-        state.itemsObject[itemName].vendorsToAdd.length === 0 ||
-        state.itemsObject[itemName].vendorsAdded.length ===
-          state.itemsObject[itemName].vendors.length
+        vendorsToAdd.length === 0 ||
+        item.vendorsAdded.length === item.vendors.length
       ) {
         return;
       }
-      state.itemsObject[itemName].vendorsToAdd.forEach(vendorName => {
+      vendorsToAdd.forEach(vendorName => {
         if (
           !current(state.vendorsObject[vendorName]).itemsAdded.includes(
             itemName
@@ -69,15 +71,12 @@ export const addedSlice = createSlice({
             listItemName => listItemName !== itemName
           );
           state.itemsObject[itemName].vendorsAdded = [
-            ...state.itemsObject[itemName].vendorsAdded,
-            ...state.itemsObject[itemName].vendorsToAdd,
+            ...item.vendorsAdded,
+            ...vendorsToAdd,
           ];
           state.itemsObject[itemName].vendorsToAdd =
-            state.itemsObject[itemName].vendorsToAdd.length > 0
-              ? difference(
-                  state.itemsObject[itemName].vendors,
-                  state.itemsObject[itemName].vendorsAdded
-                )
+            vendorsToAdd.length > 0
+              ? difference(item.vendors, item.vendorsAdded)
               : emptyArray;
         }
       });

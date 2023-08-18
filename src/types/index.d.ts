@@ -1,5 +1,5 @@
 declare module "react-mobile-share" {
-  declare function shareOnMobile(
+  function shareOnMobile(
     data: {
       text?: string;
       url?: string;

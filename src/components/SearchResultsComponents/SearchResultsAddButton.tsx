@@ -7,13 +7,12 @@ import { memo, useCallback } from "react";
 import { addItems } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { checkIfAddedToAllVendors } from "../../redux/selectors";
-import type { ItemName } from "../../types/aa";
 import { itemNames } from "../../types/aa";
 
 const startIcon = <AddIcon />;
 
 type Props = {
-  itemName: ItemName;
+  itemName: string;
 };
 
 const SearchResultsAddButton: FC<Props> = ({ itemName }) => {

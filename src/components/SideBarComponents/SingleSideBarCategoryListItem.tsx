@@ -11,12 +11,11 @@ import {
   checkIfAddedToAllVendors,
   selectVendorsByItemName,
 } from "../../redux/selectors";
-import type { ItemName } from "../../types/aa";
 import { itemNames } from "../../types/aa";
 import SideBarVendorBadges from "./SideBarVendorBadges";
 
 type Props = {
-  itemName: ItemName;
+  itemName: string;
   target: RefObject<HTMLDivElement>;
 };
 

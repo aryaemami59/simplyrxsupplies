@@ -3,11 +3,10 @@ import CardContent from "@mui/material/CardContent";
 import type { FC } from "react";
 import { memo } from "react";
 
-import type { ItemName } from "../../types/aa";
 import SearchResultsCardBodyContent from "./SearchResultsCardBodyContent";
 
 type Props = {
-  itemName: ItemName;
+  itemName: string;
 };
 
 const SearchResultsSingleCard: FC<Props> = ({ itemName }) => (

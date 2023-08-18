@@ -1,4 +1,4 @@
-import type { ItemNamesAndKeywords, Keywords } from "../types/aa";
+import type { ItemNamesAndKeywords } from "../types/api";
 
 const sortResults = (
   itemNameAndKeyword: ItemNamesAndKeywords,
@@ -19,7 +19,7 @@ const sortResults = (
       itemNameAndKeyword.name.toLowerCase().match(searchRegExp)?.length ?? 0
     );
   }
-  if (itemNameAndKeyword.keywords.includes(inputValue as Keywords[number])) {
+  if (itemNameAndKeyword.keywords.includes(inputValue)) {
     return 1;
   }
   return 0;

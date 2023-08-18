@@ -106,4 +106,6 @@ export type SingleItemObject = RecursiveMutable<Item> & {
   // keywords: string[];
 };
 
+export type ItemNamesAndKeywords = Pick<Item, "keywords" | "name">;
+
 // const element: VendorObject = {}

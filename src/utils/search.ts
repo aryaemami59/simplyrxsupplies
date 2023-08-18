@@ -1,4 +1,4 @@
-import type { ItemNamesAndKeywords } from "../types/aa";
+import type { ItemNamesAndKeywords } from "../types/api";
 import emptyArray from "./emptyArray";
 import sortResults from "./sortResults";
 
