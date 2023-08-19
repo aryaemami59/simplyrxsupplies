@@ -1,5 +1,5 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import QRCode from "qrcode";
 
 import type { VendorAndItemName, VendorName } from "../types/api";
@@ -9,7 +9,16 @@ import emptyArray from "../utils/emptyArray";
 import emptyObject from "../utils/emptyObject";
 import objectKeys from "../utils/objectKeys";
 import { apiSlice } from "./apiSlice";
-import { selectItem, selectVendorsToAdd } from "./draftSafeSelectors";
+import {
+  selectFilteredItemsAdded,
+  selectFilteredSearchResultsItemNames,
+  selectFilteredVendorsAdded,
+  selectItem,
+  selectItemsAdded,
+  selectQRContent,
+  selectVendors,
+  selectVendorsToAdd,
+} from "./draftSafeSelectors";
 
 // export const fetchItems = createAsyncThunk<FetchedData>(
 //   `items/fetchitems`,
@@ -28,7 +37,7 @@ import { selectItem, selectVendorsToAdd } from "./draftSafeSelectors";
 // export const addedAdapter = createEntityAdapter<Supplies>();
 // console.log(addedAdapter.getInitialState());
 
-const initialState: AddedState = {
+export const initialState: AddedState = {
   searchResultsItemNames: emptyArray,
   // errorMessage: "",
   // isLoading: true,
@@ -46,37 +55,38 @@ export const addedSlice = createSlice({
   reducers: {
     addItems: (state, { payload: itemName }: PayloadAction<string>) => {
       const item = selectItem(state, itemName);
-      const vendorsToAdd = selectVendorsToAdd(state, itemName);
-      if (
-        vendorsToAdd.length === 0 ||
-        item.vendorsAdded.length === item.vendors.length
-      ) {
+      const { vendorsAdded, vendorsToAdd, vendors } = item;
+      // const vendorsToAdd = selectVendorsToAdd(state, itemName);
+      // const vendorsAdded = selectVendorsAdded(state, itemName);
+      if (vendorsToAdd.length === 0 || vendorsAdded.length === vendors.length) {
         return;
       }
       vendorsToAdd.forEach(vendorName => {
-        if (
-          !current(state.vendorsObject[vendorName]).itemsAdded.includes(
-            itemName
-          )
-        ) {
+        const itemsAdded = selectItemsAdded(state, vendorName);
+        // const vendorsObject = topLevelSelectors.selectVendorsObject(state);
+        // console.log(vendorsObject);
+        // const vendorsObject = selectVendor(state, vendorName);
+        if (!itemsAdded.includes(itemName)) {
           state.vendorsObject[vendorName].itemsAdded.push(itemName);
-          const qr = state.vendorsObject[vendorName].itemsAdded
-            .map(itemAddedName => state.itemsObject[itemAddedName].itemNumber)
-            .join(state.vendorsObject[vendorName].joinChars);
+          const qr = selectQRContent(state, vendorName);
+          // const qr = state.vendorsObject[vendorName].itemsAdded
+          //   .map(itemAddedName => state.itemsObject[itemAddedName].itemNumber)
+          //   .join(state.vendorsObject[vendorName].joinChars);
           QRCode.toDataURL(qr, (error, url) => {
             state.vendorsObject[vendorName].qrContent = url;
           });
           state.vendorsObject[vendorName].qrText = qr;
-          state.searchResultsItemNames = state.searchResultsItemNames.filter(
-            listItemName => listItemName !== itemName
+          state.searchResultsItemNames = selectFilteredSearchResultsItemNames(
+            state,
+            itemName
           );
           state.itemsObject[itemName].vendorsAdded = [
-            ...item.vendorsAdded,
+            ...vendorsAdded,
             ...vendorsToAdd,
           ];
           state.itemsObject[itemName].vendorsToAdd =
             vendorsToAdd.length > 0
-              ? difference(item.vendors, item.vendorsAdded)
+              ? difference(vendors, vendorsAdded)
               : emptyArray;
         }
       });
@@ -84,20 +94,23 @@ export const addedSlice = createSlice({
     addItemsByVendor: (state, action: PayloadAction<VendorAndItemName>) => {
       const { itemName, vendorName } = action.payload;
       state.vendorsObject[vendorName].itemsAdded.push(itemName);
-      state.itemsObject[itemName].vendorsAdded = [
-        ...state.itemsObject[itemName].vendorsAdded,
-        vendorName,
-      ];
+      const item = selectItem(state, itemName);
+      const vendorsAdded = selectFilteredVendorsAdded(
+        state,
+        itemName,
+        vendorName
+      );
+      const vendorsToAdd = selectVendorsToAdd(state, itemName);
+      const vendors = selectVendors(state, itemName);
+      state.itemsObject[itemName].vendorsAdded = [...vendorsAdded, vendorName];
       state.itemsObject[itemName].vendorsToAdd =
-        state.itemsObject[itemName].vendorsToAdd.length > 0
-          ? difference(
-              state.itemsObject[itemName].vendors,
-              state.itemsObject[itemName].vendorsAdded
-            )
+        vendorsToAdd.length > 0
+          ? difference(vendors, vendorsAdded)
           : emptyArray;
-      const qr = state.vendorsObject[vendorName].itemsAdded
-        .map(itemAddedName => state.itemsObject[itemAddedName].itemNumber)
-        .join(state.vendorsObject[vendorName].joinChars);
+      const qr = selectQRContent(state, vendorName);
+      // const qr = state.vendorsObject[vendorName].itemsAdded
+      //   .map(itemAddedName => state.itemsObject[itemAddedName].itemNumber)
+      //   .join(state.vendorsObject[vendorName].joinChars);
       QRCode.toDataURL(qr, (error, url) => {
         state.vendorsObject[vendorName].qrContent = url;
       });
@@ -105,15 +118,17 @@ export const addedSlice = createSlice({
     },
     removeItems: (state, action: PayloadAction<VendorAndItemName>) => {
       const { itemName, vendorName } = action.payload;
-      state.vendorsObject[vendorName].itemsAdded = state.vendorsObject[
-        vendorName
-      ].itemsAdded.filter(itemAddedName => itemAddedName !== itemName);
-      state.itemsObject[itemName].vendorsAdded = state.itemsObject[
+      state.vendorsObject[vendorName].itemsAdded = selectFilteredItemsAdded(
+        state,
+        vendorName,
         itemName
-      ].vendorsAdded.filter(vendor => vendor !== vendorName);
-      const qr = state.vendorsObject[vendorName].itemsAdded
-        .map(itemAddedName => state.itemsObject[itemAddedName].itemNumber)
-        .join(state.vendorsObject[vendorName].joinChars);
+      );
+      state.itemsObject[itemName].vendorsAdded = selectFilteredVendorsAdded(
+        state,
+        itemName,
+        vendorName
+      );
+      const qr = selectQRContent(state, vendorName);
       QRCode.toDataURL(qr, (error, url) => {
         state.vendorsObject[vendorName].qrContent = url;
       });
@@ -121,7 +136,8 @@ export const addedSlice = createSlice({
     },
     removeAllItems: (state, action: PayloadAction<VendorName>) => {
       const { payload: vendorName } = action;
-      state.vendorsObject[vendorName].itemsAdded.forEach(itemName => {
+      const itemsAdded = selectItemsAdded(state, vendorName);
+      itemsAdded.forEach(itemName => {
         state.itemsObject[itemName].vendorsAdded = state.itemsObject[
           itemName
         ].vendorsAdded.filter(vendor => vendor !== vendorName);
@@ -290,5 +306,32 @@ export const {
   setVendorsForAllCheck,
   setVendorsForAllUncheck,
 } = addedSlice.actions;
+
+// export const createTopLevelSelectors = (state: AddedState) => {
+//   const results = {} as TopLevelSelectors<AddedState>;
+//   objectKeys(state).forEach(e => {
+//     results[`select${capitalizeFirstLetter(e)}` as const] = (
+//       rootState: RootState
+//     ) => rootState.added[e];
+//   });
+//   return results;
+// };
+
+// export const topLevelSelectors = createTopLevelSelectors();
+
+// const createTopLevelSelectors = (): TopLevelSelectors<AddedState> => {
+//   const keys = objectKeys(initialState) as readonly (keyof AddedState)[];
+//   return objectKeys(initialState).reduce<TopLevelSelectors<AddedState>>(
+//     (prev: TopLevelSelectors<AddedState>, curr) =>
+//       ({
+//         ...prev,
+//         [`select${capitalizeFirstLetter(curr)}`]: (state: RootState) =>
+//           state.added[curr],
+//       }) as const,
+//     {}
+//   );
+// };
+
+// export const topLevelSelectors = createTopLevelSelectors();
 
 export default addedSlice.reducer;

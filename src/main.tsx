@@ -25,7 +25,10 @@ await store.dispatch(apiSlice.endpoints.getMain.initiate());
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider
+      noopCheck="always"
+      stabilityCheck="always"
+      store={store}>
       <App />
     </Provider>
   </React.StrictMode>

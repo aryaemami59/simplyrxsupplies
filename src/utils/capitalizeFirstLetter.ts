@@ -3,7 +3,7 @@
  * @param str String whose first letter is going to be capitalized
  */
 
-const capitalizeFirstLetter = (str: string): string =>
-  str.charAt(0).toUpperCase() + str.slice(1);
+const capitalizeFirstLetter = <const S extends string>(str: S): Capitalize<S> =>
+  (str.charAt(0).toUpperCase() + str.slice(1)) as Capitalize<S>;
 
 export default capitalizeFirstLetter;

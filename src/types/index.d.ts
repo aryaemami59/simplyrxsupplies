@@ -9,7 +9,3 @@ declare module "react-mobile-share" {
     fallbackFunction?: (message: string) => string
   ): void;
 }
-
-export type RecursiveMutable<T> = {
-  -readonly [P in keyof T]: RecursiveMutable<T[P]>;
-};

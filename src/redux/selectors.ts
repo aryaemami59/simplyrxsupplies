@@ -12,6 +12,27 @@ import type { RootState } from "./store";
 
 export const selectAdded: AppSelector<AddedState> = state => state.added;
 
+// export const createTopLevelSelectors = <State extends Record<string, unknown>>(
+//   state: State
+// ): TopLevelSelectors<State> => {
+//   const results = {} as TopLevelSelectors<State>;
+//   objectKeys(state).forEach(e => {
+//     results[`select${capitalizeFirstLetter(e)}`] = (rootState: State) =>
+//       rootState[e];
+//   });
+//   return results;
+// };
+
+// export const structured = createStructuredSelector<AddedState>({
+//   searchResultsItemNames: state => state.searchResultsItemNames,
+//   itemsArray: state => state.itemsArray,
+//   itemsObject: undefined,
+//   vendorsArray: [],
+//   vendorsObject: undefined,
+//   categoriesArray: [],
+//   categoriesObject: undefined,
+// });
+
 export const selectItemsObject = createAppSelector<
   [typeof selectAdded],
   Record<string, SingleItemObject>

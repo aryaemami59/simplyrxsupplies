@@ -24,3 +24,6 @@ export type XOR<T, U> = T | U extends object
   : T | U;
 
 export type Mutable<T> = { -readonly [P in keyof T]: T[P] };
+export type RecursiveMutable<T> = {
+  -readonly [P in keyof T]: RecursiveMutable<T[P]>;
+};

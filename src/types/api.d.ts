@@ -1,4 +1,4 @@
-import type { RecursiveMutable } from ".";
+import type { RecursiveMutable } from "./missingTypes";
 
 // Categories
 export type CategoryName =
