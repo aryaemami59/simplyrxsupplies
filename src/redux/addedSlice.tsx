@@ -4,19 +4,19 @@ import QRCode from "qrcode";
 
 import type { VendorAndItemName, VendorName } from "../types/api";
 import type { AddedState } from "../types/redux";
-import difference from "../utils/difference";
 import emptyArray from "../utils/emptyArray";
-import emptyObject from "../utils/emptyObject";
 import objectKeys from "../utils/objectKeys";
+import { cartAdapter } from "./adapters/cartAdapter";
+import { categoriesAdapter } from "./adapters/categoriesAdapter";
+import { itemsAdapter } from "./adapters/itemsAdapter";
+import { searchResultsAdapter } from "./adapters/searchResultsAdapter";
+import { vendorsAdapter } from "./adapters/vendorsAdapter";
 import { apiSlice } from "./apiSlice";
 import {
   selectFilteredItemsAdded,
-  selectFilteredSearchResultsItemNames,
-  selectFilteredVendorsAdded,
   selectItem,
   selectItemsAdded,
   selectQRContent,
-  selectVendors,
   selectVendorsToAdd,
 } from "./draftSafeSelectors";
 
@@ -38,16 +38,20 @@ import {
 // console.log(addedAdapter.getInitialState());
 
 export const initialState: AddedState = {
-  searchResultsItemNames: emptyArray,
+  searchResultsItemNames: searchResultsAdapter.getInitialState(),
+  cart: cartAdapter.getInitialState(),
+  categories: categoriesAdapter.getInitialState(),
+  items: itemsAdapter.getInitialState(),
+  vendors: vendorsAdapter.getInitialState(),
   // errorMessage: "",
   // isLoading: true,
-  itemsArray: emptyArray,
-  itemsObject: emptyObject,
-  vendorsArray: emptyArray,
-  vendorsObject: emptyObject,
-  categoriesArray: emptyArray,
-  categoriesObject: emptyObject,
-} as unknown as AddedState satisfies AddedState;
+  // itemsArray: emptyArray,
+  // itemsObject: emptyObject,
+  // vendorsArray: emptyArray,
+  // vendorsObject: emptyObject,
+  // categoriesArray: emptyArray,
+  // categoriesObject: emptyObject,
+} satisfies AddedState;
 
 export const addedSlice = createSlice({
   name: "added",
@@ -55,7 +59,13 @@ export const addedSlice = createSlice({
   reducers: {
     addItems: (state, { payload: itemName }: PayloadAction<string>) => {
       const item = selectItem(state, itemName);
-      const { vendorsAdded, vendorsToAdd, vendors } = item;
+      // selectItem.memoizedResultFunc
+      const vendorsAdded = selectVendorsToAdd(state, itemName);
+      // const vendorsAdded = item.vendors.filter(e =>
+      //   state.vendorsObject[e].itemsAdded.includes(itemName)
+      // );
+      const vendorsToAdd = selectVendorsToAdd(state, itemName);
+      const { vendors } = item;
       // const vendorsToAdd = selectVendorsToAdd(state, itemName);
       // const vendorsAdded = selectVendorsAdded(state, itemName);
       if (vendorsToAdd.length === 0 || vendorsAdded.length === vendors.length) {
@@ -76,41 +86,39 @@ export const addedSlice = createSlice({
             state.vendorsObject[vendorName].qrContent = url;
           });
           state.vendorsObject[vendorName].qrText = qr;
-          state.searchResultsItemNames = selectFilteredSearchResultsItemNames(
-            state,
-            itemName
-          );
-          state.itemsObject[itemName].vendorsAdded = [
-            ...vendorsAdded,
-            ...vendorsToAdd,
-          ];
-          state.itemsObject[itemName].vendorsToAdd =
-            vendorsToAdd.length > 0
-              ? difference(vendors, vendorsAdded)
-              : emptyArray;
+          searchResultsAdapter.removeOne(state.searchResultsItemNames, key);
+          // state.searchResultsItemNames = selectFilteredSearchResultsItemNames(
+          //   state,
+          //   itemName
+          // );
+          // state.itemsObject[itemName].vendorsAdded = [
+          //   ...vendorsAdded,
+          //   ...vendorsToAdd,
+          // ];
+          // state.itemsObject[itemName].vendorsToAdd =
+          //   vendorsToAdd.length > 0
+          //     ? difference(vendors, vendorsAdded)
+          //     : emptyArray;
         }
       });
     },
     addItemsByVendor: (state, action: PayloadAction<VendorAndItemName>) => {
       const { itemName, vendorName } = action.payload;
       state.vendorsObject[vendorName].itemsAdded.push(itemName);
-      const item = selectItem(state, itemName);
-      const vendorsAdded = selectFilteredVendorsAdded(
-        state,
-        itemName,
-        vendorName
-      );
-      const vendorsToAdd = selectVendorsToAdd(state, itemName);
-      const vendors = selectVendors(state, itemName);
-      state.itemsObject[itemName].vendorsAdded = [...vendorsAdded, vendorName];
-      state.itemsObject[itemName].vendorsToAdd =
-        vendorsToAdd.length > 0
-          ? difference(vendors, vendorsAdded)
-          : emptyArray;
+      // const item = selectItem(state, itemName);
+      // const vendorsAdded = selectFilteredVendorsAdded(
+      //   state,
+      //   itemName,
+      //   vendorName
+      // );
+      // const vendorsToAdd = selectVendorsToAdd(state, itemName);
+      // const vendors = selectVendors(state, itemName);
+      // state.itemsObject[itemName].vendorsAdded = [...vendorsAdded, vendorName];
+      // state.itemsObject[itemName].vendorsToAdd =
+      //   vendorsToAdd.length > 0
+      //     ? difference(vendors, vendorsAdded)
+      //     : emptyArray;
       const qr = selectQRContent(state, vendorName);
-      // const qr = state.vendorsObject[vendorName].itemsAdded
-      //   .map(itemAddedName => state.itemsObject[itemAddedName].itemNumber)
-      //   .join(state.vendorsObject[vendorName].joinChars);
       QRCode.toDataURL(qr, (error, url) => {
         state.vendorsObject[vendorName].qrContent = url;
       });
@@ -123,11 +131,11 @@ export const addedSlice = createSlice({
         vendorName,
         itemName
       );
-      state.itemsObject[itemName].vendorsAdded = selectFilteredVendorsAdded(
-        state,
-        itemName,
-        vendorName
-      );
+      // state.itemsObject[itemName].vendorsAdded = selectFilteredVendorsAdded(
+      //   state,
+      //   itemName,
+      //   vendorName
+      // );
       const qr = selectQRContent(state, vendorName);
       QRCode.toDataURL(qr, (error, url) => {
         state.vendorsObject[vendorName].qrContent = url;
@@ -136,15 +144,15 @@ export const addedSlice = createSlice({
     },
     removeAllItems: (state, action: PayloadAction<VendorName>) => {
       const { payload: vendorName } = action;
-      const itemsAdded = selectItemsAdded(state, vendorName);
-      itemsAdded.forEach(itemName => {
-        state.itemsObject[itemName].vendorsAdded = state.itemsObject[
-          itemName
-        ].vendorsAdded.filter(vendor => vendor !== vendorName);
-        if (!state.itemsObject[itemName].vendorsToAdd.includes(vendorName)) {
-          state.itemsObject[itemName].vendorsToAdd.push(vendorName);
-        }
-      });
+      // const itemsAdded = selectItemsAdded(state, vendorName);
+      // itemsAdded.forEach(itemName => {
+      //   state.itemsObject[itemName].vendorsAdded = state.itemsObject[
+      //     itemName
+      //   ].vendorsAdded.filter(vendor => vendor !== vendorName);
+      //   if (!state.itemsObject[itemName].vendorsToAdd.includes(vendorName)) {
+      //     state.itemsObject[itemName].vendorsToAdd.push(vendorName);
+      //   }
+      // });
       state.vendorsObject[vendorName].qrContent = "";
       state.vendorsObject[vendorName].qrText = "";
       state.vendorsObject[vendorName].itemsAdded = emptyArray;
@@ -229,38 +237,6 @@ export const addedSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    // builder.addCase(fetchItems.pending, state => {
-    //   state.isLoading = true;
-    // });
-    // builder.addCase(fetchItems.rejected, (state, action) => {
-    //   state.isLoading = false;
-    //   state.errorMessage = action.error.message ?? "Fetch failed";
-    // });
-    // builder.addCase(fetchItems.fulfilled, (state, action) => {
-    //   const { categories, items, vendors } = action.payload;
-    //   state.itemsArray = items.map(({ name }) => name);
-    //   items.forEach(itemObject => {
-    //     state.itemsObject[itemObject.name] = {
-    //       ...itemObject,
-    //       vendorsAdded: emptyArray,
-    //       vendorsToAdd: itemObject.vendors,
-    //     };
-    //   });
-    //   state.vendorsArray = objectKeys(vendors);
-    //   Object.values(vendors).forEach(vendorObject => {
-    //     state.vendorsObject[vendorObject.abbrName] = {
-    //       ...vendorObject,
-    //       itemsAdded: emptyArray as ItemName[],
-    //       minimizedItemIds: [],
-    //       qrContent: "",
-    //       qrText: "",
-    //     };
-    //   });
-    //   state.categoriesArray = objectKeys(categories);
-    //   state.categoriesObject = { ...categories };
-    //   state.isLoading = false;
-    //   state.errorMessage = "";
-    // });
     builder.addMatcher(
       apiSlice.endpoints.getMain.matchFulfilled,
       (state, action) => {
@@ -285,8 +261,6 @@ export const addedSlice = createSlice({
         });
         state.categoriesArray = objectKeys(categories);
         state.categoriesObject = { ...categories };
-        // state.isLoading = false;
-        // state.errorMessage = "";
       }
     );
   },

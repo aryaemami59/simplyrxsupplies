@@ -6,25 +6,23 @@ import { shallowEqual } from "react-redux";
 import { useAppSelector } from "../../redux/hooks";
 import { selectVendorsByItemName } from "../../redux/selectors";
 import { itemNames } from "../../types/aa";
+import { SearchResultsItem } from "../../types/redux";
 import SearchResultsAddButton from "./SearchResultsAddButton";
 import SearchResultsItemName from "./SearchResultsItemName";
 import SwitchComponent from "./SwitchComponent";
 
 type Props = {
-  itemName: string;
+  item: SearchResultsItem;
 };
 
-const SearchResultsCardBodyContent: FC<Props> = ({ itemName }) => {
-  const vendors = useAppSelector(
-    selectVendorsByItemName(itemName),
-    shallowEqual
-  );
+const SearchResultsCardBodyContent: FC<Props> = ({ item }) => {
+  const vendors = useAppSelector(selectVendorsByItemName(item), shallowEqual);
 
   return (
     <>
       <div className="col-md-12 col-12">
         <div className="m-0 row">
-          <SearchResultsItemName itemName={itemName} />
+          <SearchResultsItemName item={item} />
         </div>
       </div>
       <div className="col-md-12 col-12">
@@ -33,16 +31,17 @@ const SearchResultsCardBodyContent: FC<Props> = ({ itemName }) => {
             <div className="m-0 row w-100">
               {vendors.map(vendorName => (
                 <SwitchComponent
-                  key={`SwitchComponent-${itemName}${vendorName}`}
-                  itemName={itemName}
+                  key={`SwitchComponent-${item}${vendorName}`}
+                  itemName={item}
                   vendorName={vendorName}
+                  // vendors={vendors}
                 />
               ))}
             </div>
           </div>
           <div className="col-5 col-lg-4">
             <div className="justify-content-center row">
-              <SearchResultsAddButton itemName={itemName} />
+              <SearchResultsAddButton itemName={item} />
             </div>
           </div>
         </div>
@@ -52,7 +51,7 @@ const SearchResultsCardBodyContent: FC<Props> = ({ itemName }) => {
 };
 
 SearchResultsCardBodyContent.propTypes = {
-  itemName: PropTypes.oneOf(itemNames).isRequired,
+  item: PropTypes.oneOf(itemNames).isRequired,
 };
 
 export default memo<Props>(SearchResultsCardBodyContent);

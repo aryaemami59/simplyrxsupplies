@@ -155,7 +155,8 @@
     "@reverecre/fontawesome/shakeable-imports": [2],
     "@typescript-eslint/no-invalid-void-type": [0],
     "unicorn/prefer-object-from-entries": [2],
-    "class-methods-use-this": [0]
+    "class-methods-use-this": [0],
+    "unicorn/consistent-destructuring": [0]
   },
   "settings": { "react": { "version": "detect" } }
 }

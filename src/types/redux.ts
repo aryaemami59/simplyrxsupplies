@@ -1,21 +1,40 @@
-import type {
-  Categories,
-  CategoryName,
-  SingleItemObject,
-  VendorName,
-  VendorObject,
-} from "./api";
+import { EntityState } from "@reduxjs/toolkit";
+
+import type { Categories, Item, Items, Vendors } from "./api";
+
+export type SearchResultsItem = { id: number; checkedVendors: number[] };
+
+export type VendorsArray = Vendors[keyof Vendors][];
+
+export type CategoriesArray = Categories[keyof Categories][];
 
 export type AddedState = {
-  searchResultsItemNames: string[];
+  searchResultsItemNames: EntityState<Item>;
+  // searchResultsItemNames: string[];
   // errorMessage: string;
   // isLoading: boolean;
-  readonly itemsArray: string[];
-  itemsObject: Record<string, SingleItemObject>;
-  readonly vendorsArray: VendorName[];
-  vendorsObject: VendorObject;
-  readonly categoriesArray: CategoryName[];
-  categoriesObject: Categories;
+  cart: EntityState<Cart>;
+  items: EntityState<Item>;
+  vendors: EntityState<VendorsArray>;
+  categories: EntityState<CategoriesArray>;
+  // readonly itemsArray: string[];
+  // itemsObject: Record<string, SingleItemObject>;
+  // readonly vendorsArray: VendorName[];
+  // vendorsObject: VendorObject;
+  // readonly categoriesArray: CategoryName[];
+  // categoriesObject: Categories;
+};
+
+export type Cart = {
+  readonly id: number;
+  readonly items: EntityState<Pick<Item, "id"> & { vendorId: number }>;
+};
+
+export type SuppliesEntityState = {
+  readonly items: Items;
+  readonly vendors: VendorsArray;
+  readonly categories: CategoriesArray;
+  readonly cart: Cart[];
 };
 
 // export type FetchedData = {

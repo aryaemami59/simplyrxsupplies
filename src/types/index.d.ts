@@ -9,3 +9,10 @@ declare module "react-mobile-share" {
     fallbackFunction?: (message: string) => string
   ): void;
 }
+
+// export type IndexOf<T extends readonly unknown[]> = Extract<
+//   keyof T,
+//   `${number}`
+// > extends `${infer N extends number}`
+//   ? N
+//   : never;

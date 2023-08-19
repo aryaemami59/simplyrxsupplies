@@ -5,7 +5,11 @@ import type { VendorName } from "../types/api";
 import type { AddedState } from "../types/redux";
 import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
 import objectKeys from "../utils/objectKeys";
-import { createDraftSafeAppSelector } from "./hooks";
+import {
+  AppSelector,
+  createAppSelector,
+  createDraftSafeAppSelector,
+} from "./hooks";
 
 export const selectSelf: Selector<AddedState, AddedState, never> = (
   state: AddedState
@@ -16,33 +20,76 @@ export type AddedSelector<
   Params extends readonly unknown[] = unknown[],
 > = Selector<AddedState, Return, Params>;
 
-export type TopLevelSelectors<State extends object> = {
-  [K in keyof State as `select${Capitalize<Extract<K, string>>}`]: Selector<
-    State,
-    State[K],
-    never
-  >;
-};
+export type TopLevelSelectors<
+  State extends object,
+  P extends keyof State = never,
+> = [P] extends [never]
+  ? {
+      [K in keyof State as `select${Capitalize<
+        Extract<K, string>
+      >}`]: ReturnType<
+        typeof createDraftSafeAppSelector<
+          [AddedSelector<State, never>],
+          State[K]
+        >
+      >;
+    }
+  : {
+      [K in keyof State[P] as `select${Capitalize<
+        Extract<K, string>
+      >}`]: ReturnType<
+        typeof createAppSelector<[AppSelector<AddedState, never>], State[P][K]>
+      >;
+    };
 
 export type ParametricSelectors<
   State extends object,
-  Params extends Record<string, unknown>,
+  Params extends readonly {
+    readonly params: readonly unknown[];
+    readonly returnType: unknown;
+    readonly name: string;
+  }[],
 > = {
-  readonly [K in keyof Params as `get${Capitalize<Extract<K, string>>}`]: (
+  readonly [K in Params[number] as `get${Capitalize<K["name"]>}`]: (
     state: State,
-    param: Params[K]
-  ) => Params[K];
+    ...params: K["params"]
+  ) => K["returnType"];
 };
 
-export const parametricSelectors: ParametricSelectors<
+export type DraftSelectorsParametricSelectors = ParametricSelectors<
   AddedState,
-  { itemName: string; vendorName: VendorName }
-> = {
+  readonly [
+    itemName: {
+      readonly name: "itemName";
+      readonly params: [itemName: string];
+      readonly returnType: string;
+    },
+    vendorName: {
+      readonly name: "vendorName";
+      readonly params: [vendorName: VendorName];
+      readonly returnType: VendorName;
+    },
+    itemAndVendorName: {
+      readonly name: "itemAndVendorName";
+      readonly params: [itemName: string, vendorName: VendorName];
+      readonly returnType: VendorName;
+    },
+    VendorAndItemName: {
+      readonly name: "VendorAndItemName";
+      readonly params: [vendorName: VendorName, itemName: string];
+      readonly returnType: string;
+    },
+  ]
+>;
+
+export const parametricSelectors = {
   getItemName: (state, itemName) => itemName,
   getVendorName: (state, vendorName) => vendorName,
-};
+  getItemAndVendorName: (state, itemName, vendorName) => vendorName,
+  getVendorAndItemName: (state, vendorName, itemName) => itemName,
+} as const satisfies DraftSelectorsParametricSelectors;
 
-export const topLevelDraftSafeSelectors = {
+export const topLevelDraftSafeSelectors: TopLevelSelectors<AddedState> = {
   selectCategoriesArray: createDraftSafeAppSelector(
     [selectSelf],
     added => added.categoriesArray
@@ -71,7 +118,7 @@ export const topLevelDraftSafeSelectors = {
     [selectSelf],
     added => added.vendorsObject
   ),
-};
+} as const;
 
 export const createTopLevelDraftSafeSelectors = (state: AddedState) => {
   const results = {} as Record<string, unknown>;
@@ -105,19 +152,29 @@ export const selectItem = createDraftSafeAppSelector(
   (itemsObject, itemName) => itemsObject[itemName]
 );
 
-export const selectVendorsToAdd = createDraftSafeAppSelector(
-  [selectItem],
-  item => item.vendorsToAdd
-);
-
-export const selectVendorsAdded = createDraftSafeAppSelector(
-  [selectItem],
-  item => item.vendorsAdded
-);
-
 export const selectVendors = createDraftSafeAppSelector(
   [selectItem],
   item => item.vendors
+);
+
+export const selectVendorsToAdd = createDraftSafeAppSelector(
+  [
+    topLevelDraftSafeSelectors.selectVendorsObject,
+    selectVendors,
+    parametricSelectors.getItemName,
+  ],
+  (vendorsObject, vendors, itemName) =>
+    vendors.filter(e => vendorsObject[e].itemsAdded.includes(itemName))
+);
+
+export const selectVendorsAdded = createDraftSafeAppSelector(
+  [
+    topLevelDraftSafeSelectors.selectVendorsObject,
+    selectVendors,
+    parametricSelectors.getItemName,
+  ],
+  (vendorsObject, vendors, itemName) =>
+    vendors.filter(e => !vendorsObject[e].itemsAdded.includes(itemName))
 );
 
 export const selectItemNumbers = createDraftSafeAppSelector(
@@ -140,19 +197,13 @@ export const selectFilteredSearchResultsItemNames = createDraftSafeAppSelector(
 );
 
 export const selectFilteredItemsAdded = createDraftSafeAppSelector(
-  [
-    selectItemsAdded,
-    (state, vendorName: VendorName, itemName: string) => itemName,
-  ],
+  [selectItemsAdded, parametricSelectors.getVendorAndItemName],
   (itemsAdded, itemName) =>
     itemsAdded.filter(itemAddedName => itemAddedName !== itemName)
 );
 
 export const selectFilteredVendorsAdded = createDraftSafeAppSelector(
-  [
-    selectVendorsAdded,
-    (state, itemName: string, vendorName: VendorName) => vendorName,
-  ],
+  [selectVendorsAdded, parametricSelectors.getItemAndVendorName],
   (vendorsAdded, vendorName) =>
     vendorsAdded.filter(vendor => vendor !== vendorName)
 );

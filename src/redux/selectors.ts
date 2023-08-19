@@ -1,66 +1,53 @@
-import type {
-  CategoryName,
-  SingleItemObject,
-  VendorName,
-  VendorObject,
-} from "../types/api";
+import type { CategoryName, VendorName, VendorObject } from "../types/api";
 import type { AddedState } from "../types/redux";
-import emptyArray from "../utils/emptyArray";
+import { TopLevelSelectors } from "./draftSafeSelectors";
 import type { AppSelector } from "./hooks";
 import { createAppSelector } from "./hooks";
 import type { RootState } from "./store";
 
 export const selectAdded: AppSelector<AddedState> = state => state.added;
 
-// export const createTopLevelSelectors = <State extends Record<string, unknown>>(
-//   state: State
-// ): TopLevelSelectors<State> => {
-//   const results = {} as TopLevelSelectors<State>;
-//   objectKeys(state).forEach(e => {
-//     results[`select${capitalizeFirstLetter(e)}`] = (rootState: State) =>
-//       rootState[e];
-//   });
-//   return results;
-// };
+export const topLevelAddedSelectors = {
+  selectItemsObject: createAppSelector(
+    [selectAdded],
+    added => added.itemsObject
+  ),
+  selectVendorsObject: createAppSelector(
+    [selectAdded],
+    added => added.vendorsObject
+  ),
+  selectItemsArray: createAppSelector([selectAdded], added => added.itemsArray),
+  selectSearchResultsItemNames: createAppSelector(
+    [selectAdded],
+    added => added.searchResultsItemNames
+  ),
+  selectCategoriesArray: createAppSelector(
+    [selectAdded],
+    added => added.categoriesArray
+  ),
+  selectCategoriesObject: createAppSelector(
+    [selectAdded],
+    added => added.categoriesObject
+  ),
+  selectVendorsArray: createAppSelector(
+    [selectAdded],
+    added => added.vendorsArray
+  ),
+} as const satisfies TopLevelSelectors<RootState, "added">;
 
-// export const structured = createStructuredSelector<AddedState>({
-//   searchResultsItemNames: state => state.searchResultsItemNames,
-//   itemsArray: state => state.itemsArray,
-//   itemsObject: undefined,
-//   vendorsArray: [],
-//   vendorsObject: undefined,
-//   categoriesArray: [],
-//   categoriesObject: undefined,
-// });
+export const {
+  selectCategoriesArray,
+  selectCategoriesObject,
+  selectItemsArray,
+  selectItemsObject,
+  selectSearchResultsItemNames,
+  selectVendorsArray,
+  selectVendorsObject,
+} = topLevelAddedSelectors;
 
-export const selectItemsObject = createAppSelector<
-  [typeof selectAdded],
-  Record<string, SingleItemObject>
->([selectAdded], added => added.itemsObject);
-
-export const selectVendorsObject = createAppSelector(
-  [selectAdded],
-  added => added.vendorsObject
-);
-
-export const selectItemNamesArray = createAppSelector(
-  [selectAdded],
-  added => added.itemsArray
-);
-
-export const selectAllListItems = createAppSelector(
-  [selectAdded],
-  added => added.searchResultsItemNames
-);
-
-export const selectCategoriesArray = createAppSelector(
-  [selectAdded],
-  added => added.categoriesArray
-);
-
-export const selectVendorsArray = createAppSelector([selectAdded], added =>
-  added.vendorsArray.length > 0 ? added.vendorsArray : emptyArray
-);
+// export const selectVendorsArray = createAppSelector([selectAdded], added =>
+//   added.vendorsArray.length > 0 ? added.vendorsArray : emptyArray
+// );
 
 export const selectItemsAddedByVendorName = (
   state: RootState,
@@ -69,24 +56,24 @@ export const selectItemsAddedByVendorName = (
 
 export const selectAddedItemsByVendor = (vendorName: VendorName) =>
   createAppSelector(
-    [selectVendorsObject],
+    [topLevelAddedSelectors.selectVendorsObject],
     vendorsObject => vendorsObject[vendorName].itemsAdded
   );
 
 export const selectVendorsLinks = (vendorName: VendorName) =>
   createAppSelector(
-    [selectVendorsObject],
+    [topLevelAddedSelectors.selectVendorsObject],
     vendorsObject => vendorsObject[vendorName].link
   );
 
 export const selectAddedItemsLength = (vendorName: VendorName) =>
   createAppSelector(
-    [selectVendorsObject],
+    [topLevelAddedSelectors.selectVendorsObject],
     vendorsObject => vendorsObject[vendorName].itemsAdded.length
   );
 
 export const selectItemsObjectValues = createAppSelector(
-  [selectItemsObject],
+  [topLevelAddedSelectors.selectItemsObject],
   itemsObject => Object.values(itemsObject)
 );
 
@@ -106,81 +93,83 @@ export const selectCategoriesItemNames = (categoryName: CategoryName) =>
 
 export const selectQRCodeContent = (vendorName: VendorName) =>
   createAppSelector(
-    [selectVendorsObject],
+    [topLevelAddedSelectors.selectVendorsObject],
     vendorsObject => vendorsObject[vendorName].qrContent
   );
 
 export const selectQRText = (vendorName: VendorName) =>
   createAppSelector(
-    [selectVendorsObject],
+    [topLevelAddedSelectors.selectVendorsObject],
     vendorsObject => vendorsObject[vendorName].qrText
   );
 
 export const checkIfAddedToAllVendors = (itemName: string) =>
   createAppSelector(
-    [selectItemsObject],
-    itemsObject =>
-      itemsObject[itemName].vendorsAdded.length ===
-      itemsObject[itemName].vendors.length
+    [topLevelAddedSelectors.selectVendorsObject],
+    vendorsObject =>
+      vendorsObject[itemName].vendorsAdded.length ===
+      vendorsObject[itemName].vendors.length
   );
 
 export const checkIfItemAddedToOneVendor = (
   vendorName: VendorName,
   itemName: string
 ) =>
-  createAppSelector([selectItemsObject], itemsObject =>
+  createAppSelector([topLevelAddedSelectors.selectItemsObject], itemsObject =>
     itemsObject[itemName].vendorsAdded.includes(vendorName)
   );
 
 export const checkVendorsToAdd = (vendorName: VendorName, itemName: string) =>
-  createAppSelector([selectItemsObject], itemsObject =>
-    itemsObject[itemName].vendorsToAdd.includes(vendorName)
+  createAppSelector(
+    [selectVendorsObject],
+    vendorsObject => !vendorsObject[vendorName].itemsAdded.includes(itemName)
   );
 
 export const checkVendorsAdded = (vendorName: VendorName, itemName: string) =>
-  createAppSelector([selectItemsObject], itemsObject =>
-    itemsObject[itemName].vendorsAdded.includes(vendorName)
+  createAppSelector(
+    [topLevelAddedSelectors.selectVendorsObject],
+    vendorsObject => vendorsObject[vendorName].itemsAdded.includes(itemName)
   );
 
 export const checkIfAnyAddedToOneVendor = (vendorName: VendorName) =>
   createAppSelector(
-    [selectVendorsObject],
+    [topLevelAddedSelectors.selectVendorsObject],
     vendorsObject => vendorsObject[vendorName].itemsAdded.length > 0
   );
 
 export const selectItemNumber = (itemName: string) =>
   createAppSelector(
-    [selectItemsObject],
+    [topLevelAddedSelectors.selectItemsObject],
     itemsObject => itemsObject[itemName].itemNumber
   );
 
 export const selectItemSrc = (itemName: string) =>
   createAppSelector(
-    [selectItemsObject],
+    [topLevelAddedSelectors.selectItemsObject],
     itemsObject => itemsObject[itemName].src
   );
 
 export const selectVendorsByItemName = (itemName: string) =>
   createAppSelector(
-    [selectItemsObject],
+    [topLevelAddedSelectors.selectItemsObject],
     itemsObject => itemsObject[itemName].vendors
   );
 
 export const selectVendorOfficialName = (vendorName: VendorName) =>
   createAppSelector(
-    [selectVendorsObject],
+    [topLevelAddedSelectors.selectVendorsObject],
     vendorsObject => vendorsObject[vendorName].officialName
   );
 
 export const selectMinimized = (vendorName: VendorName) =>
   createAppSelector(
-    [selectVendorsObject],
+    [topLevelAddedSelectors.selectVendorsObject],
     vendorsObject => vendorsObject[vendorName].minimizedItemIds
   );
 
 export const checkIfMinimizedIsFull = (vendorName: VendorName) =>
   createAppSelector(
-    [selectVendorsObject],
+    [topLevelAddedSelectors.selectVendorsObject],
     vendorsObject =>
       vendorsObject[vendorName].minimizedItemIds.length ===
       vendorsObject[vendorName].itemsAdded.length
@@ -188,7 +177,10 @@ export const checkIfMinimizedIsFull = (vendorName: VendorName) =>
 
 export const checkIfMinimized = (vendorName: VendorName, itemName: string) =>
   createAppSelector(
-    [selectVendorsObject, selectItemsObject],
+    [
+      topLevelAddedSelectors.selectVendorsObject,
+      topLevelAddedSelectors.selectItemsObject,
+    ],
     (vendorsObject, itemsObject) =>
       vendorsObject[vendorName].minimizedItemIds.includes(
         itemsObject[itemName].id
@@ -197,12 +189,15 @@ export const checkIfMinimized = (vendorName: VendorName, itemName: string) =>
 
 export const selectKeywords = (itemName: string) =>
   createAppSelector(
-    [selectItemsObject],
+    [topLevelAddedSelectors.selectItemsObject],
     itemsObject => itemsObject[itemName].keywords
   );
 
 export const selectItemNamesAndKeywords = createAppSelector(
-  [selectItemNamesArray, selectItemsObject],
+  [
+    topLevelAddedSelectors.selectItemsArray,
+    topLevelAddedSelectors.selectItemsObject,
+  ],
   (itemsArray, itemsObject) =>
     itemsArray.map(itemName => ({
       name: itemsObject[itemName].name,
@@ -211,7 +206,7 @@ export const selectItemNamesAndKeywords = createAppSelector(
 );
 
 export const selectVendorsObjectValues = createAppSelector(
-  [selectVendorsObject],
+  [topLevelAddedSelectors.selectVendorsObject],
   vendorsObject => Object.values(vendorsObject)
 );
 

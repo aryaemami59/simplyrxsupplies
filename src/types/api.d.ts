@@ -1,5 +1,3 @@
-import type { RecursiveMutable } from "./missingTypes";
-
 // Categories
 export type CategoryName =
   | "BD Syringes"
@@ -100,9 +98,9 @@ export type VendorObject = Record<
   }
 >;
 
-export type SingleItemObject = RecursiveMutable<Item> & {
-  vendorsToAdd: VendorName[];
-  vendorsAdded: VendorName[];
+export type SingleItemObject = Item & {
+  // vendorsToAdd: VendorName[];
+  // vendorsAdded: VendorName[];
   // keywords: string[];
 };
 

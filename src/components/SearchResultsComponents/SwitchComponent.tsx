@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { checkVendorsAdded, checkVendorsToAdd } from "../../redux/selectors";
 import type { VendorAndItemName } from "../../types/aa";
 import { itemNames, vendorNames } from "../../types/aa";
+import { VendorName } from "../../types/api";
 
 const inputProps: SwitchProps["inputProps"] = {
   className: "shadow",
@@ -23,10 +24,13 @@ const control = (
   />
 );
 
-type Props = VendorAndItemName;
+type Props = VendorAndItemName & {
+  vendors: VendorName[];
+};
 
-const SwitchComponent: FC<Props> = ({ itemName, vendorName }) => {
+const SwitchComponent: FC<Props> = ({ itemName, vendorName, vendors }) => {
   const officialVendorName = useOfficialVendorName(vendorName);
+  // const vendors =
 
   const dispatch = useAppDispatch();
 

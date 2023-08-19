@@ -5,25 +5,28 @@ import type { FC } from "react";
 import { memo } from "react";
 
 import { itemNames } from "../../types/aa";
+import { SearchResultsItem } from "../../types/redux";
 
 type Props = {
-  itemName: string;
+  item: SearchResultsItem;
 };
 
 const titleTypographyProps: CardHeaderProps["titleTypographyProps"] = {
   className: "fs-5",
 } as const;
 
-const SearchResultsItemName: FC<Props> = ({ itemName }) => (
-  <CardHeader
-    className="p-1 p-lg-auto"
-    title={itemName}
-    titleTypographyProps={titleTypographyProps}
-  />
-);
+const SearchResultsItemName: FC<Props> = ({ item }) => {
+  return (
+    <CardHeader
+      className="p-1 p-lg-auto"
+      title={item}
+      titleTypographyProps={titleTypographyProps}
+    />
+  );
+};
 
 SearchResultsItemName.propTypes = {
-  itemName: PropTypes.oneOf(itemNames).isRequired,
+  item: PropTypes.oneOf(itemNames).isRequired,
 };
 
 export default memo<Props>(SearchResultsItemName);

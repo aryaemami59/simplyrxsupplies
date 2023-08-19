@@ -5,14 +5,14 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { shallowEqual } from "react-redux";
 
 import { useAppSelector } from "../../redux/hooks";
-import { selectAllListItems } from "../../redux/selectors";
+import { selectSearchResultsItemNames } from "../../redux/selectors";
 import IsLoading from "../../shared/components/IsLoading";
 import SearchResultsSingleCard from "./SearchResultsSingleCard";
 
 const loader = <IsLoading />;
 
 const SearchResultsContainer: FC = () => {
-  const listItems = useAppSelector(selectAllListItems, shallowEqual);
+  const listItems = useAppSelector(selectSearchResultsItemNames, shallowEqual);
   const listMemo = useMemo(() => listItems.slice(0, 10), [listItems]);
   const [hasMore, setHasMore] = useState(false);
   const [list, setList] = useState(listMemo);
@@ -47,10 +47,10 @@ const SearchResultsContainer: FC = () => {
         loader={loader}
         next={next}
         scrollableTarget="App">
-        {list.map(itemName => (
+        {list.map(item => (
           <SearchResultsSingleCard
-            key={`${itemName}-inputListItems`}
-            itemName={itemName}
+            key={`${item.id}-inputListItems`}
+            item={item}
           />
         ))}
       </InfiniteScroll>
