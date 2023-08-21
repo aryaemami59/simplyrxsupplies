@@ -5,25 +5,25 @@ import Fade from "@mui/material/Fade";
 import type { FC } from "react";
 import { memo, useCallback } from "react";
 
-import useItemName from "../../../hooks/useItemName";
-import useVendorName from "../../../hooks/useVendorName";
-import { minimizeItem } from "../../../redux/addedSlice";
+import useItemId from "../../../hooks/useItemId";
+import useVendorId from "../../../hooks/useVendorId";
+import { minimizeOneItemInCart } from "../../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { checkIfMinimized } from "../../../redux/selectors";
+import { isMinimized, selectItemName } from "../../../redux/selectors";
 import CollapseButton from "./CollapseButton";
 import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal";
 import RowDeleteButton from "./RowDeleteButton";
 import RowSingleItemInfo from "./RowSingleItemInfo";
 
 const RowSingleContainer: FC = () => {
-  const itemName = useItemName();
-  const vendorName = useVendorName();
+  const itemId = useItemId();
+  const vendorId = useVendorId();
   const dispatch = useAppDispatch();
-  const open = useAppSelector(checkIfMinimized(vendorName, itemName));
-
+  const open = useAppSelector(state => isMinimized(state, vendorId, itemId));
+  const itemName = useAppSelector(state => selectItemName(state, itemId));
   const toggleFade = useCallback(() => {
-    dispatch(minimizeItem({ itemName, vendorName }));
-  }, [dispatch, itemName, vendorName]);
+    dispatch(minimizeOneItemInCart({ itemId, vendorId }));
+  }, [dispatch, itemId, vendorId]);
 
   return (
     <div className="rounded border mb-4">

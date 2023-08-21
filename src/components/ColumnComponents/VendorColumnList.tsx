@@ -1,22 +1,22 @@
 import type { FC } from "react";
 import { memo } from "react";
 
-import VendorNameProvider from "../../contexts/VendorNameProvider";
-import useVendorNamesList from "../../hooks/useVendorNamesList";
+import VendorIdProvider from "../../contexts/VendorIdProvider";
+import useVendorIds from "../../hooks/useVendorIds";
 import VendorColumn from "./VendorColumn";
 
 const VendorColumnList: FC = () => {
-  const vendorNames = useVendorNamesList();
+  const vendorNames = useVendorIds();
 
   return (
     <div className="justify-content-center row">
       <div className="shadow col-11 col-xl-10 p-0 justify-content-center text-center">
         {vendorNames.map(vendorName => (
-          <VendorNameProvider
+          <VendorIdProvider
             key={vendorName}
-            vendorName={vendorName}>
+            vendorId={vendorName}>
             <VendorColumn key={`${vendorName}-VendorColumn`} />
-          </VendorNameProvider>
+          </VendorIdProvider>
         ))}
       </div>
     </div>

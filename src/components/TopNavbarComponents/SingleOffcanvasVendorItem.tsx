@@ -2,26 +2,30 @@ import Button from "@mui/material/Button";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback } from "react";
 
-import useItemName from "../../hooks/useItemName";
-import useVendorName from "../../hooks/useVendorName";
-import { addItemsByVendor } from "../../redux/addedSlice";
+import useItemId from "../../hooks/useItemId";
+import useVendorId from "../../hooks/useVendorId";
+import { addItemToCarts } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { checkIfItemAddedToOneVendor } from "../../redux/selectors";
+import {
+  checkIfItemAddedToOneVendor,
+  selectItemName,
+} from "../../redux/selectors";
 
 const SingleOffcanvasVendorItem: FC = () => {
-  const vendorName = useVendorName();
-  const itemName = useItemName();
+  const vendorId = useVendorId();
+  const itemId = useItemId();
   const dispatch = useAppDispatch();
+  const itemName = useAppSelector(state => selectItemName(state, itemId));
 
-  const ifAddedToVendor = useAppSelector(
-    checkIfItemAddedToOneVendor(vendorName, itemName)
+  const ifAddedToVendor = useAppSelector(state =>
+    checkIfItemAddedToOneVendor(state, vendorId, itemId)
   );
 
-  const clickHandler: MouseEventHandler<HTMLElement> = useCallback(() => {
+  const clickHandler = useCallback<MouseEventHandler<HTMLElement>>(() => {
     if (!ifAddedToVendor) {
-      dispatch(addItemsByVendor({ itemName, vendorName }));
+      dispatch(addItemToCarts({ itemId, checkedVendorIds: [vendorId] }));
     }
-  }, [ifAddedToVendor, dispatch, itemName, vendorName]);
+  }, [ifAddedToVendor, dispatch, itemId, vendorId]);
 
   return (
     <div>

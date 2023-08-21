@@ -11,15 +11,16 @@ import { memo, useCallback, useRef, useState } from "react";
 import { shallowEqual } from "react-redux";
 
 import { useAppSelector } from "../../redux/hooks";
-import { selectCategoriesItemNames } from "../../redux/selectors";
-import type { CategoryName } from "../../types/aa";
-import { categoryNames } from "../../types/aa";
+import {
+  selectCategoryItemIds,
+  selectCategoryName,
+} from "../../redux/selectors";
 import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem";
 
 const expandIcon: AccordionSummaryProps["expandIcon"] = <ExpandMoreIcon />;
 
 type Props = {
-  category: CategoryName;
+  categoryId: number;
 };
 
 const transitionProps: TransitionProps = {
@@ -27,10 +28,13 @@ const transitionProps: TransitionProps = {
   mountOnEnter: true,
 };
 
-const SideBarAccordionCategories: FC<Props> = ({ category }) => {
+const SideBarAccordionCategories: FC<Props> = ({ categoryId }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const sidebarItemNames = useAppSelector(
-    selectCategoriesItemNames(category),
+  const categoryName = useAppSelector(state =>
+    selectCategoryName(state, categoryId)
+  );
+  const categoryItemIds = useAppSelector(
+    state => selectCategoryItemIds(state, categoryId),
     shallowEqual
   );
   const [open, setOpen] = useState(false);
@@ -50,13 +54,13 @@ const SideBarAccordionCategories: FC<Props> = ({ category }) => {
           ref={ref}
           className="shadow-sm"
           expandIcon={expandIcon}>
-          <Typography>{category}</Typography>
+          <Typography>{categoryName}</Typography>
         </AccordionSummary>
         <AccordionDetails className="text-center mw-7">
-          {sidebarItemNames.map(itemName => (
+          {categoryItemIds.map(itemId => (
             <SingleSideBarCategoryListItem
-              key={`${itemName}-SingleSideBarAccordionListItem`}
-              itemName={itemName}
+              key={`${itemId}-SingleSideBarAccordionListItem`}
+              itemId={itemId}
               target={ref}
             />
           ))}
@@ -67,7 +71,7 @@ const SideBarAccordionCategories: FC<Props> = ({ category }) => {
 };
 
 SideBarAccordionCategories.propTypes = {
-  category: PropTypes.oneOf(categoryNames).isRequired,
+  categoryId: PropTypes.number.isRequired,
 };
 
 export default memo<Props>(SideBarAccordionCategories);

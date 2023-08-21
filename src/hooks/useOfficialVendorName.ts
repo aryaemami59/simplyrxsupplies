@@ -1,8 +1,10 @@
 import { useAppSelector } from "../redux/hooks";
-import { selectVendorOfficialName } from "../redux/selectors";
-import type { VendorName } from "../types/aa";
+import { vendorsAdapterSelectors } from "../redux/selectors";
+import { OfficialVendorName } from "../types/api";
 
-const useOfficialVendorName = (vendorName: VendorName) =>
-  useAppSelector(selectVendorOfficialName(vendorName));
+const useOfficialVendorName = (vendorId: number): OfficialVendorName =>
+  useAppSelector(
+    state => vendorsAdapterSelectors.selectById(state, vendorId).officialName
+  );
 
 export default useOfficialVendorName;

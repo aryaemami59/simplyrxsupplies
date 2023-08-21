@@ -4,36 +4,37 @@ import { memo } from "react";
 import { shallowEqual } from "react-redux";
 
 import { useAppSelector } from "../../redux/hooks";
-import { selectVendorsByItemName } from "../../redux/selectors";
-import { itemNames } from "../../types/aa";
-import { SearchResultsItem } from "../../types/redux";
+import { selectVendorIdByItemId } from "../../redux/selectors";
 import SearchResultsAddButton from "./SearchResultsAddButton";
 import SearchResultsItemName from "./SearchResultsItemName";
 import SwitchComponent from "./SwitchComponent";
 
 type Props = {
-  item: SearchResultsItem;
+  visibleListId: number;
 };
 
-const SearchResultsCardBodyContent: FC<Props> = ({ item }) => {
-  const vendors = useAppSelector(selectVendorsByItemName(item), shallowEqual);
+const SearchResultsCardBodyContent: FC<Props> = ({ visibleListId }) => {
+  const vendorIds = useAppSelector(
+    state => selectVendorIdByItemId(state, visibleListId),
+    shallowEqual
+  );
 
   return (
     <>
       <div className="col-md-12 col-12">
         <div className="m-0 row">
-          <SearchResultsItemName item={item} />
+          <SearchResultsItemName visibleListId={visibleListId} />
         </div>
       </div>
       <div className="col-md-12 col-12">
         <div className="justify-content-center justify-content-sm-center align-items-center m-0 row">
           <div className="pe-0 col-lg-8 col-7">
             <div className="m-0 row w-100">
-              {vendors.map(vendorName => (
+              {vendorIds.map(vendorId => (
                 <SwitchComponent
-                  key={`SwitchComponent-${item}${vendorName}`}
-                  itemName={item}
-                  vendorName={vendorName}
+                  key={`SwitchComponent-${visibleListId}${vendorId}`}
+                  vendorId={vendorId}
+                  visibleListId={visibleListId}
                   // vendors={vendors}
                 />
               ))}
@@ -41,7 +42,7 @@ const SearchResultsCardBodyContent: FC<Props> = ({ item }) => {
           </div>
           <div className="col-5 col-lg-4">
             <div className="justify-content-center row">
-              <SearchResultsAddButton itemName={item} />
+              <SearchResultsAddButton visibleListId={visibleListId} />
             </div>
           </div>
         </div>
@@ -50,8 +51,12 @@ const SearchResultsCardBodyContent: FC<Props> = ({ item }) => {
   );
 };
 
+SearchResultsCardBodyContent.displayName = "SearchResultsCardBodyContent";
+
 SearchResultsCardBodyContent.propTypes = {
-  item: PropTypes.oneOf(itemNames).isRequired,
+  visibleListId: PropTypes.number.isRequired,
 };
+
+SearchResultsCardBodyContent.whyDidYouRender = true;
 
 export default memo<Props>(SearchResultsCardBodyContent);

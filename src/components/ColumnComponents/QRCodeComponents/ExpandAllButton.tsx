@@ -5,8 +5,8 @@ import Tooltip from "@mui/material/Tooltip";
 import type { FC } from "react";
 import { memo, useCallback, useState } from "react";
 
-import useVendorName from "../../../hooks/useVendorName";
-import { maximizeAll } from "../../../redux/addedSlice";
+import useVendorId from "../../../hooks/useVendorId";
+import { maximizeAllItemsInCart } from "../../../redux/addedSlice";
 import { useAppDispatch } from "../../../redux/hooks";
 
 const title = "Expand All Items";
@@ -14,12 +14,12 @@ const title = "Expand All Items";
 const startIcon = <FontAwesomeIcon icon={faMaximize} />;
 
 const ExpandAllButton: FC = () => {
-  const vendorName = useVendorName();
+  const vendorId = useVendorId();
   const dispatch = useAppDispatch();
 
   const toggleCollapse = useCallback(() => {
-    dispatch(maximizeAll(vendorName));
-  }, [dispatch, vendorName]);
+    dispatch(maximizeAllItemsInCart({ vendorId }));
+  }, [dispatch, vendorId]);
 
   const [open, setOpen] = useState(false);
 

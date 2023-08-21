@@ -8,7 +8,7 @@ import type { FC } from "react";
 import { memo } from "react";
 
 import useOfficialVendorName from "../../../hooks/useOfficialVendorName";
-import useVendorName from "../../../hooks/useVendorName";
+import useVendorId from "../../../hooks/useVendorId";
 import QRCodeImage from "./QRCodeImage";
 
 type Props = {
@@ -17,8 +17,8 @@ type Props = {
 };
 
 const QRCodeDialog: FC<Props> = ({ hideModal, show }) => {
-  const vendorName = useVendorName();
-  const officialVendorName = useOfficialVendorName(vendorName);
+  const vendorId = useVendorId();
+  const officialVendorName = useOfficialVendorName(vendorId);
 
   return (
     <Dialog

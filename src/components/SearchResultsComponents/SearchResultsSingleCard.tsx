@@ -3,27 +3,23 @@ import CardContent from "@mui/material/CardContent";
 import type { FC } from "react";
 import { memo } from "react";
 
-import { SearchResultsItem } from "../../types/redux";
 import SearchResultsCardBodyContent from "./SearchResultsCardBodyContent";
 
 type Props = {
-  item: SearchResultsItem;
+  visibleListId: number;
 };
 
-const SearchResultsSingleCard: FC<Props> = ({ item }) => {
-  // const vendors = useAppSelector(selectVendorsByItemName(itemName));
-  return (
-    <Card
-      key="Card-SingleInputListItems"
-      className="shadow"
-      variant="outlined">
-      <CardContent
-        key="Card.Body-SingleInputListItems"
-        className="row gy- justify-content-center p-2">
-        <SearchResultsCardBodyContent item={item} />
-      </CardContent>
-    </Card>
-  );
-};
+const SearchResultsSingleCard: FC<Props> = ({ visibleListId }) => (
+  <Card
+    key="Card-SingleInputListItems"
+    className="shadow"
+    variant="outlined">
+    <CardContent
+      key="Card.Body-SingleInputListItems"
+      className="row gy- justify-content-center p-2">
+      <SearchResultsCardBodyContent visibleListId={visibleListId} />
+    </CardContent>
+  </Card>
+);
 
 export default memo<Props>(SearchResultsSingleCard);

@@ -1,10 +1,8 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
 
-import { Item } from "../../types/api";
+import { CartItems } from "../../types/redux";
 
-export const cartItemsAdapter = createEntityAdapter<
-  Pick<Item, "id"> & { vendorId: number }
->();
+export const cartItemsAdapter = createEntityAdapter<CartItems>();
 
 export const initialItemsAdapterState = cartItemsAdapter.getInitialState();
 

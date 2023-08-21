@@ -16,7 +16,7 @@ const paperProps: PaperProps = {
 const OffcanvasComponent: FC = () => {
   const [show, setShow] = useState(false);
 
-  const handleOpen: MouseEventHandler<HTMLElement> = useCallback(() => {
+  const handleOpen = useCallback<MouseEventHandler<HTMLElement>>(() => {
     setShow(true);
   }, []);
 

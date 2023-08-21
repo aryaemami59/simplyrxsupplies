@@ -1,20 +1,19 @@
 import type { FC } from "react";
 import { memo } from "react";
-import { shallowEqual } from "react-redux";
 
 import { useAppSelector } from "../../redux/hooks";
-import { selectCategoriesArray } from "../../redux/selectors";
+import { categoriesAdapterSelectors } from "../../redux/selectors";
 import SideBarAccordionCategories from "./SideBarAccordionCategories";
 
 const SideBarAccordionList: FC = () => {
-  const categoryList = useAppSelector(selectCategoriesArray, shallowEqual);
+  const categoryIds = useAppSelector(categoriesAdapterSelectors.selectIds);
 
   return (
     <>
-      {categoryList.map(category => (
+      {categoryIds.map(categoryId => (
         <SideBarAccordionCategories
-          key={`${category}-SideBarAccordion-SideBarAccordionList`}
-          category={category}
+          key={`${categoryId}-SideBarAccordion-SideBarAccordionList`}
+          categoryId={categoryId}
         />
       ))}
     </>

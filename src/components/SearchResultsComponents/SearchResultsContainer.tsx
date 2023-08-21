@@ -2,55 +2,61 @@ import List from "@mui/material/List";
 import type { FC } from "react";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { shallowEqual } from "react-redux";
 
 import { useAppSelector } from "../../redux/hooks";
-import { selectSearchResultsItemNames } from "../../redux/selectors";
+import { searchResultsAdapterSelectors } from "../../redux/selectors";
 import IsLoading from "../../shared/components/IsLoading";
 import SearchResultsSingleCard from "./SearchResultsSingleCard";
 
 const loader = <IsLoading />;
 
 const SearchResultsContainer: FC = () => {
-  const listItems = useAppSelector(selectSearchResultsItemNames, shallowEqual);
-  const listMemo = useMemo(() => listItems.slice(0, 10), [listItems]);
+  const searchResultsIds = useAppSelector(
+    searchResultsAdapterSelectors.selectIds
+  );
+  const memoizedSearchResultsIds = useMemo(
+    () => searchResultsIds.slice(0, 10),
+    [searchResultsIds]
+  );
   const [hasMore, setHasMore] = useState(false);
-  const [list, setList] = useState(listMemo);
+  const [visibleListIds, setVisibleListIds] = useState(
+    memoizedSearchResultsIds
+  );
 
   useEffect(() => {
-    setList(listMemo);
-    if (listMemo.length === listItems.length) {
+    setVisibleListIds(memoizedSearchResultsIds);
+    if (memoizedSearchResultsIds.length === searchResultsIds.length) {
       setHasMore(false);
     } else {
       setHasMore(true);
     }
-  }, [listItems.length, listMemo]);
+  }, [searchResultsIds.length, memoizedSearchResultsIds]);
 
   const next = useCallback(() => {
-    setList(prev =>
-      prev.concat(listItems.slice(prev.length, prev.length + 10))
+    setVisibleListIds(prev =>
+      prev.concat(searchResultsIds.slice(prev.length, prev.length + 10))
     );
-    if (list.length === listItems.length) {
+    if (visibleListIds.length === searchResultsIds.length) {
       setHasMore(false);
     } else {
       setHasMore(true);
     }
-  }, [list.length, listItems]);
+  }, [visibleListIds.length, searchResultsIds]);
 
   return (
     <List
       className="mt-3 px-1"
       dense>
       <InfiniteScroll
-        dataLength={list.length}
+        dataLength={visibleListIds.length}
         hasMore={hasMore}
         loader={loader}
         next={next}
         scrollableTarget="App">
-        {list.map(item => (
+        {visibleListIds.map(visibleListId => (
           <SearchResultsSingleCard
-            key={`${item.id}-inputListItems`}
-            item={item}
+            key={`${visibleListId}-inputListItems`}
+            visibleListId={visibleListId}
           />
         ))}
       </InfiniteScroll>

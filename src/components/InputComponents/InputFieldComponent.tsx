@@ -1,5 +1,5 @@
 import TextField from "@mui/material/TextField";
-import type { ChangeEvent, CSSProperties, FC } from "react";
+import type { ChangeEventHandler, CSSProperties, FC } from "react";
 import {
   memo,
   useCallback,
@@ -8,12 +8,12 @@ import {
   useState,
   useTransition,
 } from "react";
-import { shallowEqual } from "react-redux";
 
-import { clearListItems, setListItems } from "../../redux/addedSlice";
+import { clearSearchResults, setSearchResults } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectItemNamesAndKeywords } from "../../redux/selectors";
 import { SEARCH_FIELD_BG } from "../../shared/sharedStyles";
+import { SearchResultsItem } from "../../types/redux";
 import search from "../../utils/search";
 import InputEndAdornment from "./InputEndAdornment";
 
@@ -25,26 +25,26 @@ const style: CSSProperties = {
 const InputFieldComponent: FC = () => {
   const [inputValue, setInputValue] = useState("");
   const [, startTransition] = useTransition();
-  const itemNamesAndKeywords = useAppSelector(
-    selectItemNamesAndKeywords,
-    shallowEqual
-  );
+  const itemNamesAndKeywords = useAppSelector(selectItemNamesAndKeywords);
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const clickHandler = useCallback(() => {
-    dispatch(clearListItems());
+    dispatch(clearSearchResults());
     setInputValue("");
     inputRef.current?.focus();
   }, [dispatch]);
 
-  const changeValue = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
+  const changeValue = useCallback<ChangeEventHandler<HTMLInputElement>>(
+    event => {
       const { value } = event.target;
       setInputValue(value);
       startTransition(() => {
         const listItems = search(value, itemNamesAndKeywords);
-        dispatch(setListItems(listItems));
+        const newListItems = listItems.map<SearchResultsItem>(
+          ({ id, vendors }) => ({ id, checkedVendors: vendors })
+        );
+        dispatch(setSearchResults(newListItems));
       });
     },
     [dispatch, itemNamesAndKeywords]

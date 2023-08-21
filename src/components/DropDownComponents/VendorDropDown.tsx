@@ -1,16 +1,13 @@
 import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
+import Menu, { MenuProps } from "@mui/material/Menu";
 import type { MenuListProps } from "@mui/material/MenuList";
-import type { PaperProps } from "@mui/material/Paper";
 import type { PopoverOrigin } from "@mui/material/Popover";
 import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
 
-import useItemNames from "../../hooks/useItemNames";
+import useItemIds from "../../hooks/useItemIds";
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
-import type { VendorName } from "../../types/aa";
-import { vendorNames } from "../../types/aa";
 import SingleDropDown from "./SingleDropDown";
 
 const transformOrigin: PopoverOrigin = {
@@ -32,20 +29,22 @@ const menuListProps: MenuListProps = {
   },
 };
 
-const paperProps: PaperProps = {
-  className: "paper",
+const paperProps: MenuProps["slotProps"] = {
+  paper: {
+    className: "paper",
+  },
 };
 
 type Props = {
-  vendorName: VendorName;
+  vendorId: number;
 };
 
-const VendorDropDown: FC<Props> = ({ vendorName }) => {
+const VendorDropDown: FC<Props> = ({ vendorId }) => {
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null);
   const open = !!anchorElement;
-  const officialVendorName = useOfficialVendorName(vendorName);
+  const officialVendorName = useOfficialVendorName(vendorId);
 
-  const itemNames = useItemNames(vendorName);
+  const itemIds = useItemIds(vendorId);
 
   const handleOpen: MouseEventHandler<HTMLElement> = useCallback(event => {
     setAnchorElement(event.currentTarget);
@@ -63,37 +62,29 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
         aria-haspopup="true"
         className="rounded-pill"
         disableElevation
-        id={vendorName}
+        id={`${vendorId}`}
         onClick={handleOpen}
         variant="contained">
         {officialVendorName}
       </Button>
-      {/* <Chip
-        id={vendorName}
-        aria-controls={open ? "dropdown-menu" : undefined}
-        aria-expanded={open ? "true" : undefined}
-        aria-haspopup="true"
-        onClick={handleOpen}
-        label={officialVendorName}
-      /> */}
       <Menu
         anchorEl={anchorElement}
         anchorOrigin={anchorOrigin}
         aria-expanded={open}
-        aria-labelledby={vendorName}
+        aria-labelledby={`${vendorId}`}
         autoFocus
         id={officialVendorName}
         MenuListProps={menuListProps}
         onClose={handleClose}
         open={open}
-        PaperProps={paperProps}
+        slotProps={paperProps}
         transformOrigin={transformOrigin}
         variant="menu">
-        {itemNames.map(itemName => (
+        {itemIds.map(itemId => (
           <SingleDropDown
-            key={`${itemName}-${vendorName}`}
-            itemName={itemName}
-            vendorName={vendorName}
+            key={`${itemId}-${vendorId}`}
+            itemId={itemId}
+            vendorId={vendorId}
           />
         ))}
       </Menu>
@@ -102,7 +93,7 @@ const VendorDropDown: FC<Props> = ({ vendorName }) => {
 };
 
 VendorDropDown.propTypes = {
-  vendorName: PropTypes.oneOf(vendorNames).isRequired,
+  vendorId: PropTypes.number.isRequired,
 };
 
 export default memo<Props>(VendorDropDown);

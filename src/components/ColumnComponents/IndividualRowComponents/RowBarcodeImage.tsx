@@ -1,21 +1,22 @@
 import type { FC } from "react";
 import { memo } from "react";
 
-import useItemName from "../../../hooks/useItemName";
+import useItemId from "../../../hooks/useItemId";
 import useOfficialVendorName from "../../../hooks/useOfficialVendorName";
-import useVendorName from "../../../hooks/useVendorName";
+import useVendorId from "../../../hooks/useVendorId";
 import { useAppSelector } from "../../../redux/hooks";
-import { selectItemNumber } from "../../../redux/selectors";
+import { selectItemName, selectItemNumber } from "../../../redux/selectors";
 import BarcodeImage from "./BarcodeImage";
 import RowBarcodeModal from "./ModalComponents/RowBarcodeModal";
 import PrintBarcodeIcon from "./PrintBarcodeIcon";
 
 const RowBarcodeImage: FC = () => {
-  const vendorName = useVendorName();
-  const itemName = useItemName();
-  const officialVendorName = useOfficialVendorName(vendorName);
+  const vendorId = useVendorId();
+  const itemId = useItemId();
+  const officialVendorName = useOfficialVendorName(vendorId);
+  const itemName = useAppSelector(state => selectItemName(state, itemId));
 
-  const itemNumber = useAppSelector(selectItemNumber(itemName));
+  const itemNumber = useAppSelector(state => selectItemNumber(state, itemId));
 
   const header = `<h2>Item Name: </h2><h1>${itemName}</h1><h2>Item Number: </h2><h1>${itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`;
 

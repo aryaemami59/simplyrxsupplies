@@ -3,30 +3,33 @@ import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback } from "react";
 
-import { addItemsByVendor } from "../../redux/addedSlice";
+import { addItemToCarts } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { checkIfItemAddedToOneVendor } from "../../redux/selectors";
-import type { VendorAndItemName } from "../../types/aa";
-import { itemNames, vendorNames } from "../../types/aa";
+import { checkIfAddedToVendor, selectItemName } from "../../redux/selectors";
 
-type Props = VendorAndItemName;
+type Props = {
+  itemId: number;
+  vendorId: number;
+};
 
-const SingleDropDown: FC<Props> = ({ itemName, vendorName }) => {
+const SingleDropDown: FC<Props> = ({ itemId, vendorId }) => {
   const dispatch = useAppDispatch();
 
-  const ifAddedToVendor = useAppSelector(
-    checkIfItemAddedToOneVendor(vendorName, itemName)
+  const itemName = useAppSelector(state => selectItemName(state, itemId));
+
+  const ifAddedToVendor = useAppSelector(state =>
+    checkIfAddedToVendor(state, vendorId, itemId)
   );
 
-  const clickHandler: MouseEventHandler<HTMLElement> = useCallback(() => {
+  const clickHandler = useCallback<MouseEventHandler<HTMLElement>>(() => {
     if (!ifAddedToVendor) {
-      dispatch(addItemsByVendor({ itemName, vendorName }));
+      dispatch(addItemToCarts({ itemId, checkedVendorIds: [vendorId] }));
     }
-  }, [ifAddedToVendor, dispatch, itemName, vendorName]);
+  }, [ifAddedToVendor, dispatch, itemId, vendorId]);
 
   return (
     <MenuItem
-      key={itemName}
+      key={itemId}
       className="text-wrap"
       disabled={ifAddedToVendor}
       onClick={clickHandler}>
@@ -36,8 +39,8 @@ const SingleDropDown: FC<Props> = ({ itemName, vendorName }) => {
 };
 
 SingleDropDown.propTypes = {
-  itemName: PropTypes.oneOf(itemNames).isRequired,
-  vendorName: PropTypes.oneOf(vendorNames).isRequired,
+  itemId: PropTypes.number.isRequired,
+  vendorId: PropTypes.number.isRequired,
 };
 
 export default memo<Props>(SingleDropDown);

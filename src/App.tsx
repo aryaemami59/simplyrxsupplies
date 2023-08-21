@@ -15,28 +15,8 @@ import { useGetMainQuery } from "./redux/apiSlice";
 import ErrorComponent from "./shared/components/ErrorComponent";
 import IsLoading from "./shared/components/IsLoading";
 
-export type Props = `select${Capitalize<"itemsObject">}`;
-
-// const topLevelSelectors = createTopLevelSelectors(store.getState().added);
-// const { selectItemsObject } = createTopLevelSelectors(store.getState().added);
 const App: FC = () => {
-  // const added = useAppSelector(selectAdded);
-  // console.log(added);
-  // console.log(topLevelSelectors);
   const { isError, isLoading } = useGetMainQuery();
-  // const element = useAppSelector(topLevelSelectors.selectItemsObject);
-  // console.log(element);
-  // console.log(topLevelSelectors.selectItemsObject);
-  // const element = useAppSelector(state => ({
-  //   state,
-  // }));
-  // const dispatch = useAppDispatch();
-
-  // useEffect(() => {
-  //   void dispatch(fetchItems());
-  // }, [dispatch]);
-
-  // const [isLoading, errorMessage] = useIsLoading();
 
   if (isLoading) return <IsLoading />;
 

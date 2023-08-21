@@ -8,10 +8,10 @@ import Typography from "@mui/material/Typography";
 import type { FC } from "react";
 import { memo, useCallback, useState } from "react";
 
-import ItemNameProvider from "../../contexts/ItemNameProvider";
-import useItemNames from "../../hooks/useItemNames";
+import ItemIdProvider from "../../contexts/ItemIdProvider";
+import useItemIds from "../../hooks/useItemIds";
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
-import useVendorName from "../../hooks/useVendorName";
+import useVendorId from "../../hooks/useVendorId";
 import SingleOffcanvasVendorItem from "./SingleOffcanvasVendorItem";
 
 const expandIcon: AccordionSummaryProps["expandIcon"] = <ExpandMoreIcon />;
@@ -22,11 +22,11 @@ const transitionProps: TransitionProps = {
 };
 
 const OffcanvasVendorAccordion: FC = () => {
-  const vendorName = useVendorName();
+  const vendorId = useVendorId();
   const [open, setOpen] = useState(false);
-  const officialVendorName = useOfficialVendorName(vendorName);
+  const officialVendorName = useOfficialVendorName(vendorId);
 
-  const vendorItemNames = useItemNames(vendorName);
+  const vendorItemNames = useItemIds(vendorId);
 
   const toggle = useCallback(() => {
     setOpen(prev => !prev);
@@ -45,13 +45,13 @@ const OffcanvasVendorAccordion: FC = () => {
       </AccordionSummary>
       <AccordionDetails className="justify-content-center d-flex flex-column align-items-cente">
         {vendorItemNames.map(itemName => (
-          <ItemNameProvider
+          <ItemIdProvider
             key={`${itemName}-OffcanvasVendorAccordion`}
-            itemName={itemName}>
+            itemId={itemName}>
             <SingleOffcanvasVendorItem
               key={`${itemName}-OffcanvasVendorAccordion`}
             />
-          </ItemNameProvider>
+          </ItemIdProvider>
         ))}
       </AccordionDetails>
     </Accordion>

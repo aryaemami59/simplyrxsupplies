@@ -1,18 +1,18 @@
 import type { FC } from "react";
 import { memo } from "react";
 
-import useVendorNamesList from "../../hooks/useVendorNamesList";
+import useVendorIds from "../../hooks/useVendorIds";
 import VendorDropDown from "./VendorDropDown";
 
 const VendorDropDownsList: FC = () => {
-  const vendorNames = useVendorNamesList();
+  const vendorIds = useVendorIds();
 
   return (
     <>
-      {vendorNames.map(vendorName => (
+      {vendorIds.map(vendorId => (
         <VendorDropDown
-          key={`${vendorName}-VendorDropDownsList-VendorDropDown`}
-          vendorName={vendorName}
+          key={`${vendorId}-VendorDropDownsList-VendorDropDown`}
+          vendorId={vendorId}
         />
       ))}
     </>

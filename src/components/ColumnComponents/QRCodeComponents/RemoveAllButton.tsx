@@ -5,8 +5,8 @@ import Tooltip from "@mui/material/Tooltip";
 import type { FC } from "react";
 import { memo, useCallback, useState } from "react";
 
-import useVendorName from "../../../hooks/useVendorName";
-import { removeAllItems } from "../../../redux/addedSlice";
+import useVendorId from "../../../hooks/useVendorId";
+import { removeAllItemsFromCart } from "../../../redux/addedSlice";
 import { useAppDispatch } from "../../../redux/hooks";
 
 const startIcon = <FontAwesomeIcon icon={faTrashCan} />;
@@ -15,12 +15,12 @@ const title = "Remove All Items";
 
 const RemoveAllButton: FC = () => {
   const [open, setOpen] = useState(false);
-  const vendorName = useVendorName();
+  const vendorId = useVendorId();
   const dispatch = useAppDispatch();
 
   const clickHandler = useCallback(() => {
-    dispatch(removeAllItems(vendorName));
-  }, [dispatch, vendorName]);
+    dispatch(removeAllItemsFromCart({ vendorId }));
+  }, [dispatch, vendorId]);
 
   const showTooltip = useCallback(() => {
     setOpen(true);

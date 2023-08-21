@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
 
-import useItemName from "../../../hooks/useItemName";
+import useItemId from "../../../hooks/useItemId";
 import { useAppSelector } from "../../../redux/hooks";
 import { selectItemSrc } from "../../../redux/selectors";
 
@@ -21,10 +21,10 @@ const title = "Print Barcode";
 
 const PrintBarcodeIcon: FC<Props> = ({ header }) => {
   const [open, setOpen] = useState(false);
-  const itemName = useItemName();
-  const src = useAppSelector(selectItemSrc(itemName));
+  const itemId = useItemId();
+  const src = useAppSelector(state => selectItemSrc(state, itemId));
 
-  const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     printJS({
       printable: src,
       type: "image",

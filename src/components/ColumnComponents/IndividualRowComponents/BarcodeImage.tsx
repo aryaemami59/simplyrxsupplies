@@ -2,17 +2,18 @@ import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo } from "react";
 
-import useItemName from "../../../hooks/useItemName";
+import useItemId from "../../../hooks/useItemId";
 import { useAppSelector } from "../../../redux/hooks";
-import { selectItemSrc } from "../../../redux/selectors";
+import { selectItemName, selectItemSrc } from "../../../redux/selectors";
 
 type Props = {
   className?: string;
 };
 
 const BarcodeImage: FC<Props> = ({ className }) => {
-  const itemName = useItemName();
-  const src = useAppSelector(selectItemSrc(itemName));
+  const itemId = useItemId();
+  const src = useAppSelector(state => selectItemSrc(state, itemId));
+  const itemName = useAppSelector(state => selectItemName(state, itemId));
 
   return (
     <img

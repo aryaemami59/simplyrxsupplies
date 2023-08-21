@@ -1,10 +1,7 @@
-import { createDraftSafeSelector } from "@reduxjs/toolkit";
 import type { Selector } from "reselect";
 
 import type { VendorName } from "../types/api";
 import type { AddedState } from "../types/redux";
-import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
-import objectKeys from "../utils/objectKeys";
 import {
   AppSelector,
   createAppSelector,
@@ -61,22 +58,22 @@ export type DraftSelectorsParametricSelectors = ParametricSelectors<
   readonly [
     itemName: {
       readonly name: "itemName";
-      readonly params: [itemName: string];
+      readonly params: readonly [itemName: string];
       readonly returnType: string;
     },
     vendorName: {
       readonly name: "vendorName";
-      readonly params: [vendorName: VendorName];
+      readonly params: readonly [vendorName: VendorName];
       readonly returnType: VendorName;
     },
     itemAndVendorName: {
       readonly name: "itemAndVendorName";
-      readonly params: [itemName: string, vendorName: VendorName];
+      readonly params: readonly [itemName: string, vendorName: VendorName];
       readonly returnType: VendorName;
     },
     VendorAndItemName: {
       readonly name: "VendorAndItemName";
-      readonly params: [vendorName: VendorName, itemName: string];
+      readonly params: readonly [vendorName: VendorName, itemName: string];
       readonly returnType: string;
     },
   ]
@@ -108,7 +105,7 @@ export const topLevelDraftSafeSelectors: TopLevelSelectors<AddedState> = {
   ),
   selectSearchResultsItemNames: createDraftSafeAppSelector(
     [selectSelf],
-    added => added.searchResultsItemNames
+    added => added.searchResults
   ),
   selectVendorsArray: createDraftSafeAppSelector(
     [selectSelf],
@@ -120,16 +117,16 @@ export const topLevelDraftSafeSelectors: TopLevelSelectors<AddedState> = {
   ),
 } as const;
 
-export const createTopLevelDraftSafeSelectors = (state: AddedState) => {
-  const results = {} as Record<string, unknown>;
-  objectKeys(state).forEach(e => {
-    results[`select${capitalizeFirstLetter(e)}`] = createDraftSafeSelector(
-      [selectSelf],
-      rootState => rootState[e]
-    );
-  });
-  return results as TopLevelSelectors<AddedState>;
-};
+// export const createTopLevelDraftSafeSelectors = (state: AddedState) => {
+//   const results = {} as Record<string, unknown>;
+//   objectKeys(state).forEach(e => {
+//     results[`select${capitalizeFirstLetter(e)}`] = createDraftSafeSelector(
+//       [selectSelf],
+//       rootState => rootState[e]
+//     );
+//   });
+//   return results as TopLevelSelectors<AddedState>;
+// };
 
 export const selectVendor = createDraftSafeAppSelector(
   [

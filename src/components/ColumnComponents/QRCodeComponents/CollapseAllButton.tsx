@@ -5,8 +5,8 @@ import Tooltip from "@mui/material/Tooltip";
 import type { FC } from "react";
 import { memo, useCallback, useState } from "react";
 
-import useVendorName from "../../../hooks/useVendorName";
-import { minimizeAll } from "../../../redux/addedSlice";
+import useVendorId from "../../../hooks/useVendorId";
+import { minimizeAllItemsInCart } from "../../../redux/addedSlice";
 import { useAppDispatch } from "../../../redux/hooks";
 
 const title = "Collapse All Items";
@@ -14,7 +14,7 @@ const title = "Collapse All Items";
 const startIcon = <FontAwesomeIcon icon={faMinimize} />;
 
 const CollapseAllButton: FC = () => {
-  const vendorName = useVendorName();
+  const vendorId = useVendorId();
   const dispatch = useAppDispatch();
 
   const [open, setOpen] = useState(false);
@@ -28,8 +28,8 @@ const CollapseAllButton: FC = () => {
   }, []);
 
   const toggleCollapse = useCallback(() => {
-    dispatch(minimizeAll(vendorName));
-  }, [dispatch, vendorName]);
+    dispatch(minimizeAllItemsInCart({ vendorId }));
+  }, [dispatch, vendorId]);
 
   return (
     <Tooltip

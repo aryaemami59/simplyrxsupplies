@@ -6,12 +6,10 @@ import type { FC } from "react";
 import { memo, useCallback, useMemo } from "react";
 import { shareOnMobile } from "react-mobile-share";
 
-import useVendorName from "../../../hooks/useVendorName";
+import useQRCodeData from "../../../hooks/useQRCodeData";
+import useVendorId from "../../../hooks/useVendorId";
 import { useAppSelector } from "../../../redux/hooks";
-import {
-  selectAddedItemsByVendor,
-  selectQRCodeContent,
-} from "../../../redux/selectors";
+import { selectCartItemNames } from "../../../redux/selectors";
 
 const startIcon = /iphone|ipad|ipod/i.test(navigator.userAgent) ? (
   <IosShareIcon fontSize="large" />
@@ -20,19 +18,21 @@ const startIcon = /iphone|ipad|ipod/i.test(navigator.userAgent) ? (
 );
 
 const ShareButton: FC = () => {
-  const vendorName = useVendorName();
-  const itemNames = useAppSelector(selectAddedItemsByVendor(vendorName));
+  const vendorId = useVendorId();
+  const itemNames = useAppSelector(state =>
+    selectCartItemNames(state, vendorId)
+  );
   const text = itemNames.join(", ");
   const title = `QR Code for items:\n${text}`;
-  const qrContent = useAppSelector(selectQRCodeContent(vendorName));
+  const qrCodeData = useQRCodeData();
 
   const data: Parameters<typeof shareOnMobile>[0] = useMemo(
     () => ({
       title,
-      images: [qrContent],
+      images: [qrCodeData],
       text,
     }),
-    [qrContent, text, title]
+    [qrCodeData, text, title]
   );
 
   const clickHandler = useCallback(() => {

@@ -4,17 +4,25 @@ import { Provider } from "react-redux";
 
 import App from "./App";
 import { apiSlice } from "./redux/apiSlice";
+// import * as hooks from "./redux/hooks";
 import { store } from "./redux/store";
 
 if (import.meta.env.DEV) {
   const { default: whyDidYouRender } = await import(
     "@welldone-software/why-did-you-render"
   );
+  // const ReactRedux = await import("react-redux");
+  // const { useAppSelector } = await import("./redux/hooks");
 
   whyDidYouRender(React, {
     trackAllPureComponents: true,
-    // include: [/./gi],
+    include: [/./gi],
     collapseGroups: true,
+    trackHooks: true,
+    // trackExtraHooks: [
+    //   [ReactRedux.useSelector, "useSelector"],
+    //   [useAppSelector, "useAppSelector"],
+    // ],
   });
 }
 

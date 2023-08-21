@@ -69,7 +69,8 @@ export type Item = {
   readonly itemNumber: string;
   readonly keywords: string[];
   readonly category: CategoryName[];
-  readonly vendors: VendorName[];
+  vendors: number[];
+  // readonly vendors: VendorName[];
   readonly src: string;
 };
 
@@ -104,6 +105,6 @@ export type SingleItemObject = Item & {
   // keywords: string[];
 };
 
-export type ItemNamesAndKeywords = Pick<Item, "keywords" | "name">;
+export type ItemNamesAndKeywords = Omit<Item, "src">;
 
 // const element: VendorObject = {}

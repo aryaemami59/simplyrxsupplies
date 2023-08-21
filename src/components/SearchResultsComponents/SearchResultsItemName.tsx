@@ -4,29 +4,33 @@ import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo } from "react";
 
-import { itemNames } from "../../types/aa";
-import { SearchResultsItem } from "../../types/redux";
+import { useAppSelector } from "../../redux/hooks";
+import { selectItemName } from "../../redux/selectors";
 
 type Props = {
-  item: SearchResultsItem;
+  visibleListId: number;
 };
 
 const titleTypographyProps: CardHeaderProps["titleTypographyProps"] = {
   className: "fs-5",
 } as const;
 
-const SearchResultsItemName: FC<Props> = ({ item }) => {
+const SearchResultsItemName: FC<Props> = ({ visibleListId }) => {
+  const itemName = useAppSelector(state =>
+    selectItemName(state, visibleListId)
+  );
+
   return (
     <CardHeader
       className="p-1 p-lg-auto"
-      title={item}
+      title={itemName}
       titleTypographyProps={titleTypographyProps}
     />
   );
 };
 
 SearchResultsItemName.propTypes = {
-  item: PropTypes.oneOf(itemNames).isRequired,
+  visibleListId: PropTypes.number.isRequired,
 };
 
 export default memo<Props>(SearchResultsItemName);

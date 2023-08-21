@@ -3,37 +3,36 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import PropTypes from "prop-types";
 import type { FC, MouseEventHandler, RefObject } from "react";
 import { memo, useCallback } from "react";
-import { shallowEqual } from "react-redux";
 
-import { addItems } from "../../redux/addedSlice";
+import { addItemToCarts } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   checkIfAddedToAllVendors,
-  selectVendorsByItemName,
+  selectItemName,
+  selectVendorIdByItemId,
 } from "../../redux/selectors";
-import { itemNames } from "../../types/aa";
 import SideBarVendorBadges from "./SideBarVendorBadges";
 
 type Props = {
-  itemName: string;
+  itemId: number;
   target: RefObject<HTMLDivElement>;
 };
 
-const SingleSideBarCategoryListItem: FC<Props> = ({ itemName, target }) => {
+const SingleSideBarCategoryListItem: FC<Props> = ({ itemId, target }) => {
   const dispatch = useAppDispatch();
-  const ifAddedToAllVendors = useAppSelector(
-    checkIfAddedToAllVendors(itemName)
+  const ifAddedToAllVendors = useAppSelector(state =>
+    checkIfAddedToAllVendors(state, itemId)
+  );
+  const itemName = useAppSelector(state => selectItemName(state, itemId));
+
+  const vendorIds = useAppSelector(state =>
+    selectVendorIdByItemId(state, itemId)
   );
 
-  const vendors = useAppSelector(
-    selectVendorsByItemName(itemName),
-    shallowEqual
-  );
-
-  const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    dispatch(addItems(itemName));
+  const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
+    dispatch(addItemToCarts({ itemId, checkedVendorIds: vendorIds }));
     target.current?.focus();
-  }, [dispatch, itemName, target]);
+  }, [dispatch, itemId, target, vendorIds]);
 
   return (
     <>
@@ -51,11 +50,11 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemName, target }) => {
         className="text-center"
         orientation="vertical"
         size="small">
-        {vendors.map(vendorName => (
+        {vendorIds.map(vendorId => (
           <SideBarVendorBadges
-            key={`SideBarVendorBadges-${itemName}${vendorName}`}
-            itemName={itemName}
-            vendorName={vendorName}
+            key={`SideBarVendorBadges-${itemId}${vendorId}`}
+            itemId={itemId}
+            vendorId={vendorId}
           />
         ))}
       </ButtonGroup>
@@ -64,7 +63,7 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemName, target }) => {
 };
 
 SingleSideBarCategoryListItem.propTypes = {
-  itemName: PropTypes.oneOf(itemNames).isRequired,
+  itemId: PropTypes.number.isRequired,
   target: PropTypes.shape({
     current: PropTypes.instanceOf(HTMLDivElement).isRequired,
   }).isRequired,

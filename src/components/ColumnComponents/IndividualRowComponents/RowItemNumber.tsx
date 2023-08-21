@@ -4,7 +4,7 @@ import type { TypographyProps } from "@mui/material/Typography";
 import type { FC } from "react";
 import { memo } from "react";
 
-import useItemName from "../../../hooks/useItemName";
+import useItemId from "../../../hooks/useItemId";
 import { useAppSelector } from "../../../redux/hooks";
 import { selectItemNumber } from "../../../redux/selectors";
 import CopyIcon from "./CopyIcon";
@@ -13,8 +13,8 @@ const primaryTypographyProps: TypographyProps<"span", { component?: "span" }> =
   { className: "ms-0" };
 
 const RowItemNumber: FC = () => {
-  const itemName = useItemName();
-  const itemNumber = useAppSelector(selectItemNumber(itemName));
+  const itemId = useItemId();
+  const itemNumber = useAppSelector(state => selectItemNumber(state, itemId));
 
   return (
     <ListItem

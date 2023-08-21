@@ -1,5 +1,5 @@
-import type { EmptyArray } from "../types/missingTypes";
+import { EmptyTuple } from "../types/missingTypes";
 
-const emptyArray: EmptyArray = [];
+const emptyArray: EmptyTuple = [];
 
 export default emptyArray;

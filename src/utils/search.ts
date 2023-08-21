@@ -42,8 +42,7 @@ const search = (
             sortResults(b, searchRegExp, inputValue) -
             sortResults(a, searchRegExp, inputValue)
         )
-        .map(({ name }) => name)
-    : // .slice(0, 20)
+    : // .map(({ name }) => name)
       emptyArray;
 };
 

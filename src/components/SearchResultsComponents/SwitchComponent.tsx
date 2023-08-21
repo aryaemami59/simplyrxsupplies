@@ -6,12 +6,9 @@ import type { FC } from "react";
 import { memo, useCallback } from "react";
 
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
-import { setVendors } from "../../redux/addedSlice";
+import { toggleVendorForOneSearchResultItem } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { checkVendorsAdded, checkVendorsToAdd } from "../../redux/selectors";
-import type { VendorAndItemName } from "../../types/aa";
-import { itemNames, vendorNames } from "../../types/aa";
-import { VendorName } from "../../types/api";
+import { checkVendorsAdded, isVendorChecked } from "../../redux/selectors";
 
 const inputProps: SwitchProps["inputProps"] = {
   className: "shadow",
@@ -24,23 +21,29 @@ const control = (
   />
 );
 
-type Props = VendorAndItemName & {
-  vendors: VendorName[];
+type Props = {
+  visibleListId: number;
+  vendorId: number;
 };
 
-const SwitchComponent: FC<Props> = ({ itemName, vendorName, vendors }) => {
-  const officialVendorName = useOfficialVendorName(vendorName);
-  // const vendors =
+const SwitchComponent: FC<Props> = ({ vendorId, visibleListId }) => {
+  const officialVendorName = useOfficialVendorName(vendorId);
 
   const dispatch = useAppDispatch();
 
-  const checked = useAppSelector(checkVendorsToAdd(vendorName, itemName));
+  const checked = useAppSelector(state =>
+    isVendorChecked(state, visibleListId, vendorId)
+  );
 
-  const disabled = useAppSelector(checkVendorsAdded(vendorName, itemName));
+  const disabled = useAppSelector(state =>
+    checkVendorsAdded(state, vendorId, visibleListId)
+  );
 
   const clickHandler = useCallback(() => {
-    dispatch(setVendors({ itemName, vendorName }));
-  }, [dispatch, itemName, vendorName]);
+    dispatch(
+      toggleVendorForOneSearchResultItem({ itemId: visibleListId, vendorId })
+    );
+  }, [dispatch, vendorId, visibleListId]);
 
   return (
     <FormControlLabel
@@ -56,8 +59,8 @@ const SwitchComponent: FC<Props> = ({ itemName, vendorName, vendors }) => {
 };
 
 SwitchComponent.propTypes = {
-  itemName: PropTypes.oneOf(itemNames).isRequired,
-  vendorName: PropTypes.oneOf(vendorNames).isRequired,
+  vendorId: PropTypes.number.isRequired,
+  visibleListId: PropTypes.number.isRequired,
 };
 
 export default memo<Props>(SwitchComponent);

@@ -2,24 +2,25 @@ import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo } from "react";
 
-import useVendorName from "../../../hooks/useVendorName";
+import useQRCodeData from "../../../hooks/useQRCodeData";
+import useVendorId from "../../../hooks/useVendorId";
 import { useAppSelector } from "../../../redux/hooks";
-import { selectQRCodeContent, selectQRText } from "../../../redux/selectors";
+import { selectQRCodeText } from "../../../redux/selectors";
 
 type Props = {
   className?: string;
 };
 
 const QRCodeImage: FC<Props> = ({ className }) => {
-  const vendorName = useVendorName();
-  const title = useAppSelector(selectQRText(vendorName));
-  const src = useAppSelector(selectQRCodeContent(vendorName));
+  const vendorId = useVendorId();
+  const title = useAppSelector(state => selectQRCodeText(state, vendorId));
+  const qrCodeData = useQRCodeData();
 
   return (
     <img
-      alt={`${vendorName} QRCode`}
+      alt={`${vendorId} QRCode`}
       className={className ?? ""}
-      src={src}
+      src={qrCodeData}
       title={title}
     />
   );

@@ -8,18 +8,13 @@ import { memo, useMemo } from "react";
 import { useAppSelector } from "../../redux/hooks";
 import { checkIfAnyItemsAdded } from "../../redux/selectors";
 
-// const startIcon = (
-//   <FontAwesomeIcon
-//     icon={faShoppingCart}
-//   />
-// );
-
 type Props = {
   showModal: MouseEventHandler<HTMLButtonElement>;
 };
 
 const DisplayCartButton: FC<Props> = ({ showModal }) => {
   const ifAdded = useAppSelector(checkIfAnyItemsAdded);
+
   const startIcon = useMemo(
     () => (
       <Badge
@@ -32,24 +27,12 @@ const DisplayCartButton: FC<Props> = ({ showModal }) => {
     ),
     [ifAdded]
   );
-  // const startIcon = useMemo(
-  //   () => (
-  //     <FontAwesomeIcon
-  //       icon={faShoppingCart}
-  //       inverse={!ifAdded}
-  //     />
-  //   ),
-  //   [ifAdded]
-  // );
 
   return (
     <IconButton
-      // color="default"
-      // size="large"
       className="d-inline-block d-md-none"
       color="inherit"
       onClick={showModal}>
-      {/* <ShoppingCartOutlinedIcon /> */}
       {startIcon}
     </IconButton>
   );

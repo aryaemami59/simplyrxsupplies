@@ -1,220 +1,251 @@
-import type { CategoryName, VendorName, VendorObject } from "../types/api";
+import QRCode from "qrcode";
+import { shallowEqual } from "react-redux";
+
+import type { ItemNamesAndKeywords } from "../types/api";
 import type { AddedState } from "../types/redux";
-import { TopLevelSelectors } from "./draftSafeSelectors";
+import emptyArray from "../utils/emptyArray";
+import isEmptyArrayReference from "../utils/predicates/isEmptyArrayReference";
+import { cartAdapter } from "./adapters/cartAdapter";
+import { cartItemsAdapter } from "./adapters/cartItemsAdapter";
+import { categoriesAdapter } from "./adapters/categoriesAdapter";
+import { itemsAdapter } from "./adapters/itemsAdapter";
+import { searchResultsAdapter } from "./adapters/searchResultsAdapter";
+import { vendorsAdapter } from "./adapters/vendorsAdapter";
+import { ParametricSelectors } from "./draftSafeSelectors";
 import type { AppSelector } from "./hooks";
 import { createAppSelector } from "./hooks";
 import type { RootState } from "./store";
 
+export type RootParametricSelectors = ParametricSelectors<
+  RootState,
+  readonly [
+    itemId: {
+      readonly name: "itemId";
+      readonly params: readonly [itemId: number];
+      readonly returnType: number;
+    },
+    cartId: {
+      readonly name: "cartId";
+      readonly params: readonly [cartId: number];
+      readonly returnType: number;
+    },
+    cartIdAndItemId: {
+      readonly name: "cartIdAndItemId";
+      readonly params: readonly [cartId: number, itemId: number];
+      readonly returnType: number;
+    },
+    ItemIdAndCartId: {
+      readonly name: "ItemIdAndCartId";
+      readonly params: readonly [itemId: number, cartId: number];
+      readonly returnType: number;
+    },
+  ]
+>;
+
+export const rootParametricSelectors: RootParametricSelectors = {
+  getItemId: (state, itemId) => itemId,
+  getCartId: (state, cartId) => cartId,
+  getCartIdAndItemId: (state, cartId, itemId) => itemId,
+  getItemIdAndCartId: (state, itemId, cartId) => cartId,
+} as const satisfies RootParametricSelectors;
+
+export const itemsAdapterSelectors = itemsAdapter.getSelectors<RootState>(
+  state => state.added.items
+);
+
+export const vendorsAdapterSelectors = vendorsAdapter.getSelectors<RootState>(
+  state => state.added.vendors
+);
+
+export const categoriesAdapterSelectors =
+  categoriesAdapter.getSelectors<RootState>(state => state.added.categories);
+
+export const searchResultsAdapterSelectors =
+  searchResultsAdapter.getSelectors<RootState>(
+    state => state.added.searchResults
+  );
+
+export const cartAdapterSelectors = cartAdapter.getSelectors<RootState>(
+  state => state.added.cart
+);
+
+export const cartItemsAdapterSelectors = cartItemsAdapter.getSelectors();
+
 export const selectAdded: AppSelector<AddedState> = state => state.added;
 
-export const topLevelAddedSelectors = {
-  selectItemsObject: createAppSelector(
-    [selectAdded],
-    added => added.itemsObject
-  ),
-  selectVendorsObject: createAppSelector(
-    [selectAdded],
-    added => added.vendorsObject
-  ),
-  selectItemsArray: createAppSelector([selectAdded], added => added.itemsArray),
-  selectSearchResultsItemNames: createAppSelector(
-    [selectAdded],
-    added => added.searchResultsItemNames
-  ),
-  selectCategoriesArray: createAppSelector(
-    [selectAdded],
-    added => added.categoriesArray
-  ),
-  selectCategoriesObject: createAppSelector(
-    [selectAdded],
-    added => added.categoriesObject
-  ),
-  selectVendorsArray: createAppSelector(
-    [selectAdded],
-    added => added.vendorsArray
-  ),
-} as const satisfies TopLevelSelectors<RootState, "added">;
-
-export const {
-  selectCategoriesArray,
-  selectCategoriesObject,
-  selectItemsArray,
-  selectItemsObject,
-  selectSearchResultsItemNames,
-  selectVendorsArray,
-  selectVendorsObject,
-} = topLevelAddedSelectors;
-
-// export const selectVendorsArray = createAppSelector([selectAdded], added =>
-//   added.vendorsArray.length > 0 ? added.vendorsArray : emptyArray
-// );
-
-export const selectItemsAddedByVendorName = (
-  state: RootState,
-  singleVendorObject: VendorObject[keyof VendorObject]
-) => singleVendorObject.itemsAdded;
-
-export const selectAddedItemsByVendor = (vendorName: VendorName) =>
-  createAppSelector(
-    [topLevelAddedSelectors.selectVendorsObject],
-    vendorsObject => vendorsObject[vendorName].itemsAdded
-  );
-
-export const selectVendorsLinks = (vendorName: VendorName) =>
-  createAppSelector(
-    [topLevelAddedSelectors.selectVendorsObject],
-    vendorsObject => vendorsObject[vendorName].link
-  );
-
-export const selectAddedItemsLength = (vendorName: VendorName) =>
-  createAppSelector(
-    [topLevelAddedSelectors.selectVendorsObject],
-    vendorsObject => vendorsObject[vendorName].itemsAdded.length
-  );
-
-export const selectItemsObjectValues = createAppSelector(
-  [topLevelAddedSelectors.selectItemsObject],
-  itemsObject => Object.values(itemsObject)
+export const selectVendorsLinks = createAppSelector(
+  [vendorsAdapterSelectors.selectById],
+  vendor => vendor.link
 );
 
-export const selectItemNamesByVendor = (vendorName: VendorName) =>
-  createAppSelector([selectItemsObjectValues], itemsObjectValues =>
-    itemsObjectValues
-      .filter(({ vendors }) => vendors.includes(vendorName))
-      .map(({ name }) => name)
-  );
+export const selectAddedItemsLength = createAppSelector(
+  [cartAdapterSelectors.selectEntities, rootParametricSelectors.getCartId],
+  (entities, cartId) => entities[cartId].items.ids.length
+);
 
-export const selectCategoriesItemNames = (categoryName: CategoryName) =>
-  createAppSelector([selectItemsObjectValues], itemsObjectValues =>
-    itemsObjectValues
-      .filter(({ category }) => category.includes(categoryName))
-      .map(({ name }) => name)
-  );
+export const selectQRCodeText = createAppSelector(
+  [
+    cartAdapterSelectors.selectById,
+    itemsAdapterSelectors.selectEntities,
+    vendorsAdapterSelectors.selectById,
+  ],
+  (cart, itemEntities, vendor) =>
+    cartItemsAdapterSelectors
+      .selectIds(cart.items)
+      .map(e => itemEntities[e].itemNumber)
+      .join(vendor.joinChars)
+);
 
-export const selectQRCodeContent = (vendorName: VendorName) =>
-  createAppSelector(
-    [topLevelAddedSelectors.selectVendorsObject],
-    vendorsObject => vendorsObject[vendorName].qrContent
-  );
+export const selectQRCodeContent = createAppSelector(
+  [selectQRCodeText],
+  async qrCodeText => QRCode.toDataURL(qrCodeText)
+);
 
-export const selectQRText = (vendorName: VendorName) =>
-  createAppSelector(
-    [topLevelAddedSelectors.selectVendorsObject],
-    vendorsObject => vendorsObject[vendorName].qrText
-  );
+export const checkIfAddedToAllVendors = createAppSelector(
+  [cartAdapterSelectors.selectAll, rootParametricSelectors.getItemId],
+  (carts, itemId) =>
+    carts.reduce<boolean>(
+      (acc, curr) => curr.items.ids.includes(itemId) || acc,
+      false
+    )
+);
 
-export const checkIfAddedToAllVendors = (itemName: string) =>
-  createAppSelector(
-    [topLevelAddedSelectors.selectVendorsObject],
-    vendorsObject =>
-      vendorsObject[itemName].vendorsAdded.length ===
-      vendorsObject[itemName].vendors.length
-  );
+export const checkIfItemAddedToOneVendor = createAppSelector(
+  [
+    cartAdapterSelectors.selectEntities,
+    rootParametricSelectors.getCartId,
+    rootParametricSelectors.getCartIdAndItemId,
+  ],
+  (entities, cartId, itemId) =>
+    cartItemsAdapterSelectors.selectIds(entities[cartId].items).includes(itemId)
+);
 
-export const checkIfItemAddedToOneVendor = (
-  vendorName: VendorName,
-  itemName: string
-) =>
-  createAppSelector([topLevelAddedSelectors.selectItemsObject], itemsObject =>
-    itemsObject[itemName].vendorsAdded.includes(vendorName)
-  );
+export const checkVendorsToAdd = createAppSelector(
+  [
+    cartAdapterSelectors.selectEntities,
+    rootParametricSelectors.getCartId,
+    rootParametricSelectors.getCartIdAndItemId,
+  ],
+  (entities, cartId, itemId) => !entities[cartId].items.ids.includes(itemId)
+);
 
-export const checkVendorsToAdd = (vendorName: VendorName, itemName: string) =>
-  createAppSelector(
-    [selectVendorsObject],
-    vendorsObject => !vendorsObject[vendorName].itemsAdded.includes(itemName)
-  );
+export const checkVendorsAdded = createAppSelector(
+  [
+    cartAdapterSelectors.selectEntities,
+    rootParametricSelectors.getCartId,
+    rootParametricSelectors.getCartIdAndItemId,
+  ],
+  (entities, cartId, itemId) => entities[cartId].items.ids.includes(itemId)
+);
 
-export const checkVendorsAdded = (vendorName: VendorName, itemName: string) =>
-  createAppSelector(
-    [topLevelAddedSelectors.selectVendorsObject],
-    vendorsObject => vendorsObject[vendorName].itemsAdded.includes(itemName)
-  );
+export const checkIfAnyAddedToOneVendor = createAppSelector(
+  [cartAdapterSelectors.selectEntities, rootParametricSelectors.getCartId],
+  (entities, cartId) => entities[cartId].items.ids.length > 0
+);
 
-export const checkIfAnyAddedToOneVendor = (vendorName: VendorName) =>
-  createAppSelector(
-    [topLevelAddedSelectors.selectVendorsObject],
-    vendorsObject => vendorsObject[vendorName].itemsAdded.length > 0
-  );
+export const selectItemNumber = createAppSelector(
+  [itemsAdapterSelectors.selectById],
+  item => item.itemNumber
+);
 
-export const selectItemNumber = (itemName: string) =>
-  createAppSelector(
-    [topLevelAddedSelectors.selectItemsObject],
-    itemsObject => itemsObject[itemName].itemNumber
-  );
+export const selectItemSrc = createAppSelector(
+  [itemsAdapterSelectors.selectById],
+  item => item.src
+);
 
-export const selectItemSrc = (itemName: string) =>
-  createAppSelector(
-    [topLevelAddedSelectors.selectItemsObject],
-    itemsObject => itemsObject[itemName].src
-  );
+export const selectItemName = createAppSelector(
+  [itemsAdapterSelectors.selectById],
+  item => item.name
+);
 
-export const selectVendorsByItemName = (itemName: string) =>
-  createAppSelector(
-    [topLevelAddedSelectors.selectItemsObject],
-    itemsObject => itemsObject[itemName].vendors
-  );
-
-export const selectVendorOfficialName = (vendorName: VendorName) =>
-  createAppSelector(
-    [topLevelAddedSelectors.selectVendorsObject],
-    vendorsObject => vendorsObject[vendorName].officialName
-  );
-
-export const selectMinimized = (vendorName: VendorName) =>
-  createAppSelector(
-    [topLevelAddedSelectors.selectVendorsObject],
-    vendorsObject => vendorsObject[vendorName].minimizedItemIds
-  );
-
-export const checkIfMinimizedIsFull = (vendorName: VendorName) =>
-  createAppSelector(
-    [topLevelAddedSelectors.selectVendorsObject],
-    vendorsObject =>
-      vendorsObject[vendorName].minimizedItemIds.length ===
-      vendorsObject[vendorName].itemsAdded.length
-  );
-
-export const checkIfMinimized = (vendorName: VendorName, itemName: string) =>
-  createAppSelector(
-    [
-      topLevelAddedSelectors.selectVendorsObject,
-      topLevelAddedSelectors.selectItemsObject,
-    ],
-    (vendorsObject, itemsObject) =>
-      vendorsObject[vendorName].minimizedItemIds.includes(
-        itemsObject[itemName].id
-      )
-  );
-
-export const selectKeywords = (itemName: string) =>
-  createAppSelector(
-    [topLevelAddedSelectors.selectItemsObject],
-    itemsObject => itemsObject[itemName].keywords
-  );
+export const selectVendorIdByItemId = createAppSelector(
+  [vendorsAdapterSelectors.selectAll, rootParametricSelectors.getItemId],
+  (vendor, itemId) =>
+    vendor.filter(e => e.itemIds.includes(itemId)).map(({ id }) => id),
+  {
+    memoizeOptions: {
+      resultEqualityCheck: shallowEqual,
+      equalityCheck: shallowEqual,
+      maxSize: 10,
+    },
+  }
+);
 
 export const selectItemNamesAndKeywords = createAppSelector(
-  [
-    topLevelAddedSelectors.selectItemsArray,
-    topLevelAddedSelectors.selectItemsObject,
-  ],
-  (itemsArray, itemsObject) =>
-    itemsArray.map(itemName => ({
-      name: itemsObject[itemName].name,
-      keywords: itemsObject[itemName].keywords,
-    }))
-);
-
-export const selectVendorsObjectValues = createAppSelector(
-  [topLevelAddedSelectors.selectVendorsObject],
-  vendorsObject => Object.values(vendorsObject)
+  [itemsAdapterSelectors.selectAll],
+  items =>
+    items.map<ItemNamesAndKeywords>(
+      ({ name, keywords, id, category, itemNumber, vendors }) => ({
+        name,
+        keywords,
+        id,
+        category,
+        itemNumber,
+        vendors,
+      })
+    )
 );
 
 export const checkIfAnyItemsAdded = createAppSelector(
-  [selectVendorsObjectValues],
-  vendorsObjectValues =>
-    vendorsObjectValues.reduce(
-      (accumulator, { itemsAdded }) => itemsAdded.length > 0 || accumulator,
+  [cartAdapterSelectors.selectAll],
+  carts =>
+    carts.reduce<boolean>(
+      (acc, curr) => curr.items.ids.length > 0 || acc,
       false
     )
+);
+
+export const selectCartItems = createAppSelector(
+  [cartAdapterSelectors.selectEntities, rootParametricSelectors.getCartId],
+  (entities, cartId) => entities[cartId].items
+);
+
+export const selectCartItemsIds = createAppSelector(
+  [selectCartItems],
+  cartItems => cartItemsAdapterSelectors.selectIds(cartItems)
+);
+
+export const selectCartItemNames = createAppSelector(
+  [selectCartItemsIds, itemsAdapterSelectors.selectEntities],
+  (cartItemIds, itemsEntities) => cartItemIds.map(e => itemsEntities[e].name)
+);
+
+export const selectCheckedVendorIds = createAppSelector(
+  [searchResultsAdapterSelectors.selectById],
+  searchResult =>
+    searchResult.checkedVendors.length === 0
+      ? emptyArray
+      : searchResult.checkedVendors
+);
+
+export const isVendorChecked = createAppSelector(
+  [selectCheckedVendorIds, rootParametricSelectors.getItemIdAndCartId],
+  (checkedVendorIds, vendorId) =>
+    !isEmptyArrayReference(checkedVendorIds) &&
+    checkedVendorIds.includes(vendorId)
+);
+
+export const selectCartItem = createAppSelector(
+  [selectCartItems, rootParametricSelectors.getCartIdAndItemId],
+  (cartItems, itemId) => cartItemsAdapterSelectors.selectById(cartItems, itemId)
+);
+
+export const isMinimized = createAppSelector(
+  [selectCartItem],
+  cartItems => cartItems.minimized
+);
+
+export const selectCategoryName = createAppSelector(
+  [categoriesAdapterSelectors.selectById],
+  category => category.name
+);
+
+export const selectCategoryItemIds = createAppSelector(
+  [categoriesAdapterSelectors.selectById],
+  category => category.itemIds
+);
+
+export const checkIfAddedToVendor = createAppSelector(
+  [selectCartItems, rootParametricSelectors.getCartIdAndItemId],
+  (cartItems, itemId) => cartItems.ids.includes(itemId)
 );

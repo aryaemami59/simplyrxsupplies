@@ -1,10 +1,7 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
 
-import { VendorsArray } from "../../types/redux";
-import { RootState } from "../store";
+import { Vendor } from "../../types/api";
 
-export const vendorsAdapter = createEntityAdapter<VendorsArray>();
+export const vendorsAdapter = createEntityAdapter<Vendor>();
 
-export const vendorsAdapterSelectors = vendorsAdapter.getSelectors<RootState>(
-  state => state.added.vendors
-);
+export const initialState = vendorsAdapter.getInitialState();

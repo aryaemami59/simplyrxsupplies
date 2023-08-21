@@ -8,6 +8,8 @@ export type EmptyObject = Record<string, never>;
 
 export type EmptyArray = never[];
 
+export type EmptyTuple = readonly [];
+
 export type Composite = AnyArray | AnyFunction | AnyObject;
 
 export type ObjectOrArray = AnyArray | AnyObject;
@@ -27,3 +29,5 @@ export type Mutable<T> = { -readonly [P in keyof T]: T[P] };
 export type RecursiveMutable<T> = {
   -readonly [P in keyof T]: RecursiveMutable<T[P]>;
 };
+
+export type Predicate<T> = (value: T | undefined | null) => value is T;

@@ -7,7 +7,9 @@ import type { FC } from "react";
 import { memo } from "react";
 import Button from "react-bootstrap/Button";
 
-import useItemName from "../../../../hooks/useItemName";
+import useItemId from "../../../../hooks/useItemId";
+import { useAppSelector } from "../../../../redux/hooks";
+import { selectItemName } from "../../../../redux/selectors";
 import BarcodeImage from "../BarcodeImage";
 
 type Props = {
@@ -16,7 +18,8 @@ type Props = {
 };
 
 const RowBarcodeDialog: FC<Props> = ({ hideModal, show }) => {
-  const itemName = useItemName();
+  const itemId = useItemId();
+  const itemName = useAppSelector(state => selectItemName(state, itemId));
 
   return (
     <Dialog
@@ -34,7 +37,7 @@ const RowBarcodeDialog: FC<Props> = ({ hideModal, show }) => {
       <DialogActions>
         <Button
           onClick={hideModal}
-          variant="contained">
+          variant="primary">
           Close
         </Button>
       </DialogActions>

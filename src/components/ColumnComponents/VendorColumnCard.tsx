@@ -2,15 +2,17 @@ import Card from "@mui/material/Card";
 import type { FC } from "react";
 import { memo } from "react";
 
-import useVendorName from "../../hooks/useVendorName";
+import useVendorId from "../../hooks/useVendorId";
 import { useAppSelector } from "../../redux/hooks";
 import { checkIfAnyAddedToOneVendor } from "../../redux/selectors";
 import ColumnTopCardBody from "./ColumnTopCardBody";
 import EmptyColumn from "./EmptyColumn";
 
 const VendorColumnCard: FC = () => {
-  const vendorName = useVendorName();
-  const anyAdded = useAppSelector(checkIfAnyAddedToOneVendor(vendorName));
+  const vendorId = useVendorId();
+  const anyAdded = useAppSelector(state =>
+    checkIfAnyAddedToOneVendor(state, vendorId)
+  );
 
   return <Card>{anyAdded ? <ColumnTopCardBody /> : <EmptyColumn />}</Card>;
 };

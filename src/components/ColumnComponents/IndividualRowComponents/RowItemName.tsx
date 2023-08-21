@@ -4,14 +4,17 @@ import type { TypographyProps } from "@mui/material/Typography";
 import type { FC } from "react";
 import { memo } from "react";
 
-import useItemName from "../../../hooks/useItemName";
+import useItemId from "../../../hooks/useItemId";
+import { useAppSelector } from "../../../redux/hooks";
+import { selectItemName } from "../../../redux/selectors";
 import CopyIcon from "./CopyIcon";
 
 const primaryTypographyProps: TypographyProps<"span", { component?: "span" }> =
   { className: "ms-0" };
 
 const RowItemName: FC = () => {
-  const itemName = useItemName();
+  const itemId = useItemId();
+  const itemName = useAppSelector(state => selectItemName(state, itemId));
 
   return (
     <ListItem

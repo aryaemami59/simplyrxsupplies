@@ -1,11 +1,7 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
 
-import { Item } from "../../types/api";
-import { RootState } from "../store";
+import { SearchResultsItem } from "../../types/redux";
 
-export const searchResultsAdapter = createEntityAdapter<Item>();
+export const searchResultsAdapter = createEntityAdapter<SearchResultsItem>();
 
-export const searchResultsAdapterSelectors =
-  searchResultsAdapter.getSelectors<RootState>(
-    state => state.added.searchResultsItemNames
-  );
+export const initialState = searchResultsAdapter.getInitialState();

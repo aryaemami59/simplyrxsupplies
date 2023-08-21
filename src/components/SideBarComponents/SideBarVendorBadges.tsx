@@ -5,30 +5,31 @@ import type { FC } from "react";
 import { memo, useCallback, useMemo } from "react";
 
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
-import { setVendors } from "../../redux/addedSlice";
+import { toggleVendorForOneSearchResultItem } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   checkIfItemAddedToOneVendor,
   checkVendorsToAdd,
 } from "../../redux/selectors";
-import type { VendorAndItemName } from "../../types/aa";
-import { itemNames, vendorNames } from "../../types/aa";
+import { ItemIdAndVendorId } from "../../types/redux";
 
-type Props = VendorAndItemName;
+type Props = ItemIdAndVendorId;
 
-const SideBarVendorBadges: FC<Props> = ({ vendorName, itemName }) => {
+const SideBarVendorBadges: FC<Props> = ({ itemId, vendorId }) => {
   const dispatch = useAppDispatch();
-  const officialVendorName = useOfficialVendorName(vendorName);
+  const officialVendorName = useOfficialVendorName(vendorId);
 
-  const checked = useAppSelector(checkVendorsToAdd(vendorName, itemName));
+  const checked = useAppSelector(state =>
+    checkVendorsToAdd(state, vendorId, itemId)
+  );
 
-  const disabled = useAppSelector(
-    checkIfItemAddedToOneVendor(vendorName, itemName)
+  const disabled = useAppSelector(state =>
+    checkIfItemAddedToOneVendor(state, vendorId, itemId)
   );
 
   const clickHandler = useCallback(() => {
-    dispatch(setVendors({ itemName, vendorName }));
-  }, [dispatch, itemName, vendorName]);
+    dispatch(toggleVendorForOneSearchResultItem({ itemId, vendorId }));
+  }, [dispatch, itemId, vendorId]);
 
   const control = useMemo(
     () => (
@@ -53,8 +54,8 @@ const SideBarVendorBadges: FC<Props> = ({ vendorName, itemName }) => {
 };
 
 SideBarVendorBadges.propTypes = {
-  itemName: PropTypes.oneOf(itemNames).isRequired,
-  vendorName: PropTypes.oneOf(vendorNames).isRequired,
+  itemId: PropTypes.number.isRequired,
+  vendorId: PropTypes.number.isRequired,
 };
 
 export default memo<Props>(SideBarVendorBadges);

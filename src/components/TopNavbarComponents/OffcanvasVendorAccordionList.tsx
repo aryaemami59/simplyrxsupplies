@@ -1,23 +1,23 @@
 import type { FC } from "react";
 import { memo } from "react";
 
-import VendorNameProvider from "../../contexts/VendorNameProvider";
-import useVendorNamesList from "../../hooks/useVendorNamesList";
+import VendorIdProvider from "../../contexts/VendorIdProvider";
+import useVendorIds from "../../hooks/useVendorIds";
 import OffcanvasVendorAccordion from "./OffcanvasVendorAccordion";
 
 const OffcanvasVendorAccordionList: FC = () => {
-  const vendorNames = useVendorNamesList();
+  const vendorNames = useVendorIds();
 
   return (
     <>
       {vendorNames.map(vendorName => (
-        <VendorNameProvider
+        <VendorIdProvider
           key={vendorName}
-          vendorName={vendorName}>
+          vendorId={vendorName}>
           <OffcanvasVendorAccordion
             key={`${vendorName}-OffcanvasVendorAccordionList`}
           />
-        </VendorNameProvider>
+        </VendorIdProvider>
       ))}
     </>
   );

@@ -1,9 +1,7 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
 
-import { CategoriesArray } from "../../types/redux";
-import { RootState } from "../store";
+import { Category } from "../../types/api";
 
-export const categoriesAdapter = createEntityAdapter<CategoriesArray>();
+export const categoriesAdapter = createEntityAdapter<Category>();
 
-export const categoriesAdapterSelectors =
-  categoriesAdapter.getSelectors<RootState>(state => state.added.categories);
+export const initialState = categoriesAdapter.getInitialState();

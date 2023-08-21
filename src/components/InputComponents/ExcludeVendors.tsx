@@ -3,12 +3,12 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import type { FC } from "react";
 import { memo } from "react";
 
-import VendorNameProvider from "../../contexts/VendorNameProvider";
-import useVendorNamesList from "../../hooks/useVendorNamesList";
+import VendorIdProvider from "../../contexts/VendorIdProvider";
+import useVendorIds from "../../hooks/useVendorIds";
 import ExcludeVendorSingleCheckbox from "./ExcludeVendorSingleCheckbox";
 
 const ExcludeVendors: FC = () => {
-  const vendorNames = useVendorNamesList();
+  const vendorNames = useVendorIds();
 
   return (
     <>
@@ -24,9 +24,9 @@ const ExcludeVendors: FC = () => {
         // className="px-5"
       >
         {vendorNames.map(vendorName => (
-          <VendorNameProvider
+          <VendorIdProvider
             key={vendorName}
-            vendorName={vendorName}>
+            vendorId={vendorName}>
             <ExcludeVendorSingleCheckbox />
             {/* <FormControlLabel
               className="fs-7"
@@ -39,7 +39,7 @@ const ExcludeVendors: FC = () => {
               key={`${vendorName}-VendorColumn`}>
               {vendorName}
             </Button> */}
-          </VendorNameProvider>
+          </VendorIdProvider>
         ))}
       </ButtonGroup>
     </>

@@ -4,30 +4,38 @@ import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback } from "react";
 
-import { addItems } from "../../redux/addedSlice";
+import { addItemToCarts } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { checkIfAddedToAllVendors } from "../../redux/selectors";
-import { itemNames } from "../../types/aa";
+import {
+  checkIfAddedToAllVendors,
+  selectCheckedVendorIds,
+} from "../../redux/selectors";
+import isEmptyArrayReference from "../../utils/predicates/isEmptyArrayReference";
 
 const startIcon = <AddIcon />;
 
 type Props = {
-  itemName: string;
+  visibleListId: number;
 };
 
-const SearchResultsAddButton: FC<Props> = ({ itemName }) => {
+const SearchResultsAddButton: FC<Props> = ({ visibleListId }) => {
   const dispatch = useAppDispatch();
-  const ifAddedToAllVendors = useAppSelector(
-    checkIfAddedToAllVendors(itemName)
+  const ifAddedToAllVendors = useAppSelector(state =>
+    checkIfAddedToAllVendors(state, visibleListId)
+  );
+  const checkedVendorIds = useAppSelector(state =>
+    selectCheckedVendorIds(state, visibleListId)
   );
 
-  const clickHandler: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    dispatch(addItems(itemName));
-  }, [dispatch, itemName]);
+  const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
+    if (!isEmptyArrayReference(checkedVendorIds)) {
+      dispatch(addItemToCarts({ itemId: visibleListId, checkedVendorIds }));
+    }
+  }, [checkedVendorIds, dispatch, visibleListId]);
 
   return (
     <Button
-      key={`Button-AddItemButtonComponent-${itemName}`}
+      key={`Button-AddItemButtonComponent-${visibleListId}`}
       className="fw-bold w-auto p-auto shadow-sm rounded-pill text-none"
       disabled={ifAddedToAllVendors}
       onClick={clickHandler}
@@ -39,7 +47,7 @@ const SearchResultsAddButton: FC<Props> = ({ itemName }) => {
 };
 
 SearchResultsAddButton.propTypes = {
-  itemName: PropTypes.oneOf(itemNames).isRequired,
+  visibleListId: PropTypes.number.isRequired,
 };
 
 export default memo<Props>(SearchResultsAddButton);
