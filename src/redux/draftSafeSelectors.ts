@@ -25,7 +25,7 @@ export const localizedSelectors = {
 
   cart: cartAdapter.getSelectors<AddedState>(added => added.cart),
 
-  items: itemsAdapter.getSelectors<AddedState>(added => added.items),
+  // items: itemsAdapter.getSelectors<AddedState>(added => added.items),
 
   vendors: vendorsAdapter.getSelectors<AddedState>(added => added.vendors),
 

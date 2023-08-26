@@ -7,13 +7,14 @@ import categoriesAdapter from "./adapters/categoriesAdapter";
 import itemsAdapter from "./adapters/itemsAdapter";
 import searchResultsAdapter from "./adapters/searchResultsAdapter";
 import vendorsAdapter from "./adapters/vendorsAdapter";
+import { endpoints } from "./apiSlice";
 import {
   ParametricSelectors,
   simpleSelectors,
   TopLevelSelectors,
 } from "./draftSafeSelectors";
 import type { AppSelector } from "./hooks";
-import { createAppSelector } from "./hooks";
+import { createAppSelector, createDraftSafeRootSelector } from "./hooks";
 import initialStates from "./initialStates";
 import type { RootState } from "./store";
 
@@ -52,12 +53,39 @@ const rootParametricSelectors: RootParametricSelectors = {
 
 const selectAdded: AppSelector<AddedState, never> = state => state.added;
 
+export const selectMainResults = endpoints.getMain.select();
+
+export const selectMainData = createDraftSafeRootSelector(
+  [selectMainResults],
+  results => results.data
+);
+
+export const selectItemsData = createDraftSafeRootSelector(
+  [selectMainData],
+  data => itemsAdapter.setAll(initialStates.items, data?.items ?? emptyArray)
+);
+
+export const selectVendorsData = createDraftSafeRootSelector(
+  [selectMainData],
+  data =>
+    vendorsAdapter.setAll(initialStates.vendors, data?.vendors ?? emptyArray)
+);
+
+export const selectCategoriesData = createDraftSafeRootSelector(
+  [selectMainData],
+  data =>
+    categoriesAdapter.setAll(
+      initialStates.categories,
+      data?.categories ?? emptyArray
+    )
+);
+
 const topLevelSelectors: TopLevelSelectors<RootState, "added"> = {
   searchResults: createAppSelector([selectAdded], added => added.searchResults),
 
   cart: createAppSelector([selectAdded], added => added.cart),
 
-  items: createAppSelector([selectAdded], added => added.items),
+  // items: createAppSelector([selectAdded], added => added.items),
 
   vendors: createAppSelector([selectAdded], added => added.vendors),
 
@@ -71,38 +99,45 @@ export const globalizedSelectors = {
 
   cart: cartAdapter.getSelectors<RootState>(topLevelSelectors.cart),
 
-  items: itemsAdapter.getSelectors<RootState>(topLevelSelectors.items),
+  items: itemsAdapter.getSelectors<RootState>(state => selectItemsData(state)),
+  // items: itemsAdapter.getSelectors<RootState>(topLevelSelectors.items),
 
-  vendors: vendorsAdapter.getSelectors<RootState>(topLevelSelectors.vendors),
+  vendors: vendorsAdapter.getSelectors<RootState>(selectVendorsData),
+  // vendors: vendorsAdapter.getSelectors<RootState>(topLevelSelectors.vendors),
 
-  categories: categoriesAdapter.getSelectors<RootState>(
-    topLevelSelectors.categories
-  ),
+  categories: categoriesAdapter.getSelectors<RootState>(selectCategoriesData),
+  // categories: categoriesAdapter.getSelectors<RootState>(
+  //   topLevelSelectors.categories
+  // ),
 };
 
 export const selectVendorsLinks = createAppSelector(
   [globalizedSelectors.vendors.selectById],
-  vendor => vendor?.link
+  vendor => vendor?.link ?? ""
 );
 
 export const selectItemNumber = createAppSelector(
   [globalizedSelectors.items.selectById],
-  item => (item ? item.itemNumber : "")
+  item => item?.itemNumber ?? ""
 );
+// export const selectItemNumber = createAppSelector(
+//   [globalizedSelectors.items.selectById],
+//   item => item?.itemNumber ?? ""
+// );
 
 export const selectItemSrc = createAppSelector(
   [globalizedSelectors.items.selectById],
-  item => item?.src
+  item => item?.src ?? ""
 );
 
 export const selectItemName = createAppSelector(
   [globalizedSelectors.items.selectById],
-  item => (item ? item.name : "")
+  item => item?.name ?? ""
 );
 
 export const selectVendorIdsByItemId = createAppSelector(
   [globalizedSelectors.items.selectById],
-  item => (item ? item.vendors : emptyArray)
+  item => item?.vendors ?? emptyArray
   // {
   //   memoizeOptions: {
   //     resultEqualityCheck: shallowEqual,
@@ -139,19 +174,13 @@ export const checkIfAnyItemsAdded = createAppSelector(
 
 const selectCartItems = createAppSelector(
   [globalizedSelectors.cart.selectById],
-  cart => (cart ? cart.items : initialStates.cartItems)
+  cart => cart?.items ?? initialStates.cartItems
 );
 
 export const selectCartItemsIds = createAppSelector(
   [selectCartItems],
   simpleSelectors.cartItems.selectIds
 );
-
-// export const selectCartItemNames = createAppSelector(
-//   [selectCartItemsIds, globalizedSelectors.items.selectEntities],
-//   (cartItemIds, itemsEntities) =>
-//     cartItemIds.map<string>(e => itemsEntities[e]?.name ?? "")
-// );
 
 export const selectCartItemNamesStringified = createAppSelector(
   [selectCartItemsIds, globalizedSelectors.items.selectEntities],
@@ -191,7 +220,7 @@ export const selectCategoryName = createAppSelector(
 
 export const selectCategoryItemIds = createAppSelector(
   [globalizedSelectors.categories.selectById],
-  category => (category ? category.itemIds : emptyArray)
+  category => category?.itemIds ?? emptyArray
 );
 
 export const checkIfAddedToVendor = createAppSelector(
@@ -231,7 +260,7 @@ export const selectOfficialName = createAppSelector(
 
 export const selectVendorItemIds = createAppSelector(
   [globalizedSelectors.vendors.selectById],
-  vendor => (vendor ? vendor.itemIds : emptyArray)
+  vendor => vendor?.itemIds ?? emptyArray
 );
 
 const selectCartsByItemId = createAppSelector(

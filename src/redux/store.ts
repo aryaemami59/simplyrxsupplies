@@ -31,6 +31,7 @@ export const store = configureStore({
     added: addedReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
+  enhancers: getDefaultEnhancers => getDefaultEnhancers(),
   // devTools: {}
 });
 

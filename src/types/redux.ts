@@ -14,7 +14,7 @@ type CategoriesArray = Categories[keyof Categories][];
 export type AddedState = {
   searchResults: EntityState<SearchResultsItem, number>;
   cart: EntityState<Cart, number>;
-  items: EntityState<NewItem, number>;
+  // items: EntityState<NewItem, number>;
   vendors: EntityState<Vendor, number>;
   categories: EntityState<Category, number>;
 };

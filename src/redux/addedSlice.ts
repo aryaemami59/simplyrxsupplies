@@ -12,7 +12,6 @@ import type {
 import cartAdapter from "./adapters/cartAdapter";
 import cartItemsAdapter from "./adapters/cartItemsAdapter";
 import categoriesAdapter from "./adapters/categoriesAdapter";
-import itemsAdapter from "./adapters/itemsAdapter";
 import searchResultsAdapter from "./adapters/searchResultsAdapter";
 import vendorsAdapter from "./adapters/vendorsAdapter";
 import { apiSlice } from "./apiSlice";
@@ -27,7 +26,7 @@ const initialState: AddedState = {
   searchResults: initialStates.searchResults,
   cart: initialStates.cart,
   categories: initialStates.categories,
-  items: initialStates.items,
+  // items: initialStates.items,
   vendors: initialStates.vendors,
 } satisfies AddedState;
 
@@ -41,6 +40,11 @@ const addedSlice = createSlice({
       action: PayloadAction<ItemIdAndCheckedVendorIds>
     ) => {
       const { checkedVendorIds, itemId } = action.payload;
+      const element = simpleSelectors.items.selectById(
+        initialStates.items,
+        itemId
+      );
+      console.log(element);
       const updates = checkedVendorIds.map<Update<Cart, number>>(id => ({
         id,
         changes: {
@@ -216,8 +220,8 @@ const addedSlice = createSlice({
     builder.addMatcher(
       apiSlice.endpoints.getMain.matchFulfilled,
       (state, action) => {
-        const { categories, items, vendors, cart } = action.payload;
-        itemsAdapter.setAll(state.items, items);
+        const { categories, vendors, cart } = action.payload;
+        // itemsAdapter.setAll(state.items, items);
         vendorsAdapter.setAll(state.vendors, vendors);
         categoriesAdapter.setAll(state.categories, categories);
         cartAdapter.setAll(state.cart, cart);

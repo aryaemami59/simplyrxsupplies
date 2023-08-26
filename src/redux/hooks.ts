@@ -21,5 +21,7 @@ export type AppSelector<
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const createAppSelector: TypedCreateSelector<RootState> = createSelector;
+export const createDraftSafeRootSelector: TypedCreateSelector<RootState> =
+  createDraftSafeSelector;
 export const createDraftSafeAppSelector: TypedCreateSelector<AddedState> =
   createDraftSafeSelector;

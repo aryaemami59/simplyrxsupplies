@@ -35,4 +35,4 @@ export const apiSlice = createApi({
   }),
 });
 
-export const { useGetMainQuery } = apiSlice;
+export const { useGetMainQuery, endpoints } = apiSlice;
