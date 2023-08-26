@@ -2,9 +2,10 @@ import List from "@mui/material/List";
 import type { FC } from "react";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { shallowEqual } from "react-redux";
 
 import { useAppSelector } from "../../redux/hooks";
-import { searchResultsAdapterSelectors } from "../../redux/selectors";
+import { globalizedSelectors } from "../../redux/selectors";
 import IsLoading from "../../shared/components/IsLoading";
 import SearchResultsSingleCard from "./SearchResultsSingleCard";
 
@@ -12,7 +13,8 @@ const loader = <IsLoading />;
 
 const SearchResultsContainer: FC = () => {
   const searchResultsIds = useAppSelector(
-    searchResultsAdapterSelectors.selectIds
+    globalizedSelectors.searchResults.selectIds,
+    shallowEqual
   );
   const memoizedSearchResultsIds = useMemo(
     () => searchResultsIds.slice(0, 10),
@@ -30,7 +32,7 @@ const SearchResultsContainer: FC = () => {
     } else {
       setHasMore(true);
     }
-  }, [searchResultsIds.length, memoizedSearchResultsIds]);
+  }, [searchResultsIds, memoizedSearchResultsIds]);
 
   const next = useCallback(() => {
     setVisibleListIds(prev =>
@@ -41,7 +43,7 @@ const SearchResultsContainer: FC = () => {
     } else {
       setHasMore(true);
     }
-  }, [visibleListIds.length, searchResultsIds]);
+  }, [visibleListIds, searchResultsIds]);
 
   return (
     <List
@@ -52,6 +54,7 @@ const SearchResultsContainer: FC = () => {
         hasMore={hasMore}
         loader={loader}
         next={next}
+        refreshFunction={next}
         scrollableTarget="App">
         {visibleListIds.map(visibleListId => (
           <SearchResultsSingleCard

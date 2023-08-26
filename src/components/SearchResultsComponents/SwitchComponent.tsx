@@ -8,7 +8,7 @@ import { memo, useCallback } from "react";
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 import { toggleVendorForOneSearchResultItem } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { checkVendorsAdded, isVendorChecked } from "../../redux/selectors";
+import { checkIfAddedToVendor, isVendorChecked } from "../../redux/selectors";
 
 const inputProps: SwitchProps["inputProps"] = {
   className: "shadow",
@@ -36,7 +36,7 @@ const SwitchComponent: FC<Props> = ({ vendorId, visibleListId }) => {
   );
 
   const disabled = useAppSelector(state =>
-    checkVendorsAdded(state, vendorId, visibleListId)
+    checkIfAddedToVendor(state, vendorId, visibleListId)
   );
 
   const clickHandler = useCallback(() => {

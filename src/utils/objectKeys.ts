@@ -1,4 +1,4 @@
-import type { AnyObject } from "../types/missingTypes";
+import type { AnyObject } from "../types/tsHelpers";
 
 /**
  * A typescript helper function that improves upon the native `Object.keys` method.

@@ -69,8 +69,7 @@ export type Item = {
   readonly itemNumber: string;
   readonly keywords: string[];
   readonly category: CategoryName[];
-  vendors: number[];
-  // readonly vendors: VendorName[];
+  readonly vendors: number[];
   readonly src: string;
 };
 
@@ -83,28 +82,19 @@ export type Supplies = {
 };
 
 // Additional Types
-export type VendorAndItemName = {
-  itemName: string;
-  vendorName: VendorName;
+// export type VendorAndItemName = {
+//   itemName: string;
+//   vendorName: VendorName;
+// };
+
+// TODO: Once the api field vendors and categories change to contain ids, this type can be disposed of.
+export type OldItem = Omit<Item, "vendors"> & {
+  readonly vendors: VendorName[];
 };
 
-export type VendorObject = Record<
-  VendorName,
-  Vendors[VendorName] & {
-    readonly itemIds: number[];
-    itemsAdded: string[];
-    minimizedItemIds: number[];
-    qrContent: string;
-    qrText: string;
-  }
->;
-
-export type SingleItemObject = Item & {
-  // vendorsToAdd: VendorName[];
-  // vendorsAdded: VendorName[];
-  // keywords: string[];
+// TODO: Once the api field vendors and categories change to contain ids, this type can be disposed of.
+export type OldSupplies = Omit<Supplies, "items"> & {
+  readonly items: OldItem[];
 };
 
 export type ItemNamesAndKeywords = Omit<Item, "src">;
-
-// const element: VendorObject = {}

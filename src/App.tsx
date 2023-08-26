@@ -17,6 +17,8 @@ import IsLoading from "./shared/components/IsLoading";
 
 const App: FC = () => {
   const { isError, isLoading } = useGetMainQuery();
+  // const element = useAppSelector(selectCarts);
+  // console.log(element);
 
   if (isLoading) return <IsLoading />;
 

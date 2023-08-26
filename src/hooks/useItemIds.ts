@@ -1,9 +1,7 @@
 import { useAppSelector } from "../redux/hooks";
-import { vendorsAdapterSelectors } from "../redux/selectors";
+import { selectVendorItemIds } from "../redux/selectors";
 
 const useItemIds = (vendorId: number): number[] =>
-  useAppSelector(
-    state => vendorsAdapterSelectors.selectById(state, vendorId).itemIds
-  );
+  useAppSelector(state => selectVendorItemIds(state, vendorId));
 
 export default useItemIds;

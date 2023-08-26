@@ -1,10 +1,10 @@
-import { EmptyTuple } from "../../types/missingTypes";
-import emptyArray from "../emptyArray";
+import { EmptyTuple } from "../../types/tsHelpers";
+import EMPTY_TUPLE from "../emptyArray";
 import isEmptyArray from "./isEmptyArray";
 
 const isEmptyArrayReference = <T extends readonly unknown[]>(
   array: T
 ): array is EmptyTuple & T =>
-  isEmptyArray(array) && Object.is(array, emptyArray);
+  isEmptyArray(array) && Object.is(array, EMPTY_TUPLE);
 
 export default isEmptyArrayReference;

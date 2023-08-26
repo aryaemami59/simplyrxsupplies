@@ -18,7 +18,6 @@ export type AppSelector<
   Params extends readonly Parameters<Selector>[1][] = Parameters<Selector>[1][],
 > = Selector<RootState, Result, Params>;
 
-// export const useAppDispatch = useDispatch<AppDispatch>;
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const createAppSelector: TypedCreateSelector<RootState> = createSelector;

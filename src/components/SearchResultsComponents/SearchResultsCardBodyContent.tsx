@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo } from "react";
-import { shallowEqual } from "react-redux";
 
 import { useAppSelector } from "../../redux/hooks";
-import { selectVendorIdByItemId } from "../../redux/selectors";
+import { selectVendorIdsByItemId } from "../../redux/selectors";
+import isEmptyArrayReference from "../../utils/predicates/isEmptyArrayReference";
 import SearchResultsAddButton from "./SearchResultsAddButton";
 import SearchResultsItemName from "./SearchResultsItemName";
 import SwitchComponent from "./SwitchComponent";
@@ -14,9 +14,8 @@ type Props = {
 };
 
 const SearchResultsCardBodyContent: FC<Props> = ({ visibleListId }) => {
-  const vendorIds = useAppSelector(
-    state => selectVendorIdByItemId(state, visibleListId),
-    shallowEqual
+  const vendorIds = useAppSelector(state =>
+    selectVendorIdsByItemId(state, visibleListId)
   );
 
   return (
@@ -30,14 +29,14 @@ const SearchResultsCardBodyContent: FC<Props> = ({ visibleListId }) => {
         <div className="justify-content-center justify-content-sm-center align-items-center m-0 row">
           <div className="pe-0 col-lg-8 col-7">
             <div className="m-0 row w-100">
-              {vendorIds.map(vendorId => (
-                <SwitchComponent
-                  key={`SwitchComponent-${visibleListId}${vendorId}`}
-                  vendorId={vendorId}
-                  visibleListId={visibleListId}
-                  // vendors={vendors}
-                />
-              ))}
+              {!isEmptyArrayReference(vendorIds) &&
+                vendorIds.map(vendorId => (
+                  <SwitchComponent
+                    key={`SwitchComponent-${visibleListId}${vendorId}`}
+                    vendorId={vendorId}
+                    visibleListId={visibleListId}
+                  />
+                ))}
             </div>
           </div>
           <div className="col-5 col-lg-4">

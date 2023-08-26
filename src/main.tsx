@@ -16,7 +16,7 @@ if (import.meta.env.DEV) {
 
   whyDidYouRender(React, {
     trackAllPureComponents: true,
-    include: [/./gi],
+    // include: [/./gi],
     collapseGroups: true,
     trackHooks: true,
     // trackExtraHooks: [
@@ -32,12 +32,10 @@ const root = createRoot(container);
 await store.dispatch(apiSlice.endpoints.getMain.initiate());
 
 root.render(
-  <React.StrictMode>
-    <Provider
-      noopCheck="always"
-      stabilityCheck="always"
-      store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
+  <Provider
+    noopCheck="always"
+    stabilityCheck="always"
+    store={store}>
+    <App />
+  </Provider>
 );

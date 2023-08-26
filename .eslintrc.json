@@ -18,6 +18,7 @@
     "plugin:promise/recommended",
     "plugin:sonarjs/recommended",
     "plugin:unicorn/recommended",
+    // "plugin:canonical/recommended",
     "plugin:prettier/recommended"
   ],
   "ignorePatterns": [
@@ -50,6 +51,7 @@
     "sonarjs",
     "unicorn",
     "simple-import-sort",
+    "canonical",
     "@reverecre/fontawesome"
   ],
   "root": true,
@@ -151,12 +153,18 @@
       2,
       { "devDependencies": ["src/main.tsx", "vite.config.ts"] }
     ],
-    "sonarjs/no-identical-functions": [2, 4],
+    // "sonarjs/no-identical-functions": [2, 4],
     "@reverecre/fontawesome/shakeable-imports": [2],
     "@typescript-eslint/no-invalid-void-type": [0],
     "unicorn/prefer-object-from-entries": [2],
-    "class-methods-use-this": [0],
-    "unicorn/consistent-destructuring": [0]
+    // "class-methods-use-this": [0],
+    // "unicorn/consistent-destructuring": [0],
+    "unicorn/consistent-function-scoping": [
+      2,
+      { "checkArrowFunctions": false }
+    ],
+    "max-classes-per-file": [0]
+    // "canonical/no-unused-exports": [2, { "tsConfigPath": "./tsconfig.json" }]
     // "@typescript-eslint/no-non-null-assertion": [0]
   },
   "settings": { "react": { "version": "detect" } }

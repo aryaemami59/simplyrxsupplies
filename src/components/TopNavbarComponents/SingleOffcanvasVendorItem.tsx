@@ -6,10 +6,7 @@ import useItemId from "../../hooks/useItemId";
 import useVendorId from "../../hooks/useVendorId";
 import { addItemToCarts } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import {
-  checkIfItemAddedToOneVendor,
-  selectItemName,
-} from "../../redux/selectors";
+import { checkIfAddedToVendor, selectItemName } from "../../redux/selectors";
 
 const SingleOffcanvasVendorItem: FC = () => {
   const vendorId = useVendorId();
@@ -18,7 +15,7 @@ const SingleOffcanvasVendorItem: FC = () => {
   const itemName = useAppSelector(state => selectItemName(state, itemId));
 
   const ifAddedToVendor = useAppSelector(state =>
-    checkIfItemAddedToOneVendor(state, vendorId, itemId)
+    checkIfAddedToVendor(state, vendorId, itemId)
   );
 
   const clickHandler = useCallback<MouseEventHandler<HTMLElement>>(() => {

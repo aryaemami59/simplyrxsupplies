@@ -1,4 +1,4 @@
-import type { EmptyObject } from "../types/missingTypes";
+import type { EmptyObject } from "../types/tsHelpers";
 
 const emptyObject: EmptyObject = {};
 

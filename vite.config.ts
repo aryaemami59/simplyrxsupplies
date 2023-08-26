@@ -7,9 +7,6 @@ import macrosPlugin from "vite-plugin-babel-macros";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const developmentConfig: UserConfig = {
-    server: {
-      open: true,
-    },
     plugins: [
       react({
         babel: {
@@ -20,12 +17,12 @@ export default defineConfig(({ mode }) => {
       }),
       macrosPlugin(),
     ],
-  };
-  const productionConfig: UserConfig = {
-    esbuild: { drop: ["console", "debugger"] },
     server: {
       open: true,
     },
+  };
+  const productionConfig: UserConfig = {
+    esbuild: { drop: ["console", "debugger"] },
     plugins: [
       react({
         babel: {
@@ -40,13 +37,16 @@ export default defineConfig(({ mode }) => {
       }),
       macrosPlugin(),
       visualizer({
-        template: "treemap",
-        open: true,
-        gzipSize: true,
         brotliSize: true,
         filename: "analyze.html",
+        gzipSize: true,
+        open: true,
+        template: "treemap",
       }),
     ],
+    server: {
+      open: true,
+    },
   };
   return mode === "development" ? developmentConfig : productionConfig;
 });

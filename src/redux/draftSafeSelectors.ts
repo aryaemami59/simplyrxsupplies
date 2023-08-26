@@ -1,7 +1,15 @@
 import type { Selector } from "reselect";
 
-import type { VendorName } from "../types/api";
 import type { AddedState } from "../types/redux";
+import { cartAdapter } from "./adapters/cartAdapter";
+import {
+  cartItemsAdapter,
+  initialCartItemsAdapterState,
+} from "./adapters/cartItemsAdapter";
+import { categoriesAdapter } from "./adapters/categoriesAdapter";
+import { itemsAdapter } from "./adapters/itemsAdapter";
+import { searchResultsAdapter } from "./adapters/searchResultsAdapter";
+import { vendorsAdapter } from "./adapters/vendorsAdapter";
 import {
   AppSelector,
   createAppSelector,
@@ -11,6 +19,36 @@ import {
 export const selectSelf: Selector<AddedState, AddedState, never> = (
   state: AddedState
 ) => state;
+
+export const localizedSelectors = {
+  searchResults: searchResultsAdapter.getSelectors<AddedState>(
+    added => added.searchResults
+  ),
+
+  cart: cartAdapter.getSelectors<AddedState>(added => added.cart),
+
+  items: itemsAdapter.getSelectors<AddedState>(added => added.items),
+
+  vendors: vendorsAdapter.getSelectors<AddedState>(added => added.vendors),
+
+  categories: categoriesAdapter.getSelectors<AddedState>(
+    added => added.categories
+  ),
+};
+
+export const simpleSelectors = {
+  searchResults: searchResultsAdapter.getSelectors(),
+
+  cart: cartAdapter.getSelectors(),
+
+  items: itemsAdapter.getSelectors(),
+
+  vendors: vendorsAdapter.getSelectors(),
+
+  categories: categoriesAdapter.getSelectors(),
+
+  cartItems: cartItemsAdapter.getSelectors(),
+};
 
 export type AddedSelector<
   Return = unknown,
@@ -32,9 +70,7 @@ export type TopLevelSelectors<
       >;
     }
   : {
-      [K in keyof State[P] as `select${Capitalize<
-        Extract<K, string>
-      >}`]: ReturnType<
+      [K in keyof State[P]]: ReturnType<
         typeof createAppSelector<[AppSelector<AddedState, never>], State[P][K]>
       >;
     };
@@ -56,151 +92,71 @@ export type ParametricSelectors<
 export type DraftSelectorsParametricSelectors = ParametricSelectors<
   AddedState,
   readonly [
-    itemName: {
-      readonly name: "itemName";
-      readonly params: readonly [itemName: string];
-      readonly returnType: string;
+    itemId: {
+      readonly name: "itemId";
+      readonly params: readonly [itemId: number];
+      readonly returnType: number;
     },
-    vendorName: {
-      readonly name: "vendorName";
-      readonly params: readonly [vendorName: VendorName];
-      readonly returnType: VendorName;
+    cartId: {
+      readonly name: "cartId";
+      readonly params: readonly [cartId: number];
+      readonly returnType: number;
     },
-    itemAndVendorName: {
-      readonly name: "itemAndVendorName";
-      readonly params: readonly [itemName: string, vendorName: VendorName];
-      readonly returnType: VendorName;
+    cartIdAndItemId: {
+      readonly name: "cartIdAndItemId";
+      readonly params: readonly [cartId: number, itemId: number];
+      readonly returnType: number;
     },
-    VendorAndItemName: {
-      readonly name: "VendorAndItemName";
-      readonly params: readonly [vendorName: VendorName, itemName: string];
-      readonly returnType: string;
+    ItemIdAndCartId: {
+      readonly name: "ItemIdAndCartId";
+      readonly params: readonly [itemId: number, cartId: number];
+      readonly returnType: number;
     },
   ]
 >;
 
 export const parametricSelectors = {
-  getItemName: (state, itemName) => itemName,
-  getVendorName: (state, vendorName) => vendorName,
-  getItemAndVendorName: (state, itemName, vendorName) => vendorName,
-  getVendorAndItemName: (state, vendorName, itemName) => itemName,
+  getItemId: (added, itemId) => itemId,
+  getCartId: (added, cartId) => cartId,
+  getCartIdAndItemId: (added, cartId, itemId) => itemId,
+  getItemIdAndCartId: (added, itemId, cartId) => cartId,
 } as const satisfies DraftSelectorsParametricSelectors;
 
 export const topLevelDraftSafeSelectors: TopLevelSelectors<AddedState> = {
-  selectCategoriesArray: createDraftSafeAppSelector(
+  selectCategories: createDraftSafeAppSelector(
     [selectSelf],
-    added => added.categoriesArray
+    added => added.categories
   ),
-  selectCategoriesObject: createDraftSafeAppSelector(
-    [selectSelf],
-    added => added.categoriesObject
-  ),
-  selectItemsArray: createDraftSafeAppSelector(
-    [selectSelf],
-    added => added.itemsArray
-  ),
-  selectItemsObject: createDraftSafeAppSelector(
-    [selectSelf],
-    added => added.itemsObject
-  ),
-  selectSearchResultsItemNames: createDraftSafeAppSelector(
+  selectItems: createDraftSafeAppSelector([selectSelf], added => added.items),
+  selectSearchResults: createDraftSafeAppSelector(
     [selectSelf],
     added => added.searchResults
   ),
-  selectVendorsArray: createDraftSafeAppSelector(
+  selectVendors: createDraftSafeAppSelector(
     [selectSelf],
-    added => added.vendorsArray
+    added => added.vendors
   ),
-  selectVendorsObject: createDraftSafeAppSelector(
-    [selectSelf],
-    added => added.vendorsObject
-  ),
+  selectCart: createDraftSafeAppSelector([selectSelf], added => added.cart),
 } as const;
 
-// export const createTopLevelDraftSafeSelectors = (state: AddedState) => {
-//   const results = {} as Record<string, unknown>;
-//   objectKeys(state).forEach(e => {
-//     results[`select${capitalizeFirstLetter(e)}`] = createDraftSafeSelector(
-//       [selectSelf],
-//       rootState => rootState[e]
-//     );
-//   });
-//   return results as TopLevelSelectors<AddedState>;
-// };
+export class DraftSafeSelectors {
+  public readonly selectCartItems = createDraftSafeAppSelector(
+    [localizedSelectors.cart.selectById],
+    cart => (cart ? cart.items : initialCartItemsAdapterState)
+  );
 
-export const selectVendor = createDraftSafeAppSelector(
-  [
-    topLevelDraftSafeSelectors.selectVendorsObject,
-    parametricSelectors.getVendorName,
-  ],
-  (vendorsObject, vendorName) => vendorsObject[vendorName]
-);
+  public readonly selectAllCartItems = createDraftSafeAppSelector(
+    [this.selectCartItems],
+    simpleSelectors.cartItems.selectAll
+  );
 
-export const selectItemsAdded = createDraftSafeAppSelector(
-  [selectVendor],
-  vendorsObject => vendorsObject.itemsAdded
-);
+  public readonly selectSearchResultsByVendorId = createDraftSafeAppSelector(
+    [localizedSelectors.searchResults.selectAll, parametricSelectors.getCartId],
+    (searchResults, cartId) =>
+      searchResults.filter(({ checkedVendors }) =>
+        checkedVendors.includes(cartId)
+      )
+  );
+}
 
-export const selectItem = createDraftSafeAppSelector(
-  [
-    topLevelDraftSafeSelectors.selectItemsObject,
-    parametricSelectors.getItemName,
-  ],
-  (itemsObject, itemName) => itemsObject[itemName]
-);
-
-export const selectVendors = createDraftSafeAppSelector(
-  [selectItem],
-  item => item.vendors
-);
-
-export const selectVendorsToAdd = createDraftSafeAppSelector(
-  [
-    topLevelDraftSafeSelectors.selectVendorsObject,
-    selectVendors,
-    parametricSelectors.getItemName,
-  ],
-  (vendorsObject, vendors, itemName) =>
-    vendors.filter(e => vendorsObject[e].itemsAdded.includes(itemName))
-);
-
-export const selectVendorsAdded = createDraftSafeAppSelector(
-  [
-    topLevelDraftSafeSelectors.selectVendorsObject,
-    selectVendors,
-    parametricSelectors.getItemName,
-  ],
-  (vendorsObject, vendors, itemName) =>
-    vendors.filter(e => !vendorsObject[e].itemsAdded.includes(itemName))
-);
-
-export const selectItemNumbers = createDraftSafeAppSelector(
-  [topLevelDraftSafeSelectors.selectItemsObject, selectItemsAdded],
-  (itemsObject, itemsAdded) => itemsAdded.map(e => itemsObject[e].itemNumber)
-);
-
-export const selectQRContent = createDraftSafeAppSelector(
-  [selectItemNumbers, selectVendor],
-  (itemNumbers, vendorsObject) => itemNumbers.join(vendorsObject.joinChars)
-);
-
-export const selectFilteredSearchResultsItemNames = createDraftSafeAppSelector(
-  [
-    topLevelDraftSafeSelectors.selectSearchResultsItemNames,
-    parametricSelectors.getItemName,
-  ],
-  (searchResultsItemNames, itemName) =>
-    searchResultsItemNames.filter(e => e !== itemName)
-);
-
-export const selectFilteredItemsAdded = createDraftSafeAppSelector(
-  [selectItemsAdded, parametricSelectors.getVendorAndItemName],
-  (itemsAdded, itemName) =>
-    itemsAdded.filter(itemAddedName => itemAddedName !== itemName)
-);
-
-export const selectFilteredVendorsAdded = createDraftSafeAppSelector(
-  [selectVendorsAdded, parametricSelectors.getItemAndVendorName],
-  (vendorsAdded, vendorName) =>
-    vendorsAdded.filter(vendor => vendor !== vendorName)
-);
+export const draftSafeSelectors = new DraftSafeSelectors();

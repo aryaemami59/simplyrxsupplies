@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback } from "react";
+import { shallowEqual } from "react-redux";
 
 import { addItemToCarts } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
@@ -23,8 +24,9 @@ const SearchResultsAddButton: FC<Props> = ({ visibleListId }) => {
   const ifAddedToAllVendors = useAppSelector(state =>
     checkIfAddedToAllVendors(state, visibleListId)
   );
-  const checkedVendorIds = useAppSelector(state =>
-    selectCheckedVendorIds(state, visibleListId)
+  const checkedVendorIds = useAppSelector(
+    state => selectCheckedVendorIds(state, visibleListId),
+    shallowEqual
   );
 
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {

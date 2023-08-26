@@ -5,7 +5,6 @@ import type { Categories, Category, Item, Items, Vendor, Vendors } from "./api";
 export type SearchResultsItem = {
   id: number;
   checkedVendors: number[];
-  // itemId: number;
 };
 
 export type VendorsArray = Vendors[keyof Vendors][];
@@ -14,19 +13,10 @@ export type CategoriesArray = Categories[keyof Categories][];
 
 export type AddedState = {
   searchResults: EntityState<SearchResultsItem, number>;
-  // searchResultsItemNames: string[];
-  // errorMessage: string;
-  // isLoading: boolean;
   cart: EntityState<Cart, number>;
   items: EntityState<NewItem, number>;
   vendors: EntityState<Vendor, number>;
   categories: EntityState<Category, number>;
-  // readonly itemsArray: string[];
-  // itemsObject: Record<string, SingleItemObject>;
-  // readonly vendorsArray: VendorName[];
-  // vendorsObject: VendorObject;
-  // readonly categoriesArray: CategoryName[];
-  // categoriesObject: Categories;
 };
 
 export type CartItems = {
@@ -60,9 +50,3 @@ export type ItemIdAndVendorId = {
   itemId: number;
   vendorId: number;
 };
-
-// export type FetchedData = {
-//   items: SingleItemObject[];
-//   vendors: VendorsObject;
-//   categories: CategoriesObject;
-// };

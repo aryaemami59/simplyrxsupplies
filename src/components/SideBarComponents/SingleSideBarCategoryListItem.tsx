@@ -9,8 +9,9 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   checkIfAddedToAllVendors,
   selectItemName,
-  selectVendorIdByItemId,
+  selectVendorIdsByItemId,
 } from "../../redux/selectors";
+import isEmptyArrayReference from "../../utils/predicates/isEmptyArrayReference";
 import SideBarVendorBadges from "./SideBarVendorBadges";
 
 type Props = {
@@ -26,12 +27,14 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemId, target }) => {
   const itemName = useAppSelector(state => selectItemName(state, itemId));
 
   const vendorIds = useAppSelector(state =>
-    selectVendorIdByItemId(state, itemId)
+    selectVendorIdsByItemId(state, itemId)
   );
 
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
-    dispatch(addItemToCarts({ itemId, checkedVendorIds: vendorIds }));
-    target.current?.focus();
+    if (!isEmptyArrayReference(vendorIds)) {
+      dispatch(addItemToCarts({ itemId, checkedVendorIds: vendorIds }));
+      target.current?.focus();
+    }
   }, [dispatch, itemId, target, vendorIds]);
 
   return (
@@ -50,13 +53,14 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemId, target }) => {
         className="text-center"
         orientation="vertical"
         size="small">
-        {vendorIds.map(vendorId => (
-          <SideBarVendorBadges
-            key={`SideBarVendorBadges-${itemId}${vendorId}`}
-            itemId={itemId}
-            vendorId={vendorId}
-          />
-        ))}
+        {!isEmptyArrayReference(vendorIds) &&
+          vendorIds.map(vendorId => (
+            <SideBarVendorBadges
+              key={`SideBarVendorBadges-${itemId}${vendorId}`}
+              itemId={itemId}
+              vendorId={vendorId}
+            />
+          ))}
       </ButtonGroup>
     </>
   );
