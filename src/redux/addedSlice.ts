@@ -9,31 +9,29 @@ import type {
   ItemIdAndVendorId,
   SearchResultsItem,
 } from "../types/redux";
-import { cartAdapter } from "./adapters/cartAdapter";
-import {
-  cartItemsAdapter,
-  initialCartItemsAdapterState,
-} from "./adapters/cartItemsAdapter";
-import { categoriesAdapter } from "./adapters/categoriesAdapter";
-import { itemsAdapter } from "./adapters/itemsAdapter";
-import { searchResultsAdapter } from "./adapters/searchResultsAdapter";
-import { vendorsAdapter } from "./adapters/vendorsAdapter";
+import cartAdapter from "./adapters/cartAdapter";
+import cartItemsAdapter from "./adapters/cartItemsAdapter";
+import categoriesAdapter from "./adapters/categoriesAdapter";
+import itemsAdapter from "./adapters/itemsAdapter";
+import searchResultsAdapter from "./adapters/searchResultsAdapter";
+import vendorsAdapter from "./adapters/vendorsAdapter";
 import { apiSlice } from "./apiSlice";
 import {
   draftSafeSelectors,
   localizedSelectors,
   simpleSelectors,
 } from "./draftSafeSelectors";
+import initialStates from "./initialStates";
 
-export const initialState: AddedState = {
-  searchResults: searchResultsAdapter.getInitialState(),
-  cart: cartAdapter.getInitialState(),
-  categories: categoriesAdapter.getInitialState(),
-  items: itemsAdapter.getInitialState(),
-  vendors: vendorsAdapter.getInitialState(),
+const initialState: AddedState = {
+  searchResults: initialStates.searchResults,
+  cart: initialStates.cart,
+  categories: initialStates.categories,
+  items: initialStates.items,
+  vendors: initialStates.vendors,
 } satisfies AddedState;
 
-export const addedSlice = createSlice({
+const addedSlice = createSlice({
   // selectors: { selectSearchResults: added => added.searchResults },
   name: "added",
   initialState,
@@ -48,7 +46,7 @@ export const addedSlice = createSlice({
         changes: {
           items: cartItemsAdapter.addOne(
             localizedSelectors.cart.selectById(state, id)?.items ??
-              initialCartItemsAdapterState,
+              initialStates.cartItems,
             {
               id: itemId,
               minimized: false,

@@ -1,5 +1,5 @@
 // Categories
-export type CategoryName =
+type CategoryName =
   | "BD Syringes"
   | "Caps"
   | "CardioCheck and A1C"
@@ -34,7 +34,7 @@ export type Categories = {
 };
 
 // Vendors
-export type VendorHelper = {
+type VendorHelper = {
   readonly MCK: "McKesson";
   readonly OI: "OrderInsite";
   readonly GNFR: "GNFR";
@@ -75,7 +75,7 @@ export type Item = {
 
 export type Items = Item[];
 
-export type Supplies = {
+type Supplies = {
   readonly items: Items;
   readonly vendors: Vendors;
   readonly categories: Categories;

@@ -6,7 +6,7 @@ import type { Selector } from "reselect";
 import type { AddedState } from "../types/redux";
 import type { AppDispatch, RootState } from "./store";
 
-export type TypedCreateSelector<State> = <
+type TypedCreateSelector<State> = <
   Selectors extends readonly Selector<State>[],
   Result,
 >(

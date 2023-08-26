@@ -7,9 +7,9 @@ export type SearchResultsItem = {
   checkedVendors: number[];
 };
 
-export type VendorsArray = Vendors[keyof Vendors][];
+type VendorsArray = Vendors[keyof Vendors][];
 
-export type CategoriesArray = Categories[keyof Categories][];
+type CategoriesArray = Categories[keyof Categories][];
 
 export type AddedState = {
   searchResults: EntityState<SearchResultsItem, number>;
@@ -30,7 +30,7 @@ export type Cart = {
   readonly items: EntityState<CartItems, number>;
 };
 
-export type NewItem = Omit<Item, "vendors"> & {
+type NewItem = Omit<Item, "vendors"> & {
   readonly vendors: number[];
 };
 

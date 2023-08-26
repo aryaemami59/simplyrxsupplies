@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import GITHUB_URL_ITEMS from "../data/fetchInfo";
 import { Item, OldItem, OldSupplies, VendorName } from "../types/api";
 import { Cart, SuppliesEntityState } from "../types/redux";
-import { cartItemsAdapter } from "./adapters/cartItemsAdapter";
+import initialStates from "./initialStates";
 
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -26,7 +26,7 @@ export const apiSlice = createApi({
           cart: Object.values(baseQueryReturnValue.vendors).map<Cart>(
             ({ id }) => ({
               id,
-              items: cartItemsAdapter.getInitialState(),
+              items: initialStates.cartItems,
             })
           ),
         };
@@ -35,4 +35,4 @@ export const apiSlice = createApi({
   }),
 });
 
-export const { reducerPath, useGetMainQuery } = apiSlice;
+export const { useGetMainQuery } = apiSlice;
