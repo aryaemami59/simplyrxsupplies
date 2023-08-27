@@ -31,7 +31,7 @@ const SearchResultsAddButton: FC<Props> = ({ visibleListId }) => {
 
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     if (!isEmptyArray(checkedVendorIds)) {
-      dispatch(addItemToCarts({ itemId: visibleListId, checkedVendorIds }));
+      dispatch(addItemToCarts({ itemId: visibleListId }));
     }
   }, [checkedVendorIds, dispatch, visibleListId]);
 

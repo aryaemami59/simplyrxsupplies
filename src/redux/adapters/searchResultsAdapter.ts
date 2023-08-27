@@ -1,7 +1,10 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
 
-import { SearchResultsItem } from "../../types/redux";
+import { CheckedVendorItems, SearchResultsItem } from "../../types/redux";
 
 const searchResultsAdapter = createEntityAdapter<SearchResultsItem>();
+
+export const checkedVendorItemsAdapter =
+  createEntityAdapter<CheckedVendorItems>();
 
 export default searchResultsAdapter;

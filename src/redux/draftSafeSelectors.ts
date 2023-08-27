@@ -1,12 +1,15 @@
 import type { Selector } from "reselect";
 
 import type { AddedState } from "../types/redux";
+import difference from "../utils/difference";
 import cartAdapter from "./adapters/cartAdapter";
 import cartItemsAdapter from "./adapters/cartItemsAdapter";
 import categoriesAdapter from "./adapters/categoriesAdapter";
 import checkedVendorsAdapter from "./adapters/checkedVendorsAdapter";
 import itemsAdapter from "./adapters/itemsAdapter";
-import searchResultsAdapter from "./adapters/searchResultsAdapter";
+import searchResultsAdapter, {
+  checkedVendorItemsAdapter,
+} from "./adapters/searchResultsAdapter";
 import vendorsAdapter from "./adapters/vendorsAdapter";
 import {
   AppSelector,
@@ -33,6 +36,10 @@ export const localizedSelectors = {
   // categories: categoriesAdapter.getSelectors<AddedState>(
   //   added => added.categories
   // ),
+
+  checkedVendorItems: checkedVendorItemsAdapter.getSelectors<AddedState>(
+    added => added.checkedVendorItems
+  ),
 };
 
 export const simpleSelectors = {
@@ -49,6 +56,8 @@ export const simpleSelectors = {
   cartItems: cartItemsAdapter.getSelectors(),
 
   checkedVendors: checkedVendorsAdapter.getSelectors(),
+
+  checkedVendorItems: checkedVendorItemsAdapter.getSelectors(),
 };
 
 type AddedSelector<
@@ -152,13 +161,13 @@ class DraftSafeSelectors {
   );
 
   public readonly selectUnCheckedVendorIds = createDraftSafeAppSelector(
-    [localizedSelectors.searchResults.selectAll, parametricSelectors.getCartId],
-    (searchResults, cartId) =>
-      searchResults.filter(
-        ({ checkedVendors }) =>
-          simpleSelectors.checkedVendors.selectById(checkedVendors, cartId) &&
-          !simpleSelectors.checkedVendors.selectById(checkedVendors, cartId)
-            ?.checked
+    [
+      localizedSelectors.checkedVendorItems.selectAll,
+      parametricSelectors.getCartId,
+    ],
+    (checkedVendorItems, cartId) =>
+      checkedVendorItems.filter(({ checkedVendors, vendors }) =>
+        difference(vendors, checkedVendors).includes(cartId)
       )
     // .filter(
     //   ({ checkedVendors }) => !checkedVendors.entities[cartId]?.checked
@@ -166,12 +175,13 @@ class DraftSafeSelectors {
   );
 
   public readonly selectSearchResultsByVendorId = createDraftSafeAppSelector(
-    [localizedSelectors.searchResults.selectAll, parametricSelectors.getCartId],
-    (searchResults, cartId) =>
-      searchResults.filter(
-        ({ checkedVendors }) =>
-          simpleSelectors.checkedVendors.selectById(checkedVendors, cartId)
-            ?.checked
+    [
+      localizedSelectors.checkedVendorItems.selectAll,
+      parametricSelectors.getCartId,
+    ],
+    (checkedVendorItems, cartId) =>
+      checkedVendorItems.filter(({ checkedVendors }) =>
+        checkedVendors.includes(cartId)
       )
   );
 }

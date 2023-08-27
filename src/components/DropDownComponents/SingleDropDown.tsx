@@ -23,9 +23,9 @@ const SingleDropDown: FC<Props> = ({ itemId, vendorId }) => {
 
   const clickHandler = useCallback<MouseEventHandler<HTMLElement>>(() => {
     if (!ifAddedToVendor) {
-      dispatch(addItemToCarts({ itemId, checkedVendorIds: [vendorId] }));
+      dispatch(addItemToCarts({ itemId }));
     }
-  }, [ifAddedToVendor, dispatch, itemId, vendorId]);
+  }, [ifAddedToVendor, dispatch, itemId]);
 
   return (
     <MenuItem

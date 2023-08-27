@@ -1,10 +1,13 @@
 import type { ItemNamesAndKeywords } from "../types/api";
 import type { AddedState } from "../types/redux";
 import emptyArray from "../utils/emptyArray";
+import search from "../utils/search";
 import cartAdapter from "./adapters/cartAdapter";
 import categoriesAdapter from "./adapters/categoriesAdapter";
 import itemsAdapter from "./adapters/itemsAdapter";
-import searchResultsAdapter from "./adapters/searchResultsAdapter";
+import searchResultsAdapter, {
+  checkedVendorItemsAdapter,
+} from "./adapters/searchResultsAdapter";
 import vendorsAdapter from "./adapters/vendorsAdapter";
 import { endpoints } from "./apiSlice";
 import {
@@ -89,6 +92,10 @@ const topLevelSelectors: TopLevelSelectors<RootState, "added"> = {
   // vendors: createAppSelector([selectAdded], added => added.vendors),
 
   // categories: createAppSelector([selectAdded], added => added.categories),
+  checkedVendorItems: createAppSelector(
+    [selectAdded],
+    added => added.checkedVendorItems
+  ),
 };
 
 export const globalizedSelectors = {
@@ -108,6 +115,9 @@ export const globalizedSelectors = {
   // categories: categoriesAdapter.getSelectors<RootState>(
   //   topLevelSelectors.categories
   // ),
+  checkedVendorItems: checkedVendorItemsAdapter.getSelectors<RootState>(
+    topLevelSelectors.checkedVendorItems
+  ),
 };
 
 export const selectVendorsLinks = createAppSelector(
@@ -149,18 +159,18 @@ export const selectVendorIdsByItemId = createAppSelector(
 export const selectItemNamesAndKeywords = createAppSelector(
   [globalizedSelectors.items.selectAll],
   items =>
-    items.map<ItemNamesAndKeywords>(
-      ({ name, keywords, id, category, itemNumber, vendors }) => ({
-        name,
-        keywords,
-        id,
-        category,
-        itemNumber,
-        vendors,
-      })
-    )
+    items.map<ItemNamesAndKeywords>(({ name, keywords, id, vendors }) => ({
+      name,
+      keywords,
+      id,
+      vendors,
+    }))
 );
 
+export const selectItemNamesAndKeywordsSorted = createAppSelector(
+  [selectItemNamesAndKeywords, (state, value: string) => value],
+  (itemNamesAndKeywords, value) => search(value, itemNamesAndKeywords)
+);
 export const checkIfAnyItemsAdded = createAppSelector(
   [globalizedSelectors.cart.selectAll],
   carts =>
@@ -188,15 +198,19 @@ export const selectCartItemNamesStringified = createAppSelector(
 );
 
 export const selectCheckedVendorIds = createAppSelector(
-  [globalizedSelectors.searchResults.selectById],
-  searchResult =>
-    searchResult
-      ? simpleSelectors.checkedVendors
-          .selectAll(searchResult.checkedVendors)
-          .filter(({ checked }) => checked)
-          .map(({ id }) => id)
-      : emptyArray
+  [globalizedSelectors.checkedVendorItems.selectById],
+  checkedVendorItem => checkedVendorItem?.checkedVendors ?? emptyArray
 );
+// export const selectCheckedVendorIds = createAppSelector(
+//   [globalizedSelectors.searchResults.selectById],
+//   searchResult =>
+//     searchResult
+//       ? simpleSelectors.checkedVendors
+//           .selectAll(searchResult.checkedVendors)
+//           .filter(({ checked }) => checked)
+//           .map(({ id }) => id)
+//       : emptyArray
+// );
 // export const selectCheckedVendorIds = createAppSelector(
 //   [globalizedSelectors.searchResults.selectById],
 //   searchResult =>
@@ -208,9 +222,17 @@ export const selectCheckedVendorIds = createAppSelector(
 // );
 
 export const isVendorChecked = createAppSelector(
-  [selectCheckedVendorIds, rootParametricSelectors.getItemIdAndCartId],
-  (checkedVendorIds, vendorId) => checkedVendorIds.includes(vendorId)
+  [
+    globalizedSelectors.checkedVendorItems.selectById,
+    rootParametricSelectors.getItemIdAndCartId,
+  ],
+  (checkedVendorItem, vendorId) =>
+    !!checkedVendorItem?.checkedVendors.includes(vendorId)
 );
+// export const isVendorChecked = createAppSelector(
+//   [selectCheckedVendorIds, rootParametricSelectors.getItemIdAndCartId],
+//   (checkedVendorIds, vendorId) => checkedVendorIds.includes(vendorId)
+// );
 
 const selectCartItem = createAppSelector(
   [selectCartItems, rootParametricSelectors.getCartIdAndItemId],
@@ -232,6 +254,14 @@ export const selectCategoryItemIds = createAppSelector(
   category => category?.itemIds ?? emptyArray
 );
 
+// export const checkIfAddedToVendor = createAppSelector(
+//   [
+//     globalizedSelectors.cart.selectById,
+//     rootParametricSelectors.getCartIdAndItemId,
+//   ],
+//   (cart, itemId) =>
+//     simpleSelectors.cartItems.selectIds(cart?.items).includes(itemId)
+// );
 export const checkIfAddedToVendor = createAppSelector(
   [selectCartItemsIds, rootParametricSelectors.getCartIdAndItemId],
   (cartItemsIds, itemId) => cartItemsIds.includes(itemId)
@@ -277,6 +307,22 @@ const selectCartsByItemId = createAppSelector(
   (item, carts) => carts.filter(e => item?.vendors.includes(e.id))
 );
 
+// export const checkIfAddedToAllVendors = createAppSelector(
+//   [
+//     globalizedSelectors.cart.selectEntities,
+//     globalizedSelectors.checkedVendorItems.selectById,
+//     rootParametricSelectors.getItemId,
+//   ],
+//   (cartEntities, checkedVendorItem, itemId) =>
+//     checkedVendorItem?.vendors
+//       .map(e => cartEntities[e])
+//       .reduce<boolean>(
+//         (acc, curr) =>
+//           simpleSelectors.cartItems.selectIds(curr.items).includes(itemId) &&
+//           acc,
+//         true
+//       )
+// );
 export const checkIfAddedToAllVendors = createAppSelector(
   [selectCartsByItemId, rootParametricSelectors.getItemId],
   (carts, itemId) =>
@@ -286,3 +332,13 @@ export const checkIfAddedToAllVendors = createAppSelector(
       true
     )
 );
+
+// export const selectShownSearchResults = createAppSelector(
+//   [globalizedSelectors.searchResults.selectAll],
+//   searchResults => searchResults.filter(({ shown }) => shown)
+// );
+
+// export const selectShownSearchResultsIds = createAppSelector(
+//   [selectShownSearchResults],
+//   searchResults => searchResults.map(({ id }) => id)
+// );

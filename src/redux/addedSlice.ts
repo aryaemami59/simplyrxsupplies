@@ -5,16 +5,16 @@ import type {
   AddedState,
   Cart,
   CartItems,
-  CheckedVendors,
-  ItemIdAndCheckedVendorIds,
+  CheckedVendorItems,
   ItemIdAndVendorId,
   ItemIdAndVendorIds,
   SearchResultsItem,
 } from "../types/redux";
 import cartAdapter from "./adapters/cartAdapter";
 import cartItemsAdapter from "./adapters/cartItemsAdapter";
-import checkedVendorsAdapter from "./adapters/checkedVendorsAdapter";
-import searchResultsAdapter from "./adapters/searchResultsAdapter";
+import searchResultsAdapter, {
+  checkedVendorItemsAdapter,
+} from "./adapters/searchResultsAdapter";
 import apiSlice from "./apiSlice";
 import {
   draftSafeSelectors,
@@ -26,6 +26,7 @@ import initialStates from "./initialStates";
 const initialState: AddedState = {
   searchResults: initialStates.searchResults,
   cart: initialStates.cart,
+  checkedVendorItems: initialStates.checkedVendorItems,
   // categories: initialStates.categories,
   // items: initialStates.items,
   // vendors: initialStates.vendors,
@@ -36,28 +37,37 @@ const addedSlice = createSlice({
   name: "added",
   initialState,
   reducers: {
-    addItemToCarts: (
-      state,
-      action: PayloadAction<ItemIdAndCheckedVendorIds>
-    ) => {
-      const { checkedVendorIds, itemId } = action.payload;
-      const updates = checkedVendorIds.map<Update<Cart, number>>(id => ({
-        id,
-        changes: {
-          items: cartItemsAdapter.addOne(
-            localizedSelectors.cart.selectById(state, id)?.items ??
-              initialStates.cartItems,
-            {
-              id: itemId,
-              minimized: false,
-              vendorId: id,
-            }
-          ),
+    addItemToCarts: (state, action: PayloadAction<{ itemId: number }>) => {
+      const { itemId } = action.payload;
+      const checkedVendorItems =
+        localizedSelectors.checkedVendorItems.selectById(state, itemId);
+      if (checkedVendorItems) {
+        const updates = checkedVendorItems.checkedVendors.map<
+          Update<Cart, number>
+        >(id => ({
           id,
-        },
-      }));
-      cartAdapter.updateMany(state.cart, updates);
-      searchResultsAdapter.removeOne(state.searchResults, itemId);
+          changes: {
+            items: cartItemsAdapter.addOne(
+              localizedSelectors.cart.selectById(state, id)?.items ??
+                initialStates.cartItems,
+              {
+                id: itemId,
+                minimized: false,
+                vendorId: id,
+              }
+            ),
+            // id,
+          },
+        }));
+        cartAdapter.updateMany(state.cart, updates);
+        checkedVendorItemsAdapter.updateOne(state.checkedVendorItems, {
+          id: itemId,
+          changes: {
+            checkedVendors: checkedVendorItems.vendors,
+          },
+        });
+        searchResultsAdapter.removeOne(state.searchResults, itemId);
+      }
     },
     deleteOneItemFromCart: (
       state,
@@ -76,6 +86,7 @@ const addedSlice = createSlice({
       state,
       action: PayloadAction<{ vendorId: number }>
     ) => {
+      // searchResultsAdapter.sortComparer()
       const { vendorId } = action.payload;
       const cartItems = draftSafeSelectors.selectCartItems(state, vendorId);
       cartAdapter.updateOne(state.cart, {
@@ -87,20 +98,28 @@ const addedSlice = createSlice({
       const { payload: itemIdAndVendorIds } = action;
 
       const element = itemIdAndVendorIds.map<SearchResultsItem>(
-        ({ itemId, vendorIds }) => ({
+        ({ itemId }) => ({
           id: itemId,
-          checkedVendors: checkedVendorsAdapter.upsertMany(
-            initialStates.checkedVendors,
-            vendorIds.map<CheckedVendors>(e => ({
-              id: e,
-              checked: !simpleSelectors.cartItems
-                .selectIds(localizedSelectors.cart.selectById(state, e)?.items)
-                .includes(itemId),
-            }))
-          ),
+          // checkedVendors: checkedVendorsAdapter.upsertMany(
+          //   localizedSelectors.searchResults.selectById(state, itemId)
+          //     ?.checkedVendors ?? initialStates.checkedVendors,
+          //   vendorIds.map<CheckedVendors>(e => ({
+          //     id: e,
+          //     itemId,
+          //     checked: !!localizedSelectors.checkedVendorItems
+          //       .selectById(state, itemId)
+          //       ?.checkedVendors.includes(e),
+          //   }))
+          // ),
         })
       );
       searchResultsAdapter.setAll(state.searchResults, element);
+      // searchResultsAdapter.updateMany(
+      //   state.searchResults,
+      //   itemIdAndVendorIds.map<Update<SearchResultsItem, number>>(
+      //     ({ itemId }) => ({ id: itemId, changes: { shown: true, id: itemId } })
+      //   )
+      // );
     },
     clearSearchResults: state => {
       searchResultsAdapter.removeAll(state.searchResults);
@@ -110,31 +129,39 @@ const addedSlice = createSlice({
       action: PayloadAction<ItemIdAndVendorId>
     ) => {
       const { itemId, vendorId } = action.payload;
-      const searchResultItem = localizedSelectors.searchResults.selectById(
-        state,
-        itemId
-      );
-      // if (searchResultItem) {
-      const newCheckedVendors = checkedVendorsAdapter.updateOne(
-        searchResultItem.checkedVendors,
-        {
-          id: vendorId,
+      const checkedVendorItems =
+        localizedSelectors.checkedVendorItems.selectById(state, itemId);
+      if (checkedVendorItems) {
+        checkedVendorItemsAdapter.updateOne(state.checkedVendorItems, {
+          id: itemId,
           changes: {
-            checked: !simpleSelectors.checkedVendors.selectById(
-              searchResultItem.checkedVendors,
-              vendorId
-            )?.checked,
+            checkedVendors: checkedVendorItems.checkedVendors.includes(vendorId)
+              ? checkedVendorItems.checkedVendors.filter(e => e !== vendorId)
+              : checkedVendorItems.checkedVendors.concat(vendorId),
           },
-        }
-      );
-      // : checkedVendorsAdapter.updateOne(searchResultItem.checkedVendors, {
-      //     id: vendorId,
-      //     changes: { checked: true },
+        });
+      }
+      // const searchResultItem = localizedSelectors.searchResults.selectById(
+      //   state,
+      //   itemId
+      // );
+      // if (searchResultItem) {
+      //   const newCheckedVendors = checkedVendorsAdapter.updateOne(
+      //     searchResultItem.checkedVendors,
+      //     {
+      //       id: vendorId,
+      //       changes: {
+      //         checked: !simpleSelectors.checkedVendors.selectById(
+      //           searchResultItem.checkedVendors,
+      //           vendorId
+      //         )?.checked,
+      //       },
+      //     }
+      //   );
+      //   searchResultsAdapter.updateOne(state.searchResults, {
+      //     id: itemId,
+      //     changes: { checkedVendors: newCheckedVendors },
       //   });
-      searchResultsAdapter.updateOne(state.searchResults, {
-        id: itemId,
-        changes: { checkedVendors: newCheckedVendors },
-      });
       // }
     },
     toggleMinimizeOneItemInCart: (
@@ -205,18 +232,20 @@ const addedSlice = createSlice({
         state,
         vendorId
       );
-      const updates = needToBeUpdated.map<Update<SearchResultsItem, number>>(
+      const updates = needToBeUpdated.map<Update<CheckedVendorItems, number>>(
         ({ checkedVendors, id }) => ({
           id,
           changes: {
-            checkedVendors: checkedVendorsAdapter.updateOne(checkedVendors, {
-              id: vendorId,
-              changes: { checked: true },
-            }),
+            checkedVendors: checkedVendors.concat(vendorId),
+            // checkedVendors: checkedVendorsAdapter.updateOne(checkedVendors, {
+            //   id: vendorId,
+            //   changes: { checked: true },
+            // }),
           },
         })
       );
-      searchResultsAdapter.updateMany(state.searchResults, updates);
+      checkedVendorItemsAdapter.updateMany(state.checkedVendorItems, updates);
+      // searchResultsAdapter.updateMany(state.searchResults, updates);
     },
     unCheckOneVendorForAllSearchResults: (
       state,
@@ -225,31 +254,60 @@ const addedSlice = createSlice({
       const { vendorId } = action.payload;
       const searchResultItemsByVendor =
         draftSafeSelectors.selectSearchResultsByVendorId(state, vendorId);
-      searchResultsAdapter.updateMany(
-        state.searchResults,
-        searchResultItemsByVendor.map<Update<SearchResultsItem, number>>(
-          ({ id, checkedVendors }) => ({
-            id,
-            changes: {
-              checkedVendors: checkedVendorsAdapter.updateOne(checkedVendors, {
-                id: vendorId,
-                changes: { checked: false },
-              }),
-            },
-          })
-        )
-      );
+      const updates = searchResultItemsByVendor.map<
+        Update<CheckedVendorItems, number>
+      >(({ checkedVendors, id }) => ({
+        id,
+        changes: { checkedVendors: checkedVendors.filter(e => e !== vendorId) },
+      }));
+      checkedVendorItemsAdapter.updateMany(state.checkedVendorItems, updates);
+      // searchResultsAdapter.updateMany(
+      //   state.searchResults,
+      //   searchResultItemsByVendor.map<Update<SearchResultsItem, number>>(
+      //     ({ id, checkedVendors }) => ({
+      //       id,
+      //       changes: {
+      //         checkedVendors: checkedVendorsAdapter.updateOne(checkedVendors, {
+      //           id: vendorId,
+      //           changes: { checked: false },
+      //         }),
+      //       },
+      //     })
+      //   )
+      // );
     },
   },
   extraReducers: builder => {
     builder.addMatcher(
       apiSlice.endpoints.getMain.matchFulfilled,
       (state, action) => {
-        const { cart } = action.payload;
+        const { cart, items } = action.payload;
         // itemsAdapter.setAll(state.items, items);
         // vendorsAdapter.setAll(state.vendors, vendors);
         // categoriesAdapter.setAll(state.categories, categories);
         cartAdapter.setAll(state.cart, cart);
+        checkedVendorItemsAdapter.setAll(
+          state.checkedVendorItems,
+          items.map<CheckedVendorItems>(({ id, vendors }) => ({
+            id,
+            checkedVendors: vendors,
+            vendors,
+          }))
+        );
+        // searchResultsAdapter.setAll(
+        //   state.searchResults,
+        //   items.map<SearchResultsItem>(({ id, vendors }) => ({
+        //     id,
+        //     checkedVendors: checkedVendorsAdapter.setAll(
+        //       initialStates.checkedVendors,
+        //       vendors.map<CheckedVendors>(vendorId => ({
+        //         id: vendorId,
+        //         checked: true,
+        //       }))
+        //     ),
+        //     shown: false,
+        //   }))
+        // );
       }
     );
   },

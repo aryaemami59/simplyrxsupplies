@@ -4,7 +4,7 @@ import { memo } from "react";
 
 import { useAppSelector } from "../../redux/hooks";
 import { selectVendorIdsByItemId } from "../../redux/selectors";
-import isEmptyArrayReference from "../../utils/predicates/isEmptyArrayReference";
+import isEmptyArray from "../../utils/predicates/isEmptyArray";
 import SearchResultsAddButton from "./SearchResultsAddButton";
 import SearchResultsItemName from "./SearchResultsItemName";
 import SwitchComponent from "./SwitchComponent";
@@ -29,7 +29,7 @@ const SearchResultsCardBodyContent: FC<Props> = ({ visibleListId }) => {
         <div className="justify-content-center justify-content-sm-center align-items-center m-0 row">
           <div className="pe-0 col-lg-8 col-7">
             <div className="m-0 row w-100">
-              {!isEmptyArrayReference(vendorIds) &&
+              {!isEmptyArray(vendorIds) &&
                 vendorIds.map(vendorId => (
                   <SwitchComponent
                     key={`SwitchComponent-${visibleListId}${vendorId}`}

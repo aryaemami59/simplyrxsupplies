@@ -3,15 +3,17 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import PropTypes from "prop-types";
 import type { FC, MouseEventHandler, RefObject } from "react";
 import { memo, useCallback } from "react";
+import { shallowEqual } from "react-redux";
 
 import { addItemToCarts } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   checkIfAddedToAllVendors,
+  selectCheckedVendorIds,
   selectItemName,
   selectVendorIdsByItemId,
 } from "../../redux/selectors";
-import isEmptyArrayReference from "../../utils/predicates/isEmptyArrayReference";
+import isEmptyArray from "../../utils/predicates/isEmptyArray";
 import SideBarVendorBadges from "./SideBarVendorBadges";
 
 type Props = {
@@ -30,12 +32,17 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemId, target }) => {
     selectVendorIdsByItemId(state, itemId)
   );
 
+  const checkedVendorIds = useAppSelector(
+    state => selectCheckedVendorIds(state, itemId),
+    shallowEqual
+  );
+
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
-    if (!isEmptyArrayReference(vendorIds)) {
-      dispatch(addItemToCarts({ itemId, checkedVendorIds: vendorIds }));
+    if (!isEmptyArray(checkedVendorIds)) {
+      dispatch(addItemToCarts({ itemId }));
       target.current?.focus();
     }
-  }, [dispatch, itemId, target, vendorIds]);
+  }, [dispatch, itemId, target, checkedVendorIds]);
 
   return (
     <>
@@ -53,7 +60,7 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemId, target }) => {
         className="text-center"
         orientation="vertical"
         size="small">
-        {!isEmptyArrayReference(vendorIds) &&
+        {!isEmptyArray(vendorIds) &&
           vendorIds.map(vendorId => (
             <SideBarVendorBadges
               key={`SideBarVendorBadges-${itemId}${vendorId}`}

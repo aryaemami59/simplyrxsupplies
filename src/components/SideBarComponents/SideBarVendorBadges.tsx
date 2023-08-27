@@ -7,7 +7,7 @@ import { memo, useCallback, useMemo } from "react";
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 import { toggleVendorForOneSearchResultItem } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { checkIfAddedToVendor, checkVendorsToAdd } from "../../redux/selectors";
+import { checkIfAddedToVendor, isVendorChecked } from "../../redux/selectors";
 import { ItemIdAndVendorId } from "../../types/redux";
 
 type Props = ItemIdAndVendorId;
@@ -16,10 +16,16 @@ const SideBarVendorBadges: FC<Props> = ({ itemId, vendorId }) => {
   const dispatch = useAppDispatch();
   const officialVendorName = useOfficialVendorName(vendorId);
 
+  // const checked = useAppSelector(state =>
+  //   checkVendorsToAdd(state, vendorId, itemId)
+  // );
   const checked = useAppSelector(state =>
-    checkVendorsToAdd(state, vendorId, itemId)
+    isVendorChecked(state, itemId, vendorId)
   );
 
+  // const disabled = useAppSelector(state =>
+  //   checkIfAddedToAllVendors(state, itemId)
+  // );
   const disabled = useAppSelector(state =>
     checkIfAddedToVendor(state, vendorId, itemId)
   );

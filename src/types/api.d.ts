@@ -97,4 +97,8 @@ export type OldSupplies = Omit<Supplies, "items"> & {
   readonly items: OldItem[];
 };
 
-export type ItemNamesAndKeywords = Omit<Item, "src">;
+export type ItemNamesAndKeywords = Pick<
+  Item,
+  "id" | "name" | "keywords" | "vendors"
+>;
+// export type ItemNamesAndKeywords = Omit<Item, "src">;

@@ -3,7 +3,9 @@ import cartItemsAdapter from "./adapters/cartItemsAdapter";
 import categoriesAdapter from "./adapters/categoriesAdapter";
 import checkedVendorsAdapter from "./adapters/checkedVendorsAdapter";
 import itemsAdapter from "./adapters/itemsAdapter";
-import searchResultsAdapter from "./adapters/searchResultsAdapter";
+import searchResultsAdapter, {
+  checkedVendorItemsAdapter,
+} from "./adapters/searchResultsAdapter";
 import vendorsAdapter from "./adapters/vendorsAdapter";
 
 const initialStates = {
@@ -20,6 +22,8 @@ const initialStates = {
   cartItems: cartItemsAdapter.getInitialState(),
 
   checkedVendors: checkedVendorsAdapter.getInitialState(),
+
+  checkedVendorItems: checkedVendorItemsAdapter.getInitialState(),
 };
 
 export default initialStates;
