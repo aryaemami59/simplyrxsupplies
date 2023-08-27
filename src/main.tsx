@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 
 import App from "./App";
-import { apiSlice } from "./redux/apiSlice";
+import apiSlice from "./redux/apiSlice";
 // import * as hooks from "./redux/hooks";
 import { store } from "./redux/store";
 

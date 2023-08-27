@@ -11,7 +11,7 @@ import {
   checkIfAddedToAllVendors,
   selectCheckedVendorIds,
 } from "../../redux/selectors";
-import isEmptyArrayReference from "../../utils/predicates/isEmptyArrayReference";
+import isEmptyArray from "../../utils/predicates/isEmptyArray";
 
 const startIcon = <AddIcon />;
 
@@ -30,7 +30,7 @@ const SearchResultsAddButton: FC<Props> = ({ visibleListId }) => {
   );
 
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
-    if (!isEmptyArrayReference(checkedVendorIds)) {
+    if (!isEmptyArray(checkedVendorIds)) {
       dispatch(addItemToCarts({ itemId: visibleListId, checkedVendorIds }));
     }
   }, [checkedVendorIds, dispatch, visibleListId]);

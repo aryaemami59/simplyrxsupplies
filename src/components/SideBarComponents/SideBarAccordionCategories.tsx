@@ -15,7 +15,7 @@ import {
   selectCategoryItemIds,
   selectCategoryName,
 } from "../../redux/selectors";
-import isEmptyArrayReference from "../../utils/predicates/isEmptyArrayReference";
+import isEmptyArray from "../../utils/predicates/isEmptyArray";
 import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem";
 
 const expandIcon: AccordionSummaryProps["expandIcon"] = <ExpandMoreIcon />;
@@ -58,7 +58,7 @@ const SideBarAccordionCategories: FC<Props> = ({ categoryId }) => {
           <Typography>{categoryName}</Typography>
         </AccordionSummary>
         <AccordionDetails className="text-center mw-7">
-          {!isEmptyArrayReference(categoryItemIds) &&
+          {!isEmptyArray(categoryItemIds) &&
             categoryItemIds.map(itemId => (
               <SingleSideBarCategoryListItem
                 key={`${itemId}-SingleSideBarAccordionListItem`}

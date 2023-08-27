@@ -1,7 +1,6 @@
 import type { ItemNamesAndKeywords } from "../types/api";
 import type { AddedState } from "../types/redux";
 import emptyArray from "../utils/emptyArray";
-import isEmptyArrayReference from "../utils/predicates/isEmptyArrayReference";
 import cartAdapter from "./adapters/cartAdapter";
 import categoriesAdapter from "./adapters/categoriesAdapter";
 import itemsAdapter from "./adapters/itemsAdapter";
@@ -87,9 +86,9 @@ const topLevelSelectors: TopLevelSelectors<RootState, "added"> = {
 
   // items: createAppSelector([selectAdded], added => added.items),
 
-  vendors: createAppSelector([selectAdded], added => added.vendors),
+  // vendors: createAppSelector([selectAdded], added => added.vendors),
 
-  categories: createAppSelector([selectAdded], added => added.categories),
+  // categories: createAppSelector([selectAdded], added => added.categories),
 };
 
 export const globalizedSelectors = {
@@ -99,7 +98,7 @@ export const globalizedSelectors = {
 
   cart: cartAdapter.getSelectors<RootState>(topLevelSelectors.cart),
 
-  items: itemsAdapter.getSelectors<RootState>(state => selectItemsData(state)),
+  items: itemsAdapter.getSelectors<RootState>(selectItemsData),
   // items: itemsAdapter.getSelectors<RootState>(topLevelSelectors.items),
 
   vendors: vendorsAdapter.getSelectors<RootState>(selectVendorsData),
@@ -191,16 +190,26 @@ export const selectCartItemNamesStringified = createAppSelector(
 export const selectCheckedVendorIds = createAppSelector(
   [globalizedSelectors.searchResults.selectById],
   searchResult =>
-    searchResult == null || searchResult.checkedVendors.length === 0
-      ? emptyArray
-      : searchResult.checkedVendors
+    searchResult
+      ? simpleSelectors.checkedVendors
+          .selectAll(searchResult.checkedVendors)
+          .filter(({ checked }) => checked)
+          .map(({ id }) => id)
+      : emptyArray
 );
+// export const selectCheckedVendorIds = createAppSelector(
+//   [globalizedSelectors.searchResults.selectById],
+//   searchResult =>
+//     searchResult == null ||
+//     simpleSelectors.checkedVendors.selectTotal(searchResult.checkedVendors) ===
+//       0
+//       ? emptyArray
+//       : searchResult.checkedVendors
+// );
 
 export const isVendorChecked = createAppSelector(
   [selectCheckedVendorIds, rootParametricSelectors.getItemIdAndCartId],
-  (checkedVendorIds, vendorId) =>
-    isEmptyArrayReference(checkedVendorIds) ||
-    checkedVendorIds.includes(vendorId)
+  (checkedVendorIds, vendorId) => checkedVendorIds.includes(vendorId)
 );
 
 const selectCartItem = createAppSelector(

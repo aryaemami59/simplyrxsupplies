@@ -4,6 +4,7 @@ import type { AddedState } from "../types/redux";
 import cartAdapter from "./adapters/cartAdapter";
 import cartItemsAdapter from "./adapters/cartItemsAdapter";
 import categoriesAdapter from "./adapters/categoriesAdapter";
+import checkedVendorsAdapter from "./adapters/checkedVendorsAdapter";
 import itemsAdapter from "./adapters/itemsAdapter";
 import searchResultsAdapter from "./adapters/searchResultsAdapter";
 import vendorsAdapter from "./adapters/vendorsAdapter";
@@ -27,11 +28,11 @@ export const localizedSelectors = {
 
   // items: itemsAdapter.getSelectors<AddedState>(added => added.items),
 
-  vendors: vendorsAdapter.getSelectors<AddedState>(added => added.vendors),
+  // vendors: vendorsAdapter.getSelectors<AddedState>(added => added.vendors),
 
-  categories: categoriesAdapter.getSelectors<AddedState>(
-    added => added.categories
-  ),
+  // categories: categoriesAdapter.getSelectors<AddedState>(
+  //   added => added.categories
+  // ),
 };
 
 export const simpleSelectors = {
@@ -46,6 +47,8 @@ export const simpleSelectors = {
   categories: categoriesAdapter.getSelectors(),
 
   cartItems: cartItemsAdapter.getSelectors(),
+
+  checkedVendors: checkedVendorsAdapter.getSelectors(),
 };
 
 type AddedSelector<
@@ -148,11 +151,27 @@ class DraftSafeSelectors {
     simpleSelectors.cartItems.selectAll
   );
 
+  public readonly selectUnCheckedVendorIds = createDraftSafeAppSelector(
+    [localizedSelectors.searchResults.selectAll, parametricSelectors.getCartId],
+    (searchResults, cartId) =>
+      searchResults.filter(
+        ({ checkedVendors }) =>
+          simpleSelectors.checkedVendors.selectById(checkedVendors, cartId) &&
+          !simpleSelectors.checkedVendors.selectById(checkedVendors, cartId)
+            ?.checked
+      )
+    // .filter(
+    //   ({ checkedVendors }) => !checkedVendors.entities[cartId]?.checked
+    // )
+  );
+
   public readonly selectSearchResultsByVendorId = createDraftSafeAppSelector(
     [localizedSelectors.searchResults.selectAll, parametricSelectors.getCartId],
     (searchResults, cartId) =>
-      searchResults.filter(({ checkedVendors }) =>
-        checkedVendors.includes(cartId)
+      searchResults.filter(
+        ({ checkedVendors }) =>
+          simpleSelectors.checkedVendors.selectById(checkedVendors, cartId)
+            ?.checked
       )
   );
 }

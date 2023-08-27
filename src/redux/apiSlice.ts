@@ -5,7 +5,7 @@ import { Item, OldItem, OldSupplies, VendorName } from "../types/api";
 import { Cart, SuppliesEntityState } from "../types/redux";
 import initialStates from "./initialStates";
 
-export const apiSlice = createApi({
+const apiSlice = createApi({
   reducerPath: "api",
   tagTypes: ["Supplies"],
   baseQuery: fetchBaseQuery({ baseUrl: GITHUB_URL_ITEMS }),
@@ -36,3 +36,5 @@ export const apiSlice = createApi({
 });
 
 export const { useGetMainQuery, endpoints } = apiSlice;
+
+export default apiSlice;

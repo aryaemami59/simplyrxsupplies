@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { createLogger } from "redux-logger";
 
-import addedReducer from "./addedSlice";
-import { apiSlice } from "./apiSlice";
+import addedSlice from "./addedSlice";
+import apiSlice from "./apiSlice";
 
 // const immutableInvariantMiddleware = createImmutableStateInvariantMiddleware();
 
@@ -28,7 +28,7 @@ export const store = configureStore({
           logger as ReturnType<typeof getDefaultMiddleware>[number]
         ),
   reducer: {
-    added: addedReducer,
+    [addedSlice.reducerPath]: addedSlice.reducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   enhancers: getDefaultEnhancers => getDefaultEnhancers(),

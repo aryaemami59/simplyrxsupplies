@@ -1,10 +1,15 @@
 import { EntityState } from "@reduxjs/toolkit";
 
-import type { Categories, Category, Item, Items, Vendor, Vendors } from "./api";
+import type { Categories, Item, Items, Vendors } from "./api";
+
+export type CheckedVendors = {
+  id: number;
+  checked: boolean;
+};
 
 export type SearchResultsItem = {
   id: number;
-  checkedVendors: number[];
+  checkedVendors: EntityState<CheckedVendors, number>;
 };
 
 type VendorsArray = Vendors[keyof Vendors][];
@@ -15,8 +20,8 @@ export type AddedState = {
   searchResults: EntityState<SearchResultsItem, number>;
   cart: EntityState<Cart, number>;
   // items: EntityState<NewItem, number>;
-  vendors: EntityState<Vendor, number>;
-  categories: EntityState<Category, number>;
+  // vendors: EntityState<Vendor, number>;
+  // categories: EntityState<Category, number>;
 };
 
 export type CartItems = {
@@ -44,6 +49,11 @@ export type SuppliesEntityState = {
 export type ItemIdAndCheckedVendorIds = {
   itemId: number;
   checkedVendorIds: number[];
+};
+
+export type ItemIdAndVendorIds = {
+  itemId: number;
+  vendorIds: number[];
 };
 
 export type ItemIdAndVendorId = {
