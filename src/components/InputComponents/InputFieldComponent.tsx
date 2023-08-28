@@ -13,7 +13,6 @@ import { clearSearchResults, setSearchResults } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectItemNamesAndKeywords } from "../../redux/selectors";
 import { SEARCH_FIELD_BG } from "../../shared/sharedStyles";
-import { ItemIdAndVendorIds } from "../../types/redux";
 import search from "../../utils/search";
 import InputEndAdornment from "./InputEndAdornment";
 
@@ -41,21 +40,8 @@ const InputFieldComponent: FC = () => {
       setInputValue(value);
       startTransition(() => {
         const listItems = search(value, itemNamesAndKeywords);
-        const newListItems = listItems.map<ItemIdAndVendorIds>(
-          ({ id, vendors }) => ({
-            itemId: id,
-            vendorIds: vendors,
-            // id,
-            // checkedVendors: checkedVendorsAdapter.upsertMany(
-            //   initialStates.checkedVendors,
-            //   vendors.map<CheckedVendors>(vendorId => ({
-            //     id: vendorId,
-            //     checked: true,
-            //   }))
-            // ),
-          })
-        );
-        dispatch(setSearchResults(newListItems));
+        const searchResultsIds = listItems.map<number>(({ id }) => id);
+        dispatch(setSearchResults(searchResultsIds));
       });
     },
     [dispatch, itemNamesAndKeywords]

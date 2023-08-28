@@ -25,7 +25,7 @@ export type Category = {
   readonly name: CategoryName;
 };
 
-export type Categories = {
+type Categories = {
   readonly [K in CategoryName]: {
     readonly id: number;
     readonly itemIds: number[];
@@ -49,7 +49,7 @@ export type VendorName = keyof VendorHelper;
 
 export type OfficialVendorName = VendorHelper[VendorName];
 
-export type Vendors = {
+type Vendors = {
   readonly [K in VendorName]: {
     readonly id: number;
     readonly officialName: VendorHelper[K];
@@ -73,7 +73,7 @@ export type Item = {
   readonly src: string;
 };
 
-export type Items = Item[];
+type Items = Item[];
 
 type Supplies = {
   readonly items: Items;
@@ -82,11 +82,6 @@ type Supplies = {
 };
 
 // Additional Types
-// export type VendorAndItemName = {
-//   itemName: string;
-//   vendorName: VendorName;
-// };
-
 // TODO: Once the api field vendors and categories change to contain ids, this type can be disposed of.
 export type OldItem = Omit<Item, "vendors"> & {
   readonly vendors: VendorName[];
@@ -97,8 +92,4 @@ export type OldSupplies = Omit<Supplies, "items"> & {
   readonly items: OldItem[];
 };
 
-export type ItemNamesAndKeywords = Pick<
-  Item,
-  "id" | "name" | "keywords" | "vendors"
->;
-// export type ItemNamesAndKeywords = Omit<Item, "src">;
+export type ItemNamesAndKeywords = Pick<Item, "id" | "name" | "keywords">;

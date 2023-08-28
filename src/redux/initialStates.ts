@@ -1,29 +1,20 @@
-import cartAdapter from "./adapters/cartAdapter";
-import cartItemsAdapter from "./adapters/cartItemsAdapter";
-import categoriesAdapter from "./adapters/categoriesAdapter";
-import checkedVendorsAdapter from "./adapters/checkedVendorsAdapter";
-import itemsAdapter from "./adapters/itemsAdapter";
-import searchResultsAdapter, {
-  checkedVendorItemsAdapter,
-} from "./adapters/searchResultsAdapter";
-import vendorsAdapter from "./adapters/vendorsAdapter";
+import { AdaptersInitialStates } from "../types/redux";
+import ADAPTERS from "./adapters/Adapters";
 
-const initialStates = {
-  searchResults: searchResultsAdapter.getInitialState(),
+const INITIAL_STATES: AdaptersInitialStates = {
+  searchResults: ADAPTERS.searchResults.getInitialState(),
 
-  cart: cartAdapter.getInitialState(),
+  cart: ADAPTERS.cart.getInitialState(),
 
-  items: itemsAdapter.getInitialState(),
+  items: ADAPTERS.items.getInitialState(),
 
-  vendors: vendorsAdapter.getInitialState(),
+  vendors: ADAPTERS.vendors.getInitialState(),
 
-  categories: categoriesAdapter.getInitialState(),
+  categories: ADAPTERS.categories.getInitialState(),
 
-  cartItems: cartItemsAdapter.getInitialState(),
+  cartItems: ADAPTERS.cartItems.getInitialState(),
 
-  checkedVendors: checkedVendorsAdapter.getInitialState(),
+  checkedVendorItems: ADAPTERS.checkedVendorItems.getInitialState(),
+} as const satisfies AdaptersInitialStates;
 
-  checkedVendorItems: checkedVendorItemsAdapter.getInitialState(),
-};
-
-export default initialStates;
+export default INITIAL_STATES;

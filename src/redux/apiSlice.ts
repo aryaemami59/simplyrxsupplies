@@ -2,15 +2,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import GITHUB_URL_ITEMS from "../data/fetchInfo";
 import { Item, OldItem, OldSupplies, VendorName } from "../types/api";
-import { Cart, SuppliesEntityState } from "../types/redux";
-import initialStates from "./initialStates";
+import { Cart, SuppliesState } from "../types/redux";
+import INITIAL_STATES from "./initialStates";
 
 const apiSlice = createApi({
   reducerPath: "api",
   tagTypes: ["Supplies"],
   baseQuery: fetchBaseQuery({ baseUrl: GITHUB_URL_ITEMS }),
   endpoints: build => ({
-    getMain: build.query<SuppliesEntityState, void>({
+    getMain: build.query<SuppliesState, void>({
       query: () => "",
       transformResponse: (baseQueryReturnValue: OldSupplies) => {
         const newItems = baseQueryReturnValue.items.map<Item>((a: OldItem) => {
@@ -26,7 +26,7 @@ const apiSlice = createApi({
           cart: Object.values(baseQueryReturnValue.vendors).map<Cart>(
             ({ id }) => ({
               id,
-              items: initialStates.cartItems,
+              items: INITIAL_STATES.cartItems,
             })
           ),
         };

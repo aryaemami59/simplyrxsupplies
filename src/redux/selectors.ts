@@ -1,59 +1,29 @@
+import type { AddedState } from "../types/AddedState";
 import type { ItemNamesAndKeywords } from "../types/api";
-import type { AddedState } from "../types/redux";
 import emptyArray from "../utils/emptyArray";
-import search from "../utils/search";
-import cartAdapter from "./adapters/cartAdapter";
-import categoriesAdapter from "./adapters/categoriesAdapter";
-import itemsAdapter from "./adapters/itemsAdapter";
-import searchResultsAdapter, {
-  checkedVendorItemsAdapter,
-} from "./adapters/searchResultsAdapter";
-import vendorsAdapter from "./adapters/vendorsAdapter";
+import ADAPTERS from "./adapters/Adapters";
 import { endpoints } from "./apiSlice";
+import { SELECTORS } from "./draftSafeSelectors";
+import type {
+  AdapterGlobalizedSelectors,
+  AppSelector,
+  TopLevelSelectorsForAddedState,
+} from "./hooks";
 import {
-  ParametricSelectors,
-  simpleSelectors,
-  TopLevelSelectors,
-} from "./draftSafeSelectors";
-import type { AppSelector } from "./hooks";
-import { createAppSelector, createDraftSafeRootSelector } from "./hooks";
-import initialStates from "./initialStates";
-import type { RootState } from "./store";
+  createAppSelector,
+  createDraftSafeRootSelector,
+  RootSelectorParamsProvider,
+} from "./hooks";
+import INITIAL_STATES from "./initialStates";
 
-type RootParametricSelectors = ParametricSelectors<
-  RootState,
-  readonly [
-    itemId: {
-      readonly name: "itemId";
-      readonly params: readonly [itemId: number];
-      readonly returnType: number;
-    },
-    cartId: {
-      readonly name: "cartId";
-      readonly params: readonly [cartId: number];
-      readonly returnType: number;
-    },
-    cartIdAndItemId: {
-      readonly name: "cartIdAndItemId";
-      readonly params: readonly [cartId: number, itemId: number];
-      readonly returnType: number;
-    },
-    ItemIdAndCartId: {
-      readonly name: "ItemIdAndCartId";
-      readonly params: readonly [itemId: number, cartId: number];
-      readonly returnType: number;
-    },
-  ]
->;
-
-const rootParametricSelectors: RootParametricSelectors = {
+export const ROOT_SELECTOR_PARAMS_PROVIDER: RootSelectorParamsProvider = {
   getItemId: (state, itemId) => itemId,
   getCartId: (state, cartId) => cartId,
   getCartIdAndItemId: (state, cartId, itemId) => itemId,
   getItemIdAndCartId: (state, itemId, cartId) => cartId,
-} as const satisfies RootParametricSelectors;
+} as const satisfies RootSelectorParamsProvider;
 
-const selectAdded: AppSelector<AddedState, never> = state => state.added;
+export const selectAdded: AppSelector<AddedState, never> = state => state.added;
 
 export const selectMainResults = endpoints.getMain.select();
 
@@ -64,61 +34,57 @@ export const selectMainData = createDraftSafeRootSelector(
 
 export const selectItemsData = createDraftSafeRootSelector(
   [selectMainData],
-  data => itemsAdapter.setAll(initialStates.items, data?.items ?? emptyArray)
+  data => ADAPTERS.items.setAll(INITIAL_STATES.items, data?.items ?? emptyArray)
 );
 
 export const selectVendorsData = createDraftSafeRootSelector(
   [selectMainData],
   data =>
-    vendorsAdapter.setAll(initialStates.vendors, data?.vendors ?? emptyArray)
+    ADAPTERS.vendors.setAll(INITIAL_STATES.vendors, data?.vendors ?? emptyArray)
 );
 
 export const selectCategoriesData = createDraftSafeRootSelector(
   [selectMainData],
   data =>
-    categoriesAdapter.setAll(
-      initialStates.categories,
+    ADAPTERS.categories.setAll(
+      INITIAL_STATES.categories,
       data?.categories ?? emptyArray
     )
 );
 
-const topLevelSelectors: TopLevelSelectors<RootState, "added"> = {
+export const TOP_LEVEL_SELECTORS: TopLevelSelectorsForAddedState = {
   searchResults: createAppSelector([selectAdded], added => added.searchResults),
 
   cart: createAppSelector([selectAdded], added => added.cart),
 
-  // items: createAppSelector([selectAdded], added => added.items),
-
-  // vendors: createAppSelector([selectAdded], added => added.vendors),
-
-  // categories: createAppSelector([selectAdded], added => added.categories),
   checkedVendorItems: createAppSelector(
     [selectAdded],
     added => added.checkedVendorItems
   ),
 };
 
-export const globalizedSelectors = {
-  searchResults: searchResultsAdapter.getSelectors<RootState>(
-    topLevelSelectors.searchResults
+export const globalizedSelectors: AdapterGlobalizedSelectors = {
+  searchResults: ADAPTERS.searchResults.getSelectors(
+    TOP_LEVEL_SELECTORS.searchResults
   ),
 
-  cart: cartAdapter.getSelectors<RootState>(topLevelSelectors.cart),
+  cart: ADAPTERS.cart.getSelectors(TOP_LEVEL_SELECTORS.cart),
 
-  items: itemsAdapter.getSelectors<RootState>(selectItemsData),
-  // items: itemsAdapter.getSelectors<RootState>(topLevelSelectors.items),
+  items: ADAPTERS.items.getSelectors(selectItemsData),
 
-  vendors: vendorsAdapter.getSelectors<RootState>(selectVendorsData),
-  // vendors: vendorsAdapter.getSelectors<RootState>(topLevelSelectors.vendors),
+  vendors: ADAPTERS.vendors.getSelectors(selectVendorsData),
 
-  categories: categoriesAdapter.getSelectors<RootState>(selectCategoriesData),
-  // categories: categoriesAdapter.getSelectors<RootState>(
-  //   topLevelSelectors.categories
-  // ),
-  checkedVendorItems: checkedVendorItemsAdapter.getSelectors<RootState>(
-    topLevelSelectors.checkedVendorItems
+  categories: ADAPTERS.categories.getSelectors(selectCategoriesData),
+
+  checkedVendorItems: ADAPTERS.checkedVendorItems.getSelectors(
+    TOP_LEVEL_SELECTORS.checkedVendorItems
   ),
-};
+} as const satisfies AdapterGlobalizedSelectors;
+
+// export const ADAPTER_SELECTORS: SelectorsWithGlobal = {
+//   ...SELECTORS,
+//   GLOBAL: globalizedSelectors,
+// };
 
 export const selectVendorsLinks = createAppSelector(
   [globalizedSelectors.vendors.selectById],
@@ -129,10 +95,6 @@ export const selectItemNumber = createAppSelector(
   [globalizedSelectors.items.selectById],
   item => item?.itemNumber ?? ""
 );
-// export const selectItemNumber = createAppSelector(
-//   [globalizedSelectors.items.selectById],
-//   item => item?.itemNumber ?? ""
-// );
 
 export const selectItemSrc = createAppSelector(
   [globalizedSelectors.items.selectById],
@@ -147,48 +109,36 @@ export const selectItemName = createAppSelector(
 export const selectVendorIdsByItemId = createAppSelector(
   [globalizedSelectors.items.selectById],
   item => item?.vendors ?? emptyArray
-  // {
-  //   memoizeOptions: {
-  //     resultEqualityCheck: shallowEqual,
-  //     equalityCheck: shallowEqual,
-  //     maxSize: 10,
-  //   },
-  // }
 );
 
 export const selectItemNamesAndKeywords = createAppSelector(
   [globalizedSelectors.items.selectAll],
   items =>
-    items.map<ItemNamesAndKeywords>(({ name, keywords, id, vendors }) => ({
+    items.map<ItemNamesAndKeywords>(({ name, keywords, id }) => ({
       name,
       keywords,
       id,
-      vendors,
     }))
 );
 
-export const selectItemNamesAndKeywordsSorted = createAppSelector(
-  [selectItemNamesAndKeywords, (state, value: string) => value],
-  (itemNamesAndKeywords, value) => search(value, itemNamesAndKeywords)
-);
 export const checkIfAnyItemsAdded = createAppSelector(
   [globalizedSelectors.cart.selectAll],
   carts =>
     carts.reduce<boolean>(
       (acc, curr) =>
-        simpleSelectors.cartItems.selectTotal(curr.items) > 0 || acc,
+        SELECTORS.SIMPLE.cartItems.selectTotal(curr.items) > 0 || acc,
       false
     )
 );
 
 const selectCartItems = createAppSelector(
   [globalizedSelectors.cart.selectById],
-  cart => cart?.items ?? initialStates.cartItems
+  cart => cart?.items ?? INITIAL_STATES.cartItems
 );
 
 export const selectCartItemsIds = createAppSelector(
   [selectCartItems],
-  simpleSelectors.cartItems.selectIds
+  SELECTORS.SIMPLE.cartItems.selectIds
 );
 
 export const selectCartItemNamesStringified = createAppSelector(
@@ -201,42 +151,19 @@ export const selectCheckedVendorIds = createAppSelector(
   [globalizedSelectors.checkedVendorItems.selectById],
   checkedVendorItem => checkedVendorItem?.checkedVendors ?? emptyArray
 );
-// export const selectCheckedVendorIds = createAppSelector(
-//   [globalizedSelectors.searchResults.selectById],
-//   searchResult =>
-//     searchResult
-//       ? simpleSelectors.checkedVendors
-//           .selectAll(searchResult.checkedVendors)
-//           .filter(({ checked }) => checked)
-//           .map(({ id }) => id)
-//       : emptyArray
-// );
-// export const selectCheckedVendorIds = createAppSelector(
-//   [globalizedSelectors.searchResults.selectById],
-//   searchResult =>
-//     searchResult == null ||
-//     simpleSelectors.checkedVendors.selectTotal(searchResult.checkedVendors) ===
-//       0
-//       ? emptyArray
-//       : searchResult.checkedVendors
-// );
 
 export const isVendorChecked = createAppSelector(
   [
     globalizedSelectors.checkedVendorItems.selectById,
-    rootParametricSelectors.getItemIdAndCartId,
+    ROOT_SELECTOR_PARAMS_PROVIDER.getItemIdAndCartId,
   ],
   (checkedVendorItem, vendorId) =>
     !!checkedVendorItem?.checkedVendors.includes(vendorId)
 );
-// export const isVendorChecked = createAppSelector(
-//   [selectCheckedVendorIds, rootParametricSelectors.getItemIdAndCartId],
-//   (checkedVendorIds, vendorId) => checkedVendorIds.includes(vendorId)
-// );
 
 const selectCartItem = createAppSelector(
-  [selectCartItems, rootParametricSelectors.getCartIdAndItemId],
-  simpleSelectors.cartItems.selectById
+  [selectCartItems, ROOT_SELECTOR_PARAMS_PROVIDER.getCartIdAndItemId],
+  SELECTORS.SIMPLE.cartItems.selectById
 );
 
 export const isMinimized = createAppSelector(
@@ -254,16 +181,8 @@ export const selectCategoryItemIds = createAppSelector(
   category => category?.itemIds ?? emptyArray
 );
 
-// export const checkIfAddedToVendor = createAppSelector(
-//   [
-//     globalizedSelectors.cart.selectById,
-//     rootParametricSelectors.getCartIdAndItemId,
-//   ],
-//   (cart, itemId) =>
-//     simpleSelectors.cartItems.selectIds(cart?.items).includes(itemId)
-// );
 export const checkIfAddedToVendor = createAppSelector(
-  [selectCartItemsIds, rootParametricSelectors.getCartIdAndItemId],
+  [selectCartItemsIds, ROOT_SELECTOR_PARAMS_PROVIDER.getCartIdAndItemId],
   (cartItemsIds, itemId) => cartItemsIds.includes(itemId)
 );
 
@@ -272,14 +191,14 @@ export const checkIfAnyAddedToOneVendor = createAppSelector(
   cartItemsIds => cartItemsIds.length > 0
 );
 
-export const checkVendorsToAdd = createAppSelector(
-  [checkIfAddedToVendor],
-  ifVendorsAdded => !ifVendorsAdded
-);
+// const checkVendorsToAdd = createAppSelector(
+//   [checkIfAddedToVendor],
+//   ifVendorsAdded => !ifVendorsAdded
+// );
 
 export const selectAddedItemsLength = createAppSelector(
   [selectCartItems],
-  simpleSelectors.cartItems.selectTotal
+  SELECTORS.SIMPLE.cartItems.selectTotal
 );
 
 export const selectQRCodeText = createAppSelector(
@@ -307,38 +226,13 @@ const selectCartsByItemId = createAppSelector(
   (item, carts) => carts.filter(e => item?.vendors.includes(e.id))
 );
 
-// export const checkIfAddedToAllVendors = createAppSelector(
-//   [
-//     globalizedSelectors.cart.selectEntities,
-//     globalizedSelectors.checkedVendorItems.selectById,
-//     rootParametricSelectors.getItemId,
-//   ],
-//   (cartEntities, checkedVendorItem, itemId) =>
-//     checkedVendorItem?.vendors
-//       .map(e => cartEntities[e])
-//       .reduce<boolean>(
-//         (acc, curr) =>
-//           simpleSelectors.cartItems.selectIds(curr.items).includes(itemId) &&
-//           acc,
-//         true
-//       )
-// );
 export const checkIfAddedToAllVendors = createAppSelector(
-  [selectCartsByItemId, rootParametricSelectors.getItemId],
+  [selectCartsByItemId, ROOT_SELECTOR_PARAMS_PROVIDER.getItemId],
   (carts, itemId) =>
     carts.reduce<boolean>(
       (acc, curr) =>
-        simpleSelectors.cartItems.selectIds(curr.items).includes(itemId) && acc,
+        SELECTORS.SIMPLE.cartItems.selectIds(curr.items).includes(itemId) &&
+        acc,
       true
     )
 );
-
-// export const selectShownSearchResults = createAppSelector(
-//   [globalizedSelectors.searchResults.selectAll],
-//   searchResults => searchResults.filter(({ shown }) => shown)
-// );
-
-// export const selectShownSearchResultsIds = createAppSelector(
-//   [selectShownSearchResults],
-//   searchResults => searchResults.map(({ id }) => id)
-// );

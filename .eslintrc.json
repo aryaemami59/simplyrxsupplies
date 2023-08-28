@@ -8,6 +8,7 @@
     "airbnb/hooks",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
+    // "plugin:react/all",
     "plugin:jsx-a11y/strict",
     "plugin:react-redux/all",
     "plugin:react-perf/all",
@@ -79,8 +80,8 @@
       },
       { "format": ["camelCase"], "selector": ["parameter"] }
     ],
-    "@typescript-eslint/no-magic-numbers": [0],
-    "@typescript-eslint/prefer-readonly-parameter-types": [0],
+    // "@typescript-eslint/no-magic-numbers": [0],
+    // "@typescript-eslint/prefer-readonly-parameter-types": [0],
     "mui-path-imports/mui-path-imports": [2],
     "no-console": [0],
     "no-param-reassign": [2, { "props": false }],
@@ -105,7 +106,7 @@
         "unnamedComponents": "arrow-function"
       }
     ],
-    "react/jsx-sort-props": [2],
+    // "react/jsx-sort-props": [2],
     "simple-import-sort/exports": [2],
     "simple-import-sort/imports": [2],
     "sonarjs/cognitive-complexity": [2, 10],
@@ -163,8 +164,8 @@
       2,
       { "checkArrowFunctions": false }
     ],
+    // "canonical/no-unused-exports": [2, { "tsConfigPath": "./tsconfig.json" }],
     "max-classes-per-file": [0]
-    // "canonical/no-unused-exports": [2, { "tsConfigPath": "./tsconfig.json" }]
     // "@typescript-eslint/no-non-null-assertion": [0]
   },
   "settings": { "react": { "version": "detect" } }
