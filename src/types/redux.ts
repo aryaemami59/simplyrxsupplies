@@ -30,11 +30,6 @@ export type SuppliesState = {
   readonly cart: Cart[];
 };
 
-// type ItemIdAndVendorIds = {
-//   readonly itemId: number;
-//   readonly vendorIds: number[];
-// };
-
 export type ItemIdAndVendorId = {
   readonly itemId: number;
   readonly vendorId: number;

@@ -8,28 +8,30 @@ import { useDispatch, useSelector } from "react-redux";
 import type { Selector } from "reselect";
 
 import type {
+  AdapterLocalizedSelectors,
   AddedState,
-  Selectors,
   TopLevelSelectors,
 } from "../types/AddedState";
 import type {
+  AdapterSimpleSelectors,
   SelectorParamsProvider,
   StateAndApiAdapters,
 } from "../types/redux";
 import type { AppDispatch, RootState } from "./store";
 
 type TypedCreateSelector<State> = <
-  SelectorsArray extends readonly Selector<State>[],
+  Selectors extends readonly Selector<State>[],
   Result,
 >(
-  ...args: Parameters<typeof createSelector<SelectorsArray, Result>>
-) => ReturnType<typeof createSelector<SelectorsArray, Result>>;
+  ...args: Parameters<typeof createSelector<Selectors, Result>>
+) => ReturnType<typeof createSelector<Selectors, Result>>;
 
 export type AppSelector<
   Result = unknown,
   Params extends readonly Parameters<Selector>[1][] = Parameters<Selector>[1][],
 > = Selector<RootState, Result, Params>;
 
+// export const useAppDispatch = useDispatch<AppDispatch>;
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const createAppSelector: TypedCreateSelector<RootState> = createSelector;
@@ -77,6 +79,8 @@ export type TopLevelSelectorsForAddedState = TopLevelSelectors<
   "added"
 >;
 
-export type SelectorsWithGlobal = Selectors & {
+export type Selectors = {
+  readonly SIMPLE: AdapterSimpleSelectors;
+  readonly LOCAL: AdapterLocalizedSelectors;
   readonly GLOBAL: AdapterGlobalizedSelectors;
 };

@@ -3,7 +3,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import GITHUB_URL_ITEMS from "../data/fetchInfo";
 import { Item, OldItem, OldSupplies, VendorName } from "../types/api";
 import { Cart, SuppliesState } from "../types/redux";
-import INITIAL_STATES from "./initialStates";
+import emptyArray from "../utils/emptyArray";
+import ADAPTER_INITIAL_STATES from "./adapterInitialStates";
+import ENTITY_ADAPTERS from "./entityAdapters";
+import { createDraftSafeRootSelector } from "./hooks";
 
 const apiSlice = createApi({
   reducerPath: "api",
@@ -26,7 +29,7 @@ const apiSlice = createApi({
           cart: Object.values(baseQueryReturnValue.vendors).map<Cart>(
             ({ id }) => ({
               id,
-              items: INITIAL_STATES.cartItems,
+              items: ADAPTER_INITIAL_STATES.cartItems,
             })
           ),
         };
@@ -36,5 +39,39 @@ const apiSlice = createApi({
 });
 
 export const { useGetMainQuery, endpoints } = apiSlice;
+
+export const selectMainResults = endpoints.getMain.select();
+
+export const selectMainData = createDraftSafeRootSelector(
+  [selectMainResults],
+  results => results.data
+);
+
+export const selectItemsData = createDraftSafeRootSelector(
+  [selectMainData],
+  data =>
+    ENTITY_ADAPTERS.items.setAll(
+      ADAPTER_INITIAL_STATES.items,
+      data?.items ?? emptyArray
+    )
+);
+
+export const selectVendorsData = createDraftSafeRootSelector(
+  [selectMainData],
+  data =>
+    ENTITY_ADAPTERS.vendors.setAll(
+      ADAPTER_INITIAL_STATES.vendors,
+      data?.vendors ?? emptyArray
+    )
+);
+
+export const selectCategoriesData = createDraftSafeRootSelector(
+  [selectMainData],
+  data =>
+    ENTITY_ADAPTERS.categories.setAll(
+      ADAPTER_INITIAL_STATES.categories,
+      data?.categories ?? emptyArray
+    )
+);
 
 export default apiSlice;

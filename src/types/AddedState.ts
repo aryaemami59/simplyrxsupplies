@@ -7,7 +7,6 @@ import {
   createDraftSafeAppSelector,
 } from "../redux/hooks";
 import {
-  AdapterSimpleSelectors,
   Cart,
   CheckedVendorItem,
   SearchResultsItem,
@@ -79,8 +78,3 @@ export type DraftSelectorsParametricSelectors = SelectorParamsProvider<
     },
   ]
 >;
-
-export type Selectors = {
-  readonly SIMPLE: AdapterSimpleSelectors;
-  readonly LOCAL: AdapterLocalizedSelectors;
-};

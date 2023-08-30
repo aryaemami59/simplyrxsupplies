@@ -4,8 +4,8 @@ import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { shallowEqual } from "react-redux";
 
+import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors";
 import { useAppSelector } from "../../redux/hooks";
-import { globalizedSelectors } from "../../redux/selectors";
 import IsLoading from "../../shared/components/IsLoading";
 import SearchResultsSingleCard from "./SearchResultsSingleCard";
 
@@ -13,7 +13,7 @@ const loader = <IsLoading />;
 
 const SearchResultsContainer: FC = () => {
   const searchResultsIds = useAppSelector(
-    globalizedSelectors.searchResults.selectIds,
+    ADAPTER_SELECTORS.GLOBAL.searchResults.selectIds,
     shallowEqual
   );
   const memoizedSearchResultsIds = useMemo(
