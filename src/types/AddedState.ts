@@ -8,7 +8,7 @@ import {
 } from "../redux/hooks";
 import {
   Cart,
-  CheckedVendorItem,
+  ItemVendors,
   SearchResultsItem,
   SelectorParamsProvider,
   StateAdapters,
@@ -17,7 +17,10 @@ import {
 export type AddedState = {
   readonly searchResults: EntityState<SearchResultsItem, number>;
   readonly cart: EntityState<Cart, number>;
-  readonly checkedVendorItems: EntityState<CheckedVendorItem, number>;
+  /**
+   * Controls the one to many relationship between an item and its vendors in the search results and the side bar accordion.
+   */
+  readonly itemVendors: EntityState<ItemVendors, number>;
 };
 
 export type AdapterLocalizedSelectors = {

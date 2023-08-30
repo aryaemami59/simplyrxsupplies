@@ -22,7 +22,7 @@ export const SIMPLE_SELECTORS: AdapterSimpleSelectors = {
 
   cartItems: ENTITY_ADAPTERS.cartItems.getSelectors(),
 
-  checkedVendorItems: ENTITY_ADAPTERS.checkedVendorItems.getSelectors(),
+  itemVendors: ENTITY_ADAPTERS.itemVendors.getSelectors(),
 } as const satisfies AdapterSimpleSelectors;
 
 export const LOCAL_SELECTORS: AdapterLocalizedSelectors = {
@@ -32,8 +32,8 @@ export const LOCAL_SELECTORS: AdapterLocalizedSelectors = {
 
   cart: ENTITY_ADAPTERS.cart.getSelectors(added => added.cart),
 
-  checkedVendorItems: ENTITY_ADAPTERS.checkedVendorItems.getSelectors(
-    added => added.checkedVendorItems
+  itemVendors: ENTITY_ADAPTERS.itemVendors.getSelectors(
+    added => added.itemVendors
   ),
 } as const satisfies AdapterLocalizedSelectors;
 
@@ -50,8 +50,8 @@ export const GLOBAL_SELECTORS: AdapterGlobalizedSelectors = {
 
   categories: ENTITY_ADAPTERS.categories.getSelectors(selectCategoriesData),
 
-  checkedVendorItems: ENTITY_ADAPTERS.checkedVendorItems.getSelectors(
-    TOP_LEVEL_SELECTORS.checkedVendorItems
+  itemVendors: ENTITY_ADAPTERS.itemVendors.getSelectors(
+    TOP_LEVEL_SELECTORS.itemVendors
   ),
 } as const satisfies AdapterGlobalizedSelectors;
 

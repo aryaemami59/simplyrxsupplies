@@ -1,6 +1,6 @@
 import { useDebugValue } from "react";
 
-import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
+import capitalize from "../../utils/capitalize";
 import useComponentDidUpdate from "../useComponentDidUpdate";
 
 /**
@@ -16,7 +16,7 @@ const useDependencyChangeLogger = <T>(dependency: T, depName = "") => {
 
   const depType = Array.isArray(dependency)
     ? "Array"
-    : capitalizeFirstLetter(typeof dependency);
+    : capitalize(typeof dependency);
 
   useDebugValue([depName, dependency], value => value);
 

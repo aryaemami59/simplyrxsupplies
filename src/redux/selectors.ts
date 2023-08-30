@@ -73,13 +73,13 @@ export const selectCartItemNamesStringified = createAppSelector(
 );
 
 export const selectCheckedVendorIds = createAppSelector(
-  [ADAPTER_SELECTORS.GLOBAL.checkedVendorItems.selectById],
+  [ADAPTER_SELECTORS.GLOBAL.itemVendors.selectById],
   checkedVendorItem => checkedVendorItem?.checkedVendors ?? emptyArray
 );
 
 export const isVendorChecked = createAppSelector(
   [
-    ADAPTER_SELECTORS.GLOBAL.checkedVendorItems.selectById,
+    ADAPTER_SELECTORS.GLOBAL.itemVendors.selectById,
     ROOT_SELECTOR_PARAMS_PROVIDER.getItemIdAndCartId,
   ],
   (checkedVendorItem, vendorId) =>

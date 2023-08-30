@@ -4,8 +4,8 @@ import { Category, Item, Vendor } from "../types/api";
 import {
   Adapters,
   Cart,
-  CartItem,
-  CheckedVendorItem,
+  CartItems,
+  ItemVendors,
   SearchResultsItem,
 } from "../types/redux";
 
@@ -14,9 +14,9 @@ const ENTITY_ADAPTERS: Adapters = {
 
   searchResults: createEntityAdapter<SearchResultsItem>(),
 
-  checkedVendorItems: createEntityAdapter<CheckedVendorItem>(),
+  itemVendors: createEntityAdapter<ItemVendors>(),
 
-  cartItems: createEntityAdapter<CartItem>(),
+  cartItems: createEntityAdapter<CartItems>(),
 
   items: createEntityAdapter<Item>(),
 

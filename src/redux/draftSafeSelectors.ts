@@ -1,5 +1,5 @@
 import { DraftSelectorsParametricSelectors } from "../types/AddedState";
-import difference from "../utils/difference";
+import arrayDifference from "../utils/arrayDifference";
 import ADAPTER_INITIAL_STATES from "./adapterInitialStates";
 import { ADAPTER_SELECTORS } from "./adapterSelectors";
 import { createDraftSafeAppSelector } from "./hooks";
@@ -19,22 +19,22 @@ class DraftSafeSelectors {
 
   public readonly selectUnCheckedVendorIds = createDraftSafeAppSelector(
     [
-      ADAPTER_SELECTORS.LOCAL.checkedVendorItems.selectAll,
+      ADAPTER_SELECTORS.LOCAL.itemVendors.selectAll,
       parametricSelectors.getCartId,
     ],
-    (checkedVendorItems, cartId) =>
-      checkedVendorItems.filter(({ checkedVendors, vendors }) =>
-        difference(vendors, checkedVendors).includes(cartId)
+    (itemVendors, cartId) =>
+      itemVendors.filter(({ checkedVendors, vendors }) =>
+        arrayDifference(vendors, checkedVendors).includes(cartId)
       )
   );
 
   public readonly selectSearchResultsByVendorId = createDraftSafeAppSelector(
     [
-      ADAPTER_SELECTORS.LOCAL.checkedVendorItems.selectAll,
+      ADAPTER_SELECTORS.LOCAL.itemVendors.selectAll,
       parametricSelectors.getCartId,
     ],
-    (checkedVendorItems, cartId) =>
-      checkedVendorItems.filter(({ checkedVendors }) =>
+    (itemVendors, cartId) =>
+      itemVendors.filter(({ checkedVendors }) =>
         checkedVendors.includes(cartId)
       )
   );

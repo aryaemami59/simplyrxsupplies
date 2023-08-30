@@ -1,8 +1,10 @@
 import { EntityAdapter, EntitySelectors, EntityState } from "@reduxjs/toolkit";
 
 import type { Category, Item, Vendor } from "./api";
-
-export type CheckedVendorItem = {
+/**
+ * Controls the one to many relationship between an item and its vendors in the search results and the side bar accordion.
+ */
+export type ItemVendors = {
   readonly id: number;
   readonly checkedVendors: number[];
   readonly vendors: number[];
@@ -11,8 +13,10 @@ export type CheckedVendorItem = {
 export type SearchResultsItem = {
   readonly id: number;
 };
-
-export type CartItem = {
+/**
+ * Controls the one to many relationship between a vendor and its items in a cart.
+ */
+export type CartItems = {
   readonly id: number;
   readonly vendorId: number;
   readonly minimized: boolean;
@@ -20,7 +24,7 @@ export type CartItem = {
 
 export type Cart = {
   readonly id: number;
-  readonly items: EntityState<CartItem, number>;
+  readonly items: EntityState<CartItems, number>;
 };
 
 export type SuppliesState = {
@@ -36,7 +40,7 @@ export type ItemIdAndVendorId = {
 };
 
 type NonStateAdapters = {
-  readonly cartItems: CartItem;
+  readonly cartItems: CartItems;
 };
 
 type ApiAdapters = {
@@ -48,7 +52,7 @@ type ApiAdapters = {
 export type StateAdapters = {
   readonly cart: Cart;
   readonly searchResults: SearchResultsItem;
-  readonly checkedVendorItems: CheckedVendorItem;
+  readonly itemVendors: ItemVendors;
 };
 
 export type StateAndApiAdapters = ApiAdapters & StateAdapters;

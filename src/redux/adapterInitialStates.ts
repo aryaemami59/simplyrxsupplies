@@ -14,7 +14,7 @@ const ADAPTER_INITIAL_STATES: AdaptersInitialStates = {
 
   cartItems: ENTITY_ADAPTERS.cartItems.getInitialState(),
 
-  checkedVendorItems: ENTITY_ADAPTERS.checkedVendorItems.getInitialState(),
+  itemVendors: ENTITY_ADAPTERS.itemVendors.getInitialState(),
 } as const satisfies AdaptersInitialStates;
 
 export default ADAPTER_INITIAL_STATES;
