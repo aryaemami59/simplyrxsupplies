@@ -13,10 +13,10 @@ import QRCodeImage from "./QRCodeImage";
 
 type Props = {
   hideModal: () => void;
-  show: boolean;
+  isModalOpen: boolean;
 };
 
-const QRCodeDialog: FC<Props> = ({ hideModal, show }) => {
+const QRCodeDialog: FC<Props> = ({ hideModal, isModalOpen }) => {
   const vendorId = useVendorId();
   const officialVendorName = useOfficialVendorName(vendorId);
 
@@ -26,7 +26,7 @@ const QRCodeDialog: FC<Props> = ({ hideModal, show }) => {
       keepMounted
       maxWidth="md"
       onClose={hideModal}
-      open={show}>
+      open={isModalOpen}>
       <DialogTitle>QRCode for Items Added to {officialVendorName}</DialogTitle>
       <DialogContent
         className="justify-content-center d-flex"
@@ -46,7 +46,7 @@ const QRCodeDialog: FC<Props> = ({ hideModal, show }) => {
 
 QRCodeDialog.propTypes = {
   hideModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
+  isModalOpen: PropTypes.bool.isRequired,
 };
 
 export default memo<Props>(QRCodeDialog);

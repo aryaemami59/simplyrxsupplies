@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import GITHUB_URL_ITEMS from "../data/fetchInfo";
-import { Item, OldItem, OldSupplies, VendorName } from "../types/api";
-import { Cart, SuppliesState } from "../types/redux";
+import type { Item, OldItem, OldSupplies, VendorName } from "../types/api";
+import type { Cart, SuppliesState } from "../types/redux";
 import EMPTY_ARRAY from "../utils/emptyArray";
 import ADAPTER_INITIAL_STATES from "./adapterInitialStates";
 import ENTITY_ADAPTERS from "./entityAdapters";
@@ -16,12 +16,15 @@ const apiSlice = createApi({
     getMain: build.query<SuppliesState, void>({
       query: () => "",
       transformResponse: (baseQueryReturnValue: OldSupplies) => {
-        const newItems = baseQueryReturnValue.items.map<Item>((a: OldItem) => {
-          const newVendors = a.vendors.map<number>(
-            (e: VendorName) => baseQueryReturnValue.vendors[e].id
-          );
-          return { ...a, vendors: newVendors };
-        });
+        const newItems = baseQueryReturnValue.items.map<Item>(
+          (oldItem: OldItem) => {
+            const newVendors = oldItem.vendors.map<number>(
+              (vendorName: VendorName) =>
+                baseQueryReturnValue.vendors[vendorName].id
+            );
+            return { ...oldItem, vendors: newVendors };
+          }
+        );
         return {
           items: newItems,
           vendors: Object.values(baseQueryReturnValue.vendors),

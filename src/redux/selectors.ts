@@ -1,7 +1,8 @@
-import type { ItemNamesAndKeywords } from "../types/api";
+import type { ItemNameAndKeywords } from "../types/api";
 import setToEmptyArray from "../utils/setToEmptyArray";
 import { ADAPTER_SELECTORS } from "./adapterSelectors";
-import { createAppSelector, RootSelectorParamsProvider } from "./hooks";
+import type { RootSelectorParamsProvider } from "./hooks";
+import { createAppSelector } from "./hooks";
 
 export const ROOT_SELECTOR_PARAMS_PROVIDER: RootSelectorParamsProvider = {
   getItemId: (state, itemId) => itemId,
@@ -38,7 +39,7 @@ export const selectVendorIdsByItemId = createAppSelector(
 export const selectItemNamesAndKeywords = createAppSelector(
   [ADAPTER_SELECTORS.GLOBAL.items.selectAll],
   items =>
-    items.map<ItemNamesAndKeywords>(({ name, keywords, id }) => ({
+    items.map<ItemNameAndKeywords>(({ name, keywords, id }) => ({
       name,
       keywords,
       id,
@@ -48,7 +49,10 @@ export const selectItemNamesAndKeywords = createAppSelector(
 export const checkIfAnyItemsAdded = createAppSelector(
   [ADAPTER_SELECTORS.GLOBAL.cart.selectAll],
   carts =>
-    carts.reduce<boolean>((acc, curr) => curr.itemIds.length > 0 || acc, false)
+    carts.reduce<boolean>(
+      (accumulator, cart) => cart.itemIds.length > 0 || accumulator,
+      false
+    )
 );
 
 export const selectCartItemsIds = createAppSelector(
@@ -73,7 +77,7 @@ export const isVendorChecked = createAppSelector(
     ROOT_SELECTOR_PARAMS_PROVIDER.getItemIdAndCartId,
   ],
   (checkedVendorItem, vendorId) =>
-    !!checkedVendorItem?.checkedVendorIds.includes(vendorId)
+    !!(checkedVendorItem?.checkedVendorIds.includes(vendorId) ?? false)
 );
 
 export const isMinimized = createAppSelector(
@@ -81,7 +85,8 @@ export const isMinimized = createAppSelector(
     ADAPTER_SELECTORS.GLOBAL.cartItems.selectById,
     ROOT_SELECTOR_PARAMS_PROVIDER.getCartIdAndItemId,
   ],
-  (cartItems, itemId) => !!cartItems?.minimizedItemIds.includes(itemId)
+  (cartItems, itemId) =>
+    !!(cartItems?.minimizedItemIds.includes(itemId) ?? false)
 );
 
 export const selectCategoryName = createAppSelector(
@@ -115,8 +120,10 @@ export const selectQRCodeText = createAppSelector(
     ADAPTER_SELECTORS.GLOBAL.items.selectEntities,
     ADAPTER_SELECTORS.GLOBAL.vendors.selectById,
   ],
-  (cartItemsIds, itemEntities, vendor) =>
-    cartItemsIds.map(e => itemEntities[e]?.itemNumber).join(vendor?.joinChars)
+  (cartItemIds, itemEntities, vendor) =>
+    cartItemIds
+      .map(cartItemId => itemEntities[cartItemId]?.itemNumber)
+      .join(vendor?.joinChars)
 );
 
 export const selectOfficialName = createAppSelector(
@@ -135,14 +142,14 @@ const selectCartsByItemId = createAppSelector(
     ADAPTER_SELECTORS.GLOBAL.cart.selectAll,
   ],
   (item, carts) =>
-    setToEmptyArray(carts.filter(e => item?.vendors.includes(e.id)))
+    setToEmptyArray(carts.filter(cart => item?.vendors.includes(cart.id)))
 );
 
 export const checkIfAddedToAllVendors = createAppSelector(
   [selectCartsByItemId, ROOT_SELECTOR_PARAMS_PROVIDER.getItemId],
   (carts, itemId) =>
     carts.reduce<boolean>(
-      (acc, curr) => curr.itemIds.includes(itemId) && acc,
+      (accumulator, cart) => cart.itemIds.includes(itemId) && accumulator,
       true
     )
 );

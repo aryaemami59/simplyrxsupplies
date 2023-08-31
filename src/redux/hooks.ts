@@ -1,8 +1,5 @@
-import {
-  createDraftSafeSelector,
-  createSelector,
-  EntitySelectors,
-} from "@reduxjs/toolkit";
+import type { EntitySelectors } from "@reduxjs/toolkit";
+import { createDraftSafeSelector, createSelector } from "@reduxjs/toolkit";
 import type { TypedUseSelectorHook } from "react-redux";
 import { useDispatch, useSelector } from "react-redux";
 import type { Selector } from "reselect";

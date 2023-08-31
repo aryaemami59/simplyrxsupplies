@@ -11,17 +11,17 @@ import ModalBodyContent from "./ModalBodyContent";
 
 type Props = {
   hideModal: () => void;
-  modalOpen: boolean;
+  isModalOpen: boolean;
 };
 
-const RowItemsDialog: FC<Props> = ({ hideModal, modalOpen }) => (
+const RowItemsDialog: FC<Props> = ({ hideModal, isModalOpen }) => (
   <Dialog
     aria-labelledby="contained-modal-title-vcenter"
     fullWidth
     keepMounted
     maxWidth="md"
     onClose={hideModal}
-    open={modalOpen}>
+    open={isModalOpen}>
     <DialogTitle>Item Details</DialogTitle>
     <DialogContent dividers>
       <ModalBodyContent />
@@ -38,7 +38,7 @@ const RowItemsDialog: FC<Props> = ({ hideModal, modalOpen }) => (
 
 RowItemsDialog.propTypes = {
   hideModal: PropTypes.func.isRequired,
-  modalOpen: PropTypes.bool.isRequired,
+  isModalOpen: PropTypes.bool.isRequired,
 };
 
 export default memo<Props>(RowItemsDialog);

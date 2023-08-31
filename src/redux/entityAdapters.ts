@@ -1,7 +1,7 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
 
-import { Category, Item, Vendor } from "../types/api";
-import {
+import type { Category, Item, Vendor } from "../types/api";
+import type {
   Adapters,
   Cart,
   CartItems,

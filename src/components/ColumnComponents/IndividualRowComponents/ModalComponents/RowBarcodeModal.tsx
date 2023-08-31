@@ -49,7 +49,7 @@ const RowBarcodeModal: FC = () => {
       </Tooltip>
       <RowBarcodeDialog
         hideModal={hideModal}
-        show={show}
+        isModalOpen={show}
       />
     </>
   );

@@ -11,7 +11,7 @@ import useVendorId from "../../../hooks/useVendorId";
 import { useAppSelector } from "../../../redux/hooks";
 import { selectCartItemNamesStringified } from "../../../redux/selectors";
 
-const startIcon = /iphone|ipad|ipod/i.test(navigator.userAgent) ? (
+const startIcon = /ipad|iphone|ipod/iu.test(navigator.userAgent) ? (
   <IosShareIcon fontSize="large" />
 ) : (
   <FontAwesomeIcon icon={faShareNodes} />

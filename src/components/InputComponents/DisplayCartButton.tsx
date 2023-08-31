@@ -9,7 +9,7 @@ import { useAppSelector } from "../../redux/hooks";
 import { checkIfAnyItemsAdded } from "../../redux/selectors";
 
 type Props = {
-  showModal: MouseEventHandler<HTMLButtonElement>;
+  readonly showModal: MouseEventHandler<HTMLButtonElement>;
 };
 
 const DisplayCartButton: FC<Props> = ({ showModal }) => {

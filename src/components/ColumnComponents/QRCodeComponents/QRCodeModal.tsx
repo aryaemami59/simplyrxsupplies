@@ -57,7 +57,7 @@ const QRCodeModal: FC = () => {
       </Tooltip>
       <QRCodeDialog
         hideModal={hideModal}
-        show={show}
+        isModalOpen={show}
       />
     </>
   );

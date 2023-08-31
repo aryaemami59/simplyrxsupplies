@@ -1,3 +1,3 @@
-const splitBySpace = (str: string) => str.split(/\s+/gi);
+const splitBySpace = (str: string) => str.split(/\s+/u);
 
 export default splitBySpace;

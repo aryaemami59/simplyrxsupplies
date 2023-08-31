@@ -1,56 +1,38 @@
-import type { ItemNamesAndKeywords } from "../../types/api";
-import splitBySpace from "./splitBySpace";
+import type { ItemNameAndKeywords } from "../../types/api";
 
 const sortResults = (
-  itemNameAndKeyword: ItemNamesAndKeywords,
-  searchRegExp: RegExp,
+  itemNameAndKeyword: ItemNameAndKeywords,
+  searchRegexPattern: RegExp,
   inputValue: string
 ): number => {
   let relevancyScore = 0;
-  if (itemNameAndKeyword.name.toLowerCase() === inputValue) {
+  const { name, keywords } = itemNameAndKeyword;
+  const itemName = name.toLowerCase();
+  if (itemName === inputValue) {
     relevancyScore += 100;
-  }
-  if (itemNameAndKeyword.name.toLowerCase().startsWith(`${inputValue} `)) {
+  } else if (itemName.startsWith(`${inputValue} `)) {
     relevancyScore += 85;
-  }
-  if (itemNameAndKeyword.name.toLowerCase().startsWith(` ${inputValue} `)) {
-    relevancyScore += 80;
-  }
-  if (itemNameAndKeyword.name.toLowerCase().startsWith(inputValue)) {
+  } else if (itemName.startsWith(inputValue)) {
     relevancyScore += 75;
-  }
-  if (itemNameAndKeyword.name.toLowerCase().includes(` ${inputValue} `)) {
+  } else if (itemName.includes(` ${inputValue} `)) {
     relevancyScore += 70;
-  }
-  if (itemNameAndKeyword.name.toLowerCase().includes(`${inputValue} `)) {
+  } else if (itemName.includes(`${inputValue} `)) {
     relevancyScore += 65;
-  }
-  if (itemNameAndKeyword.name.toLowerCase().includes(` ${inputValue}`)) {
+  } else if (itemName.includes(` ${inputValue}`)) {
     relevancyScore += 60;
-  }
-  if (itemNameAndKeyword.name.toLowerCase().includes(inputValue)) {
+  } else if (itemName.includes(inputValue)) {
     relevancyScore += 50;
-  }
-  if (searchRegExp.test(itemNameAndKeyword.name.toLowerCase())) {
-    relevancyScore +=
-      itemNameAndKeyword.name.toLowerCase().match(searchRegExp)?.length ?? 0;
-  }
-  if (
-    (itemNameAndKeyword.keywords.join(" ").match(searchRegExp) ??
-      itemNameAndKeyword.keywords.some(
-        keyword => keyword.match(searchRegExp) && inputValue.includes(keyword)
-      )) ||
-    splitBySpace(inputValue).every(e => itemNameAndKeyword.keywords.includes(e))
-  ) {
-    const keywordsScore = itemNameAndKeyword.keywords.reduce(
-      (total, curr) =>
-        inputValue.includes(curr) || searchRegExp.test(curr)
+  } else if (keywords.includes(inputValue)) {
+    const keywordsScore = keywords.reduce(
+      (total, keyword) =>
+        inputValue.includes(keyword) || searchRegexPattern.test(keyword)
           ? total + 1
           : total,
       0
     );
     relevancyScore += keywordsScore;
   }
+  relevancyScore += itemName.match(searchRegexPattern)?.length ?? 0;
   return relevancyScore;
 };
 

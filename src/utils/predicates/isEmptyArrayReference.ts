@@ -1,4 +1,4 @@
-import { EmptyTuple } from "../../types/tsHelpers";
+import type { EmptyTuple } from "../../types/tsHelpers";
 import EMPTY_ARRAY from "../emptyArray";
 import isEmptyArray from "./isEmptyArray";
 

@@ -11,18 +11,18 @@ const EXPAND = "Expand" as const;
 const COLLAPSE = "Collapse" as const;
 
 type Props = {
-  open: boolean;
+  isTooltipOpen: boolean;
   toggle: MouseEventHandler<HTMLButtonElement>;
 };
 
-const CollapseButton: FC<Props> = ({ open, toggle }) => {
+const CollapseButton: FC<Props> = ({ isTooltipOpen, toggle }) => {
   const [show, setShow] = useState(false);
   const startIcon = useMemo(
-    () => <FontAwesomeIcon icon={open ? faMaximize : faMinimize} />,
-    [open]
+    () => <FontAwesomeIcon icon={isTooltipOpen ? faMaximize : faMinimize} />,
+    [isTooltipOpen]
   );
 
-  const buttonText = open ? EXPAND : COLLAPSE;
+  const buttonText = isTooltipOpen ? EXPAND : COLLAPSE;
 
   const showTooltip = useCallback(() => {
     setShow(true);
@@ -51,7 +51,7 @@ const CollapseButton: FC<Props> = ({ open, toggle }) => {
 };
 
 CollapseButton.propTypes = {
-  open: PropTypes.bool.isRequired,
+  isTooltipOpen: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,
 };
 

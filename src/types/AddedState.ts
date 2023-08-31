@@ -1,12 +1,12 @@
-import { EntitySelectors, EntityState } from "@reduxjs/toolkit";
+import type { EntitySelectors, EntityState } from "@reduxjs/toolkit";
 import type { Selector } from "reselect";
 
-import {
+import type {
   AppSelector,
   createAppSelector,
   createDraftSafeAppSelector,
 } from "../redux/hooks";
-import { SelectorParamsProvider, StateAdapters } from "./redux";
+import type { SelectorParamsProvider, StateAdapters } from "./redux";
 
 export type AddedState = {
   -readonly [K in keyof StateAdapters]: EntityState<StateAdapters[K], number>;

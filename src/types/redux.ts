@@ -1,4 +1,8 @@
-import { EntityAdapter, EntitySelectors, EntityState } from "@reduxjs/toolkit";
+import type {
+  EntityAdapter,
+  EntitySelectors,
+  EntityState,
+} from "@reduxjs/toolkit";
 
 import type { Category, Item, Vendor } from "./api";
 /**

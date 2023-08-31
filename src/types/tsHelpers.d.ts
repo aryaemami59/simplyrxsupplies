@@ -5,10 +5,10 @@ export type EmptyObject = Record<string, never>;
 export type EmptyTuple = [];
 
 export type Primitive =
-  | null
-  | undefined
-  | string
-  | number
+  | bigint
   | boolean
+  | number
+  | string
   | symbol
-  | bigint;
+  | null
+  | undefined;

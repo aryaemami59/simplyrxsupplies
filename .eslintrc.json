@@ -19,6 +19,8 @@
     "plugin:promise/recommended",
     "plugin:sonarjs/recommended",
     "plugin:unicorn/recommended",
+    "plugin:regexp/all",
+    "plugin:optimize-regex/all",
     // "plugin:canonical/recommended",
     "plugin:prettier/recommended"
   ],
@@ -53,11 +55,17 @@
     "unicorn",
     "simple-import-sort",
     "canonical",
-    "@reverecre/fontawesome"
+    "@reverecre/fontawesome",
+    "regexp",
+    "optimize-regex"
   ],
   "root": true,
   "rules": {
     "@typescript-eslint/consistent-type-definitions": [2, "type"],
+    "@typescript-eslint/consistent-type-imports": [2],
+    "@typescript-eslint/consistent-type-exports": [2],
+    "@typescript-eslint/explicit-member-accessibility": [2],
+    "@typescript-eslint/strict-boolean-expressions": [2],
     "@typescript-eslint/explicit-function-return-type": [0],
     "@typescript-eslint/explicit-module-boundary-types": [0],
     "@typescript-eslint/naming-convention": [
@@ -109,7 +117,7 @@
     // "react/jsx-sort-props": [2],
     "simple-import-sort/exports": [2],
     "simple-import-sort/imports": [2],
-    "sonarjs/cognitive-complexity": [2, 10],
+    "sonarjs/cognitive-complexity": [2, 13],
     "sonarjs/no-duplicate-string": [0, { "threshold": 5 }],
     "unicorn/error-message": [0],
     "unicorn/filename-case": [
@@ -154,7 +162,7 @@
       2,
       { "devDependencies": ["src/main.tsx", "vite.config.ts"] }
     ],
-    // "sonarjs/no-identical-functions": [2, 4],
+    "sonarjs/no-identical-functions": [2, 3],
     "@reverecre/fontawesome/shakeable-imports": [2],
     "@typescript-eslint/no-invalid-void-type": [0],
     "unicorn/prefer-object-from-entries": [2],
@@ -165,7 +173,10 @@
       { "checkArrowFunctions": false }
     ],
     // "canonical/no-unused-exports": [2, { "tsConfigPath": "./tsconfig.json" }],
-    "max-classes-per-file": [0]
+    // "max-classes-per-file": [0],
+    "regexp/prefer-regexp-exec": [0]
+    // "react/jsx-no-literals": [0],
+    // "react/react-in-jsx-scope": [0]
     // "@typescript-eslint/no-non-null-assertion": [0]
   },
   "settings": { "react": { "version": "detect" } }

@@ -15,8 +15,8 @@ const createQRCode = async <const S extends string>(data: S) => {
 };
 
 type Props = {
-  children: ReactNode;
-  vendorId: number;
+  readonly children: ReactNode;
+  readonly vendorId: number;
 };
 
 export const QRCodeDataContext = createContext<string>("");

@@ -35,7 +35,7 @@ const RowSingleContainer: FC = () => {
               fullWidth>
               <RowSingleContainerModal />
               <CollapseButton
-                open={open}
+                isTooltipOpen={open}
                 toggle={toggleFade}
               />
               <RowDeleteButton />

@@ -1,4 +1,4 @@
-import { AdaptersInitialStates } from "../types/redux";
+import type { AdaptersInitialStates } from "../types/redux";
 import ENTITY_ADAPTERS from "./entityAdapters";
 
 const ADAPTER_INITIAL_STATES: AdaptersInitialStates = {

@@ -6,7 +6,7 @@ import { memo } from "react";
 import SearchResultsCardBodyContent from "./SearchResultsCardBodyContent";
 
 type Props = {
-  visibleListId: number;
+  readonly visibleListId: number;
 };
 
 const SearchResultsSingleCard: FC<Props> = ({ visibleListId }) => (

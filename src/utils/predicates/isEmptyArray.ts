@@ -1,4 +1,4 @@
-import { EmptyTuple } from "../../types/tsHelpers";
+import type { EmptyTuple } from "../../types/tsHelpers";
 
 const isEmptyArray = <T extends readonly unknown[]>(
   array: T

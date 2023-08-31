@@ -14,10 +14,10 @@ import BarcodeImage from "../BarcodeImage";
 
 type Props = {
   hideModal: () => void;
-  show: boolean;
+  isModalOpen: boolean;
 };
 
-const RowBarcodeDialog: FC<Props> = ({ hideModal, show }) => {
+const RowBarcodeDialog: FC<Props> = ({ hideModal, isModalOpen }) => {
   const itemId = useItemId();
   const itemName = useAppSelector(state => selectItemName(state, itemId));
 
@@ -27,7 +27,7 @@ const RowBarcodeDialog: FC<Props> = ({ hideModal, show }) => {
       keepMounted
       maxWidth="md"
       onClose={hideModal}
-      open={show}>
+      open={isModalOpen}>
       <DialogTitle>{itemName}</DialogTitle>
       <DialogContent
         className="justify-content-center d-flex"
@@ -47,7 +47,7 @@ const RowBarcodeDialog: FC<Props> = ({ hideModal, show }) => {
 
 RowBarcodeDialog.propTypes = {
   hideModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
+  isModalOpen: PropTypes.bool.isRequired,
 };
 
 export default memo<Props>(RowBarcodeDialog);

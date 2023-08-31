@@ -1,5 +1,6 @@
 import Button from "@mui/material/Button";
-import Menu, { MenuProps } from "@mui/material/Menu";
+import type { MenuProps } from "@mui/material/Menu";
+import Menu from "@mui/material/Menu";
 import type { MenuListProps } from "@mui/material/MenuList";
 import type { PopoverOrigin } from "@mui/material/Popover";
 import PropTypes from "prop-types";

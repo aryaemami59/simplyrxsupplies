@@ -1,4 +1,4 @@
-import { AddedSliceSelectorParamsProvider } from "../types/AddedState";
+import type { AddedSliceSelectorParamsProvider } from "../types/AddedState";
 import setToEmptyArray from "../utils/setToEmptyArray";
 import { ADAPTER_SELECTORS } from "./adapterSelectors";
 import { createDraftSafeAppSelector } from "./hooks";
@@ -54,7 +54,7 @@ class DraftSafeSelectors {
       setToEmptyArray(
         carts.filter(
           ({ id, itemIds }) =>
-            !!itemVendors?.checkedVendorIds.includes(id) &&
+            !!(itemVendors?.checkedVendorIds.includes(id) ?? false) &&
             !itemIds.includes(itemId)
         )
       )

@@ -1,4 +1,4 @@
-import { Primitive } from "../types/tsHelpers";
+import type { Primitive } from "../types/tsHelpers";
 
 /**
  * @param firstArray

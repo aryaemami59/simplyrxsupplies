@@ -49,7 +49,7 @@ const RowSingleContainerModal: FC = () => {
       </Tooltip>
       <RowItemsDialog
         hideModal={hideModal}
-        modalOpen={modalOpen}
+        isModalOpen={modalOpen}
       />
     </>
   );

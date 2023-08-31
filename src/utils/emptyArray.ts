@@ -1,4 +1,4 @@
-import { EmptyTuple } from "../types/tsHelpers";
+import type { EmptyTuple } from "../types/tsHelpers";
 
 const EMPTY_ARRAY: EmptyTuple = [];
 

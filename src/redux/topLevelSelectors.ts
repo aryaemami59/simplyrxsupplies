@@ -1,9 +1,6 @@
-import { AddedState } from "../types/AddedState";
-import {
-  AppSelector,
-  createAppSelector,
-  TopLevelSelectorsForAddedState,
-} from "./hooks";
+import type { AddedState } from "../types/AddedState";
+import type { AppSelector, TopLevelSelectorsForAddedState } from "./hooks";
+import { createAppSelector } from "./hooks";
 
 export const selectAdded: AppSelector<AddedState, never> = state => state.added;
 
