@@ -114,16 +114,16 @@ const addedSlice = createSlice({
       action: PayloadAction<ItemIdAndVendorId>
     ) => {
       const { itemId, vendorId } = action.payload;
-      const cartItemsMin = ADAPTER_SELECTORS.LOCAL.cartItems.selectById(
+      const cartItems = ADAPTER_SELECTORS.LOCAL.cartItems.selectById(
         state,
         vendorId
       );
-      if (cartItemsMin) {
+      if (cartItems) {
         ENTITY_ADAPTERS.cartItems.updateOne(state.cartItems, {
           id: vendorId,
           changes: {
             minimizedItemIds: toggleArrayElement(
-              cartItemsMin.minimizedItemIds,
+              cartItems.minimizedItemIds,
               itemId
             ),
           },
@@ -135,14 +135,14 @@ const addedSlice = createSlice({
       action: PayloadAction<{ vendorId: number }>
     ) => {
       const { vendorId } = action.payload;
-      const cartItemsMin = ADAPTER_SELECTORS.LOCAL.cartItems.selectById(
+      const cartItems = ADAPTER_SELECTORS.LOCAL.cartItems.selectById(
         state,
         vendorId
       );
-      if (cartItemsMin) {
+      if (cartItems) {
         ENTITY_ADAPTERS.cartItems.updateOne(state.cartItems, {
           id: vendorId,
-          changes: { minimizedItemIds: [...cartItemsMin.itemIds] },
+          changes: { minimizedItemIds: [...cartItems.itemIds] },
         });
       }
     },
@@ -151,11 +151,11 @@ const addedSlice = createSlice({
       action: PayloadAction<{ vendorId: number }>
     ) => {
       const { vendorId } = action.payload;
-      const cartItemsMin = ADAPTER_SELECTORS.LOCAL.cartItems.selectById(
+      const cartItems = ADAPTER_SELECTORS.LOCAL.cartItems.selectById(
         state,
         vendorId
       );
-      if (cartItemsMin) {
+      if (cartItems) {
         ENTITY_ADAPTERS.cartItems.updateOne(state.cartItems, {
           id: vendorId,
           changes: { minimizedItemIds: EMPTY_ARRAY },

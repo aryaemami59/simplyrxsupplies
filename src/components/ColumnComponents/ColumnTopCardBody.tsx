@@ -16,11 +16,6 @@ const ColumnTopCardBody: FC = () => {
   const addedItemsIds = useAppSelector(state =>
     selectCartItemsIds(state, vendorId)
   );
-  console.log(addedItemsIds);
-  // const addedItems = useAppSelector(
-  //   selectAddedItemsByVendor(vendorId),
-  //   shallowEqual
-  // );
   return (
     <CardContent className="p-2">
       <QRCodeImageContainer />

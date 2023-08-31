@@ -3,6 +3,6 @@ import { selectOfficialName } from "../redux/selectors";
 import { OfficialVendorName } from "../types/api";
 
 const useOfficialVendorName = (vendorId: number): OfficialVendorName =>
-  useAppSelector(state => selectOfficialName(state, vendorId))!;
+  useAppSelector(state => selectOfficialName(state, vendorId));
 
 export default useOfficialVendorName;

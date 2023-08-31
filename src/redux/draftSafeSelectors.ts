@@ -1,5 +1,5 @@
 import { AddedSliceSelectorParamsProvider } from "../types/AddedState";
-import EMPTY_ARRAY from "../utils/emptyArray";
+import setToEmptyArray from "../utils/setToEmptyArray";
 import { ADAPTER_SELECTORS } from "./adapterSelectors";
 import { createDraftSafeAppSelector } from "./hooks";
 
@@ -14,7 +14,7 @@ export const ADDED_SLICE_SELECTOR_PARAMS_PROVIDER: AddedSliceSelectorParamsProvi
 class DraftSafeSelectors {
   public readonly selectCartItems = createDraftSafeAppSelector(
     [ADAPTER_SELECTORS.LOCAL.cart.selectById],
-    cart => cart?.itemIds ?? EMPTY_ARRAY
+    cart => setToEmptyArray(cart?.itemIds)
   );
 
   public readonly selectUnCheckedVendorIds = createDraftSafeAppSelector(
@@ -23,9 +23,11 @@ class DraftSafeSelectors {
       ADDED_SLICE_SELECTOR_PARAMS_PROVIDER.getCartId,
     ],
     (itemVendors, cartId) =>
-      itemVendors.filter(
-        ({ checkedVendorIds, vendorIds }) =>
-          vendorIds.includes(cartId) && !checkedVendorIds.includes(cartId)
+      setToEmptyArray(
+        itemVendors.filter(
+          ({ checkedVendorIds, vendorIds }) =>
+            vendorIds.includes(cartId) && !checkedVendorIds.includes(cartId)
+        )
       )
   );
 
@@ -35,8 +37,10 @@ class DraftSafeSelectors {
       ADDED_SLICE_SELECTOR_PARAMS_PROVIDER.getCartId,
     ],
     (itemVendors, cartId) =>
-      itemVendors.filter(({ checkedVendorIds }) =>
-        checkedVendorIds.includes(cartId)
+      setToEmptyArray(
+        itemVendors.filter(({ checkedVendorIds }) =>
+          checkedVendorIds.includes(cartId)
+        )
       )
   );
 
@@ -47,10 +51,12 @@ class DraftSafeSelectors {
       ADDED_SLICE_SELECTOR_PARAMS_PROVIDER.getItemId,
     ],
     (itemVendors, carts, itemId) =>
-      carts.filter(
-        ({ id, itemIds }) =>
-          !!itemVendors?.checkedVendorIds.includes(id) &&
-          !itemIds.includes(itemId)
+      setToEmptyArray(
+        carts.filter(
+          ({ id, itemIds }) =>
+            !!itemVendors?.checkedVendorIds.includes(id) &&
+            !itemIds.includes(itemId)
+        )
       )
   );
 }

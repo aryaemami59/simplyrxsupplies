@@ -13,7 +13,7 @@ import { clearSearchResults, setSearchResults } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectItemNamesAndKeywords } from "../../redux/selectors";
 import { SEARCH_FIELD_BG } from "../../shared/sharedStyles";
-import search from "../../utils/search";
+import search from "../../utils/search/search";
 import InputEndAdornment from "./InputEndAdornment";
 
 const style: CSSProperties = {
