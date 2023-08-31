@@ -6,22 +6,19 @@ import {
   createAppSelector,
   createDraftSafeAppSelector,
 } from "../redux/hooks";
-import {
-  Cart,
-  ItemVendors,
-  SearchResultsItem,
-  SelectorParamsProvider,
-  StateAdapters,
-} from "./redux";
+import { SelectorParamsProvider, StateAdapters } from "./redux";
 
 export type AddedState = {
-  readonly searchResults: EntityState<SearchResultsItem, number>;
-  readonly cart: EntityState<Cart, number>;
-  /**
-   * Controls the one to many relationship between an item and its vendors in the search results and the side bar accordion.
-   */
-  readonly itemVendors: EntityState<ItemVendors, number>;
+  -readonly [K in keyof StateAdapters]: EntityState<StateAdapters[K], number>;
 };
+// export type AddedState = {
+//   readonly searchResults: EntityState<SearchResultsItem, number>;
+//   readonly cart: EntityState<Cart, number>;
+//   /**
+//    * Controls the one to many relationship between an item and its vendors in the search results and the side bar accordion.
+//    */
+//   readonly itemVendors: EntityState<ItemVendors, number>;
+// };
 
 export type AdapterLocalizedSelectors = {
   readonly [K in keyof StateAdapters]: EntitySelectors<
@@ -56,7 +53,7 @@ export type TopLevelSelectors<
       >;
     };
 
-export type DraftSelectorsParametricSelectors = SelectorParamsProvider<
+export type AddedSliceSelectorParamsProvider = SelectorParamsProvider<
   AddedState,
   readonly [
     itemId: {

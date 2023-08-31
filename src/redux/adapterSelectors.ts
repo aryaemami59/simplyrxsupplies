@@ -20,9 +20,9 @@ export const SIMPLE_SELECTORS: AdapterSimpleSelectors = {
 
   categories: ENTITY_ADAPTERS.categories.getSelectors(),
 
-  cartItems: ENTITY_ADAPTERS.cartItems.getSelectors(),
-
   itemVendors: ENTITY_ADAPTERS.itemVendors.getSelectors(),
+
+  cartItems: ENTITY_ADAPTERS.cartItems.getSelectors(),
 } as const satisfies AdapterSimpleSelectors;
 
 export const LOCAL_SELECTORS: AdapterLocalizedSelectors = {
@@ -35,6 +35,8 @@ export const LOCAL_SELECTORS: AdapterLocalizedSelectors = {
   itemVendors: ENTITY_ADAPTERS.itemVendors.getSelectors(
     added => added.itemVendors
   ),
+
+  cartItems: ENTITY_ADAPTERS.cartItems.getSelectors(added => added.cartItems),
 } as const satisfies AdapterLocalizedSelectors;
 
 export const GLOBAL_SELECTORS: AdapterGlobalizedSelectors = {
@@ -52,6 +54,10 @@ export const GLOBAL_SELECTORS: AdapterGlobalizedSelectors = {
 
   itemVendors: ENTITY_ADAPTERS.itemVendors.getSelectors(
     TOP_LEVEL_SELECTORS.itemVendors
+  ),
+
+  cartItems: ENTITY_ADAPTERS.cartItems.getSelectors(
+    TOP_LEVEL_SELECTORS.cartItems
   ),
 } as const satisfies AdapterGlobalizedSelectors;
 

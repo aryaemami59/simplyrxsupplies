@@ -13,4 +13,6 @@ export const TOP_LEVEL_SELECTORS: TopLevelSelectorsForAddedState = {
   cart: createAppSelector([selectAdded], added => added.cart),
 
   itemVendors: createAppSelector([selectAdded], added => added.itemVendors),
+
+  cartItems: createAppSelector([selectAdded], added => added.cartItems),
 } as const satisfies TopLevelSelectorsForAddedState;

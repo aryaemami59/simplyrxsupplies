@@ -13,9 +13,9 @@ import type {
   TopLevelSelectors,
 } from "../types/AddedState";
 import type {
+  AdaptersHelper,
   AdapterSimpleSelectors,
   SelectorParamsProvider,
-  StateAndApiAdapters,
 } from "../types/redux";
 import type { AppDispatch, RootState } from "./store";
 
@@ -67,8 +67,8 @@ export type RootSelectorParamsProvider = SelectorParamsProvider<
 >;
 
 export type AdapterGlobalizedSelectors = {
-  readonly [K in keyof StateAndApiAdapters]: EntitySelectors<
-    StateAndApiAdapters[K],
+  readonly [K in keyof AdaptersHelper]: EntitySelectors<
+    AdaptersHelper[K],
     RootState,
     number
   >;

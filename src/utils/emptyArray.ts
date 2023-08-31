@@ -1,5 +1,5 @@
 import { EmptyTuple } from "../types/tsHelpers";
 
-const emptyArray: EmptyTuple = [];
+const EMPTY_ARRAY: EmptyTuple = [];
 
-export default emptyArray;
+export default EMPTY_ARRAY;

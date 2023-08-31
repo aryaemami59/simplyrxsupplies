@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import GITHUB_URL_ITEMS from "../data/fetchInfo";
 import { Item, OldItem, OldSupplies, VendorName } from "../types/api";
 import { Cart, SuppliesState } from "../types/redux";
-import emptyArray from "../utils/emptyArray";
+import EMPTY_ARRAY from "../utils/emptyArray";
 import ADAPTER_INITIAL_STATES from "./adapterInitialStates";
 import ENTITY_ADAPTERS from "./entityAdapters";
 import { createDraftSafeRootSelector } from "./hooks";
@@ -29,7 +29,7 @@ const apiSlice = createApi({
           cart: Object.values(baseQueryReturnValue.vendors).map<Cart>(
             ({ id }) => ({
               id,
-              items: ADAPTER_INITIAL_STATES.cartItems,
+              itemIds: EMPTY_ARRAY,
             })
           ),
         };
@@ -52,7 +52,7 @@ export const selectItemsData = createDraftSafeRootSelector(
   data =>
     ENTITY_ADAPTERS.items.setAll(
       ADAPTER_INITIAL_STATES.items,
-      data?.items ?? emptyArray
+      data?.items ?? EMPTY_ARRAY
     )
 );
 
@@ -61,7 +61,7 @@ export const selectVendorsData = createDraftSafeRootSelector(
   data =>
     ENTITY_ADAPTERS.vendors.setAll(
       ADAPTER_INITIAL_STATES.vendors,
-      data?.vendors ?? emptyArray
+      data?.vendors ?? EMPTY_ARRAY
     )
 );
 
@@ -70,7 +70,7 @@ export const selectCategoriesData = createDraftSafeRootSelector(
   data =>
     ENTITY_ADAPTERS.categories.setAll(
       ADAPTER_INITIAL_STATES.categories,
-      data?.categories ?? emptyArray
+      data?.categories ?? EMPTY_ARRAY
     )
 );
 

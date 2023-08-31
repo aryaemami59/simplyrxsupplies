@@ -1,6 +1,5 @@
 import type { ItemNamesAndKeywords } from "../types/api";
-import emptyArray from "../utils/emptyArray";
-import ADAPTER_INITIAL_STATES from "./adapterInitialStates";
+import EMPTY_ARRAY from "../utils/emptyArray";
 import { ADAPTER_SELECTORS } from "./adapterSelectors";
 import { createAppSelector, RootSelectorParamsProvider } from "./hooks";
 
@@ -33,7 +32,7 @@ export const selectItemName = createAppSelector(
 
 export const selectVendorIdsByItemId = createAppSelector(
   [ADAPTER_SELECTORS.GLOBAL.items.selectById],
-  item => item?.vendors ?? emptyArray
+  item => item?.vendors ?? EMPTY_ARRAY
 );
 
 export const selectItemNamesAndKeywords = createAppSelector(
@@ -49,21 +48,12 @@ export const selectItemNamesAndKeywords = createAppSelector(
 export const checkIfAnyItemsAdded = createAppSelector(
   [ADAPTER_SELECTORS.GLOBAL.cart.selectAll],
   carts =>
-    carts.reduce<boolean>(
-      (acc, curr) =>
-        ADAPTER_SELECTORS.SIMPLE.cartItems.selectTotal(curr.items) > 0 || acc,
-      false
-    )
-);
-
-const selectCartItems = createAppSelector(
-  [ADAPTER_SELECTORS.GLOBAL.cart.selectById],
-  cart => cart?.items ?? ADAPTER_INITIAL_STATES.cartItems
+    carts.reduce<boolean>((acc, curr) => curr.itemIds.length > 0 || acc, false)
 );
 
 export const selectCartItemsIds = createAppSelector(
-  [selectCartItems],
-  ADAPTER_SELECTORS.SIMPLE.cartItems.selectIds
+  [ADAPTER_SELECTORS.GLOBAL.cart.selectById],
+  cart => cart?.itemIds ?? EMPTY_ARRAY
 );
 
 export const selectCartItemNamesStringified = createAppSelector(
@@ -74,7 +64,7 @@ export const selectCartItemNamesStringified = createAppSelector(
 
 export const selectCheckedVendorIds = createAppSelector(
   [ADAPTER_SELECTORS.GLOBAL.itemVendors.selectById],
-  checkedVendorItem => checkedVendorItem?.checkedVendors ?? emptyArray
+  checkedVendorItem => checkedVendorItem?.checkedVendorIds ?? EMPTY_ARRAY
 );
 
 export const isVendorChecked = createAppSelector(
@@ -83,17 +73,15 @@ export const isVendorChecked = createAppSelector(
     ROOT_SELECTOR_PARAMS_PROVIDER.getItemIdAndCartId,
   ],
   (checkedVendorItem, vendorId) =>
-    !!checkedVendorItem?.checkedVendors.includes(vendorId)
-);
-
-const selectCartItem = createAppSelector(
-  [selectCartItems, ROOT_SELECTOR_PARAMS_PROVIDER.getCartIdAndItemId],
-  ADAPTER_SELECTORS.SIMPLE.cartItems.selectById
+    !!checkedVendorItem?.checkedVendorIds.includes(vendorId)
 );
 
 export const isMinimized = createAppSelector(
-  [selectCartItem],
-  cartItems => !!cartItems?.minimized
+  [
+    ADAPTER_SELECTORS.GLOBAL.cartItems.selectById,
+    ROOT_SELECTOR_PARAMS_PROVIDER.getCartIdAndItemId,
+  ],
+  (cartItemsMin, itemId) => !!cartItemsMin?.minimizedItemIds.includes(itemId)
 );
 
 export const selectCategoryName = createAppSelector(
@@ -103,7 +91,7 @@ export const selectCategoryName = createAppSelector(
 
 export const selectCategoryItemIds = createAppSelector(
   [ADAPTER_SELECTORS.GLOBAL.categories.selectById],
-  category => category?.itemIds ?? emptyArray
+  category => category?.itemIds ?? EMPTY_ARRAY
 );
 
 export const checkIfAddedToVendor = createAppSelector(
@@ -117,8 +105,8 @@ export const checkIfAnyAddedToOneVendor = createAppSelector(
 );
 
 export const selectAddedItemsLength = createAppSelector(
-  [selectCartItems],
-  ADAPTER_SELECTORS.SIMPLE.cartItems.selectTotal
+  [selectCartItemsIds],
+  itemsIds => itemsIds.length
 );
 
 export const selectQRCodeText = createAppSelector(
@@ -138,7 +126,7 @@ export const selectOfficialName = createAppSelector(
 
 export const selectVendorItemIds = createAppSelector(
   [ADAPTER_SELECTORS.GLOBAL.vendors.selectById],
-  vendor => vendor?.itemIds ?? emptyArray
+  vendor => vendor?.itemIds ?? EMPTY_ARRAY
 );
 
 const selectCartsByItemId = createAppSelector(
@@ -153,10 +141,7 @@ export const checkIfAddedToAllVendors = createAppSelector(
   [selectCartsByItemId, ROOT_SELECTOR_PARAMS_PROVIDER.getItemId],
   (carts, itemId) =>
     carts.reduce<boolean>(
-      (acc, curr) =>
-        ADAPTER_SELECTORS.SIMPLE.cartItems
-          .selectIds(curr.items)
-          .includes(itemId) && acc,
+      (acc, curr) => curr.itemIds.includes(itemId) && acc,
       true
     )
 );

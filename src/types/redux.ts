@@ -5,26 +5,27 @@ import type { Category, Item, Vendor } from "./api";
  * Controls the one to many relationship between an item and its vendors in the search results and the side bar accordion.
  */
 export type ItemVendors = {
+  /**
+   * References itemId.
+   */
   readonly id: number;
-  readonly checkedVendors: number[];
-  readonly vendors: number[];
+  readonly checkedVendorIds: number[];
+  readonly vendorIds: number[];
 };
 
 export type SearchResultsItem = {
+  /**
+   * References itemId.
+   */
   readonly id: number;
-};
-/**
- * Controls the one to many relationship between a vendor and its items in a cart.
- */
-export type CartItems = {
-  readonly id: number;
-  readonly vendorId: number;
-  readonly minimized: boolean;
 };
 
 export type Cart = {
+  /**
+   * References vendorId.
+   */
   readonly id: number;
-  readonly items: EntityState<CartItems, number>;
+  readonly itemIds: number[];
 };
 
 export type SuppliesState = {
@@ -39,25 +40,37 @@ export type ItemIdAndVendorId = {
   readonly vendorId: number;
 };
 
-type NonStateAdapters = {
-  readonly cartItems: CartItems;
-};
-
 type ApiAdapters = {
   readonly items: Item;
   readonly vendors: Vendor;
   readonly categories: Category;
 };
+/**
+ * Controls the one to many relationship between a vendor and its items in a cart.
+ */
+export type CartItems = {
+  /**
+   * References vendorId.
+   */
+  readonly id: number;
+  readonly minimizedItemIds: number[];
+  readonly itemIds: number[];
+};
 
 export type StateAdapters = {
   readonly cart: Cart;
   readonly searchResults: SearchResultsItem;
+  /**
+   * Controls the one to many relationship between an item and its vendors in the search results and the side bar accordion.
+   */
   readonly itemVendors: ItemVendors;
+  /**
+   * Controls the one to many relationship between a vendor and its items in a cart.
+   */
+  readonly cartItems: CartItems;
 };
 
-export type StateAndApiAdapters = ApiAdapters & StateAdapters;
-
-type AdaptersHelper = NonStateAdapters & StateAndApiAdapters;
+export type AdaptersHelper = ApiAdapters & StateAdapters;
 
 export type Adapters = {
   readonly [K in keyof AdaptersHelper]: EntityAdapter<

@@ -1,5 +1,5 @@
 import type { ItemNamesAndKeywords } from "../types/api";
-import emptyArray from "./emptyArray";
+import EMPTY_ARRAY from "./emptyArray";
 import sortResults from "./sortResults";
 
 const search = (
@@ -43,7 +43,7 @@ const search = (
             sortResults(a, searchRegExp, inputValue)
         )
     : // .map(({ name }) => name)
-      emptyArray;
+      EMPTY_ARRAY;
 };
 
 export default search;
