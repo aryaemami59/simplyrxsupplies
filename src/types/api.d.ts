@@ -68,7 +68,8 @@ export type Item = {
   readonly name: string;
   readonly itemNumber: string;
   readonly keywords: string[];
-  readonly category: CategoryName[];
+  readonly category: number[];
+  // readonly category: CategoryName[];
   readonly vendors: number[];
   readonly src: string;
 };
@@ -83,8 +84,9 @@ type Supplies = {
 
 // Additional Types
 // TODO: Once the api field vendors and categories change to contain ids, this type can be disposed of.
-export type OldItem = Omit<Item, "vendors"> & {
+export type OldItem = Omit<Item, "vendors" | "category"> & {
   readonly vendors: VendorName[];
+  readonly category: CategoryName[];
 };
 
 // TODO: Once the api field vendors and categories change to contain ids, this type can be disposed of.

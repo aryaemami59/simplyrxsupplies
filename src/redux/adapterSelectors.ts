@@ -1,12 +1,15 @@
-import type { AdapterLocalizedSelectors } from "../types/AddedState";
-import type { AdapterSimpleSelectors } from "../types/redux";
+import type {
+  AdapterGlobalizedSelectors,
+  AdapterLocalizedSelectors,
+  AdapterSimpleSelectors,
+  Selectors,
+} from "../types/reduxHelperTypes";
 import {
   selectCategoriesData,
   selectItemsData,
   selectVendorsData,
 } from "./apiSlice";
 import ENTITY_ADAPTERS from "./entityAdapters";
-import type { AdapterGlobalizedSelectors, Selectors } from "./hooks";
 import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors";
 
 export const SIMPLE_SELECTORS: AdapterSimpleSelectors = {

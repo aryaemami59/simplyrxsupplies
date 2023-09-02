@@ -1,7 +1,7 @@
-import type { AddedSliceSelectorParamsProvider } from "../types/AddedState";
+import type { AddedSliceSelectorParamsProvider } from "../types/reduxHelperTypes";
 import setToEmptyArray from "../utils/setToEmptyArray";
 import { ADAPTER_SELECTORS } from "./adapterSelectors";
-import { createDraftSafeAppSelector } from "./hooks";
+import { createDraftSafeAddedSelector } from "./createSelectors";
 
 export const ADDED_SLICE_SELECTOR_PARAMS_PROVIDER: AddedSliceSelectorParamsProvider =
   {
@@ -12,12 +12,12 @@ export const ADDED_SLICE_SELECTOR_PARAMS_PROVIDER: AddedSliceSelectorParamsProvi
   } as const satisfies AddedSliceSelectorParamsProvider;
 
 class DraftSafeSelectors {
-  public readonly selectCartItems = createDraftSafeAppSelector(
+  public readonly selectCartItems = createDraftSafeAddedSelector(
     [ADAPTER_SELECTORS.LOCAL.cart.selectById],
     cart => setToEmptyArray(cart?.itemIds)
   );
 
-  public readonly selectUnCheckedVendorIds = createDraftSafeAppSelector(
+  public readonly selectUnCheckedItemVendors = createDraftSafeAddedSelector(
     [
       ADAPTER_SELECTORS.LOCAL.itemVendors.selectAll,
       ADDED_SLICE_SELECTOR_PARAMS_PROVIDER.getCartId,
@@ -31,7 +31,7 @@ class DraftSafeSelectors {
       )
   );
 
-  public readonly selectSearchResultsByVendorId = createDraftSafeAppSelector(
+  public readonly selectItemVendorsByVendorId = createDraftSafeAddedSelector(
     [
       ADAPTER_SELECTORS.LOCAL.itemVendors.selectAll,
       ADDED_SLICE_SELECTOR_PARAMS_PROVIDER.getCartId,
@@ -44,7 +44,7 @@ class DraftSafeSelectors {
       )
   );
 
-  public readonly selectCartsByCheckedVendors = createDraftSafeAppSelector(
+  public readonly selectCartsByCheckedVendors = createDraftSafeAddedSelector(
     [
       ADAPTER_SELECTORS.LOCAL.itemVendors.selectById,
       ADAPTER_SELECTORS.LOCAL.cart.selectAll,

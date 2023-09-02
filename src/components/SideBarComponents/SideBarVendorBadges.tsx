@@ -8,7 +8,7 @@ import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 import { toggleVendorForOneSearchResultItem } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { checkIfAddedToVendor, isVendorChecked } from "../../redux/selectors";
-import type { ItemIdAndVendorId } from "../../types/redux";
+import type { ItemIdAndVendorId } from "../../types/reduxHelperTypes";
 
 type Props = ItemIdAndVendorId;
 

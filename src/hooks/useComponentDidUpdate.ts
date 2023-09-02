@@ -2,9 +2,8 @@ import { useEffect, useRef } from "react";
 
 /**
  * Runs an effect anytime the component re-renders.
- * @template {() => void} T T must be a function.
- * @param {T} callback Callback function that gets invoked anytime the component updates.
- * @param {readonly unknown[]} [deps] An optional dependency array, if provided effect will run only if the values in the list change.
+ * @param callback - Callback function that gets invoked anytime the component updates.
+ * @param deps - An optional dependency array, if provided effect will run only if the values in the list change.
  */
 const useComponentDidUpdate = <T extends () => void>(
   callback: T,

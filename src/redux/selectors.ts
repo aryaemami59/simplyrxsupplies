@@ -1,10 +1,10 @@
 import type { ItemNameAndKeywords } from "../types/api";
+import type { RootSelectorParamsProvider } from "../types/reduxHelperTypes";
 import setToEmptyArray from "../utils/setToEmptyArray";
 import { ADAPTER_SELECTORS } from "./adapterSelectors";
-import type { RootSelectorParamsProvider } from "./hooks";
-import { createAppSelector } from "./hooks";
+import { createAppSelector } from "./createSelectors";
 
-export const ROOT_SELECTOR_PARAMS_PROVIDER: RootSelectorParamsProvider = {
+const ROOT_SELECTOR_PARAMS_PROVIDER: RootSelectorParamsProvider = {
   getItemId: (state, itemId) => itemId,
   getCartId: (state, cartId) => cartId,
   getCartIdAndItemId: (state, cartId, itemId) => itemId,

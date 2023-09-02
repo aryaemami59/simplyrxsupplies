@@ -7,7 +7,7 @@ import type {
   CartItems,
   ItemVendors,
   SearchResultsItem,
-} from "../types/redux";
+} from "../types/reduxHelperTypes";
 
 const ENTITY_ADAPTERS: Adapters = {
   cart: createEntityAdapter<Cart>(),

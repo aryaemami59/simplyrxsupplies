@@ -1,19 +1,19 @@
 import type { PayloadAction, Update } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
-import type { AddedState } from "../types/AddedState";
 import type {
+  AddedState,
   Cart,
   CartItems,
   ItemIdAndVendorId,
   ItemVendors,
   SearchResultsItem,
-} from "../types/redux";
+} from "../types/reduxHelperTypes";
 import EMPTY_ARRAY from "../utils/emptyArray";
 import toggleArrayElement from "../utils/toggleArrayElement";
 import ADAPTER_INITIAL_STATES from "./adapterInitialStates";
 import { ADAPTER_SELECTORS } from "./adapterSelectors";
-import apiSlice from "./apiSlice";
+import { endpoints } from "./apiSlice";
 import { DRAFT_SAFE_SELECTORS } from "./draftSafeSelectors";
 import ENTITY_ADAPTERS from "./entityAdapters";
 
@@ -38,56 +38,72 @@ const addedSlice = createSlice({
         state,
         itemId
       );
-      const updates = carts.map<Update<Cart, number>>(cart => ({
-        id: cart.id,
-        changes: {
-          itemIds: [...new Set(cart.itemIds.concat(itemId))],
-        },
-      }));
-      ENTITY_ADAPTERS.cart.updateMany(state.cart, updates);
+      const cartUpdates = carts.map<Update<Cart, number>>(
+        ({ id, itemIds }) => ({
+          id,
+          changes: {
+            itemIds: [...new Set(itemIds.concat(itemId))],
+          },
+        })
+      );
+      ENTITY_ADAPTERS.cart.updateMany(state.cart, cartUpdates);
       if (itemVendors) {
-        ENTITY_ADAPTERS.itemVendors.updateOne(state.itemVendors, {
+        const itemVendorsUpdate: Update<ItemVendors, number> = {
           id: itemId,
           changes: {
             checkedVendorIds: itemVendors.vendorIds,
           },
-        });
+        };
+        ENTITY_ADAPTERS.itemVendors.updateOne(
+          state.itemVendors,
+          itemVendorsUpdate
+        );
       }
       ENTITY_ADAPTERS.searchResults.removeOne(state.searchResults, itemId);
     },
+
     deleteOneItemFromCart: (
       state,
       action: PayloadAction<ItemIdAndVendorId>
     ) => {
       const { itemId, vendorId } = action.payload;
       const cartItems = DRAFT_SAFE_SELECTORS.selectCartItems(state, vendorId);
-      ENTITY_ADAPTERS.cart.updateOne(state.cart, {
+      const cartUpdate: Update<Cart, number> = {
         id: vendorId,
         changes: {
           itemIds: cartItems.filter(id => id !== itemId),
         },
-      });
+      };
+      ENTITY_ADAPTERS.cart.updateOne(state.cart, cartUpdate);
     },
+
     removeAllItemsFromCart: (
       state,
       action: PayloadAction<{ vendorId: number }>
     ) => {
       const { vendorId } = action.payload;
-      ENTITY_ADAPTERS.cart.updateOne(state.cart, {
+      const cartUpdate: Update<Cart, number> = {
         id: vendorId,
         changes: { itemIds: EMPTY_ARRAY },
-      });
+      };
+      ENTITY_ADAPTERS.cart.updateOne(state.cart, cartUpdate);
     },
+
     setSearchResults: (state, action: PayloadAction<number[]>) => {
       const { payload: itemIds } = action;
-      const newEntities = itemIds.map<SearchResultsItem>(id => ({
+      const newSearchResults = itemIds.map<SearchResultsItem>(id => ({
         id,
       }));
-      ENTITY_ADAPTERS.searchResults.setAll(state.searchResults, newEntities);
+      ENTITY_ADAPTERS.searchResults.setAll(
+        state.searchResults,
+        newSearchResults
+      );
     },
+
     clearSearchResults: state => {
       ENTITY_ADAPTERS.searchResults.removeAll(state.searchResults);
     },
+
     toggleVendorForOneSearchResultItem: (
       state,
       action: PayloadAction<ItemIdAndVendorId>
@@ -97,18 +113,24 @@ const addedSlice = createSlice({
         state,
         itemId
       );
-      if (itemVendors) {
-        ENTITY_ADAPTERS.itemVendors.updateOne(state.itemVendors, {
-          id: itemId,
-          changes: {
-            checkedVendorIds: toggleArrayElement(
-              itemVendors.checkedVendorIds,
-              vendorId
-            ),
-          },
-        });
+      if (!itemVendors) {
+        return;
       }
+      const itemVendorsUpdate: Update<ItemVendors, number> = {
+        id: itemId,
+        changes: {
+          checkedVendorIds: toggleArrayElement(
+            itemVendors.checkedVendorIds,
+            vendorId
+          ),
+        },
+      };
+      ENTITY_ADAPTERS.itemVendors.updateOne(
+        state.itemVendors,
+        itemVendorsUpdate
+      );
     },
+
     toggleMinimizeOneItemInCart: (
       state,
       action: PayloadAction<ItemIdAndVendorId>
@@ -118,18 +140,21 @@ const addedSlice = createSlice({
         state,
         vendorId
       );
-      if (cartItems) {
-        ENTITY_ADAPTERS.cartItems.updateOne(state.cartItems, {
-          id: vendorId,
-          changes: {
-            minimizedItemIds: toggleArrayElement(
-              cartItems.minimizedItemIds,
-              itemId
-            ),
-          },
-        });
+      if (!cartItems) {
+        return;
       }
+      const cartItemsUpdate: Update<CartItems, number> = {
+        id: vendorId,
+        changes: {
+          minimizedItemIds: toggleArrayElement(
+            cartItems.minimizedItemIds,
+            itemId
+          ),
+        },
+      };
+      ENTITY_ADAPTERS.cartItems.updateOne(state.cartItems, cartItemsUpdate);
     },
+
     minimizeAllItemsInCart: (
       state,
       action: PayloadAction<{ vendorId: number }>
@@ -139,13 +164,16 @@ const addedSlice = createSlice({
         state,
         vendorId
       );
-      if (cartItems) {
-        ENTITY_ADAPTERS.cartItems.updateOne(state.cartItems, {
-          id: vendorId,
-          changes: { minimizedItemIds: [...cartItems.itemIds] },
-        });
+      if (!cartItems) {
+        return;
       }
+      const cartItemsUpdate: Update<CartItems, number> = {
+        id: vendorId,
+        changes: { minimizedItemIds: cartItems.itemIds },
+      };
+      ENTITY_ADAPTERS.cartItems.updateOne(state.cartItems, cartItemsUpdate);
     },
+
     maximizeAllItemsInCart: (
       state,
       action: PayloadAction<{ vendorId: number }>
@@ -155,23 +183,26 @@ const addedSlice = createSlice({
         state,
         vendorId
       );
-      if (cartItems) {
-        ENTITY_ADAPTERS.cartItems.updateOne(state.cartItems, {
-          id: vendorId,
-          changes: { minimizedItemIds: EMPTY_ARRAY },
-        });
+      if (!cartItems) {
+        return;
       }
+      const cartItemsUpdate: Update<CartItems, number> = {
+        id: vendorId,
+        changes: { minimizedItemIds: EMPTY_ARRAY },
+      };
+      ENTITY_ADAPTERS.cartItems.updateOne(state.cartItems, cartItemsUpdate);
     },
+
     checkOneVendorForAllSearchResults: (
       state,
       action: PayloadAction<{ vendorId: number }>
     ) => {
       const { vendorId } = action.payload;
-      const needToBeUpdated = DRAFT_SAFE_SELECTORS.selectUnCheckedVendorIds(
+      const itemVendors = DRAFT_SAFE_SELECTORS.selectUnCheckedItemVendors(
         state,
         vendorId
       );
-      const updates = needToBeUpdated.map<Update<ItemVendors, number>>(
+      const itemVendorsUpdates = itemVendors.map<Update<ItemVendors, number>>(
         ({ checkedVendorIds, id }) => ({
           id,
           changes: {
@@ -179,52 +210,59 @@ const addedSlice = createSlice({
           },
         })
       );
-      ENTITY_ADAPTERS.itemVendors.updateMany(state.itemVendors, updates);
+      ENTITY_ADAPTERS.itemVendors.updateMany(
+        state.itemVendors,
+        itemVendorsUpdates
+      );
     },
+
     unCheckOneVendorForAllSearchResults: (
       state,
       action: PayloadAction<{ vendorId: number }>
     ) => {
       const { vendorId } = action.payload;
-      const searchResultItemsByVendorId =
-        DRAFT_SAFE_SELECTORS.selectSearchResultsByVendorId(state, vendorId);
-      const updates = searchResultItemsByVendorId.map<
-        Update<ItemVendors, number>
-      >(({ checkedVendorIds, id }) => ({
-        id,
-        changes: {
-          checkedVendorIds: checkedVendorIds.filter(
-            checkedVendorId => checkedVendorId !== vendorId
-          ),
-        },
-      }));
-      ENTITY_ADAPTERS.itemVendors.updateMany(state.itemVendors, updates);
+      const itemVendors = DRAFT_SAFE_SELECTORS.selectItemVendorsByVendorId(
+        state,
+        vendorId
+      );
+      const itemVendorsUpdates = itemVendors.map<Update<ItemVendors, number>>(
+        ({ checkedVendorIds, id }) => ({
+          id,
+          changes: {
+            checkedVendorIds: checkedVendorIds.filter(
+              checkedVendorId => checkedVendorId !== vendorId
+            ),
+          },
+        })
+      );
+      ENTITY_ADAPTERS.itemVendors.updateMany(
+        state.itemVendors,
+        itemVendorsUpdates
+      );
     },
   },
+
   extraReducers: builder => {
-    builder.addMatcher(
-      apiSlice.endpoints.getMain.matchFulfilled,
-      (state, action) => {
-        const { cart, items, vendors } = action.payload;
-        ENTITY_ADAPTERS.cart.setAll(state.cart, cart);
-        ENTITY_ADAPTERS.itemVendors.setAll(
-          state.itemVendors,
-          items.map<ItemVendors>(({ id, vendors: itemVendors }) => ({
-            id,
-            checkedVendorIds: itemVendors,
-            vendorIds: itemVendors,
-          }))
-        );
-        ENTITY_ADAPTERS.cartItems.setAll(
-          state.cartItems,
-          vendors.map<CartItems>(({ id, itemIds }) => ({
-            id,
-            itemIds,
-            minimizedItemIds: EMPTY_ARRAY,
-          }))
-        );
-      }
-    );
+    builder.addMatcher(endpoints.getMain.matchFulfilled, (state, action) => {
+      const { cart, items, vendors } = action.payload;
+      ENTITY_ADAPTERS.cart.setAll(state.cart, cart);
+      ENTITY_ADAPTERS.itemVendors.setAll(
+        state.itemVendors,
+        items.map<ItemVendors>(({ id, vendors: vendorIds }) => ({
+          id,
+          checkedVendorIds: vendorIds,
+          vendorIds,
+        }))
+      );
+      ENTITY_ADAPTERS.cartItems.setAll(
+        state.cartItems,
+        vendors.map<CartItems>(({ id, itemIds }) => ({
+          id,
+          itemIds,
+          minimizedItemIds: EMPTY_ARRAY,
+        }))
+      );
+    });
   },
 });
 
@@ -241,9 +279,5 @@ export const {
   checkOneVendorForAllSearchResults,
   unCheckOneVendorForAllSearchResults,
 } = addedSlice.actions;
-
-// export const { selectSearchResults } = addedSlice.selectors;
-
-// export const { reducer: addedReducer } = addedSlice;
 
 export default addedSlice;

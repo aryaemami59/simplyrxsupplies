@@ -21,6 +21,8 @@
     "plugin:unicorn/recommended",
     "plugin:regexp/all",
     "plugin:optimize-regex/all",
+    "plugin:jsdoc/recommended-typescript-error",
+    "plugin:@typescript-eslint/recommended",
     // "plugin:canonical/recommended",
     "plugin:prettier/recommended"
   ],
@@ -57,7 +59,9 @@
     "canonical",
     "@reverecre/fontawesome",
     "regexp",
-    "optimize-regex"
+    "optimize-regex",
+    "jsdoc",
+    "tsdoc"
   ],
   "root": true,
   "rules": {
@@ -174,7 +178,12 @@
     ],
     // "canonical/no-unused-exports": [2, { "tsConfigPath": "./tsconfig.json" }],
     // "max-classes-per-file": [0],
-    "regexp/prefer-regexp-exec": [0]
+    "regexp/prefer-regexp-exec": [0],
+    "tsdoc/syntax": [2],
+    "react-hooks/exhaustive-deps": [
+      2,
+      { "additionalHooks": "(useComponentDidUpdate)" }
+    ]
     // "react/jsx-no-literals": [0],
     // "react/react-in-jsx-scope": [0]
     // "@typescript-eslint/no-non-null-assertion": [0]
