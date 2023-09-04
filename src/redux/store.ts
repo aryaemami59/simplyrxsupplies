@@ -1,14 +1,15 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { createLogger } from "redux-logger";
 
 import addedSlice from "./addedSlice";
 import apiSlice from "./apiSlice";
 
-// const immutableInvariantMiddleware = createImmutableStateInvariantMiddleware();
-
 const logger = createLogger({ collapsed: true, diff: true, duration: true });
 
-// const element = new Tuple(logger);
+export const rootReducer = combineReducers({
+  [addedSlice.reducerPath]: addedSlice.reducer,
+  [apiSlice.reducerPath]: apiSlice.reducer,
+});
 
 export const store = configureStore({
   middleware: getDefaultMiddleware =>
@@ -27,19 +28,27 @@ export const store = configureStore({
           apiSlice.middleware,
           logger as ReturnType<typeof getDefaultMiddleware>[number]
         ),
-  reducer: {
-    [addedSlice.reducerPath]: addedSlice.reducer,
-    [apiSlice.reducerPath]: apiSlice.reducer,
-  },
+  reducer: rootReducer,
   enhancers: getDefaultEnhancers => getDefaultEnhancers(),
-  // devTools: {}
 });
 
+export const setupStore = (preloadedState?: Partial<RootState>) =>
+  configureStore({
+    reducer: rootReducer,
+    preloadedState,
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware().concat(apiSlice.middleware),
+  });
+
 export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+// export type RootState = ReturnType<typeof store.getState>;
 // export type AppThunk<ReturnType = void> = ThunkAction<
 //   ReturnType,
 //   RootState,
 //   unknown,
 //   Action
 // >;
+
+// setupListeners(store.dispatch, (dispatch, {onOnline}) => );

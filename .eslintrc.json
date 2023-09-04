@@ -1,5 +1,5 @@
 {
-  "env": { "browser": true, "es2024": true, "node": true },
+  "env": { "browser": true, "es2024": true, "node": true, "jest": true },
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -23,6 +23,11 @@
     "plugin:optimize-regex/all",
     "plugin:jsdoc/recommended-typescript-error",
     "plugin:@typescript-eslint/recommended",
+    "plugin:vitest/recommended",
+    // "plugin:vitest/all",
+    "plugin:jest/recommended",
+    "plugin:jest/style",
+    // "plugin:jest/all",
     // "plugin:canonical/recommended",
     "plugin:prettier/recommended"
   ],
@@ -41,7 +46,8 @@
     "ecmaVersion": "latest",
     "project": true,
     "sourceType": "module",
-    "tsconfigRootDir": "./"
+    "tsconfigRootDir": "./",
+    "EXPERIMENTAL_useSourceOfProjectReferenceRedirect": true
   },
   "plugins": [
     "react",
@@ -61,12 +67,17 @@
     "regexp",
     "optimize-regex",
     "jsdoc",
-    "tsdoc"
+    "tsdoc",
+    "vitest",
+    "jest"
   ],
   "root": true,
   "rules": {
     "@typescript-eslint/consistent-type-definitions": [2, "type"],
-    "@typescript-eslint/consistent-type-imports": [2],
+    "@typescript-eslint/consistent-type-imports": [
+      2,
+      { "fixStyle": "separate-type-imports" }
+    ],
     "@typescript-eslint/consistent-type-exports": [2],
     "@typescript-eslint/explicit-member-accessibility": [2],
     "@typescript-eslint/strict-boolean-expressions": [2],
@@ -164,7 +175,15 @@
     ],
     "import/no-extraneous-dependencies": [
       2,
-      { "devDependencies": ["src/main.tsx", "vite.config.ts"] }
+      {
+        "devDependencies": [
+          "src/main.tsx",
+          "vite.config.ts",
+          "**/*.test.ts{,x}",
+          "src/test-utils/**",
+          "setup-vitest.ts"
+        ]
+      }
     ],
     "sonarjs/no-identical-functions": [2, 3],
     "@reverecre/fontawesome/shakeable-imports": [2],
@@ -179,7 +198,7 @@
     // "canonical/no-unused-exports": [2, { "tsConfigPath": "./tsconfig.json" }],
     // "max-classes-per-file": [0],
     "regexp/prefer-regexp-exec": [0],
-    "tsdoc/syntax": [2],
+    // "tsdoc/syntax": [2],
     "react-hooks/exhaustive-deps": [
       2,
       { "additionalHooks": "(useComponentDidUpdate)" }
@@ -188,5 +207,8 @@
     // "react/react-in-jsx-scope": [0]
     // "@typescript-eslint/no-non-null-assertion": [0]
   },
-  "settings": { "react": { "version": "detect" } }
+  "settings": {
+    "react": { "version": "detect" },
+    "vitest": { "version": "detect" }
+  }
 }

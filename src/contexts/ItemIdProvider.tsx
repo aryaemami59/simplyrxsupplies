@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
-import type { FC, ReactNode } from "react";
+import type { FC } from "react";
 import { createContext, memo } from "react";
 
-type Props = {
-  children: ReactNode;
-  itemId: number;
-};
+import type { PropsWithRequiredChildren } from "../types/tsHelpers";
+
+type Props = PropsWithRequiredChildren<{
+  readonly itemId: number;
+}>;
 
 export const ItemIdContext = createContext<number>(0);
 

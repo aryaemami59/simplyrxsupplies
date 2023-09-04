@@ -1,9 +1,10 @@
 import QRCode from "qrcode";
-import type { FC, ReactNode } from "react";
+import type { FC } from "react";
 import { createContext, memo, useEffect, useState } from "react";
 
 import { useAppSelector } from "../redux/hooks";
 import { selectQRCodeText } from "../redux/selectors";
+import type { PropsWithRequiredChildren } from "../types/tsHelpers";
 
 const createQRCode = async <const S extends string>(data: S) => {
   try {
@@ -14,10 +15,9 @@ const createQRCode = async <const S extends string>(data: S) => {
   }
 };
 
-type Props = {
-  readonly children: ReactNode;
+type Props = PropsWithRequiredChildren<{
   readonly vendorId: number;
-};
+}>;
 
 export const QRCodeDataContext = createContext<string>("");
 

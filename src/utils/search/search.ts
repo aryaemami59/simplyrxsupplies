@@ -29,7 +29,7 @@ const search = (value: string, itemNamesAndKeywords: ItemNameAndKeywords[]) => {
   );
 
   return inputValue
-    ? searchResults.toSorted(
+    ? searchResults.sort(
         (a, b) =>
           sortResults(b, searchRegexPattern, inputValue) -
           sortResults(a, searchRegexPattern, inputValue)
