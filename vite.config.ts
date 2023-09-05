@@ -1,5 +1,6 @@
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
+import type { PluginOption } from "vite";
 import macrosPlugin from "vite-plugin-babel-macros";
 import type { UserConfig } from "vitest/config";
 import { defineConfig } from "vitest/config";
@@ -75,7 +76,7 @@ export default defineConfig(({ mode }) => {
         gzipSize: true,
         open: true,
         template: "treemap",
-      }),
+      }) as PluginOption,
     ],
     server: { open: true },
   };
