@@ -43,11 +43,11 @@ export default defineConfig(({ mode }) => {
   const developmentConfig: UserConfig = {
     plugins: [
       react({
-        // babel: {
-        //   plugins: [
-        //     ["macros", { "fontawesome-svg-core": { license: "free" } }],
-        //   ],
-        // },
+        babel: {
+          plugins: [
+            ["macros", { "fontawesome-svg-core": { license: "free" } }],
+          ],
+        },
       }),
       macrosPlugin(),
     ],
@@ -79,5 +79,5 @@ export default defineConfig(({ mode }) => {
     ],
     server: { open: true },
   };
-  return mode === "production" ? productionConfig : developmentConfig;
+  return mode === "development" ? developmentConfig : productionConfig;
 });
