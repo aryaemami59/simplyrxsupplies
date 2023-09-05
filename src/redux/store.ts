@@ -37,7 +37,9 @@ export const setupStore = (preloadedState?: Partial<RootState>) =>
     reducer: rootReducer,
     preloadedState,
     middleware: getDefaultMiddleware =>
-      getDefaultMiddleware().concat(apiSlice.middleware),
+      getDefaultMiddleware({ thunk: true, immutableCheck: false }).concat(
+        apiSlice.middleware
+      ),
   });
 
 export type AppDispatch = typeof store.dispatch;

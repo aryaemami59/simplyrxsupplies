@@ -22,3 +22,11 @@ export type PropsWithRequiredChildren<P = unknown> = P & {
 export type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K];
 };
+
+export type WritableDeep<T> = {
+  -readonly [K in keyof T]: T[K] extends object ? WritableDeep<T[K]> : T[K];
+};
+
+export type PartialObjectProperties<T extends UnknownObject> = {
+  [K in keyof T]: T[K] extends UnknownObject ? Partial<T[K]> : T[K];
+};

@@ -1,4 +1,4 @@
-const GITHUB_URL_ITEMS =
+const API_URL =
   "https://aryaemami59.github.io/simplysuppliesAPI/items.json" as const;
 
-export default GITHUB_URL_ITEMS;
+export default API_URL;

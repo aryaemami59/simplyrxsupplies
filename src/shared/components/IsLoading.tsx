@@ -2,6 +2,15 @@ import type { FC } from "react";
 import { memo } from "react";
 import { Spinner } from "react-bootstrap";
 
+// const IsLoading: FC = () => (
+//   <div className="d-flex justify-content-center">
+//     <CircularProgress
+//       size={300}
+//       disableShrink
+//       className="my-5 loading-spinner"
+//     />
+//   </div>
+// );
 const IsLoading: FC = () => (
   <div
     key="div-isLoading-App"

@@ -7,37 +7,34 @@ import { defineConfig } from "vitest/config";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const testConfig: UserConfig = {
-    define: { global: "window" },
+    // define: { global: "window" },
     plugins: [
       react({
-        // babel: {
-        //   plugins: [
-        //     ["macros", { "fontawesome-svg-core": { license: "free" } }],
-        //   ],
-        // },
+        babel: {
+          plugins: [
+            ["macros", { "fontawesome-svg-core": { license: "free" } }],
+          ],
+        },
       }),
     ],
     test: {
-      // browser: {
-      //   name: "chrome",
-      //   enabled: true,
-      // },
       coverage: {
-        reporter: ["text", "json", "html"],
+        // reporter: ["text", "json", "html"],
         provider: "v8",
         enabled: true,
-        clean: true,
-        cleanOnRerun: true,
-        reportsDirectory: "./",
       },
       environment: "jsdom",
       ui: true,
+      useAtomics: true,
+      chaiConfig: {
+        truncateThreshold: 1000,
+        includeStack: true,
+        showDiff: true,
+      },
       reporters: ["html", "verbose"],
-      // watch: true,
-      // environmentOptions: {happyDOM: {}},
-      // globals: true,
+      watch: true,
       css: true,
-      setupFiles: ["./setup-vitest.ts"],
+      setupFiles: ["src/tests/test-utils/setup.vitest.ts"],
     },
   };
   if (mode === "test") {

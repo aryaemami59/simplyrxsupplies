@@ -180,8 +180,7 @@
           "src/main.tsx",
           "vite.config.ts",
           "**/*.test.ts{,x}",
-          "src/test-utils/**",
-          "setup-vitest.ts"
+          "src/tests/**"
         ]
       }
     ],
@@ -198,6 +197,9 @@
     // "canonical/no-unused-exports": [2, { "tsConfigPath": "./tsconfig.json" }],
     // "max-classes-per-file": [0],
     "regexp/prefer-regexp-exec": [0],
+    "jsx-a11y/prefer-tag-over-role": [0],
+    "jsx-a11y/no-aria-hidden-on-focusable": [2],
+    "@typescript-eslint/no-unused-vars": [2, { "args": "none" }],
     // "tsdoc/syntax": [2],
     "react-hooks/exhaustive-deps": [
       2,

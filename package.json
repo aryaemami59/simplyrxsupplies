@@ -24,7 +24,7 @@
     "test": "vitest --ui",
     "lint": "eslint . --ext .ts,.tsx",
     "format": "eslint . --fix --ext .ts,.tsx",
-    "type-check": "tsc --noEmit"
+    "type-check": "vitest --run typecheck --no-open --no-ui && tsc --noEmit"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",

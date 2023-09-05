@@ -1,3 +1,4 @@
+import type { InputProps } from "@mui/material/Input";
 import TextField from "@mui/material/TextField";
 import type { ChangeEventHandler, CSSProperties, FC } from "react";
 import {
@@ -47,8 +48,9 @@ const InputFieldComponent: FC = () => {
     [dispatch, itemNamesAndKeywords]
   );
 
-  const inputProps = useMemo(
+  const inputProps = useMemo<InputProps>(
     () => ({
+      role: "search",
       style,
       endAdornment: inputValue && (
         <InputEndAdornment clickHandler={clickHandler} />
@@ -61,6 +63,7 @@ const InputFieldComponent: FC = () => {
     <TextField
       className="mt-4"
       fullWidth
+      autoFocus
       InputProps={inputProps}
       inputRef={inputRef}
       label="Search"

@@ -17,7 +17,7 @@ import { endpoints } from "./apiSlice";
 import { DRAFT_SAFE_SELECTORS } from "./draftSafeSelectors";
 import ENTITY_ADAPTERS from "./entityAdapters";
 
-const initialState: AddedState = {
+export const initialState: AddedState = {
   searchResults: ADAPTER_INITIAL_STATES.searchResults,
   cart: ADAPTER_INITIAL_STATES.cart,
   itemVendors: ADAPTER_INITIAL_STATES.itemVendors,
