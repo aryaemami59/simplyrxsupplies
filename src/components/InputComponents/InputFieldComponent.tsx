@@ -14,7 +14,10 @@ import { clearSearchResults, setSearchResults } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { selectItemNamesAndKeywords } from "../../redux/selectors";
 import { SEARCH_FIELD_BG } from "../../shared/sharedStyles";
+import EMPTY_ARRAY from "../../utils/emptyArray";
+import isEmptyArray from "../../utils/predicates/isEmptyArray";
 import search from "../../utils/search/search";
+import setToEmptyArray from "../../utils/setToEmptyArray";
 import InputEndAdornment from "./InputEndAdornment";
 
 const style: CSSProperties = {
@@ -40,8 +43,13 @@ const InputFieldComponent: FC = () => {
       const { value } = event.target;
       setInputValue(value);
       startTransition(() => {
-        const listItems = search(value, itemNamesAndKeywords);
-        const searchResultsIds = listItems.map<number>(({ id }) => id);
+        const listItems = setToEmptyArray(search(value, itemNamesAndKeywords));
+        const searchResultsIds = isEmptyArray(listItems)
+          ? EMPTY_ARRAY
+          : listItems.map<number>(({ id }) => id);
+        if (isEmptyArray(searchResultsIds)) {
+          dispatch(clearSearchResults());
+        }
         dispatch(setSearchResults(searchResultsIds));
       });
     },

@@ -63,7 +63,9 @@ export const selectCartItemsIds = createAppSelector(
 export const selectCartItemNamesStringified = createAppSelector(
   [selectCartItemsIds, ADAPTER_SELECTORS.GLOBAL.items.selectEntities],
   (cartItemIds, itemsEntities) =>
-    cartItemIds.map<string>(e => itemsEntities[e]?.name ?? "").join(", ")
+    cartItemIds
+      .map<string>(cartItemId => itemsEntities[cartItemId]?.name ?? "")
+      .join(", ")
 );
 
 export const selectCheckedVendorIds = createAppSelector(
@@ -136,7 +138,7 @@ export const selectVendorItemIds = createAppSelector(
   vendor => setToEmptyArray(vendor?.itemIds)
 );
 
-const selectCartsByItemId = createAppSelector(
+export const selectCartsByItemId = createAppSelector(
   [
     ADAPTER_SELECTORS.GLOBAL.items.selectById,
     ADAPTER_SELECTORS.GLOBAL.cart.selectAll,

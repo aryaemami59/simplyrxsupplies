@@ -82,7 +82,7 @@
     ],
     "@typescript-eslint/consistent-type-exports": [2],
     "@typescript-eslint/explicit-member-accessibility": [2],
-    "@typescript-eslint/strict-boolean-expressions": [2],
+    // "@typescript-eslint/strict-boolean-expressions": [2],
     "@typescript-eslint/explicit-function-return-type": [0],
     "@typescript-eslint/explicit-module-boundary-types": [0],
     "@typescript-eslint/naming-convention": [
@@ -204,6 +204,9 @@
     "@typescript-eslint/no-unused-vars": [2, { "args": "none" }],
     "vitest/valid-describe-callback": [0],
     "unicorn/prefer-array-flat": [0],
+    "vitest/valid-title": [0],
+    "unicorn/no-useless-undefined": [0],
+    "unicorn/no-array-callback-reference": [0],
     // "tsdoc/syntax": [2],
     "react-hooks/exhaustive-deps": [
       2,

@@ -138,3 +138,17 @@ export const newSuppliesSample = {
 
 export const unFreeze = <T extends UnknownObject>(object: T): WritableDeep<T> =>
   JSON.parse(JSON.stringify(object)) as WritableDeep<T>;
+
+export type SetupWithNoUIOptions = {
+  fetch?: boolean;
+};
+
+export const setupWithNoUI = async (options: SetupWithNoUIOptions = {}) => {
+  const { fetch = true } = options;
+  const store = setupStore();
+  if (fetch) {
+    await store.dispatch(endpoints.getMain.initiate());
+  }
+  const initialState = store.getState();
+  return { store, initialState };
+};

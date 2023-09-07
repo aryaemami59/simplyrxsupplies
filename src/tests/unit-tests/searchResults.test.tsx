@@ -9,8 +9,6 @@ type LocalTestContext = {
   renderResult: ExtendedRenderResult;
 };
 
-// const it = test<LocalTestContext>;
-
 describe<LocalTestContext>("search results", it => {
   beforeEach<LocalTestContext>(async context => {
     const renderResult = await renderWithProviders(<App />);

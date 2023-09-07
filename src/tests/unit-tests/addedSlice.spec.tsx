@@ -18,8 +18,6 @@ describe.todo("array sorting methods", async () => {
   const data = ADAPTER_SELECTORS.GLOBAL.searchResults.selectAll(
     store.getState()
   );
-  // const first = [...data];
-  // const second = [...data];
 
   bench(
     "sort immutable",
@@ -58,32 +56,24 @@ describe.todo("object copying methods", async () => {
   );
 });
 
-// describe("array copying methods", async () => {
-//   const { store } = await renderWithProviders(<App />);
-//   const state = store.getState();
-//   store.dispatch(setSearchResults([...Array.from({ length: 200 }).keys()]));
-//   const data = ADAPTER_SELECTORS.GLOBAL.searchResults.selectAll(state);
-//   bench(
-//     "slice",
-//     () => {
-//       const element = data.slice();
-//     },
-//     { iterations: 5000 }
-//   );
+describe("array copying methods", async () => {
+  const { store } = await renderWithProviders(<App />);
+  const state = store.getState();
+  store.dispatch(setSearchResults([...Array.from({ length: 200 }).keys()]));
+  const data = ADAPTER_SELECTORS.GLOBAL.searchResults.selectAll(state);
+  bench(
+    "slice",
+    () => {
+      const element = data.slice();
+    },
+    { iterations: 5000 }
+  );
 
-//   bench(
-//     "spread",
-//     () => {
-//       const element = [...data];
-//     },
-//     { iterations: 5000 }
-//   );
-
-//   bench(
-//     "concat",
-//     () => {
-//       const element = [].concat(data);
-//     },
-//     { iterations: 5000 }
-//   );
-// });
+  bench(
+    "spread",
+    () => {
+      const element = [...data];
+    },
+    { iterations: 5000 }
+  );
+});

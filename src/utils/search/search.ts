@@ -7,9 +7,9 @@ import trimExcessWhiteSpace from "./trimExcessWhiteSpace";
 
 const search = (value: string, itemNamesAndKeywords: ItemNameAndKeywords[]) => {
   const inputValue = trimExcessWhiteSpace(value);
-  if (inputValue === "") {
-    return EMPTY_ARRAY;
-  }
+  // if (inputValue === "") {
+  //   return EMPTY_ARRAY;
+  // }
   const inputWords = splitBySpace(inputValue);
   const looseSearchValue = inputWords.map(f => `(${f})`).join(".*");
 

@@ -30,3 +30,23 @@ export type WritableDeep<T> = {
 export type PartialObjectProperties<T extends UnknownObject> = {
   [K in keyof T]: T[K] extends UnknownObject ? Partial<T[K]> : T[K];
 };
+
+export type ValuesOf<
+  TObj extends UnknownObject,
+  K extends keyof TObj = keyof TObj,
+> = TObj[K];
+
+export type ObjectEntries<
+  TObj extends UnknownObject,
+  K extends keyof TObj = keyof TObj,
+> = TObj extends { readonly [X in K]: TObj[X] }
+  ? ValuesOf<{
+      readonly [X in K]: [X, Pick<TObj, X>[X]];
+    }>[]
+  : never;
+
+export type Predicate<T> = (value: unknown) => value is T;
+
+export type ObjectChecker<T extends UnknownObject> = {
+  [K in keyof T]: Predicate<T[K]>;
+};

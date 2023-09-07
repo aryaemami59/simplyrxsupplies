@@ -32,9 +32,9 @@ describe("App", () => {
       fetch: false,
     });
     const addedState = store.getState().added;
-    expect(addedState.itemVendors.ids).toBeArrayOfSize(0);
-    expect(addedState.cart.ids).toBeArrayOfSize(0);
-    expect(addedState.cartItems.ids).toBeArrayOfSize(0);
-    expect(addedState.searchResults.ids).toBeArrayOfSize(0);
+    expect(addedState.itemVendors.ids).toBeEmptyArray();
+    expect(addedState.cart.ids).toBeEmptyArray();
+    expect(addedState.cartItems.ids).toBeEmptyArray();
+    expect(addedState.searchResults.ids).toBeEmptyArray();
   });
 });

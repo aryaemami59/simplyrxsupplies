@@ -10,6 +10,7 @@ import type {
   SearchResultsItem,
 } from "../types/reduxHelperTypes";
 import EMPTY_ARRAY from "../utils/emptyArray";
+import sortNumbers from "../utils/sortNumbers";
 import toggleArrayElement from "../utils/toggleArrayElement";
 import ADAPTER_INITIAL_STATES from "./adapterInitialStates";
 import { ADAPTER_SELECTORS } from "./adapterSelectors";
@@ -119,9 +120,8 @@ const addedSlice = createSlice({
       const itemVendorsUpdate: Update<ItemVendors, number> = {
         id: itemId,
         changes: {
-          checkedVendorIds: toggleArrayElement(
-            itemVendors.checkedVendorIds,
-            vendorId
+          checkedVendorIds: sortNumbers(
+            toggleArrayElement(itemVendors.checkedVendorIds, vendorId)
           ),
         },
       };
@@ -206,7 +206,9 @@ const addedSlice = createSlice({
         ({ checkedVendorIds, id }) => ({
           id,
           changes: {
-            checkedVendorIds: [...new Set(checkedVendorIds.concat(vendorId))],
+            checkedVendorIds: [
+              ...new Set(sortNumbers(checkedVendorIds.concat(vendorId))),
+            ],
           },
         })
       );
