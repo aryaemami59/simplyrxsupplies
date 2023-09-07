@@ -29,6 +29,7 @@
     "plugin:jest/style",
     // "plugin:jest/all",
     // "plugin:canonical/recommended",
+    "plugin:jest-extended/all",
     "plugin:prettier/recommended"
   ],
   "ignorePatterns": [
@@ -69,7 +70,8 @@
     "jsdoc",
     "tsdoc",
     "vitest",
-    "jest"
+    "jest",
+    "jest-extended"
   ],
   "root": true,
   "rules": {
@@ -200,6 +202,8 @@
     "jsx-a11y/prefer-tag-over-role": [0],
     "jsx-a11y/no-aria-hidden-on-focusable": [2],
     "@typescript-eslint/no-unused-vars": [2, { "args": "none" }],
+    "vitest/valid-describe-callback": [0],
+    "unicorn/prefer-array-flat": [0],
     // "tsdoc/syntax": [2],
     "react-hooks/exhaustive-deps": [
       2,

@@ -19,6 +19,7 @@ export default defineConfig(({ mode }) => {
       }),
     ],
     test: {
+      include: ["**/*.test.?(c|m)[jt]s?(x)"],
       coverage: {
         // reporter: ["text", "json", "html"],
         provider: "v8",
@@ -35,6 +36,10 @@ export default defineConfig(({ mode }) => {
       reporters: ["html", "verbose"],
       watch: true,
       css: true,
+      benchmark: {
+        include: ["**/*.spec.?(c|m)[jt]s?(x)"],
+        reporters: ["default"],
+      },
       setupFiles: ["src/tests/test-utils/setup.vitest.ts"],
     },
   };

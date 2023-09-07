@@ -21,9 +21,10 @@
     "deploy": "gh-pages -d dist",
     "serve": "serve -s dist",
     "start": "npm run dev",
-    "test": "vitest --ui",
+    "test": "vitest test --ui",
     "lint": "eslint . --ext .ts,.tsx",
     "format": "eslint . --fix --ext .ts,.tsx",
+    "bench": "vitest --run bench --no-open --no-ui",
     "type-check": "vitest --run typecheck --no-open --no-ui && tsc --noEmit"
   },
   "dependencies": {
@@ -34,8 +35,8 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@mui/icons-material": "^5.14.7",
-    "@mui/material": "^5.14.7",
+    "@mui/icons-material": "^5.14.8",
+    "@mui/material": "^5.14.8",
     "@reduxjs/toolkit": "^2.0.0-beta.1",
     "axios": "^1.5.0",
     "bootstrap": "^5.3.1",
@@ -52,7 +53,7 @@
   },
   "devDependencies": {
     "@reverecre/eslint-plugin-fontawesome": "^1.3.0",
-    "@testing-library/jest-dom": "^6.1.2",
+    "@testing-library/jest-dom": "^6.1.3",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/qrcode": "^1.5.2",
@@ -74,6 +75,7 @@
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-canonical": "^4.9.6",
     "eslint-plugin-jest": "^27.2.3",
+    "eslint-plugin-jest-extended": "^2.0.0",
     "eslint-plugin-jsdoc": "^46.5.1",
     "eslint-plugin-material-ui": "^1.0.1",
     "eslint-plugin-mui-path-imports": "^0.0.15",
@@ -91,8 +93,9 @@
     "eslint-plugin-unicorn": "^48.0.1",
     "eslint-plugin-vitest": "^0.3.1",
     "gh-pages": "^6.0.0",
-    "happy-dom": "^10.11.2",
+    "happy-dom": "^11.0.1",
     "jest": "^29.6.4",
+    "jest-extended": "^4.0.1",
     "jsdom": "^22.1.0",
     "msw": "^1.3.0",
     "prettier": "^3.0.3",
@@ -101,6 +104,6 @@
     "vite": "^4.4.9",
     "vite-plugin-babel-macros": "^1.0.6",
     "vitest": "^0.34.3",
-    "webdriverio": "^8.16.3"
+    "webdriverio": "^8.16.4"
   }
 }

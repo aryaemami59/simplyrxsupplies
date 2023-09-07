@@ -17,9 +17,9 @@ import type {
 /**
  * This type extends the default options for render from RTL, as well as allows the user to specify other things such as initialState, store.
  */
-export type ExtendedRenderOptions<S extends AppStore = AppStore> = {
+export type ExtendedRenderOptions = {
   preloadedState?: Partial<RootState>;
-  store?: S;
+  store?: AppStore;
   fetch?: boolean;
 } & Omit<RenderOptions, "queries">;
 
@@ -29,9 +29,9 @@ export type ExtendedRenderOptions<S extends AppStore = AppStore> = {
  * @param extendedRenderOptions - Options object.
  * @returns An object with the store and all of RTL's query functions
  */
-export const renderWithProviders = async <S extends AppStore = AppStore>(
+export const renderWithProviders = async (
   ui: ReactElement,
-  extendedRenderOptions: ExtendedRenderOptions<S> = {}
+  extendedRenderOptions: ExtendedRenderOptions = {}
 ) => {
   // setupListeners(store.dispatch);
   const {
@@ -56,6 +56,9 @@ export const renderWithProviders = async <S extends AppStore = AppStore>(
   };
 };
 
+// export type ExtendedRenderResult = Awaited<
+//   RenderResult & { store: AppStore } & Screen
+// >;
 export type ExtendedRenderResult = Awaited<
   ReturnType<typeof renderWithProviders>
 >;

@@ -13,7 +13,7 @@ type Props = {
 
 const titleTypographyProps: CardHeaderProps["titleTypographyProps"] = {
   className: "fs-5",
-} as const;
+};
 
 const SearchResultsItemName: FC<Props> = ({ visibleListId }) => {
   const itemName = useAppSelector(state =>

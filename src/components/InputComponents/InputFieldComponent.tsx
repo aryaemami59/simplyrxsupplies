@@ -1,4 +1,4 @@
-import type { InputProps } from "@mui/material/Input";
+import type { OutlinedInputProps } from "@mui/material/OutlinedInput";
 import TextField from "@mui/material/TextField";
 import type { ChangeEventHandler, CSSProperties, FC } from "react";
 import {
@@ -48,10 +48,12 @@ const InputFieldComponent: FC = () => {
     [dispatch, itemNamesAndKeywords]
   );
 
-  const inputProps = useMemo<InputProps>(
+  const inputProps = useMemo<OutlinedInputProps>(
     () => ({
-      role: "search",
       style,
+      inputProps: {
+        role: "search",
+      },
       endAdornment: inputValue && (
         <InputEndAdornment clickHandler={clickHandler} />
       ),
