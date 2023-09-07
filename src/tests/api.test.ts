@@ -29,7 +29,7 @@ const newApiTest = it.extend<NewApiContext>({
   },
 });
 
-describe("old api", () => {
+describe.todo("old api", () => {
   oldApiTest("data has properties", ({ data }) => {
     expect(data).toHaveProperty("items");
     expect(data).toHaveProperty("vendors");
@@ -59,7 +59,7 @@ describe("old api", () => {
   });
 });
 
-describe.todo("new api", () => {
+describe("new api", () => {
   newApiTest("new items", ({ data }) => {
     const { items } = data;
     expect(Array.isArray(items)).toBe(true);
