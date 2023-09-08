@@ -84,16 +84,16 @@ export type Supplies = {
 
 // Additional Types
 // TODO: Once the api field vendors and categories change to contain ids, this type can be disposed of.
-export type OldItem = Omit<Item, "vendors" | "category"> & {
-  readonly vendors: VendorName[];
-  readonly category: CategoryName[];
-};
+// export type OldItem = Omit<Item, "vendors" | "category"> & {
+//   readonly vendors: VendorName[];
+//   readonly category: CategoryName[];
+// };
 
 // TODO: Once the api field vendors and categories change to contain ids, this type can be disposed of.
-export type OldSupplies = {
-  readonly items: OldItem[];
-  readonly vendors: OldVendors;
-  readonly categories: OldCategories;
-};
+// export type OldSupplies = {
+//   readonly items: OldItem[];
+//   readonly vendors: OldVendors;
+//   readonly categories: OldCategories;
+// };
 
 export type ItemNameAndKeywords = Pick<Item, "id" | "keywords" | "name">;

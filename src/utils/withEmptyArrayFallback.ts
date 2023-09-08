@@ -10,10 +10,13 @@ import isEmptyArray from "./predicates/isEmptyArray";
  * @see {@link EMPTY_ARRAY}
  */
 const withEmptyArrayFallback = <T>(array: T[] | undefined): T[] => {
-  if (array) {
-    return isEmptyArray(array) ? EMPTY_ARRAY : array;
+  if (array == null) {
+    return EMPTY_ARRAY;
   }
-  return EMPTY_ARRAY;
+  if (Object.is(array, EMPTY_ARRAY)) {
+    return array;
+  }
+  return isEmptyArray(array) ? EMPTY_ARRAY : array;
 };
 
 export default withEmptyArrayFallback;

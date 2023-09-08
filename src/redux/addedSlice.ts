@@ -11,8 +11,11 @@ import type {
 } from "../types/reduxHelperTypes";
 import EMPTY_ARRAY from "../utils/emptyArray";
 import isEmptyArray from "../utils/predicates/isEmptyArray";
-import sortNumbers from "../utils/sortNumbers";
 import toggleArrayElement from "../utils/toggleArrayElement";
+import {
+  withNumsArrayConcat,
+  withNumsArrayFilter,
+} from "../utils/withNumsArrayRuntimeChecks";
 import ADAPTER_INITIAL_STATES from "./adapterInitialStates";
 import { ADAPTER_SELECTORS } from "./adapterSelectors";
 import { endpoints } from "./apiSlice";
@@ -51,7 +54,7 @@ const addedSlice = createSlice({
         ({ id, itemIds }) => ({
           id,
           changes: {
-            itemIds: [...new Set(itemIds.concat(itemId))],
+            itemIds: withNumsArrayConcat(itemIds.concat(itemId)),
           },
         })
       );
@@ -80,7 +83,7 @@ const addedSlice = createSlice({
       const cartUpdate: Update<Cart, number> = {
         id: vendorId,
         changes: {
-          itemIds: cartItems.filter(id => id !== itemId),
+          itemIds: withNumsArrayFilter(cartItems.filter(id => id !== itemId)),
         },
       };
       ENTITY_ADAPTERS.cart.updateOne(state.cart, cartUpdate);
@@ -128,8 +131,9 @@ const addedSlice = createSlice({
       const itemVendorsUpdate: Update<ItemVendors, number> = {
         id: itemId,
         changes: {
-          checkedVendorIds: sortNumbers(
-            toggleArrayElement(itemVendors.checkedVendorIds, vendorId)
+          checkedVendorIds: toggleArrayElement(
+            itemVendors.checkedVendorIds,
+            vendorId
           ),
         },
       };
@@ -214,9 +218,9 @@ const addedSlice = createSlice({
         ({ checkedVendorIds, id }) => ({
           id,
           changes: {
-            checkedVendorIds: [
-              ...new Set(sortNumbers(checkedVendorIds.concat(vendorId))),
-            ],
+            checkedVendorIds: withNumsArrayConcat(
+              checkedVendorIds.concat(vendorId)
+            ),
           },
         })
       );
@@ -239,8 +243,10 @@ const addedSlice = createSlice({
         ({ checkedVendorIds, id }) => ({
           id,
           changes: {
-            checkedVendorIds: checkedVendorIds.filter(
-              checkedVendorId => checkedVendorId !== vendorId
+            checkedVendorIds: withNumsArrayFilter(
+              checkedVendorIds.filter(
+                checkedVendorId => checkedVendorId !== vendorId
+              )
             ),
           },
         })
