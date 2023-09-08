@@ -1,4 +1,4 @@
-import setToEmptyArray from "./setToEmptyArray";
+import withEmptyArrayFallback from "./withEmptyArrayFallback";
 /**
  * Will remove an element from an array if the array contains it, otherwise it will add the element to the array.
  * @param array - The array that will be modified.
@@ -7,7 +7,9 @@ import setToEmptyArray from "./setToEmptyArray";
  */
 const toggleArrayElement = <T>(array: T[], element: T): T[] =>
   array.includes(element)
-    ? setToEmptyArray(array.filter(arrayElement => arrayElement !== element))
+    ? withEmptyArrayFallback(
+        array.filter(arrayElement => arrayElement !== element)
+      )
     : [...new Set(array.concat(element))];
 
 export default toggleArrayElement;

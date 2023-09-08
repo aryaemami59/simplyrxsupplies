@@ -1,21 +1,18 @@
 import type { ItemNameAndKeywords } from "../../types/api";
 import EMPTY_ARRAY from "../emptyArray";
-import setToEmptyArray from "../setToEmptyArray";
+import withEmptyArrayFallback from "../withEmptyArrayFallback";
 import sortResults from "./sortResults";
 import splitBySpace from "./splitBySpace";
 import trimExcessWhiteSpace from "./trimExcessWhiteSpace";
 
 const search = (value: string, itemNamesAndKeywords: ItemNameAndKeywords[]) => {
   const inputValue = trimExcessWhiteSpace(value);
-  // if (inputValue === "") {
-  //   return EMPTY_ARRAY;
-  // }
   const inputWords = splitBySpace(inputValue);
   const looseSearchValue = inputWords.map(f => `(${f})`).join(".*");
 
   const searchRegexPattern = new RegExp(looseSearchValue, "dgi");
 
-  const searchResults = setToEmptyArray(
+  const searchResults = withEmptyArrayFallback(
     itemNamesAndKeywords.filter(
       ({ name, keywords }) =>
         name.match(searchRegexPattern) ??

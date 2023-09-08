@@ -133,11 +133,6 @@ export type RootSelectorParamsProvider = SelectorParamsProvider<
       readonly params: readonly [itemId: number];
       readonly returnType: number;
     },
-    cartId: {
-      readonly name: "cartId";
-      readonly params: readonly [cartId: number];
-      readonly returnType: number;
-    },
     cartIdAndItemId: {
       readonly name: "cartIdAndItemId";
       readonly params: readonly [cartId: number, itemId: number];
@@ -190,16 +185,16 @@ export type AddedSliceSelectorParamsProvider = SelectorParamsProvider<
       readonly params: readonly [cartId: number];
       readonly returnType: number;
     },
-    cartIdAndItemId: {
-      readonly name: "cartIdAndItemId";
-      readonly params: readonly [cartId: number, itemId: number];
-      readonly returnType: number;
-    },
-    ItemIdAndCartId: {
-      readonly name: "ItemIdAndCartId";
-      readonly params: readonly [itemId: number, cartId: number];
-      readonly returnType: number;
-    },
+    // cartIdAndItemId: {
+    //   readonly name: "cartIdAndItemId";
+    //   readonly params: readonly [cartId: number, itemId: number];
+    //   readonly returnType: number;
+    // },
+    // ItemIdAndCartId: {
+    //   readonly name: "ItemIdAndCartId";
+    //   readonly params: readonly [itemId: number, cartId: number];
+    //   readonly returnType: number;
+    // },
   ]
 >;
 

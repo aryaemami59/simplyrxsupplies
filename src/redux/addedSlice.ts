@@ -10,6 +10,7 @@ import type {
   SearchResultsItem,
 } from "../types/reduxHelperTypes";
 import EMPTY_ARRAY from "../utils/emptyArray";
+import isEmptyArray from "../utils/predicates/isEmptyArray";
 import sortNumbers from "../utils/sortNumbers";
 import toggleArrayElement from "../utils/toggleArrayElement";
 import ADAPTER_INITIAL_STATES from "./adapterInitialStates";
@@ -35,6 +36,13 @@ const addedSlice = createSlice({
         state,
         itemId
       );
+      const checkedVendorIds = DRAFT_SAFE_SELECTORS.selectCheckedVendorIds(
+        state,
+        itemId
+      );
+      if (isEmptyArray(checkedVendorIds)) {
+        return;
+      }
       const carts = DRAFT_SAFE_SELECTORS.selectCartsByCheckedVendors(
         state,
         itemId

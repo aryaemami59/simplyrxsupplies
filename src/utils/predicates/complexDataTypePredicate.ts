@@ -5,7 +5,7 @@ import type {
 } from "../../types/tsHelpers";
 import isObject from "./isObject";
 
-const complexDataTypePredicate =
+const complexDataTypePredicateFactory =
   <T extends UnknownObject>(checker: ObjectChecker<T>) =>
   (value: unknown): value is T =>
     isObject(value) &&
@@ -14,4 +14,4 @@ const complexDataTypePredicate =
         key in value && predicate(value[key as keyof typeof value])
     );
 
-export default complexDataTypePredicate;
+export default complexDataTypePredicateFactory;

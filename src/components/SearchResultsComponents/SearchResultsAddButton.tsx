@@ -3,15 +3,10 @@ import Button from "@mui/material/Button";
 import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback } from "react";
-import { shallowEqual } from "react-redux";
 
 import { addItemToCarts } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import {
-  checkIfAddedToAllVendors,
-  selectCheckedVendorIds,
-} from "../../redux/selectors";
-import isEmptyArray from "../../utils/predicates/isEmptyArray";
+import { checkIfAddedToAllVendors } from "../../redux/selectors";
 
 const startIcon = <AddIcon />;
 
@@ -24,16 +19,10 @@ const SearchResultsAddButton: FC<Props> = ({ visibleListId }) => {
   const ifAddedToAllVendors = useAppSelector(state =>
     checkIfAddedToAllVendors(state, visibleListId)
   );
-  const checkedVendorIds = useAppSelector(
-    state => selectCheckedVendorIds(state, visibleListId),
-    shallowEqual
-  );
 
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
-    if (!isEmptyArray(checkedVendorIds)) {
-      dispatch(addItemToCarts({ itemId: visibleListId }));
-    }
-  }, [checkedVendorIds, dispatch, visibleListId]);
+    dispatch(addItemToCarts({ itemId: visibleListId }));
+  }, [dispatch, visibleListId]);
 
   return (
     <Button

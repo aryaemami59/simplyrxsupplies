@@ -1,12 +1,11 @@
 import type { ItemNameAndKeywords } from "../types/api";
 import type { RootSelectorParamsProvider } from "../types/reduxHelperTypes";
-import setToEmptyArray from "../utils/setToEmptyArray";
+import withEmptyArrayFallback from "../utils/withEmptyArrayFallback";
 import { ADAPTER_SELECTORS } from "./adapterSelectors";
 import { createAppSelector } from "./createSelectors";
 
 const ROOT_SELECTOR_PARAMS_PROVIDER: RootSelectorParamsProvider = {
   getItemId: (state, itemId) => itemId,
-  getCartId: (state, cartId) => cartId,
   getCartIdAndItemId: (state, cartId, itemId) => itemId,
   getItemIdAndCartId: (state, itemId, cartId) => cartId,
 } as const satisfies RootSelectorParamsProvider;
@@ -33,7 +32,7 @@ export const selectItemName = createAppSelector(
 
 export const selectVendorIdsByItemId = createAppSelector(
   [ADAPTER_SELECTORS.GLOBAL.items.selectById],
-  item => setToEmptyArray(item?.vendors)
+  item => withEmptyArrayFallback(item?.vendors)
 );
 
 export const selectItemNamesAndKeywords = createAppSelector(
@@ -57,7 +56,7 @@ export const checkIfAnyItemsAdded = createAppSelector(
 
 export const selectCartItemsIds = createAppSelector(
   [ADAPTER_SELECTORS.GLOBAL.cart.selectById],
-  cart => setToEmptyArray(cart?.itemIds)
+  cart => withEmptyArrayFallback(cart?.itemIds)
 );
 
 export const selectCartItemNamesStringified = createAppSelector(
@@ -70,7 +69,8 @@ export const selectCartItemNamesStringified = createAppSelector(
 
 export const selectCheckedVendorIds = createAppSelector(
   [ADAPTER_SELECTORS.GLOBAL.itemVendors.selectById],
-  checkedVendorItem => setToEmptyArray(checkedVendorItem?.checkedVendorIds)
+  checkedVendorItem =>
+    withEmptyArrayFallback(checkedVendorItem?.checkedVendorIds)
 );
 
 export const isVendorChecked = createAppSelector(
@@ -79,7 +79,7 @@ export const isVendorChecked = createAppSelector(
     ROOT_SELECTOR_PARAMS_PROVIDER.getItemIdAndCartId,
   ],
   (checkedVendorItem, vendorId) =>
-    !!(checkedVendorItem?.checkedVendorIds.includes(vendorId) ?? false)
+    !!checkedVendorItem?.checkedVendorIds.includes(vendorId)
 );
 
 export const isMinimized = createAppSelector(
@@ -87,8 +87,7 @@ export const isMinimized = createAppSelector(
     ADAPTER_SELECTORS.GLOBAL.cartItems.selectById,
     ROOT_SELECTOR_PARAMS_PROVIDER.getCartIdAndItemId,
   ],
-  (cartItems, itemId) =>
-    !!(cartItems?.minimizedItemIds.includes(itemId) ?? false)
+  (cartItems, itemId) => !!cartItems?.minimizedItemIds.includes(itemId)
 );
 
 export const selectCategoryName = createAppSelector(
@@ -98,7 +97,7 @@ export const selectCategoryName = createAppSelector(
 
 export const selectCategoryItemIds = createAppSelector(
   [ADAPTER_SELECTORS.GLOBAL.categories.selectById],
-  category => setToEmptyArray(category?.itemIds)
+  category => withEmptyArrayFallback(category?.itemIds)
 );
 
 export const checkIfAddedToVendor = createAppSelector(
@@ -135,7 +134,7 @@ export const selectOfficialName = createAppSelector(
 
 export const selectVendorItemIds = createAppSelector(
   [ADAPTER_SELECTORS.GLOBAL.vendors.selectById],
-  vendor => setToEmptyArray(vendor?.itemIds)
+  vendor => withEmptyArrayFallback(vendor?.itemIds)
 );
 
 export const selectCartsByItemId = createAppSelector(
@@ -144,7 +143,9 @@ export const selectCartsByItemId = createAppSelector(
     ADAPTER_SELECTORS.GLOBAL.cart.selectAll,
   ],
   (item, carts) =>
-    setToEmptyArray(carts.filter(cart => item?.vendors.includes(cart.id)))
+    withEmptyArrayFallback(
+      carts.filter(cart => item?.vendors.includes(cart.id))
+    )
 );
 
 export const checkIfAddedToAllVendors = createAppSelector(

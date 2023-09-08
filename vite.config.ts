@@ -21,9 +21,11 @@ export default defineConfig(({ mode }) => {
     test: {
       include: ["**/*.test.?(c|m)[jt]s?(x)"],
       coverage: {
-        // reporter: ["text", "json", "html"],
+        reporter: ["text", "json", "html"],
         provider: "v8",
         enabled: true,
+        // perFile: true,
+        // skipFull: true,
       },
       environment: "jsdom",
       ui: true,

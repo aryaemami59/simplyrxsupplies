@@ -2,7 +2,6 @@ import List from "@mui/material/List";
 import type { FC } from "react";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { shallowEqual } from "react-redux";
 
 import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors";
 import { useAppSelector } from "../../redux/hooks";
@@ -13,8 +12,8 @@ const loader = <IsLoading />;
 
 const SearchResultsContainer: FC = () => {
   const searchResultsIds = useAppSelector(
-    ADAPTER_SELECTORS.GLOBAL.searchResults.selectIds,
-    shallowEqual
+    ADAPTER_SELECTORS.GLOBAL.searchResults.selectIds
+    // shallowEqual
   );
   const memoizedSearchResultsIds = useMemo(
     () => searchResultsIds.slice(0, 10),

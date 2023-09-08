@@ -68,7 +68,8 @@ export type Item = {
   readonly name: string;
   readonly itemNumber: string;
   readonly keywords: string[];
-  readonly category: number[];
+  /** Can be an empty array. */
+  readonly category: number[] | [];
   readonly vendors: number[];
   readonly src: string;
 };

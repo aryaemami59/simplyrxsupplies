@@ -1,19 +1,18 @@
 import { bench, describe } from "vitest";
 
-import App from "../../App";
 import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors";
 import { addItemToCarts, setSearchResults } from "../../redux/addedSlice";
-import { renderWithProviders, unFreeze } from "../test-utils/testUtils";
+import { setupWithNoUI, unFreeze } from "../test-utils/testUtils";
 
 describe.todo("addedSlice spec", () => {
   bench("bench", async () => {
-    const { store } = await renderWithProviders(<App />);
+    const { store } = await setupWithNoUI();
     store.dispatch(addItemToCarts({ itemId: 0 }));
   });
 });
 
 describe.todo("array sorting methods", async () => {
-  const { store } = await renderWithProviders(<App />);
+  const { store } = await setupWithNoUI();
   store.dispatch(setSearchResults([...Array.from({ length: 200 }).keys()]));
   const data = ADAPTER_SELECTORS.GLOBAL.searchResults.selectAll(
     store.getState()
@@ -37,7 +36,7 @@ describe.todo("array sorting methods", async () => {
 });
 
 describe.todo("object copying methods", async () => {
-  const { store } = await renderWithProviders(<App />);
+  const { store } = await setupWithNoUI();
   const state = store.getState();
   bench(
     unFreeze,
@@ -57,7 +56,7 @@ describe.todo("object copying methods", async () => {
 });
 
 describe("array copying methods", async () => {
-  const { store } = await renderWithProviders(<App />);
+  const { store } = await setupWithNoUI();
   const state = store.getState();
   store.dispatch(setSearchResults([...Array.from({ length: 200 }).keys()]));
   const data = ADAPTER_SELECTORS.GLOBAL.searchResults.selectAll(state);

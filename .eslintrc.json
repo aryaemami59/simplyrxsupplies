@@ -30,7 +30,8 @@
     // "plugin:jest/all",
     // "plugin:canonical/recommended",
     "plugin:jest-extended/all",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:testing-library/react"
   ],
   "ignorePatterns": [
     "node_modules",
@@ -71,7 +72,8 @@
     "tsdoc",
     "vitest",
     "jest",
-    "jest-extended"
+    "jest-extended",
+    "testing-library"
   ],
   "root": true,
   "rules": {
@@ -85,26 +87,26 @@
     // "@typescript-eslint/strict-boolean-expressions": [2],
     "@typescript-eslint/explicit-function-return-type": [0],
     "@typescript-eslint/explicit-module-boundary-types": [0],
-    "@typescript-eslint/naming-convention": [
-      2,
-      { "format": ["PascalCase"], "selector": ["typeLike"] },
-      {
-        "format": ["PascalCase", "camelCase"],
-        "selector": ["variable"],
-        "types": ["function"]
-      },
-      {
-        "format": ["camelCase", "UPPER_CASE"],
-        "selector": ["variable"],
-        "types": ["array", "boolean", "number", "string"]
-      },
-      {
-        "format": null,
-        "modifiers": ["requiresQuotes"],
-        "selector": ["objectLiteralProperty"]
-      },
-      { "format": ["camelCase"], "selector": ["parameter"] }
-    ],
+    // "@typescript-eslint/naming-convention": [
+    //   2,
+    //   { "format": ["PascalCase"], "selector": ["typeLike"] },
+    //   {
+    //     "format": ["PascalCase", "camelCase"],
+    //     "selector": ["variable"],
+    //     "types": ["function"]
+    //   },
+    //   {
+    //     "format": ["camelCase", "UPPER_CASE"],
+    //     "selector": ["variable"],
+    //     "types": ["array", "boolean", "number", "string"]
+    //   },
+    //   {
+    //     "format": null,
+    //     "modifiers": ["requiresQuotes"],
+    //     "selector": ["objectLiteralProperty"]
+    //   },
+    //   { "format": ["camelCase"], "selector": ["parameter"] }
+    // ],
     // "@typescript-eslint/no-magic-numbers": [0],
     // "@typescript-eslint/prefer-readonly-parameter-types": [0],
     "mui-path-imports/mui-path-imports": [2],
@@ -207,7 +209,11 @@
     "vitest/valid-title": [0],
     "unicorn/no-useless-undefined": [0],
     "unicorn/no-array-callback-reference": [0],
-    // "tsdoc/syntax": [2],
+    "testing-library/no-render-in-lifecycle": [
+      2,
+      { "allowTestingFrameworkSetupHook": "beforeEach" }
+    ],
+    "tsdoc/syntax": [2],
     "react-hooks/exhaustive-deps": [
       2,
       { "additionalHooks": "(useComponentDidUpdate)" }
@@ -218,6 +224,7 @@
   },
   "settings": {
     "react": { "version": "detect" },
-    "vitest": { "version": "detect" }
+    "vitest": { "version": "detect" },
+    "testing-library/custom-renders": ["renderWithProviders"]
   }
 }

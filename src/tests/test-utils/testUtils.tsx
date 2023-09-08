@@ -1,11 +1,12 @@
+import { configureStore } from "@reduxjs/toolkit";
 import type { RenderOptions } from "@testing-library/react";
 import { render } from "@testing-library/react";
 import type { FC, ReactElement } from "react";
 import { Provider } from "react-redux";
 
-import { endpoints } from "../../redux/apiSlice";
+import apiSlice, { endpoints } from "../../redux/apiSlice";
 import type { AppStore, RootState } from "../../redux/store";
-import { setupStore } from "../../redux/store";
+import { rootReducer } from "../../redux/store";
 import type { OldSupplies, Supplies } from "../../types/api";
 import type {
   PartialObjectProperties,
@@ -13,6 +14,14 @@ import type {
   UnknownObject,
   WritableDeep,
 } from "../../types/tsHelpers";
+
+export const setupStore = (preloadedState?: Partial<RootState>) =>
+  configureStore({
+    reducer: rootReducer,
+    preloadedState,
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware().concat(apiSlice.middleware),
+  });
 
 /**
  * This type extends the default options for render from RTL, as well as allows the user to specify other things such as initialState, store.
@@ -143,7 +152,14 @@ export type SetupWithNoUIOptions = {
   fetch?: boolean;
 };
 
-export const setupWithNoUI = async (options: SetupWithNoUIOptions = {}) => {
+export type SetupWithNoUIResults = {
+  store: AppStore;
+  initialState: RootState;
+};
+
+export const setupWithNoUI = async (
+  options: SetupWithNoUIOptions = {}
+): Promise<SetupWithNoUIResults> => {
   const { fetch = true } = options;
   const store = setupStore();
   if (fetch) {

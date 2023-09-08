@@ -1,8 +1,13 @@
 import grey from "@mui/material/colors/grey";
 import createTheme from "@mui/material/styles/createTheme";
 
-const selectedLightModeBG = "rgb(230, 241, 252)";
-const selectedDarkModeBG = "rgb(0, 30, 60)";
+import {
+  DARK_MODE_PAPER_BG,
+  DARK_MODE_SELECTED_BG,
+  LIGHT_MODE_SELECTED_BG,
+  MAIN_COLOR,
+  PRIMARY_TEXT,
+} from "./styles";
 
 export const lightTheme = createTheme({
   components: {
@@ -10,31 +15,16 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           "&.Mui-expanded": {
-            backgroundColor: selectedLightModeBG,
+            backgroundColor: LIGHT_MODE_SELECTED_BG,
           },
         },
       },
     },
   },
-
   palette: {
-    // white: {
-    //   main: "#fff",
-    // },
-    background: {
-      // default: "rgb(230, 241, 252)",
-      // default: "rgb(255, 255, 255)",
-      // paper: "rgb(230, 241, 252)",
-      // paper: "rgb(255, 255, 255)",
-    },
-
     mode: "light",
-    // action: {
-    //   active: "rgb(230, 241, 252)",
-    //   selected: "rgb(230, 241, 252)",
-    // },
     primary: {
-      main: "#0071dc",
+      main: MAIN_COLOR,
     },
     text: {
       primary: grey[900],
@@ -49,27 +39,23 @@ export const darkTheme = createTheme({
       styleOverrides: {
         root: {
           "&.Mui-expanded": {
-            backgroundColor: selectedDarkModeBG,
+            backgroundColor: DARK_MODE_SELECTED_BG,
           },
         },
       },
     },
   },
   palette: {
-    // white: {
-    //   main: "#fff",
-    // },
-    background: {
-      default: "rgb(21, 32, 43)",
-      paper: "rgb(21, 32, 43)",
-    },
-
     mode: "dark",
+    background: {
+      default: DARK_MODE_PAPER_BG,
+      paper: DARK_MODE_PAPER_BG,
+    },
     primary: {
-      main: "#0071dc",
+      main: MAIN_COLOR,
     },
     text: {
-      primary: "#fff",
+      primary: PRIMARY_TEXT,
       secondary: grey[500],
     },
   },

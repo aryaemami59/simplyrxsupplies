@@ -33,9 +33,14 @@ const apiSlice = createApi({
 
 export const { useGetMainQuery, endpoints } = apiSlice;
 
+export const selectSelf = createDraftSafeAppSelector(
+  [state => state],
+  state => state
+);
+
 const selectMainResults = endpoints.getMain.select();
 
-const selectMainData = createDraftSafeAppSelector(
+export const selectMainData = createDraftSafeAppSelector(
   [selectMainResults],
   results => results.data
 );

@@ -1,17 +1,21 @@
 import { beforeEach, describe, expect } from "vitest";
 
 import {
+  checkIfAnyItemsAdded,
+  selectCartItemNamesStringified,
   selectCartItemsIds,
   selectCartsByItemId,
   selectCategoryItemIds,
   selectCheckedVendorIds,
   selectItemNamesAndKeywords,
+  selectQRCodeText,
   selectVendorIdsByItemId,
   selectVendorItemIds,
 } from "../../redux/selectors";
+import type { SetupWithNoUIResults } from "../test-utils/testUtils";
 import { setupWithNoUI } from "../test-utils/testUtils";
 
-type LocalTestContext = Awaited<ReturnType<typeof setupWithNoUI>>;
+type LocalTestContext = SetupWithNoUIResults;
 
 describe<LocalTestContext>("selectors", it => {
   beforeEach<LocalTestContext>(async context => {
@@ -28,6 +32,7 @@ describe<LocalTestContext>("selectors", it => {
     selectItemNamesAndKeywords(initialState);
     expect(first).toBe(second);
     expect(selectItemNamesAndKeywords.recomputations()).toBe(1);
+    selectItemNamesAndKeywords.clearCache();
   });
 
   it("selectCartItemsIds", ({ initialState }) => {
@@ -39,6 +44,7 @@ describe<LocalTestContext>("selectors", it => {
     expect(first).toBe(second);
     expect(first).toBeEmptyArray();
     expect(selectCartItemsIds.recomputations()).toBe(1);
+    selectCartItemsIds.clearCache();
   });
 
   it("selectCheckedVendorIds", ({ initialState }) => {
@@ -50,6 +56,7 @@ describe<LocalTestContext>("selectors", it => {
     expect(first).toBe(second);
     expect(first).not.toBeEmptyArray();
     expect(selectCheckedVendorIds.recomputations()).toBe(1);
+    selectCheckedVendorIds.clearCache();
   });
 
   it("selectCategoryItemIds", ({ initialState }) => {
@@ -61,6 +68,7 @@ describe<LocalTestContext>("selectors", it => {
     expect(first).toBe(second);
     expect(first).not.toBeEmptyArray();
     expect(selectCategoryItemIds.recomputations()).toBe(1);
+    selectCategoryItemIds.clearCache();
   });
 
   it("selectVendorItemIds", ({ initialState }) => {
@@ -72,6 +80,7 @@ describe<LocalTestContext>("selectors", it => {
     expect(first).toBe(second);
     expect(first).not.toBeEmptyArray();
     expect(selectVendorItemIds.recomputations()).toBe(1);
+    selectVendorItemIds.clearCache();
   });
 
   it("selectCartsByItemId", ({ initialState }) => {
@@ -82,6 +91,7 @@ describe<LocalTestContext>("selectors", it => {
     selectCartsByItemId(initialState, 0);
     expect(first).toBe(second);
     expect(selectCartsByItemId.recomputations()).toBe(1);
+    selectCartsByItemId.clearCache();
   });
 
   it("selectVendorIdsByItemId", ({ initialState }) => {
@@ -93,5 +103,42 @@ describe<LocalTestContext>("selectors", it => {
     expect(first).toBe(second);
     expect(first).not.toBeEmptyArray();
     expect(selectVendorIdsByItemId.recomputations()).toBe(1);
+    selectVendorIdsByItemId.clearCache();
+  });
+
+  it("checkIfAnyItemsAdded", ({ initialState }) => {
+    expect(checkIfAnyItemsAdded.recomputations()).toBe(0);
+    const first = checkIfAnyItemsAdded(initialState);
+    const second = checkIfAnyItemsAdded(initialState);
+    checkIfAnyItemsAdded(initialState);
+    checkIfAnyItemsAdded(initialState);
+    expect(first).toBe(second);
+    expect(first).toBeFalse();
+    expect(checkIfAnyItemsAdded.recomputations()).toBe(1);
+    checkIfAnyItemsAdded.clearCache();
+  });
+
+  it("selectCartItemNamesStringified", ({ initialState }) => {
+    expect(selectCartItemNamesStringified.recomputations()).toBe(0);
+    const first = selectCartItemNamesStringified(initialState, 0);
+    const second = selectCartItemNamesStringified(initialState, 0);
+    selectCartItemNamesStringified(initialState, 0);
+    selectCartItemNamesStringified(initialState, 0);
+    expect(first).toBe(second);
+    expect(first).toBe("");
+    expect(selectCartItemNamesStringified.recomputations()).toBe(1);
+    selectCartItemNamesStringified.clearCache();
+  });
+
+  it("selectQRCodeText", ({ initialState }) => {
+    expect(selectQRCodeText.recomputations()).toBe(0);
+    const first = selectQRCodeText(initialState, 0);
+    const second = selectQRCodeText(initialState, 0);
+    selectQRCodeText(initialState, 0);
+    selectQRCodeText(initialState, 0);
+    expect(first).toBe(second);
+    expect(first).toBe("");
+    expect(selectQRCodeText.recomputations()).toBe(1);
+    selectQRCodeText.clearCache();
   });
 });
