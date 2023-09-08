@@ -264,7 +264,7 @@ const addedSlice = createSlice({
       ENTITY_ADAPTERS.cart.setAll(state.cart, cart);
       ENTITY_ADAPTERS.itemVendors.setAll(
         state.itemVendors,
-        items.map<ItemVendors>(({ id, vendors: vendorIds }) => ({
+        items.map<ItemVendors>(({ id, vendorIds }) => ({
           id,
           checkedVendorIds: vendorIds,
           vendorIds,

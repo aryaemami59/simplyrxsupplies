@@ -12,8 +12,8 @@ const itemProperties: ObjectChecker<Item> = {
   name: isString,
   itemNumber: isString,
   keywords: isArrayOfStrings,
-  category: isArrayOfNumbersOrEmpty,
-  vendors: isArrayOfNumbers,
+  categoryIds: isArrayOfNumbersOrEmpty,
+  vendorIds: isArrayOfNumbers,
   src: isString,
 };
 

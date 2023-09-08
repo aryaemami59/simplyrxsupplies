@@ -32,7 +32,7 @@ export const selectItemName = createAppSelector(
 
 export const selectVendorIdsByItemId = createAppSelector(
   [ADAPTER_SELECTORS.GLOBAL.items.selectById],
-  item => withEmptyArrayFallback(item?.vendors)
+  item => withEmptyArrayFallback(item?.vendorIds)
 );
 
 export const selectItemNamesAndKeywords = createAppSelector(
@@ -144,7 +144,7 @@ export const selectCartsByItemId = createAppSelector(
   ],
   (item, carts) =>
     withEmptyArrayFallback(
-      carts.filter(cart => item?.vendors.includes(cart.id))
+      carts.filter(cart => item?.vendorIds.includes(cart.id))
     )
 );
 

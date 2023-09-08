@@ -22,7 +22,7 @@
     "serve": "serve -s dist",
     "start": "npm run dev",
     "test": "vitest --ui",
-    "lint": "eslint_d --cache . --ext .ts,.tsx",
+    "lint": "eslint . --ext .ts,.tsx --cache --cache-strategy content",
     "format": "eslint . --fix --ext .ts,.tsx",
     "bench": "vitest --run bench --no-open --no-ui",
     "type-check": "vitest --run typecheck --no-open --no-ui && tsc --noEmit"
@@ -96,7 +96,7 @@
     "eslint-plugin-unicorn": "^48.0.1",
     "eslint-plugin-vitest": "^0.3.1",
     "gh-pages": "^6.0.0",
-    "happy-dom": "^11.0.1",
+    "happy-dom": "^11.0.2",
     "jest": "^29.6.4",
     "jest-extended": "^4.0.1",
     "jsdom": "^22.1.0",
@@ -107,6 +107,6 @@
     "vite": "^4.4.9",
     "vite-plugin-babel-macros": "^1.0.6",
     "vitest": "^0.34.3",
-    "webdriverio": "^8.16.4"
+    "webdriverio": "^8.16.5"
   }
 }

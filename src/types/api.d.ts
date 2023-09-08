@@ -25,14 +25,6 @@ export type Category = {
   readonly name: CategoryName;
 };
 
-type OldCategories = {
-  readonly [K in CategoryName]: {
-    readonly id: number;
-    readonly itemIds: number[];
-    readonly name: K;
-  };
-};
-
 // Vendors
 type VendorHelper = {
   readonly MCK: "McKesson";
@@ -49,7 +41,7 @@ export type VendorName = keyof VendorHelper;
 
 export type OfficialVendorName = VendorHelper[VendorName];
 
-type OldVendors = {
+type Vendors = {
   readonly [K in VendorName]: {
     readonly id: number;
     readonly officialName: VendorHelper[K];
@@ -60,7 +52,7 @@ type OldVendors = {
   };
 };
 
-export type Vendor = OldVendors[VendorName];
+export type Vendor = Vendors[VendorName];
 
 // Items
 export type Item = {
@@ -69,31 +61,15 @@ export type Item = {
   readonly itemNumber: string;
   readonly keywords: string[];
   /** Can be an empty array. */
-  readonly category: number[] | [];
-  readonly vendors: number[];
+  readonly categoryIds: number[] | [];
+  readonly vendorIds: number[];
   readonly src: string;
 };
-/**
- * The new Supplies type after the api transformation.
- */
+
 export type Supplies = {
   readonly items: Item[];
   readonly vendors: Vendor[];
   readonly categories: Category[];
 };
-
-// Additional Types
-// TODO: Once the api field vendors and categories change to contain ids, this type can be disposed of.
-// export type OldItem = Omit<Item, "vendors" | "category"> & {
-//   readonly vendors: VendorName[];
-//   readonly category: CategoryName[];
-// };
-
-// TODO: Once the api field vendors and categories change to contain ids, this type can be disposed of.
-// export type OldSupplies = {
-//   readonly items: OldItem[];
-//   readonly vendors: OldVendors;
-//   readonly categories: OldCategories;
-// };
 
 export type ItemNameAndKeywords = Pick<Item, "id" | "keywords" | "name">;
