@@ -30,8 +30,9 @@
     // "plugin:jest/all",
     // "plugin:canonical/recommended",
     "plugin:jest-extended/all",
-    "plugin:prettier/recommended",
-    "plugin:testing-library/react"
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended",
+    "plugin:prettier/recommended"
   ],
   "ignorePatterns": [
     "node_modules",
@@ -73,7 +74,8 @@
     "vitest",
     "jest",
     "jest-extended",
-    "testing-library"
+    "testing-library",
+    "jest-dom"
   ],
   "root": true,
   "rules": {
@@ -214,6 +216,7 @@
       { "allowTestingFrameworkSetupHook": "beforeEach" }
     ],
     "tsdoc/syntax": [2],
+    "testing-library/await-async-events": [0],
     "react-hooks/exhaustive-deps": [
       2,
       { "additionalHooks": "(useComponentDidUpdate)" }

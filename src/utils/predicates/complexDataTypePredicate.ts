@@ -12,6 +12,8 @@ const complexDataTypePredicateFactory =
     (Object.entries(checker) as ObjectEntries<ObjectChecker<T>>).every(
       ([key, predicate]) =>
         key in value && predicate(value[key as keyof typeof value])
-    );
+    ) &&
+    JSON.stringify(Object.keys(value).sort()) ===
+      JSON.stringify(Object.keys(checker).sort());
 
 export default complexDataTypePredicateFactory;

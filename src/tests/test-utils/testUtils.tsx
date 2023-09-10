@@ -1,6 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import type { RenderOptions } from "@testing-library/react";
-import { render } from "@testing-library/react";
+import type {
+  queries,
+  RenderOptions,
+  RenderResult,
+} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import type { FC, ReactElement } from "react";
 import { Provider } from "react-redux";
 
@@ -14,6 +19,7 @@ import type {
   UnknownObject,
   WritableDeep,
 } from "../../types/tsHelpers";
+import capitalize from "../../utils/capitalize";
 
 export const setupStore = (preloadedState?: Partial<RootState>) =>
   configureStore({
@@ -22,6 +28,74 @@ export const setupStore = (preloadedState?: Partial<RootState>) =>
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware().concat(apiSlice.middleware),
   });
+
+export const setupWithNoUI = async (
+  options: SetupWithNoUIOptions = {}
+): Promise<SetupWithNoUIResults> => {
+  const { fetch = true } = options;
+  const store = setupStore();
+  if (fetch) {
+    await store.dispatch(endpoints.getMain.initiate());
+  }
+  const initialState = store.getState();
+  return { store, initialState };
+};
+
+export type ByRole = {
+  [K in keyof typeof queries]: K extends `${infer S extends string}ByRole`
+    ? `${S}ByRole`
+    : never;
+}[keyof typeof queries];
+
+export type PickByRole = Pick<typeof queries, ByRole>;
+
+export type CustomQueries<T extends Parameters<typeof screen.getAllByRole>[0]> =
+  {
+    [K in ByRole as InsertRole<K, T>]: () => ReturnType<PickByRole[K]>;
+  };
+
+export type InsertRole<
+  K extends ByRole,
+  T extends Parameters<typeof screen.getAllByRole>[0],
+> = K extends `${infer U extends string}ByRole`
+  ? `${U}` extends `${infer S extends string}All`
+    ? `${S}All${Capitalize<T>}sByRole`
+    : `${U}${Capitalize<T>}ByRole`
+  : `${T}ByRole`;
+
+export const queryByRoleFactory = <
+  T extends HTMLElement,
+  P extends Parameters<typeof screen.getAllByRole<T>>[0] = Parameters<
+    typeof screen.getAllByRole<T>
+  >[0],
+>(
+  role: P,
+  options: Parameters<typeof screen.getAllByRole<T>>[1]
+): CustomQueries<P> => {
+  const args = [role, options] as const;
+  const capitalizedRole = capitalize(role);
+  const customQueries: CustomQueries<P> = {
+    [`get${capitalizedRole}ByRole` as const]: () =>
+      screen.getByRole<T>(...args),
+    [`getAll${capitalizedRole}sByRole` as const]: () =>
+      screen.getAllByRole<T>(...args),
+    [`query${capitalizedRole}ByRole` as const]: () =>
+      screen.queryByRole<T>(...args),
+    [`queryAll${capitalizedRole}sByRole` as const]: () =>
+      screen.queryAllByRole<T>(...args),
+    [`find${capitalizedRole}ByRole` as const]: async () =>
+      screen.findByRole<T>(...args),
+    [`findAll${capitalizedRole}sByRole` as const]: async () =>
+      screen.findAllByRole<T>(...args),
+  } as CustomQueries<P>;
+  return customQueries;
+};
+
+export type UserEvent = ReturnType<typeof userEvent.setup>;
+
+export type UserEventOptions = NonNullable<
+  Parameters<typeof userEvent.setup>[0]
+>;
 
 /**
  * This type extends the default options for render from RTL, as well as allows the user to specify other things such as initialState, store.
@@ -36,13 +110,14 @@ export type ExtendedRenderOptions = {
  * A wrapper for {@link render}
  * @param ui - Component to render.
  * @param extendedRenderOptions - Options object.
+ * @param userEventOptions - Options object for user event.
  * @returns An object with the store and all of RTL's query functions
  */
 export const renderWithProviders = async (
   ui: ReactElement,
-  extendedRenderOptions: ExtendedRenderOptions = {}
-) => {
-  // setupListeners(store.dispatch);
+  extendedRenderOptions: ExtendedRenderOptions = {},
+  userEventOptions?: UserEventOptions
+): Promise<ExtendedRenderResult> => {
   const {
     preloadedState = {},
     // Automatically create a store instance if no store was passed in
@@ -54,6 +129,8 @@ export const renderWithProviders = async (
     await store.dispatch(endpoints.getMain.initiate());
   }
 
+  const user = userEvent.setup(userEventOptions);
+
   const Wrapper: FC<PropsWithRequiredChildren> = ({ children }) => (
     <Provider store={store}>{children}</Provider>
   );
@@ -61,13 +138,18 @@ export const renderWithProviders = async (
   // Return an object with the store and all of RTL's query functions
   return {
     store,
-    ...render(ui, { wrapper: Wrapper, ...renderOptions }),
+    user,
+    ...(render(ui, {
+      wrapper: Wrapper,
+      ...renderOptions,
+    }) satisfies RenderResult),
   };
 };
 
-export type ExtendedRenderResult = Awaited<
-  ReturnType<typeof renderWithProviders>
->;
+export type ExtendedRenderResult = RenderResult & {
+  store: AppStore;
+  user: UserEvent;
+};
 
 export type NewSuppliesSample = PartialObjectProperties<Supplies>;
 
@@ -126,16 +208,4 @@ export type SetupWithNoUIOptions = {
 export type SetupWithNoUIResults = {
   store: AppStore;
   initialState: RootState;
-};
-
-export const setupWithNoUI = async (
-  options: SetupWithNoUIOptions = {}
-): Promise<SetupWithNoUIResults> => {
-  const { fetch = true } = options;
-  const store = setupStore();
-  if (fetch) {
-    await store.dispatch(endpoints.getMain.initiate());
-  }
-  const initialState = store.getState();
-  return { store, initialState };
 };

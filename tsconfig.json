@@ -16,7 +16,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true,
+    // "skipLibCheck": true,
     "strictPropertyInitialization": true,
     "strict": true,
     "strictFunctionTypes": true,

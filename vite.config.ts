@@ -27,6 +27,7 @@ export default defineConfig(({ mode }) => {
         // perFile: true,
         // skipFull: true,
       },
+      allowOnly: true,
       environment: "jsdom",
       ui: true,
       useAtomics: true,

@@ -16,6 +16,7 @@ const ColumnTopCardBody: FC = () => {
   const addedItemsIds = useAppSelector(state =>
     selectCartItemsIds(state, vendorId)
   );
+
   return (
     <CardContent className="p-2">
       <QRCodeImageContainer />

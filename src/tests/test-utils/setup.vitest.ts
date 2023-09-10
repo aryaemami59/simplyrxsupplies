@@ -1,5 +1,6 @@
 /* eslint-disable prefer-arrow-functions/prefer-arrow-functions */
 import "@testing-library/jest-dom/vitest";
+import "vitest-dom/extend-expect";
 
 import matchers from "jest-extended";
 import type { ExpectStatic } from "vitest";

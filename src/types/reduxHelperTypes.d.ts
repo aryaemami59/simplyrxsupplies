@@ -1,10 +1,12 @@
 import type {
   createSelector,
+  createSelectorCreator,
   EntityAdapter,
   EntitySelectors,
   EntityState,
+  Selector,
+  weakMapMemoize,
 } from "@reduxjs/toolkit";
-import type { Selector } from "reselect";
 
 import type {
   createAppSelector,
@@ -224,3 +226,17 @@ export type TopLevelSelectors<
 export type AddedState = {
   -readonly [K in keyof StateAdapters]: EntityState<StateAdapters[K], number>;
 };
+
+export declare const createWeakMapSelectorAlias: ReturnType<
+  typeof createSelectorCreator<
+    (...args: unknown[]) => unknown,
+    typeof weakMapMemoize
+  >
+>;
+
+export type TypedWeakMapCreateSelector<State> = <
+  SelectorsArray extends readonly Selector<State>[],
+  Result,
+>(
+  ...args: Parameters<typeof createWeakMapSelectorAlias<SelectorsArray, Result>>
+) => ReturnType<typeof createWeakMapSelectorAlias<SelectorsArray, Result>>;

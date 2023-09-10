@@ -2,7 +2,11 @@ import type { ItemNameAndKeywords } from "../types/api";
 import type { RootSelectorParamsProvider } from "../types/reduxHelperTypes";
 import withEmptyArrayFallback from "../utils/withEmptyArrayFallback";
 import { ADAPTER_SELECTORS } from "./adapterSelectors";
-import { createAppSelector } from "./createSelectors";
+import {
+  createAppSelector,
+  createAutotrackSelector,
+  createWeakMapSelector,
+} from "./createSelectors";
 
 const ROOT_SELECTOR_PARAMS_PROVIDER: RootSelectorParamsProvider = {
   getItemId: (state, itemId) => itemId,
@@ -35,7 +39,7 @@ export const selectVendorIdsByItemId = createAppSelector(
   item => withEmptyArrayFallback(item?.vendorIds)
 );
 
-export const selectItemNamesAndKeywords = createAppSelector(
+export const selectItemNamesAndKeywords = createAutotrackSelector(
   [ADAPTER_SELECTORS.GLOBAL.items.selectAll],
   items =>
     items.map<ItemNameAndKeywords>(({ name, keywords, id }) => ({
@@ -54,7 +58,7 @@ export const checkIfAnyItemsAdded = createAppSelector(
     )
 );
 
-export const selectCartItemsIds = createAppSelector(
+export const selectCartItemsIds = createWeakMapSelector(
   [ADAPTER_SELECTORS.GLOBAL.cart.selectById],
   cart => withEmptyArrayFallback(cart?.itemIds)
 );
@@ -90,12 +94,12 @@ export const isMinimized = createAppSelector(
   (cartItems, itemId) => !!cartItems?.minimizedItemIds.includes(itemId)
 );
 
-export const selectCategoryName = createAppSelector(
+export const selectCategoryName = createWeakMapSelector(
   [ADAPTER_SELECTORS.GLOBAL.categories.selectById],
   category => category?.name ?? "Vials"
 );
 
-export const selectCategoryItemIds = createAppSelector(
+export const selectCategoryItemIds = createWeakMapSelector(
   [ADAPTER_SELECTORS.GLOBAL.categories.selectById],
   category => withEmptyArrayFallback(category?.itemIds)
 );
@@ -127,12 +131,12 @@ export const selectQRCodeText = createAppSelector(
       .join(vendor?.joinChars)
 );
 
-export const selectOfficialName = createAppSelector(
+export const selectOfficialName = createWeakMapSelector(
   [ADAPTER_SELECTORS.GLOBAL.vendors.selectById],
   vendor => vendor?.officialName ?? "GNFR"
 );
 
-export const selectVendorItemIds = createAppSelector(
+export const selectVendorItemIds = createWeakMapSelector(
   [ADAPTER_SELECTORS.GLOBAL.vendors.selectById],
   vendor => withEmptyArrayFallback(vendor?.itemIds)
 );

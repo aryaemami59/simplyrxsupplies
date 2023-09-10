@@ -1,10 +1,7 @@
 import type { TopLevelSelectorsForAddedState } from "../types/reduxHelperTypes";
-import {
-  createAppSelector,
-  createDraftSafeAppSelector,
-} from "./createSelectors";
+import { createAppSelector } from "./createSelectors";
 
-export const selectAdded = createDraftSafeAppSelector(
+export const selectAdded = createAppSelector(
   [state => state],
   state => state.added
 );

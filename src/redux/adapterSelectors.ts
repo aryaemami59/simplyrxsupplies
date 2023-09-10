@@ -1,3 +1,5 @@
+import type { createDraftSafeSelector } from "@reduxjs/toolkit";
+
 import type {
   AdapterGlobalizedSelectors,
   AdapterLocalizedSelectors,
@@ -9,6 +11,7 @@ import {
   selectItemsData,
   selectVendorsData,
 } from "./apiSlice";
+import { createDraftSafeAppSelector } from "./createSelectors";
 import ENTITY_ADAPTERS from "./entityAdapters";
 import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors";
 
@@ -41,13 +44,16 @@ export const LOCAL_SELECTORS: AdapterLocalizedSelectors = {
 
   cartItems: ENTITY_ADAPTERS.cartItems.getSelectors(added => added.cartItems),
 } as const satisfies AdapterLocalizedSelectors;
-
+/** Takes RootState as an argument. */
 export const GLOBAL_SELECTORS: AdapterGlobalizedSelectors = {
   searchResults: ENTITY_ADAPTERS.searchResults.getSelectors(
     TOP_LEVEL_SELECTORS.searchResults
   ),
 
-  cart: ENTITY_ADAPTERS.cart.getSelectors(TOP_LEVEL_SELECTORS.cart),
+  cart: ENTITY_ADAPTERS.cart.getSelectors(TOP_LEVEL_SELECTORS.cart, {
+    createSelector:
+      createDraftSafeAppSelector as typeof createDraftSafeSelector,
+  }),
 
   items: ENTITY_ADAPTERS.items.getSelectors(selectItemsData),
 

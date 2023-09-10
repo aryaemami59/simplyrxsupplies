@@ -25,6 +25,7 @@ describe<LocalTestContext>("selectors", it => {
   });
 
   it("selectItemNamesAndKeywords", ({ initialState }) => {
+    console.log("tests run");
     expect(selectItemNamesAndKeywords.recomputations()).toBe(0);
     const first = selectItemNamesAndKeywords(initialState);
     const second = selectItemNamesAndKeywords(initialState);
