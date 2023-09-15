@@ -2,6 +2,7 @@ import AppBar from "@mui/material/AppBar";
 import type { FC } from "react";
 import { memo } from "react";
 
+import Column from "../../shared/components/Column";
 import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
 import VendorColumnModalComponent from "../InputComponents/VendorColumnModalComponent";
 import DarkModeTogglerButton from "./DarkModeTogglerButton";
@@ -18,9 +19,11 @@ const TopNavbar: FC = () => (
         <OffcanvasComponent />
       </span>
       <DarkModeTogglerButton />
-      <span className="d-none d-lg-inline-block m-auto">
-        <VendorDropDownsList />
-      </span>
+      <Column start="lg">
+        <span className="d-none d-lg-inline-block m-auto">
+          <VendorDropDownsList />
+        </span>
+      </Column>
       <span className="d-lg-none ms-auto">
         <VendorColumnModalComponent />
       </span>

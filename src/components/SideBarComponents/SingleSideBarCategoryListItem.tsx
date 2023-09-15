@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import PropTypes from "prop-types";
-import type { FC, MouseEventHandler, RefObject } from "react";
+import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback } from "react";
 import { shallowEqual } from "react-redux";
 
@@ -18,10 +18,9 @@ import SideBarVendorBadges from "./SideBarVendorBadges";
 
 type Props = {
   itemId: number;
-  target: RefObject<HTMLDivElement>;
 };
 
-const SingleSideBarCategoryListItem: FC<Props> = ({ itemId, target }) => {
+const SingleSideBarCategoryListItem: FC<Props> = ({ itemId }) => {
   const dispatch = useAppDispatch();
   const ifAddedToAllVendors = useAppSelector(state =>
     checkIfAddedToAllVendors(state, itemId)
@@ -40,9 +39,8 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemId, target }) => {
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     if (!isEmptyArray(checkedVendorIds)) {
       dispatch(addItemToCarts({ itemId }));
-      target.current?.focus();
     }
-  }, [dispatch, itemId, target, checkedVendorIds]);
+  }, [dispatch, itemId, checkedVendorIds]);
 
   return (
     <>
@@ -75,9 +73,6 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemId, target }) => {
 
 SingleSideBarCategoryListItem.propTypes = {
   itemId: PropTypes.number.isRequired,
-  target: PropTypes.shape({
-    current: PropTypes.instanceOf(HTMLDivElement).isRequired,
-  }).isRequired,
 };
 
 export default memo<Props>(SingleSideBarCategoryListItem);

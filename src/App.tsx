@@ -11,6 +11,7 @@ import SideBarContainer from "./components/SideBarComponents/SideBarContainer";
 import TopNavbar from "./components/TopNavbarComponents/TopNavbar";
 import ColorModeProvider from "./contexts/ColorModeProvider";
 import { useGetMainQuery } from "./redux/apiSlice";
+import Column from "./shared/components/Column";
 import ErrorComponent from "./shared/components/ErrorComponent";
 import IsLoading from "./shared/components/IsLoading";
 
@@ -29,16 +30,24 @@ const App: FC = () => {
         <TopNavbar />
         <div className="container-fluid">
           <div className="justify-content-center row">
-            <div className="col-lg-3 col-xl-2 px-0 d-none d-lg-block sidebar-col">
-              <SideBarContainer />
-            </div>
+            <Column start="lg">
+              <div className="col-lg-3 col-xl-2 px-0 sidebar-col">
+                <SideBarContainer />
+              </div>
+            </Column>
+            {/* <div className="col-lg-3 col-xl-2 px-0 d-xs-none d-sm-none d-lg-block sidebar-col">
+            </div> */}
             <div className="col-11 col-md-6 col-lg-5 mt-5">
               <InputGroupComponent />
             </div>
             <div className="col-11 col-md-6 col-lg-4 col-xl-5 my-5 justify-content-center px-5">
-              <div className="d-none d-md-block">
-                <VendorColumnList />
-              </div>
+              <Column start="md">
+                <div>
+                  <VendorColumnList />
+                </div>
+              </Column>
+              {/* <div className="d-none d-md-block">
+              </div> */}
             </div>
           </div>
         </div>

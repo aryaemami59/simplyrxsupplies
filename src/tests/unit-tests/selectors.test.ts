@@ -1,10 +1,9 @@
 import { beforeEach, describe, expect } from "vitest";
 
-import {
+import selectors, {
   checkIfAnyItemsAdded,
   selectCartItemNamesStringified,
   selectCartItemsIds,
-  selectCartsByItemId,
   selectCategoryItemIds,
   selectCheckedVendorIds,
   selectItemNamesAndKeywords,
@@ -25,7 +24,9 @@ describe<LocalTestContext>("selectors", it => {
   });
 
   it("selectItemNamesAndKeywords", ({ initialState }) => {
-    console.log("tests run");
+    expect(
+      Object.values(selectors).map(e => e.recomputations())
+    ).toSatisfyAll<number>(e => e === 0);
     expect(selectItemNamesAndKeywords.recomputations()).toBe(0);
     const first = selectItemNamesAndKeywords(initialState);
     const second = selectItemNamesAndKeywords(initialState);
@@ -82,17 +83,6 @@ describe<LocalTestContext>("selectors", it => {
     expect(first).not.toBeEmptyArray();
     expect(selectVendorItemIds.recomputations()).toBe(1);
     selectVendorItemIds.clearCache();
-  });
-
-  it("selectCartsByItemId", ({ initialState }) => {
-    expect(selectCartsByItemId.recomputations()).toBe(0);
-    const first = selectCartsByItemId(initialState, 0);
-    const second = selectCartsByItemId(initialState, 0);
-    selectCartsByItemId(initialState, 0);
-    selectCartsByItemId(initialState, 0);
-    expect(first).toBe(second);
-    expect(selectCartsByItemId.recomputations()).toBe(1);
-    selectCartsByItemId.clearCache();
   });
 
   it("selectVendorIdsByItemId", ({ initialState }) => {

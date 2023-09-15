@@ -217,6 +217,8 @@
     ],
     "tsdoc/syntax": [2],
     "testing-library/await-async-events": [0],
+    "testing-library/no-node-access": [0],
+    "react/jsx-props-no-spreading": [0],
     "react-hooks/exhaustive-deps": [
       2,
       { "additionalHooks": "(useComponentDidUpdate)" }

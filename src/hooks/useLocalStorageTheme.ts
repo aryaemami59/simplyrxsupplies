@@ -2,13 +2,29 @@ import { useState } from "react";
 
 import { darkTheme, lightTheme } from "../shared/themes";
 
-const currentTheme: "dark" | "light" =
-  localStorage.getItem("theme") == null
-    ? lightTheme.palette.mode
-    : (localStorage.getItem("theme") as "dark" | "light");
+const getCurrentTheme = () => {
+  const valueFromStorage = localStorage.getItem("theme");
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const preferredMode = window?.matchMedia?.("(prefers-color-scheme: dark)")
+    .matches
+    ? darkTheme
+    : lightTheme;
+  switch (valueFromStorage) {
+    case null: {
+      return preferredMode;
+    }
+    case "light": {
+      return lightTheme;
+    }
+    case "dark": {
+      return darkTheme;
+    }
+    default: {
+      return lightTheme;
+    }
+  }
+};
 
-const currentThemeObject = currentTheme === "light" ? lightTheme : darkTheme;
-
-const useLocalStorageTheme = () => useState(currentThemeObject);
+const useLocalStorageTheme = () => useState(getCurrentTheme);
 
 export default useLocalStorageTheme;

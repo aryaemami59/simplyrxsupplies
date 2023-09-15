@@ -50,3 +50,12 @@ export type Predicate<T> = (value: unknown) => value is T;
 export type ObjectChecker<T extends UnknownObject> = {
   [K in keyof T]: Predicate<T[K]>;
 };
+
+export type AnyNonNullishValue = NonNullable<unknown>;
+
+export type Simplify<T> = {
+  [KeyType in keyof T]: T[KeyType];
+} & AnyNonNullishValue;
+
+/** Any function with arguments */
+export type UnknownFunction = (...args: unknown[]) => unknown;

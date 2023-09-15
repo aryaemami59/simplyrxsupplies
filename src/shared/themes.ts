@@ -1,5 +1,7 @@
 import grey from "@mui/material/colors/grey";
-import createTheme from "@mui/material/styles/createTheme";
+import { createTheme } from "@mui/material/styles";
+import type { Theme } from "@mui/material/styles/createTheme";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 import {
   DARK_MODE_PAPER_BG,
@@ -9,7 +11,35 @@ import {
   PRIMARY_TEXT,
 } from "./styles";
 
+declare module "@mui/material/styles" {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+  interface BreakpointOverrides {
+    xs: true;
+    sm: true;
+    md: true;
+    lg: true;
+    xl: true;
+    xxl: true;
+    // mobile: true;
+    // tablet: true;
+    // laptop: true;
+    // desktop: true;
+  }
+}
+
+export const useTypedMediaQuery = useMediaQuery<Theme>;
+
 export const lightTheme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 576,
+      md: 768,
+      lg: 992,
+      xl: 1200,
+      xxl: 1400,
+    },
+  },
   components: {
     MuiAccordionSummary: {
       styleOverrides: {
@@ -34,6 +64,16 @@ export const lightTheme = createTheme({
 });
 
 export const darkTheme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 576,
+      md: 768,
+      lg: 992,
+      xl: 1200,
+      xxl: 1400,
+    },
+  },
   components: {
     MuiAccordionSummary: {
       styleOverrides: {

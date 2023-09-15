@@ -38,7 +38,7 @@ export const selectSelf = createDraftSafeAppSelector(
   state => state
 );
 
-const selectMainResults = endpoints.getMain.select();
+export const selectMainResults = endpoints.getMain.select();
 
 export const selectMainData = createDraftSafeAppSelector(
   [selectMainResults],
@@ -71,5 +71,13 @@ export const selectCategoriesData = createDraftSafeAppSelector(
       data?.categories ?? EMPTY_ARRAY
     )
 );
+
+export const apiSelectors = {
+  selectMainResults,
+  selectMainData,
+  selectItemsData,
+  selectVendorsData,
+  selectCategoriesData,
+};
 
 export default apiSlice;

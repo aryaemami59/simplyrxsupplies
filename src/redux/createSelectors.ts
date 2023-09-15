@@ -1,3 +1,4 @@
+import type { createDraftSafeSelectorCreator } from "@reduxjs/toolkit";
 import {
   autotrackMemoize,
   createSelector,
@@ -7,71 +8,143 @@ import {
   isDraft,
   weakMapMemoize,
 } from "@reduxjs/toolkit";
+import { shallowEqual } from "react-redux";
 
 import type {
   AddedState,
-  AppSelector,
-  TypedCreateSelector,
-  TypedWeakMapCreateSelector,
+  AutotrackMemoize,
+  DefaultMemoize,
+  DropFirst,
+  TypedCreateSelectorFunction,
+  WeakMapMemoize,
 } from "../types/reduxHelperTypes";
 import type { RootState } from "./store";
+
 // TODO: fix types.
-export const createDraftSafeSelectorCreatorCorrected: typeof createSelectorCreator =
-  ((
-    ...args: Parameters<typeof createSelectorCreator>
-  ): ReturnType<typeof createSelectorCreator> => {
-    const createSelector2 = createSelectorCreator(...args);
-    return (...params: Parameters<typeof createSelector2>) => {
+/**
+ * Fixed version of {@link createDraftSafeSelectorCreator}
+ * @param args - Same arguments as {@link createDraftSafeSelectorCreator}.
+ * @returns A `createDraftSafeSelector` function.
+ */
+export const createDraftSafeSelectorCreatorCorrected: typeof createDraftSafeSelectorCreator =
+  <
+    F extends (...args: unknown[]) => unknown,
+    MemoizeFunction extends (func: F, ...options: unknown[]) => F,
+    MemoizeOptions extends unknown[] = DropFirst<Parameters<MemoizeFunction>>,
+  >(
+    ...args: Parameters<
+      typeof createSelectorCreator<F, MemoizeFunction, MemoizeOptions>
+    >
+  ) => {
+    const createSelector2 = createSelectorCreator<
+      F,
+      MemoizeFunction,
+      MemoizeOptions
+    >(...args);
+    return ((...params: Parameters<typeof createSelector2>) => {
       const selector = createSelector2(...params);
-      const wrappedSelector = (value: unknown, ...rest: unknown[]) =>
-        selector(isDraft(value) ? current(value) : value, ...rest);
+      const wrappedSelector = (state: unknown, ...rest: unknown[]) =>
+        selector(isDraft(state) ? current(state) : state, ...rest);
       Object.assign(wrappedSelector, selector);
       return wrappedSelector;
-    };
-  }) as typeof createSelectorCreator;
-
-export const createAppSelector: TypedCreateSelector<RootState> = createSelector;
-export const createDraftSafeAppSelector: TypedCreateSelector<RootState> =
-  createDraftSafeSelectorCreatorCorrected(defaultMemoize);
-export const createDraftSafeAddedSelector: TypedCreateSelector<AddedState> =
-  createDraftSafeSelectorCreatorCorrected(defaultMemoize);
+    }) as ReturnType<
+      typeof createSelectorCreator<F, MemoizeFunction, MemoizeOptions>
+    >;
+  };
+/** A {@link createSelector} function that takes {@link RootState} as the first argument in its input selectors. */
+export const createAppSelector: TypedCreateSelectorFunction<
+  RootState,
+  DefaultMemoize
+> = createSelector;
 /** Used to create selectors that are shared across multiple component instances. */
-export const createWeakMapSelector: TypedWeakMapCreateSelector<RootState> =
-  createSelectorCreator(weakMapMemoize);
+export const createSelectorWeakmap: TypedCreateSelectorFunction<
+  RootState,
+  WeakMapMemoize
+> = createSelectorCreator(weakMapMemoize);
 /** Used to create selectors that are used to access nested fields in data. */
-export const createAutotrackSelector: TypedCreateSelector<RootState> =
-  createSelectorCreator(autotrackMemoize);
+export const createSelectorAutotrack: TypedCreateSelectorFunction<
+  RootState,
+  AutotrackMemoize
+> = createSelectorCreator(autotrackMemoize);
+export const createDraftSafeAppSelector: TypedCreateSelectorFunction<
+  RootState,
+  DefaultMemoize
+> = createDraftSafeSelectorCreatorCorrected<
+  Parameters<DefaultMemoize>[0],
+  DefaultMemoize
+>(defaultMemoize);
+export const createDraftSafSelectorWeakMap =
+  createDraftSafeSelectorCreatorCorrected<
+    Parameters<WeakMapMemoize>[0],
+    WeakMapMemoize
+  >(weakMapMemoize);
+export const createDraftSafSelectorAutotrack =
+  createDraftSafeSelectorCreatorCorrected<
+    Parameters<AutotrackMemoize>[0],
+    AutotrackMemoize
+  >(autotrackMemoize);
+export const createDraftSafeAddedSelector: TypedCreateSelectorFunction<
+  AddedState,
+  DefaultMemoize
+> = createDraftSafeSelectorCreatorCorrected(defaultMemoize);
 // TODO: remove later.
 export const createDebugSelector = createSelectorCreator(defaultMemoize, {
-  equalityCheck: (previousVal: unknown, currentVal: unknown) => {
-    const rv = currentVal === previousVal;
-    if (!rv) {
-      console.log(
-        "Selector param value changed\n",
+  resultEqualityCheck: (previousVal: unknown, currentVal: unknown) => {
+    const isSame = currentVal === previousVal;
+    const isShallowEqual = shallowEqual(previousVal, currentVal);
+    if (!isSame && isShallowEqual) {
+      console.error(
+        "Selector param reference changed but value did not\n",
         "\nprevious value:",
         previousVal,
         "\n\ncurrent value:",
         currentVal
       );
     }
-    return rv;
+    return isSame;
+  },
+  equalityCheck: (previousVal: unknown, currentVal: unknown) => {
+    console.log("selector run");
+    const isSame = currentVal === previousVal;
+    const isShallowEqual = shallowEqual(previousVal, currentVal);
+    if (!isSame && isShallowEqual) {
+      console.error(
+        "Selector param reference changed but value did not\n",
+        "\nprevious value:",
+        previousVal,
+        "\n\ncurrent value:",
+        currentVal
+      );
+    }
+    return isSame;
   },
 });
 
-export const curriedSelector =
-  <Args extends unknown[], SelectorOutput>(
-    selector: AppSelector<SelectorOutput, Args>
-  ) =>
-  (...args: Args) =>
-  (state: RootState) =>
-    selector(state, ...args);
+// export const curriedSelector =
+//   <Args extends unknown[], SelectorOutput>(
+//     selector: AppSelector<SelectorOutput, Args>
+//   ) =>
+//   (...args: Args) =>
+//   (state: RootState) =>
+//     selector(state, ...args);
 
-const uncurry =
-  (curriedFn: (...params: unknown[]) => unknown) =>
-  (...args: unknown[]) =>
-    args.reduce((left, right) => left(right), curriedFn);
+// const uncurry =
+//   (curriedFn: AppSelector) =>
+//   (...args: unknown[]) =>
+//     args.reduce((left, right) => left(right), curriedFn);
 
-const createSelectorN = (
-  ...selectors: ((...args: unknown[]) => unknown)[],
-  curriedFn: (...args: unknown[]) => unknown
-) => createSelector(...selectors, uncurry(curriedFn));
+// export const createSelectorN = (
+//   ...params: ((...args: unknown[]) => unknown)[]
+// ) => createSelector(...params, uncurry(params.at(-1)));
+
+export const createAllSelectors = (
+  ...args: Parameters<typeof createAppSelector>
+) => ({
+  default: createAppSelector(...args),
+  weakMap: (createSelectorWeakmap as unknown as typeof createAppSelector)(
+    ...args
+  ),
+  autotrack: (createSelectorAutotrack as unknown as typeof createAppSelector)(
+    ...args
+  ),
+});

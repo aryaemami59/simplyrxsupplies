@@ -36,9 +36,14 @@ export default defineConfig(({ mode }) => {
         includeStack: true,
         showDiff: true,
       },
+      deps: {
+        moduleDirectories: ["node_modules"],
+      },
       reporters: ["html", "verbose"],
       watch: true,
+      // css: false,
       css: true,
+      // css: { modules: { classNameStrategy: "non-scoped" } },
       benchmark: {
         include: ["**/*.spec.?(c|m)[jt]s?(x)"],
         reporters: ["default"],

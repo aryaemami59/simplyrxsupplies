@@ -3,7 +3,7 @@
   --custom-green-rgb: 66, 255, 167;
   --clr-neon: hsl(152, 100%, 63%);
   --clr-bg: hsl(222, 17%, 45%);
-  --light-bg: 230, 241, 252
+  --light-bg: 230, 241, 252;
 }
 
 .App {
@@ -161,8 +161,12 @@ input.cursor-pointer {
   border: var(--clr-neon) 0.125em solid;
   padding: 0.25em 1em;
   border-radius: 0.25em;
-  text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em currentColor;
-  box-shadow: inset 0 0 0.5em 0 var(--clr-neon), 0 0 0.5em 0 var(--clr-neon);
+  text-shadow:
+    0 0 0.125em hsl(0 0% 100% / 0.3),
+    0 0 0.45em currentColor;
+  box-shadow:
+    inset 0 0 0.5em 0 var(--clr-neon),
+    0 0 0.5em 0 var(--clr-neon);
   position: relative;
   z-index: 1;
 }
@@ -193,6 +197,12 @@ input.cursor-pointer {
   background-color: var(--clr-neon);
   z-index: -1;
   transition: opacity 100ms linear;
+}
+
+@media (max-width: 576px) {
+  .d-xs-none {
+    display: none;
+  }
 }
 
 .neon-button:hover,
@@ -252,7 +262,7 @@ img.barcode-image {
 }
 
 .fs-7 {
-  font-size: 0.90rem !important;
+  font-size: 0.9rem !important;
 }
 
 .text-none {

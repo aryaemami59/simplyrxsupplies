@@ -55,7 +55,7 @@ describe.todo("object copying methods", async () => {
   );
 });
 
-describe("array copying methods", async () => {
+describe.todo("array copying methods", async () => {
   const { store } = await setupWithNoUI();
   const state = store.getState();
   store.dispatch(setSearchResults([...Array.from({ length: 200 }).keys()]));
@@ -74,5 +74,27 @@ describe("array copying methods", async () => {
       const element = [...data];
     },
     { iterations: 5000 }
+  );
+});
+
+const element = Array.from({ length: 1e5 }).fill(99);
+describe("array iteration methods", () => {
+  bench(
+    "traditional for loop",
+    () => {
+      for (let i = 0; i < element.length; i++) {
+        const element1 = element[i];
+      }
+    },
+    { iterations: 500 }
+  );
+  bench(
+    "for each",
+    () => {
+      element.forEach(e => {
+        const element1 = e;
+      });
+    },
+    { iterations: 500 }
   );
 });

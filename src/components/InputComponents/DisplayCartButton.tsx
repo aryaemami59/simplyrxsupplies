@@ -7,6 +7,7 @@ import { memo, useMemo } from "react";
 
 import { useAppSelector } from "../../redux/hooks";
 import { checkIfAnyItemsAdded } from "../../redux/selectors";
+import Column from "../../shared/components/Column";
 
 type Props = {
   readonly showModal: MouseEventHandler<HTMLButtonElement>;
@@ -29,12 +30,14 @@ const DisplayCartButton: FC<Props> = ({ showModal }) => {
   );
 
   return (
-    <IconButton
-      className="d-inline-block d-md-none"
-      color="inherit"
-      onClick={showModal}>
-      {startIcon}
-    </IconButton>
+    <Column end="md">
+      <IconButton
+        className="d-inline-block d-md-none"
+        color="inherit"
+        onClick={showModal}>
+        {startIcon}
+      </IconButton>
+    </Column>
   );
 };
 

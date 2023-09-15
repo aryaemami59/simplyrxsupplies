@@ -6,6 +6,7 @@ import type {
 } from "@testing-library/react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import mediaQuery from "css-mediaquery";
 import type { FC, ReactElement } from "react";
 import { Provider } from "react-redux";
 
@@ -208,4 +209,19 @@ export type SetupWithNoUIOptions = {
 export type SetupWithNoUIResults = {
   store: AppStore;
   initialState: RootState;
+};
+
+export const createMatchMedia = (width: number) => (query: string) => ({
+  matches: mediaQuery.match(query, { width }),
+  media: "",
+  addListener: () => {},
+  removeListener: () => {},
+  onchange: () => {},
+  addEventListener: () => {},
+  removeEventListener: () => {},
+  dispatchEvent: () => true,
+});
+
+export const resizeScreenSize = (width: number) => {
+  window.matchMedia = createMatchMedia(width);
 };

@@ -4,8 +4,8 @@ import withEmptyArrayFallback from "../utils/withEmptyArrayFallback";
 import { ADAPTER_SELECTORS } from "./adapterSelectors";
 import {
   createAppSelector,
-  createAutotrackSelector,
-  createWeakMapSelector,
+  createSelectorAutotrack,
+  createSelectorWeakmap,
 } from "./createSelectors";
 
 const ROOT_SELECTOR_PARAMS_PROVIDER: RootSelectorParamsProvider = {
@@ -14,32 +14,32 @@ const ROOT_SELECTOR_PARAMS_PROVIDER: RootSelectorParamsProvider = {
   getItemIdAndCartId: (state, itemId, cartId) => cartId,
 } as const satisfies RootSelectorParamsProvider;
 
-export const selectVendorsLinks = createAppSelector(
+export const selectVendorsLinks = createSelectorWeakmap(
   [ADAPTER_SELECTORS.GLOBAL.vendors.selectById],
   vendor => vendor?.link ?? ""
 );
 
-export const selectItemNumber = createAppSelector(
+export const selectItemNumber = createSelectorWeakmap(
   [ADAPTER_SELECTORS.GLOBAL.items.selectById],
   item => item?.itemNumber ?? ""
 );
 
-export const selectItemSrc = createAppSelector(
+export const selectItemSrc = createSelectorWeakmap(
   [ADAPTER_SELECTORS.GLOBAL.items.selectById],
   item => item?.src ?? ""
 );
 
-export const selectItemName = createAppSelector(
+export const selectItemName = createSelectorWeakmap(
   [ADAPTER_SELECTORS.GLOBAL.items.selectById],
   item => item?.name ?? ""
 );
-
-export const selectVendorIdsByItemId = createAppSelector(
+// TODO: maybe autotrack?
+export const selectVendorIdsByItemId = createSelectorWeakmap(
   [ADAPTER_SELECTORS.GLOBAL.items.selectById],
   item => withEmptyArrayFallback(item?.vendorIds)
 );
 
-export const selectItemNamesAndKeywords = createAutotrackSelector(
+export const selectItemNamesAndKeywords = createSelectorAutotrack(
   [ADAPTER_SELECTORS.GLOBAL.items.selectAll],
   items =>
     items.map<ItemNameAndKeywords>(({ name, keywords, id }) => ({
@@ -49,21 +49,26 @@ export const selectItemNamesAndKeywords = createAutotrackSelector(
     }))
 );
 
-export const checkIfAnyItemsAdded = createAppSelector(
+const selectCartsItemIdsLength = createSelectorAutotrack(
   [ADAPTER_SELECTORS.GLOBAL.cart.selectAll],
-  carts =>
-    carts.reduce<boolean>(
-      (accumulator, cart) => cart.itemIds.length > 0 || accumulator,
+  carts => carts.map(({ itemIds }) => itemIds.length)
+);
+
+export const checkIfAnyItemsAdded = createSelectorAutotrack(
+  [selectCartsItemIdsLength],
+  itemIdsLengthArray =>
+    itemIdsLengthArray.reduce<boolean>(
+      (accumulator, itemIdsLength) => itemIdsLength > 0 || accumulator,
       false
     )
 );
 
-export const selectCartItemsIds = createWeakMapSelector(
+export const selectCartItemsIds = createSelectorWeakmap(
   [ADAPTER_SELECTORS.GLOBAL.cart.selectById],
   cart => withEmptyArrayFallback(cart?.itemIds)
 );
 
-export const selectCartItemNamesStringified = createAppSelector(
+export const selectCartItemNamesStringified = createSelectorWeakmap(
   [selectCartItemsIds, ADAPTER_SELECTORS.GLOBAL.items.selectEntities],
   (cartItemIds, itemsEntities) =>
     cartItemIds
@@ -71,13 +76,13 @@ export const selectCartItemNamesStringified = createAppSelector(
       .join(", ")
 );
 
-export const selectCheckedVendorIds = createAppSelector(
+export const selectCheckedVendorIds = createSelectorWeakmap(
   [ADAPTER_SELECTORS.GLOBAL.itemVendors.selectById],
   checkedVendorItem =>
     withEmptyArrayFallback(checkedVendorItem?.checkedVendorIds)
 );
 
-export const isVendorChecked = createAppSelector(
+export const isVendorChecked = createSelectorWeakmap(
   [
     ADAPTER_SELECTORS.GLOBAL.itemVendors.selectById,
     ROOT_SELECTOR_PARAMS_PROVIDER.getItemIdAndCartId,
@@ -86,7 +91,7 @@ export const isVendorChecked = createAppSelector(
     !!checkedVendorItem?.checkedVendorIds.includes(vendorId)
 );
 
-export const isMinimized = createAppSelector(
+export const isMinimized = createSelectorWeakmap(
   [
     ADAPTER_SELECTORS.GLOBAL.cartItems.selectById,
     ROOT_SELECTOR_PARAMS_PROVIDER.getCartIdAndItemId,
@@ -94,32 +99,37 @@ export const isMinimized = createAppSelector(
   (cartItems, itemId) => !!cartItems?.minimizedItemIds.includes(itemId)
 );
 
-export const selectCategoryName = createWeakMapSelector(
+export const selectCategoryName = createSelectorWeakmap(
   [ADAPTER_SELECTORS.GLOBAL.categories.selectById],
   category => category?.name ?? "Vials"
 );
 
-export const selectCategoryItemIds = createWeakMapSelector(
+export const selectCategoryName1 = createAppSelector(
+  [ADAPTER_SELECTORS.GLOBAL.categories.selectById],
+  category => category?.name ?? "Vials"
+);
+
+export const selectCategoryItemIds = createSelectorWeakmap(
   [ADAPTER_SELECTORS.GLOBAL.categories.selectById],
   category => withEmptyArrayFallback(category?.itemIds)
 );
 
-export const checkIfAddedToVendor = createAppSelector(
+export const checkIfAddedToVendor = createSelectorWeakmap(
   [selectCartItemsIds, ROOT_SELECTOR_PARAMS_PROVIDER.getCartIdAndItemId],
   (cartItemsIds, itemId) => cartItemsIds.includes(itemId)
 );
 
-export const selectCartItemsLength = createAppSelector(
+export const selectCartItemsLength = createSelectorWeakmap(
   [selectCartItemsIds],
   cartItemIds => cartItemIds.length
 );
 
-export const checkIfAnyAddedToOneVendor = createAppSelector(
+export const checkIfAnyAddedToOneVendor = createSelectorWeakmap(
   [selectCartItemsLength],
   cartItemIdsLength => cartItemIdsLength > 0
 );
 
-export const selectQRCodeText = createAppSelector(
+export const selectQRCodeText = createSelectorWeakmap(
   [
     selectCartItemsIds,
     ADAPTER_SELECTORS.GLOBAL.items.selectEntities,
@@ -131,17 +141,17 @@ export const selectQRCodeText = createAppSelector(
       .join(vendor?.joinChars)
 );
 
-export const selectOfficialName = createWeakMapSelector(
+export const selectOfficialName = createSelectorWeakmap(
   [ADAPTER_SELECTORS.GLOBAL.vendors.selectById],
   vendor => vendor?.officialName ?? "GNFR"
 );
 
-export const selectVendorItemIds = createWeakMapSelector(
+export const selectVendorItemIds = createSelectorWeakmap(
   [ADAPTER_SELECTORS.GLOBAL.vendors.selectById],
   vendor => withEmptyArrayFallback(vendor?.itemIds)
 );
 
-export const selectCartsByItemId = createAppSelector(
+const selectCartsByItemId = createSelectorWeakmap(
   [
     ADAPTER_SELECTORS.GLOBAL.items.selectById,
     ADAPTER_SELECTORS.GLOBAL.cart.selectAll,
@@ -152,7 +162,7 @@ export const selectCartsByItemId = createAppSelector(
     )
 );
 
-export const checkIfAddedToAllVendors = createAppSelector(
+export const checkIfAddedToAllVendors = createSelectorWeakmap(
   [selectCartsByItemId, ROOT_SELECTOR_PARAMS_PROVIDER.getItemId],
   (carts, itemId) =>
     carts.reduce<boolean>(
@@ -160,3 +170,35 @@ export const checkIfAddedToAllVendors = createAppSelector(
       true
     )
 );
+
+export default {
+  selectItemNumber,
+  selectItemSrc,
+  selectItemName,
+  selectVendorIdsByItemId,
+  selectItemNamesAndKeywords,
+  checkIfAnyItemsAdded,
+  selectCartItemsIds,
+  selectCartItemNamesStringified,
+  selectCheckedVendorIds,
+  isVendorChecked,
+  isMinimized,
+  selectCategoryName,
+  selectCategoryItemIds,
+  checkIfAddedToVendor,
+  selectCartItemsLength,
+  checkIfAnyAddedToOneVendor,
+  selectQRCodeText,
+  selectOfficialName,
+  selectVendorItemIds,
+  selectCartsByItemId,
+  checkIfAddedToAllVendors,
+};
+
+// export const curried = createSelectorN(selectCategoryName);
+
+// export const selectCategoryName1 = categoryId =>
+//   createSelector(
+//     [ADAPTER_SELECTORS.GLOBAL.categories.selectById],
+//     category => category?.name ?? "Vials"
+//   )(categoryId);
