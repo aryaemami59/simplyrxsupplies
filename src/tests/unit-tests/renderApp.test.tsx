@@ -62,7 +62,7 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectItemNamesAndKeywords.recomputations()).toBe(1);
     testSelector(selectItemNamesAndKeywords, view.store.getState());
     expect.soft(checkIfAnyItemsAdded.recomputations()).toBe(1);
-    expect.soft(selectCartItemsIds.recomputations()).toBe(8);
+    expect.soft(selectCartItemsIds.recomputations()).toBe(9);
     expect.soft(selectCartItemNamesStringified.recomputations()).toBe(0);
     expect.soft(selectCheckedVendorIds.recomputations()).toBe(0);
     expect.soft(isVendorChecked.recomputations()).toBe(0);
@@ -75,13 +75,13 @@ describe<LocalTestContext>("render App", it => {
         selectCartItemsLength.recomputations(),
         `${selectCartItemsLength.name}`
       )
-      .toBe(0);
+      .toBe(1);
     expect
       .soft(
         checkIfAnyAddedToOneVendor.recomputations(),
         `${checkIfAnyAddedToOneVendor.name}`
       )
-      .toBe(0);
+      .toBe(1);
     expect.soft(selectQRCodeText.recomputations()).toBe(0);
     expect.soft(selectOfficialName.recomputations()).toBe(8);
     expect.soft(selectVendorItemIds.recomputations()).toBe(8);
@@ -103,7 +103,7 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectVendorIdsByItemId.recomputations()).toBe(10);
     expect.soft(selectItemNamesAndKeywords.recomputations()).toBe(1);
     expect.soft(checkIfAnyItemsAdded.recomputations()).toBe(1);
-    expect.soft(selectCartItemsIds.recomputations()).toBe(8);
+    expect.soft(selectCartItemsIds.recomputations()).toBe(9);
     expect.soft(selectCartItemNamesStringified.recomputations()).toBe(0);
     expect.soft(selectCheckedVendorIds.recomputations()).toBe(0);
     expect.soft(isVendorChecked.recomputations()).toBe(12);
@@ -116,13 +116,13 @@ describe<LocalTestContext>("render App", it => {
         selectCartItemsLength.recomputations(),
         `${selectCartItemsLength.name}`
       )
-      .toBe(0);
+      .toBe(1);
     expect
       .soft(
         checkIfAnyAddedToOneVendor.recomputations(),
         `${checkIfAnyAddedToOneVendor.name}`
       )
-      .toBe(0);
+      .toBe(1);
     expect.soft(selectQRCodeText.recomputations()).toBe(0);
     expect.soft(selectOfficialName.recomputations()).toBe(8);
     expect.soft(selectVendorItemIds.recomputations()).toBe(8);
@@ -142,7 +142,7 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectVendorIdsByItemId.recomputations()).toBe(11);
     expect.soft(selectItemNamesAndKeywords.recomputations()).toBe(1);
     expect.soft(checkIfAnyItemsAdded.recomputations()).toBe(2);
-    expect.soft(selectCartItemsIds.recomputations()).toBe(10);
+    expect.soft(selectCartItemsIds.recomputations()).toBe(11);
     expect.soft(selectCartItemNamesStringified.recomputations()).toBe(2);
     expect.soft(selectCheckedVendorIds.recomputations()).toBe(0);
     expect.soft(isVendorChecked.recomputations()).toBe(15);
@@ -155,13 +155,13 @@ describe<LocalTestContext>("render App", it => {
         selectCartItemsLength.recomputations(),
         `${selectCartItemsLength.name}`
       )
-      .toBe(2);
+      .toBe(3);
     expect
       .soft(
         checkIfAnyAddedToOneVendor.recomputations(),
         `${checkIfAnyAddedToOneVendor.name}`
       )
-      .toBe(1);
+      .toBe(2);
     expect.soft(selectQRCodeText.recomputations()).toBe(2);
     expect.soft(selectOfficialName.recomputations()).toBe(8);
     expect.soft(selectVendorItemIds.recomputations()).toBe(8);
@@ -190,7 +190,7 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectVendorIdsByItemId.recomputations()).toBe(16);
     expect.soft(selectItemNamesAndKeywords.recomputations()).toBe(1);
     expect.soft(checkIfAnyItemsAdded.recomputations()).toBe(2);
-    expect.soft(selectCartItemsIds.recomputations()).toBe(10);
+    expect.soft(selectCartItemsIds.recomputations()).toBe(11);
     expect.soft(selectCartItemNamesStringified.recomputations()).toBe(2);
     expect.soft(selectCheckedVendorIds.recomputations()).toBe(5);
     expect.soft(isVendorChecked.recomputations()).toBe(25);
@@ -203,13 +203,13 @@ describe<LocalTestContext>("render App", it => {
         selectCartItemsLength.recomputations(),
         `${selectCartItemsLength.name}`
       )
-      .toBe(2);
+      .toBe(3);
     expect
       .soft(
         checkIfAnyAddedToOneVendor.recomputations(),
         `${checkIfAnyAddedToOneVendor.name}`
       )
-      .toBe(1);
+      .toBe(2);
     expect.soft(selectQRCodeText.recomputations()).toBe(2);
     expect.soft(selectOfficialName.recomputations()).toBe(8);
     expect.soft(selectVendorItemIds.recomputations()).toBe(8);
@@ -225,7 +225,7 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectVendorIdsByItemId.recomputations()).toBe(16);
     expect.soft(selectItemNamesAndKeywords.recomputations()).toBe(1);
     expect.soft(checkIfAnyItemsAdded.recomputations()).toBe(3);
-    expect.soft(selectCartItemsIds.recomputations()).toBe(12);
+    expect.soft(selectCartItemsIds.recomputations()).toBe(13);
     expect.soft(selectCartItemNamesStringified.recomputations()).toBe(4);
     expect.soft(selectCheckedVendorIds.recomputations()).toBe(6);
     expect.soft(isVendorChecked.recomputations()).toBe(27);
@@ -233,13 +233,13 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectCategoryName.recomputations()).toBe(18);
     expect.soft(selectCategoryItemIds.recomputations()).toBe(18);
     expect.soft(checkIfAddedToVendor.recomputations()).toBe(35);
-    expect.soft(selectCartItemsLength.recomputations()).toBe(4);
+    expect.soft(selectCartItemsLength.recomputations()).toBe(5);
     expect
       .soft(
         checkIfAnyAddedToOneVendor.recomputations(),
         `${checkIfAnyAddedToOneVendor.name}`
       )
-      .toBe(2);
+      .toBe(3);
     expect.soft(selectQRCodeText.recomputations()).toBe(4);
     expect.soft(selectOfficialName.recomputations()).toBe(8);
     expect.soft(selectVendorItemIds.recomputations()).toBe(8);
@@ -249,7 +249,12 @@ describe<LocalTestContext>("render App", it => {
     }));
     testSelector(selectItemNamesAndKeywords, store.getState());
     testSelector(selectItemName, store.getState(), 0);
+    testSelector(checkIfAnyItemsAdded, store.getState());
     expect(lastResults).toMatchSnapshot();
+    const rec = Object.values(allSelectors).map(e => ({
+      [e.name]: e.recomputations(),
+    }));
+    expect(rec).toMatchSnapshot();
   });
 
   test.todo.each(Object.values(allSelectors))("multiple selectors", e => {});

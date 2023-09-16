@@ -25,6 +25,15 @@ import type { AnyFunction, UnknownFunction } from "../types/tsHelpers";
 import setFunctionName from "../utils/setFunctionName";
 import type { RootState } from "./store";
 
+export const timeSelector = <T extends AnyFunction>(
+  func: T,
+  ...funcArgs: Parameters<T>
+) => {
+  const startTime = performance.now();
+  func(...funcArgs);
+  return performance.now() - startTime;
+};
+
 // TODO: fix types.
 /**
  * Fixed version of {@link createDraftSafeSelectorCreator}
@@ -75,6 +84,11 @@ export type CreateSelectorsMapped = readonly [
 //   >;
 // };
 
+export const outputSameAsInput = <T extends UnknownFunction>(
+  func: T,
+  arg: Parameters<T>[0]
+) => func(arg) === arg || shallowEqual(func(arg), arg);
+
 export const createSelectorCreatorWrapper = <
   MemoizeFunction extends (func: UnknownFunction) => UnknownFunction,
   MemoizeOptions extends unknown[] = DropFirst<Parameters<MemoizeFunction>>,
@@ -87,7 +101,7 @@ export const createSelectorCreatorWrapper = <
     >
   >
 ): ExtendedCreateSelectorFunction<MemoizeFunction, MemoizeOptions> => {
-  const createSelector2 = createSelectorCreator<
+  const createSelector2 = createDraftSafeSelectorCreatorCorrected<
     Parameters<MemoizeFunction>[0],
     MemoizeFunction,
     MemoizeOptions
@@ -102,7 +116,7 @@ export const createSelectorCreatorWrapper = <
     >;
     Object.assign(selector, { memoizeMethod: args[0] });
     const otherMemoizeMethods = memoizeMethods.filter(
-      e => e.name !== args[0].name
+      ({ name }) => name !== args[0].name
     );
     const otherCreateSelectors = otherMemoizeMethods.map(e => {
       const otherCreateSelector = createSelectorCreator(e);
@@ -131,9 +145,22 @@ export const createSelectorCreatorWrapper = <
       const all: ReturnType<
         ExtendedCreateSelectorFunction<MemoizeFunction, MemoizeOptions>
       >[] = [];
-      const mainResults = selector(...parameters);
       all.push(selector);
-      otherSelectors.forEach(e => {
+      selector.dependencies.forEach(e => {
+        if (
+          "memoizeMethod" in e &&
+          typeof e.memoizeMethod === "function" &&
+          e.memoizeMethod.name === "autotrackMemoize"
+        ) {
+          console.warn(
+            `autotrack memoizers should not be used as dependencies for other memoizers ${e.name}`
+          );
+        }
+        if (outputSameAsInput(e, parameters[0])) {
+          console.log(e);
+        }
+      });
+      otherSelectors.forEach((e, i) => {
         const res = e(...parameters);
         if (
           e.memoizeMethod.name === "autotrackMemoize" &&
@@ -142,11 +169,18 @@ export const createSelectorCreatorWrapper = <
           if (Array.isArray(res)) {
             // console.log(res, JSON.stringify(res), res[0]);
           } else {
-            console.log(...parameters);
+            // console.log(...parameters);
             // const element = Object.assign({}, res)
             // console.log(element)
-            console.dir(e.lastResult());
-            console.log(res.ids);
+            // console.log(e.dependencies[0]?.name);
+            console.log(e.lastResult());
+            console.log(e.memoizeMethod.name);
+            console.log(otherSelectors[i - 1].lastResult());
+            console.log(otherSelectors[i - 1]?.memoizeMethod.name);
+            // debugger;
+            console.log(selector.lastResult());
+            // console.dir(JSON.stringify(e.lastResult()));
+            // console.log(Object.isFrozen(res.ids));
             // console.dir(Object.entries(res));
           }
         }
@@ -156,21 +190,48 @@ export const createSelectorCreatorWrapper = <
         // console.log(e.memoizeMethod.name, e.recomputations());
         all.push(e);
       });
+      all.forEach(e => {
+        // e.clearCache();
+        // e.resetRecomputations();
+        // const time = timeSelector(e, ...parameters);
+        // console.log(e.memoizeMethod.name, time);
+        e(...parameters);
+        // e.clearCache();
+        // e.resetRecomputations();
+      });
       const leastRecomputatedSelector = all.reduce((prev, curr) =>
         curr.recomputations() < prev.recomputations() ? curr : prev
       );
-      const areAllResultsTheSame = all.every(e => {
-        // console.log(e.lastResult());
-        // if (e.memoizeMethod.name === "autotrackMemoize") {
-        //   console.log(e.lastResult);
+      if (
+        selector.memoizeMethod.name === "defaultMemoize" &&
+        (typeof selector.lastResult() === "object" ||
+          Array.isArray(selector.lastResult()))
+      ) {
+        // console.warn(
+        //   "result is composite and default memoized"
+        //   // selector.lastResult()
+        // );
+      }
+      const mainResults = selector(...parameters);
+      const areAllResultsTheSame = otherSelectors.every(e => {
+        if (selector.lastResult() !== selector(...parameters)) {
+          console.warn("not equal");
+        }
+
+        // console.log(selector.lastResult() === mainResults);
+        // console.log(selector.lastResult(), mainResults);
+        // console.log(e.lastResult() === selector.lastResult());
+        // if (selector.memoizeMethod.name) {
+
         // }
         return shallowEqual(
-          e.memoizeMethod.name === "autotrackMemoize"
-            ? JSON.parse(JSON.stringify(e.lastResult()))
-            : e.lastResult(),
-          selector.lastResult()
+          selector.memoizeMethod.name === "autotrackMemoize"
+            ? JSON.parse(JSON.stringify(selector.lastResult()))
+            : selector.lastResult(),
+          e.lastResult()
         );
       });
+      // console.log(areAllResultsTheSame);
       // console.log(
       //   leastRecomputatedSelector.memoizeMethod.name,
       //   leastRecomputatedSelector.recomputations(),
@@ -184,7 +245,13 @@ export const createSelectorCreatorWrapper = <
           console.error("RESULTS ARE NOT THE SAME!");
         }
         console.warn(
-          `current: ${args[0].name}\nshould be: ${leastRecomputatedSelector.memoizeMethod.name}`
+          `current: ${
+            args[0].name
+          } recomputations: ${selector.recomputations()}\nshould be: ${
+            leastRecomputatedSelector.memoizeMethod.name
+          } recomputations: ${leastRecomputatedSelector.recomputations()}`,
+          mainResults,
+          leastRecomputatedSelector.lastResult()
         );
       }
       return mainResults;
@@ -198,20 +265,55 @@ export const createSelectorCreatorWrapper = <
 export const createAppSelector: TypedExtendedCreateSelectorFunction<
   RootState,
   DefaultMemoize
-> = createSelectorCreatorWrapper(defaultMemoize);
+> = createSelectorCreatorWrapper(defaultMemoize, {
+  resultEqualityCheck: (previousVal: unknown, currentVal: unknown) => {
+    const isSame = currentVal === previousVal;
+    const isShallowEqual = shallowEqual(previousVal, currentVal);
+    if (!isSame && isShallowEqual) {
+      console.error(
+        "Selector param reference changed but value did not\n",
+        "\nprevious value:",
+        previousVal,
+        "\n\ncurrent value:",
+        currentVal
+      );
+    }
+    return isSame;
+  },
+  equalityCheck: (previousVal: unknown, currentVal: unknown) => {
+    const isSame = currentVal === previousVal;
+    if (!isSame) {
+      // console.log(currentVal, previousVal);
+      // console.log(
+      //   `ran because ${JSON.stringify(
+      //     currentVal
+      //   )} is different than ${JSON.stringify(previousVal)}`
+      // );
+    }
+    const isShallowEqual = shallowEqual(previousVal, currentVal);
+    if (!isSame && isShallowEqual) {
+      console.error(
+        "Selector param reference changed but value did not\n",
+        "\nprevious value:",
+        previousVal,
+        "\n\ncurrent value:",
+        currentVal
+      );
+    }
+    return isSame;
+  },
+});
 /** Used to create selectors that are shared across multiple component instances. */
 export const createSelectorWeakmap: TypedExtendedCreateSelectorFunction<
   RootState,
   WeakMapMemoize
 > = createSelectorCreatorWrapper(weakMapMemoize);
-
-// console.log(createSelectorWeakmap.memoizeMethod.name);
 /** Used to create selectors that are used to access nested fields in data. */
 export const createSelectorAutotrack: TypedExtendedCreateSelectorFunction<
   RootState,
   AutotrackMemoize
 > = createSelectorCreatorWrapper(autotrackMemoize);
-export const createDraftSafeAppSelector: TypedCreateSelectorFunction<
+export const createDraftSafeAppSelector: TypedExtendedCreateSelectorFunction<
   RootState,
   DefaultMemoize
 > = createDraftSafeSelectorCreatorCorrected<
@@ -373,60 +475,6 @@ export const createDifferentSelectors = <
   return createAllSelectors(...args);
 };
 
-export const timeSelector = <T extends AnyFunction>(
-  func: T,
-  ...funcArgs: Parameters<T>
-) => {
-  const startTime = performance.now();
-  func(...funcArgs);
-  return performance.now() - startTime;
-};
-
-// export const testSelector = <
-//   S extends AnyMemoizedSelector,
-//   Args extends Parameters<S> = any[],
-// >(
-//   memoizedSelector: S,
-//   ...selectorArgs: Args
-// ) => {
-//   const allSelectors = createDifferentSelectors(memoizedSelector);
-//   const results = Object.values(allSelectors).map(selector => {
-//     // selector.clearCache();
-//     // selector.resetRecomputations();
-//     // @ts-expect-error rest argument
-//     const time = timeSelector(selector, ...selectorArgs);
-//     console.log(selector.name, selector.recomputations());
-//     // const startTime = performance.now();
-//     // const time = performance.now() - startTime;
-//     // selector.clearCache();
-//     // selector.resetRecomputations();
-//     return { name: selector.name, time, selector };
-//   });
-//   const fastest = results.reduce((minResult, currentResult) =>
-//     currentResult.time < minResult.time ? currentResult : minResult
-//   );
-//   const ratios = results
-//     .filter(({ time }) => time !== fastest.time)
-//     .map(
-//       ({ time, name }) => `${time / fastest.time} times faster than ${name}`
-//     );
-//   if (
-//     fastest.selector.memoizeMethod.name !== memoizedSelector.memoizeMethod.name
-//   ) {
-//     console.warn(
-//       `The memoization method for \x1B[1;41m${
-//         memoizedSelector.name
-//       }\x1B[0m is \x1B[31m${
-//         memoizedSelector.memoizeMethod.name
-//       }\x1B[0m!\nChange it to ${
-//         fastest.selector.memoizeMethod.name
-//       } to be more efficient.\nYou should use ${
-//         fastest.name
-//       } because it is ${ratios.join("\nand\n")}`
-//     );
-//   }
-//   return { results, fastest } as const;
-// };
 export const testSelector = <
   Selectors extends readonly AppSelector[],
   Result,
@@ -455,7 +503,7 @@ export const testSelector = <
     // selector.resetRecomputations();
     // @ts-expect-error rest argument
     const time = timeSelector(selector, ...selectorArgs);
-    console.log(selector.name, selector.recomputations());
+    // console.log(selector.name, selector.recomputations());
     // const startTime = performance.now();
     // const time = performance.now() - startTime;
     // selector.clearCache();

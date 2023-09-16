@@ -3886,10 +3886,7 @@ exports[`render App > selectors ui 1`] = `
     "checkIfAnyItemsAdded": true,
   },
   {
-    "selectCartItemsIds": [
-      0,
-      18,
-    ],
+    "selectCartItemsIds": [],
   },
   {
     "selectCartItemNamesStringified": "10 Dram Vials, Adapter Caps For 1 OZ FlavoRX Bottles",
@@ -3969,6 +3966,89 @@ exports[`render App > selectors ui 1`] = `
   },
   {
     "checkIfAddedToAllVendors": true,
+  },
+  {
+    "selectCartsItemIdsLength": [
+      2,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+    ],
+  },
+]
+`;
+
+exports[`render App > selectors ui 2`] = `
+[
+  {
+    "selectItemNumber": 2,
+  },
+  {
+    "selectItemSrc": 2,
+  },
+  {
+    "selectItemName": 16,
+  },
+  {
+    "selectVendorIdsByItemId": 16,
+  },
+  {
+    "selectItemNamesAndKeywords": 1,
+  },
+  {
+    "checkIfAnyItemsAdded": 3,
+  },
+  {
+    "selectCartItemsIds": 13,
+  },
+  {
+    "selectCartItemNamesStringified": 4,
+  },
+  {
+    "selectCheckedVendorIds": 6,
+  },
+  {
+    "isVendorChecked": 27,
+  },
+  {
+    "isMinimized": 4,
+  },
+  {
+    "selectCategoryName": 18,
+  },
+  {
+    "selectCategoryItemIds": 18,
+  },
+  {
+    "checkIfAddedToVendor": 35,
+  },
+  {
+    "selectCartItemsLength": 5,
+  },
+  {
+    "checkIfAnyAddedToOneVendor": 3,
+  },
+  {
+    "selectQRCodeText": 4,
+  },
+  {
+    "selectOfficialName": 8,
+  },
+  {
+    "selectVendorItemIds": 8,
+  },
+  {
+    "selectCartsByItemId": 34,
+  },
+  {
+    "checkIfAddedToAllVendors": 31,
+  },
+  {
+    "selectCartsItemIdsLength": 3,
   },
 ]
 `;

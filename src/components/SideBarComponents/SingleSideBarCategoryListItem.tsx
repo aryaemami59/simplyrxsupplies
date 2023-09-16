@@ -3,8 +3,8 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback } from "react";
-import { shallowEqual } from "react-redux";
 
+import useDependencyChangeLogger from "../../hooks/loggers/useDependencyChangeLogger";
 import { addItemToCarts } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
@@ -31,10 +31,11 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemId }) => {
     selectVendorIdsByItemId(state, itemId)
   );
 
-  const checkedVendorIds = useAppSelector(
-    state => selectCheckedVendorIds(state, itemId),
-    shallowEqual
+  const checkedVendorIds = useAppSelector(state =>
+    selectCheckedVendorIds(state, itemId)
   );
+  useDependencyChangeLogger(checkedVendorIds, "checkedVendorIds");
+  // console.log(checkedVendorIds);
 
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     if (!isEmptyArray(checkedVendorIds)) {

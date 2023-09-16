@@ -9,7 +9,10 @@ import {
   selectItemsData,
   selectVendorsData,
 } from "./apiSlice";
-import { createDraftSafeAppSelector } from "./createSelectors";
+import {
+  createDraftSafeAppSelector,
+  createDraftSafSelectorWeakMap,
+} from "./createSelectors";
 import ENTITY_ADAPTERS from "./entityAdapters";
 import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors";
 
@@ -71,37 +74,37 @@ export const GLOBAL_SELECTORS: AdapterGlobalizedSelectors = {
   searchResults: ENTITY_ADAPTERS.searchResults.getSelectors(
     TOP_LEVEL_SELECTORS.searchResults,
     {
-      createSelector: createDraftSafeAppSelector,
+      createSelector: createDraftSafSelectorWeakMap,
     }
   ),
 
   cart: ENTITY_ADAPTERS.cart.getSelectors(TOP_LEVEL_SELECTORS.cart, {
-    createSelector: createDraftSafeAppSelector,
+    createSelector: createDraftSafSelectorWeakMap,
   }),
 
   items: ENTITY_ADAPTERS.items.getSelectors(selectItemsData, {
-    createSelector: createDraftSafeAppSelector,
+    createSelector: createDraftSafSelectorWeakMap,
   }),
 
   vendors: ENTITY_ADAPTERS.vendors.getSelectors(selectVendorsData, {
-    createSelector: createDraftSafeAppSelector,
+    createSelector: createDraftSafSelectorWeakMap,
   }),
 
   categories: ENTITY_ADAPTERS.categories.getSelectors(selectCategoriesData, {
-    createSelector: createDraftSafeAppSelector,
+    createSelector: createDraftSafSelectorWeakMap,
   }),
 
   itemVendors: ENTITY_ADAPTERS.itemVendors.getSelectors(
     TOP_LEVEL_SELECTORS.itemVendors,
     {
-      createSelector: createDraftSafeAppSelector,
+      createSelector: createDraftSafSelectorWeakMap,
     }
   ),
 
   cartItems: ENTITY_ADAPTERS.cartItems.getSelectors(
     TOP_LEVEL_SELECTORS.cartItems,
     {
-      createSelector: createDraftSafeAppSelector,
+      createSelector: createDraftSafSelectorWeakMap,
     }
   ),
 } as const satisfies AdapterGlobalizedSelectors;

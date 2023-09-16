@@ -4,9 +4,7 @@ import setFunctionName from "../utils/setFunctionName";
 import withEmptyArrayFallback from "../utils/withEmptyArrayFallback";
 import { ADAPTER_SELECTORS } from "./adapterSelectors";
 import {
-  createAppSelector,
-  createSelectorAutotrack,
-  createSelectorWeakmap,
+  createSelectorWeakmap
 } from "./createSelectors";
 
 const ROOT_SELECTOR_PARAMS_PROVIDER: RootSelectorParamsProvider = {
@@ -40,7 +38,7 @@ export const selectVendorIdsByItemId = createSelectorWeakmap(
   item => withEmptyArrayFallback(item?.vendorIds)
 );
 
-export const selectItemNamesAndKeywords = createSelectorAutotrack(
+export const selectItemNamesAndKeywords = createSelectorWeakmap(
   [ADAPTER_SELECTORS.GLOBAL.items.selectAll],
   items =>
     items.map<ItemNameAndKeywords>(({ name, keywords, id }) => ({
@@ -50,12 +48,12 @@ export const selectItemNamesAndKeywords = createSelectorAutotrack(
     }))
 );
 
-const selectCartsItemIdsLength = createSelectorAutotrack(
+export const selectCartsItemIdsLength = createSelectorWeakmap(
   [ADAPTER_SELECTORS.GLOBAL.cart.selectAll],
   carts => carts.map(({ itemIds }) => itemIds.length)
 );
 
-export const checkIfAnyItemsAdded = createSelectorAutotrack(
+export const checkIfAnyItemsAdded = createSelectorWeakmap(
   [selectCartsItemIdsLength],
   itemIdsLengthArray =>
     itemIdsLengthArray.reduce<boolean>(
@@ -101,11 +99,6 @@ export const isMinimized = createSelectorWeakmap(
 );
 
 export const selectCategoryName = createSelectorWeakmap(
-  [ADAPTER_SELECTORS.GLOBAL.categories.selectById],
-  category => category?.name ?? "Vials"
-);
-
-export const selectCategoryName1 = createAppSelector(
   [ADAPTER_SELECTORS.GLOBAL.categories.selectById],
   category => category?.name ?? "Vials"
 );
@@ -194,6 +187,7 @@ const allSelectors = {
   selectVendorItemIds,
   selectCartsByItemId,
   checkIfAddedToAllVendors,
+  selectCartsItemIdsLength,
 } as const;
 
 Object.entries(allSelectors).forEach(([key, value]) => {

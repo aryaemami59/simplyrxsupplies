@@ -3,7 +3,6 @@ import type {
   AppSelector,
   TopLevelSelectorsForAddedState,
 } from "../types/reduxHelperTypes";
-import { createAppSelector } from "./createSelectors";
 
 // export const selectAdded = createAppSelector(
 //   [state => state],
@@ -12,11 +11,15 @@ import { createAppSelector } from "./createSelectors";
 export const selectAdded: AppSelector<AddedState, never> = state => state.added;
 
 export const TOP_LEVEL_SELECTORS: TopLevelSelectorsForAddedState = {
-  searchResults: createAppSelector([selectAdded], added => added.searchResults),
+  searchResults: state => state.added.searchResults,
+  cart: state => state.added.cart,
+  itemVendors: state => state.added.itemVendors,
+  cartItems: state => state.added.cartItems,
+  // searchResults: createAppSelector([selectAdded], added => added.searchResults),
 
-  cart: createAppSelector([selectAdded], added => added.cart),
+  // cart: createAppSelector([selectAdded], added => added.cart),
 
-  itemVendors: createAppSelector([selectAdded], added => added.itemVendors),
+  // itemVendors: createAppSelector([selectAdded], added => added.itemVendors),
 
-  cartItems: createAppSelector([selectAdded], added => added.cartItems),
+  // cartItems: createAppSelector([selectAdded], added => added.cartItems),
 } as const satisfies TopLevelSelectorsForAddedState;
