@@ -1,5 +1,6 @@
 import type { ItemNameAndKeywords } from "../types/api";
 import type { RootSelectorParamsProvider } from "../types/reduxHelperTypes";
+import setFunctionName from "../utils/setFunctionName";
 import withEmptyArrayFallback from "../utils/withEmptyArrayFallback";
 import { ADAPTER_SELECTORS } from "./adapterSelectors";
 import {
@@ -33,7 +34,7 @@ export const selectItemName = createSelectorWeakmap(
   [ADAPTER_SELECTORS.GLOBAL.items.selectById],
   item => item?.name ?? ""
 );
-// TODO: maybe autotrack?
+
 export const selectVendorIdsByItemId = createSelectorWeakmap(
   [ADAPTER_SELECTORS.GLOBAL.items.selectById],
   item => withEmptyArrayFallback(item?.vendorIds)
@@ -171,7 +172,7 @@ export const checkIfAddedToAllVendors = createSelectorWeakmap(
     )
 );
 
-export default {
+const allSelectors = {
   selectItemNumber,
   selectItemSrc,
   selectItemName,
@@ -193,7 +194,13 @@ export default {
   selectVendorItemIds,
   selectCartsByItemId,
   checkIfAddedToAllVendors,
-};
+} as const;
+
+Object.entries(allSelectors).forEach(([key, value]) => {
+  setFunctionName(value, key);
+});
+
+export default allSelectors;
 
 // export const curried = createSelectorN(selectCategoryName);
 

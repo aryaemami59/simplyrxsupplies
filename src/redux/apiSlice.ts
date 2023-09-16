@@ -33,10 +33,10 @@ const apiSlice = createApi({
 
 export const { useGetMainQuery, endpoints } = apiSlice;
 // TODO: Potentially remove.
-export const selectSelf = createDraftSafeAppSelector(
-  [state => state],
-  state => state
-);
+// export const selectSelf = createDraftSafeAppSelector(
+//   [state => state],
+//   state => state
+// );
 
 export const selectMainResults = endpoints.getMain.select();
 

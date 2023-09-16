@@ -33,6 +33,7 @@ const CollapseAllButton: FC = () => {
 
   return (
     <Tooltip
+      role="tooltip"
       enterDelay={500}
       enterNextDelay={500}
       onClose={hideTooltip}

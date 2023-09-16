@@ -37,6 +37,7 @@ const VendorColumnModalComponent: FC = () => {
       </Button> */}
       <Dialog
         // keepMounted
+        role="dialog"
         fullWidth
         maxWidth="md"
         onClose={hideModal}

@@ -1,11 +1,15 @@
-import type { TopLevelSelectorsForAddedState } from "../types/reduxHelperTypes";
+import type {
+  AddedState,
+  AppSelector,
+  TopLevelSelectorsForAddedState,
+} from "../types/reduxHelperTypes";
 import { createAppSelector } from "./createSelectors";
 
-export const selectAdded = createAppSelector(
-  [state => state],
-  state => state.added
-);
-// export const selectAdded: AppSelector<AddedState, never> = state => state.added;
+// export const selectAdded = createAppSelector(
+//   [state => state],
+//   state => state.added
+// );
+export const selectAdded: AppSelector<AddedState, never> = state => state.added;
 
 export const TOP_LEVEL_SELECTORS: TopLevelSelectorsForAddedState = {
   searchResults: createAppSelector([selectAdded], added => added.searchResults),

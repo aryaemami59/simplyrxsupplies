@@ -28,6 +28,7 @@ const CopyIcon: FC<Props> = ({ content, text }) => {
 
   return (
     <Tooltip
+      role="tooltip"
       open={show}
       title={copiedText}>
       <Button

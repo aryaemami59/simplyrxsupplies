@@ -32,6 +32,7 @@
     "plugin:jest-extended/all",
     "plugin:testing-library/react",
     "plugin:jest-dom/recommended",
+    "plugin:reselect/all",
     "plugin:prettier/recommended"
   ],
   "ignorePatterns": [
@@ -75,7 +76,9 @@
     "jest",
     "jest-extended",
     "testing-library",
-    "jest-dom"
+    "jest-dom",
+    "reselect",
+    "redux-reselect"
   ],
   "root": true,
   "rules": {
@@ -219,6 +222,12 @@
     "testing-library/await-async-events": [0],
     "testing-library/no-node-access": [0],
     "react/jsx-props-no-spreading": [0],
+    "testing-library/prefer-screen-queries": [0],
+    "unicorn/no-hex-escape": [0],
+    "redux-reselect/assign-selector-to-variable": [2],
+    "redux-reselect/prefer-selector-ref": [2],
+    "redux-reselect/selector-args-type": [2],
+    "redux-reselect/format-selector-name": [2],
     "react-hooks/exhaustive-deps": [
       2,
       { "additionalHooks": "(useComponentDidUpdate)" }

@@ -1,10 +1,11 @@
 import { screen } from "@testing-library/react";
-import { beforeEach, describe, expect } from "vitest";
+import { beforeEach, describe, test } from "vitest";
 
 import App from "../../App";
 import SideBarContainer from "../../components/SideBarComponents/SideBarContainer";
 import { selectVendorsData } from "../../redux/apiSlice";
-import selectors, {
+import { testSelector } from "../../redux/createSelectors";
+import allSelectors, {
   checkIfAddedToAllVendors,
   checkIfAddedToVendor,
   checkIfAnyAddedToOneVendor,
@@ -36,40 +37,30 @@ export type LocalTestContext = {
 
 describe<LocalTestContext>("render App", it => {
   beforeEach<LocalTestContext>(async context => {
+    window.innerWidth = 1920;
+    Object.values(allSelectors).forEach(selector => {
+      selector.clearCache();
+      selector.resetRecomputations();
+    });
     window.matchMedia = createMatchMedia(window.innerWidth);
-    console.log(window.innerWidth);
     const view = await renderWithProviders(<App />);
     context.view = view;
     return () => {
-      Object.values(selectors).forEach(selector => {
+      Object.values(allSelectors).forEach(selector => {
         selector.clearCache();
         selector.resetRecomputations();
       });
     };
   });
 
-  it("selectors ui", async ({ view }) => {
-    // view.rerender(<App />);
-    // screen.debug();
-    // expect.soft(apiSelectors.selectMainResults.recomputations()).toBe(0);
-    // console.log(selectVendorsLinks.memoizedResultFunc({}));
-    // console.log(selectVendorsLinks.resultFunc({}));
-    // Object.values(ADAPTER_SELECTORS.GLOBAL.cart).forEach(e => {
-    //   console.log(e.recomputations());
-    // });
-    // Object.values(ADAPTER_SELECTORS.LOCAL.cart).forEach(e => {
-    //   console.log(e.recomputations());
-    // });
-    // Object.values(ADAPTER_SELECTORS.SIMPLE.cart).forEach(e => {
-    //   console.log(e);
-    //   console.log(e, e.recomputations());
-    // });
+  it("selectors ui", async ({ view, expect }) => {
     expect.soft(selectVendorsLinks.recomputations()).toBe(0);
     expect.soft(selectItemNumber.recomputations()).toBe(0);
     expect.soft(selectItemSrc.recomputations()).toBe(0);
     expect.soft(selectItemName.recomputations()).toBe(0);
     expect.soft(selectVendorIdsByItemId.recomputations()).toBe(0);
     expect.soft(selectItemNamesAndKeywords.recomputations()).toBe(1);
+    testSelector(selectItemNamesAndKeywords, view.store.getState());
     expect.soft(checkIfAnyItemsAdded.recomputations()).toBe(1);
     expect.soft(selectCartItemsIds.recomputations()).toBe(8);
     expect.soft(selectCartItemNamesStringified.recomputations()).toBe(0);
@@ -79,8 +70,18 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectCategoryName.recomputations()).toBe(18);
     expect.soft(selectCategoryItemIds.recomputations()).toBe(18);
     expect.soft(checkIfAddedToVendor.recomputations()).toBe(0);
-    expect.soft(selectCartItemsLength.recomputations()).toBe(1);
-    expect.soft(checkIfAnyAddedToOneVendor.recomputations()).toBe(1);
+    expect
+      .soft(
+        selectCartItemsLength.recomputations(),
+        `${selectCartItemsLength.name}`
+      )
+      .toBe(0);
+    expect
+      .soft(
+        checkIfAnyAddedToOneVendor.recomputations(),
+        `${checkIfAnyAddedToOneVendor.name}`
+      )
+      .toBe(0);
     expect.soft(selectQRCodeText.recomputations()).toBe(0);
     expect.soft(selectOfficialName.recomputations()).toBe(8);
     expect.soft(selectVendorItemIds.recomputations()).toBe(8);
@@ -110,8 +111,18 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectCategoryName.recomputations()).toBe(18);
     expect.soft(selectCategoryItemIds.recomputations()).toBe(18);
     expect.soft(checkIfAddedToVendor.recomputations()).toBe(10);
-    expect.soft(selectCartItemsLength.recomputations()).toBe(1);
-    expect.soft(checkIfAnyAddedToOneVendor.recomputations()).toBe(1);
+    expect
+      .soft(
+        selectCartItemsLength.recomputations(),
+        `${selectCartItemsLength.name}`
+      )
+      .toBe(0);
+    expect
+      .soft(
+        checkIfAnyAddedToOneVendor.recomputations(),
+        `${checkIfAnyAddedToOneVendor.name}`
+      )
+      .toBe(0);
     expect.soft(selectQRCodeText.recomputations()).toBe(0);
     expect.soft(selectOfficialName.recomputations()).toBe(8);
     expect.soft(selectVendorItemIds.recomputations()).toBe(8);
@@ -139,17 +150,26 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectCategoryName.recomputations()).toBe(18);
     expect.soft(selectCategoryItemIds.recomputations()).toBe(18);
     expect.soft(checkIfAddedToVendor.recomputations()).toBe(15);
-    expect.soft(selectCartItemsLength.recomputations()).toBe(3);
-    expect.soft(checkIfAnyAddedToOneVendor.recomputations()).toBe(2);
+    expect
+      .soft(
+        selectCartItemsLength.recomputations(),
+        `${selectCartItemsLength.name}`
+      )
+      .toBe(2);
+    expect
+      .soft(
+        checkIfAnyAddedToOneVendor.recomputations(),
+        `${checkIfAnyAddedToOneVendor.name}`
+      )
+      .toBe(1);
     expect.soft(selectQRCodeText.recomputations()).toBe(2);
     expect.soft(selectOfficialName.recomputations()).toBe(8);
     expect.soft(selectVendorItemIds.recomputations()).toBe(8);
     expect.soft(checkIfAddedToAllVendors.recomputations()).toBe(21);
     await user.clear(inputField);
-    const { getAllByRole, getByRole, findByRole } = await renderWithProviders(
-      <SideBarContainer />,
-      { fetch: false }
-    );
+    const { getByRole } = await renderWithProviders(<SideBarContainer />, {
+      fetch: false,
+    });
     // const accordionSummaries = await findByRole("button", {
     //   expanded: false,
     // });
@@ -178,8 +198,18 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectCategoryName.recomputations()).toBe(18);
     expect.soft(selectCategoryItemIds.recomputations()).toBe(18);
     expect.soft(checkIfAddedToVendor.recomputations()).toBe(25);
-    expect.soft(selectCartItemsLength.recomputations()).toBe(3);
-    expect.soft(checkIfAnyAddedToOneVendor.recomputations()).toBe(2);
+    expect
+      .soft(
+        selectCartItemsLength.recomputations(),
+        `${selectCartItemsLength.name}`
+      )
+      .toBe(2);
+    expect
+      .soft(
+        checkIfAnyAddedToOneVendor.recomputations(),
+        `${checkIfAnyAddedToOneVendor.name}`
+      )
+      .toBe(1);
     expect.soft(selectQRCodeText.recomputations()).toBe(2);
     expect.soft(selectOfficialName.recomputations()).toBe(8);
     expect.soft(selectVendorItemIds.recomputations()).toBe(8);
@@ -202,12 +232,29 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(isMinimized.recomputations()).toBe(4);
     expect.soft(selectCategoryName.recomputations()).toBe(18);
     expect.soft(selectCategoryItemIds.recomputations()).toBe(18);
-    expect.soft(checkIfAddedToVendor.recomputations()).toBe(25);
-    expect.soft(selectCartItemsLength.recomputations()).toBe(3);
-    expect.soft(checkIfAnyAddedToOneVendor.recomputations()).toBe(2);
-    expect.soft(selectQRCodeText.recomputations()).toBe(2);
+    expect.soft(checkIfAddedToVendor.recomputations()).toBe(35);
+    expect.soft(selectCartItemsLength.recomputations()).toBe(4);
+    expect
+      .soft(
+        checkIfAnyAddedToOneVendor.recomputations(),
+        `${checkIfAnyAddedToOneVendor.name}`
+      )
+      .toBe(2);
+    expect.soft(selectQRCodeText.recomputations()).toBe(4);
     expect.soft(selectOfficialName.recomputations()).toBe(8);
     expect.soft(selectVendorItemIds.recomputations()).toBe(8);
-    expect.soft(checkIfAddedToAllVendors.recomputations()).toBe(26);
+    expect.soft(checkIfAddedToAllVendors.recomputations()).toBe(31);
+    const lastResults = Object.values(allSelectors).map(e => ({
+      [e.name]: e.lastResult(),
+    }));
+    testSelector(selectItemNamesAndKeywords, store.getState());
+    testSelector(selectItemName, store.getState(), 0);
+    expect(lastResults).toMatchSnapshot();
   });
+
+  test.todo.each(Object.values(allSelectors))("multiple selectors", e => {});
 });
+
+// export type Props = Parameters<typeof selectItemName>;
+
+// const element: Props = [{}, {}]

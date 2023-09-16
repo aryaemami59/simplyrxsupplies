@@ -7,8 +7,8 @@ import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useMemo, useState } from "react";
 
-const EXPAND = "Expand" as const;
-const COLLAPSE = "Collapse" as const;
+const EXPAND = "Expand";
+const COLLAPSE = "Collapse";
 
 type Props = {
   isTooltipOpen: boolean;
@@ -34,6 +34,7 @@ const CollapseButton: FC<Props> = ({ isTooltipOpen, toggle }) => {
 
   return (
     <Tooltip
+      role="tooltip"
       enterDelay={500}
       enterNextDelay={500}
       onClose={hideTooltip}
