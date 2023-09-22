@@ -22,6 +22,16 @@ import { endpoints } from "./apiSlice";
 import { DRAFT_SAFE_SELECTORS } from "./draftSafeSelectors";
 import ENTITY_ADAPTERS from "./entityAdapters";
 
+export const resetCheckedVendorIds = (itemVendors: ItemVendors) => {
+  const itemVendorsUpdate: Update<ItemVendors, number> = {
+    id: itemVendors.id,
+    changes: {
+      checkedVendorIds: itemVendors.vendorIds,
+    },
+  };
+  return itemVendorsUpdate;
+};
+
 export const initialState: AddedState = {
   searchResults: ADAPTER_INITIAL_STATES.searchResults,
   cart: ADAPTER_INITIAL_STATES.cart,
@@ -58,7 +68,6 @@ const addedSlice = createSlice({
           },
         })
       );
-      ENTITY_ADAPTERS.cart.updateMany(state.cart, cartUpdates);
       if (itemVendors) {
         const itemVendorsUpdate: Update<ItemVendors, number> = {
           id: itemId,
@@ -71,6 +80,7 @@ const addedSlice = createSlice({
           itemVendorsUpdate
         );
       }
+      ENTITY_ADAPTERS.cart.updateMany(state.cart, cartUpdates);
       ENTITY_ADAPTERS.searchResults.removeOne(state.searchResults, itemId);
     },
 

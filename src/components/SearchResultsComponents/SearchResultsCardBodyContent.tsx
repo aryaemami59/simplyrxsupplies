@@ -56,6 +56,4 @@ SearchResultsCardBodyContent.propTypes = {
   visibleListId: PropTypes.number.isRequired,
 };
 
-SearchResultsCardBodyContent.whyDidYouRender = true;
-
 export default memo<Props>(SearchResultsCardBodyContent);

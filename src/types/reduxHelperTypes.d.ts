@@ -3,6 +3,7 @@ import type {
   createSelector,
   defaultMemoize,
   EntityAdapter,
+  EntityId,
   EntitySelectors,
   EntityState,
   OutputSelector,
@@ -52,6 +53,7 @@ export type Cart = {
    * References vendorId.
    */
   readonly id: number;
+  /** References vendorItemIds */
   readonly itemIds: number[];
 };
 /** Returned from apiSlice after data transformation. */
@@ -82,6 +84,7 @@ export type CartItems = {
    */
   readonly id: number;
   readonly minimizedItemIds: number[];
+  /** References vendorItemIds */
   readonly itemIds: number[];
 };
 
@@ -103,14 +106,6 @@ export type AdaptersHelper = ApiAdapters & StateAdapters;
 export type Adapters = {
   readonly [K in keyof AdaptersHelper]: EntityAdapter<
     AdaptersHelper[K],
-    number
-  >;
-};
-
-export type AdapterSimpleSelectors = {
-  readonly [K in keyof AdaptersHelper]: EntitySelectors<
-    AdaptersHelper[K],
-    EntityState<AdaptersHelper[K], number>,
     number
   >;
 };
@@ -161,8 +156,14 @@ export type RootSelectorParamsProvider = SelectorParamsProvider<
   ]
 >;
 
+export type ExtendedEntitySelectors<T, V, Id extends EntityId> = {
+  [K in keyof EntitySelectors<T, V, Id>]: WithOutputSelectorFields<
+    EntitySelectors<T, V, Id>[K]
+  >;
+};
+
 export type AdapterGlobalizedSelectors = {
-  readonly [K in keyof AdaptersHelper]: EntitySelectors<
+  readonly [K in keyof AdaptersHelper]: ExtendedEntitySelectors<
     AdaptersHelper[K],
     RootState,
     number
@@ -170,7 +171,6 @@ export type AdapterGlobalizedSelectors = {
 };
 
 export type AdapterSelectors = {
-  readonly SIMPLE: AdapterSimpleSelectors;
   readonly LOCAL: AdapterLocalizedSelectors;
   readonly GLOBAL: AdapterGlobalizedSelectors;
 };
@@ -197,7 +197,7 @@ export type AddedSliceSelectorParamsProvider = SelectorParamsProvider<
 >;
 
 export type AdapterLocalizedSelectors = {
-  readonly [K in keyof StateAdapters]: EntitySelectors<
+  readonly [K in keyof StateAdapters]: ExtendedEntitySelectors<
     StateAdapters[K],
     AddedState,
     number
@@ -262,22 +262,32 @@ export type AnyMemoizedSelector = MemoizedSelector<
   unknown,
   AnyFunction
 >;
+
+export type WithOutputSelectorFields<T extends AnyFunction = AnyFunction> =
+  T & {
+    /** The final function passed to `createSelector` */
+    resultFunc: AnyFunction;
+    /** The same function, memoized */
+    memoizedResultFunc: AnyFunction & { clearCache: () => void };
+    /** Returns the last result calculated by the selector */
+    lastResult: () => ReturnType<T>;
+    /** An array of the input selectors */
+    dependencies: SelectorArray;
+    /** Counts the number of times the output has been recalculated */
+    recomputations: () => number;
+    /** Resets the count of recomputations count to 0 */
+    resetRecomputations: () => number;
+    clearCache: () => void;
+  };
 /** Wrapper around {@link OutputSelector}. Return type of selectors created using `createSelector`. */
 export type MemoizedSelector<
   Selectors extends readonly Selector[],
   Result,
   Combiner extends AnyFunction,
   Params extends readonly unknown[] = never,
-  Keys = AnyNonNullishValue,
+  Keys = AnyNonNullishValue & { clearCache: () => void },
 > = OutputSelector<Selectors, Result, Combiner, Params, Keys> & Keys;
 
-// export type ExtendedMemoizedSelector<
-//   Selectors extends readonly Selector[],
-//   Result,
-//   Combiner extends AnyFunction,
-//   Params extends readonly unknown[] = never,
-//   Keys = AnyNonNullishValue,
-// > = OutputSelector<Selectors, Result, Combiner, Params, Keys> & Keys;
 /**
  * An instance of createSelector, customized with a given memoize implementation
  * This is a typed version of  `CreateSelectorFunction`.
@@ -467,3 +477,15 @@ export type TypedExtendedCreateSelectorFunction<
   > &
     Keys;
 };
+
+export type MappedAdapterSelectors = {
+  [K in keyof AdapterGlobalizedSelectors]: {
+    [P in keyof AdapterGlobalizedSelectors[K] as `select${Capitalize<K>}${RemoveSelect<
+      Extract<P, string>
+    >}`]: AdapterGlobalizedSelectors[K][P];
+  };
+};
+
+export type RemoveSelect<S extends string> = S extends `select${infer P}`
+  ? P
+  : never;

@@ -224,10 +224,12 @@
     "react/jsx-props-no-spreading": [0],
     "testing-library/prefer-screen-queries": [0],
     "unicorn/no-hex-escape": [0],
-    "redux-reselect/assign-selector-to-variable": [2],
-    "redux-reselect/prefer-selector-ref": [2],
-    "redux-reselect/selector-args-type": [2],
-    "redux-reselect/format-selector-name": [2],
+    // "redux-reselect/assign-selector-to-variable": [2],
+    // "redux-reselect/prefer-selector-ref": [2],
+    // "redux-reselect/selector-args-type": [2],
+    // "redux-reselect/format-selector-name": [2],
+    "sonarjs/prefer-immediate-return": [0],
+    "no-underscore-dangle": [2, { "allow": ["__RESELECT_TOOLS__"] }],
     "react-hooks/exhaustive-deps": [
       2,
       { "additionalHooks": "(useComponentDidUpdate)" }

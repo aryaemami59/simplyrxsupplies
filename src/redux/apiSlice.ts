@@ -2,10 +2,14 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import API_URL from "../data/fetchInfo";
 import type { Supplies } from "../types/api";
-import type { Cart, SuppliesState } from "../types/reduxHelperTypes";
+import type {
+  Cart,
+  SuppliesState,
+  WithOutputSelectorFields,
+} from "../types/reduxHelperTypes";
 import EMPTY_ARRAY from "../utils/emptyArray";
 import ADAPTER_INITIAL_STATES from "./adapterInitialStates";
-import { createDraftSafeAppSelector } from "./createSelectors";
+import { createSelectorWeakmap } from "./createSelectors";
 import ENTITY_ADAPTERS from "./entityAdapters";
 
 const apiSlice = createApi({
@@ -32,38 +36,32 @@ const apiSlice = createApi({
 });
 
 export const { useGetMainQuery, endpoints } = apiSlice;
-// TODO: Potentially remove.
-// export const selectSelf = createDraftSafeAppSelector(
-//   [state => state],
-//   state => state
-// );
 
-export const selectMainResults = endpoints.getMain.select();
+export const selectMainResults =
+  endpoints.getMain.select() as WithOutputSelectorFields<
+    ReturnType<typeof endpoints.getMain.select>
+  >;
 
-export const selectMainData = createDraftSafeAppSelector(
+export const selectMainData = createSelectorWeakmap(
   [selectMainResults],
   results => results.data
 );
 
-export const selectItemsData = createDraftSafeAppSelector(
-  [selectMainData],
-  data =>
-    ENTITY_ADAPTERS.items.setAll(
-      ADAPTER_INITIAL_STATES.items,
-      data?.items ?? EMPTY_ARRAY
-    )
+export const selectItemsData = createSelectorWeakmap([selectMainData], data =>
+  ENTITY_ADAPTERS.items.setAll(
+    ADAPTER_INITIAL_STATES.items,
+    data?.items ?? EMPTY_ARRAY
+  )
 );
 
-export const selectVendorsData = createDraftSafeAppSelector(
-  [selectMainData],
-  data =>
-    ENTITY_ADAPTERS.vendors.setAll(
-      ADAPTER_INITIAL_STATES.vendors,
-      data?.vendors ?? EMPTY_ARRAY
-    )
+export const selectVendorsData = createSelectorWeakmap([selectMainData], data =>
+  ENTITY_ADAPTERS.vendors.setAll(
+    ADAPTER_INITIAL_STATES.vendors,
+    data?.vendors ?? EMPTY_ARRAY
+  )
 );
 
-export const selectCategoriesData = createDraftSafeAppSelector(
+export const selectCategoriesData = createSelectorWeakmap(
   [selectMainData],
   data =>
     ENTITY_ADAPTERS.categories.setAll(
@@ -73,11 +71,10 @@ export const selectCategoriesData = createDraftSafeAppSelector(
 );
 
 export const apiSelectors = {
-  selectMainResults,
   selectMainData,
   selectItemsData,
   selectVendorsData,
   selectCategoriesData,
-};
+} as const;
 
 export default apiSlice;

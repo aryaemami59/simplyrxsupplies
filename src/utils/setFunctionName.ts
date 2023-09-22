@@ -1,6 +1,6 @@
-import type { NeverFunction } from "../types/tsHelpers";
+import type { AnyFunction } from "../types/tsHelpers";
 
-const setFunctionName = (func: NeverFunction, name: string) => {
+const setFunctionName = (func: AnyFunction, name: string) => {
   Object.defineProperty(func, "name", { value: name });
 };
 

@@ -4,27 +4,24 @@ import { Provider } from "react-redux";
 
 import App from "./App";
 import apiSlice from "./redux/apiSlice";
-// import * as hooks from "./redux/hooks";
+import allSelectors from "./redux/selectors";
 import { store } from "./redux/store";
 
 if (import.meta.env.DEV) {
   const { default: whyDidYouRender } = await import(
     "@welldone-software/why-did-you-render"
   );
-  // const ReactRedux = await import("react-redux");
-  // const { useAppSelector } = await import("./redux/hooks");
-
+  const { getStateWith, registerSelectors } = await import("reselect-tools");
+  getStateWith(() => store.getState());
+  registerSelectors(allSelectors);
   whyDidYouRender(React, {
     trackAllPureComponents: true,
     // include: [/./gi],
     collapseGroups: true,
     trackHooks: true,
-    // trackExtraHooks: [
-    //   [ReactRedux.useSelector, "useSelector"],
-    //   [useAppSelector, "useAppSelector"],
-    // ],
   });
 }
+
 void store.dispatch(apiSlice.endpoints.getMain.initiate());
 
 const container = document.getElementById("root") as HTMLDivElement;

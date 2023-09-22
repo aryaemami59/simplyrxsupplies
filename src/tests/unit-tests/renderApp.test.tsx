@@ -1,4 +1,5 @@
 import { screen } from "@testing-library/react";
+import { getStateWith, registerSelectors } from "reselect-tools";
 import { beforeEach, describe, test } from "vitest";
 
 import App from "../../App";
@@ -12,9 +13,11 @@ import allSelectors, {
   checkIfAnyItemsAdded,
   isMinimized,
   isVendorChecked,
+  resetAllSelectors,
   selectCartItemNamesStringified,
   selectCartItemsIds,
   selectCartItemsLength,
+  selectCartsItemIdsLength,
   selectCategoryItemIds,
   selectCategoryName,
   selectCheckedVendorIds,
@@ -31,25 +34,22 @@ import allSelectors, {
 import type { ExtendedRenderResult } from "../test-utils/testUtils";
 import { createMatchMedia, renderWithProviders } from "../test-utils/testUtils";
 
-export type LocalTestContext = {
+type LocalTestContext = {
   view: ExtendedRenderResult;
 };
 
 describe<LocalTestContext>("render App", it => {
   beforeEach<LocalTestContext>(async context => {
     window.innerWidth = 1920;
-    Object.values(allSelectors).forEach(selector => {
-      selector.clearCache();
-      selector.resetRecomputations();
-    });
+    resetAllSelectors();
     window.matchMedia = createMatchMedia(window.innerWidth);
     const view = await renderWithProviders(<App />);
     context.view = view;
+    getStateWith(() => view.store.getState());
+    registerSelectors(allSelectors);
+
     return () => {
-      Object.values(allSelectors).forEach(selector => {
-        selector.clearCache();
-        selector.resetRecomputations();
-      });
+      resetAllSelectors();
     };
   });
 
@@ -60,9 +60,8 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectItemName.recomputations()).toBe(0);
     expect.soft(selectVendorIdsByItemId.recomputations()).toBe(0);
     expect.soft(selectItemNamesAndKeywords.recomputations()).toBe(1);
-    testSelector(selectItemNamesAndKeywords, view.store.getState());
     expect.soft(checkIfAnyItemsAdded.recomputations()).toBe(1);
-    expect.soft(selectCartItemsIds.recomputations()).toBe(9);
+    expect.soft(selectCartItemsIds.recomputations()).toBe(8);
     expect.soft(selectCartItemNamesStringified.recomputations()).toBe(0);
     expect.soft(selectCheckedVendorIds.recomputations()).toBe(0);
     expect.soft(isVendorChecked.recomputations()).toBe(0);
@@ -103,7 +102,7 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectVendorIdsByItemId.recomputations()).toBe(10);
     expect.soft(selectItemNamesAndKeywords.recomputations()).toBe(1);
     expect.soft(checkIfAnyItemsAdded.recomputations()).toBe(1);
-    expect.soft(selectCartItemsIds.recomputations()).toBe(9);
+    expect.soft(selectCartItemsIds.recomputations()).toBe(8);
     expect.soft(selectCartItemNamesStringified.recomputations()).toBe(0);
     expect.soft(selectCheckedVendorIds.recomputations()).toBe(0);
     expect.soft(isVendorChecked.recomputations()).toBe(12);
@@ -142,7 +141,7 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectVendorIdsByItemId.recomputations()).toBe(11);
     expect.soft(selectItemNamesAndKeywords.recomputations()).toBe(1);
     expect.soft(checkIfAnyItemsAdded.recomputations()).toBe(2);
-    expect.soft(selectCartItemsIds.recomputations()).toBe(11);
+    expect.soft(selectCartItemsIds.recomputations()).toBe(10);
     expect.soft(selectCartItemNamesStringified.recomputations()).toBe(2);
     expect.soft(selectCheckedVendorIds.recomputations()).toBe(0);
     expect.soft(isVendorChecked.recomputations()).toBe(15);
@@ -170,9 +169,6 @@ describe<LocalTestContext>("render App", it => {
     const { getByRole } = await renderWithProviders(<SideBarContainer />, {
       fetch: false,
     });
-    // const accordionSummaries = await findByRole("button", {
-    //   expanded: false,
-    // });
     const accordionSummaries = container.querySelectorAll<HTMLDivElement>(
       ".MuiAccordionSummary-root"
     );
@@ -190,7 +186,7 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectVendorIdsByItemId.recomputations()).toBe(16);
     expect.soft(selectItemNamesAndKeywords.recomputations()).toBe(1);
     expect.soft(checkIfAnyItemsAdded.recomputations()).toBe(2);
-    expect.soft(selectCartItemsIds.recomputations()).toBe(11);
+    expect.soft(selectCartItemsIds.recomputations()).toBe(10);
     expect.soft(selectCartItemNamesStringified.recomputations()).toBe(2);
     expect.soft(selectCheckedVendorIds.recomputations()).toBe(5);
     expect.soft(isVendorChecked.recomputations()).toBe(25);
@@ -225,7 +221,7 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectVendorIdsByItemId.recomputations()).toBe(16);
     expect.soft(selectItemNamesAndKeywords.recomputations()).toBe(1);
     expect.soft(checkIfAnyItemsAdded.recomputations()).toBe(3);
-    expect.soft(selectCartItemsIds.recomputations()).toBe(13);
+    expect.soft(selectCartItemsIds.recomputations()).toBe(12);
     expect.soft(selectCartItemNamesStringified.recomputations()).toBe(4);
     expect.soft(selectCheckedVendorIds.recomputations()).toBe(6);
     expect.soft(isVendorChecked.recomputations()).toBe(27);
@@ -247,19 +243,33 @@ describe<LocalTestContext>("render App", it => {
     const lastResults = Object.values(allSelectors).map(e => ({
       [e.name]: e.lastResult(),
     }));
-    testSelector(selectItemNamesAndKeywords, store.getState());
-    testSelector(selectItemName, store.getState(), 0);
-    testSelector(checkIfAnyItemsAdded, store.getState());
     expect(lastResults).toMatchSnapshot();
     const rec = Object.values(allSelectors).map(e => ({
       [e.name]: e.recomputations(),
     }));
     expect(rec).toMatchSnapshot();
+    testSelector(selectItemNamesAndKeywords, state);
+    testSelector(checkIfAnyItemsAdded, state);
+    testSelector(selectCartsItemIdsLength, state);
+    testSelector(selectItemNumber, state, 0);
+    testSelector(selectItemSrc, state, 0);
+    testSelector(selectItemName, state, 0);
+    testSelector(selectVendorIdsByItemId, state, 0);
+    testSelector(selectCartItemsIds, state, 0);
+    testSelector(selectCartItemNamesStringified, state, 0);
+    testSelector(selectCheckedVendorIds, state, 0);
+    testSelector(selectCategoryName, state, 0);
+    testSelector(selectCategoryItemIds, state, 0);
+    testSelector(selectCartItemsLength, state, 0);
+    testSelector(checkIfAnyAddedToOneVendor, state, 0);
+    testSelector(selectQRCodeText, state, 0);
+    testSelector(selectOfficialName, state, 0);
+    testSelector(selectVendorItemIds, state, 0);
+    testSelector(checkIfAddedToAllVendors, state, 0);
+    testSelector(isVendorChecked, state, 0, 0);
+    testSelector(isMinimized, state, 0, 0);
+    testSelector(checkIfAddedToVendor, state, 0, 0);
   });
 
   test.todo.each(Object.values(allSelectors))("multiple selectors", e => {});
 });
-
-// export type Props = Parameters<typeof selectItemName>;
-
-// const element: Props = [{}, {}]

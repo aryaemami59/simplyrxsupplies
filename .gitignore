@@ -26,3 +26,6 @@ yarn-error.log*
 analyze.html
 html
 .eslintcache
+.yalc
+yalc.lock
+**/__snapshots__/

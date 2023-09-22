@@ -2,71 +2,43 @@ import type {
   AdapterGlobalizedSelectors,
   AdapterLocalizedSelectors,
   AdapterSelectors,
-  AdapterSimpleSelectors,
 } from "../types/reduxHelperTypes";
+import capitalize from "../utils/capitalize";
+import setFunctionName from "../utils/setFunctionName";
 import {
   selectCategoriesData,
   selectItemsData,
   selectVendorsData,
 } from "./apiSlice";
 import {
-  createDraftSafeAppSelector,
   createDraftSafSelectorWeakMap,
+  createSelectorWeakmap,
 } from "./createSelectors";
 import ENTITY_ADAPTERS from "./entityAdapters";
 import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors";
 
-export const SIMPLE_SELECTORS: AdapterSimpleSelectors = {
-  searchResults: ENTITY_ADAPTERS.searchResults.getSelectors(undefined, {
-    createSelector: createDraftSafeAppSelector,
-  }),
-
-  cart: ENTITY_ADAPTERS.cart.getSelectors(undefined, {
-    createSelector: createDraftSafeAppSelector,
-  }),
-
-  items: ENTITY_ADAPTERS.items.getSelectors(undefined, {
-    createSelector: createDraftSafeAppSelector,
-  }),
-
-  vendors: ENTITY_ADAPTERS.vendors.getSelectors(undefined, {
-    createSelector: createDraftSafeAppSelector,
-  }),
-
-  categories: ENTITY_ADAPTERS.categories.getSelectors(undefined, {
-    createSelector: createDraftSafeAppSelector,
-  }),
-
-  itemVendors: ENTITY_ADAPTERS.itemVendors.getSelectors(undefined, {
-    createSelector: createDraftSafeAppSelector,
-  }),
-
-  cartItems: ENTITY_ADAPTERS.cartItems.getSelectors(undefined, {
-    createSelector: createDraftSafeAppSelector,
-  }),
-} as const satisfies AdapterSimpleSelectors;
-/** Takes AddedState as an argument. */
+/** Takes AddedState as an argument. Need to be draft safe. */
 export const LOCAL_SELECTORS: AdapterLocalizedSelectors = {
   searchResults: ENTITY_ADAPTERS.searchResults.getSelectors(
     added => added.searchResults,
     {
-      createSelector: createDraftSafeAppSelector,
+      createSelector: createDraftSafSelectorWeakMap,
     }
   ),
 
   cart: ENTITY_ADAPTERS.cart.getSelectors(added => added.cart, {
-    createSelector: createDraftSafeAppSelector,
+    createSelector: createDraftSafSelectorWeakMap,
   }),
 
   itemVendors: ENTITY_ADAPTERS.itemVendors.getSelectors(
     added => added.itemVendors,
     {
-      createSelector: createDraftSafeAppSelector,
+      createSelector: createDraftSafSelectorWeakMap,
     }
   ),
 
   cartItems: ENTITY_ADAPTERS.cartItems.getSelectors(added => added.cartItems, {
-    createSelector: createDraftSafeAppSelector,
+    createSelector: createDraftSafSelectorWeakMap,
   }),
 } as const satisfies AdapterLocalizedSelectors;
 /** Takes RootState as an argument. */
@@ -74,43 +46,60 @@ export const GLOBAL_SELECTORS: AdapterGlobalizedSelectors = {
   searchResults: ENTITY_ADAPTERS.searchResults.getSelectors(
     TOP_LEVEL_SELECTORS.searchResults,
     {
-      createSelector: createDraftSafSelectorWeakMap,
+      createSelector: createSelectorWeakmap,
     }
   ),
 
   cart: ENTITY_ADAPTERS.cart.getSelectors(TOP_LEVEL_SELECTORS.cart, {
-    createSelector: createDraftSafSelectorWeakMap,
+    createSelector: createSelectorWeakmap,
   }),
 
   items: ENTITY_ADAPTERS.items.getSelectors(selectItemsData, {
-    createSelector: createDraftSafSelectorWeakMap,
+    createSelector: createSelectorWeakmap,
   }),
 
   vendors: ENTITY_ADAPTERS.vendors.getSelectors(selectVendorsData, {
-    createSelector: createDraftSafSelectorWeakMap,
+    createSelector: createSelectorWeakmap,
   }),
 
   categories: ENTITY_ADAPTERS.categories.getSelectors(selectCategoriesData, {
-    createSelector: createDraftSafSelectorWeakMap,
+    createSelector: createSelectorWeakmap,
   }),
 
   itemVendors: ENTITY_ADAPTERS.itemVendors.getSelectors(
     TOP_LEVEL_SELECTORS.itemVendors,
     {
-      createSelector: createDraftSafSelectorWeakMap,
+      createSelector: createSelectorWeakmap,
     }
   ),
 
   cartItems: ENTITY_ADAPTERS.cartItems.getSelectors(
     TOP_LEVEL_SELECTORS.cartItems,
     {
-      createSelector: createDraftSafSelectorWeakMap,
+      createSelector: createSelectorWeakmap,
     }
   ),
 } as const satisfies AdapterGlobalizedSelectors;
 
+export const getAllEntitySelectors = () => {
+  const gg = Object.entries(GLOBAL_SELECTORS).reduce(
+    (prev, [key, value]) => ({
+      ...prev,
+      ...Object.fromEntries(
+        Object.entries(value).map(([k, v]) => {
+          setFunctionName(v, k.replace("select", `select${capitalize(key)}`));
+          return [k.replace("select", `select${capitalize(key)}`), v] as const;
+        })
+      ),
+    }),
+    {}
+  );
+  return gg;
+};
+
+getAllEntitySelectors();
+
 export const ADAPTER_SELECTORS: AdapterSelectors = {
   LOCAL: LOCAL_SELECTORS,
-  SIMPLE: SIMPLE_SELECTORS,
   GLOBAL: GLOBAL_SELECTORS,
 } as const satisfies AdapterSelectors;

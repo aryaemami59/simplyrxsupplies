@@ -1,11 +1,12 @@
 import type { ItemNameAndKeywords } from "../types/api";
 import type { RootSelectorParamsProvider } from "../types/reduxHelperTypes";
-import setFunctionName from "../utils/setFunctionName";
+import setSelectorNames from "../utils/setSelectorNames";
 import withEmptyArrayFallback from "../utils/withEmptyArrayFallback";
-import { ADAPTER_SELECTORS } from "./adapterSelectors";
-import {
-  createSelectorWeakmap
-} from "./createSelectors";
+import { ADAPTER_SELECTORS, getAllEntitySelectors } from "./adapterSelectors";
+import { apiSelectors } from "./apiSlice";
+import { createSelectorWeakmap } from "./createSelectors";
+import { DRAFT_SAFE_SELECTORS } from "./draftSafeSelectors";
+import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors";
 
 const ROOT_SELECTOR_PARAMS_PROVIDER: RootSelectorParamsProvider = {
   getItemId: (state, itemId) => itemId,
@@ -165,7 +166,30 @@ export const checkIfAddedToAllVendors = createSelectorWeakmap(
     )
 );
 
-const allSelectors = {
+// export const parametricSelectors = {
+//   selectVendorsLinks,
+//   selectItemNumber,
+//   selectItemSrc,
+//   selectItemName,
+//   selectVendorIdsByItemId,
+//   selectCartItemsIds,
+//   selectCartItemNamesStringified,
+//   selectCheckedVendorIds,
+//   isVendorChecked,
+//   isMinimized,
+//   selectCategoryName,
+//   selectCategoryItemIds,
+//   checkIfAddedToVendor,
+//   selectCartItemsLength,
+//   checkIfAnyAddedToOneVendor,
+//   selectQRCodeText,
+//   selectOfficialName,
+//   selectVendorItemIds,
+//   selectCartsByItemId,
+//   checkIfAddedToAllVendors,
+// };
+
+const mainSelectors = {
   selectItemNumber,
   selectItemSrc,
   selectItemName,
@@ -190,16 +214,19 @@ const allSelectors = {
   selectCartsItemIdsLength,
 } as const;
 
-Object.entries(allSelectors).forEach(([key, value]) => {
-  setFunctionName(value, key);
-});
+const allSelectors = setSelectorNames({
+  ...mainSelectors,
+  ...apiSelectors,
+  ...DRAFT_SAFE_SELECTORS,
+  ...getAllEntitySelectors(),
+  ...TOP_LEVEL_SELECTORS,
+} as const);
+
+export const resetAllSelectors = () => {
+  Object.values(allSelectors).forEach(e => {
+    e.clearCache();
+    e.resetRecomputations();
+  });
+};
 
 export default allSelectors;
-
-// export const curried = createSelectorN(selectCategoryName);
-
-// export const selectCategoryName1 = categoryId =>
-//   createSelector(
-//     [ADAPTER_SELECTORS.GLOBAL.categories.selectById],
-//     category => category?.name ?? "Vials"
-//   )(categoryId);

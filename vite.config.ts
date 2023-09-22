@@ -8,7 +8,6 @@ import { defineConfig } from "vitest/config";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const testConfig: UserConfig = {
-    // define: { global: "window" },
     plugins: [
       react({
         babel: {
@@ -19,13 +18,20 @@ export default defineConfig(({ mode }) => {
       }),
     ],
     test: {
+      exclude: [
+        "node_modules",
+        "dist",
+        ".idea",
+        ".git",
+        ".cache",
+        "src/hooks/loggers",
+      ],
       include: ["**/*.test.?(c|m)[jt]s?(x)"],
       coverage: {
+        exclude: ["src/hooks/loggers"],
         reporter: ["text", "json", "html"],
         provider: "v8",
         enabled: true,
-        // perFile: true,
-        // skipFull: true,
       },
       allowOnly: true,
       environment: "jsdom",
@@ -41,9 +47,7 @@ export default defineConfig(({ mode }) => {
       },
       reporters: ["html", "verbose"],
       watch: true,
-      // css: false,
       css: true,
-      // css: { modules: { classNameStrategy: "non-scoped" } },
       benchmark: {
         include: ["**/*.spec.?(c|m)[jt]s?(x)"],
         reporters: ["default"],
@@ -69,7 +73,12 @@ export default defineConfig(({ mode }) => {
   };
 
   const productionConfig: UserConfig = {
-    esbuild: { drop: ["console", "debugger"] },
+    esbuild: {
+      drop: ["console", "debugger"],
+    },
+    define: {
+      "import.meta.vitest": "undefined",
+    },
     plugins: [
       react({
         babel: {

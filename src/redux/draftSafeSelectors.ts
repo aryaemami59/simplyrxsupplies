@@ -7,17 +7,15 @@ export const ADDED_SLICE_SELECTOR_PARAMS_PROVIDER: AddedSliceSelectorParamsProvi
   {
     getItemId: (added, itemId) => itemId,
     getCartId: (added, cartId) => cartId,
-    // getCartIdAndItemId: (added, cartId, itemId) => itemId,
-    // getItemIdAndCartId: (added, itemId, cartId) => cartId,
   } as const satisfies AddedSliceSelectorParamsProvider;
 
-class DraftSafeSelectors {
-  public readonly selectCartItems = createDraftSafeAddedSelector(
+export const DRAFT_SAFE_SELECTORS = {
+  selectCartItems: createDraftSafeAddedSelector(
     [ADAPTER_SELECTORS.LOCAL.cart.selectById],
     cart => withEmptyArrayFallback(cart?.itemIds)
-  );
+  ),
 
-  public readonly selectUnCheckedItemVendors = createDraftSafeAddedSelector(
+  selectUnCheckedItemVendors: createDraftSafeAddedSelector(
     [
       ADAPTER_SELECTORS.LOCAL.itemVendors.selectAll,
       ADDED_SLICE_SELECTOR_PARAMS_PROVIDER.getCartId,
@@ -29,9 +27,9 @@ class DraftSafeSelectors {
             vendorIds.includes(cartId) && !checkedVendorIds.includes(cartId)
         )
       )
-  );
+  ),
 
-  public readonly selectItemVendorsByVendorId = createDraftSafeAddedSelector(
+  selectItemVendorsByVendorId: createDraftSafeAddedSelector(
     [
       ADAPTER_SELECTORS.LOCAL.itemVendors.selectAll,
       ADDED_SLICE_SELECTOR_PARAMS_PROVIDER.getCartId,
@@ -42,9 +40,9 @@ class DraftSafeSelectors {
           checkedVendorIds.includes(cartId)
         )
       )
-  );
+  ),
 
-  public readonly selectCartsByCheckedVendors = createDraftSafeAddedSelector(
+  selectCartsByCheckedVendors: createDraftSafeAddedSelector(
     [
       ADAPTER_SELECTORS.LOCAL.itemVendors.selectById,
       ADAPTER_SELECTORS.LOCAL.cart.selectAll,
@@ -58,12 +56,10 @@ class DraftSafeSelectors {
             !itemIds.includes(itemId)
         )
       )
-  );
+  ),
 
-  public readonly selectCheckedVendorIds = createDraftSafeAddedSelector(
+  selectCheckedVendorIds: createDraftSafeAddedSelector(
     [ADAPTER_SELECTORS.LOCAL.itemVendors.selectById],
     itemVendors => withEmptyArrayFallback(itemVendors?.checkedVendorIds)
-  );
-}
-
-export const DRAFT_SAFE_SELECTORS = new DraftSafeSelectors();
+  ),
+};

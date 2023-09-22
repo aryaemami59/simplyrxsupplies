@@ -3,7 +3,10 @@ import { cleanup, screen } from "@testing-library/react";
 import { beforeEach, describe, expect } from "vitest";
 
 import InputGroupComponent from "../../components/InputComponents/InputGroupComponent";
-import { selectItemNamesAndKeywords } from "../../redux/selectors";
+import {
+  resetAllSelectors,
+  selectItemNamesAndKeywords,
+} from "../../redux/selectors";
 import type { ExtendedRenderResult } from "../test-utils/testUtils";
 import {
   queryByRoleFactory,
@@ -22,13 +25,17 @@ const { getAllButtonsByRole, getButtonByRole, queryButtonByRole } =
 
 describe<LocalTestContext>("search results", it => {
   beforeEach<LocalTestContext>(async context => {
+    resetAllSelectors();
     const view = await renderWithProviders(<InputGroupComponent />);
     const inputField = screen.getByRole<HTMLInputElement>("search", {
       name: "Search",
     });
     context.view = view;
     context.inputField = inputField;
-    return cleanup;
+    return () => {
+      cleanup();
+      resetAllSelectors();
+    };
   });
 
   it("input field exists", ({ inputField }) => {

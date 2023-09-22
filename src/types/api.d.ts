@@ -20,7 +20,9 @@ type CategoryName =
   | "Vials";
 
 export type Category = {
+  /** References categoryId */
   readonly id: number;
+  /** References categoryItemIds */
   readonly itemIds: number[];
   readonly name: CategoryName;
 };
@@ -43,11 +45,13 @@ export type OfficialVendorName = VendorHelper[VendorName];
 
 type Vendors = {
   readonly [K in VendorName]: {
+    /** References vendorId */
     readonly id: number;
     readonly officialName: VendorHelper[K];
     readonly abbrName: K;
     readonly link: string;
     readonly joinChars: string;
+    /** References vendorItemIds */
     readonly itemIds: number[];
   };
 };
@@ -56,6 +60,7 @@ export type Vendor = Vendors[VendorName];
 
 // Items
 export type Item = {
+  /** References itemId */
   readonly id: number;
   readonly name: string;
   readonly itemNumber: string;

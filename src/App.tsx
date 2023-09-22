@@ -16,7 +16,7 @@ import ErrorComponent from "./shared/components/ErrorComponent";
 import IsLoading from "./shared/components/IsLoading";
 
 const App: FC = () => {
-  const { isError, isLoading } = useGetMainQuery();
+  const { isError, isLoading } = useGetMainQuery(undefined);
 
   if (isLoading) return <IsLoading />;
 
