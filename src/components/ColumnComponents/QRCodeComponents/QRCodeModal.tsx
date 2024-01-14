@@ -1,35 +1,35 @@
-import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons/faMagnifyingGlassPlus";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import type { FC, MouseEventHandler } from "react";
-import { memo, useCallback, useState } from "react";
+import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons/faMagnifyingGlassPlus"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import IconButton from "@mui/material/IconButton"
+import Tooltip from "@mui/material/Tooltip"
+import type { FC, MouseEventHandler } from "react"
+import { memo, useCallback, useState } from "react"
 
-import QRCodeDialog from "./QRCodeDialog";
+import QRCodeDialog from "./QRCodeDialog"
 
-const title = "Take a Closer Look at The QRCode";
+const title = "Take a Closer Look at The QRCode"
 
-const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />;
+const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />
 
 const QRCodeModal: FC = () => {
-  const [show, setShow] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [show, setShow] = useState(false)
+  const [open, setOpen] = useState(false)
 
   const showModal: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    setShow(true);
-  }, []);
+    setShow(true)
+  }, [])
 
   const hideModal = useCallback(() => {
-    setShow(false);
-  }, []);
+    setShow(false)
+  }, [])
 
   const showTooltip = useCallback(() => {
-    setOpen(true);
-  }, []);
+    setOpen(true)
+  }, [])
 
   const hideTooltip = useCallback(() => {
-    setOpen(false);
-  }, []);
+    setOpen(false)
+  }, [])
 
   return (
     <>
@@ -40,11 +40,13 @@ const QRCodeModal: FC = () => {
         onClose={hideTooltip}
         onOpen={showTooltip}
         open={open}
-        title={title}>
+        title={title}
+      >
         <IconButton
           className="d-inline-block w-auto"
           onClick={showModal}
-          size="large">
+          size="large"
+        >
           {startIcon}
         </IconButton>
         {/* <Button
@@ -56,12 +58,9 @@ const QRCodeModal: FC = () => {
           Magnify
         </Button> */}
       </Tooltip>
-      <QRCodeDialog
-        hideModal={hideModal}
-        isModalOpen={show}
-      />
+      <QRCodeDialog hideModal={hideModal} isModalOpen={show} />
     </>
-  );
-};
+  )
+}
 
-export default memo(QRCodeModal);
+export default memo(QRCodeModal)

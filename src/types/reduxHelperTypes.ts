@@ -2,7 +2,7 @@ import type {
   EntityAdapter,
   EntitySelectors,
   EntityState,
-} from "@reduxjs/toolkit";
+} from "@reduxjs/toolkit"
 import type {
   createSelector,
   lruMemoize,
@@ -10,15 +10,15 @@ import type {
   SelectorArray,
   unstable_autotrackMemoize as autotrackMemoize,
   weakMapMemoize,
-} from "reselect";
+} from "reselect"
 
 import type {
   createAppSelector,
   createDraftSafeAddedSelector,
-} from "../redux/createSelectors";
-import type { RootState } from "../redux/store";
-import type { Category, Item, Vendor } from "./api";
-import type { AnyFunction } from "./tsHelpers";
+} from "../redux/createSelectors"
+import type { RootState } from "../redux/store"
+import type { Category, Item, Vendor } from "./api"
+import type { AnyFunction } from "./tsHelpers"
 
 /**
  * Controls the one to many relationship between an item and its vendors in the search results and the side bar accordion.
@@ -27,94 +27,91 @@ export type ItemVendors = {
   /**
    * References itemId.
    */
-  readonly id: number;
+  readonly id: number
   /**
    * @default Item.vendorIds
    */
-  readonly checkedVendorIds: number[];
-  readonly vendorIds: number[];
-};
+  readonly checkedVendorIds: number[]
+  readonly vendorIds: number[]
+}
 
 export type SearchResultsItem = {
   /**
    * References itemId.
    */
-  readonly id: number;
-};
+  readonly id: number
+}
 
 export type Cart = {
   /**
    * References vendorId.
    */
-  readonly id: number;
+  readonly id: number
   /**
    * References vendorItemIds.
    * @default EMPTY_ARRAY
    */
-  readonly itemIds: number[];
-};
+  readonly itemIds: number[]
+}
 /** Returned from apiSlice after data transformation. */
 export type SuppliesState = {
-  readonly items: Item[];
-  readonly vendors: Vendor[];
-  readonly categories: Category[];
-  readonly cart: Cart[];
-};
+  readonly items: Item[]
+  readonly vendors: Vendor[]
+  readonly categories: Category[]
+  readonly cart: Cart[]
+}
 
 export type ItemIdAndVendorId = {
-  readonly itemId: number;
-  readonly vendorId: number;
-};
+  readonly itemId: number
+  readonly vendorId: number
+}
 
 type ApiAdapters = {
-  readonly items: Item;
-  readonly vendors: Vendor;
-  readonly categories: Category;
-};
+  readonly items: Item
+  readonly vendors: Vendor
+  readonly categories: Category
+}
 
 /**
  * Controls the one to many relationship between a vendor and its items in a cart.
  */
 export type CartItems = {
   /** References vendorId. */
-  readonly id: number;
+  readonly id: number
   /** @default EMPTY_ARRAY */
-  readonly minimizedItemIds: number[];
+  readonly minimizedItemIds: number[]
   /** References vendorItemIds. */
-  readonly itemIds: number[];
-};
+  readonly itemIds: number[]
+}
 
 export type StateAdapters = {
-  readonly cart: Cart;
-  readonly searchResults: SearchResultsItem;
+  readonly cart: Cart
+  readonly searchResults: SearchResultsItem
   /**
    * Controls the one to many relationship between an item and its vendors in the search results and the side bar accordion.
    */
-  readonly itemVendors: ItemVendors;
+  readonly itemVendors: ItemVendors
   /**
    * Controls the one to many relationship between a vendor and its items in a cart.
    */
-  readonly cartItems: CartItems;
-};
+  readonly cartItems: CartItems
+}
 
-export type AdaptersHelper = ApiAdapters & StateAdapters;
+export type AdaptersHelper = ApiAdapters & StateAdapters
 
 export type Adapters = {
-  readonly [K in keyof AdaptersHelper]: EntityAdapter<
-    AdaptersHelper[K],
-    number
-  >;
-};
+  readonly [K in keyof AdaptersHelper]: EntityAdapter<AdaptersHelper[K], number>
+}
 
 export type AdaptersInitialStates = {
-  readonly [K in keyof AdaptersHelper]: EntityState<AdaptersHelper[K], number>;
-};
+  readonly [K in keyof AdaptersHelper]: EntityState<AdaptersHelper[K], number>
+}
 
 type SelectorParam = {
-  readonly params: readonly unknown[];
-  readonly returnType: unknown;
-  readonly name: string;
-};
+  readonly params: readonly unknown[]
+  readonly returnType: unknown
+  readonly name: string
+}
 
 export type SelectorParamsProvider<
   State extends object,
@@ -123,34 +120,34 @@ export type SelectorParamsProvider<
   readonly [K in Params[number] as `get${Capitalize<K["name"]>}`]: (
     state: State,
     ...params: K["params"]
-  ) => K["returnType"];
-};
+  ) => K["returnType"]
+}
 
 export type TopLevelSelectorsForAddedState = TopLevelSelectors<
   RootState,
   "added"
->;
+>
 
 export type RootSelectorParamsProvider = SelectorParamsProvider<
   RootState,
   readonly [
     itemId: {
-      readonly name: "itemId";
-      readonly params: readonly [itemId: number];
-      readonly returnType: number;
+      readonly name: "itemId"
+      readonly params: readonly [itemId: number]
+      readonly returnType: number
     },
     cartIdAndItemId: {
-      readonly name: "cartIdAndItemId";
-      readonly params: readonly [cartId: number, itemId: number];
-      readonly returnType: number;
+      readonly name: "cartIdAndItemId"
+      readonly params: readonly [cartId: number, itemId: number]
+      readonly returnType: number
     },
     ItemIdAndCartId: {
-      readonly name: "ItemIdAndCartId";
-      readonly params: readonly [itemId: number, cartId: number];
-      readonly returnType: number;
+      readonly name: "ItemIdAndCartId"
+      readonly params: readonly [itemId: number, cartId: number]
+      readonly returnType: number
     },
   ]
->;
+>
 
 // export type ExtendedEntitySelectors<T, V, Id extends EntityId> = {
 //   [K in keyof EntitySelectors<T, V, Id>]: EntitySelectors<T, V, Id>[K]
@@ -166,47 +163,47 @@ export type AdapterGlobalizedSelectors = {
     AdaptersHelper[K],
     RootState,
     number
-  >;
-};
+  >
+}
 
 export type AdapterSelectors = {
-  readonly LOCAL: AdapterLocalizedSelectors;
-  readonly GLOBAL: AdapterGlobalizedSelectors;
-};
+  readonly LOCAL: AdapterLocalizedSelectors
+  readonly GLOBAL: AdapterGlobalizedSelectors
+}
 
 export type AppSelector<
   Result = unknown,
   Params extends Parameters<Selector> = Parameters<Selector>,
-> = Selector<RootState, Result, Params>;
+> = Selector<RootState, Result, Params>
 
 export type AddedSliceSelectorParamsProvider = SelectorParamsProvider<
   AddedState,
   readonly [
     itemId: {
-      readonly name: "itemId";
-      readonly params: readonly [itemId: number];
-      readonly returnType: number;
+      readonly name: "itemId"
+      readonly params: readonly [itemId: number]
+      readonly returnType: number
     },
     cartId: {
-      readonly name: "cartId";
-      readonly params: readonly [cartId: number];
-      readonly returnType: number;
+      readonly name: "cartId"
+      readonly params: readonly [cartId: number]
+      readonly returnType: number
     },
   ]
->;
+>
 
 export type AdapterLocalizedSelectors = {
   readonly [K in keyof StateAdapters]: EntitySelectors<
     StateAdapters[K],
     AddedState,
     number
-  >;
-};
+  >
+}
 
 export type AddedSelector<
   Return = unknown,
   Params extends readonly unknown[] = unknown[],
-> = Selector<AddedState, Return, Params>;
+> = Selector<AddedState, Return, Params>
 
 export type TopLevelSelectors<
   State extends object,
@@ -220,17 +217,17 @@ export type TopLevelSelectors<
           [AddedSelector<State, never>],
           State[K]
         >
-      >;
+      >
     }
   : {
       [K in keyof State[P]]: ReturnType<
         typeof createAppSelector<[AppSelector<AddedState, never>], State[P][K]>
-      >;
-    };
+      >
+    }
 
 export type AddedState = {
-  -readonly [K in keyof StateAdapters]: EntityState<StateAdapters[K], number>;
-};
+  -readonly [K in keyof StateAdapters]: EntityState<StateAdapters[K], number>
+}
 
 // TODO: potentially remove.
 export type TypedCreateSelector<State> = <
@@ -238,12 +235,12 @@ export type TypedCreateSelector<State> = <
   Result,
 >(
   ...args: Parameters<typeof createSelector<Selectors, Result>>
-) => ReturnType<typeof createSelector<Selectors, Result>>;
+) => ReturnType<typeof createSelector<Selectors, Result>>
 
 /** Utility type to infer the type of "all params of a function except the first", so we can determine what arguments a memoize function accepts */
 export type DropFirst<T extends unknown[]> = T extends [unknown, ...infer U]
   ? U
-  : never;
+  : never
 /**
  * Expand an item a single level, or recursively.
  * Source: https://stackoverflow.com/a/69288824/62937
@@ -252,9 +249,9 @@ export type Expand<T> = T extends (...args: infer A) => infer R
   ? (...args: Expand<A>) => Expand<R>
   : T extends infer O
     ? {
-        [K in keyof O]: O[K];
+        [K in keyof O]: O[K]
       }
-    : never;
+    : never
 
 // export type AnyMemoizedSelector = MemoizedSelector<
 //   Selector[],
@@ -265,19 +262,19 @@ export type Expand<T> = T extends (...args: infer A) => infer R
 export type WithOutputSelectorFields<T extends AnyFunction = AnyFunction> =
   T & {
     /** The final function passed to `createSelector` */
-    resultFunc: AnyFunction;
+    resultFunc: AnyFunction
     /** The same function, memoized */
-    memoizedResultFunc: AnyFunction & { clearCache: () => void };
+    memoizedResultFunc: AnyFunction & { clearCache: () => void }
     /** Returns the last result calculated by the selector */
-    lastResult: () => ReturnType<T>;
+    lastResult: () => ReturnType<T>
     /** An array of the input selectors */
-    dependencies: SelectorArray;
+    dependencies: SelectorArray
     /** Counts the number of times the output has been recalculated */
-    recomputations: () => number;
+    recomputations: () => number
     /** Resets the count of recomputations count to 0 */
-    resetRecomputations: () => number;
-    clearCache: () => void;
-  };
+    resetRecomputations: () => number
+    clearCache: () => void
+  }
 /** Wrapper around {@link OutputSelector}. Return type of selectors created using `createSelector`. */
 // export type MemoizedSelector<
 //   Selectors extends readonly Selector[],
@@ -373,14 +370,14 @@ export type WithOutputSelectorFields<T extends AnyFunction = AnyFunction> =
 //     Keys
 // }
 
-export type DefaultMemoize = typeof lruMemoize;
-export type WeakMapMemoize = typeof weakMapMemoize;
-export type AutotrackMemoize = typeof autotrackMemoize;
+export type DefaultMemoize = typeof lruMemoize
+export type WeakMapMemoize = typeof weakMapMemoize
+export type AutotrackMemoize = typeof autotrackMemoize
 
 export type Results = {
-  readonly name: string;
-  readonly time: number;
-};
+  readonly name: string
+  readonly time: number
+}
 
 // export interface SelectorTestResults {
 //   readonly results: {
@@ -508,10 +505,10 @@ export type MappedAdapterSelectors = {
   [K in keyof AdapterGlobalizedSelectors]: {
     [P in keyof AdapterGlobalizedSelectors[K] as `select${Capitalize<K>}${RemoveSelect<
       Extract<P, string>
-    >}`]: AdapterGlobalizedSelectors[K][P];
-  };
-};
+    >}`]: AdapterGlobalizedSelectors[K][P]
+  }
+}
 
 export type RemoveSelect<S extends string> = S extends `select${infer P}`
   ? P
-  : never;
+  : never

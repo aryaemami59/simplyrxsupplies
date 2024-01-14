@@ -1,18 +1,18 @@
-import type { FC } from "react";
-import { memo } from "react";
+import type { FC } from "react"
+import { memo } from "react"
 
-import QRCodeDataProvider from "../../../contexts/QRCodeDataProvider";
-import useVendorId from "../../../hooks/useVendorId";
-import CollapseAllButton from "./CollapseAllButton";
-import ExpandAllButton from "./ExpandAllButton";
-import PrintIconQRCode from "./PrintIconQRCode";
-import QRCodeImage from "./QRCodeImage";
-import QRCodeModal from "./QRCodeModal";
-import RemoveAllButton from "./RemoveAllButton";
-import ShareButton from "./ShareButton";
+import QRCodeDataProvider from "../../../contexts/QRCodeDataProvider"
+import useVendorId from "../../../hooks/useVendorId"
+import CollapseAllButton from "./CollapseAllButton"
+import ExpandAllButton from "./ExpandAllButton"
+import PrintIconQRCode from "./PrintIconQRCode"
+import QRCodeImage from "./QRCodeImage"
+import QRCodeModal from "./QRCodeModal"
+import RemoveAllButton from "./RemoveAllButton"
+import ShareButton from "./ShareButton"
 
 const QRCodeImageContainer: FC = () => {
-  const vendorId = useVendorId();
+  const vendorId = useVendorId()
   return (
     <div className="container-fluid">
       <div className="row">
@@ -33,7 +33,7 @@ const QRCodeImageContainer: FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default memo(QRCodeImageContainer);
+export default memo(QRCodeImageContainer)

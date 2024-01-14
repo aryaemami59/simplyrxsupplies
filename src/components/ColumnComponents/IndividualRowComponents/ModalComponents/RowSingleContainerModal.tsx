@@ -1,35 +1,35 @@
-import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons/faMagnifyingGlassPlus";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import type { FC, MouseEventHandler } from "react";
-import { memo, useCallback, useState } from "react";
+import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons/faMagnifyingGlassPlus"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import IconButton from "@mui/material/IconButton"
+import Tooltip from "@mui/material/Tooltip"
+import type { FC, MouseEventHandler } from "react"
+import { memo, useCallback, useState } from "react"
 
-import RowItemsDialog from "./RowItemsDialog";
+import RowItemsDialog from "./RowItemsDialog"
 
-const title = "Take a Closer Look at The Item Info";
+const title = "Take a Closer Look at The Item Info"
 
-const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />;
+const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />
 
 const RowSingleContainerModal: FC = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false)
+  const [open, setOpen] = useState(false)
 
   const showModal: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    setModalOpen(true);
-  }, []);
+    setModalOpen(true)
+  }, [])
 
   const hideModal = useCallback(() => {
-    setModalOpen(false);
-  }, []);
+    setModalOpen(false)
+  }, [])
 
   const showTooltip = useCallback(() => {
-    setOpen(true);
-  }, []);
+    setOpen(true)
+  }, [])
 
   const hideTooltip = useCallback(() => {
-    setOpen(false);
-  }, []);
+    setOpen(false)
+  }, [])
 
   return (
     <>
@@ -40,20 +40,19 @@ const RowSingleContainerModal: FC = () => {
         onClose={hideTooltip}
         onOpen={showTooltip}
         open={open}
-        title={title}>
+        title={title}
+      >
         <IconButton
           className="w-auto d-inline-block"
           onClick={showModal}
-          size="medium">
+          size="medium"
+        >
           {startIcon}
         </IconButton>
       </Tooltip>
-      <RowItemsDialog
-        hideModal={hideModal}
-        isModalOpen={modalOpen}
-      />
+      <RowItemsDialog hideModal={hideModal} isModalOpen={modalOpen} />
     </>
-  );
-};
+  )
+}
 
-export default memo(RowSingleContainerModal);
+export default memo(RowSingleContainerModal)

@@ -5,6 +5,6 @@
  * @see {@link Capitalize}
  */
 const capitalize = <const S extends string>(str: S): Capitalize<S> =>
-  (str.charAt(0).toUpperCase() + str.slice(1)) as Capitalize<S>;
+  (str.charAt(0).toUpperCase() + str.slice(1)) as Capitalize<S>
 
-export default capitalize;
+export default capitalize

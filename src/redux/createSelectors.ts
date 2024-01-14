@@ -1,18 +1,18 @@
-import type { OutputSelector } from "@reduxjs/toolkit";
-import { createDraftSafeSelectorCreator } from "@reduxjs/toolkit";
-import { shallowEqual } from "react-redux";
-import type { Selector, SelectorsObject } from "reselect";
+import type { OutputSelector } from "@reduxjs/toolkit"
+import { createDraftSafeSelectorCreator } from "@reduxjs/toolkit"
+import { shallowEqual } from "react-redux"
+import type { Selector, SelectorsObject } from "reselect"
 import {
   createSelector,
   createSelectorCreator,
   lruMemoize,
   unstable_autotrackMemoize,
   weakMapMemoize,
-} from "reselect";
+} from "reselect"
 
-import capitalize from "../utils/capitalize";
-import { useAppSelector } from "./hooks";
-import type { RootState } from "./store";
+import capitalize from "../utils/capitalize"
+import { useAppSelector } from "./hooks"
+import type { RootState } from "./store"
 
 // export const timeSelector = <T extends AnyFunction>(
 //   func: T,
@@ -166,11 +166,11 @@ import type { RootState } from "./store";
 
 /** A {@link createSelector} function that takes {@link RootState} as the first argument in its input selectors. */
 // export const createAppSelector = createSelectorCreatorWrapper(defaultMemoize)
-export const createAppSelector = createSelectorCreator(lruMemoize);
+export const createAppSelector = createSelectorCreator(lruMemoize)
 export const createAutotrackSelector = createSelectorCreator({
   memoize: unstable_autotrackMemoize,
   argsMemoize: unstable_autotrackMemoize,
-});
+})
 // export const createAppSelector: TypedExtendedCreateSelectorFunction<
 //   RootState,
 //   DefaultMemoize
@@ -179,7 +179,7 @@ export const createAutotrackSelector = createSelectorCreator({
 // export const createSelectorWeakMap = createSelectorCreator({
 //   memoize: weakMapMemoize,
 // })
-export const createSelectorWeakMap = createSelector.withTypes<RootState>();
+export const createSelectorWeakMap = createSelector.withTypes<RootState>()
 // export const createSelectorWeakMap = createSelectorCreator({
 //   memoize: unstable_autotrackMemoize,
 //   argsMemoize: unstable_autotrackMemoize,
@@ -195,13 +195,13 @@ export const createSelectorWeakMap = createSelector.withTypes<RootState>();
 // > = createSelectorCreatorWrapper(autotrackMemoize);
 
 export const createDraftSafeAppSelector =
-  createDraftSafeSelectorCreator(lruMemoize);
+  createDraftSafeSelectorCreator(lruMemoize)
 // export const createDraftSafeAppSelector: TypedExtendedCreateSelectorFunction<
 //   RootState,
 //   DefaultMemoize
 // > = createDraftSafeSelectorCreatorCorrected(defaultMemoize);
 export const createDraftSafSelectorWeakMap =
-  createDraftSafeSelectorCreator(weakMapMemoize);
+  createDraftSafeSelectorCreator(weakMapMemoize)
 // export const createDraftSafSelectorWeakMap: TypedExtendedCreateSelectorFunction<
 //   RootState,
 //   WeakMapMemoize
@@ -209,38 +209,38 @@ export const createDraftSafSelectorWeakMap =
 // export const createDraftSafSelectorAutotrack =
 //   createDraftSafeSelectorCreatorCorrected(autotrackMemoize)
 export const createDraftSafeAddedSelector =
-  createDraftSafeSelectorCreator(lruMemoize);
+  createDraftSafeSelectorCreator(lruMemoize)
 // TODO: remove later.
 export const createDebugSelector = createSelectorCreator(lruMemoize, {
   resultEqualityCheck: (previousVal: unknown, currentVal: unknown) => {
-    const isSame = currentVal === previousVal;
-    const isShallowEqual = shallowEqual(previousVal, currentVal);
+    const isSame = currentVal === previousVal
+    const isShallowEqual = shallowEqual(previousVal, currentVal)
     if (!isSame && isShallowEqual) {
       console.error(
         "Selector param reference changed but value did not\n",
         "\nprevious value:",
         previousVal,
         "\n\ncurrent value:",
-        currentVal
-      );
+        currentVal,
+      )
     }
-    return isSame;
+    return isSame
   },
   equalityCheck: (previousVal: unknown, currentVal: unknown) => {
-    const isSame = currentVal === previousVal;
-    const isShallowEqual = shallowEqual(previousVal, currentVal);
+    const isSame = currentVal === previousVal
+    const isShallowEqual = shallowEqual(previousVal, currentVal)
     if (!isSame && isShallowEqual) {
       console.error(
         "Selector param reference changed but value did not\n",
         "\nprevious value:",
         previousVal,
         "\n\ncurrent value:",
-        currentVal
-      );
+        currentVal,
+      )
     }
-    return isSame;
+    return isSame
   },
-});
+})
 
 // export const curriedSelector =
 //   <Args extends unknown[], SelectorOutput>(
@@ -379,10 +379,10 @@ export const createDebugSelector = createSelectorCreator(lruMemoize, {
 
 export const createParametricSelectorHook =
   <Result, Params extends readonly [unknown, ...(readonly unknown[])]>(
-    selector: (selector: RootState, ...args: Params) => Result
+    selector: (selector: RootState, ...args: Params) => Result,
   ) =>
   (...args: Params) =>
-    useAppSelector(state => selector(state, ...args));
+    useAppSelector(state => selector(state, ...args))
 
 type MapSelectorsToHooks<TObject extends SelectorsObject<RootState>> = {
   [K in keyof TObject as K extends `select${infer R}`
@@ -393,13 +393,13 @@ type MapSelectorsToHooks<TObject extends SelectorsObject<RootState>> = {
     infer Params
   >
     ? (...args: Params) => Result
-    : never;
-};
+    : never
+}
 
 export const createParametricSelectorHooks = <
   TObject extends SelectorsObject<RootState>,
 >(
-  selectors: TObject
+  selectors: TObject,
 ): MapSelectorsToHooks<TObject> =>
   Object.fromEntries(
     Object.entries(selectors).map(
@@ -407,9 +407,9 @@ export const createParametricSelectorHooks = <
         [
           `${selectorName.startsWith("select") ? selectorName.replace(/^select/, "use") : `use${capitalize(selectorName)}`}`,
           createParametricSelectorHook(selector),
-        ] as const
-    )
-  ) as MapSelectorsToHooks<TObject>;
+        ] as const,
+    ),
+  ) as MapSelectorsToHooks<TObject>
 
 // export const useCurriedSelector =
 //   <Args extends unknown[], SelectorOutput>(
@@ -433,26 +433,26 @@ export const findFastestSelector = <S extends OutputSelector>(
   selector: S,
   ...selectorArgs: Parameters<S>
 ) => {
-  const memoizeFuncs = [lruMemoize, weakMapMemoize];
+  const memoizeFuncs = [lruMemoize, weakMapMemoize]
   const results = memoizeFuncs
     .map(memoize => {
       const alternateSelector = createSelector(
         selector.dependencies as Selector<RootState>[],
         selector.resultFunc,
-        { memoize }
-      );
-      const start = performance.now();
+        { memoize },
+      )
+      const start = performance.now()
       // @ts-expect-error
       // alternateSelector.apply(null, selectorArgs)
-      alternateSelector(...selectorArgs);
-      const time = performance.now() - start;
-      return { name: memoize.name, time, selector: alternateSelector };
+      alternateSelector(...selectorArgs)
+      const time = performance.now() - start
+      return { name: memoize.name, time, selector: alternateSelector }
       // return { name: memoize.name, time, selector: alternateSelector }
     })
-    .sort((a, b) => a.time - b.time);
+    .sort((a, b) => a.time - b.time)
   const fastest = results.reduce((minResult, currentResult) =>
-    currentResult.time < minResult.time ? currentResult : minResult
-  );
+    currentResult.time < minResult.time ? currentResult : minResult,
+  )
   const ratios = results
     .filter(({ time }) => time !== fastest.time)
     .map(
@@ -461,8 +461,8 @@ export const findFastestSelector = <S extends OutputSelector>(
           time / fastest.time
         }\x1B[0m times faster than \x1B[1;41m${name}\x1B[0m\n(\x1B[1m\x1B[35m${
           ((time - fastest.time) / time) * 100
-        }\x1B[0m% speed increase).`
-    );
+        }\x1B[0m% speed increase).`,
+    )
   if (fastest.selector.memoize.name !== selector.memoize.name) {
     console.warn(
       `The memoization method for \x1B[1;41m${
@@ -473,15 +473,15 @@ export const findFastestSelector = <S extends OutputSelector>(
         fastest.selector.memoize.name
       }\x1B[0m to be more efficient.\nYou should use \x1B[32m\x1B[1m${
         fastest.name
-      }\x1B[0m because it is${ratios.join("\nand\n")}`
-    );
+      }\x1B[0m because it is${ratios.join("\nand\n")}`,
+    )
   }
   const element = `\x1B[32m\x1B[1m${
     fastest.selector.memoize.name
-  }\x1B[0m is\x1B[1m${ratios.join("\nand\n")}\x1B[0m`;
-  console.log(element);
-  const slowest = Math.min(...results.map(({ time }) => time));
-  console.log({ slowest });
+  }\x1B[0m is\x1B[1m${ratios.join("\nand\n")}\x1B[0m`
+  console.log(element)
+  const slowest = Math.min(...results.map(({ time }) => time))
+  console.log({ slowest })
   // const rest = results.filter(({ name }) => name !== fastest.name)
   // const info = {
   //   Fastest: fastest.name,
@@ -492,8 +492,8 @@ export const findFastestSelector = <S extends OutputSelector>(
   console.log(
     results.map(({ selector }) => ({
       [selector.name]: selector.recomputations(),
-    }))
-  );
+    })),
+  )
   // console.log(
   //   results.map(({ name, time }) => ({ name, time })),
   //   (fastest.time / slowest) * 100
@@ -501,5 +501,5 @@ export const findFastestSelector = <S extends OutputSelector>(
   // console.table(results.map(({ name, time }) => ({ name, time })))
   // console.table([{ ...info }, ...rest])
   // console.table({ results, ...fastest })
-  return { results, fastest } as const;
-};
+  return { results, fastest } as const
+}

@@ -1,26 +1,24 @@
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
-import IconButton from "@mui/material/IconButton";
-import type { FC } from "react";
-import { memo, useMemo } from "react";
+import Brightness4Icon from "@mui/icons-material/Brightness4"
+import Brightness7Icon from "@mui/icons-material/Brightness7"
+import IconButton from "@mui/material/IconButton"
+import type { FC } from "react"
+import { memo, useMemo } from "react"
 
-import useColorMode from "../../hooks/useColorMode";
-import { darkTheme } from "../../shared/themes";
+import useColorMode from "../../hooks/useColorMode"
+import { darkTheme } from "../../shared/themes"
 
 const DarkModeTogglerButton: FC = () => {
-  const { theme, toggleColorMode } = useColorMode();
+  const { theme, toggleColorMode } = useColorMode()
   const icon = useMemo(
     () => (theme === darkTheme ? <Brightness7Icon /> : <Brightness4Icon />),
-    [theme]
-  );
+    [theme],
+  )
 
   return (
-    <IconButton
-      color="inherit"
-      onClick={toggleColorMode}>
+    <IconButton color="inherit" onClick={toggleColorMode}>
       {icon}
     </IconButton>
-  );
-};
+  )
+}
 
-export default memo(DarkModeTogglerButton);
+export default memo(DarkModeTogglerButton)

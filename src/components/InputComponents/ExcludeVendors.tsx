@@ -1,20 +1,18 @@
-import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import type { FC } from "react";
-import { memo } from "react";
+import Button from "@mui/material/Button"
+import ButtonGroup from "@mui/material/ButtonGroup"
+import type { FC } from "react"
+import { memo } from "react"
 
-import VendorIdProvider from "../../contexts/VendorIdProvider";
-import useVendorIds from "../../hooks/useVendorIds";
-import ExcludeVendorSingleCheckbox from "./ExcludeVendorSingleCheckbox";
+import VendorIdProvider from "../../contexts/VendorIdProvider"
+import useVendorIds from "../../hooks/useVendorIds"
+import ExcludeVendorSingleCheckbox from "./ExcludeVendorSingleCheckbox"
 
 const ExcludeVendors: FC = () => {
-  const vendorNames = useVendorIds();
+  const vendorNames = useVendorIds()
 
   return (
     <>
-      <Button
-        className="mt-3"
-        variant="contained">
+      <Button className="mt-3" variant="contained">
         Exclude Vendors
       </Button>
       <ButtonGroup
@@ -24,9 +22,7 @@ const ExcludeVendors: FC = () => {
         // className="px-5"
       >
         {vendorNames.map(vendorName => (
-          <VendorIdProvider
-            key={vendorName}
-            vendorId={vendorName}>
+          <VendorIdProvider key={vendorName} vendorId={vendorName}>
             <ExcludeVendorSingleCheckbox />
             {/* <FormControlLabel
               className="fs-7"
@@ -43,7 +39,7 @@ const ExcludeVendors: FC = () => {
         ))}
       </ButtonGroup>
     </>
-  );
-};
+  )
+}
 
-export default memo(ExcludeVendors);
+export default memo(ExcludeVendors)

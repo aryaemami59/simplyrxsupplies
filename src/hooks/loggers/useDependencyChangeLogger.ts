@@ -1,7 +1,7 @@
-import { useDebugValue } from "react";
+import { useDebugValue } from "react"
 
-import capitalize from "../../utils/capitalize";
-import useComponentDidUpdate from "../useComponentDidUpdate";
+import capitalize from "../../utils/capitalize"
+import useComponentDidUpdate from "../useComponentDidUpdate"
 
 /**
  * Use only in development mode
@@ -12,13 +12,13 @@ import useComponentDidUpdate from "../useComponentDidUpdate";
  */
 const useDependencyChangeLogger = <T>(dependency: T, depName = "") => {
   const componentName =
-    new Error().stack?.split("\n")[2]?.split(" ")[5] ?? "Component";
+    new Error().stack?.split("\n")[2]?.split(" ")[5] ?? "Component"
 
   const depType = Array.isArray(dependency)
     ? "Array"
-    : capitalize(typeof dependency);
+    : capitalize(typeof dependency)
 
-  useDebugValue([depName, dependency], value => value);
+  useDebugValue([depName, dependency], value => value)
 
   useComponentDidUpdate(() => {
     console.log(
@@ -27,9 +27,9 @@ const useDependencyChangeLogger = <T>(dependency: T, depName = "") => {
       }%c ${depType} in ${componentName} Changed: %O`,
       "color:palegreen; font-size: 15px;",
       "",
-      dependency
-    );
-  }, [componentName, depName, depType, dependency]);
-};
+      dependency,
+    )
+  }, [componentName, depName, depType, dependency])
+}
 
-export default useDependencyChangeLogger;
+export default useDependencyChangeLogger

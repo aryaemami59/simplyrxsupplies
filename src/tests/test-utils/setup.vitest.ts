@@ -1,12 +1,12 @@
 /* eslint-disable prefer-arrow-functions/prefer-arrow-functions */
-import "@testing-library/jest-dom/vitest";
-import "vitest-dom/extend-expect";
+import "@testing-library/jest-dom/vitest"
+import "vitest-dom/extend-expect"
 
-import matchers from "jest-extended";
-import type { ExpectStatic } from "vitest";
-import { expect, vi } from "vitest";
+import matchers from "jest-extended"
+import type { ExpectStatic } from "vitest"
+import { expect, vi } from "vitest"
 
-expect.extend(matchers);
+expect.extend(matchers)
 
 const customMatchers: Parameters<ExpectStatic["extend"]>[0] = {
   toBeEmptyArray(received: unknown) {
@@ -15,15 +15,15 @@ const customMatchers: Parameters<ExpectStatic["extend"]>[0] = {
         pass: true,
         message: () =>
           `expected ${this.utils.printReceived(
-            received
+            received,
           )} to be an array but instead it is of type ${this.utils.printExpected(
-            typeof received
+            typeof received,
           )}`,
         actual: received,
         expected: [],
-      };
+      }
     }
-    const pass = received.length === 0;
+    const pass = received.length === 0
     return {
       pass,
       message: () =>
@@ -32,11 +32,11 @@ const customMatchers: Parameters<ExpectStatic["extend"]>[0] = {
           : `${this.utils.printReceived(received)} is not an empty array`,
       expected: [],
       actual: received,
-    };
+    }
   },
-};
+}
 
-expect.extend(customMatchers);
+expect.extend(customMatchers)
 
 Object.defineProperty(window, "matchMedia", {
   writable: true,
@@ -50,4 +50,4 @@ Object.defineProperty(window, "matchMedia", {
     removeEventListener: vi.fn(),
     dispatchEvent: vi.fn(),
   })),
-});
+})

@@ -1,39 +1,39 @@
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import type { AccordionSummaryOwnProps } from "@mui/material/AccordionSummary";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import type { TransitionProps } from "@mui/material/transitions";
-import PropTypes from "prop-types";
-import type { FC } from "react";
-import { memo, useCallback, useRef, useState } from "react";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import Accordion from "@mui/material/Accordion"
+import AccordionDetails from "@mui/material/AccordionDetails"
+import type { AccordionSummaryOwnProps } from "@mui/material/AccordionSummary"
+import AccordionSummary from "@mui/material/AccordionSummary"
+import type { TransitionProps } from "@mui/material/transitions"
+import PropTypes from "prop-types"
+import type { FC } from "react"
+import { memo, useCallback, useRef, useState } from "react"
 
-import { useCategoryItemIds, useCategoryName } from "../../redux/selectors";
-import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem";
+import { useCategoryItemIds, useCategoryName } from "../../redux/selectors"
+import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem"
 
-const expandIcon: AccordionSummaryOwnProps["expandIcon"] = <ExpandMoreIcon />;
+const expandIcon: AccordionSummaryOwnProps["expandIcon"] = <ExpandMoreIcon />
 
 type Props = {
-  categoryId: number;
-};
+  categoryId: number
+}
 
 const transitionProps: TransitionProps = {
   unmountOnExit: true,
   mountOnEnter: true,
-};
+}
 
 const SideBarAccordionCategories: FC<Props> = ({ categoryId }) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null)
 
-  const categoryName = useCategoryName(categoryId);
+  const categoryName = useCategoryName(categoryId)
 
-  const categoryItemIds = useCategoryItemIds(categoryId);
+  const categoryItemIds = useCategoryItemIds(categoryId)
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   const toggle = useCallback(() => {
-    setOpen(prev => !prev);
-  }, []);
+    setOpen(prev => !prev)
+  }, [])
 
   return (
     <div>
@@ -41,13 +41,15 @@ const SideBarAccordionCategories: FC<Props> = ({ categoryId }) => {
         expanded={open}
         onChange={toggle}
         TransitionProps={transitionProps}
-        variant="outlined">
+        variant="outlined"
+      >
         <AccordionSummary
           role="button"
           aria-controls={`${categoryId}-Accordion`}
           ref={ref}
           className="shadow-sm"
-          expandIcon={expandIcon}>
+          expandIcon={expandIcon}
+        >
           {categoryName}
         </AccordionSummary>
         <AccordionDetails className="text-center mw-7">
@@ -60,11 +62,11 @@ const SideBarAccordionCategories: FC<Props> = ({ categoryId }) => {
         </AccordionDetails>
       </Accordion>
     </div>
-  );
-};
+  )
+}
 
 SideBarAccordionCategories.propTypes = {
   categoryId: PropTypes.number.isRequired,
-};
+}
 
-export default memo<Props>(SideBarAccordionCategories);
+export default memo<Props>(SideBarAccordionCategories)

@@ -1,8 +1,8 @@
-import type { FC } from "react";
-import { memo } from "react";
+import type { FC } from "react"
+import { memo } from "react"
 
-import SearchResultsContainer from "../SearchResultsComponents/SearchResultsContainer";
-import InputFieldComponent from "./InputFieldComponent";
+import SearchResultsContainer from "../SearchResultsComponents/SearchResultsContainer"
+import InputFieldComponent from "./InputFieldComponent"
 
 const InputGroupComponent: FC = () => (
   <div className="row justify-content-center">
@@ -12,6 +12,6 @@ const InputGroupComponent: FC = () => (
       <SearchResultsContainer />
     </div>
   </div>
-);
+)
 
-export default memo(InputGroupComponent);
+export default memo(InputGroupComponent)

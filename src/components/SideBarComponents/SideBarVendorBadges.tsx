@@ -1,32 +1,32 @@
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import PropTypes from "prop-types";
-import type { FC } from "react";
-import { memo, useCallback, useMemo } from "react";
+import Checkbox from "@mui/material/Checkbox"
+import FormControlLabel from "@mui/material/FormControlLabel"
+import PropTypes from "prop-types"
+import type { FC } from "react"
+import { memo, useCallback, useMemo } from "react"
 
-import { toggledVendorForOneSearchResultItem } from "../../redux/addedSlice";
-import { useAppDispatch } from "../../redux/hooks";
+import { toggledVendorForOneSearchResultItem } from "../../redux/addedSlice"
+import { useAppDispatch } from "../../redux/hooks"
 import {
   useCheckIfAddedToVendor,
   useIsVendorChecked,
   useOfficialVendorName,
-} from "../../redux/selectors";
-import type { ItemIdAndVendorId } from "../../types/reduxHelperTypes";
+} from "../../redux/selectors"
+import type { ItemIdAndVendorId } from "../../types/reduxHelperTypes"
 
-type Props = ItemIdAndVendorId;
+type Props = ItemIdAndVendorId
 
 const SideBarVendorBadges: FC<Props> = ({ itemId, vendorId }) => {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
-  const officialVendorName = useOfficialVendorName(vendorId);
+  const officialVendorName = useOfficialVendorName(vendorId)
 
-  const checked = useIsVendorChecked(itemId, vendorId);
+  const checked = useIsVendorChecked(itemId, vendorId)
 
-  const disabled = useCheckIfAddedToVendor(vendorId, itemId);
+  const disabled = useCheckIfAddedToVendor(vendorId, itemId)
 
   const clickHandler = useCallback(() => {
-    dispatch(toggledVendorForOneSearchResultItem({ itemId, vendorId }));
-  }, [dispatch, itemId, vendorId]);
+    dispatch(toggledVendorForOneSearchResultItem({ itemId, vendorId }))
+  }, [dispatch, itemId, vendorId])
 
   const control = useMemo(
     () => (
@@ -37,8 +37,8 @@ const SideBarVendorBadges: FC<Props> = ({ itemId, vendorId }) => {
         size="small"
       />
     ),
-    [checked, clickHandler, disabled]
-  );
+    [checked, clickHandler, disabled],
+  )
 
   return (
     <FormControlLabel
@@ -47,12 +47,12 @@ const SideBarVendorBadges: FC<Props> = ({ itemId, vendorId }) => {
       disableTypography
       label={officialVendorName}
     />
-  );
-};
+  )
+}
 
 SideBarVendorBadges.propTypes = {
   itemId: PropTypes.number.isRequired,
   vendorId: PropTypes.number.isRequired,
-};
+}
 
-export default memo<Props>(SideBarVendorBadges);
+export default memo<Props>(SideBarVendorBadges)

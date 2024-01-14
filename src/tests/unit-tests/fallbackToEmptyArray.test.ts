@@ -1,10 +1,10 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest"
 
-import EMPTY_ARRAY from "../../utils/emptyArray";
-import fallbackToEmptyArray from "../../utils/fallbackToEmptyArray";
+import EMPTY_ARRAY from "../../utils/emptyArray"
+import fallbackToEmptyArray from "../../utils/fallbackToEmptyArray"
 
 describe("setToEmptyArray", () => {
   it(fallbackToEmptyArray, () => {
-    expect(fallbackToEmptyArray(undefined)).toBe(EMPTY_ARRAY);
-  });
-});
+    expect(fallbackToEmptyArray(undefined)).toBe(EMPTY_ARRAY)
+  })
+})

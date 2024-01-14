@@ -1,7 +1,7 @@
-import grey from "@mui/material/colors/grey";
-import { createTheme } from "@mui/material/styles";
-import type { Theme } from "@mui/material/styles/createTheme";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import grey from "@mui/material/colors/grey"
+import { createTheme } from "@mui/material/styles"
+import type { Theme } from "@mui/material/styles/createTheme"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 import {
   DARK_MODE_PAPER_BG,
@@ -9,17 +9,17 @@ import {
   LIGHT_MODE_SELECTED_BG,
   MAIN_COLOR,
   PRIMARY_TEXT,
-} from "./styles";
+} from "./styles"
 
 declare module "@mui/material/styles" {
   // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   interface BreakpointOverrides {
-    xs: true;
-    sm: true;
-    md: true;
-    lg: true;
-    xl: true;
-    xxl: true;
+    xs: true
+    sm: true
+    md: true
+    lg: true
+    xl: true
+    xxl: true
     // mobile: true;
     // tablet: true;
     // laptop: true;
@@ -27,7 +27,7 @@ declare module "@mui/material/styles" {
   }
 }
 
-export const useTypedMediaQuery = useMediaQuery<Theme>;
+export const useTypedMediaQuery = useMediaQuery<Theme>
 
 export const lightTheme = createTheme({
   breakpoints: {
@@ -61,7 +61,7 @@ export const lightTheme = createTheme({
       secondary: grey[800],
     },
   },
-});
+})
 
 export const darkTheme = createTheme({
   breakpoints: {
@@ -99,4 +99,4 @@ export const darkTheme = createTheme({
       secondary: grey[500],
     },
   },
-});
+})

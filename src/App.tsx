@@ -1,32 +1,30 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css"
+import "./App.css"
 
-import Paper from "@mui/material/Paper";
-import type { FC } from "react";
-import { memo } from "react";
+import Paper from "@mui/material/Paper"
+import type { FC } from "react"
+import { memo } from "react"
 
-import VendorColumnList from "./components/ColumnComponents/VendorColumnList";
-import InputGroupComponent from "./components/InputComponents/InputGroupComponent";
-import SideBarContainer from "./components/SideBarComponents/SideBarContainer";
-import TopNavbar from "./components/TopNavbarComponents/TopNavbar";
-import ColorModeProvider from "./contexts/ColorModeProvider";
-import { useGetMainQuery } from "./redux/apiSlice";
-import Column from "./shared/components/Column";
-import ErrorComponent from "./shared/components/ErrorComponent";
-import IsLoading from "./shared/components/IsLoading";
+import VendorColumnList from "./components/ColumnComponents/VendorColumnList"
+import InputGroupComponent from "./components/InputComponents/InputGroupComponent"
+import SideBarContainer from "./components/SideBarComponents/SideBarContainer"
+import TopNavbar from "./components/TopNavbarComponents/TopNavbar"
+import ColorModeProvider from "./contexts/ColorModeProvider"
+import { useGetMainQuery } from "./redux/apiSlice"
+import Column from "./shared/components/Column"
+import ErrorComponent from "./shared/components/ErrorComponent"
+import IsLoading from "./shared/components/IsLoading"
 
 const App: FC = () => {
-  const { isError, isLoading } = useGetMainQuery(undefined);
+  const { isError, isLoading } = useGetMainQuery(undefined)
 
-  if (isLoading) return <IsLoading />;
+  if (isLoading) return <IsLoading />
 
-  if (isError) return <ErrorComponent />;
+  if (isError) return <ErrorComponent />
 
   return (
     <ColorModeProvider>
-      <Paper
-        className="App"
-        id="App">
+      <Paper className="App" id="App">
         <TopNavbar />
         <div className="container-fluid">
           <div className="justify-content-center row">
@@ -53,7 +51,7 @@ const App: FC = () => {
         </div>
       </Paper>
     </ColorModeProvider>
-  );
-};
+  )
+}
 
-export default memo(App);
+export default memo(App)

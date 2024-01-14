@@ -1,5 +1,5 @@
-import type { AdaptersInitialStates } from "../types/reduxHelperTypes";
-import ENTITY_ADAPTERS from "./entityAdapters";
+import type { AdaptersInitialStates } from "../types/reduxHelperTypes"
+import ENTITY_ADAPTERS from "./entityAdapters"
 
 const ADAPTER_INITIAL_STATES: AdaptersInitialStates = {
   searchResults: ENTITY_ADAPTERS.searchResults.getInitialState(),
@@ -15,6 +15,6 @@ const ADAPTER_INITIAL_STATES: AdaptersInitialStates = {
   cartItems: ENTITY_ADAPTERS.cartItems.getInitialState(),
 
   itemVendors: ENTITY_ADAPTERS.itemVendors.getInitialState(),
-} as const satisfies AdaptersInitialStates;
+} as const satisfies AdaptersInitialStates
 
-export default ADAPTER_INITIAL_STATES;
+export default ADAPTER_INITIAL_STATES

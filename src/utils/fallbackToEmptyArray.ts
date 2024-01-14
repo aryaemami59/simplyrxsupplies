@@ -1,5 +1,5 @@
-import EMPTY_ARRAY from "./emptyArray";
-import isEmptyArray from "./predicates/isEmptyArray";
+import EMPTY_ARRAY from "./emptyArray"
+import isEmptyArray from "./predicates/isEmptyArray"
 
 /**
  * This function is used to maintain referential integrity of a brand new array that is usually the result of calling {@link Array.map} or {@link Array.filter}.
@@ -11,12 +11,12 @@ import isEmptyArray from "./predicates/isEmptyArray";
  */
 const fallbackToEmptyArray = <T>(array: T[] | undefined): T[] => {
   if (array == null) {
-    return EMPTY_ARRAY;
+    return EMPTY_ARRAY
   }
   if (Object.is(array, EMPTY_ARRAY)) {
-    return array;
+    return array
   }
-  return isEmptyArray(array) ? EMPTY_ARRAY : array;
-};
+  return isEmptyArray(array) ? EMPTY_ARRAY : array
+}
 
-export default fallbackToEmptyArray;
+export default fallbackToEmptyArray

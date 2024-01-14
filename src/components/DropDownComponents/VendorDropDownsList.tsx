@@ -1,11 +1,11 @@
-import type { FC } from "react";
-import { memo } from "react";
+import type { FC } from "react"
+import { memo } from "react"
 
-import useVendorIds from "../../hooks/useVendorIds";
-import VendorDropDown from "./VendorDropDown";
+import useVendorIds from "../../hooks/useVendorIds"
+import VendorDropDown from "./VendorDropDown"
 
 const VendorDropDownsList: FC = () => {
-  const vendorIds = useVendorIds();
+  const vendorIds = useVendorIds()
 
   return (
     <>
@@ -16,7 +16,7 @@ const VendorDropDownsList: FC = () => {
         />
       ))}
     </>
-  );
-};
+  )
+}
 
-export default memo(VendorDropDownsList);
+export default memo(VendorDropDownsList)

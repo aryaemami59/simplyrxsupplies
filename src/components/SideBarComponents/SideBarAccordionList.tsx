@@ -1,14 +1,14 @@
-import type { FC } from "react";
-import { memo } from "react";
+import type { FC } from "react"
+import { memo } from "react"
 
-import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors";
-import { useAppSelector } from "../../redux/hooks";
-import SideBarAccordionCategories from "./SideBarAccordionCategories";
+import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors"
+import { useAppSelector } from "../../redux/hooks"
+import SideBarAccordionCategories from "./SideBarAccordionCategories"
 
 const SideBarAccordionList: FC = () => {
   const categoryIds = useAppSelector(
-    ADAPTER_SELECTORS.GLOBAL.categories.selectIds
-  );
+    ADAPTER_SELECTORS.GLOBAL.categories.selectIds,
+  )
 
   return (
     <>
@@ -19,7 +19,7 @@ const SideBarAccordionList: FC = () => {
         />
       ))}
     </>
-  );
-};
+  )
+}
 
-export default memo(SideBarAccordionList);
+export default memo(SideBarAccordionList)

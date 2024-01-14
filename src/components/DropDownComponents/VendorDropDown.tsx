@@ -1,24 +1,24 @@
-import Button from "@mui/material/Button";
-import type { MenuProps } from "@mui/material/Menu";
-import Menu from "@mui/material/Menu";
-import type { MenuListProps } from "@mui/material/MenuList";
-import type { PopoverOrigin } from "@mui/material/Popover";
-import PropTypes from "prop-types";
-import type { FC, MouseEventHandler } from "react";
-import { memo, useCallback, useState } from "react";
+import Button from "@mui/material/Button"
+import type { MenuProps } from "@mui/material/Menu"
+import Menu from "@mui/material/Menu"
+import type { MenuListProps } from "@mui/material/MenuList"
+import type { PopoverOrigin } from "@mui/material/Popover"
+import PropTypes from "prop-types"
+import type { FC, MouseEventHandler } from "react"
+import { memo, useCallback, useState } from "react"
 
-import { useOfficialVendorName, useVendorItemIds } from "../../redux/selectors";
-import SingleDropDown from "./SingleDropDown";
+import { useOfficialVendorName, useVendorItemIds } from "../../redux/selectors"
+import SingleDropDown from "./SingleDropDown"
 
 const transformOrigin: PopoverOrigin = {
   horizontal: "left",
   vertical: "top",
-};
+}
 
 const anchorOrigin: PopoverOrigin = {
   vertical: "bottom",
   horizontal: "left",
-};
+}
 
 const menuListProps: MenuListProps = {
   "aria-labelledby": "menu-list",
@@ -27,34 +27,34 @@ const menuListProps: MenuListProps = {
   style: {
     maxHeight: "calc(100vh - 54px)",
   },
-};
+}
 
 const paperProps: MenuProps["slotProps"] = {
   paper: {
     className: "paper",
   },
-};
+}
 
 type Props = {
-  vendorId: number;
-};
+  vendorId: number
+}
 
 const VendorDropDown: FC<Props> = ({ vendorId }) => {
-  const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null);
+  const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
 
-  const open = !!anchorElement;
+  const open = !!anchorElement
 
-  const officialVendorName = useOfficialVendorName(vendorId);
+  const officialVendorName = useOfficialVendorName(vendorId)
 
-  const itemIds = useVendorItemIds(vendorId);
+  const itemIds = useVendorItemIds(vendorId)
 
   const handleOpen: MouseEventHandler<HTMLElement> = useCallback(event => {
-    setAnchorElement(event.currentTarget);
-  }, []);
+    setAnchorElement(event.currentTarget)
+  }, [])
 
   const handleClose: MouseEventHandler<HTMLElement> = useCallback(() => {
-    setAnchorElement(null);
-  }, []);
+    setAnchorElement(null)
+  }, [])
 
   return (
     <>
@@ -66,7 +66,8 @@ const VendorDropDown: FC<Props> = ({ vendorId }) => {
         disableElevation
         id={`${vendorId}`}
         onClick={handleOpen}
-        variant="contained">
+        variant="contained"
+      >
         {officialVendorName}
       </Button>
       <Menu
@@ -81,7 +82,8 @@ const VendorDropDown: FC<Props> = ({ vendorId }) => {
         open={open}
         slotProps={paperProps}
         transformOrigin={transformOrigin}
-        variant="menu">
+        variant="menu"
+      >
         {itemIds.map(itemId => (
           <SingleDropDown
             key={`${itemId}-${vendorId}`}
@@ -91,11 +93,11 @@ const VendorDropDown: FC<Props> = ({ vendorId }) => {
         ))}
       </Menu>
     </>
-  );
-};
+  )
+}
 
 VendorDropDown.propTypes = {
   vendorId: PropTypes.number.isRequired,
-};
+}
 
-export default memo<Props>(VendorDropDown);
+export default memo<Props>(VendorDropDown)

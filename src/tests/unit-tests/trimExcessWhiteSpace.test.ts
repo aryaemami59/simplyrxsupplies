@@ -1,9 +1,9 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest"
 
-import trimExcessWhiteSpace from "../../utils/search/trimExcessWhiteSpace";
+import trimExcessWhiteSpace from "../../utils/search/trimExcessWhiteSpace"
 
 describe("trimExcessWhiteSpace", () => {
   it(trimExcessWhiteSpace, () => {
-    expect(trimExcessWhiteSpace("   10 Dram Vials    ")).toBe("10 dram vials");
-  });
-});
+    expect(trimExcessWhiteSpace("   10 Dram Vials    ")).toBe("10 dram vials")
+  })
+})

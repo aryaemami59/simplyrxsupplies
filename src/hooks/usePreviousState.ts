@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef } from "react"
 
 /**
  * Accepts a state value as a parameter and returns the previous state value.
@@ -6,17 +6,17 @@ import { useRef } from "react";
  * @returns The previous state.
  */
 const usePreviousState = <T extends NonNullable<unknown>>(
-  state: T
+  state: T,
 ): T | undefined => {
-  const currentRef = useRef<T>(state);
-  const previousRef = useRef<T>();
+  const currentRef = useRef<T>(state)
+  const previousRef = useRef<T>()
 
   if (currentRef.current !== state) {
-    previousRef.current = currentRef.current;
-    currentRef.current = state;
+    previousRef.current = currentRef.current
+    currentRef.current = state
   }
 
-  return previousRef.current;
-};
+  return previousRef.current
+}
 
-export default usePreviousState;
+export default usePreviousState

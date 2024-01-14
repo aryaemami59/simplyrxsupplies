@@ -1,29 +1,29 @@
-import type { FC } from "react";
-import { memo } from "react";
+import type { FC } from "react"
+import { memo } from "react"
 
-import useItemId from "../../../hooks/useItemId";
-import useVendorId from "../../../hooks/useVendorId";
+import useItemId from "../../../hooks/useItemId"
+import useVendorId from "../../../hooks/useVendorId"
 import {
   useItemName,
   useItemNumber,
   useOfficialVendorName,
-} from "../../../redux/selectors";
-import BarcodeImage from "./BarcodeImage";
-import RowBarcodeModal from "./ModalComponents/RowBarcodeModal";
-import PrintBarcodeIcon from "./PrintBarcodeIcon";
+} from "../../../redux/selectors"
+import BarcodeImage from "./BarcodeImage"
+import RowBarcodeModal from "./ModalComponents/RowBarcodeModal"
+import PrintBarcodeIcon from "./PrintBarcodeIcon"
 
 const RowBarcodeImage: FC = () => {
-  const vendorId = useVendorId();
+  const vendorId = useVendorId()
 
-  const itemId = useItemId();
+  const itemId = useItemId()
 
-  const officialVendorName = useOfficialVendorName(vendorId);
+  const officialVendorName = useOfficialVendorName(vendorId)
 
-  const itemName = useItemName(itemId);
+  const itemName = useItemName(itemId)
 
-  const itemNumber = useItemNumber(itemId);
+  const itemNumber = useItemNumber(itemId)
 
-  const header = `<h2>Item Name: </h2><h1>${itemName}</h1><h2>Item Number: </h2><h1>${itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`;
+  const header = `<h2>Item Name: </h2><h1>${itemName}</h1><h2>Item Number: </h2><h1>${itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`
 
   return (
     <div className="my-1 container-fluid">
@@ -39,7 +39,7 @@ const RowBarcodeImage: FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default memo(RowBarcodeImage);
+export default memo(RowBarcodeImage)

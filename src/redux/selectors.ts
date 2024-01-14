@@ -1,33 +1,33 @@
-import { createSelector, unstable_autotrackMemoize } from "reselect";
+import { createSelector, unstable_autotrackMemoize } from "reselect"
 
-import type { ItemNameAndKeywords } from "../types/api";
-import type { RootSelectorParamsProvider } from "../types/reduxHelperTypes";
-import fallbackToEmptyArray from "../utils/fallbackToEmptyArray";
-import setSelectorNames from "../utils/setSelectorNames";
+import type { ItemNameAndKeywords } from "../types/api"
+import type { RootSelectorParamsProvider } from "../types/reduxHelperTypes"
+import fallbackToEmptyArray from "../utils/fallbackToEmptyArray"
+import setSelectorNames from "../utils/setSelectorNames"
 import {
   ADAPTER_SELECTORS,
   getAllEntitySelectors,
   SIMPLE_SELECTORS,
-} from "./adapterSelectors";
-import { apiSelectors, selectCategoriesData } from "./apiSlice";
+} from "./adapterSelectors"
+import { apiSelectors, selectCategoriesData } from "./apiSlice"
 import {
   createParametricSelectorHooks,
   createSelectorWeakMap,
-} from "./createSelectors";
-import { DRAFT_SAFE_SELECTORS } from "./draftSafeSelectors";
-import type { RootState } from "./store";
-import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors";
+} from "./createSelectors"
+import { DRAFT_SAFE_SELECTORS } from "./draftSafeSelectors"
+import type { RootState } from "./store"
+import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors"
 
 const ROOT_SELECTOR_PARAMS_PROVIDER: RootSelectorParamsProvider = {
   getItemId: (state, itemId) => itemId,
   getCartIdAndItemId: (state, cartId, itemId) => itemId,
   getItemIdAndCartId: (state, itemId, cartId) => cartId,
-} as const satisfies RootSelectorParamsProvider;
+} as const satisfies RootSelectorParamsProvider
 
 export const selectVendorsLinks = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.vendors.selectById],
-  vendor => vendor?.link ?? ""
-);
+  vendor => vendor?.link ?? "",
+)
 
 export const selectItemNumber = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.items.selectById],
@@ -36,23 +36,23 @@ export const selectItemNumber = createSelectorWeakMap(
     memoizeOptions: {
       resultEqualityCheck: (a, b) => a === b,
     },
-  }
-);
+  },
+)
 
 export const selectItemSrc = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.items.selectById],
-  item => item?.src ?? ""
-);
+  item => item?.src ?? "",
+)
 
 export const selectItemName = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.items.selectById],
-  item => item?.name ?? ""
-);
+  item => item?.name ?? "",
+)
 
 export const selectVendorIdsByItemId = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.items.selectById],
-  item => fallbackToEmptyArray(item?.vendorIds)
-);
+  item => fallbackToEmptyArray(item?.vendorIds),
+)
 
 export const selectItemNamesAndKeywords = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.items.selectAll],
@@ -61,40 +61,41 @@ export const selectItemNamesAndKeywords = createSelectorWeakMap(
       name,
       keywords,
       id,
-    }))
-);
+    })),
+)
 
 export const selectCartsItemIdsLength = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.cart.selectAll],
-  carts => carts.map(({ itemIds }) => itemIds.length)
-);
+  carts => carts.map(({ itemIds }) => itemIds.length),
+)
 
 export const checkIfAnyItemsAdded = createSelectorWeakMap(
   [selectCartsItemIdsLength],
   itemIdsLengthArray =>
     itemIdsLengthArray.reduce<boolean>(
       (accumulator, itemIdsLength) => itemIdsLength > 0 || accumulator,
-      false
-    )
-);
+      false,
+    ),
+)
 
 export const selectCartItemsIds = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.cart.selectById],
-  cart => fallbackToEmptyArray(cart?.itemIds)
-);
+  cart => fallbackToEmptyArray(cart?.itemIds),
+)
 
 export const selectCartItemNamesStringified = createSelectorWeakMap(
   [selectCartItemsIds, ADAPTER_SELECTORS.GLOBAL.items.selectEntities],
   (cartItemIds, itemsEntities) =>
     cartItemIds
       .map<string>(cartItemId => itemsEntities[cartItemId]?.name ?? "")
-      .join(", ")
-);
+      .join(", "),
+)
 
 export const selectCheckedVendorIds = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.itemVendors.selectById],
-  checkedVendorItem => fallbackToEmptyArray(checkedVendorItem?.checkedVendorIds)
-);
+  checkedVendorItem =>
+    fallbackToEmptyArray(checkedVendorItem?.checkedVendorIds),
+)
 
 // console.log(Object.keys(selectCheckedVendorIds))
 
@@ -104,30 +105,30 @@ export const isVendorChecked = createSelectorWeakMap(
     ROOT_SELECTOR_PARAMS_PROVIDER.getItemIdAndCartId,
   ],
   (checkedVendorItem, vendorId) =>
-    !!checkedVendorItem?.checkedVendorIds.includes(vendorId)
-);
+    !!checkedVendorItem?.checkedVendorIds.includes(vendorId),
+)
 
 export const isMinimized = createSelectorWeakMap(
   [
     ADAPTER_SELECTORS.GLOBAL.cartItems.selectById,
     ROOT_SELECTOR_PARAMS_PROVIDER.getCartIdAndItemId,
   ],
-  (cartItems, itemId) => !!cartItems?.minimizedItemIds.includes(itemId)
-);
+  (cartItems, itemId) => !!cartItems?.minimizedItemIds.includes(itemId),
+)
 
 export const selectCategoryName = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.categories.selectById],
-  category => category?.name ?? "Vials"
-);
+  category => category?.name ?? "Vials",
+)
 
 export const selectCategoryItemIds = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.categories.selectById],
-  category => fallbackToEmptyArray(category?.itemIds)
-);
+  category => fallbackToEmptyArray(category?.itemIds),
+)
 export const selectCategoryItemIds1 = createSelector(
   ADAPTER_SELECTORS.GLOBAL.categories.selectById,
-  category => fallbackToEmptyArray(category?.itemIds)
-);
+  category => fallbackToEmptyArray(category?.itemIds),
+)
 
 // export const selectCategoryItemIds1 = createSelector(
 //   [
@@ -149,30 +150,30 @@ export const selectCategoryItemIds2 = createSelectorWeakMap(
   [
     selectCategoriesData,
     (state, id: number) => {
-      console.log("selectCategoryItemIds2 input run");
-      return id;
+      console.log("selectCategoryItemIds2 input run")
+      return id
     },
   ],
   (categories, id) => {
-    console.log("selectCategoryItemIds2 output");
-    return SIMPLE_SELECTORS.categories.selectById(categories, id)?.itemIds;
-  }
-);
+    console.log("selectCategoryItemIds2 output")
+    return SIMPLE_SELECTORS.categories.selectById(categories, id)?.itemIds
+  },
+)
 
 export const checkIfAddedToVendor = createSelectorWeakMap(
   [selectCartItemsIds, ROOT_SELECTOR_PARAMS_PROVIDER.getCartIdAndItemId],
-  (cartItemsIds, itemId) => cartItemsIds.includes(itemId)
-);
+  (cartItemsIds, itemId) => cartItemsIds.includes(itemId),
+)
 
 export const selectCartItemsLength = createSelectorWeakMap(
   [selectCartItemsIds],
-  cartItemIds => cartItemIds.length
-);
+  cartItemIds => cartItemIds.length,
+)
 
 export const checkIfAnyAddedToOneVendor = createSelectorWeakMap(
   [selectCartItemsLength],
-  cartItemIdsLength => cartItemIdsLength > 0
-);
+  cartItemIdsLength => cartItemIdsLength > 0,
+)
 
 export const selectQRCodeText = createSelectorWeakMap(
   [
@@ -183,23 +184,23 @@ export const selectQRCodeText = createSelectorWeakMap(
   (cartItemIds, itemEntities, vendor) =>
     cartItemIds
       .map(cartItemId => itemEntities[cartItemId]?.itemNumber)
-      .join(vendor?.joinChars)
-);
+      .join(vendor?.joinChars),
+)
 
 export const selectOfficialVendorName = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.vendors.selectById],
-  vendor => vendor?.officialName ?? "GNFR"
-);
+  vendor => vendor?.officialName ?? "GNFR",
+)
 
 export const selectVendorItemIds = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.vendors.selectById],
-  vendor => fallbackToEmptyArray(vendor?.itemIds)
-);
+  vendor => fallbackToEmptyArray(vendor?.itemIds),
+)
 export const selectVendorItemIds1 = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.vendors.selectById],
   vendor => fallbackToEmptyArray(vendor?.itemIds),
-  { memoize: unstable_autotrackMemoize }
-);
+  { memoize: unstable_autotrackMemoize },
+)
 
 export const selectCartsByItemId = createSelectorWeakMap(
   [
@@ -208,26 +209,26 @@ export const selectCartsByItemId = createSelectorWeakMap(
   ],
   (item, carts) =>
     fallbackToEmptyArray(
-      carts.filter(cart => item?.vendorIds.includes(cart.id))
-    )
-);
+      carts.filter(cart => item?.vendorIds.includes(cart.id)),
+    ),
+)
 
 export const checkIfAddedToAllVendors = createSelectorWeakMap(
   [selectCartsByItemId, ROOT_SELECTOR_PARAMS_PROVIDER.getItemId],
   (carts, itemId) =>
     carts.reduce<boolean>(
       (accumulator, cart) => cart.itemIds.includes(itemId) && accumulator,
-      true
-    )
-);
+      true,
+    ),
+)
 // export const checkIfAddedToAllVendors1 = createSelector(
 //   (state: RootState) => ({ ...state.added }),
 //   added => added
 // )
 export const selectIfAddedToAllVendors2 = createSelector(
   [(state: RootState) => state.added],
-  added => added
-);
+  added => added,
+)
 
 export const parametricSelectors = {
   selectVendorsLinks,
@@ -250,7 +251,7 @@ export const parametricSelectors = {
   selectVendorItemIds,
   selectCartsByItemId,
   checkIfAddedToAllVendors,
-};
+}
 
 export const {
   useCartItemNamesStringified,
@@ -273,7 +274,7 @@ export const {
   useVendorIdsByItemId,
   useVendorItemIds,
   useVendorsLinks,
-} = createParametricSelectorHooks(parametricSelectors);
+} = createParametricSelectorHooks(parametricSelectors)
 
 export const mainSelectors = {
   selectItemNumber,
@@ -297,7 +298,7 @@ export const mainSelectors = {
   selectCartsByItemId,
   checkIfAddedToAllVendors,
   selectCartsItemIdsLength,
-} as const;
+} as const
 
 const allSelectors = setSelectorNames({
   ...mainSelectors,
@@ -305,26 +306,26 @@ const allSelectors = setSelectorNames({
   ...DRAFT_SAFE_SELECTORS,
   ...getAllEntitySelectors(),
   ...TOP_LEVEL_SELECTORS,
-} as const);
+} as const)
 
 export const resetAllSelectors = () => {
   Object.values(allSelectors).forEach(e => {
     // console.log(e.name)
     // console.log(Object.keys(e))
     if ("clearCache" in e) {
-      e.clearCache();
+      e.clearCache()
     }
     if ("resetRecomputations" in e) {
-      e.resetRecomputations();
+      e.resetRecomputations()
     }
     if ("memoizedResultFunc" in e && "clearCache" in e.memoizedResultFunc) {
-      e.memoizedResultFunc.clearCache();
+      e.memoizedResultFunc.clearCache()
     }
-  });
-};
+  })
+}
 
 // export const useOfficialVendorName = createParametricSelectorHook(
 //   selectOfficialVendorName
 // );
 
-export default allSelectors;
+export default allSelectors

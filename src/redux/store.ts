@@ -1,12 +1,12 @@
-import { combineSlices, configureStore } from "@reduxjs/toolkit";
-import { createLogger } from "redux-logger";
+import { combineSlices, configureStore } from "@reduxjs/toolkit"
+import { createLogger } from "redux-logger"
 
-import addedSlice from "./addedSlice";
-import apiSlice from "./apiSlice";
+import addedSlice from "./addedSlice"
+import apiSlice from "./apiSlice"
 
-export const rootReducer = combineSlices(addedSlice, apiSlice);
+export const rootReducer = combineSlices(addedSlice, apiSlice)
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof rootReducer>
 
 export const setupStore = (preloadedState?: Partial<RootState>) =>
   configureStore({
@@ -25,14 +25,14 @@ export const setupStore = (preloadedState?: Partial<RootState>) =>
                 collapsed: true,
                 diff: true,
                 duration: true,
-              })
+              }),
             ),
     reducer: rootReducer,
     preloadedState,
     enhancers: getDefaultEnhancers => getDefaultEnhancers(),
-  });
+  })
 
-export const store = setupStore();
+export const store = setupStore()
 
-export type AppStore = ReturnType<typeof setupStore>;
-export type AppDispatch = AppStore["dispatch"];
+export type AppStore = ReturnType<typeof setupStore>
+export type AppDispatch = AppStore["dispatch"]

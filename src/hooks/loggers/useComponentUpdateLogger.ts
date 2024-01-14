@@ -1,6 +1,6 @@
-import { useDebugValue, useRef } from "react";
+import { useDebugValue, useRef } from "react"
 
-import useComponentDidUpdate from "../useComponentDidUpdate";
+import useComponentDidUpdate from "../useComponentDidUpdate"
 
 /**
  * Use only in development mode
@@ -9,13 +9,13 @@ import useComponentDidUpdate from "../useComponentDidUpdate";
  */
 const useComponentUpdateLogger = () => {
   const componentName =
-    new Error().stack?.split("\n")[2]?.split(" ")[5] ?? "Component";
-  const renderCount = useRef(0);
+    new Error().stack?.split("\n")[2]?.split(" ")[5] ?? "Component"
+  const renderCount = useRef(0)
 
-  useDebugValue([componentName, renderCount.current], value => value);
+  useDebugValue([componentName, renderCount.current], value => value)
 
   useComponentDidUpdate(() => {
-    renderCount.current += 1;
+    renderCount.current += 1
     console.log(
       `%c${componentName}%c Re-rendered %c${renderCount.current}%c ${
         renderCount.current === 1 ? "time" : "times"
@@ -23,9 +23,9 @@ const useComponentUpdateLogger = () => {
       "color: violet; font-size: 15px;",
       "",
       "color: violet; font-size: 15px;",
-      ""
-    );
-  });
-};
+      "",
+    )
+  })
+}
 
-export default useComponentUpdateLogger;
+export default useComponentUpdateLogger

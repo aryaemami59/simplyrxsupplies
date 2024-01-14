@@ -1,7 +1,7 @@
-import type { FC } from "react";
-import { memo } from "react";
+import type { FC } from "react"
+import { memo } from "react"
 
-import SideBarAccordionList from "./SideBarAccordionList";
+import SideBarAccordionList from "./SideBarAccordionList"
 
 const SideBarContainer: FC = () => (
   <nav className="flex-column overflow-auto sticky-top c-overflow-x-hidden shadow sidebar-container">
@@ -9,6 +9,6 @@ const SideBarContainer: FC = () => (
       <SideBarAccordionList />
     </div>
   </nav>
-);
+)
 
-export default memo(SideBarContainer);
+export default memo(SideBarContainer)

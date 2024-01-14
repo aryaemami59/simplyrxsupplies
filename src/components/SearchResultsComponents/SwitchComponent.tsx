@@ -1,48 +1,43 @@
-import FormControlLabel from "@mui/material/FormControlLabel";
-import type { SwitchProps } from "@mui/material/Switch";
-import Switch from "@mui/material/Switch";
-import PropTypes from "prop-types";
-import type { FC } from "react";
-import { memo, useCallback } from "react";
+import FormControlLabel from "@mui/material/FormControlLabel"
+import type { SwitchProps } from "@mui/material/Switch"
+import Switch from "@mui/material/Switch"
+import PropTypes from "prop-types"
+import type { FC } from "react"
+import { memo, useCallback } from "react"
 
-import { toggledVendorForOneSearchResultItem } from "../../redux/addedSlice";
-import { useAppDispatch } from "../../redux/hooks";
+import { toggledVendorForOneSearchResultItem } from "../../redux/addedSlice"
+import { useAppDispatch } from "../../redux/hooks"
 import {
   useCheckIfAddedToVendor,
   useIsVendorChecked,
   useOfficialVendorName,
-} from "../../redux/selectors";
+} from "../../redux/selectors"
 
 const inputProps: SwitchProps["inputProps"] = {
   className: "shadow",
-} as const;
+} as const
 
-const control = (
-  <Switch
-    inputProps={inputProps}
-    size="small"
-  />
-);
+const control = <Switch inputProps={inputProps} size="small" />
 
 type Props = {
-  visibleListId: number;
-  vendorId: number;
-};
+  visibleListId: number
+  vendorId: number
+}
 
 const SwitchComponent: FC<Props> = ({ vendorId, visibleListId }) => {
-  const officialVendorName = useOfficialVendorName(vendorId);
+  const officialVendorName = useOfficialVendorName(vendorId)
 
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
-  const checked = useIsVendorChecked(visibleListId, vendorId);
+  const checked = useIsVendorChecked(visibleListId, vendorId)
 
-  const disabled = useCheckIfAddedToVendor(vendorId, visibleListId);
+  const disabled = useCheckIfAddedToVendor(vendorId, visibleListId)
 
   const clickHandler = useCallback(() => {
     dispatch(
-      toggledVendorForOneSearchResultItem({ itemId: visibleListId, vendorId })
-    );
-  }, [dispatch, vendorId, visibleListId]);
+      toggledVendorForOneSearchResultItem({ itemId: visibleListId, vendorId }),
+    )
+  }, [dispatch, vendorId, visibleListId])
 
   return (
     <FormControlLabel
@@ -54,12 +49,12 @@ const SwitchComponent: FC<Props> = ({ vendorId, visibleListId }) => {
       label={officialVendorName}
       onChange={clickHandler}
     />
-  );
-};
+  )
+}
 
 SwitchComponent.propTypes = {
   vendorId: PropTypes.number.isRequired,
   visibleListId: PropTypes.number.isRequired,
-};
+}
 
-export default memo<Props>(SwitchComponent);
+export default memo<Props>(SwitchComponent)

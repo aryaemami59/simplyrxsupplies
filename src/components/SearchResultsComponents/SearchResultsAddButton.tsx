@@ -1,28 +1,28 @@
-import AddIcon from "@mui/icons-material/Add";
-import Button from "@mui/material/Button";
-import PropTypes from "prop-types";
-import type { FC, MouseEventHandler } from "react";
-import { memo, useCallback } from "react";
+import AddIcon from "@mui/icons-material/Add"
+import Button from "@mui/material/Button"
+import PropTypes from "prop-types"
+import type { FC, MouseEventHandler } from "react"
+import { memo, useCallback } from "react"
 
-import { itemAddedToCarts } from "../../redux/addedSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { checkIfAddedToAllVendors } from "../../redux/selectors";
+import { itemAddedToCarts } from "../../redux/addedSlice"
+import { useAppDispatch, useAppSelector } from "../../redux/hooks"
+import { checkIfAddedToAllVendors } from "../../redux/selectors"
 
-const startIcon = <AddIcon />;
+const startIcon = <AddIcon />
 
 type Props = {
-  visibleListId: number;
-};
+  visibleListId: number
+}
 
 const SearchResultsAddButton: FC<Props> = ({ visibleListId }) => {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
   const ifAddedToAllVendors = useAppSelector(state =>
-    checkIfAddedToAllVendors(state, visibleListId)
-  );
+    checkIfAddedToAllVendors(state, visibleListId),
+  )
 
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
-    dispatch(itemAddedToCarts({ itemId: visibleListId }));
-  }, [dispatch, visibleListId]);
+    dispatch(itemAddedToCarts({ itemId: visibleListId }))
+  }, [dispatch, visibleListId])
 
   return (
     <Button
@@ -31,14 +31,15 @@ const SearchResultsAddButton: FC<Props> = ({ visibleListId }) => {
       disabled={ifAddedToAllVendors}
       onClick={clickHandler}
       startIcon={startIcon}
-      variant="contained">
+      variant="contained"
+    >
       Add
     </Button>
-  );
-};
+  )
+}
 
 SearchResultsAddButton.propTypes = {
   visibleListId: PropTypes.number.isRequired,
-};
+}
 
-export default memo<Props>(SearchResultsAddButton);
+export default memo<Props>(SearchResultsAddButton)

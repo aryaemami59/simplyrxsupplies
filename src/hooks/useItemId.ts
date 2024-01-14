@@ -1,7 +1,7 @@
-import { useContext } from "react";
+import { useContext } from "react"
 
-import { ItemIdContext } from "../contexts/ItemIdProvider";
+import { ItemIdContext } from "../contexts/ItemIdProvider"
 
-const useItemId = () => useContext(ItemIdContext);
+const useItemId = () => useContext(ItemIdContext)
 
-export default useItemId;
+export default useItemId

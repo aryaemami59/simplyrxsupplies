@@ -1,35 +1,35 @@
-import { faMaximize } from "@fortawesome/free-solid-svg-icons/faMaximize";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import type { FC } from "react";
-import { memo, useCallback, useState } from "react";
+import { faMaximize } from "@fortawesome/free-solid-svg-icons/faMaximize"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import IconButton from "@mui/material/IconButton"
+import Tooltip from "@mui/material/Tooltip"
+import type { FC } from "react"
+import { memo, useCallback, useState } from "react"
 
-import useVendorId from "../../../hooks/useVendorId";
-import { maximizedAllItemsInCart } from "../../../redux/addedSlice";
-import { useAppDispatch } from "../../../redux/hooks";
+import useVendorId from "../../../hooks/useVendorId"
+import { maximizedAllItemsInCart } from "../../../redux/addedSlice"
+import { useAppDispatch } from "../../../redux/hooks"
 
-const title = "Expand All Items";
+const title = "Expand All Items"
 
-const startIcon = <FontAwesomeIcon icon={faMaximize} />;
+const startIcon = <FontAwesomeIcon icon={faMaximize} />
 
 const ExpandAllButton: FC = () => {
-  const vendorId = useVendorId();
-  const dispatch = useAppDispatch();
+  const vendorId = useVendorId()
+  const dispatch = useAppDispatch()
 
   const toggleCollapse = useCallback(() => {
-    dispatch(maximizedAllItemsInCart({ vendorId }));
-  }, [dispatch, vendorId]);
+    dispatch(maximizedAllItemsInCart({ vendorId }))
+  }, [dispatch, vendorId])
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   const showTooltip = useCallback(() => {
-    setOpen(true);
-  }, []);
+    setOpen(true)
+  }, [])
 
   const hideTooltip = useCallback(() => {
-    setOpen(false);
-  }, []);
+    setOpen(false)
+  }, [])
 
   return (
     <Tooltip
@@ -39,15 +39,17 @@ const ExpandAllButton: FC = () => {
       onClose={hideTooltip}
       onOpen={showTooltip}
       open={open}
-      title={title}>
+      title={title}
+    >
       <IconButton
         className="d-inline-block w-auto"
         onClick={toggleCollapse}
-        size="large">
+        size="large"
+      >
         {startIcon}
       </IconButton>
     </Tooltip>
-  );
-};
+  )
+}
 
-export default memo(ExpandAllButton);
+export default memo(ExpandAllButton)

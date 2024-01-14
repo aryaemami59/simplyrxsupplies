@@ -1,6 +1,6 @@
-import isString from "./isString";
+import isString from "./isString"
 
 const isArrayOfStrings = (value: unknown): value is string[] =>
-  Array.isArray(value) && value.every(isString);
+  Array.isArray(value) && value.every(isString)
 
-export default isArrayOfStrings;
+export default isArrayOfStrings

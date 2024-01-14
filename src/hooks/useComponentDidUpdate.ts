@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react"
 
 /**
  * Runs an effect anytime the component re-renders.
@@ -7,28 +7,28 @@ import { useEffect, useRef } from "react";
  */
 const useComponentDidUpdate = <T extends () => void>(
   callback: T,
-  deps?: readonly unknown[]
+  deps?: readonly unknown[],
 ) => {
-  const didMount = useRef(false);
-  const callbackRef = useRef(callback);
+  const didMount = useRef(false)
+  const callbackRef = useRef(callback)
 
   useEffect(() => {
-    callbackRef.current = callback;
-  }, [callback]);
+    callbackRef.current = callback
+  }, [callback])
 
   useEffect(() => {
-    didMount.current = false;
+    didMount.current = false
     return () => {
-      didMount.current = false;
-    };
-  }, []);
+      didMount.current = false
+    }
+  }, [])
 
   useEffect(() => {
     if (didMount.current) {
-      callbackRef.current();
-    } else didMount.current = true;
+      callbackRef.current()
+    } else didMount.current = true
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps);
-};
+  }, deps)
+}
 
-export default useComponentDidUpdate;
+export default useComponentDidUpdate

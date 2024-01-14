@@ -2,48 +2,48 @@ import type {
   queries,
   RenderOptions,
   RenderResult,
-} from "@testing-library/react";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import mediaQuery from "css-mediaquery";
-import type { FC, ReactElement } from "react";
-import { Provider } from "react-redux";
+} from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
+import mediaQuery from "css-mediaquery"
+import type { FC, ReactElement } from "react"
+import { Provider } from "react-redux"
 
-import { endpoints } from "../../redux/apiSlice";
-import { type AppStore, type RootState,setupStore } from "../../redux/store";
-import type { Supplies } from "../../types/api";
+import { endpoints } from "../../redux/apiSlice"
+import { type AppStore, type RootState, setupStore } from "../../redux/store"
+import type { Supplies } from "../../types/api"
 import type {
   PartialObjectProperties,
   PropsWithRequiredChildren,
   UnknownObject,
   WritableDeep,
-} from "../../types/tsHelpers";
-import capitalize from "../../utils/capitalize";
+} from "../../types/tsHelpers"
+import capitalize from "../../utils/capitalize"
 
 export const setupWithNoUI = async (
-  options: SetupWithNoUIOptions = {}
+  options: SetupWithNoUIOptions = {},
 ): Promise<SetupWithNoUIResults> => {
-  const { fetch = true } = options;
-  const store = setupStore();
+  const { fetch = true } = options
+  const store = setupStore()
   if (fetch) {
-    await store.dispatch(endpoints.getMain.initiate());
+    await store.dispatch(endpoints.getMain.initiate())
   }
-  const initialState = store.getState();
-  return { store, initialState };
-};
+  const initialState = store.getState()
+  return { store, initialState }
+}
 
 export type ByRole = {
   [K in keyof typeof queries]: K extends `${infer S extends string}ByRole`
     ? `${S}ByRole`
-    : never;
-}[keyof typeof queries];
+    : never
+}[keyof typeof queries]
 
-export type PickByRole = Pick<typeof queries, ByRole>;
+export type PickByRole = Pick<typeof queries, ByRole>
 
 export type CustomQueries<T extends Parameters<typeof screen.getAllByRole>[0]> =
   {
-    [K in ByRole as InsertRole<K, T>]: () => ReturnType<PickByRole[K]>;
-  };
+    [K in ByRole as InsertRole<K, T>]: () => ReturnType<PickByRole[K]>
+  }
 
 export type InsertRole<
   K extends ByRole,
@@ -52,7 +52,7 @@ export type InsertRole<
   ? `${U}` extends `${infer S extends string}All`
     ? `${S}All${Capitalize<T>}sByRole`
     : `${U}${Capitalize<T>}ByRole`
-  : `${T}ByRole`;
+  : `${T}ByRole`
 
 export const queryByRoleFactory = <
   T extends HTMLElement,
@@ -61,10 +61,10 @@ export const queryByRoleFactory = <
   >[0],
 >(
   role: P,
-  options: Parameters<typeof screen.getAllByRole<T>>[1]
+  options: Parameters<typeof screen.getAllByRole<T>>[1],
 ): CustomQueries<P> => {
-  const args = [role, options] as const;
-  const capitalizedRole = capitalize(role);
+  const args = [role, options] as const
+  const capitalizedRole = capitalize(role)
   const customQueries: CustomQueries<P> = {
     [`get${capitalizedRole}ByRole` as const]: () =>
       screen.getByRole<T>(...args),
@@ -78,24 +78,24 @@ export const queryByRoleFactory = <
       screen.findByRole<T>(...args),
     [`findAll${capitalizedRole}sByRole` as const]: async () =>
       screen.findAllByRole<T>(...args),
-  } as CustomQueries<P>;
-  return customQueries;
-};
+  } as CustomQueries<P>
+  return customQueries
+}
 
-export type UserEvent = ReturnType<typeof userEvent.setup>;
+export type UserEvent = ReturnType<typeof userEvent.setup>
 
 export type UserEventOptions = NonNullable<
   Parameters<typeof userEvent.setup>[0]
->;
+>
 
 /**
  * This type extends the default options for render from RTL, as well as allows the user to specify other things such as initialState, store.
  */
 export type ExtendedRenderOptions = {
-  preloadedState?: Partial<RootState>;
-  store?: AppStore;
-  fetch?: boolean;
-} & Omit<RenderOptions, "queries">;
+  preloadedState?: Partial<RootState>
+  store?: AppStore
+  fetch?: boolean
+} & Omit<RenderOptions, "queries">
 
 /**
  * A wrapper for {@link render}
@@ -107,7 +107,7 @@ export type ExtendedRenderOptions = {
 export const renderWithProviders = async (
   ui: ReactElement,
   extendedRenderOptions: ExtendedRenderOptions = {},
-  userEventOptions?: UserEventOptions
+  userEventOptions?: UserEventOptions,
 ): Promise<ExtendedRenderResult> => {
   const {
     preloadedState = {},
@@ -115,16 +115,16 @@ export const renderWithProviders = async (
     store = setupStore(preloadedState),
     fetch = true,
     ...renderOptions
-  } = extendedRenderOptions;
+  } = extendedRenderOptions
   if (fetch) {
-    await store.dispatch(endpoints.getMain.initiate());
+    await store.dispatch(endpoints.getMain.initiate())
   }
 
-  const user = userEvent.setup(userEventOptions);
+  const user = userEvent.setup(userEventOptions)
 
   const Wrapper: FC<PropsWithRequiredChildren> = ({ children }) => (
     <Provider store={store}>{children}</Provider>
-  );
+  )
 
   // Return an object with the store and all of RTL's query functions
   return {
@@ -134,15 +134,15 @@ export const renderWithProviders = async (
       wrapper: Wrapper,
       ...renderOptions,
     }) satisfies RenderResult),
-  };
-};
+  }
+}
 
 export type ExtendedRenderResult = RenderResult & {
-  store: AppStore;
-  user: UserEvent;
-};
+  store: AppStore
+  user: UserEvent
+}
 
-export type NewSuppliesSample = PartialObjectProperties<Supplies>;
+export type NewSuppliesSample = PartialObjectProperties<Supplies>
 
 export const newSuppliesSample = {
   items: [
@@ -187,19 +187,19 @@ export const newSuppliesSample = {
       name: "Vials",
     },
   ],
-} satisfies NewSuppliesSample;
+} satisfies NewSuppliesSample
 
 export const unFreeze = <T extends UnknownObject>(object: T): WritableDeep<T> =>
-  JSON.parse(JSON.stringify(object)) as WritableDeep<T>;
+  JSON.parse(JSON.stringify(object)) as WritableDeep<T>
 
 export type SetupWithNoUIOptions = {
-  fetch?: boolean;
-};
+  fetch?: boolean
+}
 
 export type SetupWithNoUIResults = {
-  store: AppStore;
-  initialState: RootState;
-};
+  store: AppStore
+  initialState: RootState
+}
 
 export const createMatchMedia = (width: number) => (query: string) => ({
   matches: mediaQuery.match(query, { width }),
@@ -210,8 +210,8 @@ export const createMatchMedia = (width: number) => (query: string) => ({
   addEventListener: () => {},
   removeEventListener: () => {},
   dispatchEvent: () => true,
-});
+})
 
 export const resizeScreenSize = (width: number) => {
-  window.matchMedia = createMatchMedia(width);
-};
+  window.matchMedia = createMatchMedia(width)
+}

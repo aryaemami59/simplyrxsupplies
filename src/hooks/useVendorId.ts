@@ -1,7 +1,7 @@
-import { useContext } from "react";
+import { useContext } from "react"
 
-import { VendorIdContext } from "../contexts/VendorIdProvider";
+import { VendorIdContext } from "../contexts/VendorIdProvider"
 
-const useVendorId = () => useContext(VendorIdContext);
+const useVendorId = () => useContext(VendorIdContext)
 
-export default useVendorId;
+export default useVendorId

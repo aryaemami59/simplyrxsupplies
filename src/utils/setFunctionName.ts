@@ -1,7 +1,7 @@
-import type { AnyFunction } from "../types/tsHelpers";
+import type { AnyFunction } from "../types/tsHelpers"
 
 const setFunctionName = (func: AnyFunction, name: string) => {
-  Object.defineProperty(func, "name", { value: name });
-};
+  Object.defineProperty(func, "name", { value: name })
+}
 
-export default setFunctionName;
+export default setFunctionName

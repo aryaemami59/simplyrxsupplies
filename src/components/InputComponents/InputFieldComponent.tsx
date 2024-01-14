@@ -1,6 +1,6 @@
-import type { OutlinedInputProps } from "@mui/material/OutlinedInput";
-import TextField from "@mui/material/TextField";
-import type { ChangeEventHandler, CSSProperties, FC } from "react";
+import type { OutlinedInputProps } from "@mui/material/OutlinedInput"
+import TextField from "@mui/material/TextField"
+import type { ChangeEventHandler, CSSProperties, FC } from "react"
 import {
   memo,
   useCallback,
@@ -8,58 +8,58 @@ import {
   useRef,
   useState,
   useTransition,
-} from "react";
+} from "react"
 
 import {
   searchResultsCleared,
   searchResultsUpdated,
-} from "../../redux/addedSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { selectItemNamesAndKeywords } from "../../redux/selectors";
-import { SEARCH_FIELD_BG } from "../../shared/styles";
-import EMPTY_ARRAY from "../../utils/emptyArray";
-import fallbackToEmptyArray from "../../utils/fallbackToEmptyArray";
-import isEmptyArray from "../../utils/predicates/isEmptyArray";
-import search from "../../utils/search/search";
-import InputEndAdornment from "./InputEndAdornment";
+} from "../../redux/addedSlice"
+import { useAppDispatch, useAppSelector } from "../../redux/hooks"
+import { selectItemNamesAndKeywords } from "../../redux/selectors"
+import { SEARCH_FIELD_BG } from "../../shared/styles"
+import EMPTY_ARRAY from "../../utils/emptyArray"
+import fallbackToEmptyArray from "../../utils/fallbackToEmptyArray"
+import isEmptyArray from "../../utils/predicates/isEmptyArray"
+import search from "../../utils/search/search"
+import InputEndAdornment from "./InputEndAdornment"
 
 const style: CSSProperties = {
   borderRadius: "30px",
   backgroundColor: SEARCH_FIELD_BG,
-};
+}
 
 const InputFieldComponent: FC = () => {
-  const [inputValue, setInputValue] = useState("");
-  const [, startTransition] = useTransition();
-  const itemNamesAndKeywords = useAppSelector(selectItemNamesAndKeywords);
-  const dispatch = useAppDispatch();
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [inputValue, setInputValue] = useState("")
+  const [, startTransition] = useTransition()
+  const itemNamesAndKeywords = useAppSelector(selectItemNamesAndKeywords)
+  const dispatch = useAppDispatch()
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const clickHandler = useCallback(() => {
-    dispatch(searchResultsCleared());
-    setInputValue("");
-    inputRef.current?.focus();
-  }, [dispatch]);
+    dispatch(searchResultsCleared())
+    setInputValue("")
+    inputRef.current?.focus()
+  }, [dispatch])
 
   const changeValue = useCallback<ChangeEventHandler<HTMLInputElement>>(
     event => {
-      const { value } = event.target;
-      setInputValue(value);
+      const { value } = event.target
+      setInputValue(value)
       startTransition(() => {
         const listItems = fallbackToEmptyArray(
-          search(value, itemNamesAndKeywords)
-        );
+          search(value, itemNamesAndKeywords),
+        )
         const searchResultsIds = isEmptyArray(listItems)
           ? EMPTY_ARRAY
-          : listItems.map<number>(({ id }) => id);
+          : listItems.map<number>(({ id }) => id)
         if (isEmptyArray(searchResultsIds)) {
-          dispatch(searchResultsCleared());
+          dispatch(searchResultsCleared())
         }
-        dispatch(searchResultsUpdated(searchResultsIds));
-      });
+        dispatch(searchResultsUpdated(searchResultsIds))
+      })
     },
-    [dispatch, itemNamesAndKeywords]
-  );
+    [dispatch, itemNamesAndKeywords],
+  )
 
   const inputProps = useMemo<OutlinedInputProps>(
     () => ({
@@ -71,8 +71,8 @@ const InputFieldComponent: FC = () => {
         <InputEndAdornment clickHandler={clickHandler} />
       ),
     }),
-    [clickHandler, inputValue]
-  );
+    [clickHandler, inputValue],
+  )
 
   return (
     <TextField
@@ -86,7 +86,7 @@ const InputFieldComponent: FC = () => {
       value={inputValue}
       variant="outlined"
     />
-  );
-};
+  )
+}
 
-export default memo(InputFieldComponent);
+export default memo(InputFieldComponent)

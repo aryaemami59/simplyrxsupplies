@@ -1,25 +1,23 @@
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import type { FC } from "react";
-import { memo } from "react";
+import Card from "@mui/material/Card"
+import CardContent from "@mui/material/CardContent"
+import type { FC } from "react"
+import { memo } from "react"
 
-import SearchResultsCardBodyContent from "./SearchResultsCardBodyContent";
+import SearchResultsCardBodyContent from "./SearchResultsCardBodyContent"
 
 type Props = {
-  readonly visibleListId: number;
-};
+  readonly visibleListId: number
+}
 
 const SearchResultsSingleCard: FC<Props> = ({ visibleListId }) => (
-  <Card
-    key="Card-SingleInputListItems"
-    className="shadow"
-    variant="outlined">
+  <Card key="Card-SingleInputListItems" className="shadow" variant="outlined">
     <CardContent
       key="Card.Body-SingleInputListItems"
-      className="row gy- justify-content-center p-2">
+      className="row gy- justify-content-center p-2"
+    >
       <SearchResultsCardBodyContent visibleListId={visibleListId} />
     </CardContent>
   </Card>
-);
+)
 
-export default memo<Props>(SearchResultsSingleCard);
+export default memo<Props>(SearchResultsSingleCard)

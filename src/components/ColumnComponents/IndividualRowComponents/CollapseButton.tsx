@@ -1,36 +1,36 @@
-import { faMaximize } from "@fortawesome/free-solid-svg-icons/faMaximize";
-import { faMinimize } from "@fortawesome/free-solid-svg-icons/faMinimize";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import PropTypes from "prop-types";
-import type { FC, MouseEventHandler } from "react";
-import { memo, useCallback, useMemo, useState } from "react";
+import { faMaximize } from "@fortawesome/free-solid-svg-icons/faMaximize"
+import { faMinimize } from "@fortawesome/free-solid-svg-icons/faMinimize"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import IconButton from "@mui/material/IconButton"
+import Tooltip from "@mui/material/Tooltip"
+import PropTypes from "prop-types"
+import type { FC, MouseEventHandler } from "react"
+import { memo, useCallback, useMemo, useState } from "react"
 
-const EXPAND = "Expand";
-const COLLAPSE = "Collapse";
+const EXPAND = "Expand"
+const COLLAPSE = "Collapse"
 
 type Props = {
-  isTooltipOpen: boolean;
-  toggle: MouseEventHandler<HTMLButtonElement>;
-};
+  isTooltipOpen: boolean
+  toggle: MouseEventHandler<HTMLButtonElement>
+}
 
 const CollapseButton: FC<Props> = ({ isTooltipOpen, toggle }) => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
   const startIcon = useMemo(
     () => <FontAwesomeIcon icon={isTooltipOpen ? faMaximize : faMinimize} />,
-    [isTooltipOpen]
-  );
+    [isTooltipOpen],
+  )
 
-  const buttonText = isTooltipOpen ? EXPAND : COLLAPSE;
+  const buttonText = isTooltipOpen ? EXPAND : COLLAPSE
 
   const showTooltip = useCallback(() => {
-    setShow(true);
-  }, []);
+    setShow(true)
+  }, [])
 
   const hideTooltip = useCallback(() => {
-    setShow(false);
-  }, []);
+    setShow(false)
+  }, [])
 
   return (
     <Tooltip
@@ -40,20 +40,22 @@ const CollapseButton: FC<Props> = ({ isTooltipOpen, toggle }) => {
       onClose={hideTooltip}
       onOpen={showTooltip}
       open={show}
-      title={`${buttonText} Item Info`}>
+      title={`${buttonText} Item Info`}
+    >
       <IconButton
         className="w-auto d-inline-block"
         onClick={toggle}
-        size="medium">
+        size="medium"
+      >
         {startIcon}
       </IconButton>
     </Tooltip>
-  );
-};
+  )
+}
 
 CollapseButton.propTypes = {
   isTooltipOpen: PropTypes.bool.isRequired,
   toggle: PropTypes.func.isRequired,
-};
+}
 
-export default memo<Props>(CollapseButton);
+export default memo<Props>(CollapseButton)

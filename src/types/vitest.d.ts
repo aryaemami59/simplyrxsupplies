@@ -2,10 +2,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-interface */
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
-import type { Assertion, AsymmetricMatchersContaining } from "vitest";
+import type { Assertion, AsymmetricMatchersContaining } from "vitest"
 
 interface CustomMatchers<R = unknown> {
-  toBeEmptyArray(): R;
+  toBeEmptyArray(): R
 }
 
 declare module "vitest" {

@@ -1,19 +1,15 @@
-import AppBar from "@mui/material/AppBar";
-import type { FC } from "react";
-import { memo } from "react";
+import AppBar from "@mui/material/AppBar"
+import type { FC } from "react"
+import { memo } from "react"
 
-import Column from "../../shared/components/Column";
-import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList";
-import VendorColumnModalComponent from "../InputComponents/VendorColumnModalComponent";
-import DarkModeTogglerButton from "./DarkModeTogglerButton";
-import OffcanvasComponent from "./OffcanvasComponent";
+import Column from "../../shared/components/Column"
+import VendorDropDownsList from "../DropDownComponents/VendorDropDownsList"
+import VendorColumnModalComponent from "../InputComponents/VendorColumnModalComponent"
+import DarkModeTogglerButton from "./DarkModeTogglerButton"
+import OffcanvasComponent from "./OffcanvasComponent"
 
 const TopNavbar: FC = () => (
-  <AppBar
-    color="primary"
-    elevation={0}
-    enableColorOnDark
-    variant="outlined">
+  <AppBar color="primary" elevation={0} enableColorOnDark variant="outlined">
     <div className="d-flex align-items-center">
       <span className="d-inline-block d-lg-none">
         <OffcanvasComponent />
@@ -29,6 +25,6 @@ const TopNavbar: FC = () => (
       </span>
     </div>
   </AppBar>
-);
+)
 
-export default memo(TopNavbar);
+export default memo(TopNavbar)

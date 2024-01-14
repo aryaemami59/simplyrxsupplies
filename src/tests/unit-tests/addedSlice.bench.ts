@@ -1,5 +1,5 @@
-import type { Options } from "tinybench";
-import { bench, describe } from "vitest";
+import type { Options } from "tinybench"
+import { bench, describe } from "vitest"
 
 import {
   checkIfAddedToAllVendors,
@@ -24,169 +24,169 @@ import {
   selectQRCodeText,
   selectVendorIdsByItemId,
   selectVendorItemIds,
-} from "../../redux/selectors";
-import { setupWithNoUI } from "../test-utils/testUtils";
+} from "../../redux/selectors"
+import { setupWithNoUI } from "../test-utils/testUtils"
 
 const options: Options = {
   iterations: 5,
   time: 100,
-};
+}
 
 describe("selectors", async () => {
-  const { store } = await setupWithNoUI();
-  const state = store.getState();
+  const { store } = await setupWithNoUI()
+  const state = store.getState()
   bench(
     selectItemNamesAndKeywords,
     () => {
-      selectItemNamesAndKeywords(state);
+      selectItemNamesAndKeywords(state)
     },
-    options
-  );
+    options,
+  )
   bench(
     checkIfAnyItemsAdded,
     () => {
-      checkIfAnyItemsAdded(state);
+      checkIfAnyItemsAdded(state)
     },
-    options
-  );
+    options,
+  )
   bench(
     selectCartsItemIdsLength,
     () => {
-      selectCartsItemIdsLength(state);
+      selectCartsItemIdsLength(state)
     },
-    options
-  );
+    options,
+  )
   bench(
     selectItemNumber,
     () => {
-      selectItemNumber(state, 0);
+      selectItemNumber(state, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     selectItemSrc,
     () => {
-      selectItemSrc(state, 0);
+      selectItemSrc(state, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     selectItemName,
     () => {
-      selectItemName(state, 0);
+      selectItemName(state, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     selectVendorIdsByItemId,
     () => {
-      selectVendorIdsByItemId(state, 0);
+      selectVendorIdsByItemId(state, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     selectCartItemsIds,
     () => {
-      selectCartItemsIds(state, 0);
+      selectCartItemsIds(state, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     selectCartItemNamesStringified,
     () => {
-      selectCartItemNamesStringified(state, 0);
+      selectCartItemNamesStringified(state, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     selectCheckedVendorIds,
     () => {
-      selectCheckedVendorIds(state, 0);
+      selectCheckedVendorIds(state, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     isVendorChecked,
     () => {
-      isVendorChecked(state, 0, 0);
+      isVendorChecked(state, 0, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     isMinimized,
     () => {
-      isMinimized(state, 0, 0);
+      isMinimized(state, 0, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     selectCategoryName,
     () => {
-      selectCategoryName(state, 0);
+      selectCategoryName(state, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     selectCategoryItemIds,
     () => {
-      selectCategoryItemIds(state, 0);
+      selectCategoryItemIds(state, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     checkIfAddedToVendor,
     () => {
-      checkIfAddedToVendor(state, 0, 0);
+      checkIfAddedToVendor(state, 0, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     selectCartItemsLength,
     () => {
-      selectCartItemsLength(state, 0);
+      selectCartItemsLength(state, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     checkIfAnyAddedToOneVendor,
     () => {
-      checkIfAnyAddedToOneVendor(state, 0);
+      checkIfAnyAddedToOneVendor(state, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     selectQRCodeText,
     () => {
-      selectQRCodeText(state, 0);
+      selectQRCodeText(state, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     selectOfficialVendorName,
     () => {
-      selectOfficialVendorName(state, 0);
+      selectOfficialVendorName(state, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     selectVendorItemIds,
     () => {
-      selectVendorItemIds(state, 0);
+      selectVendorItemIds(state, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     selectCartsByItemId,
     () => {
-      selectCartsByItemId(state, 0);
+      selectCartsByItemId(state, 0)
     },
-    options
-  );
+    options,
+  )
   bench(
     checkIfAddedToAllVendors,
     () => {
-      checkIfAddedToAllVendors(state, 0);
+      checkIfAddedToAllVendors(state, 0)
     },
-    options
-  );
-});
+    options,
+  )
+})

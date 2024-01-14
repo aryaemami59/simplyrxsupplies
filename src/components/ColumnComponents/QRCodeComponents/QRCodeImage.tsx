@@ -1,19 +1,19 @@
-import PropTypes from "prop-types";
-import type { FC } from "react";
-import { memo } from "react";
+import PropTypes from "prop-types"
+import type { FC } from "react"
+import { memo } from "react"
 
-import useQRCodeData from "../../../hooks/useQRCodeData";
-import useVendorId from "../../../hooks/useVendorId";
-import { useQRCodeText } from "../../../redux/selectors";
+import useQRCodeData from "../../../hooks/useQRCodeData"
+import useVendorId from "../../../hooks/useVendorId"
+import { useQRCodeText } from "../../../redux/selectors"
 
 type Props = {
-  className?: string;
-};
+  className?: string
+}
 
 const QRCodeImage: FC<Props> = ({ className }) => {
-  const vendorId = useVendorId();
-  const title = useQRCodeText(vendorId);
-  const qrCodeData = useQRCodeData();
+  const vendorId = useVendorId()
+  const title = useQRCodeText(vendorId)
+  const qrCodeData = useQRCodeData()
 
   return (
     <img
@@ -22,15 +22,15 @@ const QRCodeImage: FC<Props> = ({ className }) => {
       src={qrCodeData}
       title={title}
     />
-  );
-};
+  )
+}
 
 QRCodeImage.defaultProps = {
   className: undefined,
-};
+}
 
 QRCodeImage.propTypes = {
   className: PropTypes.string,
-};
+}
 
-export default memo<Props>(QRCodeImage);
+export default memo<Props>(QRCodeImage)

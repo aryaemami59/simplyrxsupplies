@@ -1,19 +1,19 @@
-import PropTypes from "prop-types";
-import type { FC } from "react";
-import { memo } from "react";
+import PropTypes from "prop-types"
+import type { FC } from "react"
+import { memo } from "react"
 
-import { useVendorIdsByItemId } from "../../redux/selectors";
-import isEmptyArray from "../../utils/predicates/isEmptyArray";
-import SearchResultsAddButton from "./SearchResultsAddButton";
-import SearchResultsItemName from "./SearchResultsItemName";
-import SwitchComponent from "./SwitchComponent";
+import { useVendorIdsByItemId } from "../../redux/selectors"
+import isEmptyArray from "../../utils/predicates/isEmptyArray"
+import SearchResultsAddButton from "./SearchResultsAddButton"
+import SearchResultsItemName from "./SearchResultsItemName"
+import SwitchComponent from "./SwitchComponent"
 
 type Props = {
-  visibleListId: number;
-};
+  visibleListId: number
+}
 
 const SearchResultsCardBodyContent: FC<Props> = ({ visibleListId }) => {
-  const vendorIds = useVendorIdsByItemId(visibleListId);
+  const vendorIds = useVendorIdsByItemId(visibleListId)
 
   return (
     <>
@@ -44,13 +44,13 @@ const SearchResultsCardBodyContent: FC<Props> = ({ visibleListId }) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-SearchResultsCardBodyContent.displayName = "SearchResultsCardBodyContent";
+SearchResultsCardBodyContent.displayName = "SearchResultsCardBodyContent"
 
 SearchResultsCardBodyContent.propTypes = {
   visibleListId: PropTypes.number.isRequired,
-};
+}
 
-export default memo<Props>(SearchResultsCardBodyContent);
+export default memo<Props>(SearchResultsCardBodyContent)
