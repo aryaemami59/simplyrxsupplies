@@ -18,7 +18,7 @@ const IsLoading: FC = () => (
     <Spinner
       animation="border"
       className="my-5 loading-spinner"
-      role="status"
+      // role="status"
       variant="info">
       <span className="visually-hidden">Loading...</span>
     </Spinner>
