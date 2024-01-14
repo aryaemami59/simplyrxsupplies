@@ -6,16 +6,16 @@ import useVendorIds from "../../hooks/useVendorIds";
 import VendorColumn from "./VendorColumn";
 
 const VendorColumnList: FC = () => {
-  const vendorNames = useVendorIds();
+  const vendorIds = useVendorIds();
 
   return (
     <div className="justify-content-center row">
       <div className="shadow col-11 col-xl-10 p-0 justify-content-center text-center">
-        {vendorNames.map(vendorName => (
+        {vendorIds.map(vendorId => (
           <VendorIdProvider
-            key={vendorName}
-            vendorId={vendorName}>
-            <VendorColumn key={`${vendorName}-VendorColumn`} />
+            key={vendorId}
+            vendorId={vendorId}>
+            <VendorColumn key={`${vendorId}-VendorColumn`} />
           </VendorIdProvider>
         ))}
       </div>
