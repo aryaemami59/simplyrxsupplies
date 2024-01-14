@@ -1,15 +1,15 @@
 import { beforeEach, describe, expect } from "vitest";
 
 import addedSlice, {
-  addItemToCarts,
-  checkOneVendorForAllSearchResults,
-  deleteOneItemFromCart,
-  maximizeAllItemsInCart,
-  minimizeAllItemsInCart,
-  removeAllItemsFromCart,
-  toggleMinimizeOneItemInCart,
-  toggleVendorForOneSearchResultItem,
-  unCheckOneVendorForAllSearchResults,
+  allItemsRemovedFromCart,
+  checkedOneVendorForAllSearchResults,
+  itemAddedToCarts,
+  maximizedAllItemsInCart,
+  minimizedAllItemsInCart,
+  singleItemRemovedFromCart,
+  toggledMinimizeOneItemInCart,
+  toggledVendorForOneSearchResultItem,
+  unCheckedOneVendorForAllSearchResults,
 } from "../../redux/addedSlice";
 import type { AppStore } from "../../redux/store";
 import type { AddedState } from "../../types/reduxHelperTypes";
@@ -27,69 +27,72 @@ describe<LocalTestContext>("addedSlice reducers", it => {
     context.initialAddedState = store.getState().added;
   });
 
-  it(addItemToCarts.type, ({ store, initialAddedState }) => {
+  it(itemAddedToCarts.type, ({ store, initialAddedState }) => {
     // expect(store.getState().added.cart.entities).toBeFrozen();
     expect(addedSlice.reducer(undefined, { type: "" })).toStrictEqual(
       addedSlice.getInitialState()
     );
-    store.dispatch(addItemToCarts({ itemId: 0 }));
+    store.dispatch(itemAddedToCarts({ itemId: 0 }));
     expect(store.getState().added).not.toStrictEqual(initialAddedState);
     expect(store.getState().added).not.toStrictEqual(initialAddedState);
     // expect(
     //   addedSlice.reducer(store.getState().added, { type: "" })
     // ).toStrictEqual(initialAddedState);
     expect(store.getState().added).not.toStrictEqual(initialAddedState);
-    store.dispatch(deleteOneItemFromCart({ itemId: 0, vendorId: 0 }));
+    store.dispatch(singleItemRemovedFromCart({ itemId: 0, vendorId: 0 }));
     expect(store.getState().added).not.toStrictEqual(initialAddedState);
-    store.dispatch(deleteOneItemFromCart({ itemId: 0, vendorId: 1 }));
+    store.dispatch(singleItemRemovedFromCart({ itemId: 0, vendorId: 1 }));
     expect(store.getState().added).toStrictEqual(initialAddedState);
   });
 
-  it(toggleMinimizeOneItemInCart.type, ({ store, initialAddedState }) => {
-    store.dispatch(toggleMinimizeOneItemInCart({ itemId: 0, vendorId: 0 }));
+  it(toggledMinimizeOneItemInCart.type, ({ store, initialAddedState }) => {
+    store.dispatch(toggledMinimizeOneItemInCart({ itemId: 0, vendorId: 0 }));
     expect(store.getState().added).not.toStrictEqual(initialAddedState);
-    store.dispatch(toggleMinimizeOneItemInCart({ itemId: 0, vendorId: 0 }));
-    expect(store.getState().added).toStrictEqual(initialAddedState);
-  });
-
-  it(checkOneVendorForAllSearchResults.type, ({ store, initialAddedState }) => {
-    store.dispatch(checkOneVendorForAllSearchResults({ vendorId: 0 }));
-    expect(store.getState().added).toStrictEqual(initialAddedState);
-    store.dispatch(unCheckOneVendorForAllSearchResults({ vendorId: 0 }));
-    expect(store.getState().added).not.toStrictEqual(initialAddedState);
-    store.dispatch(checkOneVendorForAllSearchResults({ vendorId: 0 }));
-    expect(store.getState().added).toStrictEqual(initialAddedState);
-    expect(store.getState().added).toStrictEqual(initialAddedState);
-    expect(store.getState().added).toStrictEqual(initialAddedState);
-  });
-
-  it(minimizeAllItemsInCart.type, ({ store, initialAddedState }) => {
-    store.dispatch(minimizeAllItemsInCart({ vendorId: 0 }));
-    expect(store.getState().added).not.toStrictEqual(initialAddedState);
-    store.dispatch(maximizeAllItemsInCart({ vendorId: 0 }));
+    store.dispatch(toggledMinimizeOneItemInCart({ itemId: 0, vendorId: 0 }));
     expect(store.getState().added).toStrictEqual(initialAddedState);
   });
 
   it(
-    toggleVendorForOneSearchResultItem.type,
+    checkedOneVendorForAllSearchResults.type,
+    ({ store, initialAddedState }) => {
+      store.dispatch(checkedOneVendorForAllSearchResults({ vendorId: 0 }));
+      expect(store.getState().added).toStrictEqual(initialAddedState);
+      store.dispatch(unCheckedOneVendorForAllSearchResults({ vendorId: 0 }));
+      expect(store.getState().added).not.toStrictEqual(initialAddedState);
+      store.dispatch(checkedOneVendorForAllSearchResults({ vendorId: 0 }));
+      expect(store.getState().added).toStrictEqual(initialAddedState);
+      expect(store.getState().added).toStrictEqual(initialAddedState);
+      expect(store.getState().added).toStrictEqual(initialAddedState);
+    }
+  );
+
+  it(minimizedAllItemsInCart.type, ({ store, initialAddedState }) => {
+    store.dispatch(minimizedAllItemsInCart({ vendorId: 0 }));
+    expect(store.getState().added).not.toStrictEqual(initialAddedState);
+    store.dispatch(maximizedAllItemsInCart({ vendorId: 0 }));
+    expect(store.getState().added).toStrictEqual(initialAddedState);
+  });
+
+  it(
+    toggledVendorForOneSearchResultItem.type,
     ({ store, initialAddedState }) => {
       store.dispatch(
-        toggleVendorForOneSearchResultItem({ itemId: 0, vendorId: 0 })
+        toggledVendorForOneSearchResultItem({ itemId: 0, vendorId: 0 })
       );
       expect(store.getState().added).not.toStrictEqual(initialAddedState);
       store.dispatch(
-        toggleVendorForOneSearchResultItem({ itemId: 0, vendorId: 0 })
+        toggledVendorForOneSearchResultItem({ itemId: 0, vendorId: 0 })
       );
       expect(store.getState().added).toStrictEqual(initialAddedState);
     }
   );
 
-  it(removeAllItemsFromCart.type, ({ store, initialAddedState }) => {
-    store.dispatch(addItemToCarts({ itemId: 0 }));
-    store.dispatch(addItemToCarts({ itemId: 1 }));
-    store.dispatch(removeAllItemsFromCart({ vendorId: 0 }));
+  it(allItemsRemovedFromCart.type, ({ store, initialAddedState }) => {
+    store.dispatch(itemAddedToCarts({ itemId: 0 }));
+    store.dispatch(itemAddedToCarts({ itemId: 1 }));
+    store.dispatch(allItemsRemovedFromCart({ vendorId: 0 }));
     expect(store.getState().added).not.toStrictEqual(initialAddedState);
-    store.dispatch(removeAllItemsFromCart({ vendorId: 1 }));
+    store.dispatch(allItemsRemovedFromCart({ vendorId: 1 }));
     expect(store.getState().added).toStrictEqual(initialAddedState);
   });
 });
