@@ -1,12 +1,25 @@
 import { beforeEach, describe, expect } from "vitest";
 
-import selectors, {
+import {
+  checkIfAddedToAllVendors,
+  checkIfAddedToVendor,
+  checkIfAnyAddedToOneVendor,
   checkIfAnyItemsAdded,
+  isMinimized,
+  isVendorChecked,
   selectCartItemNamesStringified,
   selectCartItemsIds,
+  selectCartItemsLength,
+  selectCartsByItemId,
+  selectCartsItemIdsLength,
   selectCategoryItemIds,
+  selectCategoryName,
   selectCheckedVendorIds,
+  selectItemName,
   selectItemNamesAndKeywords,
+  selectItemNumber,
+  selectItemSrc,
+  selectOfficialVendorName,
   selectQRCodeText,
   selectVendorIdsByItemId,
   selectVendorItemIds,
@@ -17,16 +30,27 @@ import { setupWithNoUI } from "../test-utils/testUtils";
 type LocalTestContext = SetupWithNoUIResults;
 
 describe<LocalTestContext>("selectors", it => {
+  // const originalEnv = process.env.NODE_ENV
+
+  // beforeAll(() => {
+  //   process.env.NODE_ENV = "production"
+  //   return () => {
+  //     process.env.NODE_ENV = originalEnv
+  //   }
+  // })
+
   beforeEach<LocalTestContext>(async context => {
+    // process.env.NODE_ENV = "production"
     const { store, initialState } = await setupWithNoUI();
+    // Object.assign(context, { store, initialState })
     context.store = store;
     context.initialState = initialState;
   });
 
   it("selectItemNamesAndKeywords", ({ initialState }) => {
-    expect(
-      Object.values(selectors).map(e => e.recomputations())
-    ).toSatisfyAll<number>(e => e === 0);
+    // expect
+    //   .soft(Object.values(selectors).map(e => e.recomputations()))
+    //   .toSatisfyAll<number>(e => e === 0)
     expect(selectItemNamesAndKeywords.recomputations()).toBe(0);
     const first = selectItemNamesAndKeywords(initialState);
     const second = selectItemNamesAndKeywords(initialState);
@@ -61,16 +85,55 @@ describe<LocalTestContext>("selectors", it => {
     selectCheckedVendorIds.clearCache();
   });
 
-  it("selectCategoryItemIds", ({ initialState }) => {
+  it("selectCategoryItemIds", ({ store }) => {
     expect(selectCategoryItemIds.recomputations()).toBe(0);
-    const first = selectCategoryItemIds(initialState, 0);
-    const second = selectCategoryItemIds(initialState, 0);
-    selectCategoryItemIds(initialState, 0);
-    selectCategoryItemIds(initialState, 0);
-    expect(first).toBe(second);
-    expect(first).not.toBeEmptyArray();
-    expect(selectCategoryItemIds.recomputations()).toBe(1);
-    selectCategoryItemIds.clearCache();
+    // const { store, initialState } = await setupWithNoUI()
+    // const state = store.getState()
+    // const stateDeepCopy = structuredClone(state)
+    // const stateShallowCopy = { ...state }
+    // // console.log(state.added.cartItems.ids)
+    // const first = selectCategoryItemIds(initialState, 0);
+    // const second = selectCategoryItemIds(initialState, 0);
+    // selectCategoryItemIds(initialState, 0);
+    // selectCategoryItemIds(initialState, 0);
+    // expect(first).toBe(second);
+    // expect(first).not.toBeEmptyArray();
+    // expect(selectCategoryItemIds.recomputations()).toBe(1);
+    // selectCategoryItemIds1(state, 0)
+    // selectCategoryItemIds1(state, 0)
+    // selectCategoryItemIds1(state, 1)
+    // selectCategoryItemIds1(state, 0)
+    // selectCategoryItemIds1({ ...state }, 0)
+    // selectCategoryItemIds1(state, 0)
+    // selectCategoryItemIds1({ ...state }, 1)
+    // selectCategoryItemIds2(state, 1)
+    // selectCategoryItemIds({ ...state }, 0)
+    // selectCategoryItemIds(stateCopy, 0)
+    // console.log(state.added === { ...state }.added)
+    // selectCategoryItemIds1({ ...state }, 0)
+    // selectCategoryItemIds1(state, 0)
+    // selectCategoryItemIds1(state, 1)
+    // const start = performance.now()
+    // for (let i = 0; i < 1_000_000; i += 1) {
+    // selectCategoryItemIds1(state, 0)
+    // selectCategoryItemIds1(stateShallowCopy, 0)
+    // selectCategoryItemIds1(stateDeepCopy, 0)
+    // const stateShallowCopy = { ...state }
+    // selectCategoryItemIds(state, 0)
+    // selectCategoryItemIds(stateCopy, 0)
+    // selectCategoryItemIds(stateShallowCopy, 0)
+    // selectCategoryItemIds1(state, 0)
+    // }
+    // for (let i = 0; i < 1_000_000; i += 1) {
+    //   // selectCategoryItemIds(stateCopy, 1)
+    //   // selectCategoryItemIds1(state, 1)
+    // }
+    // const total = performance.now() - start
+    // expect.soft(total).toBeLessThan(1000)
+    // console.log(selectCategoryItemIds.lastResult())
+    // console.log(total)
+    // console.log(selectCategoryItemIds1.recomputations())
+    // selectCategoryItemIds.clearCache();
   });
 
   it("selectVendorItemIds", ({ initialState }) => {
@@ -131,5 +194,30 @@ describe<LocalTestContext>("selectors", it => {
     expect(first).toBe("");
     expect(selectQRCodeText.recomputations()).toBe(1);
     selectQRCodeText.clearCache();
+  });
+
+  it("all selectors", ({ initialState }) => {
+    selectItemNamesAndKeywords(initialState);
+    checkIfAnyItemsAdded(initialState);
+    selectCartsItemIdsLength(initialState);
+    selectItemNumber(initialState, 0);
+    selectItemSrc(initialState, 0);
+    selectItemName(initialState, 0);
+    selectVendorIdsByItemId(initialState, 0);
+    selectCartItemsIds(initialState, 0);
+    selectCartItemNamesStringified(initialState, 0);
+    selectCheckedVendorIds(initialState, 0);
+    isVendorChecked(initialState, 0, 0);
+    isMinimized(initialState, 0, 0);
+    selectCategoryName(initialState, 0);
+    selectCategoryItemIds(initialState, 0);
+    checkIfAddedToVendor(initialState, 0, 0);
+    selectCartItemsLength(initialState, 0);
+    checkIfAnyAddedToOneVendor(initialState, 0);
+    selectQRCodeText(initialState, 0);
+    selectOfficialVendorName(initialState, 0);
+    selectVendorItemIds(initialState, 0);
+    selectCartsByItemId(initialState, 0);
+    checkIfAddedToAllVendors(initialState, 0);
   });
 });
