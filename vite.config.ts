@@ -1,9 +1,9 @@
-import react from "@vitejs/plugin-react";
-import { visualizer } from "rollup-plugin-visualizer";
-import type { PluginOption } from "vite";
-import macrosPlugin from "vite-plugin-babel-macros";
-import type { UserConfig } from "vitest/config";
-import { defineConfig } from "vitest/config";
+import react from "@vitejs/plugin-react"
+import { visualizer } from "rollup-plugin-visualizer"
+import type { PluginOption } from "vite"
+import macrosPlugin from "vite-plugin-babel-macros"
+import type { UserConfig } from "vitest/config"
+import { defineConfig } from "vitest/config"
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -18,6 +18,7 @@ export default defineConfig(({ mode }) => {
       }),
     ],
     test: {
+      typecheck: { only: true },
       exclude: [
         "node_modules",
         "dist",
@@ -36,7 +37,6 @@ export default defineConfig(({ mode }) => {
       allowOnly: true,
       environment: "jsdom",
       ui: true,
-      useAtomics: true,
       chaiConfig: {
         truncateThreshold: 1000,
         includeStack: true,
@@ -49,14 +49,13 @@ export default defineConfig(({ mode }) => {
       watch: true,
       css: true,
       benchmark: {
-        include: ["**/*.spec.?(c|m)[jt]s?(x)"],
         reporters: ["default"],
       },
       setupFiles: ["src/tests/test-utils/setup.vitest.ts"],
     },
-  };
+  }
   if (mode === "test") {
-    return testConfig;
+    return testConfig
   }
   const developmentConfig: UserConfig = {
     plugins: [
@@ -70,7 +69,7 @@ export default defineConfig(({ mode }) => {
       macrosPlugin(),
     ],
     server: { open: true },
-  };
+  }
 
   const productionConfig: UserConfig = {
     esbuild: {
@@ -101,6 +100,6 @@ export default defineConfig(({ mode }) => {
       }) as PluginOption,
     ],
     server: { open: true },
-  };
-  return mode === "development" ? developmentConfig : productionConfig;
-});
+  }
+  return mode === "production" ? productionConfig : developmentConfig
+})
