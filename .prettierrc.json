@@ -3,6 +3,6 @@
   "bracketSameLine": true,
   "endOfLine": "auto",
   "singleAttributePerLine": true,
-  "semi": false,
+  "semi": true,
   "trailingComma": "es5"
 }
