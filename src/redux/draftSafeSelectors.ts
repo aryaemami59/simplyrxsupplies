@@ -1,5 +1,5 @@
 import type { AddedSliceSelectorParamsProvider } from "../types/reduxHelperTypes";
-import withEmptyArrayFallback from "../utils/withEmptyArrayFallback";
+import fallbackToEmptyArray from "../utils/fallbackToEmptyArray";
 import { ADAPTER_SELECTORS } from "./adapterSelectors";
 import { createDraftSafeAddedSelector } from "./createSelectors";
 
@@ -12,7 +12,7 @@ export const ADDED_SLICE_SELECTOR_PARAMS_PROVIDER: AddedSliceSelectorParamsProvi
 export const DRAFT_SAFE_SELECTORS = {
   selectCartItems: createDraftSafeAddedSelector(
     [ADAPTER_SELECTORS.LOCAL.cart.selectById],
-    cart => withEmptyArrayFallback(cart?.itemIds)
+    cart => fallbackToEmptyArray(cart?.itemIds)
   ),
 
   selectUnCheckedItemVendors: createDraftSafeAddedSelector(
@@ -21,7 +21,7 @@ export const DRAFT_SAFE_SELECTORS = {
       ADDED_SLICE_SELECTOR_PARAMS_PROVIDER.getCartId,
     ],
     (itemVendors, cartId) =>
-      withEmptyArrayFallback(
+      fallbackToEmptyArray(
         itemVendors.filter(
           ({ checkedVendorIds, vendorIds }) =>
             vendorIds.includes(cartId) && !checkedVendorIds.includes(cartId)
@@ -35,7 +35,7 @@ export const DRAFT_SAFE_SELECTORS = {
       ADDED_SLICE_SELECTOR_PARAMS_PROVIDER.getCartId,
     ],
     (itemVendors, cartId) =>
-      withEmptyArrayFallback(
+      fallbackToEmptyArray(
         itemVendors.filter(({ checkedVendorIds }) =>
           checkedVendorIds.includes(cartId)
         )
@@ -49,7 +49,7 @@ export const DRAFT_SAFE_SELECTORS = {
       ADDED_SLICE_SELECTOR_PARAMS_PROVIDER.getItemId,
     ],
     (itemVendors, carts, itemId) =>
-      withEmptyArrayFallback(
+      fallbackToEmptyArray(
         carts.filter(
           ({ id, itemIds }) =>
             !!itemVendors?.checkedVendorIds.includes(id) &&
@@ -60,6 +60,6 @@ export const DRAFT_SAFE_SELECTORS = {
 
   selectCheckedVendorIds: createDraftSafeAddedSelector(
     [ADAPTER_SELECTORS.LOCAL.itemVendors.selectById],
-    itemVendors => withEmptyArrayFallback(itemVendors?.checkedVendorIds)
+    itemVendors => fallbackToEmptyArray(itemVendors?.checkedVendorIds)
   ),
 };
