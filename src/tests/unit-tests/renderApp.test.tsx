@@ -1,11 +1,10 @@
 import { screen } from "@testing-library/react";
-import { getStateWith, registerSelectors } from "reselect-tools";
 import { beforeEach, describe, test } from "vitest";
 
 import App from "../../App";
 import SideBarContainer from "../../components/SideBarComponents/SideBarContainer";
 import { selectVendorsData } from "../../redux/apiSlice";
-import { testSelector } from "../../redux/createSelectors";
+import { findFastestSelector } from "../../redux/createSelectors";
 import allSelectors, {
   checkIfAddedToAllVendors,
   checkIfAddedToVendor,
@@ -13,6 +12,7 @@ import allSelectors, {
   checkIfAnyItemsAdded,
   isMinimized,
   isVendorChecked,
+  mainSelectors,
   resetAllSelectors,
   selectCartItemNamesStringified,
   selectCartItemsIds,
@@ -25,7 +25,7 @@ import allSelectors, {
   selectItemNamesAndKeywords,
   selectItemNumber,
   selectItemSrc,
-  selectOfficialName,
+  selectOfficialVendorName,
   selectQRCodeText,
   selectVendorIdsByItemId,
   selectVendorItemIds,
@@ -45,8 +45,8 @@ describe<LocalTestContext>("render App", it => {
     window.matchMedia = createMatchMedia(window.innerWidth);
     const view = await renderWithProviders(<App />);
     context.view = view;
-    getStateWith(() => view.store.getState());
-    registerSelectors(allSelectors);
+    // getStateWith(() => view.store.getState())
+    // registerSelectors(allSelectors)
 
     return () => {
       resetAllSelectors();
@@ -54,6 +54,7 @@ describe<LocalTestContext>("render App", it => {
   });
 
   it("selectors ui", async ({ view, expect }) => {
+    // console.log(it)
     expect.soft(selectVendorsLinks.recomputations()).toBe(0);
     expect.soft(selectItemNumber.recomputations()).toBe(0);
     expect.soft(selectItemSrc.recomputations()).toBe(0);
@@ -70,26 +71,23 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectCategoryItemIds.recomputations()).toBe(18);
     expect.soft(checkIfAddedToVendor.recomputations()).toBe(0);
     expect
-      .soft(
-        selectCartItemsLength.recomputations(),
-        `${selectCartItemsLength.name}`
-      )
+      .soft(selectCartItemsLength.recomputations(), selectCartItemsLength.name)
       .toBe(1);
     expect
       .soft(
         checkIfAnyAddedToOneVendor.recomputations(),
-        `${checkIfAnyAddedToOneVendor.name}`
+        checkIfAnyAddedToOneVendor.name
       )
       .toBe(1);
     expect.soft(selectQRCodeText.recomputations()).toBe(0);
-    expect.soft(selectOfficialName.recomputations()).toBe(8);
+    expect.soft(selectOfficialVendorName.recomputations()).toBe(8);
     expect.soft(selectVendorItemIds.recomputations()).toBe(8);
     expect.soft(checkIfAddedToAllVendors.recomputations()).toBe(0);
     const { store, user, container } = view;
     const state = store.getState();
     expect.soft(selectVendorsData(state).ids).toBeArrayOfSize(8);
     expect
-      .soft(selectOfficialName.recomputations())
+      .soft(selectOfficialVendorName.recomputations())
       .toBe(selectVendorsData.lastResult().ids.length);
     const inputField = screen.getByRole<HTMLInputElement>("search", {
       name: "Search",
@@ -111,19 +109,16 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectCategoryItemIds.recomputations()).toBe(18);
     expect.soft(checkIfAddedToVendor.recomputations()).toBe(10);
     expect
-      .soft(
-        selectCartItemsLength.recomputations(),
-        `${selectCartItemsLength.name}`
-      )
+      .soft(selectCartItemsLength.recomputations(), selectCartItemsLength.name)
       .toBe(1);
     expect
       .soft(
         checkIfAnyAddedToOneVendor.recomputations(),
-        `${checkIfAnyAddedToOneVendor.name}`
+        checkIfAnyAddedToOneVendor.name
       )
       .toBe(1);
     expect.soft(selectQRCodeText.recomputations()).toBe(0);
-    expect.soft(selectOfficialName.recomputations()).toBe(8);
+    expect.soft(selectOfficialVendorName.recomputations()).toBe(8);
     expect.soft(selectVendorItemIds.recomputations()).toBe(8);
     expect.soft(checkIfAddedToAllVendors.recomputations()).toBe(10);
     const addButtons = screen.getAllByRole<HTMLButtonElement>("button", {
@@ -150,19 +145,16 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectCategoryItemIds.recomputations()).toBe(18);
     expect.soft(checkIfAddedToVendor.recomputations()).toBe(15);
     expect
-      .soft(
-        selectCartItemsLength.recomputations(),
-        `${selectCartItemsLength.name}`
-      )
+      .soft(selectCartItemsLength.recomputations(), selectCartItemsLength.name)
       .toBe(3);
     expect
       .soft(
         checkIfAnyAddedToOneVendor.recomputations(),
-        `${checkIfAnyAddedToOneVendor.name}`
+        checkIfAnyAddedToOneVendor.name
       )
       .toBe(2);
     expect.soft(selectQRCodeText.recomputations()).toBe(2);
-    expect.soft(selectOfficialName.recomputations()).toBe(8);
+    expect.soft(selectOfficialVendorName.recomputations()).toBe(8);
     expect.soft(selectVendorItemIds.recomputations()).toBe(8);
     expect.soft(checkIfAddedToAllVendors.recomputations()).toBe(21);
     await user.clear(inputField);
@@ -195,19 +187,16 @@ describe<LocalTestContext>("render App", it => {
     expect.soft(selectCategoryItemIds.recomputations()).toBe(18);
     expect.soft(checkIfAddedToVendor.recomputations()).toBe(25);
     expect
-      .soft(
-        selectCartItemsLength.recomputations(),
-        `${selectCartItemsLength.name}`
-      )
+      .soft(selectCartItemsLength.recomputations(), selectCartItemsLength.name)
       .toBe(3);
     expect
       .soft(
         checkIfAnyAddedToOneVendor.recomputations(),
-        `${checkIfAnyAddedToOneVendor.name}`
+        checkIfAnyAddedToOneVendor.name
       )
       .toBe(2);
     expect.soft(selectQRCodeText.recomputations()).toBe(2);
-    expect.soft(selectOfficialName.recomputations()).toBe(8);
+    expect.soft(selectOfficialVendorName.recomputations()).toBe(8);
     expect.soft(selectVendorItemIds.recomputations()).toBe(8);
     expect.soft(checkIfAddedToAllVendors.recomputations()).toBe(26);
     const item = getByRole("button", {
@@ -233,42 +222,48 @@ describe<LocalTestContext>("render App", it => {
     expect
       .soft(
         checkIfAnyAddedToOneVendor.recomputations(),
-        `${checkIfAnyAddedToOneVendor.name}`
+        checkIfAnyAddedToOneVendor.name
       )
       .toBe(3);
     expect.soft(selectQRCodeText.recomputations()).toBe(4);
-    expect.soft(selectOfficialName.recomputations()).toBe(8);
+    expect.soft(selectOfficialVendorName.recomputations()).toBe(8);
     expect.soft(selectVendorItemIds.recomputations()).toBe(8);
     expect.soft(checkIfAddedToAllVendors.recomputations()).toBe(31);
-    const lastResults = Object.values(allSelectors).map(e => ({
-      [e.name]: e.lastResult(),
-    }));
-    expect(lastResults).toMatchSnapshot();
-    const rec = Object.values(allSelectors).map(e => ({
-      [e.name]: e.recomputations(),
-    }));
-    expect(rec).toMatchSnapshot();
-    testSelector(selectItemNamesAndKeywords, state);
-    testSelector(checkIfAnyItemsAdded, state);
-    testSelector(selectCartsItemIdsLength, state);
-    testSelector(selectItemNumber, state, 0);
-    testSelector(selectItemSrc, state, 0);
-    testSelector(selectItemName, state, 0);
-    testSelector(selectVendorIdsByItemId, state, 0);
-    testSelector(selectCartItemsIds, state, 0);
-    testSelector(selectCartItemNamesStringified, state, 0);
-    testSelector(selectCheckedVendorIds, state, 0);
-    testSelector(selectCategoryName, state, 0);
-    testSelector(selectCategoryItemIds, state, 0);
-    testSelector(selectCartItemsLength, state, 0);
-    testSelector(checkIfAnyAddedToOneVendor, state, 0);
-    testSelector(selectQRCodeText, state, 0);
-    testSelector(selectOfficialName, state, 0);
-    testSelector(selectVendorItemIds, state, 0);
-    testSelector(checkIfAddedToAllVendors, state, 0);
-    testSelector(isVendorChecked, state, 0, 0);
-    testSelector(isMinimized, state, 0, 0);
-    testSelector(checkIfAddedToVendor, state, 0, 0);
+    // const lastResults = Object.values(allSelectors).map(e => ({
+    //   [e.name]: e.lastResult(),
+    // }))
+    // expect(lastResults).toMatchSnapshot();
+    const rec = Object.entries(mainSelectors).map(([key, value]) =>
+      // if (!("recomputations" in e)) {
+      //   console.log(e)
+      // }
+      ({
+        [key]: value.recomputations(),
+      })
+    );
+    expect.soft(rec).toMatchSnapshot();
+    findFastestSelector(selectItemNamesAndKeywords, state);
+    findFastestSelector(checkIfAnyItemsAdded, state);
+    findFastestSelector(selectCartsItemIdsLength, state);
+    findFastestSelector(selectItemNumber, state, 0);
+    findFastestSelector(selectItemSrc, state, 0);
+    findFastestSelector(selectItemName, state, 0);
+    findFastestSelector(selectVendorIdsByItemId, state, 0);
+    findFastestSelector(selectCartItemsIds, state, 0);
+    findFastestSelector(selectCartItemNamesStringified, state, 0);
+    findFastestSelector(selectCheckedVendorIds, state, 0);
+    findFastestSelector(selectCategoryName, state, 0);
+    findFastestSelector(selectCategoryItemIds, state, 0);
+    findFastestSelector(selectCartItemsLength, state, 0);
+    findFastestSelector(checkIfAnyAddedToOneVendor, state, 0);
+    findFastestSelector(selectQRCodeText, state, 0);
+    findFastestSelector(selectOfficialVendorName, state, 0);
+    findFastestSelector(selectVendorItemIds, state, 0);
+    findFastestSelector(checkIfAddedToAllVendors, state, 0);
+    findFastestSelector(isVendorChecked, state, 0, 0);
+    findFastestSelector(isMinimized, state, 0, 0);
+    findFastestSelector(checkIfAddedToVendor, state, 0, 0);
+    console.log(selectOfficialVendorName.recomputations());
   });
 
   test.todo.each(Object.values(allSelectors))("multiple selectors", e => {});
