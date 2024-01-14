@@ -1,6 +1,6 @@
 import type { ItemNameAndKeywords } from "../../types/api";
 import EMPTY_ARRAY from "../emptyArray";
-import withEmptyArrayFallback from "../withEmptyArrayFallback";
+import fallbackToEmptyArray from "../fallbackToEmptyArray";
 import sortResults from "./sortResults";
 import splitBySpace from "./splitBySpace";
 import trimExcessWhiteSpace from "./trimExcessWhiteSpace";
@@ -12,7 +12,7 @@ const search = (value: string, itemNamesAndKeywords: ItemNameAndKeywords[]) => {
 
   const searchRegexPattern = new RegExp(looseSearchValue, "dgi");
 
-  const searchResults = withEmptyArrayFallback(
+  const searchResults = fallbackToEmptyArray(
     itemNamesAndKeywords.filter(
       ({ name, keywords }) =>
         name.match(searchRegexPattern) ??
