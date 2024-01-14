@@ -2,7 +2,10 @@ import { shallowEqual } from "react-redux";
 import { beforeEach, describe, expect } from "vitest";
 
 import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors";
-import { selectItemName, selectOfficialName } from "../../redux/selectors";
+import {
+  selectItemName,
+  selectOfficialVendorName,
+} from "../../redux/selectors";
 import type { CartItems, ItemVendors } from "../../types/reduxHelperTypes";
 import EMPTY_ARRAY from "../../utils/emptyArray";
 import isArrayOfNumbers from "../../utils/predicates/isArrayOfNumbers";
@@ -64,6 +67,6 @@ describe<LocalTestContext>("initial state before fetch", it => {
     expect(addedState.cartItems.ids).toBeEmptyArray();
     expect(addedState.searchResults.ids).toBeEmptyArray();
     expect(selectItemName(store.getState(), 0)).toBe("");
-    expect(selectOfficialName(store.getState(), 0)).toBe("GNFR");
+    expect(selectOfficialVendorName(store.getState(), 0)).toBe("GNFR");
   });
 });
