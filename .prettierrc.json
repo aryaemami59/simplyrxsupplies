@@ -1,0 +1,8 @@
+{
+  "arrowParens": "avoid",
+  "bracketSameLine": true,
+  "endOfLine": "auto",
+  "singleAttributePerLine": true,
+  "semi": false,
+  "trailingComma": "es5"
+}
