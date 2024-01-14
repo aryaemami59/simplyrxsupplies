@@ -13,7 +13,6 @@ const loader = <IsLoading />;
 const SearchResultsContainer: FC = () => {
   const searchResultsIds = useAppSelector(
     ADAPTER_SELECTORS.GLOBAL.searchResults.selectIds
-    // shallowEqual
   );
   const memoizedSearchResultsIds = useMemo(
     () => searchResultsIds.slice(0, 10),

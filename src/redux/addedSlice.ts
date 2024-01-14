@@ -43,7 +43,7 @@ const addedSlice = createSlice({
   name: "added",
   initialState,
   reducers: {
-    addItemToCarts: (state, action: PayloadAction<{ itemId: number }>) => {
+    itemAddedToCarts: (state, action: PayloadAction<{ itemId: number }>) => {
       const { itemId } = action.payload;
       const itemVendors = ADAPTER_SELECTORS.LOCAL.itemVendors.selectById(
         state,
@@ -69,6 +69,7 @@ const addedSlice = createSlice({
         })
       );
       if (itemVendors) {
+        // console.log(vendorIds);
         const itemVendorsUpdate: Update<ItemVendors, number> = {
           id: itemId,
           changes: {
@@ -84,7 +85,7 @@ const addedSlice = createSlice({
       ENTITY_ADAPTERS.searchResults.removeOne(state.searchResults, itemId);
     },
 
-    deleteOneItemFromCart: (
+    singleItemRemovedFromCart: (
       state,
       action: PayloadAction<ItemIdAndVendorId>
     ) => {
@@ -99,7 +100,7 @@ const addedSlice = createSlice({
       ENTITY_ADAPTERS.cart.updateOne(state.cart, cartUpdate);
     },
 
-    removeAllItemsFromCart: (
+    allItemsRemovedFromCart: (
       state,
       action: PayloadAction<{ vendorId: number }>
     ) => {
@@ -111,7 +112,7 @@ const addedSlice = createSlice({
       ENTITY_ADAPTERS.cart.updateOne(state.cart, cartUpdate);
     },
 
-    setSearchResults: (state, action: PayloadAction<number[]>) => {
+    searchResultsUpdated: (state, action: PayloadAction<number[]>) => {
       const { payload: itemIds } = action;
       const newSearchResults = itemIds.map<SearchResultsItem>(id => ({
         id,
@@ -122,11 +123,11 @@ const addedSlice = createSlice({
       );
     },
 
-    clearSearchResults: state => {
+    searchResultsCleared: state => {
       ENTITY_ADAPTERS.searchResults.removeAll(state.searchResults);
     },
 
-    toggleVendorForOneSearchResultItem: (
+    toggledVendorForOneSearchResultItem: (
       state,
       action: PayloadAction<ItemIdAndVendorId>
     ) => {
@@ -153,7 +154,7 @@ const addedSlice = createSlice({
       );
     },
 
-    toggleMinimizeOneItemInCart: (
+    toggledMinimizeOneItemInCart: (
       state,
       action: PayloadAction<ItemIdAndVendorId>
     ) => {
@@ -177,7 +178,7 @@ const addedSlice = createSlice({
       ENTITY_ADAPTERS.cartItems.updateOne(state.cartItems, cartItemsUpdate);
     },
 
-    minimizeAllItemsInCart: (
+    minimizedAllItemsInCart: (
       state,
       action: PayloadAction<{ vendorId: number }>
     ) => {
@@ -196,7 +197,7 @@ const addedSlice = createSlice({
       ENTITY_ADAPTERS.cartItems.updateOne(state.cartItems, cartItemsUpdate);
     },
 
-    maximizeAllItemsInCart: (
+    maximizedAllItemsInCart: (
       state,
       action: PayloadAction<{ vendorId: number }>
     ) => {
@@ -215,7 +216,7 @@ const addedSlice = createSlice({
       ENTITY_ADAPTERS.cartItems.updateOne(state.cartItems, cartItemsUpdate);
     },
 
-    checkOneVendorForAllSearchResults: (
+    checkedOneVendorForAllSearchResults: (
       state,
       action: PayloadAction<{ vendorId: number }>
     ) => {
@@ -240,7 +241,7 @@ const addedSlice = createSlice({
       );
     },
 
-    unCheckOneVendorForAllSearchResults: (
+    unCheckedOneVendorForAllSearchResults: (
       state,
       action: PayloadAction<{ vendorId: number }>
     ) => {
@@ -293,17 +294,17 @@ const addedSlice = createSlice({
 });
 
 export const {
-  addItemToCarts,
-  deleteOneItemFromCart,
-  setSearchResults,
-  clearSearchResults,
-  toggleVendorForOneSearchResultItem,
-  removeAllItemsFromCart,
-  toggleMinimizeOneItemInCart,
-  minimizeAllItemsInCart,
-  maximizeAllItemsInCart,
-  checkOneVendorForAllSearchResults,
-  unCheckOneVendorForAllSearchResults,
+  itemAddedToCarts,
+  singleItemRemovedFromCart,
+  searchResultsUpdated,
+  searchResultsCleared,
+  toggledVendorForOneSearchResultItem,
+  allItemsRemovedFromCart,
+  toggledMinimizeOneItemInCart,
+  minimizedAllItemsInCart,
+  maximizedAllItemsInCart,
+  checkedOneVendorForAllSearchResults,
+  unCheckedOneVendorForAllSearchResults,
 } = addedSlice.actions;
 
 export default addedSlice;

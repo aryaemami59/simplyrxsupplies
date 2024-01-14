@@ -7,7 +7,7 @@ import { memo, useCallback, useState } from "react";
 
 import useItemId from "../../../hooks/useItemId";
 import useVendorId from "../../../hooks/useVendorId";
-import { deleteOneItemFromCart } from "../../../redux/addedSlice";
+import { singleItemRemovedFromCart } from "../../../redux/addedSlice";
 import { useAppDispatch } from "../../../redux/hooks";
 
 const startIcon = <FontAwesomeIcon icon={faDeleteLeft} />;
@@ -22,7 +22,7 @@ const RowDeleteButton: FC = () => {
   const dispatch = useAppDispatch();
 
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
-    dispatch(deleteOneItemFromCart({ itemId, vendorId }));
+    dispatch(singleItemRemovedFromCart({ itemId, vendorId }));
   }, [dispatch, itemId, vendorId]);
 
   const showTooltip = useCallback(() => {

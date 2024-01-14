@@ -4,7 +4,7 @@ import { memo, useCallback } from "react";
 
 import useItemId from "../../hooks/useItemId";
 import useVendorId from "../../hooks/useVendorId";
-import { addItemToCarts } from "../../redux/addedSlice";
+import { itemAddedToCarts } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { checkIfAddedToVendor, selectItemName } from "../../redux/selectors";
 
@@ -20,7 +20,7 @@ const SingleOffcanvasVendorItem: FC = () => {
 
   const clickHandler = useCallback<MouseEventHandler<HTMLElement>>(() => {
     if (!ifAddedToVendor) {
-      dispatch(addItemToCarts({ itemId }));
+      dispatch(itemAddedToCarts({ itemId }));
     }
   }, [ifAddedToVendor, dispatch, itemId]);
 

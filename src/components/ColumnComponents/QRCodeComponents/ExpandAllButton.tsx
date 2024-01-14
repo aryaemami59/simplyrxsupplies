@@ -6,7 +6,7 @@ import type { FC } from "react";
 import { memo, useCallback, useState } from "react";
 
 import useVendorId from "../../../hooks/useVendorId";
-import { maximizeAllItemsInCart } from "../../../redux/addedSlice";
+import { maximizedAllItemsInCart } from "../../../redux/addedSlice";
 import { useAppDispatch } from "../../../redux/hooks";
 
 const title = "Expand All Items";
@@ -18,7 +18,7 @@ const ExpandAllButton: FC = () => {
   const dispatch = useAppDispatch();
 
   const toggleCollapse = useCallback(() => {
-    dispatch(maximizeAllItemsInCart({ vendorId }));
+    dispatch(maximizedAllItemsInCart({ vendorId }));
   }, [dispatch, vendorId]);
 
   const [open, setOpen] = useState(false);

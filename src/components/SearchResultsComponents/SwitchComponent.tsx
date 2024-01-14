@@ -6,7 +6,7 @@ import type { FC } from "react";
 import { memo, useCallback } from "react";
 
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
-import { toggleVendorForOneSearchResultItem } from "../../redux/addedSlice";
+import { toggledVendorForOneSearchResultItem } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { checkIfAddedToVendor, isVendorChecked } from "../../redux/selectors";
 
@@ -41,7 +41,7 @@ const SwitchComponent: FC<Props> = ({ vendorId, visibleListId }) => {
 
   const clickHandler = useCallback(() => {
     dispatch(
-      toggleVendorForOneSearchResultItem({ itemId: visibleListId, vendorId })
+      toggledVendorForOneSearchResultItem({ itemId: visibleListId, vendorId })
     );
   }, [dispatch, vendorId, visibleListId]);
 

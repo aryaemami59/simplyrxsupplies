@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback } from "react";
 
-import { addItemToCarts } from "../../redux/addedSlice";
+import { itemAddedToCarts } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { checkIfAddedToVendor, selectItemName } from "../../redux/selectors";
 
@@ -23,7 +23,7 @@ const SingleDropDown: FC<Props> = ({ itemId, vendorId }) => {
 
   const clickHandler = useCallback<MouseEventHandler<HTMLElement>>(() => {
     if (!ifAddedToVendor) {
-      dispatch(addItemToCarts({ itemId }));
+      dispatch(itemAddedToCarts({ itemId }));
     }
   }, [ifAddedToVendor, dispatch, itemId]);
 

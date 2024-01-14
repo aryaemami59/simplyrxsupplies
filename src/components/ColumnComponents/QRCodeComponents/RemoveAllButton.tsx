@@ -6,7 +6,7 @@ import type { FC } from "react";
 import { memo, useCallback, useState } from "react";
 
 import useVendorId from "../../../hooks/useVendorId";
-import { removeAllItemsFromCart } from "../../../redux/addedSlice";
+import { allItemsRemovedFromCart } from "../../../redux/addedSlice";
 import { useAppDispatch } from "../../../redux/hooks";
 
 const startIcon = <FontAwesomeIcon icon={faTrashCan} />;
@@ -19,7 +19,7 @@ const RemoveAllButton: FC = () => {
   const dispatch = useAppDispatch();
 
   const clickHandler = useCallback(() => {
-    dispatch(removeAllItemsFromCart({ vendorId }));
+    dispatch(allItemsRemovedFromCart({ vendorId }));
   }, [dispatch, vendorId]);
 
   const showTooltip = useCallback(() => {

@@ -6,8 +6,8 @@ import { memo, useCallback, useMemo, useState } from "react";
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 import useVendorId from "../../hooks/useVendorId";
 import {
-  checkOneVendorForAllSearchResults,
-  unCheckOneVendorForAllSearchResults,
+  checkedOneVendorForAllSearchResults,
+  unCheckedOneVendorForAllSearchResults,
 } from "../../redux/addedSlice";
 import { useAppDispatch } from "../../redux/hooks";
 
@@ -19,9 +19,9 @@ const ExcludeVendorSingleCheckbox: FC = () => {
 
   const handleChange = useCallback(() => {
     if (checked) {
-      dispatch(unCheckOneVendorForAllSearchResults({ vendorId }));
+      dispatch(unCheckedOneVendorForAllSearchResults({ vendorId }));
     } else {
-      dispatch(checkOneVendorForAllSearchResults({ vendorId }));
+      dispatch(checkedOneVendorForAllSearchResults({ vendorId }));
     }
     setChecked(prev => !prev);
   }, [checked, dispatch, vendorId]);

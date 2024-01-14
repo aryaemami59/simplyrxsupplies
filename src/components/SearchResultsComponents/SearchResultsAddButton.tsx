@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback } from "react";
 
-import { addItemToCarts } from "../../redux/addedSlice";
+import { itemAddedToCarts } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { checkIfAddedToAllVendors } from "../../redux/selectors";
 
@@ -21,7 +21,7 @@ const SearchResultsAddButton: FC<Props> = ({ visibleListId }) => {
   );
 
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
-    dispatch(addItemToCarts({ itemId: visibleListId }));
+    dispatch(itemAddedToCarts({ itemId: visibleListId }));
   }, [dispatch, visibleListId]);
 
   return (

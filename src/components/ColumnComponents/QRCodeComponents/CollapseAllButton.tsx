@@ -6,7 +6,7 @@ import type { FC } from "react";
 import { memo, useCallback, useState } from "react";
 
 import useVendorId from "../../../hooks/useVendorId";
-import { minimizeAllItemsInCart } from "../../../redux/addedSlice";
+import { minimizedAllItemsInCart } from "../../../redux/addedSlice";
 import { useAppDispatch } from "../../../redux/hooks";
 
 const title = "Collapse All Items";
@@ -28,7 +28,7 @@ const CollapseAllButton: FC = () => {
   }, []);
 
   const toggleCollapse = useCallback(() => {
-    dispatch(minimizeAllItemsInCart({ vendorId }));
+    dispatch(minimizedAllItemsInCart({ vendorId }));
   }, [dispatch, vendorId]);
 
   return (

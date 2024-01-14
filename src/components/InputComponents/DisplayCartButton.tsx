@@ -5,8 +5,10 @@ import IconButton from "@mui/material/IconButton";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useMemo } from "react";
 
+import addedSlice from "../../redux/addedSlice";
 import { useAppSelector } from "../../redux/hooks";
 import { checkIfAnyItemsAdded } from "../../redux/selectors";
+import type { RootState } from "../../redux/store";
 import Column from "../../shared/components/Column";
 
 type Props = {

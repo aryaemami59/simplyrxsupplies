@@ -5,7 +5,7 @@ import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback } from "react";
 
 import useDependencyChangeLogger from "../../hooks/loggers/useDependencyChangeLogger";
-import { addItemToCarts } from "../../redux/addedSlice";
+import { itemAddedToCarts } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   checkIfAddedToAllVendors,
@@ -39,7 +39,7 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemId }) => {
 
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     if (!isEmptyArray(checkedVendorIds)) {
-      dispatch(addItemToCarts({ itemId }));
+      dispatch(itemAddedToCarts({ itemId }));
     }
   }, [dispatch, itemId, checkedVendorIds]);
 

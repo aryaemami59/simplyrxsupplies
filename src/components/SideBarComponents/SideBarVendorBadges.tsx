@@ -5,7 +5,7 @@ import type { FC } from "react";
 import { memo, useCallback, useMemo } from "react";
 
 import useOfficialVendorName from "../../hooks/useOfficialVendorName";
-import { toggleVendorForOneSearchResultItem } from "../../redux/addedSlice";
+import { toggledVendorForOneSearchResultItem } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { checkIfAddedToVendor, isVendorChecked } from "../../redux/selectors";
 import type { ItemIdAndVendorId } from "../../types/reduxHelperTypes";
@@ -31,7 +31,7 @@ const SideBarVendorBadges: FC<Props> = ({ itemId, vendorId }) => {
   );
 
   const clickHandler = useCallback(() => {
-    dispatch(toggleVendorForOneSearchResultItem({ itemId, vendorId }));
+    dispatch(toggledVendorForOneSearchResultItem({ itemId, vendorId }));
   }, [dispatch, itemId, vendorId]);
 
   const control = useMemo(
