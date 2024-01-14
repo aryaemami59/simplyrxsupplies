@@ -9,9 +9,8 @@ import type { FC } from "react";
 import { memo, useCallback, useState } from "react";
 
 import ItemIdProvider from "../../contexts/ItemIdProvider";
-import useItemIds from "../../hooks/useItemIds";
-import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 import useVendorId from "../../hooks/useVendorId";
+import { useOfficialVendorName, useVendorItemIds } from "../../redux/selectors";
 import SingleOffcanvasVendorItem from "./SingleOffcanvasVendorItem";
 
 const expandIcon: AccordionSummaryProps["expandIcon"] = <ExpandMoreIcon />;
@@ -23,10 +22,12 @@ const transitionProps: TransitionProps = {
 
 const OffcanvasVendorAccordion: FC = () => {
   const vendorId = useVendorId();
+
   const [open, setOpen] = useState(false);
+
   const officialVendorName = useOfficialVendorName(vendorId);
 
-  const vendorItemNames = useItemIds(vendorId);
+  const vendorItemNames = useVendorItemIds(vendorId);
 
   const toggle = useCallback(() => {
     setOpen(prev => !prev);

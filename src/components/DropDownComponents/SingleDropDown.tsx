@@ -4,8 +4,8 @@ import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback } from "react";
 
 import { itemAddedToCarts } from "../../redux/addedSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { checkIfAddedToVendor, selectItemName } from "../../redux/selectors";
+import { useAppDispatch } from "../../redux/hooks";
+import { useCheckIfAddedToVendor, useItemName } from "../../redux/selectors";
 
 type Props = {
   itemId: number;
@@ -15,11 +15,9 @@ type Props = {
 const SingleDropDown: FC<Props> = ({ itemId, vendorId }) => {
   const dispatch = useAppDispatch();
 
-  const itemName = useAppSelector(state => selectItemName(state, itemId));
+  const itemName = useItemName(itemId);
 
-  const ifAddedToVendor = useAppSelector(state =>
-    checkIfAddedToVendor(state, vendorId, itemId)
-  );
+  const ifAddedToVendor = useCheckIfAddedToVendor(vendorId, itemId);
 
   const clickHandler = useCallback<MouseEventHandler<HTMLElement>>(() => {
     if (!ifAddedToVendor) {

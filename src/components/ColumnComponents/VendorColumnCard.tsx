@@ -3,16 +3,13 @@ import type { FC } from "react";
 import { memo } from "react";
 
 import useVendorId from "../../hooks/useVendorId";
-import { useAppSelector } from "../../redux/hooks";
-import { checkIfAnyAddedToOneVendor } from "../../redux/selectors";
+import { useCheckIfAnyAddedToOneVendor } from "../../redux/selectors";
 import ColumnTopCardBody from "./ColumnTopCardBody";
 import EmptyColumn from "./EmptyColumn";
 
 const VendorColumnCard: FC = () => {
   const vendorId = useVendorId();
-  const anyAdded = useAppSelector(state =>
-    checkIfAnyAddedToOneVendor(state, vendorId)
-  );
+  const anyAdded = useCheckIfAnyAddedToOneVendor(vendorId);
 
   return <Card>{anyAdded ? <ColumnTopCardBody /> : <EmptyColumn />}</Card>;
 };

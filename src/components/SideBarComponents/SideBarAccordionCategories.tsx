@@ -8,11 +8,7 @@ import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo, useCallback, useRef, useState } from "react";
 
-import { useAppSelector } from "../../redux/hooks";
-import {
-  selectCategoryItemIds,
-  selectCategoryName,
-} from "../../redux/selectors";
+import { useCategoryItemIds, useCategoryName } from "../../redux/selectors";
 import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem";
 
 const expandIcon: AccordionSummaryOwnProps["expandIcon"] = <ExpandMoreIcon />;
@@ -28,12 +24,11 @@ const transitionProps: TransitionProps = {
 
 const SideBarAccordionCategories: FC<Props> = ({ categoryId }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const categoryName = useAppSelector(state =>
-    selectCategoryName(state, categoryId)
-  );
-  const categoryItemIds = useAppSelector(state =>
-    selectCategoryItemIds(state, categoryId)
-  );
+
+  const categoryName = useCategoryName(categoryId);
+
+  const categoryItemIds = useCategoryItemIds(categoryId);
+
   const [open, setOpen] = useState(false);
 
   const toggle = useCallback(() => {

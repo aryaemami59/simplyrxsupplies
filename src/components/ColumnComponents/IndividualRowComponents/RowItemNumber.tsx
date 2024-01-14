@@ -5,8 +5,7 @@ import type { FC } from "react";
 import { memo } from "react";
 
 import useItemId from "../../../hooks/useItemId";
-import { useAppSelector } from "../../../redux/hooks";
-import { selectItemNumber } from "../../../redux/selectors";
+import { useItemNumber } from "../../../redux/selectors";
 import CopyIcon from "./CopyIcon";
 
 const primaryTypographyProps: TypographyProps<"span", { component?: "span" }> =
@@ -14,7 +13,7 @@ const primaryTypographyProps: TypographyProps<"span", { component?: "span" }> =
 
 const RowItemNumber: FC = () => {
   const itemId = useItemId();
-  const itemNumber = useAppSelector(state => selectItemNumber(state, itemId));
+  const itemNumber = useItemNumber(itemId);
 
   return (
     <ListItem

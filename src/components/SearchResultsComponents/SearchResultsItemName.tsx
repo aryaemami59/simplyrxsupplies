@@ -4,8 +4,7 @@ import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo } from "react";
 
-import { useAppSelector } from "../../redux/hooks";
-import { selectItemName } from "../../redux/selectors";
+import { useItemName } from "../../redux/selectors";
 
 type Props = {
   visibleListId: number;
@@ -16,9 +15,7 @@ const titleTypographyProps: CardHeaderProps["titleTypographyProps"] = {
 };
 
 const SearchResultsItemName: FC<Props> = ({ visibleListId }) => {
-  const itemName = useAppSelector(state =>
-    selectItemName(state, visibleListId)
-  );
+  const itemName = useItemName(visibleListId);
 
   return (
     <CardHeader

@@ -7,8 +7,8 @@ import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo } from "react";
 
-import useOfficialVendorName from "../../../hooks/useOfficialVendorName";
 import useVendorId from "../../../hooks/useVendorId";
+import { useOfficialVendorName } from "../../../redux/selectors";
 import QRCodeImage from "./QRCodeImage";
 
 type Props = {
@@ -18,6 +18,7 @@ type Props = {
 
 const QRCodeDialog: FC<Props> = ({ hideModal, isModalOpen }) => {
   const vendorId = useVendorId();
+
   const officialVendorName = useOfficialVendorName(vendorId);
 
   return (

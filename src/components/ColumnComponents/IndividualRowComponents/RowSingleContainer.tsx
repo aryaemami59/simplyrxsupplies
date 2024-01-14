@@ -8,8 +8,8 @@ import { memo, useCallback } from "react";
 import useItemId from "../../../hooks/useItemId";
 import useVendorId from "../../../hooks/useVendorId";
 import { toggledMinimizeOneItemInCart } from "../../../redux/addedSlice";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { isMinimized, selectItemName } from "../../../redux/selectors";
+import { useAppDispatch } from "../../../redux/hooks";
+import { useIsMinimized, useItemName } from "../../../redux/selectors";
 import CollapseButton from "./CollapseButton";
 import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal";
 import RowDeleteButton from "./RowDeleteButton";
@@ -19,8 +19,8 @@ const RowSingleContainer: FC = () => {
   const itemId = useItemId();
   const vendorId = useVendorId();
   const dispatch = useAppDispatch();
-  const open = useAppSelector(state => isMinimized(state, vendorId, itemId));
-  const itemName = useAppSelector(state => selectItemName(state, itemId));
+  const open = useIsMinimized(vendorId, itemId);
+  const itemName = useItemName(itemId);
   const toggleFade = useCallback(() => {
     dispatch(toggledMinimizeOneItemInCart({ itemId, vendorId }));
   }, [dispatch, itemId, vendorId]);

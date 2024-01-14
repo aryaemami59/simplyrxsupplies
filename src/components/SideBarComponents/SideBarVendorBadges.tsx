@@ -4,31 +4,25 @@ import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo, useCallback, useMemo } from "react";
 
-import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 import { toggledVendorForOneSearchResultItem } from "../../redux/addedSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { checkIfAddedToVendor, isVendorChecked } from "../../redux/selectors";
+import { useAppDispatch } from "../../redux/hooks";
+import {
+  useCheckIfAddedToVendor,
+  useIsVendorChecked,
+  useOfficialVendorName,
+} from "../../redux/selectors";
 import type { ItemIdAndVendorId } from "../../types/reduxHelperTypes";
 
 type Props = ItemIdAndVendorId;
 
 const SideBarVendorBadges: FC<Props> = ({ itemId, vendorId }) => {
   const dispatch = useAppDispatch();
+
   const officialVendorName = useOfficialVendorName(vendorId);
 
-  // const checked = useAppSelector(state =>
-  //   checkVendorsToAdd(state, vendorId, itemId)
-  // );
-  const checked = useAppSelector(state =>
-    isVendorChecked(state, itemId, vendorId)
-  );
+  const checked = useIsVendorChecked(itemId, vendorId);
 
-  // const disabled = useAppSelector(state =>
-  //   checkIfAddedToAllVendors(state, itemId)
-  // );
-  const disabled = useAppSelector(state =>
-    checkIfAddedToVendor(state, vendorId, itemId)
-  );
+  const disabled = useCheckIfAddedToVendor(vendorId, itemId);
 
   const clickHandler = useCallback(() => {
     dispatch(toggledVendorForOneSearchResultItem({ itemId, vendorId }));

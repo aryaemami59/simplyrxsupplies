@@ -8,8 +8,7 @@ import { shareOnMobile } from "react-mobile-share";
 
 import useQRCodeData from "../../../hooks/useQRCodeData";
 import useVendorId from "../../../hooks/useVendorId";
-import { useAppSelector } from "../../../redux/hooks";
-import { selectCartItemNamesStringified } from "../../../redux/selectors";
+import { useCartItemNamesStringified } from "../../../redux/selectors";
 
 const startIcon = /ipad|iphone|ipod/iu.test(navigator.userAgent) ? (
   <IosShareIcon fontSize="large" />
@@ -19,9 +18,7 @@ const startIcon = /ipad|iphone|ipod/iu.test(navigator.userAgent) ? (
 
 const ShareButton: FC = () => {
   const vendorId = useVendorId();
-  const itemNamesStringified = useAppSelector(state =>
-    selectCartItemNamesStringified(state, vendorId)
-  );
+  const itemNamesStringified = useCartItemNamesStringified(vendorId);
   // const text = itemNames.join(", ");
   const title = `QR Code for items:\n${itemNamesStringified}`;
   const qrCodeData = useQRCodeData();

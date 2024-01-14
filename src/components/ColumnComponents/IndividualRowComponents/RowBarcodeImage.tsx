@@ -2,21 +2,26 @@ import type { FC } from "react";
 import { memo } from "react";
 
 import useItemId from "../../../hooks/useItemId";
-import useOfficialVendorName from "../../../hooks/useOfficialVendorName";
 import useVendorId from "../../../hooks/useVendorId";
-import { useAppSelector } from "../../../redux/hooks";
-import { selectItemName, selectItemNumber } from "../../../redux/selectors";
+import {
+  useItemName,
+  useItemNumber,
+  useOfficialVendorName,
+} from "../../../redux/selectors";
 import BarcodeImage from "./BarcodeImage";
 import RowBarcodeModal from "./ModalComponents/RowBarcodeModal";
 import PrintBarcodeIcon from "./PrintBarcodeIcon";
 
 const RowBarcodeImage: FC = () => {
   const vendorId = useVendorId();
-  const itemId = useItemId();
-  const officialVendorName = useOfficialVendorName(vendorId);
-  const itemName = useAppSelector(state => selectItemName(state, itemId));
 
-  const itemNumber = useAppSelector(state => selectItemNumber(state, itemId));
+  const itemId = useItemId();
+
+  const officialVendorName = useOfficialVendorName(vendorId);
+
+  const itemName = useItemName(itemId);
+
+  const itemNumber = useItemNumber(itemId);
 
   const header = `<h2>Item Name: </h2><h1>${itemName}</h1><h2>Item Number: </h2><h1>${itemNumber}</h1><h2>You can order this item from ${officialVendorName}</h2>`;
 

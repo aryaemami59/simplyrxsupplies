@@ -4,8 +4,7 @@ import { memo } from "react";
 
 import useQRCodeData from "../../../hooks/useQRCodeData";
 import useVendorId from "../../../hooks/useVendorId";
-import { useAppSelector } from "../../../redux/hooks";
-import { selectQRCodeText } from "../../../redux/selectors";
+import { useQRCodeText } from "../../../redux/selectors";
 
 type Props = {
   className?: string;
@@ -13,7 +12,7 @@ type Props = {
 
 const QRCodeImage: FC<Props> = ({ className }) => {
   const vendorId = useVendorId();
-  const title = useAppSelector(state => selectQRCodeText(state, vendorId));
+  const title = useQRCodeText(vendorId);
   const qrCodeData = useQRCodeData();
 
   return (

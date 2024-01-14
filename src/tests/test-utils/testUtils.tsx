@@ -1,4 +1,3 @@
-import { configureStore } from "@reduxjs/toolkit";
 import type {
   queries,
   RenderOptions,
@@ -10,9 +9,8 @@ import mediaQuery from "css-mediaquery";
 import type { FC, ReactElement } from "react";
 import { Provider } from "react-redux";
 
-import apiSlice, { endpoints } from "../../redux/apiSlice";
-import type { AppStore, RootState } from "../../redux/store";
-import { rootReducer } from "../../redux/store";
+import { endpoints } from "../../redux/apiSlice";
+import { type AppStore, type RootState,setupStore } from "../../redux/store";
 import type { Supplies } from "../../types/api";
 import type {
   PartialObjectProperties,
@@ -21,14 +19,6 @@ import type {
   WritableDeep,
 } from "../../types/tsHelpers";
 import capitalize from "../../utils/capitalize";
-
-export const setupStore = (preloadedState?: Partial<RootState>) =>
-  configureStore({
-    reducer: rootReducer,
-    preloadedState,
-    middleware: getDefaultMiddleware =>
-      getDefaultMiddleware().concat(apiSlice.middleware),
-  });
 
 export const setupWithNoUI = async (
   options: SetupWithNoUIOptions = {}

@@ -5,18 +5,16 @@ import { memo, useCallback } from "react";
 import useItemId from "../../hooks/useItemId";
 import useVendorId from "../../hooks/useVendorId";
 import { itemAddedToCarts } from "../../redux/addedSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { checkIfAddedToVendor, selectItemName } from "../../redux/selectors";
+import { useAppDispatch } from "../../redux/hooks";
+import { useCheckIfAddedToVendor, useItemName } from "../../redux/selectors";
 
 const SingleOffcanvasVendorItem: FC = () => {
   const vendorId = useVendorId();
   const itemId = useItemId();
   const dispatch = useAppDispatch();
-  const itemName = useAppSelector(state => selectItemName(state, itemId));
+  const itemName = useItemName(itemId);
 
-  const ifAddedToVendor = useAppSelector(state =>
-    checkIfAddedToVendor(state, vendorId, itemId)
-  );
+  const ifAddedToVendor = useCheckIfAddedToVendor(vendorId, itemId);
 
   const clickHandler = useCallback<MouseEventHandler<HTMLElement>>(() => {
     if (!ifAddedToVendor) {

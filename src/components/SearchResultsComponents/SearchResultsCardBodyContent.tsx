@@ -2,8 +2,7 @@ import PropTypes from "prop-types";
 import type { FC } from "react";
 import { memo } from "react";
 
-import { useAppSelector } from "../../redux/hooks";
-import { selectVendorIdsByItemId } from "../../redux/selectors";
+import { useVendorIdsByItemId } from "../../redux/selectors";
 import isEmptyArray from "../../utils/predicates/isEmptyArray";
 import SearchResultsAddButton from "./SearchResultsAddButton";
 import SearchResultsItemName from "./SearchResultsItemName";
@@ -14,9 +13,7 @@ type Props = {
 };
 
 const SearchResultsCardBodyContent: FC<Props> = ({ visibleListId }) => {
-  const vendorIds = useAppSelector(state =>
-    selectVendorIdsByItemId(state, visibleListId)
-  );
+  const vendorIds = useVendorIdsByItemId(visibleListId);
 
   return (
     <>

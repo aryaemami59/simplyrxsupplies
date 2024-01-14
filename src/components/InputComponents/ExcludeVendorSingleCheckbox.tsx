@@ -3,19 +3,22 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import type { FC } from "react";
 import { memo, useCallback, useMemo, useState } from "react";
 
-import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 import useVendorId from "../../hooks/useVendorId";
 import {
   checkedOneVendorForAllSearchResults,
   unCheckedOneVendorForAllSearchResults,
 } from "../../redux/addedSlice";
 import { useAppDispatch } from "../../redux/hooks";
+import { useOfficialVendorName } from "../../redux/selectors";
 
 const ExcludeVendorSingleCheckbox: FC = () => {
-  const vendorId = useVendorId();
-  const [checked, setChecked] = useState(true);
-  const officialVendorName = useOfficialVendorName(vendorId);
   const dispatch = useAppDispatch();
+
+  const vendorId = useVendorId();
+
+  const [checked, setChecked] = useState(true);
+
+  const officialVendorName = useOfficialVendorName(vendorId);
 
   const handleChange = useCallback(() => {
     if (checked) {

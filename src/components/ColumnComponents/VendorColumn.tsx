@@ -3,14 +3,16 @@ import Collapse from "@mui/material/Collapse";
 import type { FC } from "react";
 import { memo, useCallback, useState } from "react";
 
-import useOfficialVendorName from "../../hooks/useOfficialVendorName";
 import useVendorId from "../../hooks/useVendorId";
+import { useOfficialVendorName } from "../../redux/selectors";
 import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge";
 import VendorColumnCard from "./VendorColumnCard";
 
 const VendorColumn: FC = () => {
   const vendorId = useVendorId();
+
   const [open, setOpen] = useState(false);
+
   const officialVendorName = useOfficialVendorName(vendorId);
 
   const buttonClick = useCallback(() => {

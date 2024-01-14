@@ -4,14 +4,13 @@ import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback } from "react";
 
-import useDependencyChangeLogger from "../../hooks/loggers/useDependencyChangeLogger";
 import { itemAddedToCarts } from "../../redux/addedSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   checkIfAddedToAllVendors,
-  selectCheckedVendorIds,
-  selectItemName,
-  selectVendorIdsByItemId,
+  useCheckedVendorIds,
+  useItemName,
+  useVendorIdsByItemId,
 } from "../../redux/selectors";
 import isEmptyArray from "../../utils/predicates/isEmptyArray";
 import SideBarVendorBadges from "./SideBarVendorBadges";
@@ -25,17 +24,11 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemId }) => {
   const ifAddedToAllVendors = useAppSelector(state =>
     checkIfAddedToAllVendors(state, itemId)
   );
-  const itemName = useAppSelector(state => selectItemName(state, itemId));
+  const itemName = useItemName(itemId);
 
-  const vendorIds = useAppSelector(state =>
-    selectVendorIdsByItemId(state, itemId)
-  );
+  const vendorIds = useVendorIdsByItemId(itemId);
 
-  const checkedVendorIds = useAppSelector(state =>
-    selectCheckedVendorIds(state, itemId)
-  );
-  useDependencyChangeLogger(checkedVendorIds, "checkedVendorIds");
-  // console.log(checkedVendorIds);
+  const checkedVendorIds = useCheckedVendorIds(itemId);
 
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     if (!isEmptyArray(checkedVendorIds)) {

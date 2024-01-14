@@ -7,8 +7,7 @@ import PropTypes from "prop-types";
 import type { FC, MouseEventHandler } from "react";
 import { memo, useCallback, useState } from "react";
 
-import useItemIds from "../../hooks/useItemIds";
-import useOfficialVendorName from "../../hooks/useOfficialVendorName";
+import { useOfficialVendorName, useVendorItemIds } from "../../redux/selectors";
 import SingleDropDown from "./SingleDropDown";
 
 const transformOrigin: PopoverOrigin = {
@@ -42,10 +41,12 @@ type Props = {
 
 const VendorDropDown: FC<Props> = ({ vendorId }) => {
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null);
+
   const open = !!anchorElement;
+
   const officialVendorName = useOfficialVendorName(vendorId);
 
-  const itemIds = useItemIds(vendorId);
+  const itemIds = useVendorItemIds(vendorId);
 
   const handleOpen: MouseEventHandler<HTMLElement> = useCallback(event => {
     setAnchorElement(event.currentTarget);

@@ -5,17 +5,14 @@ import { memo } from "react";
 
 import ItemIdProvider from "../../contexts/ItemIdProvider";
 import useVendorId from "../../hooks/useVendorId";
-import { useAppSelector } from "../../redux/hooks";
-import { selectCartItemsIds } from "../../redux/selectors";
+import { useCartItemsIds } from "../../redux/selectors";
 import RowSingleContainer from "./IndividualRowComponents/RowSingleContainer";
 import QRCodeImageContainer from "./QRCodeComponents/QRCodeImageContainer";
 import VendorLink from "./VendorLink";
 
 const ColumnTopCardBody: FC = () => {
   const vendorId = useVendorId();
-  const addedItemsIds = useAppSelector(state =>
-    selectCartItemsIds(state, vendorId)
-  );
+  const addedItemsIds = useCartItemsIds(vendorId);
 
   return (
     <CardContent className="p-2">
