@@ -31,7 +31,7 @@ export type WritableDeep<T> = {
   -readonly [K in keyof T]: T[K] extends object ? WritableDeep<T[K]> : T[K];
 };
 
-export type PartialObjectProperties<T extends UnknownObject> = {
+export type PartialObjectProperties<T extends object> = {
   [K in keyof T]: T[K] extends UnknownObject ? Partial<T[K]> : T[K];
 };
 
@@ -51,7 +51,7 @@ export type ObjectEntries<
 
 export type Predicate<T> = (value: unknown) => value is T;
 
-export type ObjectChecker<T extends UnknownObject> = {
+export type ObjectChecker<T extends object> = {
   [K in keyof T]: Predicate<T[K]>;
 };
 
@@ -84,11 +84,10 @@ export type UnionToIntersection<Union> = (
   : never;
 
 export type Push<T extends unknown[], V> = [...T, V];
-export type LastOf<T> = UnionToIntersection<
-  T extends unknown ? () => T : never
-> extends () => infer R
-  ? R
-  : never;
+export type LastOf<T> =
+  UnionToIntersection<T extends unknown ? () => T : never> extends () => infer R
+    ? R
+    : never;
 export type TuplifyUnion<
   T,
   L = LastOf<T>,
