@@ -1,34 +1,38 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { createLogger } from "redux-logger";
 
-import type { setupStore } from "../tests/test-utils/testUtils";
 import addedSlice from "./addedSlice";
 import apiSlice from "./apiSlice";
 
-const logger = createLogger({ collapsed: true, diff: true, duration: true });
+export const rootReducer = combineSlices(addedSlice, apiSlice);
 
-export const rootReducer = combineReducers({
-  [addedSlice.reducerPath]: addedSlice.reducer,
-  [apiSlice.reducerPath]: apiSlice.reducer,
-});
-
-export const store = configureStore({
-  middleware: getDefaultMiddleware =>
-    process.env.NODE_ENV === "production"
-      ? getDefaultMiddleware().concat(apiSlice.middleware)
-      : getDefaultMiddleware({
-          actionCreatorCheck: true,
-          immutableCheck: true,
-          serializableCheck: true,
-          thunk: true,
-        }).concat(
-          apiSlice.middleware,
-          logger as ReturnType<typeof getDefaultMiddleware>[number]
-        ),
-  reducer: rootReducer,
-  // enhancers: getDefaultEnhancers => getDefaultEnhancers(),
-});
-
-export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof rootReducer>;
+
+export const setupStore = (preloadedState?: Partial<RootState>) =>
+  configureStore({
+    middleware: getDefaultMiddleware =>
+      import.meta.env.PROD
+        ? getDefaultMiddleware().concat(apiSlice.middleware)
+        : getDefaultMiddleware({
+            actionCreatorCheck: true,
+            immutableCheck: true,
+            serializableCheck: true,
+            thunk: true,
+          })
+            .concat(apiSlice.middleware)
+            .concat(
+              createLogger({
+                collapsed: true,
+                diff: true,
+                duration: true,
+              })
+            ),
+    reducer: rootReducer,
+    preloadedState,
+    enhancers: getDefaultEnhancers => getDefaultEnhancers(),
+  });
+
+export const store = setupStore();
+
 export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore["dispatch"];

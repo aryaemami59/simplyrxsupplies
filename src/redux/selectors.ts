@@ -11,7 +11,7 @@ import {
 } from "./adapterSelectors";
 import { apiSelectors, selectCategoriesData } from "./apiSlice";
 import {
-  createParametricSelectorHook,
+  createParametricSelectorHooks,
   createSelectorWeakMap,
 } from "./createSelectors";
 import { DRAFT_SAFE_SELECTORS } from "./draftSafeSelectors";
@@ -229,28 +229,51 @@ export const selectIfAddedToAllVendors2 = createSelector(
   added => added
 );
 
-// export const parametricSelectors = {
-//   selectVendorsLinks,
-//   selectItemNumber,
-//   selectItemSrc,
-//   selectItemName,
-//   selectVendorIdsByItemId,
-//   selectCartItemsIds,
-//   selectCartItemNamesStringified,
-//   selectCheckedVendorIds,
-//   isVendorChecked,
-//   isMinimized,
-//   selectCategoryName,
-//   selectCategoryItemIds,
-//   checkIfAddedToVendor,
-//   selectCartItemsLength,
-//   checkIfAnyAddedToOneVendor,
-//   selectQRCodeText,
-//   selectOfficialName,
-//   selectVendorItemIds,
-//   selectCartsByItemId,
-//   checkIfAddedToAllVendors,
-// };
+export const parametricSelectors = {
+  selectVendorsLinks,
+  selectItemNumber,
+  selectItemSrc,
+  selectItemName,
+  selectVendorIdsByItemId,
+  selectCartItemsIds,
+  selectCartItemNamesStringified,
+  selectCheckedVendorIds,
+  isVendorChecked,
+  isMinimized,
+  selectCategoryName,
+  selectCategoryItemIds,
+  checkIfAddedToVendor,
+  selectCartItemsLength,
+  checkIfAnyAddedToOneVendor,
+  selectQRCodeText,
+  selectOfficialVendorName,
+  selectVendorItemIds,
+  selectCartsByItemId,
+  checkIfAddedToAllVendors,
+};
+
+export const {
+  useCartItemNamesStringified,
+  useCartItemsIds,
+  useCartItemsLength,
+  useCartsByItemId,
+  useCategoryItemIds,
+  useCategoryName,
+  useCheckedVendorIds,
+  useCheckIfAddedToAllVendors,
+  useCheckIfAddedToVendor,
+  useCheckIfAnyAddedToOneVendor,
+  useIsMinimized,
+  useIsVendorChecked,
+  useItemName,
+  useItemNumber,
+  useItemSrc,
+  useOfficialVendorName,
+  useQRCodeText,
+  useVendorIdsByItemId,
+  useVendorItemIds,
+  useVendorsLinks,
+} = createParametricSelectorHooks(parametricSelectors);
 
 export const mainSelectors = {
   selectItemNumber,
@@ -261,7 +284,6 @@ export const mainSelectors = {
   checkIfAnyItemsAdded,
   selectCartItemsIds,
   selectCartItemNamesStringified,
-  // selectCheckedVendorIds,
   isVendorChecked,
   isMinimized,
   selectCategoryName,
@@ -301,8 +323,8 @@ export const resetAllSelectors = () => {
   });
 };
 
-export const useOfficialVendorName = createParametricSelectorHook(
-  selectOfficialVendorName
-);
+// export const useOfficialVendorName = createParametricSelectorHook(
+//   selectOfficialVendorName
+// );
 
 export default allSelectors;

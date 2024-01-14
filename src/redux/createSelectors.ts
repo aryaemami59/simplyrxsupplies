@@ -1,7 +1,7 @@
 import type { OutputSelector } from "@reduxjs/toolkit";
 import { createDraftSafeSelectorCreator } from "@reduxjs/toolkit";
 import { shallowEqual } from "react-redux";
-import type { SelectorArray } from "reselect";
+import type { Selector, SelectorsObject } from "reselect";
 import {
   createSelector,
   createSelectorCreator,
@@ -10,6 +10,7 @@ import {
   weakMapMemoize,
 } from "reselect";
 
+import capitalize from "../utils/capitalize";
 import { useAppSelector } from "./hooks";
 import type { RootState } from "./store";
 
@@ -377,11 +378,38 @@ export const createDebugSelector = createSelectorCreator(lruMemoize, {
 // };
 
 export const createParametricSelectorHook =
-  <Result, Params extends readonly unknown[]>(
-    selector: (state: RootState, ...params: Params) => Result
+  <Result, Params extends readonly [unknown, ...(readonly unknown[])]>(
+    selector: (selector: RootState, ...args: Params) => Result
   ) =>
   (...args: Params) =>
     useAppSelector(state => selector(state, ...args));
+
+type MapSelectorsToHooks<TObject extends SelectorsObject<RootState>> = {
+  [K in keyof TObject as K extends `select${infer R}`
+    ? `use${R}`
+    : `use${Capitalize<Extract<K, string>>}`]: TObject[K] extends Selector<
+    RootState,
+    infer Result,
+    infer Params
+  >
+    ? (...args: Params) => Result
+    : never;
+};
+
+export const createParametricSelectorHooks = <
+  TObject extends SelectorsObject<RootState>,
+>(
+  selectors: TObject
+): MapSelectorsToHooks<TObject> =>
+  Object.fromEntries(
+    Object.entries(selectors).map(
+      ([selectorName, selector]) =>
+        [
+          `${selectorName.startsWith("select") ? selectorName.replace(/^select/, "use") : `use${capitalize(selectorName)}`}`,
+          createParametricSelectorHook(selector),
+        ] as const
+    )
+  ) as MapSelectorsToHooks<TObject>;
 
 // export const useCurriedSelector =
 //   <Args extends unknown[], SelectorOutput>(
@@ -409,7 +437,7 @@ export const findFastestSelector = <S extends OutputSelector>(
   const results = memoizeFuncs
     .map(memoize => {
       const alternateSelector = createSelector(
-        [selector.dependencies as [...SelectorArray]],
+        selector.dependencies as Selector<RootState>[],
         selector.resultFunc,
         { memoize }
       );
