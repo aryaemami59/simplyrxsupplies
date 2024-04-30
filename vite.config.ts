@@ -6,57 +6,8 @@ import type { UserConfig } from "vitest/config"
 import { defineConfig } from "vitest/config"
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
-  const testConfig: UserConfig = {
-    plugins: [
-      react({
-        babel: {
-          plugins: [
-            ["macros", { "fontawesome-svg-core": { license: "free" } }],
-          ],
-        },
-      }),
-    ],
-    test: {
-      typecheck: { only: true },
-      exclude: [
-        "node_modules",
-        "dist",
-        ".idea",
-        ".git",
-        ".cache",
-        "src/hooks/loggers",
-      ],
-      include: ["**/*.test.?(c|m)[jt]s?(x)"],
-      coverage: {
-        exclude: ["src/hooks/loggers"],
-        reporter: ["text", "json", "html"],
-        provider: "v8",
-        enabled: true,
-      },
-      allowOnly: true,
-      environment: "jsdom",
-      ui: true,
-      chaiConfig: {
-        truncateThreshold: 1000,
-        includeStack: true,
-        showDiff: true,
-      },
-      deps: {
-        moduleDirectories: ["node_modules"],
-      },
-      reporters: ["html", "verbose"],
-      watch: true,
-      css: true,
-      benchmark: {
-        reporters: ["default"],
-      },
-      setupFiles: ["src/tests/test-utils/setup.vitest.ts"],
-    },
-  }
-  if (mode === "test") {
-    return testConfig
-  }
+export default defineConfig(configEnv => {
+  const { mode } = configEnv
   const developmentConfig: UserConfig = {
     plugins: [
       react({
@@ -75,6 +26,7 @@ export default defineConfig(({ mode }) => {
     esbuild: {
       drop: ["console", "debugger"],
     },
+    build: { emptyOutDir: true },
     define: {
       "import.meta.vitest": "undefined",
     },
