@@ -2,9 +2,9 @@
   "env": { "browser": true, "es2024": true, "node": true },
   "extends": [
     "eslint:recommended",
-    "airbnb",
-    "airbnb-typescript",
-    "airbnb/hooks",
+    // "airbnb",
+    // "airbnb-typescript",
+    // "airbnb/hooks",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     // "plugin:react/all",
@@ -25,14 +25,14 @@
     // "plugin:optimize-regex/all",
     "plugin:jsdoc/recommended-typescript-error",
     "plugin:@typescript-eslint/recommended",
-    "plugin:vitest/recommended",
+    // "plugin:vitest/recommended",
     // "plugin:vitest/all",
     // "plugin:jest/recommended",
     // "plugin:jest/style",
     // "plugin:jest/all",
     // "plugin:canonical/recommended",
     // "plugin:jest-extended/all",
-    // "plugin:testing-library/react",
+    "plugin:testing-library/react",
     // "plugin:jest-dom/recommended",
     // "plugin:reselect/all",
     // "plugin:prettier/recommended",
@@ -61,6 +61,8 @@
     "@typescript-eslint",
     "prefer-arrow-functions",
     "react-perf",
+    "react-hooks",
+    "import",
     // "prettier",
     // "jsx-a11y",
     // "material-ui",
@@ -68,7 +70,7 @@
     "promise",
     "sonarjs",
     "unicorn",
-    "simple-import-sort",
+    // "simple-import-sort",
     // "canonical",
     "@reverecre/fontawesome",
     // "regexp",
@@ -91,7 +93,8 @@
       2,
       { "fixStyle": "separate-type-imports" }
     ],
-    "@typescript-eslint/consistent-type-exports": [2],
+    "@typescript-eslint/consistent-type-exports": 2,
+    // "@typescript-eslint/consistent-type-exports": [2],
     "@typescript-eslint/explicit-member-accessibility": [2],
     // "@typescript-eslint/strict-boolean-expressions": [2],
     "@typescript-eslint/explicit-function-return-type": [0],
@@ -144,8 +147,8 @@
       }
     ],
     // "react/jsx-sort-props": [2],
-    "simple-import-sort/exports": [2],
-    "simple-import-sort/imports": [2],
+    // "simple-import-sort/exports": [2],
+    // "simple-import-sort/imports": [2],
     "sonarjs/cognitive-complexity": [2, 13],
     "sonarjs/no-duplicate-string": [0, { "threshold": 5 }],
     "unicorn/error-message": [0],
@@ -187,17 +190,18 @@
     //     "replacements": {}
     //   }
     // ],
-    "import/no-extraneous-dependencies": [
-      2,
-      {
-        "devDependencies": [
-          "src/main.tsx",
-          "vite.config.ts",
-          "**/*.test.ts{,x}",
-          "src/tests/**"
-        ]
-      }
-    ],
+    // "import/no-extraneous-dependencies": [
+    //   2,
+    //   {
+    //     "devDependencies": [
+    //       "src/main.tsx",
+    //       "vite.config.ts",
+    //       "**/*.test.ts{,x}",
+    //       "src/tests/**",
+    //       "redux-logger"
+    //     ]
+    //   }
+    // ],
     "sonarjs/no-identical-functions": [2, 3],
     "@reverecre/fontawesome/shakeable-imports": [2],
     "@typescript-eslint/no-invalid-void-type": [0],
@@ -224,10 +228,10 @@
       { "allowTestingFrameworkSetupHook": "beforeEach" }
     ],
     // "tsdoc/syntax": [2],
-    "testing-library/await-async-events": [0],
-    "testing-library/no-node-access": [0],
+    // "testing-library/await-async-events": [0],
+    // "testing-library/no-node-access": [0],
     "react/jsx-props-no-spreading": [0],
-    "testing-library/prefer-screen-queries": [0],
+    // "testing-library/prefer-screen-queries": [0],
     "unicorn/no-hex-escape": [0],
     // "redux-reselect/assign-selector-to-variable": [2],
     // "redux-reselect/prefer-selector-ref": [2],
@@ -241,7 +245,20 @@
     ],
     "regexp/require-unicode-sets-regexp": [0],
     "vitest/expect-expect": [0],
-    "react-redux/useSelector-prefer-selectors": [0]
+    "react-redux/useSelector-prefer-selectors": [0],
+    "import/prefer-default-export": [0],
+    "sort-imports": [
+      2,
+      {
+        "ignoreCase": false,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
+        "allowSeparatedGroups": true
+      }
+    ]
+    // "import/no-extraneous-dependencies": [0]
+    // "import/no-default-export": [2]
     // "custom/prefer-single-array-of-input-selectors": [2],
     // "custom/follow-selector-naming-convention": [2],
     // "custom/no-new-reference-in-input-selectors": [2],
@@ -259,6 +276,14 @@
     {
       "files": ["*.@(test|spec).ts?(x)"],
       "env": { "jest": true }
+    },
+    {
+      "files": ["**/*.ts"],
+      "excludedFiles": ["vite.config.ts", "vitest.config.ts"],
+      "rules": {
+        "import/prefer-default-export": [0],
+        "import/no-default-export": [2]
+      }
     }
   ]
 }
