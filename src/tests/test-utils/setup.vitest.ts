@@ -1,10 +1,9 @@
 /* eslint-disable prefer-arrow-functions/prefer-arrow-functions */
 import "@testing-library/jest-dom/vitest"
-import "vitest-dom/extend-expect"
-
 import matchers from "jest-extended"
 import type { ExpectStatic } from "vitest"
-import { expect, vi } from "vitest"
+import { expect } from "vitest"
+import "vitest-dom/extend-expect"
 
 expect.extend(matchers)
 
@@ -38,16 +37,16 @@ const customMatchers: Parameters<ExpectStatic["extend"]>[0] = {
 
 expect.extend(customMatchers)
 
-Object.defineProperty(window, "matchMedia", {
-  writable: true,
-  value: vi.fn().mockImplementation((query: string) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: vi.fn(), // deprecated
-    removeListener: vi.fn(), // deprecated
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-  })),
-})
+// Object.defineProperty(window, "matchMedia", {
+//   writable: true,
+//   value: vi.fn().mockImplementation((query: string) => ({
+//     matches: false,
+//     media: query,
+//     onchange: null,
+//     addListener: vi.fn(), // deprecated
+//     removeListener: vi.fn(), // deprecated
+//     addEventListener: vi.fn(),
+//     removeEventListener: vi.fn(),
+//     dispatchEvent: vi.fn(),
+//   })),
+// })
