@@ -70,10 +70,10 @@
     "@typescript-eslint/parser": "^7.8.0",
     "@typescript/analyze-trace": "^0.10.1",
     "@vitejs/plugin-react": "^4.2.1",
-    "@vitest/browser": "^1.5.2",
-    "@vitest/coverage-istanbul": "^1.5.2",
-    "@vitest/coverage-v8": "^1.5.2",
-    "@vitest/ui": "^1.5.2",
+    "@vitest/browser": "^1.5.3",
+    "@vitest/coverage-istanbul": "^1.5.3",
+    "@vitest/coverage-v8": "^1.5.3",
+    "@vitest/ui": "^1.5.3",
     "@welldone-software/why-did-you-render": "^8.0.1",
     "babel-plugin-macros": "^3.1.0",
     "css-mediaquery": "^0.1.2",
@@ -119,7 +119,7 @@
     "typescript": "^5.4.5",
     "vite": "^5.2.10",
     "vite-plugin-babel-macros": "^1.0.6",
-    "vitest": "^1.5.2",
+    "vitest": "^1.5.3",
     "vitest-dom": "^0.1.1",
     "webdriverio": "^8.36.1"
   }
