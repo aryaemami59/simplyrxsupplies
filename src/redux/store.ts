@@ -1,8 +1,7 @@
 import { combineSlices, configureStore } from "@reduxjs/toolkit"
 import { createLogger } from "redux-logger"
-
-import addedSlice from "./addedSlice"
-import apiSlice from "./apiSlice"
+import { addedSlice } from "./addedSlice"
+import { apiSlice } from "./apiSlice"
 
 export const rootReducer = combineSlices(addedSlice, apiSlice)
 
@@ -11,7 +10,7 @@ export type RootState = ReturnType<typeof rootReducer>
 export const setupStore = (preloadedState?: Partial<RootState>) =>
   configureStore({
     middleware: getDefaultMiddleware =>
-      import.meta.env.PROD
+      import.meta.env.PROD || import.meta.env.MODE === "test"
         ? getDefaultMiddleware().concat(apiSlice.middleware)
         : getDefaultMiddleware({
             actionCreatorCheck: true,
@@ -34,5 +33,5 @@ export const setupStore = (preloadedState?: Partial<RootState>) =>
 
 export const store = setupStore()
 
-export type AppStore = ReturnType<typeof setupStore>
+export type AppStore = typeof store
 export type AppDispatch = AppStore["dispatch"]
