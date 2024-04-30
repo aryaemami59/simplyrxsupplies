@@ -10,6 +10,7 @@ import type { PropsWithRequiredChildren } from "../types/tsHelpers"
 type Props = PropsWithRequiredChildren
 
 export const ColorModeContext = createContext({
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   toggleColorMode: () => {},
   theme: lightTheme,
 })

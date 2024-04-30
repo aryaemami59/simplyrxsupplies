@@ -1,5 +1,3 @@
-import { describe, expectTypeOf } from "vitest"
-
 import type { NewApiContext } from "./api.test"
 
 describe<NewApiContext>("type checking new api", it => {

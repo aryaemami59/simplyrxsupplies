@@ -6,6 +6,6 @@ declare module "react-mobile-share" {
       title: string
       images?: string[]
     },
-    fallbackFunction?: (message: string) => string,
+    fallbackFunction?: (message: string) => void,
   ): void
 }

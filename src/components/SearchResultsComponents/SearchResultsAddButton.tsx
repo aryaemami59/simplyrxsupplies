@@ -3,7 +3,6 @@ import Button from "@mui/material/Button"
 import PropTypes from "prop-types"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback } from "react"
-
 import { itemAddedToCarts } from "../../redux/addedSlice"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
 import { checkIfAddedToAllVendors } from "../../redux/selectors"

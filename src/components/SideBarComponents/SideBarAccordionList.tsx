@@ -1,6 +1,5 @@
 import type { FC } from "react"
 import { memo } from "react"
-
 import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors"
 import { useAppSelector } from "../../redux/hooks"
 import SideBarAccordionCategories from "./SideBarAccordionCategories"

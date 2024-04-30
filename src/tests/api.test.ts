@@ -1,11 +1,9 @@
 import axios from "axios"
-import { beforeEach, describe, expect } from "vitest"
-
-import API_URL from "../data/fetchInfo"
+import { API_URL } from "../data/fetchInfo"
 import type { Supplies } from "../types/api"
-import isCategory from "../utils/predicates/isCategory"
-import isItem from "../utils/predicates/isItem"
-import isVendor from "../utils/predicates/isVendor"
+import { isCategory } from "../utils/predicates/isCategory"
+import { isItem } from "../utils/predicates/isItem"
+import { isVendor } from "../utils/predicates/isVendor"
 import { newSuppliesSample } from "./test-utils/testUtils"
 
 export type NewApiContext = {

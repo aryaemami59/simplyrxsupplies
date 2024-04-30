@@ -1,9 +1,8 @@
 import PropTypes from "prop-types"
 import type { FC } from "react"
 import { memo } from "react"
-
 import { useVendorIdsByItemId } from "../../redux/selectors"
-import isEmptyArray from "../../utils/predicates/isEmptyArray"
+import { isEmptyArray } from "../../utils/predicates/isEmptyArray"
 import SearchResultsAddButton from "./SearchResultsAddButton"
 import SearchResultsItemName from "./SearchResultsItemName"
 import SwitchComponent from "./SwitchComponent"

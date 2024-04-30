@@ -9,8 +9,7 @@ import {
   unstable_autotrackMemoize,
   weakMapMemoize,
 } from "reselect"
-
-import capitalize from "../utils/capitalize"
+import { capitalize } from "../utils/capitalize"
 import { useAppSelector } from "./hooks"
 import type { RootState } from "./store"
 
@@ -164,6 +163,8 @@ import type { RootState } from "./store"
 //     >
 //   }
 
+// const element = createDraftSafeSelector.withTypes<RootState>()
+
 /** A {@link createSelector} function that takes {@link RootState} as the first argument in its input selectors. */
 // export const createAppSelector = createSelectorCreatorWrapper(defaultMemoize)
 export const createAppSelector = createSelectorCreator(lruMemoize)
@@ -175,7 +176,7 @@ export const createAutotrackSelector = createSelectorCreator({
 //   RootState,
 //   DefaultMemoize
 // > = createSelectorCreatorWrapper(defaultMemoize);
-/** Used to create selectors that are shared across multiple component instances. */
+// /** Used to create selectors that are shared across multiple component instances. */
 // export const createSelectorWeakMap = createSelectorCreator({
 //   memoize: weakMapMemoize,
 // })
@@ -208,8 +209,11 @@ export const createDraftSafSelectorWeakMap =
 // > = createDraftSafeSelectorCreatorCorrected(weakMapMemoize);
 // export const createDraftSafSelectorAutotrack =
 //   createDraftSafeSelectorCreatorCorrected(autotrackMemoize)
-export const createDraftSafeAddedSelector =
-  createDraftSafeSelectorCreator(lruMemoize)
+export const createDraftSafeAddedSelector = createDraftSafeSelectorCreator({
+  memoize: weakMapMemoize,
+})
+// export const createDraftSafeAddedSelector =
+//   createDraftSafeSelectorCreator(lruMemoize)
 // TODO: remove later.
 export const createDebugSelector = createSelectorCreator(lruMemoize, {
   resultEqualityCheck: (previousVal: unknown, currentVal: unknown) => {
@@ -442,7 +446,7 @@ export const findFastestSelector = <S extends OutputSelector>(
         { memoize },
       )
       const start = performance.now()
-      // @ts-expect-error
+      // @ts-expect-error rest args not working
       // alternateSelector.apply(null, selectorArgs)
       alternateSelector(...selectorArgs)
       const time = performance.now() - start

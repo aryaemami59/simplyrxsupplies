@@ -3,8 +3,8 @@ import type {
   AdapterLocalizedSelectors,
   AdapterSelectors,
 } from "../types/reduxHelperTypes"
-import capitalize from "../utils/capitalize"
-import setFunctionName from "../utils/setFunctionName"
+import { capitalize } from "../utils/capitalize"
+import { setFunctionName } from "../utils/setFunctionName"
 import {
   selectCategoriesData,
   selectItemsData,
@@ -14,7 +14,7 @@ import {
   createDraftSafSelectorWeakMap,
   createSelectorWeakMap,
 } from "./createSelectors"
-import ENTITY_ADAPTERS from "./entityAdapters"
+import { ENTITY_ADAPTERS } from "./entityAdapters"
 import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors"
 
 export const SIMPLE_SELECTORS = {

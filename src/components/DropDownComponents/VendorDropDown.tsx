@@ -6,7 +6,6 @@ import type { PopoverOrigin } from "@mui/material/Popover"
 import PropTypes from "prop-types"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
-
 import { useOfficialVendorName, useVendorItemIds } from "../../redux/selectors"
 import SingleDropDown from "./SingleDropDown"
 
@@ -75,7 +74,7 @@ const VendorDropDown: FC<Props> = ({ vendorId }) => {
         anchorOrigin={anchorOrigin}
         aria-expanded={open}
         aria-labelledby={`${vendorId}`}
-        autoFocus
+        // autoFocus
         id={officialVendorName}
         MenuListProps={menuListProps}
         onClose={handleClose}

@@ -4,11 +4,11 @@ import type {
   EntityState,
 } from "@reduxjs/toolkit"
 import type {
-  createSelector,
-  lruMemoize,
   Selector,
   SelectorArray,
   unstable_autotrackMemoize as autotrackMemoize,
+  createSelector,
+  lruMemoize,
   weakMapMemoize,
 } from "reselect"
 

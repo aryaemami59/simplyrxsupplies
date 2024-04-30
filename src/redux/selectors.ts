@@ -1,20 +1,14 @@
-import { createSelector, unstable_autotrackMemoize } from "reselect"
-
+import { createSelector } from "reselect"
 import type { ItemNameAndKeywords } from "../types/api"
 import type { RootSelectorParamsProvider } from "../types/reduxHelperTypes"
-import fallbackToEmptyArray from "../utils/fallbackToEmptyArray"
-import setSelectorNames from "../utils/setSelectorNames"
-import {
-  ADAPTER_SELECTORS,
-  getAllEntitySelectors,
-  SIMPLE_SELECTORS,
-} from "./adapterSelectors"
-import { apiSelectors, selectCategoriesData } from "./apiSlice"
+import { fallbackToEmptyArray } from "../utils/fallbackToEmptyArray"
+import { setSelectorNames } from "../utils/setSelectorNames"
+import { ADAPTER_SELECTORS, getAllEntitySelectors } from "./adapterSelectors"
+import { apiSelectors } from "./apiSlice"
 import {
   createParametricSelectorHooks,
   createSelectorWeakMap,
 } from "./createSelectors"
-import { DRAFT_SAFE_SELECTORS } from "./draftSafeSelectors"
 import type { RootState } from "./store"
 import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors"
 
@@ -146,19 +140,19 @@ export const selectCategoryItemIds1 = createSelector(
 //     return SIMPLE_SELECTORS.categories.selectById(categories, id)?.itemIds
 //   }
 // )
-export const selectCategoryItemIds2 = createSelectorWeakMap(
-  [
-    selectCategoriesData,
-    (state, id: number) => {
-      console.log("selectCategoryItemIds2 input run")
-      return id
-    },
-  ],
-  (categories, id) => {
-    console.log("selectCategoryItemIds2 output")
-    return SIMPLE_SELECTORS.categories.selectById(categories, id)?.itemIds
-  },
-)
+// export const selectCategoryItemIds2 = createSelectorWeakMap(
+//   [
+//     selectCategoriesData,
+//     (state, id: number) => {
+//       console.log("selectCategoryItemIds2 input run")
+//       return id
+//     },
+//   ],
+//   (categories, id) => {
+//     console.log("selectCategoryItemIds2 output")
+//     return SIMPLE_SELECTORS.categories.selectById(categories, id)?.itemIds
+//   },
+// )
 
 export const checkIfAddedToVendor = createSelectorWeakMap(
   [selectCartItemsIds, ROOT_SELECTOR_PARAMS_PROVIDER.getCartIdAndItemId],
@@ -196,11 +190,11 @@ export const selectVendorItemIds = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.vendors.selectById],
   vendor => fallbackToEmptyArray(vendor?.itemIds),
 )
-export const selectVendorItemIds1 = createSelectorWeakMap(
-  [ADAPTER_SELECTORS.GLOBAL.vendors.selectById],
-  vendor => fallbackToEmptyArray(vendor?.itemIds),
-  { memoize: unstable_autotrackMemoize },
-)
+// export const selectVendorItemIds1 = createSelectorWeakMap(
+//   [ADAPTER_SELECTORS.GLOBAL.vendors.selectById],
+//   vendor => fallbackToEmptyArray(vendor?.itemIds),
+//   { memoize: unstable_autotrackMemoize },
+// )
 
 export const selectCartsByItemId = createSelectorWeakMap(
   [
@@ -300,10 +294,10 @@ export const mainSelectors = {
   selectCartsItemIdsLength,
 } as const
 
-const allSelectors = setSelectorNames({
+export const allSelectors = setSelectorNames({
   ...mainSelectors,
   ...apiSelectors,
-  ...DRAFT_SAFE_SELECTORS,
+  // ...DRAFT_SAFE_SELECTORS,
   ...getAllEntitySelectors(),
   ...TOP_LEVEL_SELECTORS,
 } as const)
@@ -327,5 +321,3 @@ export const resetAllSelectors = () => {
 // export const useOfficialVendorName = createParametricSelectorHook(
 //   selectOfficialVendorName
 // );
-
-export default allSelectors

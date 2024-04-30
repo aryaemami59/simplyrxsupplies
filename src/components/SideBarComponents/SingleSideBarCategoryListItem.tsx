@@ -3,7 +3,6 @@ import ButtonGroup from "@mui/material/ButtonGroup"
 import PropTypes from "prop-types"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback } from "react"
-
 import { itemAddedToCarts } from "../../redux/addedSlice"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
 import {
@@ -12,7 +11,7 @@ import {
   useItemName,
   useVendorIdsByItemId,
 } from "../../redux/selectors"
-import isEmptyArray from "../../utils/predicates/isEmptyArray"
+import { isEmptyArray } from "../../utils/predicates/isEmptyArray"
 import SideBarVendorBadges from "./SideBarVendorBadges"
 
 type Props = {

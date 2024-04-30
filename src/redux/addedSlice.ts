@@ -1,6 +1,5 @@
 import type { PayloadAction, Update } from "@reduxjs/toolkit"
 import { createSlice } from "@reduxjs/toolkit"
-
 import type {
   AddedState,
   Cart,
@@ -9,18 +8,18 @@ import type {
   ItemVendors,
   SearchResultsItem,
 } from "../types/reduxHelperTypes"
-import EMPTY_ARRAY from "../utils/emptyArray"
-import isEmptyArray from "../utils/predicates/isEmptyArray"
-import toggleArrayElement from "../utils/toggleArrayElement"
+import { EMPTY_ARRAY } from "../utils/emptyArray"
+import { isEmptyArray } from "../utils/predicates/isEmptyArray"
+import { toggleArrayElement } from "../utils/toggleArrayElement"
 import {
   withNumsArrayConcat,
   withNumsArrayFilter,
 } from "../utils/withNumsArrayRuntimeChecks"
-import ADAPTER_INITIAL_STATES from "./adapterInitialStates"
+import { ADAPTER_INITIAL_STATES } from "./adapterInitialStates"
 import { ADAPTER_SELECTORS } from "./adapterSelectors"
 import { endpoints } from "./apiSlice"
 import { DRAFT_SAFE_SELECTORS } from "./draftSafeSelectors"
-import ENTITY_ADAPTERS from "./entityAdapters"
+import { ENTITY_ADAPTERS } from "./entityAdapters"
 
 export const resetCheckedVendorIds = (itemVendors: ItemVendors) => {
   const itemVendorsUpdate: Update<ItemVendors, number> = {
@@ -39,7 +38,7 @@ export const initialState: AddedState = {
   cartItems: ADAPTER_INITIAL_STATES.cartItems,
 }
 
-const addedSlice = createSlice({
+export const addedSlice = createSlice({
   name: "added",
   initialState,
   reducers: {
@@ -306,5 +305,3 @@ export const {
   checkedOneVendorForAllSearchResults,
   unCheckedOneVendorForAllSearchResults,
 } = addedSlice.actions
-
-export default addedSlice

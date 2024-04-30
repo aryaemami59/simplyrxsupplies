@@ -1,6 +1,6 @@
 import type { OutlinedInputProps } from "@mui/material/OutlinedInput"
 import TextField from "@mui/material/TextField"
-import type { ChangeEventHandler, CSSProperties, FC } from "react"
+import type { CSSProperties, ChangeEventHandler, FC } from "react"
 import {
   memo,
   useCallback,
@@ -9,7 +9,6 @@ import {
   useState,
   useTransition,
 } from "react"
-
 import {
   searchResultsCleared,
   searchResultsUpdated,
@@ -17,10 +16,10 @@ import {
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
 import { selectItemNamesAndKeywords } from "../../redux/selectors"
 import { SEARCH_FIELD_BG } from "../../shared/styles"
-import EMPTY_ARRAY from "../../utils/emptyArray"
-import fallbackToEmptyArray from "../../utils/fallbackToEmptyArray"
-import isEmptyArray from "../../utils/predicates/isEmptyArray"
-import search from "../../utils/search/search"
+import { EMPTY_ARRAY } from "../../utils/emptyArray"
+import { fallbackToEmptyArray } from "../../utils/fallbackToEmptyArray"
+import { isEmptyArray } from "../../utils/predicates/isEmptyArray"
+import { search } from "../../utils/search/search"
 import InputEndAdornment from "./InputEndAdornment"
 
 const style: CSSProperties = {
@@ -77,7 +76,9 @@ const InputFieldComponent: FC = () => {
   return (
     <TextField
       className="mt-4"
+      id="text-field"
       fullWidth
+      // eslint-disable-next-line jsx-a11y/no-autofocus
       autoFocus
       InputProps={inputProps}
       inputRef={inputRef}

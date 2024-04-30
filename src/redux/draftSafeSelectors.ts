@@ -1,5 +1,5 @@
 import type { AddedSliceSelectorParamsProvider } from "../types/reduxHelperTypes"
-import fallbackToEmptyArray from "../utils/fallbackToEmptyArray"
+import { fallbackToEmptyArray } from "../utils/fallbackToEmptyArray"
 import { ADAPTER_SELECTORS } from "./adapterSelectors"
 import { createDraftSafeAddedSelector } from "./createSelectors"
 

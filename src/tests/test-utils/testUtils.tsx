@@ -1,16 +1,16 @@
 import type {
-  queries,
   RenderOptions,
   RenderResult,
+  queries,
 } from "@testing-library/react"
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { userEvent } from "@testing-library/user-event"
 import mediaQuery from "css-mediaquery"
 import type { FC, ReactElement } from "react"
 import { Provider } from "react-redux"
-
 import { endpoints } from "../../redux/apiSlice"
-import { type AppStore, type RootState, setupStore } from "../../redux/store"
+import type { AppStore, RootState } from "../../redux/store"
+import { setupStore } from "../../redux/store"
 import type { Supplies } from "../../types/api"
 import type {
   PartialObjectProperties,
@@ -18,7 +18,7 @@ import type {
   UnknownObject,
   WritableDeep,
 } from "../../types/tsHelpers"
-import capitalize from "../../utils/capitalize"
+import { capitalize } from "../../utils/capitalize"
 
 export const setupWithNoUI = async (
   options: SetupWithNoUIOptions = {},
@@ -204,14 +204,14 @@ export type SetupWithNoUIResults = {
 export const createMatchMedia = (width: number) => (query: string) => ({
   matches: mediaQuery.match(query, { width }),
   media: "",
-  addListener: () => {},
-  removeListener: () => {},
-  onchange: () => {},
-  addEventListener: () => {},
-  removeEventListener: () => {},
-  dispatchEvent: () => true,
+  // addListener: () => {},
+  // removeListener: () => {},
+  // onchange: () => {},
+  // addEventListener: () => {},
+  // removeEventListener: () => {},
+  // dispatchEvent: () => true,
 })
 
-export const resizeScreenSize = (width: number) => {
-  window.matchMedia = createMatchMedia(width)
-}
+// export const resizeScreenSize = (width: number) => {
+//   window.matchMedia = createMatchMedia(width)
+// }

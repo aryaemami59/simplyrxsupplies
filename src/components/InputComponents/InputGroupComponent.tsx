@@ -1,6 +1,5 @@
 import type { FC } from "react"
 import { memo } from "react"
-
 import SearchResultsContainer from "../SearchResultsComponents/SearchResultsContainer"
 import InputFieldComponent from "./InputFieldComponent"
 

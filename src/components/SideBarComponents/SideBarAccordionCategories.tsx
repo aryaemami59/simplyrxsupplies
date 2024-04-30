@@ -1,13 +1,12 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import type { AccordionProps } from "@mui/material/Accordion"
 import Accordion from "@mui/material/Accordion"
 import AccordionDetails from "@mui/material/AccordionDetails"
 import type { AccordionSummaryOwnProps } from "@mui/material/AccordionSummary"
 import AccordionSummary from "@mui/material/AccordionSummary"
-import type { TransitionProps } from "@mui/material/transitions"
 import PropTypes from "prop-types"
 import type { FC } from "react"
 import { memo, useCallback, useRef, useState } from "react"
-
 import { useCategoryItemIds, useCategoryName } from "../../redux/selectors"
 import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem"
 
@@ -17,9 +16,11 @@ type Props = {
   categoryId: number
 }
 
-const transitionProps: TransitionProps = {
-  unmountOnExit: true,
-  mountOnEnter: true,
+const slotProps: AccordionProps["slotProps"] = {
+  transition: {
+    unmountOnExit: true,
+    mountOnEnter: true,
+  },
 }
 
 const SideBarAccordionCategories: FC<Props> = ({ categoryId }) => {
@@ -40,7 +41,7 @@ const SideBarAccordionCategories: FC<Props> = ({ categoryId }) => {
       <Accordion
         expanded={open}
         onChange={toggle}
-        TransitionProps={transitionProps}
+        slotProps={slotProps}
         variant="outlined"
       >
         <AccordionSummary

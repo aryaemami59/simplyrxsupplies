@@ -1,7 +1,7 @@
 import type { AdaptersInitialStates } from "../types/reduxHelperTypes"
-import ENTITY_ADAPTERS from "./entityAdapters"
+import { ENTITY_ADAPTERS } from "./entityAdapters"
 
-const ADAPTER_INITIAL_STATES: AdaptersInitialStates = {
+export const ADAPTER_INITIAL_STATES: AdaptersInitialStates = {
   searchResults: ENTITY_ADAPTERS.searchResults.getInitialState(),
 
   cart: ENTITY_ADAPTERS.cart.getInitialState(),
@@ -16,5 +16,3 @@ const ADAPTER_INITIAL_STATES: AdaptersInitialStates = {
 
   itemVendors: ENTITY_ADAPTERS.itemVendors.getInitialState(),
 } as const satisfies AdaptersInitialStates
-
-export default ADAPTER_INITIAL_STATES

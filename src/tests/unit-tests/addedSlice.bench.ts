@@ -1,6 +1,5 @@
 import type { Options } from "tinybench"
 import { bench, describe } from "vitest"
-
 import {
   checkIfAddedToAllVendors,
   checkIfAddedToVendor,
@@ -29,7 +28,7 @@ import { setupWithNoUI } from "../test-utils/testUtils"
 
 const options: Options = {
   iterations: 5,
-  time: 100,
+  time: 0,
 }
 
 describe("selectors", async () => {

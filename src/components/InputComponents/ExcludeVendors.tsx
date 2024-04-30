@@ -2,7 +2,6 @@ import Button from "@mui/material/Button"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import type { FC } from "react"
 import { memo } from "react"
-
 import VendorIdProvider from "../../contexts/VendorIdProvider"
 import useVendorIds from "../../hooks/useVendorIds"
 import ExcludeVendorSingleCheckbox from "./ExcludeVendorSingleCheckbox"
