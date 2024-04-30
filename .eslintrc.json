@@ -39,7 +39,6 @@
     "prettier"
   ],
   "ignorePatterns": [
-    "node_modules",
     ".vscode",
     "build",
     "dist",
