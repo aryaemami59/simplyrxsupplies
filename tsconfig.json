@@ -22,7 +22,7 @@
     "strictFunctionTypes": true,
     "strictNullChecks": true,
     "target": "ESNext",
-    "types": ["vite/client", "vitest/importMeta"],
+    "types": ["vite/client", "vitest/importMeta", "vitest/globals"],
     "useDefineForClassFields": true,
     "useUnknownInCatchVariables": true
   },
