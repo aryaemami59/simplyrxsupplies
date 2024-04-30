@@ -1,6 +1,5 @@
-import { beforeEach, describe, expect } from "vitest"
-
-import addedSlice, {
+import {
+  addedSlice,
   allItemsRemovedFromCart,
   checkedOneVendorForAllSearchResults,
   itemAddedToCarts,

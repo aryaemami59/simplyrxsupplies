@@ -1,12 +1,10 @@
 import { shallowEqual } from "react-redux"
-import { beforeEach, describe, expect } from "vitest"
-
 import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors"
 import { selectItemName, selectOfficialVendorName } from "../../redux/selectors"
 import type { CartItems, ItemVendors } from "../../types/reduxHelperTypes"
-import EMPTY_ARRAY from "../../utils/emptyArray"
-import isArrayOfNumbers from "../../utils/predicates/isArrayOfNumbers"
-import isNumber from "../../utils/predicates/isNumber"
+import { EMPTY_ARRAY } from "../../utils/emptyArray"
+import { isArrayOfNumbers } from "../../utils/predicates/isArrayOfNumbers"
+import { isNumber } from "../../utils/predicates/isNumber"
 import type { SetupWithNoUIResults } from "../test-utils/testUtils"
 import { setupWithNoUI } from "../test-utils/testUtils"
 

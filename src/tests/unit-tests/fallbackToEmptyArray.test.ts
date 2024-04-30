@@ -1,7 +1,5 @@
-import { describe, expect, it } from "vitest"
-
-import EMPTY_ARRAY from "../../utils/emptyArray"
-import fallbackToEmptyArray from "../../utils/fallbackToEmptyArray"
+import { EMPTY_ARRAY } from "../../utils/emptyArray"
+import { fallbackToEmptyArray } from "../../utils/fallbackToEmptyArray"
 
 describe("setToEmptyArray", () => {
   it(fallbackToEmptyArray, () => {

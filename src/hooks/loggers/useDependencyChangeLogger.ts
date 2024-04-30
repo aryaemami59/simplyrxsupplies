@@ -1,6 +1,5 @@
 import { useDebugValue } from "react"
-
-import capitalize from "../../utils/capitalize"
+import { capitalize } from "../../utils/capitalize"
 import useComponentDidUpdate from "../useComponentDidUpdate"
 
 /**

@@ -1,9 +1,9 @@
 import type { Vendor } from "../../types/api"
 import type { ObjectChecker } from "../../types/tsHelpers"
-import complexDataTypePredicateFactory from "./complexDataTypePredicate"
-import isArrayOfNumbers from "./isArrayOfNumbers"
-import isNumber from "./isNumber"
-import isString from "./isString"
+import { complexDataTypePredicateFactory } from "./complexDataTypePredicate"
+import { isArrayOfNumbers } from "./isArrayOfNumbers"
+import { isNumber } from "./isNumber"
+import { isString } from "./isString"
 
 const vendorProperties: ObjectChecker<Vendor> = {
   id: isNumber,
@@ -14,6 +14,4 @@ const vendorProperties: ObjectChecker<Vendor> = {
   itemIds: isArrayOfNumbers,
 } as ObjectChecker<Vendor>
 
-const isVendor = complexDataTypePredicateFactory(vendorProperties)
-
-export default isVendor
+export const isVendor = complexDataTypePredicateFactory(vendorProperties)

@@ -1,6 +1,4 @@
-import { describe, expect, it } from "vitest"
-
-import toggleArrayElement from "../../utils/toggleArrayElement"
+import {toggleArrayElement} from "../../utils/toggleArrayElement"
 
 describe("toggleArrayElement", () => {
   it(toggleArrayElement, () => {

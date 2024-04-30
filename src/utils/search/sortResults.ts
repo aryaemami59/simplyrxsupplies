@@ -1,6 +1,6 @@
 import type { ItemNameAndKeywords } from "../../types/api"
 
-const sortResults = (
+export const sortResults = (
   itemNameAndKeyword: ItemNameAndKeywords,
   searchRegexPattern: RegExp,
   inputValue: string,
@@ -35,5 +35,3 @@ const sortResults = (
   relevancyScore += itemName.match(searchRegexPattern)?.length ?? 0
   return relevancyScore
 }
-
-export default sortResults

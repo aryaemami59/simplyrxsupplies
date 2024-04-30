@@ -1,5 +1,3 @@
-import { beforeEach, describe, expect } from "vitest"
-
 import {
   selectCategoriesData,
   selectItemsData,
@@ -8,7 +6,7 @@ import {
 } from "../../redux/apiSlice"
 import type { AppStore } from "../../redux/store"
 import type { SuppliesState } from "../../types/reduxHelperTypes"
-import EMPTY_ARRAY from "../../utils/emptyArray"
+import { EMPTY_ARRAY } from "../../utils/emptyArray"
 import { setupWithNoUI } from "../test-utils/testUtils"
 
 type LocalTestContext = {

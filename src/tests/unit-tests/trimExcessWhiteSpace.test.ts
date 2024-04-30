@@ -1,6 +1,4 @@
-import { describe, expect, it } from "vitest"
-
-import trimExcessWhiteSpace from "../../utils/search/trimExcessWhiteSpace"
+import { trimExcessWhiteSpace } from "../../utils/search/trimExcessWhiteSpace"
 
 describe("trimExcessWhiteSpace", () => {
   it(trimExcessWhiteSpace, () => {

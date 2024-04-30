@@ -1,6 +1,4 @@
-import { describe, expect, it } from "vitest"
-
-import splitBySpace from "../../utils/search/splitBySpace"
+import { splitBySpace } from "../../utils/search/splitBySpace"
 
 describe("splitBySpace", () => {
   it(splitBySpace, () => {

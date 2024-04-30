@@ -4,10 +4,8 @@
  * @param str - the string parameter.
  * @returns the same string without excess white space.
  */
-const trimExcessWhiteSpace = (str: string) =>
+export const trimExcessWhiteSpace = (str: string) =>
   str
     .trim()
     .toLowerCase()
     .replace(/\s{2,}/u, " ")
-
-export default trimExcessWhiteSpace

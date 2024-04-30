@@ -1,11 +1,11 @@
 import type { Item } from "../../types/api"
 import type { ObjectChecker } from "../../types/tsHelpers"
-import complexDataTypePredicateFactory from "./complexDataTypePredicate"
-import isArrayOfNumbers from "./isArrayOfNumbers"
-import isArrayOfNumbersOrEmpty from "./isArrayOfNumbersOrEmpty"
-import isArrayOfStrings from "./isArrayOfStrings"
-import isNumber from "./isNumber"
-import isString from "./isString"
+import { complexDataTypePredicateFactory } from "./complexDataTypePredicate"
+import { isArrayOfNumbers } from "./isArrayOfNumbers"
+import { isArrayOfNumbersOrEmpty } from "./isArrayOfNumbersOrEmpty"
+import { isArrayOfStrings } from "./isArrayOfStrings"
+import { isNumber } from "./isNumber"
+import { isString } from "./isString"
 
 const itemProperties: ObjectChecker<Item> = {
   id: isNumber,
@@ -17,6 +17,4 @@ const itemProperties: ObjectChecker<Item> = {
   src: isString,
 }
 
-const isItem = complexDataTypePredicateFactory(itemProperties)
-
-export default isItem
+export const isItem = complexDataTypePredicateFactory(itemProperties)

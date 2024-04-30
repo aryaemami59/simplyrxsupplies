@@ -1,11 +1,14 @@
 import type { ItemNameAndKeywords } from "../../types/api"
-import EMPTY_ARRAY from "../emptyArray"
-import fallbackToEmptyArray from "../fallbackToEmptyArray"
-import sortResults from "./sortResults"
-import splitBySpace from "./splitBySpace"
-import trimExcessWhiteSpace from "./trimExcessWhiteSpace"
+import { EMPTY_ARRAY } from "../emptyArray"
+import { fallbackToEmptyArray } from "../fallbackToEmptyArray"
+import { sortResults } from "./sortResults"
+import { splitBySpace } from "./splitBySpace"
+import { trimExcessWhiteSpace } from "./trimExcessWhiteSpace"
 
-const search = (value: string, itemNamesAndKeywords: ItemNameAndKeywords[]) => {
+export const search = (
+  value: string,
+  itemNamesAndKeywords: ItemNameAndKeywords[],
+) => {
   const inputValue = trimExcessWhiteSpace(value)
   const inputWords = splitBySpace(inputValue)
   const looseSearchValue = inputWords.map(f => `(${f})`).join(".*")
@@ -26,12 +29,10 @@ const search = (value: string, itemNamesAndKeywords: ItemNameAndKeywords[]) => {
   )
 
   return inputValue
-    ? searchResults.sort(
+    ? searchResults.toSorted(
         (a, b) =>
           sortResults(b, searchRegexPattern, inputValue) -
           sortResults(a, searchRegexPattern, inputValue),
       )
     : EMPTY_ARRAY
 }
-
-export default search

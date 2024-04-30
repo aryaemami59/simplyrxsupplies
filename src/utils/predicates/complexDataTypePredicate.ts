@@ -3,9 +3,9 @@ import type {
   ObjectEntries,
   UnknownObject,
 } from "../../types/tsHelpers"
-import isObject from "./isObject"
+import { isObject } from "./isObject"
 
-const complexDataTypePredicateFactory =
+export const complexDataTypePredicateFactory =
   <T extends UnknownObject>(checker: ObjectChecker<T>) =>
   (value: unknown): value is T =>
     isObject(value) &&
@@ -15,5 +15,3 @@ const complexDataTypePredicateFactory =
     ) &&
     JSON.stringify(Object.keys(value).sort()) ===
       JSON.stringify(Object.keys(checker).sort())
-
-export default complexDataTypePredicateFactory

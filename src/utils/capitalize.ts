@@ -4,7 +4,5 @@
  * @returns Capitalized version of the string.
  * @see {@link Capitalize}
  */
-const capitalize = <const S extends string>(str: S): Capitalize<S> =>
+export const capitalize = <const S extends string>(str: S): Capitalize<S> =>
   (str.charAt(0).toUpperCase() + str.slice(1)) as Capitalize<S>
-
-export default capitalize
