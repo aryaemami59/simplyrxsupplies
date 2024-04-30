@@ -26,7 +26,7 @@
     "lint-fix": "eslint --fix . ",
     "format": "prettier --write .",
     "bench": "vitest --run bench --no-open",
-    "type-check": "vitest run --typecheck --no-open --no-ui --no-coverage",
+    "type-check": "vitest run --typecheck.only --no-open --no-ui --no-coverage",
     "type-check-with-trace": "rm -rf trace && tsc --noEmit --generateTrace ./trace && npx @typescript/analyze-trace trace && rm -rf trace"
   },
   "dependencies": {
