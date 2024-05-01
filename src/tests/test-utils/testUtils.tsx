@@ -89,7 +89,8 @@ export type UserEventOptions = NonNullable<
 >
 
 /**
- * This type extends the default options for render from RTL, as well as allows the user to specify other things such as initialState, store.
+ * This type extends the default options for render from `RTL`, as well as
+ * allows the user to specify other things such as `initialState`, `store`.
  */
 export type ExtendedRenderOptions = {
   preloadedState?: Partial<RootState>
@@ -98,11 +99,11 @@ export type ExtendedRenderOptions = {
 } & Omit<RenderOptions, "queries">
 
 /**
- * A wrapper for {@link render}
+ * A wrapper for {@linkcode render}
  * @param ui - Component to render.
  * @param extendedRenderOptions - Options object.
  * @param userEventOptions - Options object for user event.
- * @returns An object with the store and all of RTL's query functions
+ * @returns An object with the store and all of `RTL`'s query functions
  */
 export const renderWithProviders = async (
   ui: ReactElement,
@@ -126,7 +127,7 @@ export const renderWithProviders = async (
     <Provider store={store}>{children}</Provider>
   )
 
-  // Return an object with the store and all of RTL's query functions
+  // Return an object with the store and all of `RTL`'s query functions
   return {
     store,
     user,
