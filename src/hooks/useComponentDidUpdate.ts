@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react"
  * @param callback - Callback function that gets invoked anytime the component updates.
  * @param deps - An optional dependency array, if provided effect will run only if the values in the list change.
  */
-const useComponentDidUpdate = <T extends () => void>(
+export const useComponentDidUpdate = <T extends () => void>(
   callback: T,
   deps?: readonly unknown[],
 ) => {
@@ -30,5 +30,3 @@ const useComponentDidUpdate = <T extends () => void>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
 }
-
-export default useComponentDidUpdate

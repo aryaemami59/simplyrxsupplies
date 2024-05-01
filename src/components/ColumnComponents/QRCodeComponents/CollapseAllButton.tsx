@@ -5,7 +5,7 @@ import Tooltip from "@mui/material/Tooltip"
 import type { FC } from "react"
 import { memo, useCallback, useState } from "react"
 
-import useVendorId from "../../../hooks/useVendorId"
+import { useVendorId } from "../../../hooks/useVendorId"
 import { minimizedAllItemsInCart } from "../../../redux/addedSlice"
 import { useAppDispatch } from "../../../redux/hooks"
 

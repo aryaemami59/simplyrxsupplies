@@ -6,8 +6,8 @@ import type { FC } from "react"
 import { memo, useCallback, useMemo } from "react"
 import { shareOnMobile } from "react-mobile-share"
 
-import useQRCodeData from "../../../hooks/useQRCodeData"
-import useVendorId from "../../../hooks/useVendorId"
+import { useQRCodeData } from "../../../hooks/useQRCodeData"
+import { useVendorId } from "../../../hooks/useVendorId"
 import { useCartItemNamesStringified } from "../../../redux/selectors"
 
 const startIcon = /ipad|iphone|ipod/iu.test(navigator.userAgent) ? (

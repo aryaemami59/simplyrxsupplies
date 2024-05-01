@@ -5,8 +5,8 @@ import Tooltip from "@mui/material/Tooltip"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
 
-import useItemId from "../../../hooks/useItemId"
-import useVendorId from "../../../hooks/useVendorId"
+import { useItemId } from "../../../hooks/useItemId"
+import { useVendorId } from "../../../hooks/useVendorId"
 import { singleItemRemovedFromCart } from "../../../redux/addedSlice"
 import { useAppDispatch } from "../../../redux/hooks"
 

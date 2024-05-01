@@ -2,6 +2,4 @@ import { useContext } from "react"
 
 import { ItemIdContext } from "../contexts/ItemIdProvider"
 
-const useItemId = () => useContext(ItemIdContext)
-
-export default useItemId
+export const useItemId = () => useContext(ItemIdContext)

@@ -2,7 +2,7 @@ import Card from "@mui/material/Card"
 import type { FC } from "react"
 import { memo } from "react"
 
-import useVendorId from "../../hooks/useVendorId"
+import { useVendorId } from "../../hooks/useVendorId"
 import { useCheckIfAnyAddedToOneVendor } from "../../redux/selectors"
 import ColumnTopCardBody from "./ColumnTopCardBody"
 import EmptyColumn from "./EmptyColumn"

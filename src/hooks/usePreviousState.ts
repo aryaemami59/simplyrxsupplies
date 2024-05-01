@@ -5,7 +5,7 @@ import { useRef } from "react"
  * @param state - The state whose previous value is to be returned. Can be any non-nullish value.
  * @returns The previous state.
  */
-const usePreviousState = <T extends NonNullable<unknown>>(
+export const usePreviousState = <T extends NonNullable<unknown>>(
   state: T,
 ): T | undefined => {
   const currentRef = useRef<T>(state)
@@ -18,5 +18,3 @@ const usePreviousState = <T extends NonNullable<unknown>>(
 
   return previousRef.current
 }
-
-export default usePreviousState

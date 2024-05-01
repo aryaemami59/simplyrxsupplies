@@ -1,8 +1,8 @@
 import type { FC } from "react"
 import { memo } from "react"
 
-import useItemId from "../../../hooks/useItemId"
-import useVendorId from "../../../hooks/useVendorId"
+import { useItemId } from "../../../hooks/useItemId"
+import { useVendorId } from "../../../hooks/useVendorId"
 import {
   useItemName,
   useItemNumber,

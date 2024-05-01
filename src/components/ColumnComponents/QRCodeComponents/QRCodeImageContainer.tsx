@@ -2,7 +2,7 @@ import type { FC } from "react"
 import { memo } from "react"
 
 import QRCodeDataProvider from "../../../contexts/QRCodeDataProvider"
-import useVendorId from "../../../hooks/useVendorId"
+import { useVendorId } from "../../../hooks/useVendorId"
 import CollapseAllButton from "./CollapseAllButton"
 import ExpandAllButton from "./ExpandAllButton"
 import PrintIconQRCode from "./PrintIconQRCode"

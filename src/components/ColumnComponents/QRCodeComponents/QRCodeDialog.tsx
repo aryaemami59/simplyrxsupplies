@@ -7,7 +7,7 @@ import PropTypes from "prop-types"
 import type { FC } from "react"
 import { memo } from "react"
 
-import useVendorId from "../../../hooks/useVendorId"
+import { useVendorId } from "../../../hooks/useVendorId"
 import { useOfficialVendorName } from "../../../redux/selectors"
 import QRCodeImage from "./QRCodeImage"
 

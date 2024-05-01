@@ -25,6 +25,4 @@ const getCurrentTheme = () => {
   }
 }
 
-const useLocalStorageTheme = () => useState(getCurrentTheme)
-
-export default useLocalStorageTheme
+export const useLocalStorageTheme = () => useState(getCurrentTheme)

@@ -9,7 +9,7 @@ import type { FC } from "react"
 import { memo, useCallback, useState } from "react"
 
 import ItemIdProvider from "../../contexts/ItemIdProvider"
-import useVendorId from "../../hooks/useVendorId"
+import { useVendorId } from "../../hooks/useVendorId"
 import { useOfficialVendorName, useVendorItemIds } from "../../redux/selectors"
 import SingleOffcanvasVendorItem from "./SingleOffcanvasVendorItem"
 

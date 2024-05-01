@@ -1,7 +1,6 @@
 import type { FC } from "react"
 import { memo } from "react"
-
-import useVendorIds from "../../hooks/useVendorIds"
+import { useVendorIds } from "../../hooks/useVendorIds"
 import VendorDropDown from "./VendorDropDown"
 
 const VendorDropDownsList: FC = () => {

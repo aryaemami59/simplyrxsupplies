@@ -2,7 +2,7 @@ import Badge from "@mui/material/Badge"
 import type { FC } from "react"
 import { memo } from "react"
 
-import useVendorId from "../../../hooks/useVendorId"
+import { useVendorId } from "../../../hooks/useVendorId"
 import { useCartItemsLength } from "../../../redux/selectors"
 
 const RowCounterBadge: FC = () => {

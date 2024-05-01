@@ -3,7 +3,7 @@ import Collapse from "@mui/material/Collapse"
 import type { FC } from "react"
 import { memo, useCallback, useState } from "react"
 
-import useVendorId from "../../hooks/useVendorId"
+import { useVendorId } from "../../hooks/useVendorId"
 import { useOfficialVendorName } from "../../redux/selectors"
 import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge"
 import VendorColumnCard from "./VendorColumnCard"

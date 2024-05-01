@@ -6,7 +6,7 @@ import printjs from "print-js"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
 
-import useQRCodeData from "../../../hooks/useQRCodeData"
+import { useQRCodeData } from "../../../hooks/useQRCodeData"
 
 const header =
   "You can scan this image on the vendor's website to pull up all the items at once."

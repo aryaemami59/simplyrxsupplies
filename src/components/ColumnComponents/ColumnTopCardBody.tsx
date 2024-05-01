@@ -4,7 +4,7 @@ import type { FC } from "react"
 import { memo } from "react"
 
 import ItemIdProvider from "../../contexts/ItemIdProvider"
-import useVendorId from "../../hooks/useVendorId"
+import { useVendorId } from "../../hooks/useVendorId"
 import { useCartItemsIds } from "../../redux/selectors"
 import RowSingleContainer from "./IndividualRowComponents/RowSingleContainer"
 import QRCodeImageContainer from "./QRCodeComponents/QRCodeImageContainer"

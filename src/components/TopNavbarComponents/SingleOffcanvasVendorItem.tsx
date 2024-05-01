@@ -1,9 +1,8 @@
 import Button from "@mui/material/Button"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback } from "react"
-
-import useItemId from "../../hooks/useItemId"
-import useVendorId from "../../hooks/useVendorId"
+import { useItemId } from "../../hooks/useItemId"
+import { useVendorId } from "../../hooks/useVendorId"
 import { itemAddedToCarts } from "../../redux/addedSlice"
 import { useAppDispatch } from "../../redux/hooks"
 import { useCheckIfAddedToVendor, useItemName } from "../../redux/selectors"

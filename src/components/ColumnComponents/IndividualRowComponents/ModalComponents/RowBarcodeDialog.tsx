@@ -7,7 +7,7 @@ import type { FC } from "react"
 import { memo } from "react"
 import Button from "react-bootstrap/Button"
 
-import useItemId from "../../../../hooks/useItemId"
+import { useItemId } from "../../../../hooks/useItemId"
 import { useItemName } from "../../../../redux/selectors"
 import BarcodeImage from "../BarcodeImage"
 

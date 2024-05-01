@@ -11,7 +11,7 @@ const getSavedValue = <T extends string | (() => string) = string>(
   return initialValue as Extract<T, string>
 }
 
-const useLocalStorage = <T extends string | (() => string) = string>(
+export const useLocalStorage = <T extends string | (() => string) = string>(
   key: string,
   initialValue: T,
 ): [string, Dispatch<SetStateAction<string>>] => {
@@ -23,5 +23,3 @@ const useLocalStorage = <T extends string | (() => string) = string>(
 
   return [value, setValue]
 }
-
-export default useLocalStorage

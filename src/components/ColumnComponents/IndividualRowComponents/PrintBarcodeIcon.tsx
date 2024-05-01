@@ -7,7 +7,7 @@ import PropTypes from "prop-types"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
 
-import useItemId from "../../../hooks/useItemId"
+import { useItemId } from "../../../hooks/useItemId"
 import { useItemSrc } from "../../../redux/selectors"
 
 type Props = {

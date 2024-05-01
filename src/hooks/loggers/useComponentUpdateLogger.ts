@@ -1,13 +1,12 @@
 import { useDebugValue, useRef } from "react"
-
-import useComponentDidUpdate from "../useComponentDidUpdate"
+import { useComponentDidUpdate } from "../useComponentDidUpdate"
 
 /**
  * Use only in development mode
  *
  * Counts how many times the component re-renders and logs the results to the console.
  */
-const useComponentUpdateLogger = () => {
+export const useComponentUpdateLogger = () => {
   const componentName =
     new Error().stack?.split("\n")[2]?.split(" ")[5] ?? "Component"
   const renderCount = useRef(0)
@@ -27,5 +26,3 @@ const useComponentUpdateLogger = () => {
     )
   })
 }
-
-export default useComponentUpdateLogger

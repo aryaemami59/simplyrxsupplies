@@ -1,6 +1,6 @@
 import { useDebugValue } from "react"
 import { capitalize } from "../../utils/capitalize"
-import useComponentDidUpdate from "../useComponentDidUpdate"
+import { useComponentDidUpdate } from "../useComponentDidUpdate"
 
 /**
  * Use only in development mode
@@ -9,7 +9,7 @@ import useComponentDidUpdate from "../useComponentDidUpdate"
  * @param dependency - The dependency that we are checking for.
  * @param depName - Name of the dependency that we are checking for.
  */
-const useDependencyChangeLogger = <T>(dependency: T, depName = "") => {
+export const useDependencyChangeLogger = <T>(dependency: T, depName = "") => {
   const componentName =
     new Error().stack?.split("\n")[2]?.split(" ")[5] ?? "Component"
 
@@ -30,5 +30,3 @@ const useDependencyChangeLogger = <T>(dependency: T, depName = "") => {
     )
   }, [componentName, depName, depType, dependency])
 }
-
-export default useDependencyChangeLogger

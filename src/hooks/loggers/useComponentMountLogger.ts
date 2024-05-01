@@ -5,7 +5,7 @@ import { useDebugValue, useEffect } from "react"
  *
  * Checks when component mounts and unmounts and logs the results to the console.
  */
-const useComponentMountLogger = () => {
+export const useComponentMountLogger = () => {
   const componentName =
     new Error().stack?.split("\n")[2]?.split(" ")[5] ?? "Component"
 
@@ -26,5 +26,3 @@ const useComponentMountLogger = () => {
     }
   }, [componentName])
 }
-
-export default useComponentMountLogger

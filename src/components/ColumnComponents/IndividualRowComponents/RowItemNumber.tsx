@@ -4,7 +4,7 @@ import type { TypographyProps } from "@mui/material/Typography"
 import type { FC } from "react"
 import { memo } from "react"
 
-import useItemId from "../../../hooks/useItemId"
+import { useItemId } from "../../../hooks/useItemId"
 import { useItemNumber } from "../../../redux/selectors"
 import CopyIcon from "./CopyIcon"
 

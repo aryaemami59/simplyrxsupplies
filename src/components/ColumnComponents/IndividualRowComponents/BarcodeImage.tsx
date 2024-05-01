@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import type { FC } from "react"
 import { memo } from "react"
 
-import useItemId from "../../../hooks/useItemId"
+import { useItemId } from "../../../hooks/useItemId"
 import { useItemName, useItemSrc } from "../../../redux/selectors"
 
 type Props = {

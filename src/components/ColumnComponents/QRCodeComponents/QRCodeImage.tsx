@@ -2,8 +2,8 @@ import PropTypes from "prop-types"
 import type { FC } from "react"
 import { memo } from "react"
 
-import useQRCodeData from "../../../hooks/useQRCodeData"
-import useVendorId from "../../../hooks/useVendorId"
+import { useQRCodeData } from "../../../hooks/useQRCodeData"
+import { useVendorId } from "../../../hooks/useVendorId"
 import { useQRCodeText } from "../../../redux/selectors"
 
 type Props = {
