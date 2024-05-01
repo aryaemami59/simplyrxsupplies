@@ -22,7 +22,7 @@ describe<LocalTestContext>("apiSlice with fetch", it => {
     context.store = store
   })
 
-  it("rtk query api call should be successful", ({ data, store }) => {
+  it("RTK query api call should be successful", ({ data, store }) => {
     expect(data).toBeDefined()
     expect(data?.cart[0]?.itemIds).toBe(EMPTY_ARRAY)
     expect(data?.items).not.toBe(EMPTY_ARRAY)
