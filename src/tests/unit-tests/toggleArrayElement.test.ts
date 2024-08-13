@@ -1,4 +1,4 @@
-import {toggleArrayElement} from "../../utils/toggleArrayElement"
+import { toggleArrayElement } from "../../utils/toggleArrayElement"
 
 describe("toggleArrayElement", () => {
   it(toggleArrayElement, () => {

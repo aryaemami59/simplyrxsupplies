@@ -4,7 +4,7 @@ import { darkTheme, lightTheme } from "../shared/themes"
 
 const getCurrentTheme = () => {
   const valueFromStorage = localStorage.getItem("theme")
-   
+
   const preferredMode = window?.matchMedia?.("(prefers-color-scheme: dark)")
     .matches
     ? darkTheme
