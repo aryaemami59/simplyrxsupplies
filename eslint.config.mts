@@ -16,7 +16,7 @@ const ESLintConfig = config(
       parser,
       parserOptions: {
         projectService: {
-          allowDefaultProject: ["./*.?(m|c)[tj]s?(x)"],
+          allowDefaultProject: ["./*.?(m|c)[tj]s?(x)", "prettier.config.mjs"],
           defaultProject: "./tsconfig.json",
         },
         project: ["./tsconfig.json"],
