@@ -26,7 +26,7 @@ export default defineConfig(({ mode, isPreview, command, isSsrBuild }) => {
       drop: ["console", "debugger"],
       treeShaking: true,
     },
-    build: { emptyOutDir: true, minify: false },
+    build: { emptyOutDir: true, minify: true },
     define: {
       "import.meta.vitest": "undefined",
     },
