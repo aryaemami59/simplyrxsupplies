@@ -27,6 +27,5 @@ export const useComponentDidUpdate = <T extends () => void>(
     if (didMount.current) {
       callbackRef.current()
     } else didMount.current = true
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
 }

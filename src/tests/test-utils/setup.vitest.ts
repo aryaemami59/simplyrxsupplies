@@ -1,4 +1,3 @@
-/* eslint-disable prefer-arrow-functions/prefer-arrow-functions */
 import "@testing-library/jest-dom/vitest"
 import matchers from "jest-extended"
 import type { ExpectStatic } from "vitest"

@@ -231,7 +231,7 @@ export type AddedState = {
 
 // TODO: potentially remove.
 export type TypedCreateSelector<State> = <
-  Selectors extends readonly Selector<State>[],
+  Selectors extends ReadonlyArray<Selector<State>>,
   Result,
 >(
   ...args: Parameters<typeof createSelector<Selectors, Result>>

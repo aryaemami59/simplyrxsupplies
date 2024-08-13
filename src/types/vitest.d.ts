@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-shadow, @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-interface, @typescript-eslint/consistent-type-definitions */
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
 import type { Assertion, AsymmetricMatchersContaining } from "vitest"
 
 interface CustomMatchers<R = unknown> {

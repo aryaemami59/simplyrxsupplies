@@ -441,7 +441,7 @@ export const findFastestSelector = <S extends OutputSelector>(
   const results = memoizeFuncs
     .map(memoize => {
       const alternateSelector = createSelector(
-        selector.dependencies as Selector<RootState>[],
+        selector.dependencies as Array<Selector<RootState>>,
         selector.resultFunc,
         { memoize },
       )

@@ -78,7 +78,6 @@ const InputFieldComponent: FC = () => {
       className="mt-4"
       id="text-field"
       fullWidth
-      // eslint-disable-next-line jsx-a11y/no-autofocus
       autoFocus
       InputProps={inputProps}
       inputRef={inputRef}

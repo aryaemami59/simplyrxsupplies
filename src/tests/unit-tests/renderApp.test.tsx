@@ -1,11 +1,11 @@
 import { screen } from "@testing-library/react"
-import { beforeEach, describe, test } from "vitest"
+import { beforeEach, describe } from "vitest"
 
 import App from "../../App"
 import SideBarContainer from "../../components/SideBarComponents/SideBarContainer"
 import { selectVendorsData } from "../../redux/apiSlice"
 import { findFastestSelector } from "../../redux/createSelectors"
-import allSelectors, {
+import {
   checkIfAddedToAllVendors,
   checkIfAddedToVendor,
   checkIfAnyAddedToOneVendor,
@@ -32,7 +32,7 @@ import allSelectors, {
   selectVendorsLinks,
 } from "../../redux/selectors"
 import type { ExtendedRenderResult } from "../test-utils/testUtils"
-import { createMatchMedia, renderWithProviders } from "../test-utils/testUtils"
+import { renderWithProviders } from "../test-utils/testUtils"
 
 type LocalTestContext = {
   view: ExtendedRenderResult
@@ -42,7 +42,7 @@ describe<LocalTestContext>("render App", it => {
   beforeEach<LocalTestContext>(async context => {
     window.innerWidth = 1920
     resetAllSelectors()
-    window.matchMedia = createMatchMedia(window.innerWidth)
+    // window.matchMedia = createMatchMedia(window.innerWidth)
     const view = await renderWithProviders(<App />)
     context.view = view
     // getStateWith(() => view.store.getState())
@@ -266,5 +266,5 @@ describe<LocalTestContext>("render App", it => {
     console.log(selectOfficialVendorName.recomputations())
   })
 
-  test.todo.each(Object.values(allSelectors))("multiple selectors", e => {})
+  // test.todo.each(Object.values(allSelectors))("multiple selectors", e => {})
 })

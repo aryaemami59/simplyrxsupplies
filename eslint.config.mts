@@ -1,289 +1,82 @@
-{
-  "env": { "browser": true, "es2024": true, "node": true },
-  "extends": [
-    "eslint:recommended",
-    // "airbnb",
-    // "airbnb-typescript",
-    // "airbnb/hooks",
-    "plugin:react/recommended",
-    "plugin:react/jsx-runtime",
-    // "plugin:react/all",
-    "plugin:jsx-a11y/strict",
-    // "plugin:react-redux/all",
-    "plugin:react-perf/all",
-    // "plugin:@typescript-eslint/recommended-type-checked",
-    // "plugin:@typescript-eslint/stylistic-type-checked",
-    // "plugin:@typescript-eslint/strict-type-checked",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/stylistic",
-    "plugin:@typescript-eslint/strict",
-    // "plugin:@typescript-eslint/all",
-    // "plugin:promise/recommended",
-    // "plugin:sonarjs/recommended",
-    // "plugin:unicorn/recommended",
-    // "plugin:regexp/all",
-    // "plugin:optimize-regex/all",
-    "plugin:jsdoc/recommended-typescript-error",
-    "plugin:@typescript-eslint/recommended",
-    // "plugin:vitest/recommended",
-    // "plugin:vitest/all",
-    // "plugin:jest/recommended",
-    // "plugin:jest/style",
-    // "plugin:jest/all",
-    // "plugin:canonical/recommended",
-    // "plugin:jest-extended/all",
-    "plugin:testing-library/react",
-    // "plugin:jest-dom/recommended",
-    // "plugin:reselect/all",
-    // "plugin:prettier/recommended",
-    "prettier"
-  ],
-  "ignorePatterns": [
-    ".vscode",
-    "build",
-    "dist",
-    ".git",
-    "public",
-    "netlify.toml",
-    "html"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaFeatures": { "jsx": true },
-    "ecmaVersion": "latest",
-    "project": true,
-    "sourceType": "module",
-    "tsconfigRootDir": "./",
-    "EXPERIMENTAL_useSourceOfProjectReferenceRedirect": true
-  },
-  "plugins": [
-    "react",
-    "@typescript-eslint",
-    "prefer-arrow-functions",
-    "react-perf",
-    "react-hooks",
-    "import",
-    // "prettier",
-    // "jsx-a11y",
-    // "material-ui",
-    "mui-path-imports",
-    "promise",
-    "sonarjs",
-    "unicorn",
-    // "simple-import-sort",
-    // "canonical",
-    "@reverecre/fontawesome",
-    // "regexp",
-    // "optimize-regex",
-    // "jsdoc",
-    // "tsdoc",
-    // "vitest",
-    // "jest",
-    // "jest-extended",
-    "testing-library"
-    // "jest-dom"
-    // "reselect",
-    // "redux-reselect"
-    // "eslint-plugin-custom"
-  ],
-  "root": true,
-  "rules": {
-    "@typescript-eslint/consistent-type-definitions": [2, "type"],
-    "@typescript-eslint/consistent-type-imports": [
-      2,
-      { "fixStyle": "separate-type-imports" }
-    ],
-    "@typescript-eslint/consistent-type-exports": 2,
-    // "@typescript-eslint/consistent-type-exports": [2],
-    "@typescript-eslint/explicit-member-accessibility": [2],
-    // "@typescript-eslint/strict-boolean-expressions": [2],
-    "@typescript-eslint/explicit-function-return-type": [0],
-    "@typescript-eslint/explicit-module-boundary-types": [0],
-    // "@typescript-eslint/naming-convention": [
-    //   2,
-    //   { "format": ["PascalCase"], "selector": ["typeLike"] },
-    //   {
-    //     "format": ["PascalCase", "camelCase"],
-    //     "selector": ["variable"],
-    //     "types": ["function"]
-    //   },
-    //   {
-    //     "format": ["camelCase", "UPPER_CASE"],
-    //     "selector": ["variable"],
-    //     "types": ["array", "boolean", "number", "string"]
-    //   },
-    //   {
-    //     "format": null,
-    //     "modifiers": ["requiresQuotes"],
-    //     "selector": ["objectLiteralProperty"]
-    //   },
-    //   { "format": ["camelCase"], "selector": ["parameter"] }
-    // ],
-    // "@typescript-eslint/no-magic-numbers": [0],
-    // "@typescript-eslint/prefer-readonly-parameter-types": [0],
-    "mui-path-imports/mui-path-imports": [2],
-    "no-console": [0],
-    "no-param-reassign": [2, { "props": false }],
-    "no-void": [2, { "allowAsStatement": true }],
-    "prefer-arrow-functions/prefer-arrow-functions": [2],
-    // "prettier/prettier": [
-    //   2,
-    //   {
-    //     "arrowParens": "avoid",
-    //     "bracketSameLine": true,
-    //     "endOfLine": "auto",
-    //     "parser": "typescript",
-    //     "singleAttributePerLine": true,
-    //     "semi": false,
-    //     "trailingComma": "es5"
-    //   }
-    // ],
-    "promise/prefer-await-to-then": [2],
-    "react/function-component-definition": [
-      2,
-      {
-        "namedComponents": "arrow-function",
-        "unnamedComponents": "arrow-function"
-      }
-    ],
-    // "react/jsx-sort-props": [2],
-    // "simple-import-sort/exports": [2],
-    // "simple-import-sort/imports": [2],
-    "sonarjs/cognitive-complexity": [2, 13],
-    "sonarjs/no-duplicate-string": [0, { "threshold": 5 }],
-    "unicorn/error-message": [0],
-    "unicorn/filename-case": [
-      2,
-      {
-        "cases": { "camelCase": true, "kebabCase": true, "pascalCase": true },
-        "ignore": ["QRCode"]
-      }
-    ],
-    "unicorn/no-array-for-each": [0],
-    "unicorn/no-array-reduce": [0],
-    "unicorn/no-null": [0],
-    "unicorn/prefer-query-selector": [0],
-    "unicorn/prefer-spread": [0],
-    // "unicorn/prevent-abbreviations": [
-    //   0,
-    //   {
-    //     "allowList": {
-    //       "args": true,
-    //       "env": true,
-    //       "prev": true,
-    //       "Props": true,
-    //       "ref": true,
-    //       "Ref": true,
-    //       "src": true,
-    //       "Src": true,
-    //       "str": true
-    //     },
-    //     "checkDefaultAndNamespaceImports": "internal",
-    //     "checkFilenames": true,
-    //     "checkProperties": true,
-    //     "checkShorthandImports": "internal",
-    //     "checkShorthandProperties": true,
-    //     "checkVariables": true,
-    //     "extendDefaultAllowList": true,
-    //     "extendDefaultReplacements": true,
-    //     "ignore": [],
-    //     "replacements": {}
-    //   }
-    // ],
-    // "import/no-extraneous-dependencies": [
-    //   2,
-    //   {
-    //     "devDependencies": [
-    //       "src/main.tsx",
-    //       "vite.config.ts",
-    //       "**/*.test.ts{,x}",
-    //       "src/tests/**",
-    //       "redux-logger"
-    //     ]
-    //   }
-    // ],
-    "sonarjs/no-identical-functions": [2, 3],
-    "@reverecre/fontawesome/shakeable-imports": [2],
-    "@typescript-eslint/no-invalid-void-type": [0],
-    "unicorn/prefer-object-from-entries": [2],
-    // "class-methods-use-this": [0],
-    // "unicorn/consistent-destructuring": [0],
-    "unicorn/consistent-function-scoping": [
-      2,
-      { "checkArrowFunctions": false }
-    ],
-    // "canonical/no-unused-exports": [2, { "tsConfigPath": "./tsconfig.json" }],
-    // "max-classes-per-file": [0],
-    "regexp/prefer-regexp-exec": [0],
-    "jsx-a11y/prefer-tag-over-role": [0],
-    "jsx-a11y/no-aria-hidden-on-focusable": [2],
-    "@typescript-eslint/no-unused-vars": [2, { "args": "none" }],
-    "vitest/valid-describe-callback": [0],
-    "unicorn/prefer-array-flat": [0],
-    "vitest/valid-title": [0],
-    "unicorn/no-useless-undefined": [0],
-    "unicorn/no-array-callback-reference": [0],
-    "testing-library/no-render-in-lifecycle": [
-      2,
-      { "allowTestingFrameworkSetupHook": "beforeEach" }
-    ],
-    // "tsdoc/syntax": [2],
-    // "testing-library/await-async-events": [0],
-    // "testing-library/no-node-access": [0],
-    "react/jsx-props-no-spreading": [0],
-    // "testing-library/prefer-screen-queries": [0],
-    "unicorn/no-hex-escape": [0],
-    // "redux-reselect/assign-selector-to-variable": [2],
-    // "redux-reselect/prefer-selector-ref": [2],
-    // "redux-reselect/selector-args-type": [2],
-    // "redux-reselect/format-selector-name": [2],
-    "sonarjs/prefer-immediate-return": [0],
-    "no-underscore-dangle": [2, { "allow": ["__RESELECT_TOOLS__"] }],
-    "react-hooks/exhaustive-deps": [
-      2,
-      { "additionalHooks": "(useComponentDidUpdate)" }
-    ],
-    "regexp/require-unicode-sets-regexp": [0],
-    "vitest/expect-expect": [0],
-    "react-redux/useSelector-prefer-selectors": [0],
-    "import/prefer-default-export": [0],
-    "sort-imports": [
-      2,
-      {
-        "ignoreCase": false,
-        "ignoreDeclarationSort": true,
-        "ignoreMemberSort": false,
-        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
-        "allowSeparatedGroups": true
-      }
-    ]
-    // "import/no-extraneous-dependencies": [0]
-    // "import/no-default-export": [2]
-    // "custom/prefer-single-array-of-input-selectors": [2],
-    // "custom/follow-selector-naming-convention": [2],
-    // "custom/no-new-reference-in-input-selectors": [2],
-    // "custom/no-identity-result-function": [2]
-    // "react/jsx-no-literals": [0],
-    // "react/react-in-jsx-scope": [0]
-    // "@typescript-eslint/no-non-null-assertion": [0]
-  },
-  "settings": {
-    "react": { "version": "detect" },
-    "vitest": { "version": "detect" },
-    "testing-library/custom-renders": ["renderWithProviders"]
-  },
-  "overrides": [
-    {
-      "files": ["*.@(test|spec).ts?(x)"],
-      "env": { "jest": true }
+import js from "@eslint/js"
+import prettierConfig from "eslint-config-prettier"
+import { config, configs, parser, plugin } from "typescript-eslint"
+
+const ESLintConfig = config(
+  // `ignores` must be first.
+  // config with just `ignores` is the replacement for `.eslintignore`
+  { name: "ignores", ignores: ["**/dist/", "html"] },
+  { name: "javascript", ...js.configs.recommended },
+  ...configs.recommended,
+  ...configs.stylistic,
+  { name: "prettier-config", ...prettierConfig },
+  {
+    name: "main",
+    languageOptions: {
+      parser,
+      parserOptions: {
+        projectService: {
+          allowDefaultProject: ["./*.?(m|c)[tj]s?(x)"],
+          defaultProject: "./tsconfig.json",
+        },
+        project: ["./tsconfig.json"],
+        ecmaVersion: "latest",
+      },
     },
-    {
-      "files": ["**/*.ts"],
-      "excludedFiles": ["vite.config.ts", "vitest.config.ts"],
-      "rules": {
-        "import/prefer-default-export": [0],
-        "import/no-default-export": [2]
-      }
-    }
-  ]
-}
+    rules: {
+      "prefer-const": [2],
+      "no-undef": [0],
+      "@typescript-eslint/consistent-type-imports": [
+        2,
+        { fixStyle: "separate-type-imports", disallowTypeAnnotations: false },
+      ],
+      "@typescript-eslint/consistent-type-exports": [2],
+      "@typescript-eslint/no-unused-vars": [0],
+      "@typescript-eslint/array-type": [2, { default: "array-simple" }],
+      "@typescript-eslint/no-explicit-any": [0],
+      "@typescript-eslint/no-empty-interface": [
+        2,
+        { allowSingleExtends: true },
+      ],
+      "@typescript-eslint/no-unsafe-argument": [0],
+      "@typescript-eslint/no-restricted-types": [2],
+      "@typescript-eslint/no-empty-object-type": [2],
+      "@typescript-eslint/no-unsafe-function-type": [2],
+      "@typescript-eslint/no-wrapper-object-types": [2],
+      "@typescript-eslint/no-namespace": [
+        2,
+        { allowDeclarations: true, allowDefinitionFiles: true },
+      ],
+      "@typescript-eslint/ban-ts-comment": [0],
+      "@typescript-eslint/consistent-type-definitions": [2, "type"],
+      "sort-imports": [
+        2,
+        {
+          ignoreCase: false,
+          ignoreDeclarationSort: true,
+          ignoreMemberSort: false,
+          memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
+          allowSeparatedGroups: true,
+        },
+      ],
+    },
+    plugins: { "@typescript-eslint": plugin },
+    linterOptions: { reportUnusedDisableDirectives: 2 },
+  },
+  {
+    name: "commonjs",
+    files: ["**/*.c[jt]s"],
+    languageOptions: { sourceType: "commonjs" },
+    rules: {
+      "@typescript-eslint/no-var-requires": [0],
+      "@typescript-eslint/no-require-imports": [0],
+    },
+  },
+  {
+    name: "typescript-declaration-files",
+    files: ["**/*.d.?(c|m)ts"],
+    rules: { "@typescript-eslint/no-empty-object-type": [0] },
+  },
+)
+
+export default ESLintConfig

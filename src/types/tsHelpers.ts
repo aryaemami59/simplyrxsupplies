@@ -44,9 +44,9 @@ export type ObjectEntries<
   TObj extends UnknownObject,
   K extends keyof TObj = keyof TObj,
 > = TObj extends { readonly [X in K]: TObj[X] }
-  ? ValuesOf<{
+  ? Array<ValuesOf<{
       readonly [X in K]: [X, Pick<TObj, X>[X]]
-    }>[]
+    }>>
   : never
 
 export type Predicate<T> = (value: unknown) => value is T
@@ -66,7 +66,7 @@ export type UnknownFunction = (...args: unknown[]) => unknown
 
 export type NeverFunction = (...args: never[]) => unknown
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 export type AnyFunction = (...args: any[]) => unknown
 
 export type DropLast<T extends unknown[]> = T extends [...infer U, unknown]
