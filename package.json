@@ -14,6 +14,7 @@
   },
   "private": false,
   "scripts": {
+    "clean": "rimraf dist",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
@@ -22,7 +23,7 @@
     "serve": "serve -s dist",
     "start": "npm run dev",
     "test": "vitest --run --no-ui --no-open --no-coverage",
-    "test-ui": "vitest --ui --open --coverage",
+    "test-ui": "vitest --ui --open ---no-coverage",
     "lint": "eslint . --cache --cache-strategy content",
     "lint-fix": "eslint --fix . ",
     "format": "prettier --write .",
