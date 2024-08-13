@@ -3,7 +3,8 @@
     "allowSyntheticDefaultImports": true,
     "composite": true,
     "module": "ESNext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "Bundler",
+    "outDir": "dist",
     "skipLibCheck": true
   },
   "include": ["vite.config.ts", "vitest.config.ts"]
