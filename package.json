@@ -70,8 +70,6 @@
     "@types/react-dom": "^18.3.0",
     "@types/redux-logger": "^3.0.13",
     "@types/reselect-tools": "^0.0.0",
-    "@typescript-eslint/eslint-plugin": "^8.1.0",
-    "@typescript-eslint/parser": "^8.1.0",
     "@typescript/analyze-trace": "^0.10.1",
     "@vitejs/plugin-react": "^4.3.1",
     "@vitest/browser": "^2.0.5",
