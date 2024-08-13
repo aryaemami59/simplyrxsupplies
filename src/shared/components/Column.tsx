@@ -17,9 +17,4 @@ const Column: FC<Props> = ({ children, end, start = "xs" }) => {
   return matches && children
 }
 
-Column.defaultProps = {
-  end: undefined,
-  start: "xs",
-}
-
 export default memo<Props>(Column)

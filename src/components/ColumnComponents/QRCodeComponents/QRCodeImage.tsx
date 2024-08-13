@@ -25,10 +25,6 @@ const QRCodeImage: FC<Props> = ({ className }) => {
   )
 }
 
-QRCodeImage.defaultProps = {
-  className: undefined,
-}
-
 QRCodeImage.propTypes = {
   className: PropTypes.string,
 }

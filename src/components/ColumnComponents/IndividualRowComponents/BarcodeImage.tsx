@@ -23,10 +23,6 @@ const BarcodeImage: FC<Props> = ({ className }) => {
   )
 }
 
-BarcodeImage.defaultProps = {
-  className: undefined,
-}
-
 BarcodeImage.propTypes = {
   className: PropTypes.string,
 }
