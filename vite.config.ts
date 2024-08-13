@@ -6,8 +6,7 @@ import type { UserConfig } from "vitest/config"
 import { defineConfig } from "vitest/config"
 
 // https://vitejs.dev/config/
-export default defineConfig(configEnv => {
-  const { mode } = configEnv
+export default defineConfig(({ mode, isPreview, command, isSsrBuild }) => {
   const developmentConfig: UserConfig = {
     plugins: [
       react({
@@ -25,8 +24,9 @@ export default defineConfig(configEnv => {
   const productionConfig: UserConfig = {
     esbuild: {
       drop: ["console", "debugger"],
+      treeShaking: true,
     },
-    build: { emptyOutDir: true },
+    build: { emptyOutDir: true, minify: false },
     define: {
       "import.meta.vitest": "undefined",
     },
@@ -48,7 +48,7 @@ export default defineConfig(configEnv => {
         filename: "analyze.html",
         gzipSize: true,
         open: true,
-        template: "treemap",
+        template: "flamegraph",
       }) as PluginOption,
     ],
     server: { open: true },

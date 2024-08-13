@@ -15,31 +15,19 @@ export default defineConfig(configEnv =>
         react({
           babel: {
             plugins: [
-              // [
-              //   "babel-plugin-transform-react-remove-prop-types",
-              //   { removeImport: true },
-              // ],
+              [
+                "babel-plugin-transform-react-remove-prop-types",
+                { removeImport: true },
+              ],
               ["macros", { "fontawesome-svg-core": { license: "free" } }],
             ],
           },
         }),
       ],
       test: {
-        // cache: false,
-        exclude: [...defaultExclude, "src/hooks/loggers"],
-        includeSource: ['src/**/*.ts(x)?'],
-        // dir: "src/tests",
-        mockReset: true,
-        clearMocks: true,
-        restoreMocks: true,
-        // include: ["**/*.test.?(c|m)[jt]s?(x)"],
+        hookTimeout: 20_000,
+        exclude: [...defaultExclude, "src/hooks/loggers", ".yalc"],
         globals: true,
-        // browser: {
-        //   name: "chrome",
-        //   headless: false,
-        //   enabled: true,
-        //   slowHijackESM: true,
-        // },
         coverage: {
           exclude: [...coverageConfigDefaults.exclude, "src/hooks/loggers"],
           reporter: ["text", "json", "html"],
@@ -54,11 +42,11 @@ export default defineConfig(configEnv =>
           includeStack: true,
           showDiff: true,
         },
-        reporters: ["html", "verbose"],
+        reporters: ["html", "verbose", "hanging-process"],
         watch: true,
         css: true,
         benchmark: {
-          reporters: ["json"],
+          reporters: ["default"],
         },
         setupFiles: ["src/tests/test-utils/setup.vitest.ts"],
       },
