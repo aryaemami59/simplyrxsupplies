@@ -263,7 +263,6 @@ describe<LocalTestContext>("render App", it => {
     findFastestSelector(isVendorChecked, state, 0, 0)
     findFastestSelector(isMinimized, state, 0, 0)
     findFastestSelector(checkIfAddedToVendor, state, 0, 0)
-    console.log(selectOfficialVendorName.recomputations())
   })
 
   // test.todo.each(Object.values(allSelectors))("multiple selectors", e => {})
