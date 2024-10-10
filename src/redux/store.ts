@@ -10,7 +10,9 @@ export type RootState = ReturnType<typeof rootReducer>
 export const setupStore = (preloadedState?: Partial<RootState>) =>
   configureStore({
     middleware: getDefaultMiddleware =>
-      import.meta.env.PROD || import.meta.env.MODE === "test"
+      import.meta.env.PROD ||
+      import.meta.env.MODE === "test" ||
+      import.meta.env.MODE === "benchmark"
         ? getDefaultMiddleware().concat(apiSlice.middleware)
         : getDefaultMiddleware({
             actionCreatorCheck: true,
