@@ -7,13 +7,18 @@ import { ADAPTER_INITIAL_STATES } from "./adapterInitialStates"
 import { createSelectorWeakMap } from "./createSelectors"
 import { ENTITY_ADAPTERS } from "./entityAdapters"
 
+/**
+ * Workaround for {@linkcode https://typescript-eslint.io/rules/no-invalid-void-type | @typescript-eslint/no-invalid-void-type}
+ */
+type BoxedVoid<T = void> = T
+
 export const apiSlice = createApi({
   reducerPath: "api",
   tagTypes: ["Supplies"],
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   // refetchOnFocus: true,
   endpoints: builder => ({
-    getMain: builder.query<SuppliesState, void>({
+    getMain: builder.query<SuppliesState, BoxedVoid>({
       query: () => "",
       transformResponse: (supplies: Supplies) => {
         const { items, vendors, categories } = supplies

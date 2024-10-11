@@ -5,8 +5,8 @@ import { useEffect, useRef } from "react"
  * @param callback - Callback function that gets invoked anytime the component updates.
  * @param deps - An optional dependency array, if provided effect will run only if the values in the list change.
  */
-export const useComponentDidUpdate = <T extends () => void>(
-  callback: T,
+export const useComponentDidUpdate = (
+  callback: () => void,
   deps?: readonly unknown[],
 ) => {
   const didMount = useRef(false)

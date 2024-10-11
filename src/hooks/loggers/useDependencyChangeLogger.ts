@@ -9,7 +9,10 @@ import { useComponentDidUpdate } from "../useComponentDidUpdate"
  * @param dependency - The dependency that we are checking for.
  * @param depName - Name of the dependency that we are checking for.
  */
-export const useDependencyChangeLogger = <T>(dependency: T, depName = "") => {
+export const useDependencyChangeLogger = (
+  dependency: unknown,
+  depName = "",
+) => {
   const componentName =
     new Error().stack?.split("\n")[2]?.split(" ")[5] ?? "Component"
 

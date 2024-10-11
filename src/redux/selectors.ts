@@ -13,9 +13,9 @@ import type { RootState } from "./store"
 import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors"
 
 const ROOT_SELECTOR_PARAMS_PROVIDER: RootSelectorParamsProvider = {
-  getItemId: (state, itemId) => itemId,
-  getCartIdAndItemId: (state, cartId, itemId) => itemId,
-  getItemIdAndCartId: (state, itemId, cartId) => cartId,
+  getItemId: (_state, itemId) => itemId,
+  getCartIdAndItemId: (_state, _cartId, itemId) => itemId,
+  getItemIdAndCartId: (_state, _itemId, cartId) => cartId,
 } as const satisfies RootSelectorParamsProvider
 
 export const selectVendorsLinks = createSelectorWeakMap(

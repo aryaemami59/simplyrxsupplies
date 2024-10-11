@@ -17,7 +17,7 @@ describe<LocalTestContext>("initial state after fetch", it => {
     context.initialState = initialState
   })
 
-  it("should hydrate the store", ({ store, initialState }) => {
+  it("should hydrate the store", ({ store }) => {
     const addedState = store.getState().added
     const state = store.getState()
     expect(
@@ -55,7 +55,7 @@ describe<LocalTestContext>("initial state before fetch", it => {
     context.initialState = initialState
   })
 
-  it("should not hydrate the store", ({ store, initialState }) => {
+  it("should not hydrate the store", ({ store }) => {
     const addedState = store.getState().added
     expect(addedState.itemVendors.ids).toBeEmptyArray()
     expect(addedState.cart.ids).toBeEmptyArray()

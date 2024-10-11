@@ -5,8 +5,8 @@ import { createDraftSafeAddedSelector } from "./createSelectors"
 
 export const ADDED_SLICE_SELECTOR_PARAMS_PROVIDER: AddedSliceSelectorParamsProvider =
   {
-    getItemId: (added, itemId) => itemId,
-    getCartId: (added, cartId) => cartId,
+    getItemId: (_added, itemId) => itemId,
+    getCartId: (_added, cartId) => cartId,
   } as const satisfies AddedSliceSelectorParamsProvider
 
 export const DRAFT_SAFE_SELECTORS = {

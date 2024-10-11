@@ -6,7 +6,7 @@ import type { UserConfig } from "vitest/config"
 import { defineConfig } from "vitest/config"
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode, isPreview, command, isSsrBuild }) => {
+export default defineConfig(({ mode }) => {
   const developmentConfig: UserConfig = {
     plugins: [
       react({

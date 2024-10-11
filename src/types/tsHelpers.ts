@@ -29,11 +29,9 @@ export type ObjectEntries<
   TObj extends UnknownObject,
   K extends keyof TObj = keyof TObj,
 > = TObj extends { readonly [X in K]: TObj[X] }
-  ? Array<
-      ValuesOf<{
-        readonly [X in K]: [X, Pick<TObj, X>[X]]
-      }>
-    >
+  ? ValuesOf<{
+      readonly [X in K]: [X, Pick<TObj, X>[X]]
+    }>[]
   : never
 
 export type Predicate<T> = (value: unknown) => value is T
@@ -42,4 +40,4 @@ export type ObjectChecker<T extends object> = {
   [K in keyof T]: Predicate<T[K]>
 }
 
-export type AnyFunction = (...args: any[]) => unknown
+export type AnyFunction = (...args: never[]) => unknown

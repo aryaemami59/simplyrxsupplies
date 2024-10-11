@@ -83,7 +83,7 @@ describe<LocalTestContext>("selectors", it => {
     selectCheckedVendorIds.clearCache()
   })
 
-  it("selectCategoryItemIds", ({ store }) => {
+  it("selectCategoryItemIds", () => {
     expect(selectCategoryItemIds.recomputations()).toBe(0)
     // const { store, initialState } = await setupWithNoUI()
     // const state = store.getState()

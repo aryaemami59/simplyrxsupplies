@@ -1,11 +1,10 @@
 import QRCode from "qrcode"
 import type { FC } from "react"
 import { createContext, memo, useEffect, useState } from "react"
-
 import { useQRCodeText } from "../redux/selectors"
 import type { PropsWithRequiredChildren } from "../types/tsHelpers"
 
-const createQRCode = async <const S extends string>(data: S) => {
+const createQRCode = async (data: string) => {
   try {
     return await QRCode.toDataURL(data)
   } catch (error) {
