@@ -63,7 +63,7 @@ const VendorDropDown: FC<Props> = ({ vendorId }) => {
         aria-haspopup="true"
         className="rounded-pill"
         disableElevation
-        id={`${vendorId}`}
+        id={vendorId.toString()}
         onClick={handleOpen}
         variant="contained"
       >
@@ -73,7 +73,7 @@ const VendorDropDown: FC<Props> = ({ vendorId }) => {
         anchorEl={anchorElement}
         anchorOrigin={anchorOrigin}
         aria-expanded={open}
-        aria-labelledby={`${vendorId}`}
+        aria-labelledby={vendorId.toString()}
         // autoFocus
         id={officialVendorName}
         MenuListProps={menuListProps}
@@ -85,7 +85,7 @@ const VendorDropDown: FC<Props> = ({ vendorId }) => {
       >
         {itemIds.map(itemId => (
           <SingleDropDown
-            key={`${itemId}-${vendorId}`}
+            key={`${itemId.toString()}-${vendorId.toString()}`}
             itemId={itemId}
             vendorId={vendorId}
           />

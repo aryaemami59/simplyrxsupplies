@@ -409,7 +409,9 @@ export const createParametricSelectorHooks = <
     Object.entries(selectors).map(
       ([selectorName, selector]) =>
         [
-          `${selectorName.startsWith("select") ? selectorName.replace(/^select/, "use") : `use${capitalize(selectorName)}`}`,
+          selectorName.startsWith("select")
+            ? selectorName.replace(/^select/, "use")
+            : `use${capitalize(selectorName)}`,
           createParametricSelectorHook(selector),
         ] as const,
     ),
@@ -461,11 +463,12 @@ export const findFastestSelector = <S extends OutputSelector>(
     .filter(({ time }) => time !== fastest.time)
     .map(
       ({ time, name }) =>
-        `\x1B[33m \x1B[1m${
+        `\x1B[33m \x1B[1m${(
           time / fastest.time
-        }\x1B[0m times faster than \x1B[1;41m${name}\x1B[0m\n(\x1B[1m\x1B[35m${
-          ((time - fastest.time) / time) * 100
-        }\x1B[0m% speed increase).`,
+        ).toString()}\x1B[0m times faster than \x1B[1;41m${name}\x1B[0m\n(\x1B[1m\x1B[35m${(
+          ((time - fastest.time) / time) *
+          100
+        ).toString()}\x1B[0m% speed increase).`,
     )
   if (fastest.selector.memoize.name !== selector.memoize.name) {
     console.warn(

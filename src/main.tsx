@@ -17,6 +17,7 @@ if (import.meta.env.DEV) {
     checkSelector,
     reset,
   } = await import("reselect-tools")
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   getStateWith(store.getState)
   registerSelectors(allSelectors)
   selectorGraph()

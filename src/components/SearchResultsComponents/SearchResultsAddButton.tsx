@@ -25,7 +25,7 @@ const SearchResultsAddButton: FC<Props> = ({ visibleListId }) => {
 
   return (
     <Button
-      key={`Button-AddItemButtonComponent-${visibleListId}`}
+      key={`Button-AddItemButtonComponent-${visibleListId.toString()}`}
       className="fw-bold w-auto p-auto shadow-sm rounded-pill text-none"
       disabled={ifAddedToAllVendors}
       onClick={clickHandler}

@@ -12,7 +12,7 @@ const OffcanvasVendorAccordionList: FC = () => {
       {vendorNames.map(vendorName => (
         <VendorIdProvider key={vendorName} vendorId={vendorName}>
           <OffcanvasVendorAccordion
-            key={`${vendorName}-OffcanvasVendorAccordionList`}
+            key={`${vendorName.toString()}-OffcanvasVendorAccordionList`}
           />
         </VendorIdProvider>
       ))}

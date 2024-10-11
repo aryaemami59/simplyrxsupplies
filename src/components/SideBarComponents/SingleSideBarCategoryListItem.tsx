@@ -52,7 +52,7 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemId }) => {
         {!isEmptyArray(vendorIds) &&
           vendorIds.map(vendorId => (
             <SideBarVendorBadges
-              key={`SideBarVendorBadges-${itemId}${vendorId}`}
+              key={`SideBarVendorBadges-${itemId.toString()}${vendorId.toString()}`}
               itemId={itemId}
               vendorId={vendorId}
             />

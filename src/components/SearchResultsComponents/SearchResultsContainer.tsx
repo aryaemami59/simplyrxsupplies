@@ -53,7 +53,7 @@ const SearchResultsContainer: FC = () => {
       >
         {visibleListIds.map(visibleListId => (
           <SearchResultsSingleCard
-            key={`${visibleListId}-inputListItems`}
+            key={`${visibleListId.toString()}-inputListItems`}
             visibleListId={visibleListId}
           />
         ))}

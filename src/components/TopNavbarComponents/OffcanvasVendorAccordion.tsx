@@ -46,11 +46,11 @@ const OffcanvasVendorAccordion: FC = () => {
       <AccordionDetails className="justify-content-center d-flex flex-column align-items-cente">
         {vendorItemNames.map(itemName => (
           <ItemIdProvider
-            key={`${itemName}-OffcanvasVendorAccordion`}
+            key={`${itemName.toString()}-OffcanvasVendorAccordion`}
             itemId={itemName}
           >
             <SingleOffcanvasVendorItem
-              key={`${itemName}-OffcanvasVendorAccordion`}
+              key={`${itemName.toString()}-OffcanvasVendorAccordion`}
             />
           </ItemIdProvider>
         ))}

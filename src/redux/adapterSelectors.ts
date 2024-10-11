@@ -117,7 +117,10 @@ export const getAllEntitySelectors = () => {
       ...prev,
       ...Object.fromEntries(
         Object.entries(value).map(([k, v]) => {
-          setFunctionName(v, k.replace("select", `select${capitalize(key)}`))
+          setFunctionName(
+            v as never,
+            k.replace("select", `select${capitalize(key)}`),
+          )
           return [k.replace("select", `select${capitalize(key)}`), v] as const
         }),
       ),
@@ -126,8 +129,6 @@ export const getAllEntitySelectors = () => {
   )
   return gg
 }
-
-getAllEntitySelectors()
 
 export const ADAPTER_SELECTORS: AdapterSelectors = {
   LOCAL: LOCAL_SELECTORS,

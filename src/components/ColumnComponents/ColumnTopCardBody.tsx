@@ -21,11 +21,11 @@ const ColumnTopCardBody: FC = () => {
       <List>
         {addedItemsIds.map(addedItemsId => (
           <ItemIdProvider
-            key={`${addedItemsId}-${vendorId}`}
+            key={`${addedItemsId.toString()}-${vendorId.toString()}`}
             itemId={addedItemsId}
           >
             <RowSingleContainer
-              key={`${addedItemsId}-${vendorId}-SingleVendorColumnListItem`}
+              key={`${addedItemsId.toString()}-${vendorId.toString()}-SingleVendorColumnListItem`}
             />
           </ItemIdProvider>
         ))}

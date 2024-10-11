@@ -46,7 +46,7 @@ const SideBarAccordionCategories: FC<Props> = ({ categoryId }) => {
       >
         <AccordionSummary
           role="button"
-          aria-controls={`${categoryId}-Accordion`}
+          aria-controls={`${categoryId.toString()}-Accordion`}
           ref={ref}
           className="shadow-sm"
           expandIcon={expandIcon}
@@ -56,7 +56,7 @@ const SideBarAccordionCategories: FC<Props> = ({ categoryId }) => {
         <AccordionDetails className="text-center mw-7">
           {categoryItemIds.map(categoryItemId => (
             <SingleSideBarCategoryListItem
-              key={`${categoryItemId}-SingleSideBarAccordionListItem`}
+              key={`${categoryItemId.toString()}-SingleSideBarAccordionListItem`}
               itemId={categoryItemId}
             />
           ))}

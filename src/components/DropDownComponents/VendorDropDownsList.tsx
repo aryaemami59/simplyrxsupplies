@@ -10,7 +10,7 @@ const VendorDropDownsList: FC = () => {
     <>
       {vendorIds.map(vendorId => (
         <VendorDropDown
-          key={`${vendorId}-VendorDropDownsList-VendorDropDown`}
+          key={`${vendorId.toString()}-VendorDropDownsList-VendorDropDown`}
           vendorId={vendorId}
         />
       ))}

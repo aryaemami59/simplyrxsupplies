@@ -28,7 +28,7 @@ const SearchResultsCardBodyContent: FC<Props> = ({ visibleListId }) => {
               {!isEmptyArray(vendorIds) &&
                 vendorIds.map(vendorId => (
                   <SwitchComponent
-                    key={`SwitchComponent-${visibleListId}${vendorId}`}
+                    key={`SwitchComponent-${visibleListId.toString()}${vendorId.toString()}`}
                     vendorId={vendorId}
                     visibleListId={visibleListId}
                   />

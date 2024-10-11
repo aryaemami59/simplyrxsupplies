@@ -16,7 +16,7 @@ export const useComponentUpdateLogger = () => {
   useComponentDidUpdate(() => {
     renderCount.current += 1
     console.log(
-      `%c${componentName}%c Re-rendered %c${renderCount.current}%c ${
+      `%c${componentName}%c Re-rendered %c${renderCount.current.toString()}%c ${
         renderCount.current === 1 ? "time" : "times"
       }`,
       "color: violet; font-size: 15px;",

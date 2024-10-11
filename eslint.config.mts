@@ -1,7 +1,7 @@
 import js from "@eslint/js"
 import type { Linter } from "eslint"
 import prettierConfig from "eslint-config-prettier"
-import { config, configs, parser } from "typescript-eslint"
+import { config, configs } from "typescript-eslint"
 
 export const rulesToDisable = {
   "no-undef": [0],
@@ -34,17 +34,16 @@ const ESLintConfig = config(
   // config with just `ignores` is the replacement for `.eslintignore`
   { name: "global-ignores", ignores: ["**/dist/", "**/html/", "coverage/"] },
   { name: "javascript", ...js.configs.recommended },
-  ...configs.recommended,
-  ...configs.stylistic,
+  ...configs.strictTypeChecked,
+  ...configs.stylisticTypeChecked,
   { name: "prettier-config", ...prettierConfig },
   {
     name: "main",
     languageOptions: {
-      parser,
       parserOptions: {
         projectService: {
           allowDefaultProject: ["./*.?(m|c)js?(x)"],
-          defaultProject: "./tsconfig.json",
+          defaultProject: "tsconfig.json",
         },
         tsconfigRootDir: import.meta.dirname,
       },
