@@ -31,3 +31,4 @@ yalc.lock
 **/__snapshots__/
 trace
 tsconfig.vitest-temp.json
+tsconfig.*.tsbuildinfo
