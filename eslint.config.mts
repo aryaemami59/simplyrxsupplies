@@ -1,6 +1,7 @@
 import js from "@eslint/js"
 import type { Linter } from "eslint"
 import prettierConfig from "eslint-config-prettier"
+import reactHooks from "eslint-plugin-react-hooks"
 import { config, configs } from "typescript-eslint"
 
 export const rulesToDisable = {
@@ -48,7 +49,9 @@ const ESLintConfig = config(
         tsconfigRootDir: import.meta.dirname,
       },
     },
+    plugins: { "react-hooks": reactHooks },
     rules: {
+      ...reactHooks.configs.recommended.rules,
       "@typescript-eslint/consistent-type-imports": [
         2,
         {
