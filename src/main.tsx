@@ -1,15 +1,15 @@
-import React from "react"
+import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 import { Provider } from "react-redux"
-import App from "./App"
+import App from "./App.jsx"
 import { apiSlice } from "./redux/apiSlice"
 import { allSelectors } from "./redux/selectors"
 import { store } from "./redux/store"
 
 if (import.meta.env.DEV) {
-  const { default: whyDidYouRender } = await import(
-    "@welldone-software/why-did-you-render"
-  )
+  // const { default: whyDidYouRender } = await import(
+  //   "@welldone-software/why-did-you-render"
+  // )
   const {
     getStateWith,
     registerSelectors,
@@ -25,12 +25,12 @@ if (import.meta.env.DEV) {
   // console.log(globalThis.__RESELECT_TOOLS__)
   // console.log(window.__RESELECT_TOOLS__)
   reset()
-  whyDidYouRender(React, {
-    trackAllPureComponents: true,
-    // include: [/./gi],
-    collapseGroups: true,
-    trackHooks: true,
-  })
+  // whyDidYouRender(React, {
+  //   trackAllPureComponents: true,
+  //   // include: [/./gi],
+  //   collapseGroups: true,
+  //   trackHooks: true,
+  // })
 }
 
 if (import.meta.vitest) {
@@ -53,9 +53,9 @@ const container = document.getElementById("root") as HTMLDivElement
 const root = createRoot(container)
 
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>,
+  </StrictMode>,
 )

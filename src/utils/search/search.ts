@@ -29,7 +29,8 @@ export const search = (
   )
 
   return inputValue
-    ? searchResults.toSorted(
+    ? // TODO: Change to `.toSorted()`
+      searchResults.sort(
         (a, b) =>
           sortResults(b, searchRegexPattern, inputValue) -
           sortResults(a, searchRegexPattern, inputValue),
