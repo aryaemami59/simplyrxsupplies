@@ -1,4 +1,5 @@
 import js from "@eslint/js"
+import vitestPlugin from "@vitest/eslint-plugin"
 import type { Linter } from "eslint"
 import prettierConfig from "eslint-config-prettier"
 import reactHooks from "eslint-plugin-react-hooks"
@@ -28,6 +29,7 @@ export const rulesToDisable = {
       },
     ],
   ],
+  "vitest/valid-describe-callback": [0],
 } as const satisfies Linter.RulesRecord
 
 const ESLintConfig = config(
@@ -37,6 +39,7 @@ const ESLintConfig = config(
   { name: "javascript", ...js.configs.recommended },
   ...configs.strictTypeChecked,
   ...configs.stylisticTypeChecked,
+  vitestPlugin.configs.recommended,
   { name: "prettier-config", ...prettierConfig },
   {
     name: "main",
@@ -49,7 +52,8 @@ const ESLintConfig = config(
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    plugins: { "react-hooks": reactHooks },
+    plugins: { "react-hooks": reactHooks, vitest: vitestPlugin },
+    settings: { vitest: { typecheck: true } },
     rules: {
       ...reactHooks.configs.recommended.rules,
       "@typescript-eslint/consistent-type-imports": [
