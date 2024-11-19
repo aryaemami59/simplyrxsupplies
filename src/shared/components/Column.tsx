@@ -1,9 +1,9 @@
 import type { Breakpoint } from "@mui/material"
+import useMediaQuery from "@mui/material/useMediaQuery"
 import type { FC } from "react"
 import { memo } from "react"
 
 import type { PropsWithRequiredChildren } from "../../types/tsHelpers"
-import { useTypedMediaQuery } from "../themes"
 
 type Props = PropsWithRequiredChildren & {
   start?: Breakpoint
@@ -11,7 +11,7 @@ type Props = PropsWithRequiredChildren & {
 }
 
 const Column: FC<Props> = ({ children, end, start = "xs" }) => {
-  const matches = useTypedMediaQuery(theme =>
+  const matches = useMediaQuery(theme =>
     end ? theme.breakpoints.between(start, end) : theme.breakpoints.up(start),
   )
   return matches && children

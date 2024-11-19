@@ -4,7 +4,7 @@ export type UnknownObject = Record<string, unknown>
 
 export type EmptyTuple = []
 
-export type PropsWithRequiredChildren<P = unknown> = P & {
+export type PropsWithRequiredChildren<Props = unknown> = Props & {
   readonly children: ReactNode
 }
 

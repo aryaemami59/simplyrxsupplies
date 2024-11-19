@@ -1,7 +1,5 @@
 import grey from "@mui/material/colors/grey"
 import { createTheme } from "@mui/material/styles"
-import type { Theme } from "@mui/material/styles/createTheme"
-import useMediaQuery from "@mui/material/useMediaQuery"
 
 import {
   DARK_MODE_PAPER_BG,
@@ -26,8 +24,6 @@ declare module "@mui/material/styles" {
     // desktop: true;
   }
 }
-
-export const useTypedMediaQuery = useMediaQuery<Theme>
 
 export const lightTheme = createTheme({
   breakpoints: {
