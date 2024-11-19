@@ -1,12 +1,10 @@
-import "@testing-library/jest-dom/vitest"
-import matchers from "jest-extended"
-import type { ExpectStatic } from "vitest"
-import { expect } from "vitest"
+import type { MatchersObject } from "@vitest/expect"
+import * as jestExtendedMatchers from "jest-extended"
 import "vitest-dom/extend-expect"
 
-expect.extend(matchers)
+expect.extend(jestExtendedMatchers)
 
-const customMatchers: Parameters<ExpectStatic["extend"]>[0] = {
+const customMatchers: MatchersObject = {
   toBeEmptyArray(received: unknown) {
     if (!Array.isArray(received)) {
       return {
@@ -35,17 +33,3 @@ const customMatchers: Parameters<ExpectStatic["extend"]>[0] = {
 }
 
 expect.extend(customMatchers)
-
-// Object.defineProperty(window, "matchMedia", {
-//   writable: true,
-//   value: vi.fn().mockImplementation((query: string) => ({
-//     matches: false,
-//     media: query,
-//     onchange: null,
-//     addListener: vi.fn(), // deprecated
-//     removeListener: vi.fn(), // deprecated
-//     addEventListener: vi.fn(),
-//     removeEventListener: vi.fn(),
-//     dispatchEvent: vi.fn(),
-//   })),
-// })
