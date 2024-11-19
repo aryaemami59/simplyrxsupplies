@@ -3,7 +3,8 @@ import type {
   RenderResult,
   queries,
 } from "@testing-library/react"
-import { render, screen } from "@testing-library/react"
+import { screen } from "@testing-library/react"
+import { createRenderStream } from "@testing-library/react-render-stream"
 import { userEvent } from "@testing-library/user-event"
 import mediaQuery from "css-mediaquery"
 import type { FC, ReactElement } from "react"
@@ -19,6 +20,8 @@ import type {
   WritableDeep,
 } from "../../types/tsHelpers"
 import { capitalize } from "../../utils/capitalize"
+
+const { render } = createRenderStream()
 
 export const setupWithNoUI = async (
   options: SetupWithNoUIOptions = {},
