@@ -3,14 +3,15 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aryaemami59/simplyrxsupplies"
+    "url": "git+https://github.com/aryaemami59/simplyrxsupplies.git"
   },
   "name": "simply-rx-supplies",
   "description": "Simply RX Supplies is a web application that serves as a tool to help make ordering pharmacy supplies easier.",
   "version": "0.1.0",
   "author": {
     "name": "Arya Emami",
-    "email": "aryaemami59@yahoo.com"
+    "email": "aryaemami59@yahoo.com",
+    "url": "https://github.com/aryaemami59"
   },
   "private": false,
   "scripts": {
@@ -113,5 +114,6 @@
     "vitest": "^2.1.5",
     "vitest-dom": "^0.1.1",
     "webdriverio": "^9.2.14"
-  }
+  },
+  "sideEffects": false
 }
