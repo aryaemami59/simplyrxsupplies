@@ -5,7 +5,8 @@ import {
   defineConfig,
   mergeConfig,
 } from "vitest/config"
-import viteConfig from "./vite.config"
+import packageJson from "./package.json" with { type: "json" }
+import viteConfig from "./vite.config.js"
 
 export default defineConfig(configEnv =>
   mergeConfig(
@@ -25,7 +26,11 @@ export default defineConfig(configEnv =>
         }),
       ],
       test: {
+        name: packageJson.name,
+        root: import.meta.dirname,
+
         unstubGlobals: true,
+        unstubEnvs: true,
         includeTaskLocation: true,
         typecheck: { tsconfig: "tsconfig.json" },
         exclude: [...defaultExclude, "src/hooks/loggers", ".yalc"],
@@ -38,7 +43,7 @@ export default defineConfig(configEnv =>
           truncateThreshold: 1000,
           includeStack: true,
         },
-        reporters: ["verbose", "hanging-process"],
+        reporters: [["verbose"], ["hanging-process"]],
         watch: false,
         setupFiles: ["src/tests/test-utils/setup.vitest.ts"],
       },
