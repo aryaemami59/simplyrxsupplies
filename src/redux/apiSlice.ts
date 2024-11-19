@@ -8,7 +8,8 @@ import { createSelectorWeakMap } from "./createSelectors"
 import { ENTITY_ADAPTERS } from "./entityAdapters"
 
 /**
- * Workaround for {@linkcode https://typescript-eslint.io/rules/no-invalid-void-type | @typescript-eslint/no-invalid-void-type}
+ * Workaround for
+ * {@linkcode https://typescript-eslint.io/rules/no-invalid-void-type | @typescript-eslint/no-invalid-void-type}
  */
 type BoxedVoid<T = void> = T
 
