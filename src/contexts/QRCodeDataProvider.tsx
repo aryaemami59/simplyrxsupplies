@@ -1,4 +1,4 @@
-import QRCode from "qrcode"
+import * as QRCode from "qrcode"
 import type { FC } from "react"
 import { createContext, memo, useEffect, useState } from "react"
 import { useQRCodeText } from "../redux/selectors"
@@ -17,11 +17,11 @@ type Props = PropsWithRequiredChildren<{
   readonly vendorId: number
 }>
 
-export const QRCodeDataContext = createContext<string>("")
+export const QRCodeDataContext = createContext<string | undefined>(undefined)
 
 const QRCodeDataProvider: FC<Props> = ({ children, vendorId }) => {
   const qrCodeText = useQRCodeText(vendorId)
-  const [src, setSrc] = useState("")
+  const [src, setSrc] = useState<string | undefined>(undefined)
   useEffect(() => {
     const setQRCode = async () => {
       const data = await createQRCode(qrCodeText)

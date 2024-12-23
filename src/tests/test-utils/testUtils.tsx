@@ -1,25 +1,27 @@
-import type {
-  RenderOptions,
-  RenderResult,
-  queries,
-} from "@testing-library/react"
+import type { RenderOptions, queries } from "@testing-library/react"
 import { screen } from "@testing-library/react"
-import { createRenderStream } from "@testing-library/react-render-stream"
+import type { AsyncRenderFn } from "@testing-library/react-render-stream"
+import {
+  createRenderStream,
+  disableActEnvironment,
+} from "@testing-library/react-render-stream"
 import { userEvent } from "@testing-library/user-event"
-import mediaQuery from "css-mediaquery"
+import * as mediaQuery from "css-mediaquery"
 import type { FC, ReactElement } from "react"
 import { Provider } from "react-redux"
-import { endpoints } from "../../redux/apiSlice"
-import type { AppStore, RootState } from "../../redux/store"
-import { setupStore } from "../../redux/store"
-import type { Supplies } from "../../types/api"
+import { endpoints } from "../../redux/apiSlice.js"
+import type { AppStore, RootState } from "../../redux/store.js"
+import { setupStore } from "../../redux/store.js"
+import type { Supplies } from "../../types/api.js"
 import type {
   PartialObjectProperties,
   PropsWithRequiredChildren,
   UnknownObject,
   WritableDeep,
-} from "../../types/tsHelpers"
-import { capitalize } from "../../utils/capitalize"
+} from "../../types/tsHelpers.js"
+import { capitalize } from "../../utils/capitalize.js"
+
+disableActEnvironment()
 
 const { render } = createRenderStream()
 
@@ -130,18 +132,20 @@ export const renderWithProviders = async (
     <Provider store={store}>{children}</Provider>
   )
 
+  const renderResult = await render(ui, {
+    wrapper: Wrapper,
+    ...renderOptions,
+  })
+
   // Return an object with the store and all of `RTL`'s query functions
   return {
     store,
     user,
-    ...(render(ui, {
-      wrapper: Wrapper,
-      ...renderOptions,
-    }) satisfies RenderResult),
-  }
+    ...renderResult,
+  } satisfies ExtendedRenderResult
 }
 
-export type ExtendedRenderResult = RenderResult & {
+export type ExtendedRenderResult = Awaited<ReturnType<AsyncRenderFn>> & {
   store: AppStore
   user: UserEvent
 }

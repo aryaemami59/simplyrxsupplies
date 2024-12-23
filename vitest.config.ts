@@ -1,4 +1,5 @@
-import react from "@vitejs/plugin-react"
+import viteReact from "@vitejs/plugin-react"
+import type { ViteUserConfig } from "vitest/config"
 import {
   coverageConfigDefaults,
   defaultExclude,
@@ -13,17 +14,24 @@ export default defineConfig(configEnv =>
     viteConfig(configEnv),
     defineConfig({
       plugins: [
-        react({
+        viteReact({
           babel: {
             plugins: [
               [
                 "babel-plugin-transform-react-remove-prop-types",
                 { removeImport: true },
               ],
-              ["macros", { "fontawesome-svg-core": { license: "free" } }],
+              [
+                "macros",
+                {
+                  "fontawesome-svg-core": {
+                    license: "free",
+                  },
+                },
+              ],
             ],
           },
-        }),
+        }) as ViteUserConfig["plugins"],
       ],
       test: {
         name: packageJson.name,
@@ -32,7 +40,11 @@ export default defineConfig(configEnv =>
         unstubGlobals: true,
         unstubEnvs: true,
         includeTaskLocation: true,
-        typecheck: { tsconfig: "tsconfig.json" },
+
+        typecheck: {
+          tsconfig: "tsconfig.json",
+        },
+
         exclude: [...defaultExclude, "src/hooks/loggers", ".yalc"],
         globals: true,
         coverage: {
@@ -40,8 +52,8 @@ export default defineConfig(configEnv =>
         },
         environment: "jsdom",
         chaiConfig: {
-          truncateThreshold: 1000,
           includeStack: true,
+          truncateThreshold: 1000,
         },
         reporters: [["verbose"], ["hanging-process"]],
         watch: false,

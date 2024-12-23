@@ -1,4 +1,3 @@
-import PropTypes from "prop-types"
 import type { FC } from "react"
 import { memo } from "react"
 import { useVendorIdsByItemId } from "../../redux/selectors"
@@ -47,9 +46,5 @@ const SearchResultsCardBodyContent: FC<Props> = ({ visibleListId }) => {
 }
 
 SearchResultsCardBodyContent.displayName = "SearchResultsCardBodyContent"
-
-SearchResultsCardBodyContent.propTypes = {
-  visibleListId: PropTypes.number.isRequired,
-}
 
 export default memo<Props>(SearchResultsCardBodyContent)

@@ -1,6 +1,5 @@
 import Checkbox from "@mui/material/Checkbox"
 import FormControlLabel from "@mui/material/FormControlLabel"
-import PropTypes from "prop-types"
 import type { FC } from "react"
 import { memo, useCallback, useMemo } from "react"
 
@@ -48,11 +47,6 @@ const SideBarVendorBadges: FC<Props> = ({ itemId, vendorId }) => {
       label={officialVendorName}
     />
   )
-}
-
-SideBarVendorBadges.propTypes = {
-  itemId: PropTypes.number.isRequired,
-  vendorId: PropTypes.number.isRequired,
 }
 
 export default memo<Props>(SideBarVendorBadges)

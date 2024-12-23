@@ -1,19 +1,24 @@
 import { shallowEqual } from "react-redux"
-import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors"
-import { selectItemName, selectOfficialVendorName } from "../../redux/selectors"
-import type { CartItems, ItemVendors } from "../../types/reduxHelperTypes"
-import { EMPTY_ARRAY } from "../../utils/emptyArray"
-import { isArrayOfNumbers } from "../../utils/predicates/isArrayOfNumbers"
-import { isNumber } from "../../utils/predicates/isNumber"
-import type { SetupWithNoUIResults } from "../test-utils/testUtils"
-import { setupWithNoUI } from "../test-utils/testUtils"
+import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors.js"
+import {
+  selectItemName,
+  selectOfficialVendorName,
+} from "../../redux/selectors.js"
+import type { CartItems, ItemVendors } from "../../types/reduxHelperTypes.js"
+import { EMPTY_ARRAY } from "../../utils/emptyArray.js"
+import { isArrayOfNumbers } from "../../utils/predicates/isArrayOfNumbers.js"
+import { isNumber } from "../../utils/predicates/isNumber.js"
+import type { SetupWithNoUIResults } from "../test-utils/testUtils.js"
+import { setupWithNoUI } from "../test-utils/testUtils.js"
 
 type LocalTestContext = SetupWithNoUIResults
 
 describe<LocalTestContext>("initial state after fetch", it => {
   beforeEach<LocalTestContext>(async context => {
     const { store, initialState } = await setupWithNoUI()
+
     context.store = store
+
     context.initialState = initialState
   })
 
@@ -51,7 +56,9 @@ describe<LocalTestContext>("initial state before fetch", it => {
     const { store, initialState } = await setupWithNoUI({
       fetch: false,
     })
+
     context.store = store
+
     context.initialState = initialState
   })
 

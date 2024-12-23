@@ -1,7 +1,6 @@
 import FormControlLabel from "@mui/material/FormControlLabel"
 import type { SwitchProps } from "@mui/material/Switch"
 import Switch from "@mui/material/Switch"
-import PropTypes from "prop-types"
 import type { FC } from "react"
 import { memo, useCallback } from "react"
 
@@ -50,11 +49,6 @@ const SwitchComponent: FC<Props> = ({ vendorId, visibleListId }) => {
       onChange={clickHandler}
     />
   )
-}
-
-SwitchComponent.propTypes = {
-  vendorId: PropTypes.number.isRequired,
-  visibleListId: PropTypes.number.isRequired,
 }
 
 export default memo<Props>(SwitchComponent)

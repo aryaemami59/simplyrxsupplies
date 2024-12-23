@@ -3,7 +3,6 @@ import Dialog from "@mui/material/Dialog"
 import DialogActions from "@mui/material/DialogActions"
 import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
-import PropTypes from "prop-types"
 import type { FC } from "react"
 import { memo } from "react"
 
@@ -40,11 +39,6 @@ const QRCodeDialog: FC<Props> = ({ hideModal, isModalOpen }) => {
       </DialogActions>
     </Dialog>
   )
-}
-
-QRCodeDialog.propTypes = {
-  hideModal: PropTypes.func.isRequired,
-  isModalOpen: PropTypes.bool.isRequired,
 }
 
 export default memo<Props>(QRCodeDialog)

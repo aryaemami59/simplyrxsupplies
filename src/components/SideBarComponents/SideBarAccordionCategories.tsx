@@ -4,24 +4,25 @@ import Accordion from "@mui/material/Accordion"
 import AccordionDetails from "@mui/material/AccordionDetails"
 import type { AccordionSummaryOwnProps } from "@mui/material/AccordionSummary"
 import AccordionSummary from "@mui/material/AccordionSummary"
-import PropTypes from "prop-types"
 import type { FC } from "react"
 import { memo, useCallback, useRef, useState } from "react"
 import { useCategoryItemIds, useCategoryName } from "../../redux/selectors"
 import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem"
 
-const expandIcon: AccordionSummaryOwnProps["expandIcon"] = <ExpandMoreIcon />
+const expandIcon = (
+  <ExpandMoreIcon />
+) satisfies AccordionSummaryOwnProps["expandIcon"]
 
 type Props = {
   categoryId: number
 }
 
-const slotProps: AccordionProps["slotProps"] = {
+const slotProps = {
   transition: {
     unmountOnExit: true,
     mountOnEnter: true,
   },
-}
+} as const satisfies AccordionProps["slotProps"]
 
 const SideBarAccordionCategories: FC<Props> = ({ categoryId }) => {
   const ref = useRef<HTMLDivElement>(null)
@@ -64,10 +65,6 @@ const SideBarAccordionCategories: FC<Props> = ({ categoryId }) => {
       </Accordion>
     </div>
   )
-}
-
-SideBarAccordionCategories.propTypes = {
-  categoryId: PropTypes.number.isRequired,
 }
 
 export default memo<Props>(SideBarAccordionCategories)

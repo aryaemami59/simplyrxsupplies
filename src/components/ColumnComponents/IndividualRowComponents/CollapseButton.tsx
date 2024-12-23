@@ -3,7 +3,6 @@ import { faMinimize } from "@fortawesome/free-solid-svg-icons/faMinimize"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
-import PropTypes from "prop-types"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback, useMemo, useState } from "react"
 
@@ -51,11 +50,6 @@ const CollapseButton: FC<Props> = ({ isTooltipOpen, toggle }) => {
       </IconButton>
     </Tooltip>
   )
-}
-
-CollapseButton.propTypes = {
-  isTooltipOpen: PropTypes.bool.isRequired,
-  toggle: PropTypes.func.isRequired,
 }
 
 export default memo<Props>(CollapseButton)

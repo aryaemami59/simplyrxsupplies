@@ -21,34 +21,20 @@ import {
   selectQRCodeText,
   selectVendorIdsByItemId,
   selectVendorItemIds,
-} from "../../redux/selectors"
-import type { SetupWithNoUIResults } from "../test-utils/testUtils"
-import { setupWithNoUI } from "../test-utils/testUtils"
+} from "../../redux/selectors.js"
+import type { SetupWithNoUIResults } from "../test-utils/testUtils.js"
+import { setupWithNoUI } from "../test-utils/testUtils.js"
 
 type LocalTestContext = SetupWithNoUIResults
 
 describe<LocalTestContext>("selectors", it => {
-  // const originalEnv = process.env.NODE_ENV
-
-  // beforeAll(() => {
-  //   process.env.NODE_ENV = "production"
-  //   return () => {
-  //     process.env.NODE_ENV = originalEnv
-  //   }
-  // })
-
   beforeEach<LocalTestContext>(async context => {
-    // process.env.NODE_ENV = "production"
     const { store, initialState } = await setupWithNoUI()
-    // Object.assign(context, { store, initialState })
     context.store = store
     context.initialState = initialState
   })
 
   it("selectItemNamesAndKeywords", ({ initialState }) => {
-    // expect
-    //   .soft(Object.values(selectors).map(e => e.recomputations()))
-    //   .toSatisfyAll<number>(e => e === 0)
     expect(selectItemNamesAndKeywords.recomputations()).toBe(0)
     const first = selectItemNamesAndKeywords(initialState)
     const second = selectItemNamesAndKeywords(initialState)

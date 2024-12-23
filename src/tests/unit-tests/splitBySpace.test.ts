@@ -1,6 +1,6 @@
-import { splitBySpace } from "../../utils/search/splitBySpace"
+import { splitBySpace } from "../../utils/search/splitBySpace.js"
 
-describe("splitBySpace", () => {
+describe(splitBySpace, () => {
   it(splitBySpace, () => {
     expect(splitBySpace("10 Dram Vials")).toStrictEqual(["10", "Dram", "Vials"])
   })

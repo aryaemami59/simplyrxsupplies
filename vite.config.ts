@@ -1,6 +1,5 @@
-import react from "@vitejs/plugin-react"
+import viteReact from "@vitejs/plugin-react"
 import { visualizer } from "rollup-plugin-visualizer"
-import type { PluginOption } from "vite"
 import macrosPlugin from "vite-plugin-babel-macros"
 import type { ViteUserConfig } from "vitest/config"
 import { defineConfig } from "vitest/config"
@@ -9,16 +8,26 @@ import { defineConfig } from "vitest/config"
 export default defineConfig(({ mode }) => {
   const developmentConfig: ViteUserConfig = {
     plugins: [
-      react({
+      viteReact({
         babel: {
           plugins: [
-            ["macros", { "fontawesome-svg-core": { license: "free" } }],
+            [
+              "macros",
+              {
+                "fontawesome-svg-core": {
+                  license: "free",
+                },
+              },
+            ],
           ],
         },
-      }),
+      }) as ViteUserConfig["plugins"],
       macrosPlugin(),
     ],
-    server: { open: true },
+
+    server: {
+      open: true,
+    },
   }
 
   const productionConfig: ViteUserConfig = {
@@ -26,22 +35,35 @@ export default defineConfig(({ mode }) => {
       drop: ["console", "debugger"],
       treeShaking: true,
     },
-    build: { emptyOutDir: true, minify: true },
+
+    build: {
+      emptyOutDir: true,
+      minify: true,
+    },
+
     define: {
       "import.meta.vitest": "undefined",
     },
+
     plugins: [
-      react({
+      viteReact({
         babel: {
           plugins: [
             [
               "babel-plugin-transform-react-remove-prop-types",
               { removeImport: true },
             ],
-            ["macros", { "fontawesome-svg-core": { license: "free" } }],
+            [
+              "macros",
+              {
+                "fontawesome-svg-core": {
+                  license: "free",
+                },
+              },
+            ],
           ],
         },
-      }),
+      }) as ViteUserConfig["plugins"],
       macrosPlugin(),
       visualizer({
         brotliSize: true,
@@ -49,9 +71,12 @@ export default defineConfig(({ mode }) => {
         gzipSize: true,
         open: true,
         template: "flamegraph",
-      }) as PluginOption,
+      }) as NonNullable<ViteUserConfig["plugins"]>[number],
     ],
-    server: { open: true },
+
+    server: {
+      open: true,
+    },
   }
   return mode === "production" ? productionConfig : developmentConfig
 })

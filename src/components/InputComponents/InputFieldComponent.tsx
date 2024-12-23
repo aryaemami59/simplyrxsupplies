@@ -1,4 +1,4 @@
-import type { OutlinedInputProps } from "@mui/material/OutlinedInput"
+import type { TextFieldProps } from "@mui/material/TextField"
 import TextField from "@mui/material/TextField"
 import type { CSSProperties, ChangeEventHandler, FC } from "react"
 import {
@@ -60,16 +60,19 @@ const InputFieldComponent: FC = () => {
     [dispatch, itemNamesAndKeywords],
   )
 
-  const inputProps = useMemo<OutlinedInputProps>(
-    () => ({
-      style,
-      inputProps: {
-        role: "search",
-      },
-      endAdornment: inputValue && (
-        <InputEndAdornment clickHandler={clickHandler} />
-      ),
-    }),
+  const slotProps = useMemo(
+    () =>
+      ({
+        input: {
+          style,
+          inputProps: {
+            role: "search",
+          },
+          endAdornment: inputValue && (
+            <InputEndAdornment clickHandler={clickHandler} />
+          ),
+        },
+      }) as const satisfies TextFieldProps["slotProps"],
     [clickHandler, inputValue],
   )
 
@@ -79,7 +82,7 @@ const InputFieldComponent: FC = () => {
       id="text-field"
       fullWidth
       autoFocus
-      InputProps={inputProps}
+      slotProps={slotProps}
       inputRef={inputRef}
       label="Search"
       onChange={changeValue}

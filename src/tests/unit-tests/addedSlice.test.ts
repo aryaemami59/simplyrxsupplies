@@ -9,10 +9,10 @@ import {
   toggledMinimizeOneItemInCart,
   toggledVendorForOneSearchResultItem,
   unCheckedOneVendorForAllSearchResults,
-} from "../../redux/addedSlice"
-import type { AppStore } from "../../redux/store"
-import type { AddedState } from "../../types/reduxHelperTypes"
-import { setupWithNoUI } from "../test-utils/testUtils"
+} from "../../redux/addedSlice.js"
+import type { AppStore } from "../../redux/store.js"
+import type { AddedState } from "../../types/reduxHelperTypes.js"
+import { setupWithNoUI } from "../test-utils/testUtils.js"
 
 type LocalTestContext = {
   store: AppStore
@@ -22,21 +22,19 @@ type LocalTestContext = {
 describe<LocalTestContext>("addedSlice reducers", it => {
   beforeEach<LocalTestContext>(async context => {
     const { store } = await setupWithNoUI()
+
     context.store = store
+
     context.initialAddedState = store.getState().added
   })
 
   it(itemAddedToCarts.type, ({ store, initialAddedState }) => {
-    // expect(store.getState().added.cart.entities).toBeFrozen();
     expect(addedSlice.reducer(undefined, { type: "" })).toStrictEqual(
       addedSlice.getInitialState(),
     )
     store.dispatch(itemAddedToCarts({ itemId: 0 }))
     expect(store.getState().added).not.toStrictEqual(initialAddedState)
     expect(store.getState().added).not.toStrictEqual(initialAddedState)
-    // expect(
-    //   addedSlice.reducer(store.getState().added, { type: "" })
-    // ).toStrictEqual(initialAddedState);
     expect(store.getState().added).not.toStrictEqual(initialAddedState)
     store.dispatch(singleItemRemovedFromCart({ itemId: 0, vendorId: 0 }))
     expect(store.getState().added).not.toStrictEqual(initialAddedState)

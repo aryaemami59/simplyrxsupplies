@@ -1,5 +1,4 @@
 import MenuItem from "@mui/material/MenuItem"
-import PropTypes from "prop-types"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback } from "react"
 
@@ -35,11 +34,6 @@ const SingleDropDown: FC<Props> = ({ itemId, vendorId }) => {
       {itemName}
     </MenuItem>
   )
-}
-
-SingleDropDown.propTypes = {
-  itemId: PropTypes.number.isRequired,
-  vendorId: PropTypes.number.isRequired,
 }
 
 export default memo<Props>(SingleDropDown)

@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 import printJS from "print-js"
-import PropTypes from "prop-types"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
 
@@ -59,10 +58,6 @@ const PrintBarcodeIcon: FC<Props> = ({ header }) => {
       </IconButton>
     </Tooltip>
   )
-}
-
-PrintBarcodeIcon.propTypes = {
-  header: PropTypes.string.isRequired,
 }
 
 export default memo<Props>(PrintBarcodeIcon)

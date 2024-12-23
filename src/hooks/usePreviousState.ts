@@ -10,11 +10,7 @@ export const usePreviousState = <T extends NonNullable<unknown>>(
 ): T | undefined => {
   const currentRef = useRef<T>(state)
 
-  // TODO: Change this to `useRef<T>(undefined)` after upgrading to React 19.
-  /**
-   * @todo Change this to `useRef<T>(undefined)` after upgrading to React 19.
-   */
-  const previousRef = useRef<T>()
+  const previousRef = useRef<T>(undefined)
 
   if (currentRef.current !== state) {
     previousRef.current = currentRef.current

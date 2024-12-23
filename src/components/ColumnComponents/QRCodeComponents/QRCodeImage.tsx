@@ -1,4 +1,3 @@
-import PropTypes from "prop-types"
 import type { FC } from "react"
 import { memo } from "react"
 
@@ -23,10 +22,6 @@ const QRCodeImage: FC<Props> = ({ className }) => {
       title={title}
     />
   )
-}
-
-QRCodeImage.propTypes = {
-  className: PropTypes.string,
 }
 
 export default memo<Props>(QRCodeImage)

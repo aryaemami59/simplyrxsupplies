@@ -1,4 +1,3 @@
-import PropTypes from "prop-types"
 import type { FC } from "react"
 import { createContext, memo } from "react"
 
@@ -15,10 +14,5 @@ const VendorIdProvider: FC<Props> = ({ children, vendorId }) => (
     {children}
   </VendorIdContext.Provider>
 )
-
-VendorIdProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-  vendorId: PropTypes.number.isRequired,
-}
 
 export default memo<Props>(VendorIdProvider)

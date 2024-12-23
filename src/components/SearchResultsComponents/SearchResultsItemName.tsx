@@ -1,6 +1,5 @@
 import type { CardHeaderProps } from "@mui/material/CardHeader"
 import CardHeader from "@mui/material/CardHeader"
-import PropTypes from "prop-types"
 import type { FC } from "react"
 import { memo } from "react"
 
@@ -24,10 +23,6 @@ const SearchResultsItemName: FC<Props> = ({ visibleListId }) => {
       titleTypographyProps={titleTypographyProps}
     />
   )
-}
-
-SearchResultsItemName.propTypes = {
-  visibleListId: PropTypes.number.isRequired,
 }
 
 export default memo<Props>(SearchResultsItemName)

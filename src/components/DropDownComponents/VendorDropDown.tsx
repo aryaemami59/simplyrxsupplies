@@ -3,7 +3,6 @@ import type { MenuProps } from "@mui/material/Menu"
 import Menu from "@mui/material/Menu"
 import type { MenuListProps } from "@mui/material/MenuList"
 import type { PopoverOrigin } from "@mui/material/Popover"
-import PropTypes from "prop-types"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
 import { useOfficialVendorName, useVendorItemIds } from "../../redux/selectors"
@@ -93,10 +92,6 @@ const VendorDropDown: FC<Props> = ({ vendorId }) => {
       </Menu>
     </>
   )
-}
-
-VendorDropDown.propTypes = {
-  vendorId: PropTypes.number.isRequired,
 }
 
 export default memo<Props>(VendorDropDown)

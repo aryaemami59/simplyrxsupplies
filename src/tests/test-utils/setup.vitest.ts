@@ -24,7 +24,7 @@ const customMatchers: MatchersObject = {
       pass,
       message: () =>
         this.isNot
-          ? `the received value should not be an empty array`
+          ? "the received value should not be an empty array"
           : `${this.utils.printReceived(received)} is not an empty array`,
       expected: [],
       actual: received,

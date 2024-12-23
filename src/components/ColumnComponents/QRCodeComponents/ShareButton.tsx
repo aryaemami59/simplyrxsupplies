@@ -23,12 +23,13 @@ const ShareButton: FC = () => {
   const title = `QR Code for items:\n${itemNamesStringified}`
   const qrCodeData = useQRCodeData()
 
-  const data: Parameters<typeof shareOnMobile>[0] = useMemo(
-    () => ({
-      title,
-      images: [qrCodeData],
-      text: itemNamesStringified,
-    }),
+  const data = useMemo(
+    () =>
+      ({
+        title,
+        images: [qrCodeData ?? ""],
+        text: itemNamesStringified,
+      }) satisfies Parameters<typeof shareOnMobile>[0],
     [itemNamesStringified, qrCodeData, title],
   )
 

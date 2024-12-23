@@ -1,6 +1,5 @@
 import Button from "@mui/material/Button"
 import ButtonGroup from "@mui/material/ButtonGroup"
-import PropTypes from "prop-types"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback } from "react"
 import { itemAddedToCarts } from "../../redux/addedSlice"
@@ -60,10 +59,6 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemId }) => {
       </ButtonGroup>
     </>
   )
-}
-
-SingleSideBarCategoryListItem.propTypes = {
-  itemId: PropTypes.number.isRequired,
 }
 
 export default memo<Props>(SingleSideBarCategoryListItem)

@@ -3,11 +3,11 @@ import {
   selectItemsData,
   selectMainData,
   selectVendorsData,
-} from "../../redux/apiSlice"
-import type { AppStore } from "../../redux/store"
-import type { SuppliesState } from "../../types/reduxHelperTypes"
-import { EMPTY_ARRAY } from "../../utils/emptyArray"
-import { setupWithNoUI } from "../test-utils/testUtils"
+} from "../../redux/apiSlice.js"
+import type { AppStore } from "../../redux/store.js"
+import type { SuppliesState } from "../../types/reduxHelperTypes.js"
+import { EMPTY_ARRAY } from "../../utils/emptyArray.js"
+import { setupWithNoUI } from "../test-utils/testUtils.js"
 
 type LocalTestContext = {
   data: SuppliesState | undefined
@@ -17,8 +17,11 @@ type LocalTestContext = {
 describe<LocalTestContext>("apiSlice with fetch", it => {
   beforeEach<LocalTestContext>(async context => {
     const { store } = await setupWithNoUI()
+
     const data = selectMainData(store.getState())
+
     context.data = data
+
     context.store = store
   })
 

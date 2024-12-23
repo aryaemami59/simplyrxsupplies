@@ -1,5 +1,4 @@
 import ThemeProvider from "@mui/material/styles/ThemeProvider"
-import PropTypes from "prop-types"
 import type { FC } from "react"
 import { createContext, memo, useMemo } from "react"
 import { useLocalStorageTheme } from "../hooks/useLocalStorageTheme"
@@ -36,10 +35,6 @@ const ColorModeProvider: FC<Props> = ({ children }) => {
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ColorModeContext.Provider>
   )
-}
-
-ColorModeProvider.propTypes = {
-  children: PropTypes.node.isRequired,
 }
 
 export default memo<Props>(ColorModeProvider)

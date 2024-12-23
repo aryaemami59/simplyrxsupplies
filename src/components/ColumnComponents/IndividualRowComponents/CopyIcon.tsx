@@ -2,7 +2,6 @@ import { faCopy } from "@fortawesome/free-regular-svg-icons/faCopy"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Button from "@mui/material/Button"
 import Tooltip from "@mui/material/Tooltip"
-import PropTypes from "prop-types"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
 
@@ -39,11 +38,6 @@ const CopyIcon: FC<Props> = ({ content, text }) => {
       </Button>
     </Tooltip>
   )
-}
-
-CopyIcon.propTypes = {
-  content: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
 }
 
 export default memo<Props>(CopyIcon)

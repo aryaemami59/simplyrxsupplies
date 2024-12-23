@@ -1,4 +1,3 @@
-import PropTypes from "prop-types"
 import type { FC } from "react"
 import { memo } from "react"
 
@@ -21,10 +20,6 @@ const BarcodeImage: FC<Props> = ({ className }) => {
       src={src}
     />
   )
-}
-
-BarcodeImage.propTypes = {
-  className: PropTypes.string,
 }
 
 export default memo<Props>(BarcodeImage)

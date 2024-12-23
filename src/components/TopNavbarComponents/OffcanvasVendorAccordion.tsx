@@ -1,9 +1,9 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import type { AccordionSlotsAndSlotProps } from "@mui/material/Accordion"
 import Accordion from "@mui/material/Accordion"
 import AccordionDetails from "@mui/material/AccordionDetails"
 import type { AccordionSummaryProps } from "@mui/material/AccordionSummary"
 import AccordionSummary from "@mui/material/AccordionSummary"
-import type { TransitionProps } from "@mui/material/transitions"
 import Typography from "@mui/material/Typography"
 import type { FC } from "react"
 import { memo, useCallback, useState } from "react"
@@ -13,12 +13,16 @@ import { useVendorId } from "../../hooks/useVendorId"
 import { useOfficialVendorName, useVendorItemIds } from "../../redux/selectors"
 import SingleOffcanvasVendorItem from "./SingleOffcanvasVendorItem"
 
-const expandIcon: AccordionSummaryProps["expandIcon"] = <ExpandMoreIcon />
+const expandIcon = (
+  <ExpandMoreIcon />
+) satisfies AccordionSummaryProps["expandIcon"]
 
-const transitionProps: TransitionProps = {
-  unmountOnExit: true,
-  mountOnEnter: true,
-}
+const slotProps = {
+  transition: {
+    unmountOnExit: true,
+    mountOnEnter: true,
+  },
+} as const satisfies AccordionSlotsAndSlotProps["slotProps"]
 
 const OffcanvasVendorAccordion: FC = () => {
   const vendorId = useVendorId()
@@ -37,7 +41,7 @@ const OffcanvasVendorAccordion: FC = () => {
     <Accordion
       expanded={open}
       onChange={toggle}
-      TransitionProps={transitionProps}
+      slotProps={slotProps}
       variant="outlined"
     >
       <AccordionSummary className="shadow-sm" expandIcon={expandIcon}>

@@ -1,8 +1,8 @@
 import { screen } from "@testing-library/react"
 import { beforeEach, describe } from "vitest"
-import App from "../../App"
-import { selectVendorsData } from "../../redux/apiSlice"
-import { findFastestSelector } from "../../redux/createSelectors"
+import App from "../../App.js"
+import { selectVendorsData } from "../../redux/apiSlice.js"
+import { findFastestSelector } from "../../redux/createSelectors.js"
 import {
   checkIfAddedToAllVendors,
   checkIfAddedToVendor,
@@ -28,9 +28,9 @@ import {
   selectVendorIdsByItemId,
   selectVendorItemIds,
   selectVendorsLinks,
-} from "../../redux/selectors"
-import type { ExtendedRenderResult } from "../test-utils/testUtils"
-import { renderWithProviders } from "../test-utils/testUtils"
+} from "../../redux/selectors.js"
+import type { ExtendedRenderResult } from "../test-utils/testUtils.js"
+import { renderWithProviders } from "../test-utils/testUtils.js"
 
 type LocalTestContext = {
   view: ExtendedRenderResult
@@ -39,18 +39,21 @@ type LocalTestContext = {
 describe<LocalTestContext>("render App", it => {
   beforeEach<LocalTestContext>(async context => {
     resetAllSelectors()
+
     vi.stubGlobal("innerWidth", 1920)
+
     vi.stubGlobal("innerHeight", 2000)
+
     const view = await renderWithProviders(<App />)
+
     context.view = view
   })
 
   afterEach(() => {
-    resetAllSelectors()
     vi.unstubAllGlobals()
   })
 
-  it("selectors ui", async ({ view, expect, onTestFailed }) => {
+  it("selectors ui", async ({ expect, onTestFailed, view }) => {
     expect(selectVendorsLinks.recomputations()).toBe(0)
     expect(selectItemNumber.recomputations()).toBe(0)
     expect(selectItemSrc.recomputations()).toBe(0)
@@ -66,14 +69,8 @@ describe<LocalTestContext>("render App", it => {
     expect(selectCategoryName.recomputations()).toBe(18)
     expect(selectCategoryItemIds.recomputations()).toBe(18)
     expect(checkIfAddedToVendor.recomputations()).toBe(0)
-    expect(
-      selectCartItemsLength.recomputations(),
-      selectCartItemsLength.name,
-    ).toBe(1)
-    expect(
-      checkIfAnyAddedToOneVendor.recomputations(),
-      checkIfAnyAddedToOneVendor.name,
-    ).toBe(1)
+    expect(selectCartItemsLength.recomputations()).toBe(1)
+    expect(checkIfAnyAddedToOneVendor.recomputations()).toBe(1)
     expect(selectQRCodeText.recomputations()).toBe(0)
     expect(selectOfficialVendorName.recomputations()).toBe(8)
     expect(selectVendorItemIds.recomputations()).toBe(8)
@@ -103,14 +100,8 @@ describe<LocalTestContext>("render App", it => {
     expect(selectCategoryName.recomputations()).toBe(18)
     expect(selectCategoryItemIds.recomputations()).toBe(18)
     expect(checkIfAddedToVendor.recomputations()).toBe(10)
-    expect(
-      selectCartItemsLength.recomputations(),
-      selectCartItemsLength.name,
-    ).toBe(1)
-    expect(
-      checkIfAnyAddedToOneVendor.recomputations(),
-      checkIfAnyAddedToOneVendor.name,
-    ).toBe(1)
+    expect(selectCartItemsLength.recomputations()).toBe(1)
+    expect(checkIfAnyAddedToOneVendor.recomputations()).toBe(1)
     expect(selectQRCodeText.recomputations()).toBe(0)
     expect(selectOfficialVendorName.recomputations()).toBe(8)
     expect(selectVendorItemIds.recomputations()).toBe(8)
@@ -138,14 +129,8 @@ describe<LocalTestContext>("render App", it => {
     expect(selectCategoryName.recomputations()).toBe(18)
     expect(selectCategoryItemIds.recomputations()).toBe(18)
     expect(checkIfAddedToVendor.recomputations()).toBe(15)
-    expect(
-      selectCartItemsLength.recomputations(),
-      selectCartItemsLength.name,
-    ).toBe(3)
-    expect(
-      checkIfAnyAddedToOneVendor.recomputations(),
-      checkIfAnyAddedToOneVendor.name,
-    ).toBe(2)
+    expect(selectCartItemsLength.recomputations()).toBe(3)
+    expect(checkIfAnyAddedToOneVendor.recomputations()).toBe(2)
     expect(selectQRCodeText.recomputations()).toBe(2)
     expect(selectOfficialVendorName.recomputations()).toBe(8)
     expect(selectVendorItemIds.recomputations()).toBe(8)
@@ -179,14 +164,8 @@ describe<LocalTestContext>("render App", it => {
     expect(selectCategoryName.recomputations()).toBe(18)
     expect(selectCategoryItemIds.recomputations()).toBe(18)
     expect(checkIfAddedToVendor.recomputations()).toBe(25)
-    expect(
-      selectCartItemsLength.recomputations(),
-      selectCartItemsLength.name,
-    ).toBe(3)
-    expect(
-      checkIfAnyAddedToOneVendor.recomputations(),
-      checkIfAnyAddedToOneVendor.name,
-    ).toBe(2)
+    expect(selectCartItemsLength.recomputations()).toBe(3)
+    expect(checkIfAnyAddedToOneVendor.recomputations()).toBe(2)
     expect(selectQRCodeText.recomputations()).toBe(2)
     expect(selectOfficialVendorName.recomputations()).toBe(8)
     expect(selectVendorItemIds.recomputations()).toBe(8)
@@ -211,10 +190,7 @@ describe<LocalTestContext>("render App", it => {
     expect(selectCategoryItemIds.recomputations()).toBe(18)
     expect(checkIfAddedToVendor.recomputations()).toBe(35)
     expect(selectCartItemsLength.recomputations()).toBe(5)
-    expect(
-      checkIfAnyAddedToOneVendor.recomputations(),
-      checkIfAnyAddedToOneVendor.name,
-    ).toBe(3)
+    expect(checkIfAnyAddedToOneVendor.recomputations()).toBe(3)
     expect(selectQRCodeText.recomputations()).toBe(4)
     expect(selectOfficialVendorName.recomputations()).toBe(8)
     expect(selectVendorItemIds.recomputations()).toBe(8)

@@ -1,17 +1,15 @@
 import type { ByRoleOptions } from "@testing-library/react"
-import { cleanup, screen } from "@testing-library/react"
-import { beforeEach, describe, expect } from "vitest"
-
-import InputGroupComponent from "../../components/InputComponents/InputGroupComponent"
+import { screen } from "@testing-library/react"
+import InputGroupComponent from "../../components/InputComponents/InputGroupComponent.js"
 import {
   resetAllSelectors,
   selectItemNamesAndKeywords,
-} from "../../redux/selectors"
-import type { ExtendedRenderResult } from "../test-utils/testUtils"
+} from "../../redux/selectors.js"
+import type { ExtendedRenderResult } from "../test-utils/testUtils.js"
 import {
   queryByRoleFactory,
   renderWithProviders,
-} from "../test-utils/testUtils"
+} from "../test-utils/testUtils.js"
 
 type LocalTestContext = {
   view: ExtendedRenderResult
@@ -26,16 +24,16 @@ const { getAllButtonsByRole, getButtonByRole, queryButtonByRole } =
 describe<LocalTestContext>("search results", it => {
   beforeEach<LocalTestContext>(async context => {
     resetAllSelectors()
+
     const view = await renderWithProviders(<InputGroupComponent />)
-    const inputField = screen.getByRole<HTMLInputElement>("search", {
+
+    const inputField = await screen.findByRole<HTMLInputElement>("search", {
       name: "Search",
     })
+
     context.view = view
+
     context.inputField = inputField
-    return () => {
-      cleanup()
-      resetAllSelectors()
-    }
   })
 
   it("input field exists", ({ inputField }) => {

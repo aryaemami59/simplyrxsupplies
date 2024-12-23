@@ -1,6 +1,5 @@
 import AddIcon from "@mui/icons-material/Add"
 import Button from "@mui/material/Button"
-import PropTypes from "prop-types"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback } from "react"
 import { itemAddedToCarts } from "../../redux/addedSlice"
@@ -35,10 +34,6 @@ const SearchResultsAddButton: FC<Props> = ({ visibleListId }) => {
       Add
     </Button>
   )
-}
-
-SearchResultsAddButton.propTypes = {
-  visibleListId: PropTypes.number.isRequired,
 }
 
 export default memo<Props>(SearchResultsAddButton)
