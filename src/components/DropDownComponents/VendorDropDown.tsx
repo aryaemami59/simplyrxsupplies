@@ -8,30 +8,30 @@ import { memo, useCallback, useState } from "react"
 import { useOfficialVendorName, useVendorItemIds } from "../../redux/selectors"
 import SingleDropDown from "./SingleDropDown"
 
-const transformOrigin: PopoverOrigin = {
+const transformOrigin = {
   horizontal: "left",
   vertical: "top",
-}
+} as const satisfies PopoverOrigin
 
-const anchorOrigin: PopoverOrigin = {
+const anchorOrigin = {
   vertical: "bottom",
   horizontal: "left",
-}
+} as const satisfies PopoverOrigin
 
-const menuListProps: MenuListProps = {
+const menuListProps = {
   "aria-labelledby": "menu-list",
   className: "menu-list",
   autoFocus: true,
   style: {
     maxHeight: "calc(100vh - 54px)",
   },
-}
+} as const satisfies MenuListProps
 
-const paperProps: MenuProps["slotProps"] = {
+const slotProps = {
   paper: {
     className: "paper",
   },
-}
+} as const satisfies MenuProps["slotProps"]
 
 type Props = {
   vendorId: number
@@ -78,7 +78,7 @@ const VendorDropDown: FC<Props> = ({ vendorId }) => {
         MenuListProps={menuListProps}
         onClose={handleClose}
         open={open}
-        slotProps={paperProps}
+        slotProps={slotProps}
         transformOrigin={transformOrigin}
         variant="menu"
       >

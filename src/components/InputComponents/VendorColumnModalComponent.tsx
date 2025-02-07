@@ -9,9 +9,11 @@ import { memo, useCallback, useState } from "react"
 import VendorColumnList from "../ColumnComponents/VendorColumnList"
 import DisplayCartButton from "./DisplayCartButton"
 
-const paperProps: DialogProps["PaperProps"] = {
-  className: "m-0 w-100",
-}
+const slotProps = {
+  paper: {
+    className: "m-0 w-100",
+  },
+} as const satisfies DialogProps["slotProps"]
 
 const VendorColumnModalComponent: FC = () => {
   const [show, setShow] = useState(false)
@@ -41,7 +43,7 @@ const VendorColumnModalComponent: FC = () => {
         maxWidth="md"
         onClose={hideModal}
         open={show}
-        PaperProps={paperProps}
+        slotProps={slotProps}
       >
         <DialogTitle>Item Vendors</DialogTitle>
         <DialogContent className="px-0" dividers>

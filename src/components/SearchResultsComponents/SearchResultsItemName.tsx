@@ -9,9 +9,11 @@ type Props = {
   visibleListId: number
 }
 
-const titleTypographyProps: CardHeaderProps["titleTypographyProps"] = {
-  className: "fs-5",
-}
+const slotProps = {
+  title: {
+    className: "fs-5",
+  },
+} as const satisfies CardHeaderProps["slotProps"]
 
 const SearchResultsItemName: FC<Props> = ({ visibleListId }) => {
   const itemName = useItemName(visibleListId)
@@ -20,7 +22,7 @@ const SearchResultsItemName: FC<Props> = ({ visibleListId }) => {
     <CardHeader
       className="p-1 p-lg-auto"
       title={itemName}
-      titleTypographyProps={titleTypographyProps}
+      slotProps={slotProps}
     />
   )
 }

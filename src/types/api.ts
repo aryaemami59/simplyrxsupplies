@@ -20,9 +20,13 @@ type CategoryName =
   | "Vials"
 
 export type Category = {
-  /** References categoryId */
+  /**
+   * References {@linkcode Category.id | categoryId}
+   */
   readonly id: number
-  /** References categoryItemIds */
+  /**
+   * References {@linkcode Category.itemIds | categoryItemIds}
+   */
   readonly itemIds: number[]
   readonly name: CategoryName
 }
@@ -39,33 +43,57 @@ type VendorHelper = {
   readonly FORS: "FORS"
 }
 
-export type VendorName = keyof VendorHelper
+export type AbbrVendorNames = keyof VendorHelper
 
-export type OfficialVendorName = VendorHelper[VendorName]
+export type OfficialVendorName = VendorHelper[AbbrVendorNames]
 
-type Vendors = {
-  readonly [K in VendorName]: {
-    /** References vendorId */
-    readonly id: number
-    readonly officialName: VendorHelper[K]
-    readonly abbrName: K
-    readonly link: string
-    readonly joinChars: string
-    /** References vendorItemIds */
-    readonly itemIds: number[]
-  }
+export type Vendor<VendorAbbrName extends AbbrVendorNames = AbbrVendorNames> = {
+  /**
+   * References {@linkcode Vendor.id | vendorId}.
+   */
+  readonly id: number
+  readonly officialName: VendorHelper[VendorAbbrName]
+  readonly abbrName: VendorAbbrName
+  readonly link: string
+  readonly joinChars: string
+  /**
+   * References {@linkcode Vendor.itemIds | vendorItemIds}.
+   */
+  readonly itemIds: number[]
 }
 
-export type Vendor = Vendors[VendorName]
+export type Vendors = {
+  readonly [AbbrVendorName in AbbrVendorNames]: Vendor<AbbrVendorName>
+  // {
+  //   /**
+  //    * References {@linkcode ItemIdAndVendorId.vendorId | vendorId}.
+  //    */
+  //   readonly id: number
+  //   readonly officialName: VendorHelper[AbbrVendorName]
+  //   readonly abbrName: AbbrVendorName
+  //   readonly link: string
+  //   readonly joinChars: string
+  //   /**
+  //    * References {@linkcode Cart.itemIds | vendorItemIds}.
+  //    */
+  //   readonly itemIds: number[]
+  // }
+}
+
+// export type Vendor = Vendors[VendorName]
 
 // Items
 export type Item = {
-  /** References itemId */
+  /**
+   * References {@linkcode Item.id | itemId}
+   */
   readonly id: number
   readonly name: string
   readonly itemNumber: string
   readonly keywords: string[]
-  /** Can be an empty array. */
+  /**
+   * Can be an empty array.
+   */
   readonly categoryIds: number[] | []
   readonly vendorIds: number[]
   readonly src: string
