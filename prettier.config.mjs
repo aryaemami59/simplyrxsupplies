@@ -1,9 +1,5 @@
 /**
- * @import { Config } from 'prettier'
- */
-
-/**
- * @satisfies {Config}
+ * @satisfies {import("prettier").Config}
  */
 const config = {
   arrowParens: "avoid",
