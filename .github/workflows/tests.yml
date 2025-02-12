@@ -1,0 +1,142 @@
+name: CI
+
+on: [push, pull_request, workflow_dispatch]
+
+concurrency:
+  group: "${{ github.workflow }} - ${{ github.head_ref || github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  check-lint-and-formatting:
+    name: Check lint and formatting with Node.js ${{ matrix.node-version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        node-version: [22]
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }} and Install dependencies on ${{ matrix.os }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: ./package-lock.json
+          check-latest: true
+
+      - name: Install dependencies on ${{ matrix.node-version }}
+        run: npm install
+
+      - name: Check for duplicate packages
+        run: npm find-dupes
+
+      - name: Check formatting
+        run: npm run format-check
+
+      - name: Lint files
+        run: npm run lint
+
+  check-types:
+    name: Test types with TypeScript ${{ matrix.ts }} on ${{ matrix.os }} and Node.js ${{ matrix.node-version }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        node-version: [22]
+        os: [ubuntu-latest]
+        ts: [5.3, 5.4, 5.5, 5.6, 5.7]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }} and Install dependencies on ${{ matrix.os }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: ./package-lock.json
+          check-latest: true
+
+      - name: Install dependencies on ${{ matrix.node-version }}
+        run: npm install
+
+      - name: Install TypeScript ${{ matrix.ts }}
+        run: npm install -D typescript@${{ matrix.ts }}
+
+      - name: Run type tests
+        run: npm run type-check
+
+  build:
+    name: Build with Node.js ${{ matrix.node-version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        node-version: [18, 20, 22, latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }} and Install dependencies on ${{ matrix.os }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: ./package-lock.json
+          check-latest: true
+
+      - name: Install dependencies on ${{ matrix.node-version }}
+        run: npm install
+
+      - name: Build with Node.js ${{ matrix.node-version }} on ${{ matrix.os }}
+        run: npm run build
+
+      - name: Did we fail?
+        if: failure()
+        run: ls -R .
+
+  test:
+    name: Run tests with Node.js ${{ matrix.node-version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        node-version: [18, 20, 22, latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }} and Install dependencies on ${{ matrix.os }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: ./package-lock.json
+          check-latest: true
+
+      - name: Install dependencies on ${{ matrix.node-version }}
+        run: npm install
+
+      - name: Run tests with Node.js ${{ matrix.node-version }} on ${{ matrix.os }}
+        run: npm run test
+
+      - name: Did we fail?
+        if: failure()
+        run: ls -R
