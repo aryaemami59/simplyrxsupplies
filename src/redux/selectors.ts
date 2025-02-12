@@ -1,4 +1,3 @@
-import { createSelector } from "reselect"
 import type { ItemNameAndKeywords } from "../types/api"
 import type { RootSelectorParamsProvider } from "../types/reduxHelperTypes"
 import { fallbackToEmptyArray } from "../utils/fallbackToEmptyArray"
@@ -9,7 +8,6 @@ import {
   createParametricSelectorHooks,
   createSelectorWeakMap,
 } from "./createSelectors"
-import type { RootState } from "./store"
 import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors"
 
 const ROOT_SELECTOR_PARAMS_PROVIDER: RootSelectorParamsProvider = {
@@ -91,8 +89,6 @@ export const selectCheckedVendorIds = createSelectorWeakMap(
     fallbackToEmptyArray(checkedVendorItem?.checkedVendorIds),
 )
 
-// console.log(Object.keys(selectCheckedVendorIds))
-
 export const isVendorChecked = createSelectorWeakMap(
   [
     ADAPTER_SELECTORS.GLOBAL.itemVendors.selectById,
@@ -119,40 +115,6 @@ export const selectCategoryItemIds = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.categories.selectById],
   category => fallbackToEmptyArray(category?.itemIds),
 )
-export const selectCategoryItemIds1 = createSelector(
-  ADAPTER_SELECTORS.GLOBAL.categories.selectById,
-  category => fallbackToEmptyArray(category?.itemIds),
-)
-
-// export const selectCategoryItemIds1 = createSelector(
-//   [
-//     (state, id: number) => {
-//       console.log("selectCategoryItemIds1 input run")
-//       for (let i = 0; i < 1_000_000; i += 1) {
-//         /* empty */
-//       }
-//       return id
-//     },
-//     selectCategoriesData,
-//   ],
-//   (id, categories) => {
-//     console.log("selectCategoryItemIds1 output")
-//     return SIMPLE_SELECTORS.categories.selectById(categories, id)?.itemIds
-//   }
-// )
-// export const selectCategoryItemIds2 = createSelectorWeakMap(
-//   [
-//     selectCategoriesData,
-//     (state, id: number) => {
-//       console.log("selectCategoryItemIds2 input run")
-//       return id
-//     },
-//   ],
-//   (categories, id) => {
-//     console.log("selectCategoryItemIds2 output")
-//     return SIMPLE_SELECTORS.categories.selectById(categories, id)?.itemIds
-//   },
-// )
 
 export const checkIfAddedToVendor = createSelectorWeakMap(
   [selectCartItemsIds, ROOT_SELECTOR_PARAMS_PROVIDER.getCartIdAndItemId],
@@ -190,11 +152,6 @@ export const selectVendorItemIds = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.vendors.selectById],
   vendor => fallbackToEmptyArray(vendor?.itemIds),
 )
-// export const selectVendorItemIds1 = createSelectorWeakMap(
-//   [ADAPTER_SELECTORS.GLOBAL.vendors.selectById],
-//   vendor => fallbackToEmptyArray(vendor?.itemIds),
-//   { memoize: unstable_autotrackMemoize },
-// )
 
 export const selectCartsByItemId = createSelectorWeakMap(
   [
@@ -214,14 +171,6 @@ export const checkIfAddedToAllVendors = createSelectorWeakMap(
       (accumulator, cart) => cart.itemIds.includes(itemId) && accumulator,
       true,
     ),
-)
-// export const checkIfAddedToAllVendors1 = createSelector(
-//   (state: RootState) => ({ ...state.added }),
-//   added => added
-// )
-export const selectIfAddedToAllVendors2 = createSelector(
-  [(state: RootState) => state.added],
-  added => added,
 )
 
 export const parametricSelectors = {
@@ -297,27 +246,14 @@ export const mainSelectors = {
 export const allSelectors = setSelectorNames({
   ...mainSelectors,
   ...apiSelectors,
-  // ...DRAFT_SAFE_SELECTORS,
   ...getAllEntitySelectors(),
   ...TOP_LEVEL_SELECTORS,
 } as const)
 
 export const resetAllSelectors = () => {
-  Object.values(allSelectors).forEach(e => {
-    // console.log(e.name)
-    // console.log(Object.keys(e))
-    if ("clearCache" in e) {
-      e.clearCache()
-    }
-    if ("resetRecomputations" in e) {
-      e.resetRecomputations()
-    }
-    if ("memoizedResultFunc" in e && "clearCache" in e.memoizedResultFunc) {
-      e.memoizedResultFunc.clearCache()
-    }
+  Object.values(allSelectors).forEach(selector => {
+    selector.clearCache()
+    selector.resetRecomputations()
+    selector.memoizedResultFunc.clearCache()
   })
 }
-
-// export const useOfficialVendorName = createParametricSelectorHook(
-//   selectOfficialVendorName
-// );

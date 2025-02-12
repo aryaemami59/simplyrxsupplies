@@ -10,11 +10,11 @@ import {
   checkIfAnyItemsAdded,
   isMinimized,
   isVendorChecked,
-  mainSelectors,
   resetAllSelectors,
   selectCartItemNamesStringified,
   selectCartItemsIds,
   selectCartItemsLength,
+  selectCartsByItemId,
   selectCartsItemIdsLength,
   selectCategoryItemIds,
   selectCategoryName,
@@ -74,7 +74,9 @@ describe<LocalTestContext>("render App", it => {
     expect(selectQRCodeText.recomputations()).toBe(0)
     expect(selectOfficialVendorName.recomputations()).toBe(8)
     expect(selectVendorItemIds.recomputations()).toBe(8)
+    expect(selectCartsByItemId.recomputations()).toBe(0)
     expect(checkIfAddedToAllVendors.recomputations()).toBe(0)
+    expect(selectCartsItemIdsLength.recomputations()).toBe(1)
     const { store, user, container } = view
     const state = store.getState()
     expect(selectVendorsData(state).ids).toBeArrayOfSize(8)
@@ -105,7 +107,9 @@ describe<LocalTestContext>("render App", it => {
     expect(selectQRCodeText.recomputations()).toBe(0)
     expect(selectOfficialVendorName.recomputations()).toBe(8)
     expect(selectVendorItemIds.recomputations()).toBe(8)
+    expect(selectCartsByItemId.recomputations()).toBe(10)
     expect(checkIfAddedToAllVendors.recomputations()).toBe(10)
+    expect(selectCartsItemIdsLength.recomputations()).toBe(1)
     const addButtons = screen.getAllByRole<HTMLButtonElement>("button", {
       name: "Add",
     })
@@ -134,7 +138,9 @@ describe<LocalTestContext>("render App", it => {
     expect(selectQRCodeText.recomputations()).toBe(2)
     expect(selectOfficialVendorName.recomputations()).toBe(8)
     expect(selectVendorItemIds.recomputations()).toBe(8)
+    expect(selectCartsByItemId.recomputations()).toBe(21)
     expect(checkIfAddedToAllVendors.recomputations()).toBe(21)
+    expect(selectCartsItemIdsLength.recomputations()).toBe(2)
     await user.clear(inputField)
     const accordionSummaries = container.querySelectorAll<HTMLDivElement>(
       ".MuiAccordionSummary-root",
@@ -169,7 +175,9 @@ describe<LocalTestContext>("render App", it => {
     expect(selectQRCodeText.recomputations()).toBe(2)
     expect(selectOfficialVendorName.recomputations()).toBe(8)
     expect(selectVendorItemIds.recomputations()).toBe(8)
+    expect(selectCartsByItemId.recomputations()).toBe(26)
     expect(checkIfAddedToAllVendors.recomputations()).toBe(26)
+    expect(selectCartsItemIdsLength.recomputations()).toBe(2)
     const item = view.getByRole("button", {
       name: /10 dram vials/iu,
     })
@@ -194,11 +202,12 @@ describe<LocalTestContext>("render App", it => {
     expect(selectQRCodeText.recomputations()).toBe(4)
     expect(selectOfficialVendorName.recomputations()).toBe(8)
     expect(selectVendorItemIds.recomputations()).toBe(8)
+    expect(selectCartsByItemId.recomputations()).toBe(31)
     expect(checkIfAddedToAllVendors.recomputations()).toBe(31)
-    const rec = Object.entries(mainSelectors).map(([key, value]) => ({
-      [key]: value.recomputations(),
-    }))
-    expect(rec).toMatchSnapshot()
+    expect(selectCartsItemIdsLength.recomputations()).toBe(3)
+    // const rec = Object.entries(mainSelectors).map(([key, value]) => ({
+    //   [key]: value.recomputations(),
+    // }))
     findFastestSelector(selectItemNamesAndKeywords, state)
     findFastestSelector(checkIfAnyItemsAdded, state)
     findFastestSelector(selectCartsItemIdsLength, state)
