@@ -1,7 +1,6 @@
 import Button from "@mui/material/Button"
 import type { MenuProps } from "@mui/material/Menu"
 import Menu from "@mui/material/Menu"
-import type { MenuListProps } from "@mui/material/MenuList"
 import type { PopoverOrigin } from "@mui/material/Popover"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
@@ -18,16 +17,16 @@ const anchorOrigin = {
   horizontal: "left",
 } as const satisfies PopoverOrigin
 
-const menuListProps = {
-  "aria-labelledby": "menu-list",
-  className: "menu-list",
-  autoFocus: true,
-  style: {
-    maxHeight: "calc(100vh - 54px)",
-  },
-} as const satisfies MenuListProps
-
 const slotProps = {
+  list: {
+    "aria-labelledby": "menu-list",
+    className: "menu-list",
+    autoFocus: true,
+    style: {
+      maxHeight: "calc(100vh - 54px)",
+    },
+  },
+
   paper: {
     className: "paper",
   },
@@ -75,7 +74,6 @@ const VendorDropDown: FC<Props> = ({ vendorId }) => {
         aria-labelledby={vendorId.toString()}
         // autoFocus
         id={officialVendorName}
-        MenuListProps={menuListProps}
         onClose={handleClose}
         open={open}
         slotProps={slotProps}

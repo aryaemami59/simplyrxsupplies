@@ -2,16 +2,17 @@ import MenuIcon from "@mui/icons-material/Menu"
 import Button from "@mui/material/Button"
 import DialogActions from "@mui/material/DialogActions"
 import IconButton from "@mui/material/IconButton"
-import type { PaperProps } from "@mui/material/Paper"
+import type { SwipeableDrawerProps } from "@mui/material/SwipeableDrawer"
 import SwipeableDrawer from "@mui/material/SwipeableDrawer"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
-
 import OffcanvasBodyContent from "./OffcanvasBodyContent"
 
-const paperProps: PaperProps = {
-  className: "mw-75",
-}
+const slotProps = {
+  paper: {
+    className: "mw-75",
+  },
+} as const satisfies SwipeableDrawerProps["slotProps"]
 
 const OffcanvasComponent: FC = () => {
   const [show, setShow] = useState(false)
@@ -33,7 +34,7 @@ const OffcanvasComponent: FC = () => {
         onClose={handleClose}
         onOpen={handleOpen}
         open={show}
-        PaperProps={paperProps}
+        slotProps={slotProps}
       >
         <OffcanvasBodyContent />
         <DialogActions>

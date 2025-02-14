@@ -12,11 +12,13 @@ import {
   useOfficialVendorName,
 } from "../../redux/selectors"
 
-const inputProps: SwitchProps["inputProps"] = {
-  className: "shadow",
-} as const
+const slotProps = {
+  input: {
+    className: "shadow",
+  },
+} as const satisfies SwitchProps["slotProps"]
 
-const control = <Switch inputProps={inputProps} size="small" />
+const control = <Switch slotProps={slotProps} size="small" />
 
 type Props = {
   visibleListId: number
