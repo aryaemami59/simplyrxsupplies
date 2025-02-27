@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
             ],
           ],
         },
-      }) as ViteUserConfig["plugins"],
+      }),
       macrosPlugin(),
     ],
 
@@ -63,7 +63,7 @@ export default defineConfig(({ mode }) => {
             ],
           ],
         },
-      }) as ViteUserConfig["plugins"],
+      }),
       macrosPlugin(),
       visualizer({
         brotliSize: true,
@@ -71,7 +71,7 @@ export default defineConfig(({ mode }) => {
         gzipSize: true,
         open: true,
         template: "flamegraph",
-      }) as NonNullable<ViteUserConfig["plugins"]>[number],
+      }),
     ],
 
     server: {

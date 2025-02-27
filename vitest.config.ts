@@ -1,5 +1,5 @@
 import viteReact from "@vitejs/plugin-react"
-import type { ViteUserConfig } from "vitest/config"
+import * as path from "node:path"
 import {
   coverageConfigDefaults,
   defaultExclude,
@@ -31,18 +31,21 @@ export default defineConfig(configEnv =>
               ],
             ],
           },
-        }) as ViteUserConfig["plugins"],
+        }),
       ],
+
       test: {
         name: packageJson.name,
         root: import.meta.dirname,
+        dir: path.join(import.meta.dirname, "src", "tests"),
 
         unstubGlobals: true,
         unstubEnvs: true,
         includeTaskLocation: true,
 
         typecheck: {
-          tsconfig: "tsconfig.json",
+          enabled: true,
+          tsconfig: path.join(import.meta.dirname, "tsconfig.json"),
         },
 
         exclude: [...defaultExclude, "src/hooks/loggers", ".yalc"],
@@ -57,7 +60,7 @@ export default defineConfig(configEnv =>
         },
         reporters: [["verbose"], ["hanging-process"]],
         watch: false,
-        setupFiles: ["src/tests/test-utils/setup.vitest.ts"],
+        setupFiles: ["./src/tests/test-utils/setup.vitest.ts"],
       },
     }),
   ),
