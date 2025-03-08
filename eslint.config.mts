@@ -1,7 +1,7 @@
 import js from "@eslint/js"
 import vitestPlugin from "@vitest/eslint-plugin"
 import type { Linter } from "eslint"
-import prettierConfig from "eslint-config-prettier"
+import prettierConfig from "eslint-config-prettier/flat"
 import reactHooks from "eslint-plugin-react-hooks"
 import { config, configs } from "typescript-eslint"
 
@@ -33,14 +33,25 @@ export const rulesToDisable = {
 } as const satisfies Linter.RulesRecord
 
 const ESLintConfig = config(
-  // `ignores` must be first.
-  // config with just `ignores` is the replacement for `.eslintignore`
-  { name: "global-ignores", ignores: ["**/dist/", "**/html/", "coverage/"] },
-  { name: "javascript", ...js.configs.recommended },
+  {
+    name: "global-ignores",
+    ignores: [
+      "**/dist/",
+      "**/.yalc/",
+      "**/build/",
+      "**/lib/",
+      "**/temp/",
+      "**/.temp/",
+      "**/.tmp/",
+      "**/.yarn/",
+      "**/coverage/",
+      "**/html/",
+    ],
+  },
+  { name: `${js.meta.name}/recommended`, ...js.configs.recommended },
   ...configs.strictTypeChecked,
   ...configs.stylisticTypeChecked,
   vitestPlugin.configs.recommended,
-  { name: "prettier-config", ...prettierConfig },
   {
     name: "main",
     languageOptions: {
@@ -52,8 +63,14 @@ const ESLintConfig = config(
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    plugins: { "react-hooks": reactHooks, vitest: vitestPlugin },
-    settings: { vitest: { typecheck: true } },
+    plugins: {
+      "react-hooks": reactHooks,
+    },
+    settings: {
+      vitest: {
+        typecheck: true,
+      },
+    },
     rules: {
       ...reactHooks.configs.recommended.rules,
       "@typescript-eslint/consistent-type-imports": [
@@ -156,6 +173,8 @@ const ESLintConfig = config(
       "@typescript-eslint/consistent-type-definitions": [0, "type"],
     },
   },
+
+  prettierConfig,
 )
 
 export default ESLintConfig
