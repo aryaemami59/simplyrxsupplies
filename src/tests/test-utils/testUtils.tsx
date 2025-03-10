@@ -6,7 +6,6 @@ import {
   disableActEnvironment,
 } from "@testing-library/react-render-stream"
 import { userEvent } from "@testing-library/user-event"
-import * as mediaQuery from "css-mediaquery"
 import type { FC, ReactElement } from "react"
 import { Provider } from "react-redux"
 import { endpoints } from "../../redux/apiSlice.js"
@@ -208,18 +207,3 @@ export type SetupWithNoUIResults = {
   store: AppStore
   initialState: RootState
 }
-
-export const createMatchMedia = (width: number) => (query: string) => ({
-  matches: mediaQuery.match(query, { width }),
-  media: "",
-  // addListener: () => {},
-  // removeListener: () => {},
-  // onchange: () => {},
-  // addEventListener: () => {},
-  // removeEventListener: () => {},
-  // dispatchEvent: () => true,
-})
-
-// export const resizeScreenSize = (width: number) => {
-//   window.matchMedia = createMatchMedia(width)
-// }

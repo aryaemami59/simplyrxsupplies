@@ -13,7 +13,7 @@ const VendorLink: FC = () => {
 
   return (
     <div className="row py-3 justify-content-center">
-      <Link className="w-auto" href={vendorLink}>
+      <Link className="w-auto" href={vendorLink} target="_blank">
         {officialVendorName} Website
       </Link>
     </div>

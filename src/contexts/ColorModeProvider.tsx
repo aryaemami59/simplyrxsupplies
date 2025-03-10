@@ -1,4 +1,4 @@
-import ThemeProvider from "@mui/material/styles/ThemeProvider"
+import { ThemeProvider } from "@mui/material/styles"
 import type { FC } from "react"
 import { createContext, memo, useMemo } from "react"
 import { useLocalStorageTheme } from "../hooks/useLocalStorageTheme"
