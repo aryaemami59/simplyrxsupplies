@@ -1,4 +1,4 @@
-import grey from "@mui/material/colors/grey"
+import { grey } from "@mui/material/colors"
 import { createTheme } from "@mui/material/styles"
 
 import {
