@@ -20,7 +20,6 @@ export const apiSlice = createApi({
   // refetchOnFocus: true,
   endpoints: builder => ({
     getMain: builder.query<SuppliesState, BoxedVoid>({
-      
       query: () => "",
       transformResponse: (supplies: Supplies) => {
         const { items, vendors, categories } = supplies
