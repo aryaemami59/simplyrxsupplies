@@ -32,7 +32,7 @@ export const rulesToDisable = {
   "vitest/valid-describe-callback": [0],
 } as const satisfies Linter.RulesRecord
 
-const ESLintConfig = config(
+const eslintConfig = config(
   {
     name: "global-ignores",
     ignores: [
@@ -57,7 +57,6 @@ const ESLintConfig = config(
     languageOptions: {
       parserOptions: {
         projectService: {
-          allowDefaultProject: ["./*.?(m|c)js?(x)"],
           defaultProject: "tsconfig.json",
         },
         tsconfigRootDir: import.meta.dirname,
@@ -135,7 +134,10 @@ const ESLintConfig = config(
       "@typescript-eslint/no-unnecessary-type-parameters": [2],
       "@typescript-eslint/no-invalid-void-type": [
         2,
-        { allowInGenericTypeArguments: true, allowAsThisParameter: false },
+        {
+          allowInGenericTypeArguments: ["BoxedVoid"],
+          allowAsThisParameter: false,
+        },
       ],
       "@typescript-eslint/no-confusing-void-expression": [2],
       "@typescript-eslint/no-duplicate-type-constituents": [2],
@@ -165,10 +167,9 @@ const ESLintConfig = config(
     name: "typescript-declaration-files",
     files: ["**/*.d.?(c|m)ts"],
     rules: {
-      "@typescript-eslint/no-empty-object-type": [0],
-      "@typescript-eslint/no-empty-interface": [
+      "@typescript-eslint/no-empty-object-type": [
         2,
-        { allowSingleExtends: true },
+        { allowInterfaces: "with-single-extends", allowObjectTypes: "never" },
       ],
       "@typescript-eslint/consistent-type-definitions": [0, "type"],
     },
@@ -177,4 +178,4 @@ const ESLintConfig = config(
   prettierConfig,
 )
 
-export default ESLintConfig
+export default eslintConfig
