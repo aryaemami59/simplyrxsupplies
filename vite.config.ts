@@ -65,13 +65,13 @@ export default defineConfig(({ mode }) => {
         },
       }),
       macrosPlugin(),
-      visualizer({
+      visualizer(_outputOptions => ({
         brotliSize: true,
-        filename: "analyze.html",
+        projectRoot: import.meta.dirname,
         gzipSize: true,
-        open: true,
-        template: "flamegraph",
-      }),
+        open: process.env.NO_OPEN ? false : true,
+        template: "flamegraph" as const,
+      })),
     ],
 
     server: {

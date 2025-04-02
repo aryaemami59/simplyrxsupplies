@@ -15,7 +15,7 @@
   },
   "private": false,
   "scripts": {
-    "clean": "tsc -b tsconfig.build.json --clean && rimraf -v dist/ coverage/ trace/ analyze.html",
+    "clean": "rimraf -v -g \"{dist,coverage,trace}/\" \"stats.html\" \"tsconfig.*.tsbuildinfo\" \"node_modules/\\.{cache,tmp,vite?(-temp)}/\"",
     "dev": "vite",
     "build": "tsc -b tsconfig.build.json && vite build",
     "preview": "vite preview",
