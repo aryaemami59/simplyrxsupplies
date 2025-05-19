@@ -34,7 +34,9 @@ const options: Options = {
 
 describe("selectors", async () => {
   const { store } = await setupWithNoUI()
+
   const state = store.getState()
+
   bench(
     selectItemNamesAndKeywords,
     () => {

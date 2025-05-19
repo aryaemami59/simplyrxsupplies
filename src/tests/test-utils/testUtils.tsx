@@ -8,6 +8,7 @@ import {
 import { userEvent } from "@testing-library/user-event"
 import type { FC, ReactElement } from "react"
 import { Provider } from "react-redux"
+import App from "../../App.js"
 import { endpoints } from "../../redux/apiSlice.js"
 import type { AppStore, RootState } from "../../redux/store.js"
 import { setupStore } from "../../redux/store.js"
@@ -28,11 +29,15 @@ export const setupWithNoUI = async (
   options: SetupWithNoUIOptions = {},
 ): Promise<SetupWithNoUIResults> => {
   const { fetch = true } = options
+
   const store = setupStore()
+
   if (fetch) {
     await store.dispatch(endpoints.getMain.initiate())
   }
+
   const initialState = store.getState()
+
   return { store, initialState }
 }
 
@@ -104,13 +109,13 @@ export type ExtendedRenderOptions = {
 
 /**
  * A wrapper for {@linkcode render}
- * @param ui - Component to render.
- * @param extendedRenderOptions - Options object.
- * @param userEventOptions - Options object for user event.
+ * @param [ui] - Component to render.
+ * @param [extendedRenderOptions] - Options object.
+ * @param [userEventOptions] - Options object for user event.
  * @returns An object with the store and all of `RTL`'s query functions
  */
 export const renderWithProviders = async (
-  ui: ReactElement,
+  ui: ReactElement = <App />,
   extendedRenderOptions: ExtendedRenderOptions = {},
   userEventOptions?: UserEventOptions,
 ): Promise<ExtendedRenderResult> => {
@@ -200,6 +205,9 @@ export const unFreeze = <T extends UnknownObject>(object: T): WritableDeep<T> =>
   JSON.parse(JSON.stringify(object)) as WritableDeep<T>
 
 export type SetupWithNoUIOptions = {
+  /**
+   * @default true
+   */
   fetch?: boolean
 }
 

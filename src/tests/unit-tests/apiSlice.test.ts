@@ -7,25 +7,38 @@ import {
 import type { AppStore } from "../../redux/store.js"
 import type { SuppliesState } from "../../types/reduxHelperTypes.js"
 import { EMPTY_ARRAY } from "../../utils/emptyArray.js"
+import type { SetupWithNoUIResults } from "../test-utils/testUtils.js"
 import { setupWithNoUI } from "../test-utils/testUtils.js"
 
 type LocalTestContext = {
+  setupResults: Promise<SetupWithNoUIResults>
   data: SuppliesState | undefined
   store: AppStore
 }
 
-describe<LocalTestContext>("apiSlice with fetch", it => {
-  beforeEach<LocalTestContext>(async context => {
-    const { store } = await setupWithNoUI()
+const localTest = test.extend<LocalTestContext>({
+  setupResults: [setupWithNoUI(), { auto: false }],
+  store: [
+    async ({ setupResults }, use) => {
+      const { store } = await setupResults
 
-    const data = selectMainData(store.getState())
+      await use(store)
+    },
+    { auto: false },
+  ],
 
-    context.data = data
+  data: [
+    async ({ store }, use) => {
+      const data = selectMainData(store.getState())
 
-    context.store = store
-  })
+      await use(data)
+    },
+    { auto: false },
+  ],
+})
 
-  it("RTK query api call should be successful", ({ data }) => {
+describe("apiSlice with fetch", () => {
+  localTest("RTK query api call should be successful", ({ data }) => {
     expect(data).toBeDefined()
     expect(data?.cart[0]?.itemIds).toBe(EMPTY_ARRAY)
     expect(data?.items).not.toBe(EMPTY_ARRAY)
