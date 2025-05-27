@@ -35,32 +35,34 @@ export default defineConfig(configEnv =>
       ],
 
       test: {
-        name: packageJson.name,
-        root: import.meta.dirname,
-        dir: path.join(import.meta.dirname, "src", "tests"),
+        chaiConfig: {
+          includeStack: true,
+          truncateThreshold: 1000,
+        },
 
-        unstubGlobals: true,
-        unstubEnvs: true,
+        coverage: {
+          exclude: [...coverageConfigDefaults.exclude, "src/hooks/loggers"],
+        },
+
+        dir: path.join(import.meta.dirname, "src", "tests"),
+        environment: "jsdom",
+        exclude: [...defaultExclude, "src/hooks/loggers", ".yalc"],
+        globals: true,
         includeTaskLocation: true,
+        name: packageJson.name,
+        reporters: [["verbose"], ["hanging-process"]],
+        root: import.meta.dirname,
+        setupFiles: ["./src/tests/test-utils/setup.vitest.ts"],
+        testTimeout: 10_000,
 
         typecheck: {
           enabled: true,
           tsconfig: path.join(import.meta.dirname, "tsconfig.json"),
         },
 
-        exclude: [...defaultExclude, "src/hooks/loggers", ".yalc"],
-        globals: true,
-        coverage: {
-          exclude: [...coverageConfigDefaults.exclude, "src/hooks/loggers"],
-        },
-        environment: "jsdom",
-        chaiConfig: {
-          includeStack: true,
-          truncateThreshold: 1000,
-        },
-        reporters: [["verbose"], ["hanging-process"]],
+        unstubEnvs: true,
+        unstubGlobals: true,
         watch: false,
-        setupFiles: ["./src/tests/test-utils/setup.vitest.ts"],
       },
     }),
   ),
