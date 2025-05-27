@@ -5,8 +5,8 @@ import type { ViteUserConfig } from "vitest/config"
 import { defineConfig } from "vitest/config"
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
-  const developmentConfig: ViteUserConfig = {
+const viteConfig = defineConfig(({ mode }) => {
+  const developmentConfig = {
     plugins: [
       viteReact({
         babel: {
@@ -28,9 +28,9 @@ export default defineConfig(({ mode }) => {
     server: {
       open: true,
     },
-  }
+  } as const satisfies ViteUserConfig
 
-  const productionConfig: ViteUserConfig = {
+  const productionConfig = {
     esbuild: {
       drop: ["console", "debugger"],
       treeShaking: true,
@@ -77,6 +77,9 @@ export default defineConfig(({ mode }) => {
     server: {
       open: true,
     },
-  }
+  } as const satisfies ViteUserConfig
+
   return mode === "production" ? productionConfig : developmentConfig
 })
+
+export default viteConfig

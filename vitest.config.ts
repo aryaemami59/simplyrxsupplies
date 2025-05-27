@@ -9,7 +9,7 @@ import {
 import packageJson from "./package.json" with { type: "json" }
 import viteConfig from "./vite.config.js"
 
-export default defineConfig(configEnv =>
+const vitestConfig = defineConfig(configEnv =>
   mergeConfig(
     viteConfig(configEnv),
     defineConfig({
@@ -67,3 +67,5 @@ export default defineConfig(configEnv =>
     }),
   ),
 )
+
+export default vitestConfig
