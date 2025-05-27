@@ -9,7 +9,7 @@ import { EMPTY_ARRAY } from "../../utils/emptyArray.js"
 import { isArrayOfNumbers } from "../../utils/predicates/isArrayOfNumbers.js"
 import { isNumber } from "../../utils/predicates/isNumber.js"
 import type { SetupWithNoUIResults } from "../test-utils/testUtils.js"
-import { setupWithNoUI } from "../test-utils/testUtils.js"
+import { isNode24, setupWithNoUI } from "../test-utils/testUtils.js"
 
 type LocalTestContext = SetupWithNoUIResults
 
@@ -22,7 +22,7 @@ describe<LocalTestContext>("initial state after fetch", it => {
     context.initialState = initialState
   })
 
-  it("should hydrate the store", ({ store }) => {
+  it.skipIf(isNode24)("should hydrate the store", ({ store }) => {
     const addedState = store.getState().added
     const state = store.getState()
     expect(

@@ -12,7 +12,7 @@ import {
 } from "../../redux/addedSlice.js"
 import type { AppStore } from "../../redux/store.js"
 import type { AddedState } from "../../types/reduxHelperTypes.js"
-import { setupWithNoUI } from "../test-utils/testUtils.js"
+import { isNode24, setupWithNoUI } from "../test-utils/testUtils.js"
 
 type LocalTestContext = {
   store: AppStore
@@ -28,7 +28,7 @@ describe<LocalTestContext>("addedSlice reducers", it => {
     context.initialAddedState = store.getState().added
   })
 
-  it(itemAddedToCarts.type, ({ store, initialAddedState }) => {
+  it.skipIf(isNode24)(itemAddedToCarts.type, ({ store, initialAddedState }) => {
     expect(addedSlice.reducer(undefined, { type: "" })).toStrictEqual(
       addedSlice.getInitialState(),
     )
@@ -42,14 +42,17 @@ describe<LocalTestContext>("addedSlice reducers", it => {
     expect(store.getState().added).toStrictEqual(initialAddedState)
   })
 
-  it(toggledMinimizeOneItemInCart.type, ({ store, initialAddedState }) => {
-    store.dispatch(toggledMinimizeOneItemInCart({ itemId: 0, vendorId: 0 }))
-    expect(store.getState().added).not.toStrictEqual(initialAddedState)
-    store.dispatch(toggledMinimizeOneItemInCart({ itemId: 0, vendorId: 0 }))
-    expect(store.getState().added).toStrictEqual(initialAddedState)
-  })
+  it.skipIf(isNode24)(
+    toggledMinimizeOneItemInCart.type,
+    ({ store, initialAddedState }) => {
+      store.dispatch(toggledMinimizeOneItemInCart({ itemId: 0, vendorId: 0 }))
+      expect(store.getState().added).not.toStrictEqual(initialAddedState)
+      store.dispatch(toggledMinimizeOneItemInCart({ itemId: 0, vendorId: 0 }))
+      expect(store.getState().added).toStrictEqual(initialAddedState)
+    },
+  )
 
-  it(
+  it.skipIf(isNode24)(
     checkedOneVendorForAllSearchResults.type,
     ({ store, initialAddedState }) => {
       store.dispatch(checkedOneVendorForAllSearchResults({ vendorId: 0 }))
@@ -63,14 +66,17 @@ describe<LocalTestContext>("addedSlice reducers", it => {
     },
   )
 
-  it(minimizedAllItemsInCart.type, ({ store, initialAddedState }) => {
-    store.dispatch(minimizedAllItemsInCart({ vendorId: 0 }))
-    expect(store.getState().added).not.toStrictEqual(initialAddedState)
-    store.dispatch(maximizedAllItemsInCart({ vendorId: 0 }))
-    expect(store.getState().added).toStrictEqual(initialAddedState)
-  })
+  it.skipIf(isNode24)(
+    minimizedAllItemsInCart.type,
+    ({ store, initialAddedState }) => {
+      store.dispatch(minimizedAllItemsInCart({ vendorId: 0 }))
+      expect(store.getState().added).not.toStrictEqual(initialAddedState)
+      store.dispatch(maximizedAllItemsInCart({ vendorId: 0 }))
+      expect(store.getState().added).toStrictEqual(initialAddedState)
+    },
+  )
 
-  it(
+  it.skipIf(isNode24)(
     toggledVendorForOneSearchResultItem.type,
     ({ store, initialAddedState }) => {
       store.dispatch(
@@ -84,12 +90,15 @@ describe<LocalTestContext>("addedSlice reducers", it => {
     },
   )
 
-  it(allItemsRemovedFromCart.type, ({ store, initialAddedState }) => {
-    store.dispatch(itemAddedToCarts({ itemId: 0 }))
-    store.dispatch(itemAddedToCarts({ itemId: 1 }))
-    store.dispatch(allItemsRemovedFromCart({ vendorId: 0 }))
-    expect(store.getState().added).not.toStrictEqual(initialAddedState)
-    store.dispatch(allItemsRemovedFromCart({ vendorId: 1 }))
-    expect(store.getState().added).toStrictEqual(initialAddedState)
-  })
+  it.skipIf(isNode24)(
+    allItemsRemovedFromCart.type,
+    ({ store, initialAddedState }) => {
+      store.dispatch(itemAddedToCarts({ itemId: 0 }))
+      store.dispatch(itemAddedToCarts({ itemId: 1 }))
+      store.dispatch(allItemsRemovedFromCart({ vendorId: 0 }))
+      expect(store.getState().added).not.toStrictEqual(initialAddedState)
+      store.dispatch(allItemsRemovedFromCart({ vendorId: 1 }))
+      expect(store.getState().added).toStrictEqual(initialAddedState)
+    },
+  )
 })

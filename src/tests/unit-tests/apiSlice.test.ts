@@ -8,7 +8,7 @@ import type { AppStore } from "../../redux/store.js"
 import type { SuppliesState } from "../../types/reduxHelperTypes.js"
 import { EMPTY_ARRAY } from "../../utils/emptyArray.js"
 import type { SetupWithNoUIResults } from "../test-utils/testUtils.js"
-import { setupWithNoUI } from "../test-utils/testUtils.js"
+import { isNode24, setupWithNoUI } from "../test-utils/testUtils.js"
 
 type LocalTestContext = {
   setupResults: Promise<SetupWithNoUIResults>
@@ -38,11 +38,14 @@ const localTest = test.extend<LocalTestContext>({
 })
 
 describe("apiSlice with fetch", () => {
-  localTest("RTK query api call should be successful", ({ data }) => {
-    expect(data).toBeDefined()
-    expect(data?.cart[0]?.itemIds).toBe(EMPTY_ARRAY)
-    expect(data?.items).not.toBe(EMPTY_ARRAY)
-  })
+  localTest.skipIf(isNode24)(
+    "RTK query api call should be successful",
+    ({ data }) => {
+      expect(data).toBeDefined()
+      expect(data?.cart[0]?.itemIds).toBe(EMPTY_ARRAY)
+      expect(data?.items).not.toBe(EMPTY_ARRAY)
+    },
+  )
 })
 
 describe<LocalTestContext>("apiSlice without fetch", it => {

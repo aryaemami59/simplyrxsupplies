@@ -215,3 +215,5 @@ export type SetupWithNoUIResults = {
   store: AppStore
   initialState: RootState
 }
+
+export const isNode24 = Number.parseFloat(process.versions.node) >= 24

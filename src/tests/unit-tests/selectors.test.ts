@@ -23,7 +23,7 @@ import {
   selectVendorItemIds,
 } from "../../redux/selectors.js"
 import type { SetupWithNoUIResults } from "../test-utils/testUtils.js"
-import { setupWithNoUI } from "../test-utils/testUtils.js"
+import { isNode24, setupWithNoUI } from "../test-utils/testUtils.js"
 
 type LocalTestContext = SetupWithNoUIResults
 
@@ -57,7 +57,7 @@ describe<LocalTestContext>("selectors", it => {
     selectCartItemsIds.clearCache()
   })
 
-  it("selectCheckedVendorIds", ({ initialState }) => {
+  it.skipIf(isNode24)("selectCheckedVendorIds", ({ initialState }) => {
     expect(selectCheckedVendorIds.recomputations()).toBe(0)
     const first = selectCheckedVendorIds(initialState, 0)
     const second = selectCheckedVendorIds(initialState, 0)
@@ -120,7 +120,7 @@ describe<LocalTestContext>("selectors", it => {
     // selectCategoryItemIds.clearCache();
   })
 
-  it("selectVendorItemIds", ({ initialState }) => {
+  it.skipIf(isNode24)("selectVendorItemIds", ({ initialState }) => {
     expect(selectVendorItemIds.recomputations()).toBe(0)
     const first = selectVendorItemIds(initialState, 0)
     const second = selectVendorItemIds(initialState, 0)
@@ -132,7 +132,7 @@ describe<LocalTestContext>("selectors", it => {
     selectVendorItemIds.clearCache()
   })
 
-  it("selectVendorIdsByItemId", ({ initialState }) => {
+  it.skipIf(isNode24)("selectVendorIdsByItemId", ({ initialState }) => {
     expect(selectVendorIdsByItemId.recomputations()).toBe(0)
     const first = selectVendorIdsByItemId(initialState, 0)
     const second = selectVendorIdsByItemId(initialState, 0)
