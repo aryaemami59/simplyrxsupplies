@@ -1,49 +1,84 @@
 import type { ByRoleOptions } from "@testing-library/react"
-import { screen } from "@testing-library/react"
 import InputGroupComponent from "../../components/InputComponents/InputGroupComponent.js"
 import {
   resetAllSelectors,
   selectItemNamesAndKeywords,
 } from "../../redux/selectors.js"
-import type { ExtendedRenderResult } from "../test-utils/testUtils.js"
+import type {
+  ExtendedRenderResult,
+  LocalBaseTestContext,
+} from "../test-utils/testUtils.js"
 import {
   isNode24,
   queryByRoleFactory,
   renderWithProviders,
 } from "../test-utils/testUtils.js"
 
-type LocalTestContext = {
+type LocalTestContext = LocalBaseTestContext<ExtendedRenderResult> & {
   view: ExtendedRenderResult
   inputField: HTMLInputElement
 }
+
+const localTest = test.extend<LocalTestContext>({
+  setupResults: [renderWithProviders(<InputGroupComponent />), { auto: false }],
+  store: [
+    async ({ view }, use) => {
+      const { store } = view
+
+      await use(store)
+    },
+    { auto: false },
+  ],
+  initialState: [
+    async ({ store }, use) => {
+      const initialState = store.getState()
+
+      await use(initialState)
+    },
+    { auto: false },
+  ],
+  view: [
+    async ({ setupResults }, use) => {
+      const view = await setupResults
+
+      await use(view)
+    },
+    { auto: false },
+  ],
+  inputField: [
+    async ({ view }, use) => {
+      // FIXME: This is a workaround for the issue with the input field not being found.
+      await renderWithProviders(<InputGroupComponent />)
+      const inputField = await view.screen.findByRole<HTMLInputElement>(
+        "search",
+        {
+          name: "Search",
+        },
+      )
+
+      await use(inputField)
+    },
+    { auto: false },
+  ],
+})
 
 const byRoleOptions: ByRoleOptions = { name: "Add" }
 
 const { getAllButtonsByRole, getButtonByRole, queryButtonByRole } =
   queryByRoleFactory<HTMLButtonElement, "button">("button", byRoleOptions)
 
-describe<LocalTestContext>("search results", it => {
-  beforeEach<LocalTestContext>(async context => {
+describe("search results", () => {
+  beforeEach(() => {
     resetAllSelectors()
-
-    const view = await renderWithProviders(<InputGroupComponent />)
-
-    const inputField = await screen.findByRole<HTMLInputElement>("search", {
-      name: "Search",
-    })
-
-    context.view = view
-
-    context.inputField = inputField
   })
 
-  it("input field exists", ({ inputField }) => {
+  localTest("input field exists", ({ inputField }) => {
     expect(inputField).toBeInTheDocument()
     expect(inputField).toBeVisible()
     expect(inputField).toHaveFocus()
   })
 
-  it.skipIf(isNode24)(
+  localTest.skipIf(isNode24)(
     "10 search results show up when typing a letter.",
     async ({ inputField, view }) => {
       const { user } = view

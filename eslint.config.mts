@@ -6,30 +6,18 @@ import reactHooks from "eslint-plugin-react-hooks"
 import { config, configs } from "typescript-eslint"
 
 export const rulesToDisable = {
-  "no-undef": [0],
-  "@typescript-eslint/no-unused-vars": [
-    0,
+  "no-undef": [0, { typeof: false }],
+  "@typescript-eslint/ban-ts-comment": [
+    2,
     {
-      vars: "all",
-      args: "after-used",
-      caughtErrors: "all",
-      ignoreRestSiblings: false,
-      reportUsedIgnorePattern: false,
+      "ts-expect-error": "allow-with-description",
+      "ts-ignore": true,
+      "ts-nocheck": true,
+      "ts-check": false,
+      minimumDescriptionLength: 3,
     },
   ],
-  "@typescript-eslint/ban-ts-comment": [
-    0,
-    [
-      {
-        "ts-expect-error": "allow-with-description",
-        "ts-ignore": true,
-        "ts-nocheck": true,
-        "ts-check": false,
-        minimumDescriptionLength: 3,
-      },
-    ],
-  ],
-  "vitest/valid-describe-callback": [0],
+  "vitest/valid-describe-callback": [2],
 } as const satisfies Linter.RulesRecord
 
 const eslintConfig = config(
@@ -148,6 +136,25 @@ const eslintConfig = config(
       "@typescript-eslint/prefer-nullish-coalescing": [2],
       "@typescript-eslint/no-inferrable-types": [2],
       "object-shorthand": [2],
+      "@typescript-eslint/no-unused-vars": [
+        2,
+        {
+          args: "after-used",
+          // Not included in default options
+          argsIgnorePattern: "^_",
+          caughtErrors: "all",
+          // Not included in default options
+          caughtErrorsIgnorePattern: "^_",
+          // Not included in default options
+          destructuredArrayIgnorePattern: "^_",
+          ignoreClassWithStaticInitBlock: false,
+          ignoreRestSiblings: false,
+          reportUsedIgnorePattern: false,
+          vars: "all",
+          // Not included in default options
+          varsIgnorePattern: "^_",
+        },
+      ],
       ...rulesToDisable,
     },
     linterOptions: { reportUnusedDisableDirectives: 2 },
