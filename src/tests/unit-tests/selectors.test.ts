@@ -27,14 +27,12 @@ import { isNode24, setupWithNoUI } from "../test-utils/testUtils.js"
 
 type LocalTestContext = SetupWithNoUIResults
 
-describe<LocalTestContext>("selectors", it => {
-  beforeEach<LocalTestContext>(async context => {
-    const { store, initialState } = await setupWithNoUI()
-    context.store = store
-    context.initialState = initialState
-  })
+const { store, initialState } = await setupWithNoUI()
 
-  it("selectItemNamesAndKeywords", ({ initialState }) => {
+const localTest = test.extend<LocalTestContext>({ initialState, store })
+
+describe("selectors", () => {
+  localTest("selectItemNamesAndKeywords", ({ initialState }) => {
     expect(selectItemNamesAndKeywords.recomputations()).toBe(0)
     const first = selectItemNamesAndKeywords(initialState)
     const second = selectItemNamesAndKeywords(initialState)
@@ -45,7 +43,7 @@ describe<LocalTestContext>("selectors", it => {
     selectItemNamesAndKeywords.clearCache()
   })
 
-  it("selectCartItemsIds", ({ initialState }) => {
+  localTest("selectCartItemsIds", ({ initialState }) => {
     expect(selectCartItemsIds.recomputations()).toBe(0)
     const first = selectCartItemsIds(initialState, 0)
     const second = selectCartItemsIds(initialState, 0)
@@ -57,7 +55,7 @@ describe<LocalTestContext>("selectors", it => {
     selectCartItemsIds.clearCache()
   })
 
-  it.skipIf(isNode24)("selectCheckedVendorIds", ({ initialState }) => {
+  localTest.skipIf(isNode24)("selectCheckedVendorIds", ({ initialState }) => {
     expect(selectCheckedVendorIds.recomputations()).toBe(0)
     const first = selectCheckedVendorIds(initialState, 0)
     const second = selectCheckedVendorIds(initialState, 0)
@@ -69,7 +67,7 @@ describe<LocalTestContext>("selectors", it => {
     selectCheckedVendorIds.clearCache()
   })
 
-  it("selectCategoryItemIds", () => {
+  localTest("selectCategoryItemIds", () => {
     expect(selectCategoryItemIds.recomputations()).toBe(0)
     // const { store, initialState } = await setupWithNoUI()
     // const state = store.getState()
@@ -120,7 +118,7 @@ describe<LocalTestContext>("selectors", it => {
     // selectCategoryItemIds.clearCache();
   })
 
-  it.skipIf(isNode24)("selectVendorItemIds", ({ initialState }) => {
+  localTest.skipIf(isNode24)("selectVendorItemIds", ({ initialState }) => {
     expect(selectVendorItemIds.recomputations()).toBe(0)
     const first = selectVendorItemIds(initialState, 0)
     const second = selectVendorItemIds(initialState, 0)
@@ -132,7 +130,7 @@ describe<LocalTestContext>("selectors", it => {
     selectVendorItemIds.clearCache()
   })
 
-  it.skipIf(isNode24)("selectVendorIdsByItemId", ({ initialState }) => {
+  localTest.skipIf(isNode24)("selectVendorIdsByItemId", ({ initialState }) => {
     expect(selectVendorIdsByItemId.recomputations()).toBe(0)
     const first = selectVendorIdsByItemId(initialState, 0)
     const second = selectVendorIdsByItemId(initialState, 0)
@@ -144,7 +142,7 @@ describe<LocalTestContext>("selectors", it => {
     selectVendorIdsByItemId.clearCache()
   })
 
-  it("checkIfAnyItemsAdded", ({ initialState }) => {
+  localTest("checkIfAnyItemsAdded", ({ initialState }) => {
     expect(checkIfAnyItemsAdded.recomputations()).toBe(0)
     const first = checkIfAnyItemsAdded(initialState)
     const second = checkIfAnyItemsAdded(initialState)
@@ -156,7 +154,7 @@ describe<LocalTestContext>("selectors", it => {
     checkIfAnyItemsAdded.clearCache()
   })
 
-  it("selectCartItemNamesStringified", ({ initialState }) => {
+  localTest("selectCartItemNamesStringified", ({ initialState }) => {
     expect(selectCartItemNamesStringified.recomputations()).toBe(0)
     const first = selectCartItemNamesStringified(initialState, 0)
     const second = selectCartItemNamesStringified(initialState, 0)
@@ -168,7 +166,7 @@ describe<LocalTestContext>("selectors", it => {
     selectCartItemNamesStringified.clearCache()
   })
 
-  it("selectQRCodeText", ({ initialState }) => {
+  localTest("selectQRCodeText", ({ initialState }) => {
     expect(selectQRCodeText.recomputations()).toBe(0)
     const first = selectQRCodeText(initialState, 0)
     const second = selectQRCodeText(initialState, 0)
@@ -180,7 +178,7 @@ describe<LocalTestContext>("selectors", it => {
     selectQRCodeText.clearCache()
   })
 
-  it("all selectors", ({ initialState }) => {
+  localTest("all selectors", ({ initialState }) => {
     selectItemNamesAndKeywords(initialState)
     checkIfAnyItemsAdded(initialState)
     selectCartsItemIdsLength(initialState)

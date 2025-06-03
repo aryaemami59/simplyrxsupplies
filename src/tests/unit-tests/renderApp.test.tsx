@@ -29,31 +29,62 @@ import {
   selectVendorItemIds,
   selectVendorsLinks,
 } from "../../redux/selectors.js"
-import type { ExtendedRenderResult } from "../test-utils/testUtils.js"
+import type {
+  ExtendedRenderResult,
+  LocalBaseTestContext,
+} from "../test-utils/testUtils.js"
 import { isNode24, renderWithProviders } from "../test-utils/testUtils.js"
 
-type LocalTestContext = {
+type LocalTestContext = LocalBaseTestContext<ExtendedRenderResult> & {
   view: ExtendedRenderResult
 }
 
-describe<LocalTestContext>("render App", it => {
-  beforeEach<LocalTestContext>(async context => {
+const localTest = test.extend<LocalTestContext>({
+  setupResults: [renderWithProviders(<App />), { auto: false }],
+  store: [
+    async ({ setupResults }, use) => {
+      const { store } = await setupResults
+
+      await use(store)
+    },
+    { auto: false },
+  ],
+  initialState: [
+    async ({ store }, use) => {
+      const initialState = store.getState()
+
+      await use(initialState)
+    },
+    { auto: false },
+  ],
+  view: [
+    async ({ setupResults }, use) => {
+      const view = await setupResults
+
+      await use(view)
+    },
+    { auto: false },
+  ],
+})
+
+describe("render App", () => {
+  beforeEach(() => {
     resetAllSelectors()
 
     vi.stubGlobal("innerWidth", 1920)
 
     vi.stubGlobal("innerHeight", 2000)
 
-    const view = await renderWithProviders(<App />)
+    // const view = await renderWithProviders(<App />)
 
-    context.view = view
+    // context.view = view
   })
 
   afterEach(() => {
     vi.unstubAllGlobals()
   })
 
-  it.skipIf(isNode24)(
+  localTest.skipIf(isNode24)(
     "selectors ui",
     async ({ expect, onTestFailed, view }) => {
       expect(selectVendorsLinks.recomputations()).toBe(0)
