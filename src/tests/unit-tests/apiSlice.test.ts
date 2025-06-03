@@ -4,16 +4,13 @@ import {
   selectMainData,
   selectVendorsData,
 } from "../../redux/apiSlice.js"
-import type { AppStore } from "../../redux/store.js"
 import type { SuppliesState } from "../../types/reduxHelperTypes.js"
 import { EMPTY_ARRAY } from "../../utils/emptyArray.js"
-import type { SetupWithNoUIResults } from "../test-utils/testUtils.js"
+import type { LocalBaseTestContext } from "../test-utils/testUtils.js"
 import { isNode24, setupWithNoUI } from "../test-utils/testUtils.js"
 
-type LocalTestContext = {
-  setupResults: Promise<SetupWithNoUIResults>
+type LocalTestContext = LocalBaseTestContext & {
   data: SuppliesState | undefined
-  store: AppStore
 }
 
 const localTest = test.extend<LocalTestContext>({
@@ -23,6 +20,14 @@ const localTest = test.extend<LocalTestContext>({
       const { store } = await setupResults
 
       await use(store)
+    },
+    { auto: false },
+  ],
+  initialState: [
+    async ({ store }, use) => {
+      const initialState = store.getState()
+
+      await use(initialState)
     },
     { auto: false },
   ],
@@ -48,15 +53,10 @@ describe("apiSlice with fetch", () => {
   )
 })
 
-describe<LocalTestContext>("apiSlice without fetch", it => {
-  beforeEach<LocalTestContext>(async context => {
-    const { store } = await setupWithNoUI({ fetch: false })
-    const data = selectMainData(store.getState())
-    context.data = data
-    context.store = store
-  })
+describe("apiSlice without fetch", () => {
+  localTest.scoped({ setupResults: setupWithNoUI({ fetch: false }) })
 
-  it("rtk query api call should fail", ({ data, store }) => {
+  localTest("rtk query api call should fail", ({ data, store }) => {
     const state = store.getState()
     expect(data).toBeUndefined()
     expect(selectItemsData(state).ids).toBeEmptyArray()

@@ -145,6 +145,7 @@ export const renderWithProviders = async (
   return {
     store,
     user,
+    screen,
     ...renderResult,
   } satisfies ExtendedRenderResult
 }
@@ -152,6 +153,7 @@ export const renderWithProviders = async (
 export type ExtendedRenderResult = Awaited<ReturnType<AsyncRenderFn>> & {
   store: AppStore
   user: UserEvent
+  screen: typeof screen
 }
 
 export type NewSuppliesSample = PartialObjectProperties<Supplies>
@@ -215,5 +217,13 @@ export type SetupWithNoUIResults = {
   store: AppStore
   initialState: RootState
 }
+
+export type LocalBaseTestContext<
+  SetupResults extends
+    | SetupWithNoUIResults
+    | ExtendedRenderResult = SetupWithNoUIResults,
+> = {
+  setupResults: Promise<SetupResults>
+} & SetupWithNoUIResults
 
 export const isNode24 = Number.parseFloat(process.versions.node) >= 24
