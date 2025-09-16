@@ -3,7 +3,8 @@ import vitestPlugin from "@vitest/eslint-plugin"
 import type { Linter } from "eslint"
 import prettierConfig from "eslint-config-prettier/flat"
 import reactHooks from "eslint-plugin-react-hooks"
-import { config, configs } from "typescript-eslint"
+import { defineConfig } from "eslint/config"
+import { configs } from "typescript-eslint"
 
 export const rulesToDisable = {
   "no-undef": [0, { typeof: false }],
@@ -20,20 +21,24 @@ export const rulesToDisable = {
   "vitest/valid-describe-callback": [2],
 } as const satisfies Linter.RulesRecord
 
-const eslintConfig = config(
+const eslintConfig = defineConfig(
   {
     name: "global-ignores",
     ignores: [
-      "**/dist/",
-      "**/.yalc/",
-      "**/build/",
-      "**/lib/",
-      "**/temp/",
+      "**/__snapshots__/",
+      "**/.docusaurus/",
+      "**/.expo/",
+      "**/.next/",
       "**/.temp/",
       "**/.tmp/",
+      "**/.yalc/",
       "**/.yarn/",
+      "**/*.snap",
+      "**/build/",
       "**/coverage/",
+      "**/dist/",
       "**/html/",
+      "**/temp/",
     ],
   },
   { name: `${js.meta.name}/recommended`, ...js.configs.recommended },

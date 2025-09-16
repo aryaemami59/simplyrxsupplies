@@ -1,4 +1,3 @@
-/* eslint-disable vitest/valid-title */
 import type { Options } from "tinybench"
 import { bench } from "vitest"
 import {
