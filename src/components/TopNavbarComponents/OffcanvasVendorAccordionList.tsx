@@ -4,15 +4,13 @@ import { useVendorIds } from "../../hooks/useVendorIds.js"
 import OffcanvasVendorAccordion from "./OffcanvasVendorAccordion.js"
 
 const OffcanvasVendorAccordionList = () => {
-  const vendorNames = useVendorIds()
+  const vendorIds = useVendorIds()
 
   return (
     <>
-      {vendorNames.map(vendorName => (
-        <VendorIdProvider key={vendorName} vendorId={vendorName}>
-          <OffcanvasVendorAccordion
-            key={`${vendorName.toString()}-OffcanvasVendorAccordionList`}
-          />
+      {vendorIds.map(vendorId => (
+        <VendorIdProvider key={vendorId} vendorId={vendorId}>
+          <OffcanvasVendorAccordion />
         </VendorIdProvider>
       ))}
     </>

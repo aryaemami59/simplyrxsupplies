@@ -32,7 +32,7 @@ const OffcanvasVendorAccordion = () => {
 
   const officialVendorName = useOfficialVendorName(vendorId)
 
-  const vendorItemNames = useVendorItemIds(vendorId)
+  const vendorItemIds = useVendorItemIds(vendorId)
 
   const toggle = useCallback(() => {
     setOpen(prev => !prev)
@@ -49,14 +49,12 @@ const OffcanvasVendorAccordion = () => {
         <Typography>{officialVendorName}</Typography>
       </AccordionSummary>
       <AccordionDetails className="justify-content-center d-flex flex-column align-items-cente">
-        {vendorItemNames.map(itemName => (
+        {vendorItemIds.map(vendorItemId => (
           <ItemIdProvider
-            key={`${itemName.toString()}-OffcanvasVendorAccordion`}
-            itemId={itemName}
+            itemId={vendorItemId}
+            key={`${vendorItemId.toString()}-OffcanvasVendorAccordion`}
           >
-            <SingleOffcanvasVendorItem
-              key={`${itemName.toString()}-OffcanvasVendorAccordion`}
-            />
+            <SingleOffcanvasVendorItem />
           </ItemIdProvider>
         ))}
       </AccordionDetails>

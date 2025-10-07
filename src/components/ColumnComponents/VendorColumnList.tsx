@@ -10,8 +10,11 @@ const VendorColumnList = () => {
     <div className="justify-content-center row">
       <div className="shadow col-11 col-xl-10 p-0 justify-content-center text-center">
         {vendorIds.map(vendorId => (
-          <VendorIdProvider key={vendorId} vendorId={vendorId}>
-            <VendorColumn key={`${vendorId.toString()}-VendorColumn`} />
+          <VendorIdProvider
+            key={`${vendorId.toString()}-VendorColumnList`}
+            vendorId={vendorId}
+          >
+            <VendorColumn />
           </VendorIdProvider>
         ))}
       </div>

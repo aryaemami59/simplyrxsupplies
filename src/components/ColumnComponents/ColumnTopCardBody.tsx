@@ -22,9 +22,7 @@ const ColumnTopCardBody = () => {
             key={`${addedItemsId.toString()}-${vendorId.toString()}`}
             itemId={addedItemsId}
           >
-            <RowSingleContainer
-              key={`${addedItemsId.toString()}-${vendorId.toString()}-SingleVendorColumnListItem`}
-            />
+            <RowSingleContainer />
           </ItemIdProvider>
         ))}
       </List>

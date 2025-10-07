@@ -6,33 +6,20 @@ import { useVendorIds } from "../../hooks/useVendorIds.js"
 import ExcludeVendorSingleCheckbox from "./ExcludeVendorSingleCheckbox.js"
 
 const ExcludeVendors = () => {
-  const vendorNames = useVendorIds()
+  const vendorIds = useVendorIds()
 
   return (
     <>
       <Button className="mt-3" variant="contained">
         Exclude Vendors
       </Button>
-      <ButtonGroup
-        size="small"
-        // orientation="vertical"
-        // fullWidth
-        // className="px-5"
-      >
-        {vendorNames.map(vendorName => (
-          <VendorIdProvider key={vendorName} vendorId={vendorName}>
+      <ButtonGroup size="small">
+        {vendorIds.map(vendorId => (
+          <VendorIdProvider
+            key={`${vendorId.toString()}-ExcludeVendors`}
+            vendorId={vendorId}
+          >
             <ExcludeVendorSingleCheckbox />
-            {/* <FormControlLabel
-              className="fs-7"
-              disableTypography
-              label={vendorName}
-              control={<ExcludeVendorSingleCheckbox vendorName={vendorName} />}
-            /> */}
-            {/* <Button
-              variant="contained"
-              key={`${vendorName}-VendorColumn`}>
-              {vendorName}
-            </Button> */}
           </VendorIdProvider>
         ))}
       </ButtonGroup>

@@ -14,6 +14,7 @@ type Props = {
 
 const SearchResultsAddButton = ({ visibleListId }: Props) => {
   const dispatch = useAppDispatch()
+
   const ifAddedToAllVendors = useAppSelector(state =>
     checkIfAddedToAllVendors(state, visibleListId),
   )
@@ -26,7 +27,6 @@ const SearchResultsAddButton = ({ visibleListId }: Props) => {
     <Button
       className="fw-bold w-auto p-auto shadow-sm rounded-pill text-none"
       disabled={ifAddedToAllVendors}
-      key={`Button-AddItemButtonComponent-${visibleListId.toString()}`}
       onClick={clickHandler}
       startIcon={startIcon}
       variant="contained"

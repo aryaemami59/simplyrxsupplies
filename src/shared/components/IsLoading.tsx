@@ -11,7 +11,7 @@ import { Spinner } from "react-bootstrap"
 //   </div>
 // );
 const IsLoading = () => (
-  <div key="div-isLoading-App" className="d-flex justify-content-center">
+  <div className="d-flex justify-content-center">
     <Spinner
       animation="border"
       className="my-5 loading-spinner"
