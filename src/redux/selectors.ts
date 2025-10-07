@@ -10,7 +10,7 @@ import {
 } from "./createSelectors.js"
 import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors.js"
 
-const ROOT_SELECTOR_PARAMS_PROVIDER: RootSelectorParamsProvider = {
+const ROOT_SELECTOR_PARAMS_PROVIDER = {
   getItemId: (_state, itemId) => itemId,
   getCartIdAndItemId: (_state, _cartId, itemId) => itemId,
   getItemIdAndCartId: (_state, _itemId, cartId) => cartId,

@@ -11,7 +11,7 @@ const getSavedValue = (
     return savedValue
   }
 
-  if (initialValue instanceof Function) {
+  if (typeof initialValue === "function") {
     return initialValue()
   }
 
@@ -21,7 +21,7 @@ const getSavedValue = (
 export const useLocalStorage = (
   key: string,
   initialValue: string | (() => string),
-): [state: string, setState: Dispatch<SetStateAction<string>>] => {
+): [value: string, setValue: Dispatch<SetStateAction<string>>] => {
   const [value, setValue] = useState(() => getSavedValue(key, initialValue))
 
   useEffect(() => {

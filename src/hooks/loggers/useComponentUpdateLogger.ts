@@ -9,12 +9,14 @@ import { useComponentDidUpdate } from "../useComponentDidUpdate.js"
 export const useComponentUpdateLogger = () => {
   const componentName =
     new Error().stack?.split("\n")[2]?.split(" ")[5] ?? "Component"
+
   const renderCount = useRef(0)
 
-  useDebugValue([componentName, renderCount.current], value => value)
+  useDebugValue([componentName, renderCount.current] as const, value => value)
 
   useComponentDidUpdate(() => {
     renderCount.current += 1
+
     console.log(
       `%c${componentName}%c Re-rendered %c${renderCount.current.toString()}%c ${
         renderCount.current === 1 ? "time" : "times"

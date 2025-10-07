@@ -1,12 +1,10 @@
-import { grey } from "@mui/material/colors"
+import { common, grey } from "@mui/material/colors"
 import { createTheme } from "@mui/material/styles"
-
 import {
   DARK_MODE_PAPER_BG,
   DARK_MODE_SELECTED_BG,
   LIGHT_MODE_SELECTED_BG,
   MAIN_COLOR,
-  PRIMARY_TEXT,
 } from "./styles.js"
 
 declare module "@mui/material/styles" {
@@ -91,7 +89,7 @@ export const darkTheme = createTheme({
       main: MAIN_COLOR,
     },
     text: {
-      primary: PRIMARY_TEXT,
+      primary: common.white,
       secondary: grey[500],
     },
   },

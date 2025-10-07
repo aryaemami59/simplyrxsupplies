@@ -9,6 +9,7 @@ const getCurrentTheme = () => {
     .matches
     ? darkTheme
     : lightTheme
+
   switch (valueFromStorage) {
     case null: {
       return preferredMode

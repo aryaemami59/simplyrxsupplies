@@ -18,8 +18,8 @@ type Props = {
 
 const slotProps = {
   transition: {
-    unmountOnExit: true,
     mountOnEnter: true,
+    unmountOnExit: true,
   },
 } as const satisfies AccordionProps["slotProps"]
 

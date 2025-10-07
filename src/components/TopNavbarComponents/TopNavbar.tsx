@@ -6,7 +6,7 @@ import { DarkModeTogglerButton } from "./DarkModeTogglerButton.js"
 import { OffcanvasComponent } from "./OffcanvasComponent.js"
 
 export const TopNavbar = memo(() => (
-  <AppBar color="primary" elevation={0} enableColorOnDark variant="outlined">
+  <AppBar elevation={0} enableColorOnDark variant="outlined">
     <div className="d-flex align-items-center">
       <span className="d-inline-block d-lg-none">
         <OffcanvasComponent />

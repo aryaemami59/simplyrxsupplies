@@ -4,7 +4,37 @@ export type UnknownObject = Record<string, unknown>
 
 export type EmptyTuple = []
 
+/**
+ * A utility type that augments the given {@linkcode Props}
+ * type with a **required**
+ * {@linkcode PropsWithRequiredChildren.children | children}
+ * property of type {@linkcode ReactNode}.
+ *
+ * @example
+ * <caption>Requires both `valueToCopy` and `children`.</caption>
+ *
+ * ```tsx
+ * import type { PropsWithRequiredChildren } from "../types/tsHelpers.js";
+ *
+ * type ClickToCopyTagProps = PropsWithRequiredChildren<{ valueToCopy: string }>;
+ *
+ * export const ClickToCopyTag = ({
+ *   children,
+ *   valueToCopy,
+ * }: ClickToCopyTagProps) => (
+ *   <ClickToCopyWrapper {valueToCopy}>
+ *     <ChakraTag>{children}</ChakraTag>
+ *   </ClickToCopyWrapper>
+ * );
+ * ```
+ *
+ * @template Props - The base props type to extend. **Defaults to `unknown`**.
+ */
 export type PropsWithRequiredChildren<Props = unknown> = Props & {
+  /**
+   * The **required** {@linkcode PropsWithRequiredChildren.children | children}
+   * to render inside the component.
+   */
   readonly children: ReactNode
 }
 

@@ -20,7 +20,7 @@ export const useDependencyChangeLogger = (
     ? "Array"
     : capitalize(typeof dependency)
 
-  useDebugValue([depName, dependency], value => value)
+  useDebugValue([depName, dependency] as const, value => value)
 
   useComponentDidUpdate(() => {
     console.log(

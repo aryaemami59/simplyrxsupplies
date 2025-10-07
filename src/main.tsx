@@ -50,13 +50,20 @@ if (import.meta.vitest) {
 
 void store.dispatch(apiSlice.endpoints.getMain.initiate())
 
-const container = document.getElementById("root") as HTMLDivElement
-const root = createRoot(container)
+const container = document.getElementById("root")
 
-root.render(
-  <StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </StrictMode>,
-)
+if (container) {
+  const root = createRoot(container)
+
+  root.render(
+    <StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </StrictMode>,
+  )
+} else {
+  throw new Error(
+    "Root element with ID 'root' was not found in the document. Ensure there is a corresponding HTML element with the ID 'root' in your HTML file.",
+  )
+}
