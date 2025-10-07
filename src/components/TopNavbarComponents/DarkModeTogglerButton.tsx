@@ -1,11 +1,11 @@
 import Brightness4Icon from "@mui/icons-material/Brightness4"
 import Brightness7Icon from "@mui/icons-material/Brightness7"
 import IconButton from "@mui/material/IconButton"
-import { memo, useMemo } from "react"
+import { useMemo } from "react"
 import { useColorMode } from "../../hooks/useColorMode.js"
 import { darkTheme } from "../../shared/themes.js"
 
-export const DarkModeTogglerButton = memo(() => {
+export const DarkModeTogglerButton = () => {
   const { theme, toggleColorMode } = useColorMode()
 
   const icon = useMemo(
@@ -18,4 +18,4 @@ export const DarkModeTogglerButton = memo(() => {
       {icon}
     </IconButton>
   )
-})
+}

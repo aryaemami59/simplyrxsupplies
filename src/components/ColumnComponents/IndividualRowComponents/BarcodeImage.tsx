@@ -1,4 +1,3 @@
-import { memo } from "react"
 import { useItemId } from "../../../hooks/useItemId.js"
 import { useItemName, useItemSrc } from "../../../redux/selectors.js"
 
@@ -9,7 +8,7 @@ type Props = {
   className?: string
 }
 
-export const BarcodeImage = memo(({ className = "" }: Props) => {
+export const BarcodeImage = ({ className = "" }: Props) => {
   const itemId = useItemId()
   const src = useItemSrc(itemId)
   const itemName = useItemName(itemId)
@@ -17,4 +16,4 @@ export const BarcodeImage = memo(({ className = "" }: Props) => {
   return (
     <img alt={itemName} className={`${className} barcode-image`} src={src} />
   )
-})
+}

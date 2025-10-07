@@ -1,6 +1,5 @@
 import Paper from "@mui/material/Paper"
 import "bootstrap/dist/css/bootstrap.min.css"
-import { memo } from "react"
 import "./App.css"
 import { VendorColumnList } from "./components/ColumnComponents/VendorColumnList.js"
 import { InputGroupComponent } from "./components/InputComponents/InputGroupComponent.js"
@@ -11,7 +10,7 @@ import { useGetMainQuery } from "./redux/apiSlice.js"
 import { ErrorComponent } from "./shared/components/ErrorComponent.js"
 import { IsLoading } from "./shared/components/IsLoading.js"
 
-export const App = memo(() => {
+export const App = () => {
   const { isError, isLoading } = useGetMainQuery(undefined)
 
   if (isLoading) {
@@ -52,4 +51,4 @@ export const App = memo(() => {
       </Paper>
     </ColorModeProvider>
   )
-})
+}

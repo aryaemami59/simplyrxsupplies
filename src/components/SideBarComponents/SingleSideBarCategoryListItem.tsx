@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import type { MouseEventHandler } from "react"
-import { memo, useCallback } from "react"
+import { useCallback } from "react"
 import { itemAddedToCarts } from "../../redux/addedSlice.js"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks.js"
 import {
@@ -17,7 +17,7 @@ type Props = {
   readonly itemId: number
 }
 
-export const SingleSideBarCategoryListItem = memo(({ itemId }: Props) => {
+export const SingleSideBarCategoryListItem = ({ itemId }: Props) => {
   const dispatch = useAppDispatch()
 
   const ifAddedToAllVendors = useAppSelector(state =>
@@ -61,4 +61,4 @@ export const SingleSideBarCategoryListItem = memo(({ itemId }: Props) => {
       </ButtonGroup>
     </>
   )
-})
+}

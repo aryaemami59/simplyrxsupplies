@@ -3,11 +3,12 @@ import type { MenuProps } from "@mui/material/Menu"
 import Menu from "@mui/material/Menu"
 import type { PopoverOrigin } from "@mui/material/Popover"
 import type { MouseEventHandler } from "react"
-import { memo, useCallback, useState } from "react"
+import { useCallback, useState } from "react"
 import {
   useOfficialVendorName,
   useVendorItemIds,
 } from "../../redux/selectors.js"
+import type { ItemIdAndVendorId } from "../../types/reduxHelperTypes.js"
 import { SingleDropDown } from "./SingleDropDown.js"
 
 const transformOrigin = {
@@ -35,11 +36,9 @@ const slotProps = {
   },
 } as const satisfies MenuProps["slotProps"]
 
-type Props = {
-  readonly vendorId: number
-}
+type Props = Pick<ItemIdAndVendorId, "vendorId">
 
-export const VendorDropDown = memo(({ vendorId }: Props) => {
+export const VendorDropDown = ({ vendorId }: Props) => {
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
 
   const open = !!anchorElement
@@ -93,4 +92,4 @@ export const VendorDropDown = memo(({ vendorId }: Props) => {
       </Menu>
     </>
   )
-})
+}

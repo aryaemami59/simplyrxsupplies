@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Button from "@mui/material/Button"
 import Tooltip from "@mui/material/Tooltip"
 import type { MouseEventHandler } from "react"
-import { memo, useCallback, useState } from "react"
+import { useCallback, useState } from "react"
 
 const startIcon = <FontAwesomeIcon icon={faCopy} />
 
@@ -12,7 +12,7 @@ type Props = {
   readonly text: string
 }
 
-export const CopyIcon = memo(({ content, text }: Props) => {
+export const CopyIcon = ({ content, text }: Props) => {
   const copiedText = `Copied Item ${text}!`
 
   const [show, setShow] = useState(false)
@@ -39,4 +39,4 @@ export const CopyIcon = memo(({ content, text }: Props) => {
       </Button>
     </Tooltip>
   )
-})
+}

@@ -1,5 +1,5 @@
 import { ThemeProvider } from "@mui/material/styles"
-import { createContext, memo, useMemo } from "react"
+import { createContext, useMemo } from "react"
 import { useLocalStorageTheme } from "../hooks/useLocalStorageTheme.js"
 import { darkTheme, lightTheme } from "../shared/themes.js"
 import type { PropsWithRequiredChildren } from "../types/tsHelpers.js"
@@ -13,7 +13,7 @@ export const ColorModeContext = createContext({
   theme: lightTheme,
 })
 
-export const ColorModeProvider = memo(({ children }: Props) => {
+export const ColorModeProvider = ({ children }: Props) => {
   const [theme, setTheme] = useLocalStorageTheme()
 
   const colorMode = useMemo(
@@ -37,4 +37,4 @@ export const ColorModeProvider = memo(({ children }: Props) => {
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ColorModeContext.Provider>
   )
-})
+}

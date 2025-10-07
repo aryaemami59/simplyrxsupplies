@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 import type { MouseEventHandler } from "react"
-import { memo, useCallback, useState } from "react"
+import { useCallback, useState } from "react"
 import { useItemId } from "../../../hooks/useItemId.js"
 import { useVendorId } from "../../../hooks/useVendorId.js"
 import { singleItemRemovedFromCart } from "../../../redux/addedSlice.js"
@@ -13,7 +13,7 @@ const startIcon = <FontAwesomeIcon icon={faDeleteLeft} />
 
 const title = "Delete This Item"
 
-export const RowDeleteButton = memo(() => {
+export const RowDeleteButton = () => {
   const [open, setOpen] = useState(false)
   const itemId = useItemId()
   const vendorId = useVendorId()
@@ -50,4 +50,4 @@ export const RowDeleteButton = memo(() => {
       </IconButton>
     </Tooltip>
   )
-})
+}

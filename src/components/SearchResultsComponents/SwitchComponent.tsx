@@ -1,7 +1,7 @@
 import FormControlLabel from "@mui/material/FormControlLabel"
 import type { SwitchProps } from "@mui/material/Switch"
 import Switch from "@mui/material/Switch"
-import { memo, useCallback } from "react"
+import { useCallback } from "react"
 import { toggledVendorForOneSearchResultItem } from "../../redux/addedSlice.js"
 import { useAppDispatch } from "../../redux/hooks.js"
 import {
@@ -9,6 +9,7 @@ import {
   useIsVendorChecked,
   useOfficialVendorName,
 } from "../../redux/selectors.js"
+import type { ItemIdAndVendorId } from "../../types/reduxHelperTypes.js"
 
 const slotProps = {
   input: {
@@ -18,12 +19,11 @@ const slotProps = {
 
 const control = <Switch size="small" slotProps={slotProps} />
 
-type Props = {
-  readonly vendorId: number
+type Props = Pick<ItemIdAndVendorId, "vendorId"> & {
   readonly visibleListId: number
 }
 
-export const SwitchComponent = memo(({ vendorId, visibleListId }: Props) => {
+export const SwitchComponent = ({ vendorId, visibleListId }: Props) => {
   const officialVendorName = useOfficialVendorName(vendorId)
 
   const dispatch = useAppDispatch()
@@ -49,4 +49,4 @@ export const SwitchComponent = memo(({ vendorId, visibleListId }: Props) => {
       onChange={clickHandler}
     />
   )
-})
+}

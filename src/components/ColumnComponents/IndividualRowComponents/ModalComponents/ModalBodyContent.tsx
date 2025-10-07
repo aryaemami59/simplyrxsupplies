@@ -1,12 +1,11 @@
 import List from "@mui/material/List"
 import ListItemText from "@mui/material/ListItemText"
-import { memo } from "react"
 import { VendorLink } from "../../VendorLink.js"
 import { RowBarcodeImage } from "../RowBarcodeImage.js"
 import { RowItemName } from "../RowItemName.js"
 import { RowItemNumber } from "../RowItemNumber.js"
 
-export const ModalBodyContent = memo(() => (
+export const ModalBodyContent = () => (
   <div className="justify-content-center text-center fs-4 row">
     <div className="justify-content-center col-10">
       <div className="container">
@@ -21,4 +20,4 @@ export const ModalBodyContent = memo(() => (
       </div>
     </div>
   </div>
-))
+)

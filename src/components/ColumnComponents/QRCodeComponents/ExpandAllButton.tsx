@@ -2,7 +2,7 @@ import { faMaximize } from "@fortawesome/free-solid-svg-icons/faMaximize"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
-import { memo, useCallback, useState } from "react"
+import { useCallback, useState } from "react"
 import { useVendorId } from "../../../hooks/useVendorId.js"
 import { maximizedAllItemsInCart } from "../../../redux/addedSlice.js"
 import { useAppDispatch } from "../../../redux/hooks.js"
@@ -11,7 +11,7 @@ const title = "Expand All Items"
 
 const startIcon = <FontAwesomeIcon icon={faMaximize} />
 
-export const ExpandAllButton = memo(() => {
+export const ExpandAllButton = () => {
   const vendorId = useVendorId()
   const dispatch = useAppDispatch()
 
@@ -31,12 +31,12 @@ export const ExpandAllButton = memo(() => {
 
   return (
     <Tooltip
-      role="tooltip"
       enterDelay={500}
       enterNextDelay={500}
       onClose={hideTooltip}
       onOpen={showTooltip}
       open={open}
+      role="tooltip"
       title={title}
     >
       <IconButton
@@ -48,4 +48,4 @@ export const ExpandAllButton = memo(() => {
       </IconButton>
     </Tooltip>
   )
-})
+}

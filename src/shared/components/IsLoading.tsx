@@ -1,4 +1,3 @@
-import { memo } from "react"
 import { Spinner } from "react-bootstrap"
 
 // export const IsLoading = () => (
@@ -10,7 +9,7 @@ import { Spinner } from "react-bootstrap"
 //     />
 //   </div>
 // );
-export const IsLoading = memo(() => (
+export const IsLoading = () => (
   <div className="d-flex justify-content-center">
     <Spinner
       animation="border"
@@ -21,4 +20,4 @@ export const IsLoading = memo(() => (
       <span className="visually-hidden">Loading...</span>
     </Spinner>
   </div>
-))
+)

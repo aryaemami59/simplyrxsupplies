@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 import type { MouseEventHandler } from "react"
-import { memo, useCallback, useMemo, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 
 const EXPAND = "Expand"
 const COLLAPSE = "Collapse"
@@ -14,7 +14,7 @@ type Props = {
   readonly toggle: MouseEventHandler<HTMLButtonElement>
 }
 
-export const CollapseButton = memo(({ isTooltipOpen, toggle }: Props) => {
+export const CollapseButton = ({ isTooltipOpen, toggle }: Props) => {
   const [show, setShow] = useState(false)
   const startIcon = useMemo(
     () => <FontAwesomeIcon icon={isTooltipOpen ? faMaximize : faMinimize} />,
@@ -50,4 +50,4 @@ export const CollapseButton = memo(({ isTooltipOpen, toggle }: Props) => {
       </IconButton>
     </Tooltip>
   )
-})
+}

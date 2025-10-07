@@ -2,7 +2,6 @@ import Dialog from "@mui/material/Dialog"
 import DialogActions from "@mui/material/DialogActions"
 import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
-import { memo } from "react"
 import { Button } from "react-bootstrap"
 import { useItemId } from "../../../../hooks/useItemId.js"
 import { useItemName } from "../../../../redux/selectors.js"
@@ -13,7 +12,7 @@ type Props = {
   readonly isModalOpen: boolean
 }
 
-export const RowBarcodeDialog = memo(({ hideModal, isModalOpen }: Props) => {
+export const RowBarcodeDialog = ({ hideModal, isModalOpen }: Props) => {
   const itemId = useItemId()
   const itemName = useItemName(itemId)
 
@@ -36,4 +35,4 @@ export const RowBarcodeDialog = memo(({ hideModal, isModalOpen }: Props) => {
       </DialogActions>
     </Dialog>
   )
-})
+}

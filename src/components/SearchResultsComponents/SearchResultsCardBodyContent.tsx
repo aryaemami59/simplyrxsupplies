@@ -1,4 +1,3 @@
-import { memo } from "react"
 import { useVendorIdsByItemId } from "../../redux/selectors.js"
 import { isEmptyArray } from "../../utils/predicates/isEmptyArray.js"
 import { SearchResultsAddButton } from "./SearchResultsAddButton.js"
@@ -9,7 +8,7 @@ type Props = {
   readonly visibleListId: number
 }
 
-export const SearchResultsCardBodyContent = memo(({ visibleListId }: Props) => {
+export const SearchResultsCardBodyContent = ({ visibleListId }: Props) => {
   const vendorIds = useVendorIdsByItemId(visibleListId)
 
   return (
@@ -42,6 +41,6 @@ export const SearchResultsCardBodyContent = memo(({ visibleListId }: Props) => {
       </div>
     </>
   )
-})
+}
 
 SearchResultsCardBodyContent.displayName = "SearchResultsCardBodyContent"

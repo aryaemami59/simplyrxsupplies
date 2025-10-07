@@ -1,12 +1,12 @@
 import Button from "@mui/material/Button"
 import Collapse from "@mui/material/Collapse"
-import { memo, useCallback, useState } from "react"
+import { useCallback, useState } from "react"
 import { useVendorId } from "../../hooks/useVendorId.js"
 import { useOfficialVendorName } from "../../redux/selectors.js"
 import { RowCounterBadge } from "./IndividualRowComponents/RowCounterBadge.js"
 import { VendorColumnCard } from "./VendorColumnCard.js"
 
-export const VendorColumn = memo(() => {
+export const VendorColumn = () => {
   const vendorId = useVendorId()
 
   const [open, setOpen] = useState(false)
@@ -38,4 +38,4 @@ export const VendorColumn = memo(() => {
       </Collapse>
     </>
   )
-})
+}

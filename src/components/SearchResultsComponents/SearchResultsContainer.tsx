@@ -1,5 +1,5 @@
 import List from "@mui/material/List"
-import { memo, useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import InfiniteScroll from "react-infinite-scroll-component"
 import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors.js"
 import { useAppSelector } from "../../redux/hooks.js"
@@ -8,7 +8,7 @@ import { SearchResultsSingleCard } from "./SearchResultsSingleCard.js"
 
 const loader = <IsLoading />
 
-export const SearchResultsContainer = memo(() => {
+export const SearchResultsContainer = () => {
   const searchResultsIds = useAppSelector(
     ADAPTER_SELECTORS.GLOBAL.searchResults.selectIds,
   )
@@ -62,4 +62,4 @@ export const SearchResultsContainer = memo(() => {
       </InfiniteScroll>
     </List>
   )
-})
+}

@@ -1,6 +1,7 @@
 import * as QRCode from "qrcode"
-import { createContext, memo, useEffect, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import { useQRCodeText } from "../redux/selectors.js"
+import type { ItemIdAndVendorId } from "../types/reduxHelperTypes.js"
 import type { PropsWithRequiredChildren } from "../types/tsHelpers.js"
 
 const createQRCode = async (data: string) => {
@@ -12,13 +13,11 @@ const createQRCode = async (data: string) => {
   }
 }
 
-type Props = PropsWithRequiredChildren<{
-  readonly vendorId: number
-}>
+type Props = PropsWithRequiredChildren<Pick<ItemIdAndVendorId, "vendorId">>
 
 export const QRCodeDataContext = createContext<string | undefined>(undefined)
 
-export const QRCodeDataProvider = memo(({ children, vendorId }: Props) => {
+export const QRCodeDataProvider = ({ children, vendorId }: Props) => {
   const qrCodeText = useQRCodeText(vendorId)
 
   const [src, setSrc] = useState<string | undefined>(undefined)
@@ -37,4 +36,4 @@ export const QRCodeDataProvider = memo(({ children, vendorId }: Props) => {
       {children}
     </QRCodeDataContext.Provider>
   )
-})
+}

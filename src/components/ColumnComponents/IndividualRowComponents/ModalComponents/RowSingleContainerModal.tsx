@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 import type { MouseEventHandler } from "react"
-import { memo, useCallback, useState } from "react"
+import { useCallback, useState } from "react"
 import { RowItemsDialog } from "./RowItemsDialog.js"
 
 const title = "Take a Closer Look at The Item Info"
 
 const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />
 
-export const RowSingleContainerModal = memo(() => {
+export const RowSingleContainerModal = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -52,4 +52,4 @@ export const RowSingleContainerModal = memo(() => {
       <RowItemsDialog hideModal={hideModal} isModalOpen={modalOpen} />
     </>
   )
-})
+}

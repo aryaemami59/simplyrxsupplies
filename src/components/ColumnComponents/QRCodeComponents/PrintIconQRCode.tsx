@@ -4,7 +4,7 @@ import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 import printjs from "print-js"
 import type { MouseEventHandler } from "react"
-import { memo, useCallback, useState } from "react"
+import { useCallback, useState } from "react"
 import { useQRCodeData } from "../../../hooks/useQRCodeData.js"
 
 const header =
@@ -12,9 +12,9 @@ const header =
 
 const startIcon = <FontAwesomeIcon icon={faPrint} />
 
-const title = "Print QRCode"
+const title = "Print QR Code"
 
-export const PrintIconQRCode = memo(() => {
+export const PrintIconQRCode = () => {
   const [open, setOpen] = useState(false)
   const qrCodeData = useQRCodeData()
 
@@ -54,4 +54,4 @@ export const PrintIconQRCode = memo(() => {
       </IconButton>
     </Tooltip>
   )
-})
+}

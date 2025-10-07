@@ -3,7 +3,6 @@ import Dialog from "@mui/material/Dialog"
 import DialogActions from "@mui/material/DialogActions"
 import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
-import { memo } from "react"
 import { useVendorId } from "../../../hooks/useVendorId.js"
 import { useOfficialVendorName } from "../../../redux/selectors.js"
 import { QRCodeImage } from "./QRCodeImage.js"
@@ -13,7 +12,7 @@ type Props = {
   readonly isModalOpen: boolean
 }
 
-export const QRCodeDialog = memo(({ hideModal, isModalOpen }: Props) => {
+export const QRCodeDialog = ({ hideModal, isModalOpen }: Props) => {
   const vendorId = useVendorId()
 
   const officialVendorName = useOfficialVendorName(vendorId)
@@ -26,7 +25,7 @@ export const QRCodeDialog = memo(({ hideModal, isModalOpen }: Props) => {
       onClose={hideModal}
       open={isModalOpen}
     >
-      <DialogTitle>QRCode for Items Added to {officialVendorName}</DialogTitle>
+      <DialogTitle>QR Code for items added to {officialVendorName}</DialogTitle>
       <DialogContent className="justify-content-center d-flex" dividers>
         <QRCodeImage className="w-75" />
       </DialogContent>
@@ -37,4 +36,4 @@ export const QRCodeDialog = memo(({ hideModal, isModalOpen }: Props) => {
       </DialogActions>
     </Dialog>
   )
-})
+}

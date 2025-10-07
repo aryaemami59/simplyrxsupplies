@@ -1,10 +1,9 @@
 import List from "@mui/material/List"
-import { memo } from "react"
 import { RowBarcodeImage } from "./RowBarcodeImage.js"
 import { RowItemName } from "./RowItemName.js"
 import { RowItemNumber } from "./RowItemNumber.js"
 
-export const RowSingleItemInfo = memo(() => (
+export const RowSingleItemInfo = () => (
   <div className="container">
     <List>
       <RowItemName />
@@ -12,4 +11,4 @@ export const RowSingleItemInfo = memo(() => (
       <RowBarcodeImage />
     </List>
   </div>
-))
+)

@@ -1,6 +1,6 @@
 import Checkbox from "@mui/material/Checkbox"
 import FormControlLabel from "@mui/material/FormControlLabel"
-import { memo, useCallback, useMemo, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { useVendorId } from "../../hooks/useVendorId.js"
 import {
   checkedOneVendorForAllSearchResults,
@@ -9,7 +9,7 @@ import {
 import { useAppDispatch } from "../../redux/hooks.js"
 import { useOfficialVendorName } from "../../redux/selectors.js"
 
-export const ExcludeVendorSingleCheckbox = memo(() => {
+export const ExcludeVendorSingleCheckbox = () => {
   const dispatch = useAppDispatch()
 
   const vendorId = useVendorId()
@@ -24,6 +24,7 @@ export const ExcludeVendorSingleCheckbox = memo(() => {
     } else {
       dispatch(checkedOneVendorForAllSearchResults({ vendorId }))
     }
+
     setChecked(prev => !prev)
   }, [checked, dispatch, vendorId])
 
@@ -41,4 +42,4 @@ export const ExcludeVendorSingleCheckbox = memo(() => {
       labelPlacement="top"
     />
   )
-})
+}

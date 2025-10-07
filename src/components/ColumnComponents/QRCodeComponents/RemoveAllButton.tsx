@@ -2,7 +2,7 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons/faTrashCan"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
-import { memo, useCallback, useState } from "react"
+import { useCallback, useState } from "react"
 import { useVendorId } from "../../../hooks/useVendorId.js"
 import { allItemsRemovedFromCart } from "../../../redux/addedSlice.js"
 import { useAppDispatch } from "../../../redux/hooks.js"
@@ -11,7 +11,7 @@ const startIcon = <FontAwesomeIcon icon={faTrashCan} />
 
 const title = "Remove All Items"
 
-export const RemoveAllButton = memo(() => {
+export const RemoveAllButton = () => {
   const [open, setOpen] = useState(false)
   const vendorId = useVendorId()
   const dispatch = useAppDispatch()
@@ -30,12 +30,12 @@ export const RemoveAllButton = memo(() => {
 
   return (
     <Tooltip
-      role="tooltip"
       enterDelay={500}
       enterNextDelay={500}
       onClose={hideTooltip}
       onOpen={showTooltip}
       open={open}
+      role="tooltip"
       title={title}
     >
       <IconButton
@@ -47,4 +47,4 @@ export const RemoveAllButton = memo(() => {
       </IconButton>
     </Tooltip>
   )
-})
+}

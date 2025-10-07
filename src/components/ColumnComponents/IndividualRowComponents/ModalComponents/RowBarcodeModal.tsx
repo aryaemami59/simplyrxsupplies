@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 import type { MouseEventHandler } from "react"
-import { memo, useCallback, useState } from "react"
+import { useCallback, useState } from "react"
 import { RowBarcodeDialog } from "./RowBarcodeDialog.js"
 
 const title = "Take a Closer Look at The Barcode"
 
 const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />
 
-export const RowBarcodeModal = memo(() => {
+export const RowBarcodeModal = () => {
   const [show, setShow] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -52,4 +52,4 @@ export const RowBarcodeModal = memo(() => {
       <RowBarcodeDialog hideModal={hideModal} isModalOpen={show} />
     </>
   )
-})
+}

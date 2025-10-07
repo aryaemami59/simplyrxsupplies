@@ -1,7 +1,7 @@
 import AddIcon from "@mui/icons-material/Add"
 import Button from "@mui/material/Button"
 import type { MouseEventHandler } from "react"
-import { memo, useCallback } from "react"
+import { useCallback } from "react"
 import { itemAddedToCarts } from "../../redux/addedSlice.js"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks.js"
 import { checkIfAddedToAllVendors } from "../../redux/selectors.js"
@@ -12,7 +12,7 @@ type Props = {
   readonly visibleListId: number
 }
 
-export const SearchResultsAddButton = memo(({ visibleListId }: Props) => {
+export const SearchResultsAddButton = ({ visibleListId }: Props) => {
   const dispatch = useAppDispatch()
 
   const ifAddedToAllVendors = useAppSelector(state =>
@@ -34,4 +34,4 @@ export const SearchResultsAddButton = memo(({ visibleListId }: Props) => {
       Add
     </Button>
   )
-})
+}

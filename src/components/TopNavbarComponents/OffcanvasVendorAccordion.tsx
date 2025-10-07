@@ -5,7 +5,7 @@ import AccordionDetails from "@mui/material/AccordionDetails"
 import type { AccordionSummaryProps } from "@mui/material/AccordionSummary"
 import AccordionSummary from "@mui/material/AccordionSummary"
 import Typography from "@mui/material/Typography"
-import { memo, useCallback, useState } from "react"
+import { useCallback, useState } from "react"
 import { ItemIdProvider } from "../../contexts/ItemIdProvider.js"
 import { useVendorId } from "../../hooks/useVendorId.js"
 import {
@@ -25,7 +25,7 @@ const slotProps = {
   },
 } as const satisfies AccordionSlotsAndSlotProps["slotProps"]
 
-export const OffcanvasVendorAccordion = memo(() => {
+export const OffcanvasVendorAccordion = () => {
   const vendorId = useVendorId()
 
   const [open, setOpen] = useState(false)
@@ -48,7 +48,7 @@ export const OffcanvasVendorAccordion = memo(() => {
       <AccordionSummary className="shadow-sm" expandIcon={expandIcon}>
         <Typography>{officialVendorName}</Typography>
       </AccordionSummary>
-      <AccordionDetails className="justify-content-center d-flex flex-column align-items-cente">
+      <AccordionDetails className="justify-content-center d-flex flex-column">
         {vendorItemIds.map(vendorItemId => (
           <ItemIdProvider
             itemId={vendorItemId}
@@ -60,4 +60,4 @@ export const OffcanvasVendorAccordion = memo(() => {
       </AccordionDetails>
     </Accordion>
   )
-})
+}

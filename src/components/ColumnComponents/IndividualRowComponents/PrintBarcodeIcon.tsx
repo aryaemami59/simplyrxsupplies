@@ -4,7 +4,7 @@ import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 import printJS from "print-js"
 import type { MouseEventHandler } from "react"
-import { memo, useCallback, useState } from "react"
+import { useCallback, useState } from "react"
 import { useItemId } from "../../../hooks/useItemId.js"
 import { useItemSrc } from "../../../redux/selectors.js"
 
@@ -16,7 +16,7 @@ const startIcon = <FontAwesomeIcon icon={faPrint} />
 
 const title = "Print Barcode"
 
-export const PrintBarcodeIcon = memo(({ header }: Props) => {
+export const PrintBarcodeIcon = ({ header }: Props) => {
   const [open, setOpen] = useState(false)
   const itemId = useItemId()
   const src = useItemSrc(itemId)
@@ -57,4 +57,4 @@ export const PrintBarcodeIcon = memo(({ header }: Props) => {
       </IconButton>
     </Tooltip>
   )
-})
+}

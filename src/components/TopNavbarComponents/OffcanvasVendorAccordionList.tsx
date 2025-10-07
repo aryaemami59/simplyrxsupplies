@@ -1,9 +1,8 @@
-import { memo } from "react"
 import { VendorIdProvider } from "../../contexts/VendorIdProvider.js"
 import { useVendorIds } from "../../hooks/useVendorIds.js"
 import { OffcanvasVendorAccordion } from "./OffcanvasVendorAccordion.js"
 
-export const OffcanvasVendorAccordionList = memo(() => {
+export const OffcanvasVendorAccordionList = () => {
   const vendorIds = useVendorIds()
 
   return (
@@ -15,4 +14,4 @@ export const OffcanvasVendorAccordionList = memo(() => {
       ))}
     </>
   )
-})
+}

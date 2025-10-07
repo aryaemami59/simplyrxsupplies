@@ -62,7 +62,13 @@ export type SuppliesState = {
 }
 
 export type ItemIdAndVendorId = {
+  /**
+   * References {@linkcode Item.id | itemId}.
+   */
   readonly itemId: number
+  /**
+   * References {@linkcode Vendor.id | vendorId}.
+   */
   readonly vendorId: number
 }
 

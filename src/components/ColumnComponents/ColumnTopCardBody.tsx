@@ -1,6 +1,5 @@
 import CardContent from "@mui/material/CardContent"
 import List from "@mui/material/List"
-import { memo } from "react"
 import { ItemIdProvider } from "../../contexts/ItemIdProvider.js"
 import { useVendorId } from "../../hooks/useVendorId.js"
 import { useCartItemsIds } from "../../redux/selectors.js"
@@ -8,7 +7,7 @@ import { RowSingleContainer } from "./IndividualRowComponents/RowSingleContainer
 import { QRCodeImageContainer } from "./QRCodeComponents/QRCodeImageContainer.js"
 import { VendorLink } from "./VendorLink.js"
 
-export const ColumnTopCardBody = memo(() => {
+export const ColumnTopCardBody = () => {
   const vendorId = useVendorId()
   const addedItemsIds = useCartItemsIds(vendorId)
 
@@ -28,4 +27,4 @@ export const ColumnTopCardBody = memo(() => {
       </List>
     </CardContent>
   )
-})
+}

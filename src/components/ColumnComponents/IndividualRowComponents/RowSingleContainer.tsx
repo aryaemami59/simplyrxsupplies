@@ -2,7 +2,7 @@ import Button from "@mui/material/Button"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Collapse from "@mui/material/Collapse"
 import Fade from "@mui/material/Fade"
-import { memo, useCallback } from "react"
+import { useCallback } from "react"
 import { useItemId } from "../../../hooks/useItemId.js"
 import { useVendorId } from "../../../hooks/useVendorId.js"
 import { toggledMinimizeOneItemInCart } from "../../../redux/addedSlice.js"
@@ -13,7 +13,7 @@ import { RowSingleContainerModal } from "./ModalComponents/RowSingleContainerMod
 import { RowDeleteButton } from "./RowDeleteButton.js"
 import { RowSingleItemInfo } from "./RowSingleItemInfo.js"
 
-export const RowSingleContainer = memo(() => {
+export const RowSingleContainer = () => {
   const itemId = useItemId()
   const vendorId = useVendorId()
   const dispatch = useAppDispatch()
@@ -59,4 +59,4 @@ export const RowSingleContainer = memo(() => {
       </Collapse>
     </div>
   )
-})
+}

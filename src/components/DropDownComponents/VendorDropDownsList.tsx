@@ -1,8 +1,7 @@
-import { memo } from "react"
 import { useVendorIds } from "../../hooks/useVendorIds.js"
 import { VendorDropDown } from "./VendorDropDown.js"
 
-export const VendorDropDownsList = memo(() => {
+export const VendorDropDownsList = () => {
   const vendorIds = useVendorIds()
 
   return (
@@ -15,4 +14,4 @@ export const VendorDropDownsList = memo(() => {
       ))}
     </>
   )
-})
+}

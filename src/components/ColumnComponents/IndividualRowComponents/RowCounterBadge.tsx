@@ -1,9 +1,8 @@
 import Badge from "@mui/material/Badge"
-import { memo } from "react"
 import { useVendorId } from "../../../hooks/useVendorId.js"
 import { useCartItemsLength } from "../../../redux/selectors.js"
 
-export const RowCounterBadge = memo(() => {
+export const RowCounterBadge = () => {
   const vendorId = useVendorId()
   const addedItemsLength = useCartItemsLength(vendorId)
 
@@ -12,4 +11,4 @@ export const RowCounterBadge = memo(() => {
       <Badge badgeContent={addedItemsLength} color="error" />
     </span>
   )
-})
+}

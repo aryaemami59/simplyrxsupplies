@@ -1,14 +1,7 @@
 import type { TextFieldProps } from "@mui/material/TextField"
 import TextField from "@mui/material/TextField"
 import type { CSSProperties, ChangeEventHandler } from "react"
-import {
-  memo,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-  useTransition,
-} from "react"
+import { useCallback, useMemo, useRef, useState, useTransition } from "react"
 import {
   searchResultsCleared,
   searchResultsUpdated,
@@ -27,7 +20,7 @@ const style = {
   borderRadius: "30px",
 } as const satisfies CSSProperties
 
-export const InputFieldComponent = memo(() => {
+export const InputFieldComponent = () => {
   const [inputValue, setInputValue] = useState("")
   const [, startTransition] = useTransition()
   const itemNamesAndKeywords = useAppSelector(selectItemNamesAndKeywords)
@@ -94,7 +87,6 @@ export const InputFieldComponent = memo(() => {
       onChange={changeValue}
       slotProps={slotProps}
       value={inputValue}
-      variant="outlined"
     />
   )
-})
+}

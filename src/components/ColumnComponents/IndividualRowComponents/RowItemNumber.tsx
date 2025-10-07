@@ -1,7 +1,6 @@
 import ListItem from "@mui/material/ListItem"
 import type { ListItemTextProps } from "@mui/material/ListItemText"
 import ListItemText from "@mui/material/ListItemText"
-import { memo } from "react"
 import { useItemId } from "../../../hooks/useItemId.js"
 import { useItemNumber } from "../../../redux/selectors.js"
 import { CopyIcon } from "./CopyIcon.js"
@@ -12,7 +11,7 @@ const slotProps = {
   },
 } as const satisfies ListItemTextProps["slotProps"]
 
-export const RowItemNumber = memo(() => {
+export const RowItemNumber = () => {
   const itemId = useItemId()
   const itemNumber = useItemNumber(itemId)
 
@@ -24,4 +23,4 @@ export const RowItemNumber = memo(() => {
       <CopyIcon content={itemNumber} text="Number" />
     </ListItem>
   )
-})
+}
