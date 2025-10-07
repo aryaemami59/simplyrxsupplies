@@ -1,6 +1,5 @@
 import Paper from "@mui/material/Paper"
 import "bootstrap/dist/css/bootstrap.min.css"
-import type { FC } from "react"
 import { memo } from "react"
 import "./App.css"
 import VendorColumnList from "./components/ColumnComponents/VendorColumnList.js"
@@ -12,7 +11,7 @@ import { useGetMainQuery } from "./redux/apiSlice.js"
 import ErrorComponent from "./shared/components/ErrorComponent.js"
 import IsLoading from "./shared/components/IsLoading.js"
 
-const App: FC = () => {
+const App = () => {
   const { isError, isLoading } = useGetMainQuery(undefined)
 
   if (isLoading) {

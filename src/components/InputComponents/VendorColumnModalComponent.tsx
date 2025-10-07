@@ -4,7 +4,7 @@ import Dialog from "@mui/material/Dialog"
 import DialogActions from "@mui/material/DialogActions"
 import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
-import type { FC, MouseEventHandler } from "react"
+import type { MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
 import VendorColumnList from "../ColumnComponents/VendorColumnList.js"
 import DisplayCartButton from "./DisplayCartButton.js"
@@ -15,7 +15,7 @@ const slotProps = {
   },
 } as const satisfies DialogProps["slotProps"]
 
-const VendorColumnModalComponent: FC = () => {
+const VendorColumnModalComponent = () => {
   const [show, setShow] = useState(false)
 
   const showModal: MouseEventHandler<HTMLButtonElement> = useCallback(() => {

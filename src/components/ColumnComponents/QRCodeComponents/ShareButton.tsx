@@ -2,7 +2,6 @@ import { faShareNodes } from "@fortawesome/free-solid-svg-icons/faShareNodes"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IosShareIcon from "@mui/icons-material/IosShare"
 import IconButton from "@mui/material/IconButton"
-import type { FC } from "react"
 import { memo, useCallback, useMemo } from "react"
 import { shareOnMobile } from "react-mobile-share"
 import { useQRCodeData } from "../../../hooks/useQRCodeData.js"
@@ -15,7 +14,7 @@ const startIcon = /ipad|iphone|ipod/iu.test(navigator.userAgent) ? (
   <FontAwesomeIcon icon={faShareNodes} />
 )
 
-const ShareButton: FC = () => {
+const ShareButton = () => {
   const vendorId = useVendorId()
   const itemNamesStringified = useCartItemNamesStringified(vendorId)
   // const text = itemNames.join(", ");

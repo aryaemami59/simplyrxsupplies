@@ -1,5 +1,4 @@
 import List from "@mui/material/List"
-import type { FC } from "react"
 import { memo, useCallback, useEffect, useMemo, useState } from "react"
 import InfiniteScroll from "react-infinite-scroll-component"
 import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors.js"
@@ -9,19 +8,22 @@ import SearchResultsSingleCard from "./SearchResultsSingleCard.js"
 
 const loader = <IsLoading />
 
-const SearchResultsContainer: FC = () => {
+const SearchResultsContainer = () => {
   const searchResultsIds = useAppSelector(
     ADAPTER_SELECTORS.GLOBAL.searchResults.selectIds,
   )
+
   const memoizedSearchResultsIds = useMemo(
     () => searchResultsIds.slice(0, 10),
     [searchResultsIds],
   )
+
   const [hasMore, setHasMore] = useState(false)
   const [visibleListIds, setVisibleListIds] = useState(memoizedSearchResultsIds)
 
   useEffect(() => {
     setVisibleListIds(memoizedSearchResultsIds)
+
     if (memoizedSearchResultsIds.length === searchResultsIds.length) {
       setHasMore(false)
     } else {
@@ -33,6 +35,7 @@ const SearchResultsContainer: FC = () => {
     setVisibleListIds(prev =>
       prev.concat(searchResultsIds.slice(prev.length, prev.length + 10)),
     )
+
     if (visibleListIds.length === searchResultsIds.length) {
       setHasMore(false)
     } else {

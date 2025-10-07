@@ -2,7 +2,6 @@ import Button from "@mui/material/Button"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Collapse from "@mui/material/Collapse"
 import Fade from "@mui/material/Fade"
-import type { FC } from "react"
 import { memo, useCallback } from "react"
 import { useItemId } from "../../../hooks/useItemId.js"
 import { useVendorId } from "../../../hooks/useVendorId.js"
@@ -14,7 +13,7 @@ import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal.j
 import RowDeleteButton from "./RowDeleteButton.js"
 import RowSingleItemInfo from "./RowSingleItemInfo.js"
 
-const RowSingleContainer: FC = () => {
+const RowSingleContainer = () => {
   const itemId = useItemId()
   const vendorId = useVendorId()
   const dispatch = useAppDispatch()

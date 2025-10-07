@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 import printjs from "print-js"
-import type { FC, MouseEventHandler } from "react"
+import type { MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
 import { useQRCodeData } from "../../../hooks/useQRCodeData.js"
 
@@ -14,7 +14,7 @@ const startIcon = <FontAwesomeIcon icon={faPrint} />
 
 const title = "Print QRCode"
 
-const PrintIconQRCode: FC = () => {
+const PrintIconQRCode = () => {
   const [open, setOpen] = useState(false)
   const qrCodeData = useQRCodeData()
 

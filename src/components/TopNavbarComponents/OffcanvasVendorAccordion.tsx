@@ -5,7 +5,6 @@ import AccordionDetails from "@mui/material/AccordionDetails"
 import type { AccordionSummaryProps } from "@mui/material/AccordionSummary"
 import AccordionSummary from "@mui/material/AccordionSummary"
 import Typography from "@mui/material/Typography"
-import type { FC } from "react"
 import { memo, useCallback, useState } from "react"
 import ItemIdProvider from "../../contexts/ItemIdProvider.js"
 import { useVendorId } from "../../hooks/useVendorId.js"
@@ -26,7 +25,7 @@ const slotProps = {
   },
 } as const satisfies AccordionSlotsAndSlotProps["slotProps"]
 
-const OffcanvasVendorAccordion: FC = () => {
+const OffcanvasVendorAccordion = () => {
   const vendorId = useVendorId()
 
   const [open, setOpen] = useState(false)

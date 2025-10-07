@@ -1,9 +1,8 @@
-import type { FC } from "react"
 import { memo } from "react"
 import { useVendorIds } from "../../hooks/useVendorIds.js"
 import VendorDropDown from "./VendorDropDown.js"
 
-const VendorDropDownsList: FC = () => {
+const VendorDropDownsList = () => {
   const vendorIds = useVendorIds()
 
   return (

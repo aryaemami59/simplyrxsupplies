@@ -2,7 +2,6 @@ import { faMaximize } from "@fortawesome/free-solid-svg-icons/faMaximize"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
-import type { FC } from "react"
 import { memo, useCallback, useState } from "react"
 import { useVendorId } from "../../../hooks/useVendorId.js"
 import { maximizedAllItemsInCart } from "../../../redux/addedSlice.js"
@@ -12,7 +11,7 @@ const title = "Expand All Items"
 
 const startIcon = <FontAwesomeIcon icon={faMaximize} />
 
-const ExpandAllButton: FC = () => {
+const ExpandAllButton = () => {
   const vendorId = useVendorId()
   const dispatch = useAppDispatch()
 

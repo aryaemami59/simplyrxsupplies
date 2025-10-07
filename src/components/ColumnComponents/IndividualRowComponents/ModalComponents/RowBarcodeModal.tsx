@@ -2,7 +2,7 @@ import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons/faMagni
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
-import type { FC, MouseEventHandler } from "react"
+import type { MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
 import RowBarcodeDialog from "./RowBarcodeDialog.js"
 
@@ -10,7 +10,7 @@ const title = "Take a Closer Look at The Barcode"
 
 const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />
 
-const RowBarcodeModal: FC = () => {
+const RowBarcodeModal = () => {
   const [show, setShow] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -33,12 +33,12 @@ const RowBarcodeModal: FC = () => {
   return (
     <>
       <Tooltip
-        role="tooltip"
         enterDelay={500}
         enterNextDelay={500}
         onClose={hideTooltip}
         onOpen={showTooltip}
         open={open}
+        role="tooltip"
         title={title}
       >
         <IconButton

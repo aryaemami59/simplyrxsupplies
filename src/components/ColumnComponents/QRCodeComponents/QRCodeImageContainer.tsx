@@ -1,4 +1,3 @@
-import type { FC } from "react"
 import { memo } from "react"
 import QRCodeDataProvider from "../../../contexts/QRCodeDataProvider.js"
 import { useVendorId } from "../../../hooks/useVendorId.js"
@@ -10,7 +9,7 @@ import QRCodeModal from "./QRCodeModal.js"
 import RemoveAllButton from "./RemoveAllButton.js"
 import ShareButton from "./ShareButton.js"
 
-const QRCodeImageContainer: FC = () => {
+const QRCodeImageContainer = () => {
   const vendorId = useVendorId()
   return (
     <div className="container-fluid">

@@ -2,7 +2,7 @@ import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons/faMagni
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
-import type { FC, MouseEventHandler } from "react"
+import type { MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
 import QRCodeDialog from "./QRCodeDialog.js"
 
@@ -10,7 +10,7 @@ const title = "Take a Closer Look at The QRCode"
 
 const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />
 
-const QRCodeModal: FC = () => {
+const QRCodeModal = () => {
   const [show, setShow] = useState(false)
   const [open, setOpen] = useState(false)
 

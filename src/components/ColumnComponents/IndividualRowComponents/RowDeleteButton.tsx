@@ -2,7 +2,7 @@ import { faDeleteLeft } from "@fortawesome/free-solid-svg-icons/faDeleteLeft"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
-import type { FC, MouseEventHandler } from "react"
+import type { MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
 import { useItemId } from "../../../hooks/useItemId.js"
 import { useVendorId } from "../../../hooks/useVendorId.js"
@@ -13,7 +13,7 @@ const startIcon = <FontAwesomeIcon icon={faDeleteLeft} />
 
 const title = "Delete This Item"
 
-const RowDeleteButton: FC = () => {
+const RowDeleteButton = () => {
   const [open, setOpen] = useState(false)
   const itemId = useItemId()
   const vendorId = useVendorId()
@@ -33,12 +33,12 @@ const RowDeleteButton: FC = () => {
 
   return (
     <Tooltip
-      role="tooltip"
       enterDelay={500}
       enterNextDelay={500}
       onClose={hideTooltip}
       onOpen={showTooltip}
       open={open}
+      role="tooltip"
       title={title}
     >
       <IconButton

@@ -2,7 +2,6 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons/faTrashCan"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
-import type { FC } from "react"
 import { memo, useCallback, useState } from "react"
 import { useVendorId } from "../../../hooks/useVendorId.js"
 import { allItemsRemovedFromCart } from "../../../redux/addedSlice.js"
@@ -12,7 +11,7 @@ const startIcon = <FontAwesomeIcon icon={faTrashCan} />
 
 const title = "Remove All Items"
 
-const RemoveAllButton: FC = () => {
+const RemoveAllButton = () => {
   const [open, setOpen] = useState(false)
   const vendorId = useVendorId()
   const dispatch = useAppDispatch()

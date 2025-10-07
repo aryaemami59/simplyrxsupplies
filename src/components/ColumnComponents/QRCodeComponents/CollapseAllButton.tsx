@@ -2,7 +2,6 @@ import { faMinimize } from "@fortawesome/free-solid-svg-icons/faMinimize"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
-import type { FC } from "react"
 import { memo, useCallback, useState } from "react"
 import { useVendorId } from "../../../hooks/useVendorId.js"
 import { minimizedAllItemsInCart } from "../../../redux/addedSlice.js"
@@ -12,7 +11,7 @@ const title = "Collapse All Items"
 
 const startIcon = <FontAwesomeIcon icon={faMinimize} />
 
-const CollapseAllButton: FC = () => {
+const CollapseAllButton = () => {
   const vendorId = useVendorId()
   const dispatch = useAppDispatch()
 

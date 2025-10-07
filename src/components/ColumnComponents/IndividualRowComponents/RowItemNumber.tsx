@@ -1,7 +1,6 @@
 import ListItem from "@mui/material/ListItem"
 import type { ListItemTextProps } from "@mui/material/ListItemText"
 import ListItemText from "@mui/material/ListItemText"
-import type { FC } from "react"
 import { memo } from "react"
 import { useItemId } from "../../../hooks/useItemId.js"
 import { useItemNumber } from "../../../redux/selectors.js"
@@ -13,7 +12,7 @@ const slotProps = {
   },
 } as const satisfies ListItemTextProps["slotProps"]
 
-const RowItemNumber: FC = () => {
+const RowItemNumber = () => {
   const itemId = useItemId()
   const itemNumber = useItemNumber(itemId)
 

@@ -1,8 +1,7 @@
-import type { FC } from "react"
 import { memo } from "react"
 import SideBarAccordionList from "./SideBarAccordionList.js"
 
-const SideBarContainer: FC = () => (
+const SideBarContainer = () => (
   <nav className="flex-column overflow-auto sticky-top c-overflow-x-hidden shadow sidebar-container">
     <div>
       <SideBarAccordionList />

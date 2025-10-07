@@ -1,6 +1,6 @@
 import type { TextFieldProps } from "@mui/material/TextField"
 import TextField from "@mui/material/TextField"
-import type { CSSProperties, ChangeEventHandler, FC } from "react"
+import type { CSSProperties, ChangeEventHandler } from "react"
 import {
   memo,
   useCallback,
@@ -22,12 +22,12 @@ import { isEmptyArray } from "../../utils/predicates/isEmptyArray.js"
 import { search } from "../../utils/search/search.js"
 import InputEndAdornment from "./InputEndAdornment.js"
 
-const style: CSSProperties = {
+const style = {
   borderRadius: "30px",
   backgroundColor: SEARCH_FIELD_BG,
-}
+} as const satisfies CSSProperties
 
-const InputFieldComponent: FC = () => {
+const InputFieldComponent = () => {
   const [inputValue, setInputValue] = useState("")
   const [, startTransition] = useTransition()
   const itemNamesAndKeywords = useAppSelector(selectItemNamesAndKeywords)
@@ -36,7 +36,9 @@ const InputFieldComponent: FC = () => {
 
   const clickHandler = useCallback(() => {
     dispatch(searchResultsCleared())
+
     setInputValue("")
+
     inputRef.current?.focus()
   }, [dispatch])
 
@@ -83,14 +85,14 @@ const InputFieldComponent: FC = () => {
 
   return (
     <TextField
-      className="mt-4"
-      id="text-field"
-      fullWidth
       autoFocus
-      slotProps={slotProps}
+      className="mt-4"
+      fullWidth
+      id="text-field"
       inputRef={inputRef}
       label="Search"
       onChange={changeValue}
+      slotProps={slotProps}
       value={inputValue}
       variant="outlined"
     />

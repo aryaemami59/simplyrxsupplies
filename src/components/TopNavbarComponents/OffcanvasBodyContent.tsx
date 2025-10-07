@@ -1,11 +1,10 @@
 import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
-import type { FC } from "react"
 import { memo } from "react"
 import SideBarAccordionList from "../SideBarComponents/SideBarAccordionList.js"
 import OffcanvasVendorAccordionList from "./OffcanvasVendorAccordionList.js"
 
-const OffcanvasBodyContent: FC = () => (
+const OffcanvasBodyContent = () => (
   <DialogContent className="w-100 p-0" dividers>
     <DialogTitle>By Vendor</DialogTitle>
     <DialogContent className="p-2" dividers>

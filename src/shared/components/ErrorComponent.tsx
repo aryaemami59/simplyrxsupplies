@@ -1,8 +1,7 @@
-import type { FC } from "react"
 import { memo } from "react"
 import { Alert } from "react-bootstrap"
 
-const ErrorComponent: FC = () => (
+const ErrorComponent = () => (
   <div
     key="div-errMsg-App"
     className="justify-content-center d-flex mt-5 w-100"

@@ -1,12 +1,11 @@
 import Button from "@mui/material/Button"
 import ButtonGroup from "@mui/material/ButtonGroup"
-import type { FC } from "react"
 import { memo } from "react"
 import VendorIdProvider from "../../contexts/VendorIdProvider.js"
 import { useVendorIds } from "../../hooks/useVendorIds.js"
 import ExcludeVendorSingleCheckbox from "./ExcludeVendorSingleCheckbox.js"
 
-const ExcludeVendors: FC = () => {
+const ExcludeVendors = () => {
   const vendorNames = useVendorIds()
 
   return (

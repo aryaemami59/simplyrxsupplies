@@ -1,4 +1,3 @@
-import type { FC } from "react"
 import { memo } from "react"
 import { useItemId } from "../../../hooks/useItemId.js"
 import { useVendorId } from "../../../hooks/useVendorId.js"
@@ -11,7 +10,7 @@ import BarcodeImage from "./BarcodeImage.js"
 import RowBarcodeModal from "./ModalComponents/RowBarcodeModal.js"
 import PrintBarcodeIcon from "./PrintBarcodeIcon.js"
 
-const RowBarcodeImage: FC = () => {
+const RowBarcodeImage = () => {
   const vendorId = useVendorId()
 
   const itemId = useItemId()
