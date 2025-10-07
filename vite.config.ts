@@ -1,5 +1,4 @@
 import viteReact from "@vitejs/plugin-react"
-import type { PluginOptions } from "babel-plugin-react-compiler"
 import { visualizer } from "rollup-plugin-visualizer"
 import babelPlugin from "vite-plugin-babel"
 import macrosPlugin from "vite-plugin-babel-macros"
@@ -23,7 +22,10 @@ const viteConfig = defineConfig(({ mode }) => {
             ],
             [
               "babel-plugin-react-compiler",
-              {} as const satisfies Partial<PluginOptions>,
+              // {
+              //   compilationMode: "infer",
+              //   eslintSuppressionRules: [],
+              // } as const satisfies Partial<PluginOptions>,
             ],
           ],
         },
@@ -33,7 +35,9 @@ const viteConfig = defineConfig(({ mode }) => {
         babelConfig: {
           plugins: [
             "babel-plugin-react-compiler",
-            {} as const satisfies Partial<PluginOptions>,
+            // {
+            //   compilationMode: "infer",
+            // } as const satisfies Partial<PluginOptions>,
           ],
         },
       }),
@@ -96,7 +100,9 @@ const viteConfig = defineConfig(({ mode }) => {
             ],
             [
               "babel-plugin-react-compiler",
-              {} as const satisfies Partial<PluginOptions>,
+              // {
+              //   eslintSuppressionRules: [],
+              // } as const satisfies Partial<PluginOptions>,
             ],
           ],
         },
