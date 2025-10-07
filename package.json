@@ -28,8 +28,8 @@
     "test-ui": "vitest --config=vitest.config.ts --ui --open --coverage",
     "lint": "eslint -c eslint.config.mts",
     "lint-fix": "eslint -c eslint.config.mts --fix",
-    "format": "prettier --write .",
-    "format-check": "prettier --check .",
+    "format": "prettier --config=\"prettier.config.mts\" --ignore-path=\".gitignore\" --write \".\"",
+    "format-check": "prettier --config=\"prettier.config.mts\" --ignore-path=\".gitignore\" --check \".\"",
     "bench": "vitest --config=vitest.config.ts bench",
     "type-check": "tsc -p tsconfig.json --noEmit",
     "type-check-with-trace": "rimraf trace/ && tsc -p tsconfig.json --noEmit --generateTrace ./trace && analyze-trace trace && rimraf trace/"
