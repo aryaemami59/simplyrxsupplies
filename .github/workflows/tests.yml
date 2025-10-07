@@ -7,15 +7,15 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check-lint-and-formatting:
-    name: Check lint and formatting with Node.js ${{ matrix.node-version }} on ${{ matrix.os }}
+  check-for-duplicate-packages:
+    name: Check for duplicate packages with Node.js ${{ matrix.node-version }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
     strategy:
       fail-fast: false
 
       matrix:
-        node-version: [20, 22, latest]
+        node-version: [22, latest]
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
@@ -36,8 +36,60 @@ jobs:
       - name: Check for duplicate packages
         run: npm find-dupes
 
+  check-formatting:
+    name: Check formatting with Node.js ${{ matrix.node-version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        node-version: [22, latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js ${{ matrix.node-version }} and Install dependencies on ${{ matrix.os }}
+        uses: actions/setup-node@v5
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: ./package-lock.json
+          check-latest: true
+
+      - name: Install dependencies on ${{ matrix.node-version }}
+        run: npm ci
+
       - name: Check formatting
         run: npm run format-check
+
+  check-lint:
+    name: Check lint with Node.js ${{ matrix.node-version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        node-version: [22, latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js ${{ matrix.node-version }} and Install dependencies on ${{ matrix.os }}
+        uses: actions/setup-node@v5
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: ./package-lock.json
+          check-latest: true
+
+      - name: Install dependencies on ${{ matrix.node-version }}
+        run: npm ci
 
       - name: Lint files
         run: npm run lint
@@ -50,9 +102,9 @@ jobs:
       fail-fast: false
 
       matrix:
-        node-version: [20, 22, latest]
+        node-version: [22, latest]
         os: [ubuntu-latest, windows-latest, macos-latest]
-        ts: [5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 5.9]
+        ts: [5.6, 5.7, 5.8, 5.9]
 
     steps:
       - name: Checkout repository
@@ -83,7 +135,7 @@ jobs:
       fail-fast: false
 
       matrix:
-        node-version: [20, 22, latest]
+        node-version: [22, latest]
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
@@ -116,7 +168,7 @@ jobs:
       fail-fast: false
 
       matrix:
-        node-version: [20, 22, latest]
+        node-version: [22, latest]
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
