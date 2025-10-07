@@ -12,15 +12,15 @@ import {
 import {
   searchResultsCleared,
   searchResultsUpdated,
-} from "../../redux/addedSlice"
-import { useAppDispatch, useAppSelector } from "../../redux/hooks"
-import { selectItemNamesAndKeywords } from "../../redux/selectors"
-import { SEARCH_FIELD_BG } from "../../shared/styles"
-import { EMPTY_ARRAY } from "../../utils/emptyArray"
-import { fallbackToEmptyArray } from "../../utils/fallbackToEmptyArray"
-import { isEmptyArray } from "../../utils/predicates/isEmptyArray"
-import { search } from "../../utils/search/search"
-import InputEndAdornment from "./InputEndAdornment"
+} from "../../redux/addedSlice.js"
+import { useAppDispatch, useAppSelector } from "../../redux/hooks.js"
+import { selectItemNamesAndKeywords } from "../../redux/selectors.js"
+import { SEARCH_FIELD_BG } from "../../shared/styles.js"
+import { EMPTY_ARRAY } from "../../utils/emptyArray.js"
+import { fallbackToEmptyArray } from "../../utils/fallbackToEmptyArray.js"
+import { isEmptyArray } from "../../utils/predicates/isEmptyArray.js"
+import { search } from "../../utils/search/search.js"
+import InputEndAdornment from "./InputEndAdornment.js"
 
 const style: CSSProperties = {
   borderRadius: "30px",
@@ -43,21 +43,26 @@ const InputFieldComponent: FC = () => {
   const changeValue = useCallback<ChangeEventHandler<HTMLInputElement>>(
     event => {
       const { value } = event.target
+
       setInputValue(value)
+
       startTransition(() => {
         const listItems = fallbackToEmptyArray(
           search(value, itemNamesAndKeywords),
         )
+
         const searchResultsIds = isEmptyArray(listItems)
           ? EMPTY_ARRAY
           : listItems.map<number>(({ id }) => id)
+
         if (isEmptyArray(searchResultsIds)) {
           dispatch(searchResultsCleared())
         }
+
         dispatch(searchResultsUpdated(searchResultsIds))
       })
     },
-    [dispatch, itemNamesAndKeywords],
+    [dispatch, itemNamesAndKeywords, startTransition],
   )
 
   const slotProps = useMemo(
@@ -69,7 +74,7 @@ const InputFieldComponent: FC = () => {
             role: "search",
           },
           endAdornment: inputValue && (
-            <InputEndAdornment clickHandler={clickHandler} />
+            <InputEndAdornment onClick={clickHandler} />
           ),
         },
       }) as const satisfies TextFieldProps["slotProps"],

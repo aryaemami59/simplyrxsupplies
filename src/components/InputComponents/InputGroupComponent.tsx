@@ -1,7 +1,7 @@
 import type { FC } from "react"
 import { memo } from "react"
-import SearchResultsContainer from "../SearchResultsComponents/SearchResultsContainer"
-import InputFieldComponent from "./InputFieldComponent"
+import SearchResultsContainer from "../SearchResultsComponents/SearchResultsContainer.js"
+import InputFieldComponent from "./InputFieldComponent.js"
 
 const InputGroupComponent: FC = () => (
   <div className="row justify-content-center">

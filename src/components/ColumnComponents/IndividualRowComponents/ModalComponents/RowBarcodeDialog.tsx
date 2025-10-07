@@ -4,11 +4,10 @@ import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
 import type { FC } from "react"
 import { memo } from "react"
-import Button from "react-bootstrap/Button"
-
-import { useItemId } from "../../../../hooks/useItemId"
-import { useItemName } from "../../../../redux/selectors"
-import BarcodeImage from "../BarcodeImage"
+import { Button } from "react-bootstrap"
+import { useItemId } from "../../../../hooks/useItemId.js"
+import { useItemName } from "../../../../redux/selectors.js"
+import BarcodeImage from "../BarcodeImage.js"
 
 type Props = {
   hideModal: () => void

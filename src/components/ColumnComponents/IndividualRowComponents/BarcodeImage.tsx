@@ -1,8 +1,7 @@
 import type { FC } from "react"
 import { memo } from "react"
-
-import { useItemId } from "../../../hooks/useItemId"
-import { useItemName, useItemSrc } from "../../../redux/selectors"
+import { useItemId } from "../../../hooks/useItemId.js"
+import { useItemName, useItemSrc } from "../../../redux/selectors.js"
 
 type Props = {
   className?: string

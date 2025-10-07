@@ -2,8 +2,7 @@ import type { CardHeaderProps } from "@mui/material/CardHeader"
 import CardHeader from "@mui/material/CardHeader"
 import type { FC } from "react"
 import { memo } from "react"
-
-import { useItemName } from "../../redux/selectors"
+import { useItemName } from "../../redux/selectors.js"
 
 type Props = {
   visibleListId: number

@@ -5,8 +5,7 @@ import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
 import type { FC } from "react"
 import { memo } from "react"
-
-import ModalBodyContent from "./ModalBodyContent"
+import ModalBodyContent from "./ModalBodyContent.js"
 
 type Props = {
   hideModal: () => void

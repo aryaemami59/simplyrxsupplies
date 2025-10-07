@@ -1,9 +1,9 @@
 import { ThemeProvider } from "@mui/material/styles"
 import type { FC } from "react"
 import { createContext, memo, useMemo } from "react"
-import { useLocalStorageTheme } from "../hooks/useLocalStorageTheme"
-import { darkTheme, lightTheme } from "../shared/themes"
-import type { PropsWithRequiredChildren } from "../types/tsHelpers"
+import { useLocalStorageTheme } from "../hooks/useLocalStorageTheme.js"
+import { darkTheme, lightTheme } from "../shared/themes.js"
+import type { PropsWithRequiredChildren } from "../types/tsHelpers.js"
 
 type Props = PropsWithRequiredChildren
 

@@ -4,10 +4,9 @@ import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 import type { FC } from "react"
 import { memo, useCallback, useState } from "react"
-
-import { useVendorId } from "../../../hooks/useVendorId"
-import { minimizedAllItemsInCart } from "../../../redux/addedSlice"
-import { useAppDispatch } from "../../../redux/hooks"
+import { useVendorId } from "../../../hooks/useVendorId.js"
+import { minimizedAllItemsInCart } from "../../../redux/addedSlice.js"
+import { useAppDispatch } from "../../../redux/hooks.js"
 
 const title = "Collapse All Items"
 

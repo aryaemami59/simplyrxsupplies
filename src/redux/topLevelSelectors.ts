@@ -2,8 +2,8 @@ import type {
   AddedState,
   AppSelector,
   TopLevelSelectorsForAddedState,
-} from "../types/reduxHelperTypes"
-import { createSelectorWeakMap } from "./createSelectors"
+} from "../types/reduxHelperTypes.js"
+import { createSelectorWeakMap } from "./createSelectors.js"
 
 // export const selectAdded = createSelectorWeakmap(
 //   [state => state],

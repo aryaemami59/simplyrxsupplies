@@ -1,14 +1,14 @@
-import type { ItemNameAndKeywords } from "../types/api"
-import type { RootSelectorParamsProvider } from "../types/reduxHelperTypes"
-import { fallbackToEmptyArray } from "../utils/fallbackToEmptyArray"
-import { setSelectorNames } from "../utils/setSelectorNames"
-import { ADAPTER_SELECTORS, getAllEntitySelectors } from "./adapterSelectors"
-import { apiSelectors } from "./apiSlice"
+import type { ItemNameAndKeywords } from "../types/api.js"
+import type { RootSelectorParamsProvider } from "../types/reduxHelperTypes.js"
+import { fallbackToEmptyArray } from "../utils/fallbackToEmptyArray.js"
+import { setSelectorNames } from "../utils/setSelectorNames.js"
+import { ADAPTER_SELECTORS, getAllEntitySelectors } from "./adapterSelectors.js"
+import { apiSelectors } from "./apiSlice.js"
 import {
   createParametricSelectorHooks,
   createSelectorWeakMap,
-} from "./createSelectors"
-import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors"
+} from "./createSelectors.js"
+import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors.js"
 
 const ROOT_SELECTOR_PARAMS_PROVIDER: RootSelectorParamsProvider = {
   getItemId: (_state, itemId) => itemId,

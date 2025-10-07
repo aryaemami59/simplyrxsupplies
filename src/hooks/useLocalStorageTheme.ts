@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { darkTheme, lightTheme } from "../shared/themes"
+import { darkTheme, lightTheme } from "../shared/themes.js"
 
 const getCurrentTheme = () => {
   const valueFromStorage = localStorage.getItem("theme")

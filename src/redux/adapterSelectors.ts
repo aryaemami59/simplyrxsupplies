@@ -2,20 +2,20 @@ import type {
   AdapterGlobalizedSelectors,
   AdapterLocalizedSelectors,
   AdapterSelectors,
-} from "../types/reduxHelperTypes"
-import { capitalize } from "../utils/capitalize"
-import { setFunctionName } from "../utils/setFunctionName"
+} from "../types/reduxHelperTypes.js"
+import { capitalize } from "../utils/capitalize.js"
+import { setFunctionName } from "../utils/setFunctionName.js"
 import {
   selectCategoriesData,
   selectItemsData,
   selectVendorsData,
-} from "./apiSlice"
+} from "./apiSlice.js"
 import {
   createDraftSafSelectorWeakMap,
   createSelectorWeakMap,
-} from "./createSelectors"
-import { ENTITY_ADAPTERS } from "./entityAdapters"
-import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors"
+} from "./createSelectors.js"
+import { ENTITY_ADAPTERS } from "./entityAdapters.js"
+import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors.js"
 
 export const SIMPLE_SELECTORS = {
   searchResults: ENTITY_ADAPTERS.searchResults.getSelectors(undefined, {

@@ -1,4 +1,4 @@
-import type { UnknownObject } from "../../types/tsHelpers"
+import type { UnknownObject } from "../../types/tsHelpers.js"
 
 export const isObject = (value: unknown): value is UnknownObject =>
   value != null &&

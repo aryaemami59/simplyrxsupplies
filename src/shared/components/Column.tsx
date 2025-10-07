@@ -2,8 +2,7 @@ import type { Breakpoint } from "@mui/material"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import type { FC } from "react"
 import { memo } from "react"
-
-import type { PropsWithRequiredChildren } from "../../types/tsHelpers"
+import type { PropsWithRequiredChildren } from "../../types/tsHelpers.js"
 
 type Props = PropsWithRequiredChildren & {
   start?: Breakpoint

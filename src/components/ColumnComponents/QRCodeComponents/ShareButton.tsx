@@ -5,10 +5,9 @@ import IconButton from "@mui/material/IconButton"
 import type { FC } from "react"
 import { memo, useCallback, useMemo } from "react"
 import { shareOnMobile } from "react-mobile-share"
-
-import { useQRCodeData } from "../../../hooks/useQRCodeData"
-import { useVendorId } from "../../../hooks/useVendorId"
-import { useCartItemNamesStringified } from "../../../redux/selectors"
+import { useQRCodeData } from "../../../hooks/useQRCodeData.js"
+import { useVendorId } from "../../../hooks/useVendorId.js"
+import { useCartItemNamesStringified } from "../../../redux/selectors.js"
 
 const startIcon = /ipad|iphone|ipod/iu.test(navigator.userAgent) ? (
   <IosShareIcon fontSize="large" />

@@ -1,5 +1,5 @@
-import { EMPTY_ARRAY } from "./emptyArray"
-import { isEmptyArray } from "./predicates/isEmptyArray"
+import { EMPTY_ARRAY } from "./emptyArray.js"
+import { isEmptyArray } from "./predicates/isEmptyArray.js"
 
 /**
  * This function is used to maintain referential integrity of a brand new array that is usually the result of calling {@link Array.map} or {@link Array.filter}.

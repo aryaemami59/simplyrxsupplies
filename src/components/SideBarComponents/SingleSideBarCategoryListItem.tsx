@@ -2,16 +2,16 @@ import Button from "@mui/material/Button"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback } from "react"
-import { itemAddedToCarts } from "../../redux/addedSlice"
-import { useAppDispatch, useAppSelector } from "../../redux/hooks"
+import { itemAddedToCarts } from "../../redux/addedSlice.js"
+import { useAppDispatch, useAppSelector } from "../../redux/hooks.js"
 import {
   checkIfAddedToAllVendors,
   useCheckedVendorIds,
   useItemName,
   useVendorIdsByItemId,
-} from "../../redux/selectors"
-import { isEmptyArray } from "../../utils/predicates/isEmptyArray"
-import SideBarVendorBadges from "./SideBarVendorBadges"
+} from "../../redux/selectors.js"
+import { isEmptyArray } from "../../utils/predicates/isEmptyArray.js"
+import SideBarVendorBadges from "./SideBarVendorBadges.js"
 
 type Props = {
   itemId: number

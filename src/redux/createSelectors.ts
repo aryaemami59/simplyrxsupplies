@@ -9,9 +9,9 @@ import {
   unstable_autotrackMemoize,
   weakMapMemoize,
 } from "reselect"
-import { capitalize } from "../utils/capitalize"
-import { useAppSelector } from "./hooks"
-import type { RootState } from "./store"
+import { capitalize } from "../utils/capitalize.js"
+import { useAppSelector } from "./hooks.js"
+import type { RootState } from "./store.js"
 
 // export const timeSelector = <T extends AnyFunction>(
 //   func: T,

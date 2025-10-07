@@ -1,5 +1,5 @@
 import { useDebugValue, useRef } from "react"
-import { useComponentDidUpdate } from "../useComponentDidUpdate"
+import { useComponentDidUpdate } from "../useComponentDidUpdate.js"
 
 /**
  * Use only in development mode

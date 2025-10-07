@@ -1,8 +1,8 @@
 import type { FC } from "react"
 import { memo } from "react"
-import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors"
-import { useAppSelector } from "../../redux/hooks"
-import SideBarAccordionCategories from "./SideBarAccordionCategories"
+import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors.js"
+import { useAppSelector } from "../../redux/hooks.js"
+import SideBarAccordionCategories from "./SideBarAccordionCategories.js"
 
 const SideBarAccordionList: FC = () => {
   const categoryIds = useAppSelector(

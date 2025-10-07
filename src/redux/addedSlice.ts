@@ -7,19 +7,19 @@ import type {
   ItemIdAndVendorId,
   ItemVendors,
   SearchResultsItem,
-} from "../types/reduxHelperTypes"
-import { EMPTY_ARRAY } from "../utils/emptyArray"
-import { isEmptyArray } from "../utils/predicates/isEmptyArray"
-import { toggleArrayElement } from "../utils/toggleArrayElement"
+} from "../types/reduxHelperTypes.js"
+import { EMPTY_ARRAY } from "../utils/emptyArray.js"
+import { isEmptyArray } from "../utils/predicates/isEmptyArray.js"
+import { toggleArrayElement } from "../utils/toggleArrayElement.js"
 import {
   withNumsArrayConcat,
   withNumsArrayFilter,
-} from "../utils/withNumsArrayRuntimeChecks"
-import { ADAPTER_INITIAL_STATES } from "./adapterInitialStates"
-import { ADAPTER_SELECTORS } from "./adapterSelectors"
-import { endpoints } from "./apiSlice"
-import { DRAFT_SAFE_SELECTORS } from "./draftSafeSelectors"
-import { ENTITY_ADAPTERS } from "./entityAdapters"
+} from "../utils/withNumsArrayRuntimeChecks.js"
+import { ADAPTER_INITIAL_STATES } from "./adapterInitialStates.js"
+import { ADAPTER_SELECTORS } from "./adapterSelectors.js"
+import { endpoints } from "./apiSlice.js"
+import { DRAFT_SAFE_SELECTORS } from "./draftSafeSelectors.js"
+import { ENTITY_ADAPTERS } from "./entityAdapters.js"
 
 export const resetCheckedVendorIds = (itemVendors: ItemVendors) => {
   const itemVendorsUpdate: Update<ItemVendors, number> = {

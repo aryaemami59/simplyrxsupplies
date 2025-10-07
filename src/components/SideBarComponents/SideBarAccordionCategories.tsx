@@ -6,8 +6,8 @@ import type { AccordionSummaryOwnProps } from "@mui/material/AccordionSummary"
 import AccordionSummary from "@mui/material/AccordionSummary"
 import type { FC } from "react"
 import { memo, useCallback, useRef, useState } from "react"
-import { useCategoryItemIds, useCategoryName } from "../../redux/selectors"
-import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem"
+import { useCategoryItemIds, useCategoryName } from "../../redux/selectors.js"
+import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem.js"
 
 const expandIcon = (
   <ExpandMoreIcon />

@@ -2,11 +2,10 @@ import List from "@mui/material/List"
 import type { FC } from "react"
 import { memo, useCallback, useEffect, useMemo, useState } from "react"
 import InfiniteScroll from "react-infinite-scroll-component"
-
-import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors"
-import { useAppSelector } from "../../redux/hooks"
-import IsLoading from "../../shared/components/IsLoading"
-import SearchResultsSingleCard from "./SearchResultsSingleCard"
+import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors.js"
+import { useAppSelector } from "../../redux/hooks.js"
+import IsLoading from "../../shared/components/IsLoading.js"
+import SearchResultsSingleCard from "./SearchResultsSingleCard.js"
 
 const loader = <IsLoading />
 

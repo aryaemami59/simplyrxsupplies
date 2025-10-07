@@ -1,9 +1,8 @@
 import type { FC } from "react"
 import { memo } from "react"
-
-import { useQRCodeData } from "../../../hooks/useQRCodeData"
-import { useVendorId } from "../../../hooks/useVendorId"
-import { useQRCodeText } from "../../../redux/selectors"
+import { useQRCodeData } from "../../../hooks/useQRCodeData.js"
+import { useVendorId } from "../../../hooks/useVendorId.js"
+import { useQRCodeText } from "../../../redux/selectors.js"
 
 type Props = {
   className?: string

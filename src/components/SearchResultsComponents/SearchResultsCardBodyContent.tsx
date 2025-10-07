@@ -1,10 +1,10 @@
 import type { FC } from "react"
 import { memo } from "react"
-import { useVendorIdsByItemId } from "../../redux/selectors"
-import { isEmptyArray } from "../../utils/predicates/isEmptyArray"
-import SearchResultsAddButton from "./SearchResultsAddButton"
-import SearchResultsItemName from "./SearchResultsItemName"
-import SwitchComponent from "./SwitchComponent"
+import { useVendorIdsByItemId } from "../../redux/selectors.js"
+import { isEmptyArray } from "../../utils/predicates/isEmptyArray.js"
+import SearchResultsAddButton from "./SearchResultsAddButton.js"
+import SearchResultsItemName from "./SearchResultsItemName.js"
+import SwitchComponent from "./SwitchComponent.js"
 
 type Props = {
   visibleListId: number

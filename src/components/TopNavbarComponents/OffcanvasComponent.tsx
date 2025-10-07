@@ -6,7 +6,7 @@ import type { SwipeableDrawerProps } from "@mui/material/SwipeableDrawer"
 import SwipeableDrawer from "@mui/material/SwipeableDrawer"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
-import OffcanvasBodyContent from "./OffcanvasBodyContent"
+import OffcanvasBodyContent from "./OffcanvasBodyContent.js"
 
 const slotProps = {
   paper: {

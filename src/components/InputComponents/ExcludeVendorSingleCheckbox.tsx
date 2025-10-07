@@ -2,13 +2,13 @@ import Checkbox from "@mui/material/Checkbox"
 import FormControlLabel from "@mui/material/FormControlLabel"
 import type { FC } from "react"
 import { memo, useCallback, useMemo, useState } from "react"
-import { useVendorId } from "../../hooks/useVendorId"
+import { useVendorId } from "../../hooks/useVendorId.js"
 import {
   checkedOneVendorForAllSearchResults,
   unCheckedOneVendorForAllSearchResults,
-} from "../../redux/addedSlice"
-import { useAppDispatch } from "../../redux/hooks"
-import { useOfficialVendorName } from "../../redux/selectors"
+} from "../../redux/addedSlice.js"
+import { useAppDispatch } from "../../redux/hooks.js"
+import { useOfficialVendorName } from "../../redux/selectors.js"
 
 const ExcludeVendorSingleCheckbox: FC = () => {
   const dispatch = useAppDispatch()

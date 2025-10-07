@@ -1,10 +1,9 @@
 import MenuItem from "@mui/material/MenuItem"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback } from "react"
-
-import { itemAddedToCarts } from "../../redux/addedSlice"
-import { useAppDispatch } from "../../redux/hooks"
-import { useCheckIfAddedToVendor, useItemName } from "../../redux/selectors"
+import { itemAddedToCarts } from "../../redux/addedSlice.js"
+import { useAppDispatch } from "../../redux/hooks.js"
+import { useCheckIfAddedToVendor, useItemName } from "../../redux/selectors.js"
 
 type Props = {
   itemId: number

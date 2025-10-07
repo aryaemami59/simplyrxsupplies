@@ -9,13 +9,12 @@ import type {
   lruMemoize,
   weakMapMemoize,
 } from "reselect"
-
 import type {
   createAppSelector,
   createDraftSafeAddedSelector,
-} from "../redux/createSelectors"
-import type { RootState } from "../redux/store"
-import type { Category, Item, Vendor } from "./api"
+} from "../redux/createSelectors.js"
+import type { RootState } from "../redux/store.js"
+import type { Category, Item, Vendor } from "./api.js"
 
 /**
  * Controls the one to many relationship between an item and its vendors in

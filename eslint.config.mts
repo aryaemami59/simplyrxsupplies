@@ -44,7 +44,12 @@ const eslintConfig = defineConfig(
   { name: `${js.meta.name}/recommended`, ...js.configs.recommended },
   ...configs.strictTypeChecked,
   ...configs.stylisticTypeChecked,
+  // @ts-expect-error - types are wrong
   vitestPlugin.configs.recommended,
+  // @ts-expect-error - types are wrong
+  ...reactHooks.configs["recommended-latest"],
+  // @ts-expect-error - types are wrong
+  ...reactHooks.configs.recommended,
   {
     name: "main",
     languageOptions: {
@@ -55,22 +60,18 @@ const eslintConfig = defineConfig(
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    plugins: {
-      "react-hooks": reactHooks,
-    },
     settings: {
       vitest: {
         typecheck: true,
       },
     },
     rules: {
-      ...reactHooks.configs.recommended.rules,
       "@typescript-eslint/consistent-type-imports": [
         2,
         {
-          prefer: "type-imports",
-          fixStyle: "separate-type-imports",
           disallowTypeAnnotations: true,
+          fixStyle: "separate-type-imports",
+          prefer: "type-imports",
         },
       ],
       "@typescript-eslint/consistent-type-exports": [
@@ -115,11 +116,11 @@ const eslintConfig = defineConfig(
       "sort-imports": [
         2,
         {
+          allowSeparatedGroups: false,
           ignoreCase: false,
           ignoreDeclarationSort: true,
           ignoreMemberSort: false,
           memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
-          allowSeparatedGroups: true,
         },
       ],
       "@typescript-eslint/unified-signatures": [2],
@@ -128,8 +129,8 @@ const eslintConfig = defineConfig(
       "@typescript-eslint/no-invalid-void-type": [
         2,
         {
-          allowInGenericTypeArguments: ["BoxedVoid"],
           allowAsThisParameter: false,
+          allowInGenericTypeArguments: ["BoxedVoid"],
         },
       ],
       "@typescript-eslint/no-confusing-void-expression": [2],

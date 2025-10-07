@@ -7,7 +7,7 @@ import {
   LIGHT_MODE_SELECTED_BG,
   MAIN_COLOR,
   PRIMARY_TEXT,
-} from "./styles"
+} from "./styles.js"
 
 declare module "@mui/material/styles" {
   // eslint-disable-next-line @typescript-eslint/consistent-type-definitions

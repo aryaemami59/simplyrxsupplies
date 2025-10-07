@@ -2,8 +2,7 @@ import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import type { FC } from "react"
 import { memo } from "react"
-
-import SearchResultsCardBodyContent from "./SearchResultsCardBodyContent"
+import SearchResultsCardBodyContent from "./SearchResultsCardBodyContent.js"
 
 type Props = {
   readonly visibleListId: number

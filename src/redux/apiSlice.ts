@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { API_URL } from "../data/fetchInfo"
-import type { Supplies } from "../types/api"
-import type { Cart, SuppliesState } from "../types/reduxHelperTypes"
-import { EMPTY_ARRAY } from "../utils/emptyArray"
-import { ADAPTER_INITIAL_STATES } from "./adapterInitialStates"
-import { createSelectorWeakMap } from "./createSelectors"
-import { ENTITY_ADAPTERS } from "./entityAdapters"
+import { API_URL } from "../data/fetchInfo.js"
+import type { Supplies } from "../types/api.js"
+import type { Cart, SuppliesState } from "../types/reduxHelperTypes.js"
+import { EMPTY_ARRAY } from "../utils/emptyArray.js"
+import { ADAPTER_INITIAL_STATES } from "./adapterInitialStates.js"
+import { createSelectorWeakMap } from "./createSelectors.js"
+import { ENTITY_ADAPTERS } from "./entityAdapters.js"
 
 /**
  * Workaround for

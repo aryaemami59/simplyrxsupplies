@@ -7,11 +7,13 @@ import AccordionSummary from "@mui/material/AccordionSummary"
 import Typography from "@mui/material/Typography"
 import type { FC } from "react"
 import { memo, useCallback, useState } from "react"
-
-import ItemIdProvider from "../../contexts/ItemIdProvider"
-import { useVendorId } from "../../hooks/useVendorId"
-import { useOfficialVendorName, useVendorItemIds } from "../../redux/selectors"
-import SingleOffcanvasVendorItem from "./SingleOffcanvasVendorItem"
+import ItemIdProvider from "../../contexts/ItemIdProvider.js"
+import { useVendorId } from "../../hooks/useVendorId.js"
+import {
+  useOfficialVendorName,
+  useVendorItemIds,
+} from "../../redux/selectors.js"
+import SingleOffcanvasVendorItem from "./SingleOffcanvasVendorItem.js"
 
 const expandIcon = (
   <ExpandMoreIcon />

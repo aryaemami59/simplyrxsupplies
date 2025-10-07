@@ -1,7 +1,7 @@
-import type { AddedSliceSelectorParamsProvider } from "../types/reduxHelperTypes"
-import { fallbackToEmptyArray } from "../utils/fallbackToEmptyArray"
-import { ADAPTER_SELECTORS } from "./adapterSelectors"
-import { createDraftSafeAddedSelector } from "./createSelectors"
+import type { AddedSliceSelectorParamsProvider } from "../types/reduxHelperTypes.js"
+import { fallbackToEmptyArray } from "../utils/fallbackToEmptyArray.js"
+import { ADAPTER_SELECTORS } from "./adapterSelectors.js"
+import { createDraftSafeAddedSelector } from "./createSelectors.js"
 
 export const ADDED_SLICE_SELECTOR_PARAMS_PROVIDER: AddedSliceSelectorParamsProvider =
   {

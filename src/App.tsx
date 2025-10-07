@@ -3,21 +3,25 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import type { FC } from "react"
 import { memo } from "react"
 import "./App.css"
-import VendorColumnList from "./components/ColumnComponents/VendorColumnList"
-import InputGroupComponent from "./components/InputComponents/InputGroupComponent"
-import SideBarContainer from "./components/SideBarComponents/SideBarContainer"
-import TopNavbar from "./components/TopNavbarComponents/TopNavbar"
-import ColorModeProvider from "./contexts/ColorModeProvider"
-import { useGetMainQuery } from "./redux/apiSlice"
-import ErrorComponent from "./shared/components/ErrorComponent"
-import IsLoading from "./shared/components/IsLoading"
+import VendorColumnList from "./components/ColumnComponents/VendorColumnList.js"
+import InputGroupComponent from "./components/InputComponents/InputGroupComponent.js"
+import SideBarContainer from "./components/SideBarComponents/SideBarContainer.js"
+import TopNavbar from "./components/TopNavbarComponents/TopNavbar.js"
+import ColorModeProvider from "./contexts/ColorModeProvider.js"
+import { useGetMainQuery } from "./redux/apiSlice.js"
+import ErrorComponent from "./shared/components/ErrorComponent.js"
+import IsLoading from "./shared/components/IsLoading.js"
 
 const App: FC = () => {
   const { isError, isLoading } = useGetMainQuery(undefined)
 
-  if (isLoading) return <IsLoading />
+  if (isLoading) {
+    return <IsLoading />
+  }
 
-  if (isError) return <ErrorComponent />
+  if (isError) {
+    return <ErrorComponent />
+  }
 
   return (
     <ColorModeProvider>

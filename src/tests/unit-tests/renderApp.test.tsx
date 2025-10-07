@@ -1,5 +1,4 @@
 import { screen } from "@testing-library/react"
-import { beforeEach, describe } from "vitest"
 import App from "../../App.js"
 import { selectVendorsData } from "../../redux/apiSlice.js"
 import { findFastestSelector } from "../../redux/createSelectors.js"

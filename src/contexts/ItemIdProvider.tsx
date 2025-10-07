@@ -1,7 +1,6 @@
 import type { FC } from "react"
 import { createContext, memo } from "react"
-
-import type { PropsWithRequiredChildren } from "../types/tsHelpers"
+import type { PropsWithRequiredChildren } from "../types/tsHelpers.js"
 
 type Props = PropsWithRequiredChildren<{
   readonly itemId: number

@@ -1,7 +1,7 @@
 import { combineSlices, configureStore } from "@reduxjs/toolkit"
 import { createLogger } from "redux-logger"
-import { addedSlice } from "./addedSlice"
-import { apiSlice } from "./apiSlice"
+import { addedSlice } from "./addedSlice.js"
+import { apiSlice } from "./apiSlice.js"
 
 export const rootReducer = combineSlices(addedSlice, apiSlice)
 

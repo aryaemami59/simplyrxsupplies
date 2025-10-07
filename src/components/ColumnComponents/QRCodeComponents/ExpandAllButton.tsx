@@ -4,10 +4,9 @@ import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 import type { FC } from "react"
 import { memo, useCallback, useState } from "react"
-
-import { useVendorId } from "../../../hooks/useVendorId"
-import { maximizedAllItemsInCart } from "../../../redux/addedSlice"
-import { useAppDispatch } from "../../../redux/hooks"
+import { useVendorId } from "../../../hooks/useVendorId.js"
+import { maximizedAllItemsInCart } from "../../../redux/addedSlice.js"
+import { useAppDispatch } from "../../../redux/hooks.js"
 
 const title = "Expand All Items"
 

@@ -1,11 +1,11 @@
 import Button from "@mui/material/Button"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback } from "react"
-import { useItemId } from "../../hooks/useItemId"
-import { useVendorId } from "../../hooks/useVendorId"
-import { itemAddedToCarts } from "../../redux/addedSlice"
-import { useAppDispatch } from "../../redux/hooks"
-import { useCheckIfAddedToVendor, useItemName } from "../../redux/selectors"
+import { useItemId } from "../../hooks/useItemId.js"
+import { useVendorId } from "../../hooks/useVendorId.js"
+import { itemAddedToCarts } from "../../redux/addedSlice.js"
+import { useAppDispatch } from "../../redux/hooks.js"
+import { useCheckIfAddedToVendor, useItemName } from "../../redux/selectors.js"
 
 const SingleOffcanvasVendorItem: FC = () => {
   const vendorId = useVendorId()

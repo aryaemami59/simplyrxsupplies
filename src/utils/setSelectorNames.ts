@@ -1,5 +1,5 @@
-import type { AnyFunction } from "../types/tsHelpers"
-import { setFunctionName } from "./setFunctionName"
+import type { AnyFunction } from "../types/tsHelpers.js"
+import { setFunctionName } from "./setFunctionName.js"
 
 export const setSelectorNames = <const T extends Record<string, AnyFunction>>(
   funcsObject: T,

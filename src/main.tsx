@@ -1,10 +1,10 @@
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 import { Provider } from "react-redux"
-import App from "./App.jsx"
-import { apiSlice } from "./redux/apiSlice"
-import { allSelectors } from "./redux/selectors"
-import { store } from "./redux/store"
+import App from "./App.js"
+import { apiSlice } from "./redux/apiSlice.js"
+import { allSelectors } from "./redux/selectors.js"
+import { store } from "./redux/store.js"
 
 if (import.meta.env.DEV) {
   // const { default: whyDidYouRender } = await import(

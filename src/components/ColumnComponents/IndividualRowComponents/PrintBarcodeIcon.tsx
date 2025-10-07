@@ -5,9 +5,8 @@ import Tooltip from "@mui/material/Tooltip"
 import printJS from "print-js"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
-
-import { useItemId } from "../../../hooks/useItemId"
-import { useItemSrc } from "../../../redux/selectors"
+import { useItemId } from "../../../hooks/useItemId.js"
+import { useItemSrc } from "../../../redux/selectors.js"
 
 type Props = {
   header: string

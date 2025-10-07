@@ -1,5 +1,5 @@
-import type { AdaptersInitialStates } from "../types/reduxHelperTypes"
-import { ENTITY_ADAPTERS } from "./entityAdapters"
+import type { AdaptersInitialStates } from "../types/reduxHelperTypes.js"
+import { ENTITY_ADAPTERS } from "./entityAdapters.js"
 
 export const ADAPTER_INITIAL_STATES: AdaptersInitialStates = {
   searchResults: ENTITY_ADAPTERS.searchResults.getInitialState(),

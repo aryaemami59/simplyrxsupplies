@@ -5,10 +5,9 @@ import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
 import type { FC } from "react"
 import { memo } from "react"
-
-import { useVendorId } from "../../../hooks/useVendorId"
-import { useOfficialVendorName } from "../../../redux/selectors"
-import QRCodeImage from "./QRCodeImage"
+import { useVendorId } from "../../../hooks/useVendorId.js"
+import { useOfficialVendorName } from "../../../redux/selectors.js"
+import QRCodeImage from "./QRCodeImage.js"
 
 type Props = {
   hideModal: () => void

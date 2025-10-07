@@ -1,9 +1,9 @@
-import type { ItemNameAndKeywords } from "../../types/api"
-import { EMPTY_ARRAY } from "../emptyArray"
-import { fallbackToEmptyArray } from "../fallbackToEmptyArray"
-import { sortResults } from "./sortResults"
-import { splitBySpace } from "./splitBySpace"
-import { trimExcessWhiteSpace } from "./trimExcessWhiteSpace"
+import type { ItemNameAndKeywords } from "../../types/api.js"
+import { EMPTY_ARRAY } from "../emptyArray.js"
+import { fallbackToEmptyArray } from "../fallbackToEmptyArray.js"
+import { sortResults } from "./sortResults.js"
+import { splitBySpace } from "./splitBySpace.js"
+import { trimExcessWhiteSpace } from "./trimExcessWhiteSpace.js"
 
 export const search = (
   value: string,

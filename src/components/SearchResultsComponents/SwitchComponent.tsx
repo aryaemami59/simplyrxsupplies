@@ -3,14 +3,13 @@ import type { SwitchProps } from "@mui/material/Switch"
 import Switch from "@mui/material/Switch"
 import type { FC } from "react"
 import { memo, useCallback } from "react"
-
-import { toggledVendorForOneSearchResultItem } from "../../redux/addedSlice"
-import { useAppDispatch } from "../../redux/hooks"
+import { toggledVendorForOneSearchResultItem } from "../../redux/addedSlice.js"
+import { useAppDispatch } from "../../redux/hooks.js"
 import {
   useCheckIfAddedToVendor,
   useIsVendorChecked,
   useOfficialVendorName,
-} from "../../redux/selectors"
+} from "../../redux/selectors.js"
 
 const slotProps = {
   input: {

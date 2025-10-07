@@ -1,9 +1,8 @@
 import type { FC } from "react"
 import { memo } from "react"
-
-import VendorIdProvider from "../../contexts/VendorIdProvider"
-import { useVendorIds } from "../../hooks/useVendorIds"
-import VendorColumn from "./VendorColumn"
+import VendorIdProvider from "../../contexts/VendorIdProvider.js"
+import { useVendorIds } from "../../hooks/useVendorIds.js"
+import VendorColumn from "./VendorColumn.js"
 
 const VendorColumnList: FC = () => {
   const vendorIds = useVendorIds()

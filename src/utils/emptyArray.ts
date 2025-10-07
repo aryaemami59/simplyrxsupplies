@@ -1,4 +1,4 @@
-import type { EmptyTuple } from "../types/tsHelpers"
+import type { EmptyTuple } from "../types/tsHelpers.js"
 
 /**
  * An empty array that is used to maintain referential integrity after performing methods like {@link Array.map} or {@link Array.filter}

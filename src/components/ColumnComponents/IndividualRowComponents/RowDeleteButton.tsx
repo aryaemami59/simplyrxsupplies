@@ -4,14 +4,12 @@ import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
-
-import { useItemId } from "../../../hooks/useItemId"
-import { useVendorId } from "../../../hooks/useVendorId"
-import { singleItemRemovedFromCart } from "../../../redux/addedSlice"
-import { useAppDispatch } from "../../../redux/hooks"
+import { useItemId } from "../../../hooks/useItemId.js"
+import { useVendorId } from "../../../hooks/useVendorId.js"
+import { singleItemRemovedFromCart } from "../../../redux/addedSlice.js"
+import { useAppDispatch } from "../../../redux/hooks.js"
 
 const startIcon = <FontAwesomeIcon icon={faDeleteLeft} />
-// const startIcon = <FontAwesomeIcon icon={icon({ name: "delete-left" })} />;
 
 const title = "Delete This Item"
 

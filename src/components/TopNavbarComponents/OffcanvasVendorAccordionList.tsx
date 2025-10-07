@@ -1,8 +1,8 @@
 import type { FC } from "react"
 import { memo } from "react"
-import VendorIdProvider from "../../contexts/VendorIdProvider"
-import { useVendorIds } from "../../hooks/useVendorIds"
-import OffcanvasVendorAccordion from "./OffcanvasVendorAccordion"
+import VendorIdProvider from "../../contexts/VendorIdProvider.js"
+import { useVendorIds } from "../../hooks/useVendorIds.js"
+import OffcanvasVendorAccordion from "./OffcanvasVendorAccordion.js"
 
 const OffcanvasVendorAccordionList: FC = () => {
   const vendorNames = useVendorIds()

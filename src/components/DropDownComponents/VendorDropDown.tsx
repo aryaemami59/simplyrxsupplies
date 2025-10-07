@@ -4,8 +4,11 @@ import Menu from "@mui/material/Menu"
 import type { PopoverOrigin } from "@mui/material/Popover"
 import type { FC, MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
-import { useOfficialVendorName, useVendorItemIds } from "../../redux/selectors"
-import SingleDropDown from "./SingleDropDown"
+import {
+  useOfficialVendorName,
+  useVendorItemIds,
+} from "../../redux/selectors.js"
+import SingleDropDown from "./SingleDropDown.js"
 
 const transformOrigin = {
   horizontal: "left",

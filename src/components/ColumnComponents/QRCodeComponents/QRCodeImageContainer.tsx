@@ -1,15 +1,14 @@
 import type { FC } from "react"
 import { memo } from "react"
-
-import QRCodeDataProvider from "../../../contexts/QRCodeDataProvider"
-import { useVendorId } from "../../../hooks/useVendorId"
-import CollapseAllButton from "./CollapseAllButton"
-import ExpandAllButton from "./ExpandAllButton"
-import PrintIconQRCode from "./PrintIconQRCode"
-import QRCodeImage from "./QRCodeImage"
-import QRCodeModal from "./QRCodeModal"
-import RemoveAllButton from "./RemoveAllButton"
-import ShareButton from "./ShareButton"
+import QRCodeDataProvider from "../../../contexts/QRCodeDataProvider.js"
+import { useVendorId } from "../../../hooks/useVendorId.js"
+import CollapseAllButton from "./CollapseAllButton.js"
+import ExpandAllButton from "./ExpandAllButton.js"
+import PrintIconQRCode from "./PrintIconQRCode.js"
+import QRCodeImage from "./QRCodeImage.js"
+import QRCodeModal from "./QRCodeModal.js"
+import RemoveAllButton from "./RemoveAllButton.js"
+import ShareButton from "./ShareButton.js"
 
 const QRCodeImageContainer: FC = () => {
   const vendorId = useVendorId()

@@ -1,8 +1,8 @@
 import * as QRCode from "qrcode"
 import type { FC } from "react"
 import { createContext, memo, useEffect, useState } from "react"
-import { useQRCodeText } from "../redux/selectors"
-import type { PropsWithRequiredChildren } from "../types/tsHelpers"
+import { useQRCodeText } from "../redux/selectors.js"
+import type { PropsWithRequiredChildren } from "../types/tsHelpers.js"
 
 const createQRCode = async (data: string) => {
   try {
