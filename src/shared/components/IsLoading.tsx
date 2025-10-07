@@ -1,7 +1,7 @@
 import { memo } from "react"
 import { Spinner } from "react-bootstrap"
 
-// const IsLoading = () => (
+// export const IsLoading = () => (
 //   <div className="d-flex justify-content-center">
 //     <CircularProgress
 //       size={300}
@@ -10,7 +10,7 @@ import { Spinner } from "react-bootstrap"
 //     />
 //   </div>
 // );
-const IsLoading = () => (
+export const IsLoading = memo(() => (
   <div className="d-flex justify-content-center">
     <Spinner
       animation="border"
@@ -21,6 +21,4 @@ const IsLoading = () => (
       <span className="visually-hidden">Loading...</span>
     </Spinner>
   </div>
-)
-
-export default memo(IsLoading)
+))

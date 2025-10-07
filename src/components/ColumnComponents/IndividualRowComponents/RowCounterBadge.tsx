@@ -3,7 +3,7 @@ import { memo } from "react"
 import { useVendorId } from "../../../hooks/useVendorId.js"
 import { useCartItemsLength } from "../../../redux/selectors.js"
 
-const RowCounterBadge = () => {
+export const RowCounterBadge = memo(() => {
   const vendorId = useVendorId()
   const addedItemsLength = useCartItemsLength(vendorId)
 
@@ -12,6 +12,4 @@ const RowCounterBadge = () => {
       <Badge badgeContent={addedItemsLength} color="error" />
     </span>
   )
-}
-
-export default memo(RowCounterBadge)
+})

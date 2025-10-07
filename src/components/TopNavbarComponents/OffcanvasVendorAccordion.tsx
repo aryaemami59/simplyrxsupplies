@@ -6,13 +6,13 @@ import type { AccordionSummaryProps } from "@mui/material/AccordionSummary"
 import AccordionSummary from "@mui/material/AccordionSummary"
 import Typography from "@mui/material/Typography"
 import { memo, useCallback, useState } from "react"
-import ItemIdProvider from "../../contexts/ItemIdProvider.js"
+import { ItemIdProvider } from "../../contexts/ItemIdProvider.js"
 import { useVendorId } from "../../hooks/useVendorId.js"
 import {
   useOfficialVendorName,
   useVendorItemIds,
 } from "../../redux/selectors.js"
-import SingleOffcanvasVendorItem from "./SingleOffcanvasVendorItem.js"
+import { SingleOffcanvasVendorItem } from "./SingleOffcanvasVendorItem.js"
 
 const expandIcon = (
   <ExpandMoreIcon />
@@ -25,7 +25,7 @@ const slotProps = {
   },
 } as const satisfies AccordionSlotsAndSlotProps["slotProps"]
 
-const OffcanvasVendorAccordion = () => {
+export const OffcanvasVendorAccordion = memo(() => {
   const vendorId = useVendorId()
 
   const [open, setOpen] = useState(false)
@@ -60,6 +60,4 @@ const OffcanvasVendorAccordion = () => {
       </AccordionDetails>
     </Accordion>
   )
-}
-
-export default memo(OffcanvasVendorAccordion)
+})

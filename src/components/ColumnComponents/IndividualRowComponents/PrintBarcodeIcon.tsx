@@ -16,7 +16,7 @@ const startIcon = <FontAwesomeIcon icon={faPrint} />
 
 const title = "Print Barcode"
 
-const PrintBarcodeIcon = ({ header }: Props) => {
+export const PrintBarcodeIcon = memo(({ header }: Props) => {
   const [open, setOpen] = useState(false)
   const itemId = useItemId()
   const src = useItemSrc(itemId)
@@ -57,6 +57,4 @@ const PrintBarcodeIcon = ({ header }: Props) => {
       </IconButton>
     </Tooltip>
   )
-}
-
-export default memo(PrintBarcodeIcon)
+})

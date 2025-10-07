@@ -6,14 +6,14 @@ import DialogTitle from "@mui/material/DialogTitle"
 import { memo } from "react"
 import { useVendorId } from "../../../hooks/useVendorId.js"
 import { useOfficialVendorName } from "../../../redux/selectors.js"
-import QRCodeImage from "./QRCodeImage.js"
+import { QRCodeImage } from "./QRCodeImage.js"
 
 type Props = {
   readonly hideModal: () => void
   readonly isModalOpen: boolean
 }
 
-const QRCodeDialog = ({ hideModal, isModalOpen }: Props) => {
+export const QRCodeDialog = memo(({ hideModal, isModalOpen }: Props) => {
   const vendorId = useVendorId()
 
   const officialVendorName = useOfficialVendorName(vendorId)
@@ -37,6 +37,4 @@ const QRCodeDialog = ({ hideModal, isModalOpen }: Props) => {
       </DialogActions>
     </Dialog>
   )
-}
-
-export default memo(QRCodeDialog)
+})

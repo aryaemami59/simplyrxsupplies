@@ -6,7 +6,7 @@ import {
   useVendorsLinks,
 } from "../../redux/selectors.js"
 
-const VendorLink = () => {
+export const VendorLink = memo(() => {
   const vendorId = useVendorId()
 
   const vendorLink = useVendorsLinks(vendorId)
@@ -20,6 +20,4 @@ const VendorLink = () => {
       </Link>
     </div>
   )
-}
-
-export default memo(VendorLink)
+})

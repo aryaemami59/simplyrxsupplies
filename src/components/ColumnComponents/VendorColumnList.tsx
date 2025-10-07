@@ -1,9 +1,9 @@
 import { memo } from "react"
-import VendorIdProvider from "../../contexts/VendorIdProvider.js"
+import { VendorIdProvider } from "../../contexts/VendorIdProvider.js"
 import { useVendorIds } from "../../hooks/useVendorIds.js"
-import VendorColumn from "./VendorColumn.js"
+import { VendorColumn } from "./VendorColumn.js"
 
-const VendorColumnList = () => {
+export const VendorColumnList = memo(() => {
   const vendorIds = useVendorIds()
 
   return (
@@ -20,6 +20,4 @@ const VendorColumnList = () => {
       </div>
     </div>
   )
-}
-
-export default memo(VendorColumnList)
+})

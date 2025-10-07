@@ -7,7 +7,7 @@ type Props = {
   readonly className?: string
 }
 
-const QRCodeImage = ({ className }: Props) => {
+export const QRCodeImage = memo(({ className }: Props) => {
   const vendorId = useVendorId()
   const title = useQRCodeText(vendorId)
   const qrCodeData = useQRCodeData()
@@ -20,6 +20,4 @@ const QRCodeImage = ({ className }: Props) => {
       title={title}
     />
   )
-}
-
-export default memo(QRCodeImage)
+})

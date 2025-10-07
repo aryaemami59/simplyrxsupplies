@@ -11,7 +11,7 @@ const title = "Collapse All Items"
 
 const startIcon = <FontAwesomeIcon icon={faMinimize} />
 
-const CollapseAllButton = () => {
+export const CollapseAllButton = memo(() => {
   const vendorId = useVendorId()
   const dispatch = useAppDispatch()
 
@@ -48,6 +48,4 @@ const CollapseAllButton = () => {
       </IconButton>
     </Tooltip>
   )
-}
-
-export default memo(CollapseAllButton)
+})

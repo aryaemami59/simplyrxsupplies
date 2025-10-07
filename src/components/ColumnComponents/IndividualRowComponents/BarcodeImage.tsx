@@ -9,7 +9,7 @@ type Props = {
   className?: string
 }
 
-const BarcodeImage = ({ className = "" }: Props) => {
+export const BarcodeImage = memo(({ className = "" }: Props) => {
   const itemId = useItemId()
   const src = useItemSrc(itemId)
   const itemName = useItemName(itemId)
@@ -17,6 +17,4 @@ const BarcodeImage = ({ className = "" }: Props) => {
   return (
     <img alt={itemName} className={`${className} barcode-image`} src={src} />
   )
-}
-
-export default memo(BarcodeImage)
+})

@@ -6,12 +6,10 @@ import { memo } from "react"
 
 type Props = Required<Pick<IconButtonProps, "onClick">>
 
-const InputEndAdornment = ({ onClick }: Props) => (
+export const InputEndAdornment = memo(({ onClick }: Props) => (
   <InputAdornment position="end">
     <IconButton onClick={onClick}>
       <CloseIcon />
     </IconButton>
   </InputAdornment>
-)
-
-export default memo(InputEndAdornment)
+))

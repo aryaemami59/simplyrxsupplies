@@ -11,12 +11,10 @@ type Props = PropsWithRequiredChildren<{
   readonly end?: Breakpoint
 }>
 
-const Column = ({ children, end, start = "xs" }: Props) => {
+export const Column = memo(({ children, end, start = "xs" }: Props) => {
   const matches = useMediaQuery(theme =>
     end ? theme.breakpoints.between(start, end) : theme.breakpoints.up(start),
   )
 
   return matches && children
-}
-
-export default memo(Column)
+})

@@ -14,7 +14,7 @@ const startIcon = /ipad|iphone|ipod/iu.test(navigator.userAgent) ? (
   <FontAwesomeIcon icon={faShareNodes} />
 )
 
-const ShareButton = () => {
+export const ShareButton = memo(() => {
   const vendorId = useVendorId()
   const itemNamesStringified = useCartItemNamesStringified(vendorId)
   const title = `QR Code for items:\n${itemNamesStringified}`
@@ -43,6 +43,4 @@ const ShareButton = () => {
       {startIcon}
     </IconButton>
   )
-}
-
-export default memo(ShareButton)
+})

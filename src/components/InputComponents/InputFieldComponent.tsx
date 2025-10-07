@@ -20,14 +20,14 @@ import { EMPTY_ARRAY } from "../../utils/emptyArray.js"
 import { fallbackToEmptyArray } from "../../utils/fallbackToEmptyArray.js"
 import { isEmptyArray } from "../../utils/predicates/isEmptyArray.js"
 import { search } from "../../utils/search/search.js"
-import InputEndAdornment from "./InputEndAdornment.js"
+import { InputEndAdornment } from "./InputEndAdornment.js"
 
 const style = {
   backgroundColor: SEARCH_FIELD_BG,
   borderRadius: "30px",
 } as const satisfies CSSProperties
 
-const InputFieldComponent = () => {
+export const InputFieldComponent = memo(() => {
   const [inputValue, setInputValue] = useState("")
   const [, startTransition] = useTransition()
   const itemNamesAndKeywords = useAppSelector(selectItemNamesAndKeywords)
@@ -97,6 +97,4 @@ const InputFieldComponent = () => {
       variant="outlined"
     />
   )
-}
-
-export default memo(InputFieldComponent)
+})

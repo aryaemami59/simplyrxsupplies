@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react"
-import App from "../../App.js"
+import { App } from "../../App.js"
 import { selectVendorsData } from "../../redux/apiSlice.js"
 import { findFastestSelector } from "../../redux/createSelectors.js"
 import {

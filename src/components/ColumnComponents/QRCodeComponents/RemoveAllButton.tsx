@@ -11,7 +11,7 @@ const startIcon = <FontAwesomeIcon icon={faTrashCan} />
 
 const title = "Remove All Items"
 
-const RemoveAllButton = () => {
+export const RemoveAllButton = memo(() => {
   const [open, setOpen] = useState(false)
   const vendorId = useVendorId()
   const dispatch = useAppDispatch()
@@ -47,6 +47,4 @@ const RemoveAllButton = () => {
       </IconButton>
     </Tooltip>
   )
-}
-
-export default memo(RemoveAllButton)
+})

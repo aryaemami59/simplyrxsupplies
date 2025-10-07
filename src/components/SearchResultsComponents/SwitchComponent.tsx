@@ -23,7 +23,7 @@ type Props = {
   readonly visibleListId: number
 }
 
-const SwitchComponent = ({ vendorId, visibleListId }: Props) => {
+export const SwitchComponent = memo(({ vendorId, visibleListId }: Props) => {
   const officialVendorName = useOfficialVendorName(vendorId)
 
   const dispatch = useAppDispatch()
@@ -49,6 +49,4 @@ const SwitchComponent = ({ vendorId, visibleListId }: Props) => {
       onChange={clickHandler}
     />
   )
-}
-
-export default memo(SwitchComponent)
+})

@@ -1,15 +1,15 @@
 import { memo } from "react"
-import QRCodeDataProvider from "../../../contexts/QRCodeDataProvider.js"
+import { QRCodeDataProvider } from "../../../contexts/QRCodeDataProvider.js"
 import { useVendorId } from "../../../hooks/useVendorId.js"
-import CollapseAllButton from "./CollapseAllButton.js"
-import ExpandAllButton from "./ExpandAllButton.js"
-import PrintIconQRCode from "./PrintIconQRCode.js"
-import QRCodeImage from "./QRCodeImage.js"
-import QRCodeModal from "./QRCodeModal.js"
-import RemoveAllButton from "./RemoveAllButton.js"
-import ShareButton from "./ShareButton.js"
+import { CollapseAllButton } from "./CollapseAllButton.js"
+import { ExpandAllButton } from "./ExpandAllButton.js"
+import { PrintIconQRCode } from "./PrintIconQRCode.js"
+import { QRCodeImage } from "./QRCodeImage.js"
+import { QRCodeModal } from "./QRCodeModal.js"
+import { RemoveAllButton } from "./RemoveAllButton.js"
+import { ShareButton } from "./ShareButton.js"
 
-const QRCodeImageContainer = () => {
+export const QRCodeImageContainer = memo(() => {
   const vendorId = useVendorId()
   return (
     <div className="container-fluid">
@@ -32,6 +32,4 @@ const QRCodeImageContainer = () => {
       </div>
     </div>
   )
-}
-
-export default memo(QRCodeImageContainer)
+})

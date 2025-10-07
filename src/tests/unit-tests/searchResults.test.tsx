@@ -1,5 +1,5 @@
 import type { ByRoleOptions } from "@testing-library/react"
-import InputGroupComponent from "../../components/InputComponents/InputGroupComponent.js"
+import { InputGroupComponent } from "../../components/InputComponents/InputGroupComponent.js"
 import {
   resetAllSelectors,
   selectItemNamesAndKeywords,

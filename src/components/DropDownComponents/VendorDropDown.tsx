@@ -8,7 +8,7 @@ import {
   useOfficialVendorName,
   useVendorItemIds,
 } from "../../redux/selectors.js"
-import SingleDropDown from "./SingleDropDown.js"
+import { SingleDropDown } from "./SingleDropDown.js"
 
 const transformOrigin = {
   horizontal: "left",
@@ -39,7 +39,7 @@ type Props = {
   readonly vendorId: number
 }
 
-const VendorDropDown = ({ vendorId }: Props) => {
+export const VendorDropDown = memo(({ vendorId }: Props) => {
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
 
   const open = !!anchorElement
@@ -93,6 +93,4 @@ const VendorDropDown = ({ vendorId }: Props) => {
       </Menu>
     </>
   )
-}
-
-export default memo(VendorDropDown)
+})

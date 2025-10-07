@@ -1,15 +1,15 @@
 import { memo } from "react"
 import { useVendorIdsByItemId } from "../../redux/selectors.js"
 import { isEmptyArray } from "../../utils/predicates/isEmptyArray.js"
-import SearchResultsAddButton from "./SearchResultsAddButton.js"
-import SearchResultsItemName from "./SearchResultsItemName.js"
-import SwitchComponent from "./SwitchComponent.js"
+import { SearchResultsAddButton } from "./SearchResultsAddButton.js"
+import { SearchResultsItemName } from "./SearchResultsItemName.js"
+import { SwitchComponent } from "./SwitchComponent.js"
 
 type Props = {
   readonly visibleListId: number
 }
 
-const SearchResultsCardBodyContent = ({ visibleListId }: Props) => {
+export const SearchResultsCardBodyContent = memo(({ visibleListId }: Props) => {
   const vendorIds = useVendorIdsByItemId(visibleListId)
 
   return (
@@ -42,8 +42,6 @@ const SearchResultsCardBodyContent = ({ visibleListId }: Props) => {
       </div>
     </>
   )
-}
+})
 
 SearchResultsCardBodyContent.displayName = "SearchResultsCardBodyContent"
-
-export default memo(SearchResultsCardBodyContent)

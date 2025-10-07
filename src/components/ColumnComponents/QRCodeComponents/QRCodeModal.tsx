@@ -4,13 +4,13 @@ import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 import type { MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
-import QRCodeDialog from "./QRCodeDialog.js"
+import { QRCodeDialog } from "./QRCodeDialog.js"
 
 const title = "Take a Closer Look at The QRCode"
 
 const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />
 
-const QRCodeModal = () => {
+export const QRCodeModal = memo(() => {
   const [show, setShow] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -60,6 +60,4 @@ const QRCodeModal = () => {
       <QRCodeDialog hideModal={hideModal} isModalOpen={show} />
     </>
   )
-}
-
-export default memo(QRCodeModal)
+})

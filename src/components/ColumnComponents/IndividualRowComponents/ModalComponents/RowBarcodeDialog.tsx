@@ -6,14 +6,14 @@ import { memo } from "react"
 import { Button } from "react-bootstrap"
 import { useItemId } from "../../../../hooks/useItemId.js"
 import { useItemName } from "../../../../redux/selectors.js"
-import BarcodeImage from "../BarcodeImage.js"
+import { BarcodeImage } from "../BarcodeImage.js"
 
 type Props = {
   readonly hideModal: () => void
   readonly isModalOpen: boolean
 }
 
-const RowBarcodeDialog = ({ hideModal, isModalOpen }: Props) => {
+export const RowBarcodeDialog = memo(({ hideModal, isModalOpen }: Props) => {
   const itemId = useItemId()
   const itemName = useItemName(itemId)
 
@@ -36,6 +36,4 @@ const RowBarcodeDialog = ({ hideModal, isModalOpen }: Props) => {
       </DialogActions>
     </Dialog>
   )
-}
-
-export default memo(RowBarcodeDialog)
+})

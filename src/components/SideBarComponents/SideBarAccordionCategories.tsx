@@ -6,7 +6,7 @@ import type { AccordionSummaryOwnProps } from "@mui/material/AccordionSummary"
 import AccordionSummary from "@mui/material/AccordionSummary"
 import { memo, useCallback, useRef, useState } from "react"
 import { useCategoryItemIds, useCategoryName } from "../../redux/selectors.js"
-import SingleSideBarCategoryListItem from "./SingleSideBarCategoryListItem.js"
+import { SingleSideBarCategoryListItem } from "./SingleSideBarCategoryListItem.js"
 
 const expandIcon = (
   <ExpandMoreIcon />
@@ -23,7 +23,7 @@ const slotProps = {
   },
 } as const satisfies AccordionProps["slotProps"]
 
-const SideBarAccordionCategories = ({ categoryId }: Props) => {
+export const SideBarAccordionCategories = memo(({ categoryId }: Props) => {
   const ref = useRef<HTMLDivElement>(null)
 
   const categoryName = useCategoryName(categoryId)
@@ -64,6 +64,4 @@ const SideBarAccordionCategories = ({ categoryId }: Props) => {
       </Accordion>
     </div>
   )
-}
-
-export default memo(SideBarAccordionCategories)
+})

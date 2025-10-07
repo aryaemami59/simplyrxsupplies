@@ -13,7 +13,7 @@ const slotProps = {
   },
 } as const satisfies CardHeaderProps["slotProps"]
 
-const SearchResultsItemName = ({ visibleListId }: Props) => {
+export const SearchResultsItemName = memo(({ visibleListId }: Props) => {
   const itemName = useItemName(visibleListId)
 
   return (
@@ -23,6 +23,4 @@ const SearchResultsItemName = ({ visibleListId }: Props) => {
       slotProps={slotProps}
     />
   )
-}
-
-export default memo(SearchResultsItemName)
+})

@@ -4,13 +4,13 @@ import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 import type { MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
-import RowItemsDialog from "./RowItemsDialog.js"
+import { RowItemsDialog } from "./RowItemsDialog.js"
 
 const title = "Take a Closer Look at The Item Info"
 
 const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />
 
-const RowSingleContainerModal = () => {
+export const RowSingleContainerModal = memo(() => {
   const [modalOpen, setModalOpen] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -52,6 +52,4 @@ const RowSingleContainerModal = () => {
       <RowItemsDialog hideModal={hideModal} isModalOpen={modalOpen} />
     </>
   )
-}
-
-export default memo(RowSingleContainerModal)
+})

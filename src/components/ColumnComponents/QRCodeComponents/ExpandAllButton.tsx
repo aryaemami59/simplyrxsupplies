@@ -11,7 +11,7 @@ const title = "Expand All Items"
 
 const startIcon = <FontAwesomeIcon icon={faMaximize} />
 
-const ExpandAllButton = () => {
+export const ExpandAllButton = memo(() => {
   const vendorId = useVendorId()
   const dispatch = useAppDispatch()
 
@@ -48,6 +48,4 @@ const ExpandAllButton = () => {
       </IconButton>
     </Tooltip>
   )
-}
-
-export default memo(ExpandAllButton)
+})

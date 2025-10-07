@@ -14,7 +14,7 @@ const startIcon = <FontAwesomeIcon icon={faPrint} />
 
 const title = "Print QRCode"
 
-const PrintIconQRCode = () => {
+export const PrintIconQRCode = memo(() => {
   const [open, setOpen] = useState(false)
   const qrCodeData = useQRCodeData()
 
@@ -37,12 +37,12 @@ const PrintIconQRCode = () => {
 
   return (
     <Tooltip
-      role="tooltip"
       enterDelay={500}
       enterNextDelay={500}
       onClose={hideTooltip}
       onOpen={showTooltip}
       open={open}
+      role="tooltip"
       title={title}
     >
       <IconButton
@@ -54,6 +54,4 @@ const PrintIconQRCode = () => {
       </IconButton>
     </Tooltip>
   )
-}
-
-export default memo(PrintIconQRCode)
+})

@@ -12,7 +12,7 @@ type Props = {
   readonly text: string
 }
 
-const CopyIcon = ({ content, text }: Props) => {
+export const CopyIcon = memo(({ content, text }: Props) => {
   const copiedText = `Copied Item ${text}!`
 
   const [show, setShow] = useState(false)
@@ -39,6 +39,4 @@ const CopyIcon = ({ content, text }: Props) => {
       </Button>
     </Tooltip>
   )
-}
-
-export default memo(CopyIcon)
+})

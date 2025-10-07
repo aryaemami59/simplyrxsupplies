@@ -1,7 +1,7 @@
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 import { Provider } from "react-redux"
-import App from "./App.js"
+import { App } from "./App.js"
 import { apiSlice } from "./redux/apiSlice.js"
 import { allSelectors } from "./redux/selectors.js"
 import { store } from "./redux/store.js"

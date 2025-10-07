@@ -18,7 +18,7 @@ type Props = PropsWithRequiredChildren<{
 
 export const QRCodeDataContext = createContext<string | undefined>(undefined)
 
-const QRCodeDataProvider = ({ children, vendorId }: Props) => {
+export const QRCodeDataProvider = memo(({ children, vendorId }: Props) => {
   const qrCodeText = useQRCodeText(vendorId)
 
   const [src, setSrc] = useState<string | undefined>(undefined)
@@ -37,6 +37,4 @@ const QRCodeDataProvider = ({ children, vendorId }: Props) => {
       {children}
     </QRCodeDataContext.Provider>
   )
-}
-
-export default memo(QRCodeDataProvider)
+})

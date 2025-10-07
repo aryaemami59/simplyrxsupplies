@@ -11,13 +11,13 @@ import {
   useVendorIdsByItemId,
 } from "../../redux/selectors.js"
 import { isEmptyArray } from "../../utils/predicates/isEmptyArray.js"
-import SideBarVendorBadges from "./SideBarVendorBadges.js"
+import { SideBarVendorBadges } from "./SideBarVendorBadges.js"
 
 type Props = {
   readonly itemId: number
 }
 
-const SingleSideBarCategoryListItem = ({ itemId }: Props) => {
+export const SingleSideBarCategoryListItem = memo(({ itemId }: Props) => {
   const dispatch = useAppDispatch()
 
   const ifAddedToAllVendors = useAppSelector(state =>
@@ -61,6 +61,4 @@ const SingleSideBarCategoryListItem = ({ itemId }: Props) => {
       </ButtonGroup>
     </>
   )
-}
-
-export default memo(SingleSideBarCategoryListItem)
+})

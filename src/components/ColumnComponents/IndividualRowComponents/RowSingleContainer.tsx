@@ -8,17 +8,18 @@ import { useVendorId } from "../../../hooks/useVendorId.js"
 import { toggledMinimizeOneItemInCart } from "../../../redux/addedSlice.js"
 import { useAppDispatch } from "../../../redux/hooks.js"
 import { useIsMinimized, useItemName } from "../../../redux/selectors.js"
-import CollapseButton from "./CollapseButton.js"
-import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal.js"
-import RowDeleteButton from "./RowDeleteButton.js"
-import RowSingleItemInfo from "./RowSingleItemInfo.js"
+import { CollapseButton } from "./CollapseButton.js"
+import { RowSingleContainerModal } from "./ModalComponents/RowSingleContainerModal.js"
+import { RowDeleteButton } from "./RowDeleteButton.js"
+import { RowSingleItemInfo } from "./RowSingleItemInfo.js"
 
-const RowSingleContainer = () => {
+export const RowSingleContainer = memo(() => {
   const itemId = useItemId()
   const vendorId = useVendorId()
   const dispatch = useAppDispatch()
   const open = useIsMinimized(vendorId, itemId)
   const itemName = useItemName(itemId)
+
   const toggleFade = useCallback(() => {
     dispatch(toggledMinimizeOneItemInCart({ itemId, vendorId }))
   }, [dispatch, itemId, vendorId])
@@ -58,6 +59,4 @@ const RowSingleContainer = () => {
       </Collapse>
     </div>
   )
-}
-
-export default memo(RowSingleContainer)
+})

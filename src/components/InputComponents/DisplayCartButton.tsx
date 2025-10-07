@@ -11,7 +11,7 @@ type Props = {
   readonly showModal: MouseEventHandler<HTMLButtonElement>
 }
 
-const DisplayCartButton = ({ showModal }: Props) => {
+export const DisplayCartButton = memo(({ showModal }: Props) => {
   const ifAdded = useAppSelector(checkIfAnyItemsAdded)
 
   const startIcon = useMemo(
@@ -40,6 +40,4 @@ const DisplayCartButton = ({ showModal }: Props) => {
 
     // </Column>
   )
-}
-
-export default memo(DisplayCartButton)
+})

@@ -14,7 +14,7 @@ type Props = {
   readonly toggle: MouseEventHandler<HTMLButtonElement>
 }
 
-const CollapseButton = ({ isTooltipOpen, toggle }: Props) => {
+export const CollapseButton = memo(({ isTooltipOpen, toggle }: Props) => {
   const [show, setShow] = useState(false)
   const startIcon = useMemo(
     () => <FontAwesomeIcon icon={isTooltipOpen ? faMaximize : faMinimize} />,
@@ -50,6 +50,4 @@ const CollapseButton = ({ isTooltipOpen, toggle }: Props) => {
       </IconButton>
     </Tooltip>
   )
-}
-
-export default memo(CollapseButton)
+})

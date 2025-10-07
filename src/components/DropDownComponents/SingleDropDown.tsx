@@ -10,7 +10,7 @@ type Props = {
   readonly vendorId: number
 }
 
-const SingleDropDown = ({ itemId, vendorId }: Props) => {
+export const SingleDropDown = memo(({ itemId, vendorId }: Props) => {
   const dispatch = useAppDispatch()
 
   const itemName = useItemName(itemId)
@@ -32,6 +32,4 @@ const SingleDropDown = ({ itemId, vendorId }: Props) => {
       {itemName}
     </MenuItem>
   )
-}
-
-export default memo(SingleDropDown)
+})

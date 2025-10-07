@@ -9,7 +9,7 @@ import {
 import { useAppDispatch } from "../../redux/hooks.js"
 import { useOfficialVendorName } from "../../redux/selectors.js"
 
-const ExcludeVendorSingleCheckbox = () => {
+export const ExcludeVendorSingleCheckbox = memo(() => {
   const dispatch = useAppDispatch()
 
   const vendorId = useVendorId()
@@ -41,6 +41,4 @@ const ExcludeVendorSingleCheckbox = () => {
       labelPlacement="top"
     />
   )
-}
-
-export default memo(ExcludeVendorSingleCheckbox)
+})

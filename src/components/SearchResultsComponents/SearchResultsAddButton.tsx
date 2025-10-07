@@ -12,7 +12,7 @@ type Props = {
   readonly visibleListId: number
 }
 
-const SearchResultsAddButton = ({ visibleListId }: Props) => {
+export const SearchResultsAddButton = memo(({ visibleListId }: Props) => {
   const dispatch = useAppDispatch()
 
   const ifAddedToAllVendors = useAppSelector(state =>
@@ -34,6 +34,4 @@ const SearchResultsAddButton = ({ visibleListId }: Props) => {
       Add
     </Button>
   )
-}
-
-export default memo(SearchResultsAddButton)
+})

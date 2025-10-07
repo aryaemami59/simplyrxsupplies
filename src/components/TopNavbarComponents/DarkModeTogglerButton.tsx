@@ -5,8 +5,9 @@ import { memo, useMemo } from "react"
 import { useColorMode } from "../../hooks/useColorMode.js"
 import { darkTheme } from "../../shared/themes.js"
 
-const DarkModeTogglerButton = () => {
+export const DarkModeTogglerButton = memo(() => {
   const { theme, toggleColorMode } = useColorMode()
+
   const icon = useMemo(
     () => (theme === darkTheme ? <Brightness7Icon /> : <Brightness4Icon />),
     [theme],
@@ -17,6 +18,4 @@ const DarkModeTogglerButton = () => {
       {icon}
     </IconButton>
   )
-}
-
-export default memo(DarkModeTogglerButton)
+})

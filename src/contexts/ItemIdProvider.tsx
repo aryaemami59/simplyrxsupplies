@@ -7,8 +7,6 @@ type Props = PropsWithRequiredChildren<{
 
 export const ItemIdContext = createContext<number>(0)
 
-const ItemIdProvider = ({ children, itemId }: Props) => (
+export const ItemIdProvider = memo(({ children, itemId }: Props) => (
   <ItemIdContext.Provider value={itemId}>{children}</ItemIdContext.Provider>
-)
-
-export default memo(ItemIdProvider)
+))

@@ -7,7 +7,7 @@ import { itemAddedToCarts } from "../../redux/addedSlice.js"
 import { useAppDispatch } from "../../redux/hooks.js"
 import { useCheckIfAddedToVendor, useItemName } from "../../redux/selectors.js"
 
-const SingleOffcanvasVendorItem = () => {
+export const SingleOffcanvasVendorItem = memo(() => {
   const vendorId = useVendorId()
   const itemId = useItemId()
   const dispatch = useAppDispatch()
@@ -34,6 +34,4 @@ const SingleOffcanvasVendorItem = () => {
       </Button>
     </div>
   )
-}
-
-export default memo(SingleOffcanvasVendorItem)
+})

@@ -6,11 +6,11 @@ import {
   useItemNumber,
   useOfficialVendorName,
 } from "../../../redux/selectors.js"
-import BarcodeImage from "./BarcodeImage.js"
-import RowBarcodeModal from "./ModalComponents/RowBarcodeModal.js"
-import PrintBarcodeIcon from "./PrintBarcodeIcon.js"
+import { BarcodeImage } from "./BarcodeImage.js"
+import { RowBarcodeModal } from "./ModalComponents/RowBarcodeModal.js"
+import { PrintBarcodeIcon } from "./PrintBarcodeIcon.js"
 
-const RowBarcodeImage = () => {
+export const RowBarcodeImage = memo(() => {
   const vendorId = useVendorId()
 
   const itemId = useItemId()
@@ -38,6 +38,4 @@ const RowBarcodeImage = () => {
       </div>
     </div>
   )
-}
-
-export default memo(RowBarcodeImage)
+})

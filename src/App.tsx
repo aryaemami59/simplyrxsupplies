@@ -2,16 +2,16 @@ import Paper from "@mui/material/Paper"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { memo } from "react"
 import "./App.css"
-import VendorColumnList from "./components/ColumnComponents/VendorColumnList.js"
-import InputGroupComponent from "./components/InputComponents/InputGroupComponent.js"
-import SideBarContainer from "./components/SideBarComponents/SideBarContainer.js"
-import TopNavbar from "./components/TopNavbarComponents/TopNavbar.js"
-import ColorModeProvider from "./contexts/ColorModeProvider.js"
+import { VendorColumnList } from "./components/ColumnComponents/VendorColumnList.js"
+import { InputGroupComponent } from "./components/InputComponents/InputGroupComponent.js"
+import { SideBarContainer } from "./components/SideBarComponents/SideBarContainer.js"
+import { TopNavbar } from "./components/TopNavbarComponents/TopNavbar.js"
+import { ColorModeProvider } from "./contexts/ColorModeProvider.js"
 import { useGetMainQuery } from "./redux/apiSlice.js"
-import ErrorComponent from "./shared/components/ErrorComponent.js"
-import IsLoading from "./shared/components/IsLoading.js"
+import { ErrorComponent } from "./shared/components/ErrorComponent.js"
+import { IsLoading } from "./shared/components/IsLoading.js"
 
-const App = () => {
+export const App = memo(() => {
   const { isError, isLoading } = useGetMainQuery(undefined)
 
   if (isLoading) {
@@ -52,6 +52,4 @@ const App = () => {
       </Paper>
     </ColorModeProvider>
   )
-}
-
-export default memo(App)
+})

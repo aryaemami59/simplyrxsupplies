@@ -12,7 +12,7 @@ import type { ItemIdAndVendorId } from "../../types/reduxHelperTypes.js"
 
 type Props = ItemIdAndVendorId
 
-const SideBarVendorBadges = ({ itemId, vendorId }: Props) => {
+export const SideBarVendorBadges = memo(({ itemId, vendorId }: Props) => {
   const dispatch = useAppDispatch()
 
   const officialVendorName = useOfficialVendorName(vendorId)
@@ -45,6 +45,4 @@ const SideBarVendorBadges = ({ itemId, vendorId }: Props) => {
       label={officialVendorName}
     />
   )
-}
-
-export default memo(SideBarVendorBadges)
+})

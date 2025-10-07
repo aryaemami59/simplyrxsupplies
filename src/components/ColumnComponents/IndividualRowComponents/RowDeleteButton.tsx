@@ -13,7 +13,7 @@ const startIcon = <FontAwesomeIcon icon={faDeleteLeft} />
 
 const title = "Delete This Item"
 
-const RowDeleteButton = () => {
+export const RowDeleteButton = memo(() => {
   const [open, setOpen] = useState(false)
   const itemId = useItemId()
   const vendorId = useVendorId()
@@ -50,6 +50,4 @@ const RowDeleteButton = () => {
       </IconButton>
     </Tooltip>
   )
-}
-
-export default memo(RowDeleteButton)
+})

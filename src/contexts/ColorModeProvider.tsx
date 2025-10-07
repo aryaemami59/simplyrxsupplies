@@ -13,7 +13,7 @@ export const ColorModeContext = createContext({
   theme: lightTheme,
 })
 
-const ColorModeProvider = ({ children }: Props) => {
+export const ColorModeProvider = memo(({ children }: Props) => {
   const [theme, setTheme] = useLocalStorageTheme()
 
   const colorMode = useMemo(
@@ -37,6 +37,4 @@ const ColorModeProvider = ({ children }: Props) => {
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ColorModeContext.Provider>
   )
-}
-
-export default memo(ColorModeProvider)
+})

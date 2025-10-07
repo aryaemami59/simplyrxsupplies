@@ -8,7 +8,7 @@ import {
 import { userEvent } from "@testing-library/user-event"
 import type { ReactElement } from "react"
 import { Provider } from "react-redux"
-import App from "../../App.js"
+import { App } from "../../App.js"
 import { endpoints } from "../../redux/apiSlice.js"
 import type { AppStore, RootState } from "../../redux/store.js"
 import { setupStore } from "../../redux/store.js"

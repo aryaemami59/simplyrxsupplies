@@ -4,13 +4,13 @@ import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 import type { MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
-import RowBarcodeDialog from "./RowBarcodeDialog.js"
+import { RowBarcodeDialog } from "./RowBarcodeDialog.js"
 
 const title = "Take a Closer Look at The Barcode"
 
 const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />
 
-const RowBarcodeModal = () => {
+export const RowBarcodeModal = memo(() => {
   const [show, setShow] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -52,6 +52,4 @@ const RowBarcodeModal = () => {
       <RowBarcodeDialog hideModal={hideModal} isModalOpen={show} />
     </>
   )
-}
-
-export default memo(RowBarcodeModal)
+})

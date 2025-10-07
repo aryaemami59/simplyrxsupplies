@@ -3,12 +3,12 @@ import { memo, useCallback, useEffect, useMemo, useState } from "react"
 import InfiniteScroll from "react-infinite-scroll-component"
 import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors.js"
 import { useAppSelector } from "../../redux/hooks.js"
-import IsLoading from "../../shared/components/IsLoading.js"
-import SearchResultsSingleCard from "./SearchResultsSingleCard.js"
+import { IsLoading } from "../../shared/components/IsLoading.js"
+import { SearchResultsSingleCard } from "./SearchResultsSingleCard.js"
 
 const loader = <IsLoading />
 
-const SearchResultsContainer = () => {
+export const SearchResultsContainer = memo(() => {
   const searchResultsIds = useAppSelector(
     ADAPTER_SELECTORS.GLOBAL.searchResults.selectIds,
   )
@@ -62,6 +62,4 @@ const SearchResultsContainer = () => {
       </InfiniteScroll>
     </List>
   )
-}
-
-export default memo(SearchResultsContainer)
+})
