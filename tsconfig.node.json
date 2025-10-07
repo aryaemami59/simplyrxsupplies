@@ -29,6 +29,8 @@
     "vite.config.ts",
     "vitest.config.ts",
     "eslint.config.mts",
-    "prettier.config.mjs"
+    "prettier.config.mts",
+    "eslint-plugin-react-hooks.d.ts",
+    "eslint-plugin-prefer-arrow-functions.d.ts"
   ]
 }

@@ -29,6 +29,7 @@ const vitestConfig = defineConfig(configEnv =>
                   },
                 },
               ],
+              ["babel-plugin-react-compiler"],
             ],
           },
         }),

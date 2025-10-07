@@ -1,25 +1,38 @@
 import js from "@eslint/js"
+import type { TSESLint } from "@typescript-eslint/utils"
 import vitestPlugin from "@vitest/eslint-plugin"
 import type { Linter } from "eslint"
 import prettierConfig from "eslint-config-prettier/flat"
-import reactHooks from "eslint-plugin-react-hooks"
+import preferArrowFunctionsPlugin from "eslint-plugin-prefer-arrow-functions"
+import reactHooksPlugin from "eslint-plugin-react-hooks"
 import { defineConfig } from "eslint/config"
 import { configs } from "typescript-eslint"
 
 export const rulesToDisable = {
-  "no-undef": [0, { typeof: false }],
-  "@typescript-eslint/ban-ts-comment": [
-    2,
+  "no-undef": [
+    0,
     {
+      typeof: false,
+    },
+  ],
+  "@typescript-eslint/ban-ts-comment": [
+    0,
+    {
+      "ts-check": false,
       "ts-expect-error": "allow-with-description",
       "ts-ignore": true,
       "ts-nocheck": true,
-      "ts-check": false,
       minimumDescriptionLength: 3,
     },
   ],
-  "vitest/valid-describe-callback": [2],
-} as const satisfies Linter.RulesRecord
+  "vitest/valid-describe-callback": [0],
+} as const satisfies Linter.RulesRecord satisfies Record<
+  keyof Linter.RulesRecord,
+  readonly [
+    ruleSeverity: Extract<Linter.RuleSeverity, 0 | "off">,
+    ...ruleOptions: readonly unknown[],
+  ]
+>
 
 const eslintConfig = defineConfig(
   {
@@ -41,15 +54,26 @@ const eslintConfig = defineConfig(
       "**/temp/",
     ],
   },
-  { name: `${js.meta.name}/recommended`, ...js.configs.recommended },
+  {
+    name: `${js.meta.name}/recommended`,
+    ...js.configs.recommended,
+  },
   ...configs.strictTypeChecked,
   ...configs.stylisticTypeChecked,
   // @ts-expect-error - types are wrong
   vitestPlugin.configs.recommended,
-  // @ts-expect-error - types are wrong
-  ...reactHooks.configs["recommended-latest"],
-  // @ts-expect-error - types are wrong
-  ...reactHooks.configs.recommended,
+  {
+    name: `${reactHooksPlugin.meta.name}/recommended-latest`,
+    ...reactHooksPlugin.configs["recommended-latest"][0],
+  },
+  {
+    name: `${reactHooksPlugin.meta.name}/recommended`,
+    ...reactHooksPlugin.configs.recommended[0],
+  },
+  {
+    name: `${preferArrowFunctionsPlugin.meta.name}/all`,
+    ...preferArrowFunctionsPlugin.configs.all,
+  },
   {
     name: "main",
     languageOptions: {
@@ -58,8 +82,8 @@ const eslintConfig = defineConfig(
           defaultProject: "tsconfig.json",
         },
         tsconfigRootDir: import.meta.dirname,
-      },
-    },
+      } as const satisfies TSESLint.FlatConfig.ParserOptions,
+    } as const satisfies TSESLint.FlatConfig.LanguageOptions,
     settings: {
       vitest: {
         typecheck: true,
@@ -76,15 +100,23 @@ const eslintConfig = defineConfig(
       ],
       "@typescript-eslint/consistent-type-exports": [
         2,
-        { fixMixedExportsWithInlineTypeSpecifier: false },
+        {
+          fixMixedExportsWithInlineTypeSpecifier: false,
+        },
       ],
       "@typescript-eslint/no-explicit-any": [
         2,
-        { fixToUnknown: false, ignoreRestArgs: false },
+        {
+          fixToUnknown: false,
+          ignoreRestArgs: false,
+        },
       ],
       "@typescript-eslint/no-empty-object-type": [
         2,
-        { allowInterfaces: "never", allowObjectTypes: "never" },
+        {
+          allowInterfaces: "never",
+          allowObjectTypes: "never",
+        },
       ],
       "@typescript-eslint/no-restricted-types": [
         2,
@@ -110,7 +142,10 @@ const eslintConfig = defineConfig(
       ],
       "@typescript-eslint/no-namespace": [
         2,
-        { allowDeclarations: false, allowDefinitionFiles: true },
+        {
+          allowDeclarations: false,
+          allowDefinitionFiles: true,
+        },
       ],
       "@typescript-eslint/consistent-type-definitions": [2, "type"],
       "sort-imports": [
@@ -161,18 +196,39 @@ const eslintConfig = defineConfig(
           varsIgnorePattern: "^_",
         },
       ],
+      "prefer-arrow-functions/prefer-arrow-functions": [
+        2,
+        {
+          allowedNames: [] as const satisfies readonly string[],
+          allowNamedFunctions: false,
+          allowObjectProperties: false,
+          classPropertiesAllowed: false,
+          disallowPrototype: false,
+          returnStyle: "unchanged",
+          singleReturnOnly: false,
+        },
+      ],
       ...rulesToDisable,
     },
-    linterOptions: { reportUnusedDisableDirectives: 2 },
+    linterOptions: {
+      reportUnusedDisableDirectives: 2,
+    },
   },
   {
     name: "commonjs",
     files: ["**/*.c[jt]s"],
-    languageOptions: { sourceType: "commonjs" },
+    languageOptions: {
+      sourceType: "commonjs" as const satisfies TSESLint.FlatConfig.SourceType,
+    } as const satisfies TSESLint.FlatConfig.LanguageOptions,
     rules: {
       "@typescript-eslint/no-require-imports": [
         0,
-        [{ allow: [], allowAsImport: false }],
+        [
+          {
+            allow: [] as const satisfies readonly string[],
+            allowAsImport: false,
+          },
+        ],
       ],
     },
   },
@@ -182,7 +238,10 @@ const eslintConfig = defineConfig(
     rules: {
       "@typescript-eslint/no-empty-object-type": [
         2,
-        { allowInterfaces: "with-single-extends", allowObjectTypes: "never" },
+        {
+          allowInterfaces: "with-single-extends",
+          allowObjectTypes: "never",
+        },
       ],
       "@typescript-eslint/consistent-type-definitions": [0, "type"],
     },
