@@ -17,7 +17,6 @@ const startIcon = /ipad|iphone|ipod/iu.test(navigator.userAgent) ? (
 const ShareButton = () => {
   const vendorId = useVendorId()
   const itemNamesStringified = useCartItemNamesStringified(vendorId)
-  // const text = itemNames.join(", ");
   const title = `QR Code for items:\n${itemNamesStringified}`
   const qrCodeData = useQRCodeData()
 

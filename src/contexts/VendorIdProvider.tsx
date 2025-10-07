@@ -1,4 +1,3 @@
-import type { FC } from "react"
 import { createContext, memo } from "react"
 import type { PropsWithRequiredChildren } from "../types/tsHelpers.js"
 
@@ -8,10 +7,10 @@ type Props = PropsWithRequiredChildren<{
 
 export const VendorIdContext = createContext<number>(0)
 
-const VendorIdProvider: FC<Props> = ({ children, vendorId }) => (
+const VendorIdProvider = ({ children, vendorId }: Props) => (
   <VendorIdContext.Provider value={vendorId}>
     {children}
   </VendorIdContext.Provider>
 )
 
-export default memo<Props>(VendorIdProvider)
+export default memo(VendorIdProvider)

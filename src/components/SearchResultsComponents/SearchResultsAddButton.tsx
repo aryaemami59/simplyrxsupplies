@@ -1,6 +1,6 @@
 import AddIcon from "@mui/icons-material/Add"
 import Button from "@mui/material/Button"
-import type { FC, MouseEventHandler } from "react"
+import type { MouseEventHandler } from "react"
 import { memo, useCallback } from "react"
 import { itemAddedToCarts } from "../../redux/addedSlice.js"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks.js"
@@ -9,10 +9,10 @@ import { checkIfAddedToAllVendors } from "../../redux/selectors.js"
 const startIcon = <AddIcon />
 
 type Props = {
-  visibleListId: number
+  readonly visibleListId: number
 }
 
-const SearchResultsAddButton: FC<Props> = ({ visibleListId }) => {
+const SearchResultsAddButton = ({ visibleListId }: Props) => {
   const dispatch = useAppDispatch()
   const ifAddedToAllVendors = useAppSelector(state =>
     checkIfAddedToAllVendors(state, visibleListId),
@@ -24,9 +24,9 @@ const SearchResultsAddButton: FC<Props> = ({ visibleListId }) => {
 
   return (
     <Button
-      key={`Button-AddItemButtonComponent-${visibleListId.toString()}`}
       className="fw-bold w-auto p-auto shadow-sm rounded-pill text-none"
       disabled={ifAddedToAllVendors}
+      key={`Button-AddItemButtonComponent-${visibleListId.toString()}`}
       onClick={clickHandler}
       startIcon={startIcon}
       variant="contained"
@@ -36,4 +36,4 @@ const SearchResultsAddButton: FC<Props> = ({ visibleListId }) => {
   )
 }
 
-export default memo<Props>(SearchResultsAddButton)
+export default memo(SearchResultsAddButton)

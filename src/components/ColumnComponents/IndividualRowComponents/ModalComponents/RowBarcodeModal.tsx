@@ -14,7 +14,7 @@ const RowBarcodeModal = () => {
   const [show, setShow] = useState(false)
   const [open, setOpen] = useState(false)
 
-  const showModal: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  const showModal = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     setShow(true)
   }, [])
 

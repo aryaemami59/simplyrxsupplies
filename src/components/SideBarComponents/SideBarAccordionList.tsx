@@ -12,8 +12,8 @@ const SideBarAccordionList = () => {
     <>
       {categoryIds.map(categoryId => (
         <SideBarAccordionCategories
-          key={`${categoryId.toString()}-SideBarAccordion-SideBarAccordionList`}
           categoryId={categoryId}
+          key={`${categoryId.toString()}-SideBarAccordion-SideBarAccordionList`}
         />
       ))}
     </>

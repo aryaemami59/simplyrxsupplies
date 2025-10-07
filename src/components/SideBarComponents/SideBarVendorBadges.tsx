@@ -1,6 +1,5 @@
 import Checkbox from "@mui/material/Checkbox"
 import FormControlLabel from "@mui/material/FormControlLabel"
-import type { FC } from "react"
 import { memo, useCallback, useMemo } from "react"
 import { toggledVendorForOneSearchResultItem } from "../../redux/addedSlice.js"
 import { useAppDispatch } from "../../redux/hooks.js"
@@ -13,7 +12,7 @@ import type { ItemIdAndVendorId } from "../../types/reduxHelperTypes.js"
 
 type Props = ItemIdAndVendorId
 
-const SideBarVendorBadges: FC<Props> = ({ itemId, vendorId }) => {
+const SideBarVendorBadges = ({ itemId, vendorId }: Props) => {
   const dispatch = useAppDispatch()
 
   const officialVendorName = useOfficialVendorName(vendorId)
@@ -48,4 +47,4 @@ const SideBarVendorBadges: FC<Props> = ({ itemId, vendorId }) => {
   )
 }
 
-export default memo<Props>(SideBarVendorBadges)
+export default memo(SideBarVendorBadges)

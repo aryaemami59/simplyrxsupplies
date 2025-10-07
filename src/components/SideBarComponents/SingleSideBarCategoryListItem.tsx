@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button"
 import ButtonGroup from "@mui/material/ButtonGroup"
-import type { FC, MouseEventHandler } from "react"
+import type { MouseEventHandler } from "react"
 import { memo, useCallback } from "react"
 import { itemAddedToCarts } from "../../redux/addedSlice.js"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks.js"
@@ -14,14 +14,16 @@ import { isEmptyArray } from "../../utils/predicates/isEmptyArray.js"
 import SideBarVendorBadges from "./SideBarVendorBadges.js"
 
 type Props = {
-  itemId: number
+  readonly itemId: number
 }
 
-const SingleSideBarCategoryListItem: FC<Props> = ({ itemId }) => {
+const SingleSideBarCategoryListItem = ({ itemId }: Props) => {
   const dispatch = useAppDispatch()
+
   const ifAddedToAllVendors = useAppSelector(state =>
     checkIfAddedToAllVendors(state, itemId),
   )
+
   const itemName = useItemName(itemId)
 
   const vendorIds = useVendorIdsByItemId(itemId)
@@ -51,8 +53,8 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemId }) => {
         {!isEmptyArray(vendorIds) &&
           vendorIds.map(vendorId => (
             <SideBarVendorBadges
-              key={`SideBarVendorBadges-${itemId.toString()}${vendorId.toString()}`}
               itemId={itemId}
+              key={`SideBarVendorBadges-${itemId.toString()}${vendorId.toString()}`}
               vendorId={vendorId}
             />
           ))}
@@ -61,4 +63,4 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemId }) => {
   )
 }
 
-export default memo<Props>(SingleSideBarCategoryListItem)
+export default memo(SingleSideBarCategoryListItem)

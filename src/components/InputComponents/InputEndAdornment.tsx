@@ -2,12 +2,11 @@ import CloseIcon from "@mui/icons-material/Close"
 import type { IconButtonProps } from "@mui/material"
 import IconButton from "@mui/material/IconButton"
 import InputAdornment from "@mui/material/InputAdornment"
-import type { FC } from "react"
 import { memo } from "react"
 
 type Props = Required<Pick<IconButtonProps, "onClick">>
 
-const InputEndAdornment: FC<Props> = ({ onClick }) => (
+const InputEndAdornment = ({ onClick }: Props) => (
   <InputAdornment position="end">
     <IconButton onClick={onClick}>
       <CloseIcon />
@@ -15,4 +14,4 @@ const InputEndAdornment: FC<Props> = ({ onClick }) => (
   </InputAdornment>
 )
 
-export default memo<Props>(InputEndAdornment)
+export default memo(InputEndAdornment)

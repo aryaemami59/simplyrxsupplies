@@ -1,5 +1,4 @@
 import { ThemeProvider } from "@mui/material/styles"
-import type { FC } from "react"
 import { createContext, memo, useMemo } from "react"
 import { useLocalStorageTheme } from "../hooks/useLocalStorageTheme.js"
 import { darkTheme, lightTheme } from "../shared/themes.js"
@@ -14,14 +13,17 @@ export const ColorModeContext = createContext({
   theme: lightTheme,
 })
 
-const ColorModeProvider: FC<Props> = ({ children }) => {
+const ColorModeProvider = ({ children }: Props) => {
   const [theme, setTheme] = useLocalStorageTheme()
+
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
         setTheme(prev => {
           const currentTheme = prev === lightTheme ? darkTheme : lightTheme
+
           localStorage.setItem("theme", currentTheme.palette.mode)
+
           return currentTheme
         })
       },
@@ -37,4 +39,4 @@ const ColorModeProvider: FC<Props> = ({ children }) => {
   )
 }
 
-export default memo<Props>(ColorModeProvider)
+export default memo(ColorModeProvider)

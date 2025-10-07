@@ -23,8 +23,8 @@ import { search } from "../../utils/search/search.js"
 import InputEndAdornment from "./InputEndAdornment.js"
 
 const style = {
-  borderRadius: "30px",
   backgroundColor: SEARCH_FIELD_BG,
+  borderRadius: "30px",
 } as const satisfies CSSProperties
 
 const InputFieldComponent = () => {

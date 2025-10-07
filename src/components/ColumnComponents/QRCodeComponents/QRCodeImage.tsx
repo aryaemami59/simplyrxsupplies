@@ -1,14 +1,13 @@
-import type { FC } from "react"
 import { memo } from "react"
 import { useQRCodeData } from "../../../hooks/useQRCodeData.js"
 import { useVendorId } from "../../../hooks/useVendorId.js"
 import { useQRCodeText } from "../../../redux/selectors.js"
 
 type Props = {
-  className?: string
+  readonly className?: string
 }
 
-const QRCodeImage: FC<Props> = ({ className }) => {
+const QRCodeImage = ({ className }: Props) => {
   const vendorId = useVendorId()
   const title = useQRCodeText(vendorId)
   const qrCodeData = useQRCodeData()
@@ -23,4 +22,4 @@ const QRCodeImage: FC<Props> = ({ className }) => {
   )
 }
 
-export default memo<Props>(QRCodeImage)
+export default memo(QRCodeImage)

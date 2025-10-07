@@ -2,7 +2,7 @@ import Button from "@mui/material/Button"
 import type { MenuProps } from "@mui/material/Menu"
 import Menu from "@mui/material/Menu"
 import type { PopoverOrigin } from "@mui/material/Popover"
-import type { FC, MouseEventHandler } from "react"
+import type { MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
 import {
   useOfficialVendorName,
@@ -16,15 +16,15 @@ const transformOrigin = {
 } as const satisfies PopoverOrigin
 
 const anchorOrigin = {
-  vertical: "bottom",
   horizontal: "left",
+  vertical: "bottom",
 } as const satisfies PopoverOrigin
 
 const slotProps = {
   list: {
     "aria-labelledby": "menu-list",
-    className: "menu-list",
     autoFocus: true,
+    className: "menu-list",
     style: {
       maxHeight: "calc(100vh - 54px)",
     },
@@ -36,10 +36,10 @@ const slotProps = {
 } as const satisfies MenuProps["slotProps"]
 
 type Props = {
-  vendorId: number
+  readonly vendorId: number
 }
 
-const VendorDropDown: FC<Props> = ({ vendorId }) => {
+const VendorDropDown = ({ vendorId }: Props) => {
   const [anchorElement, setAnchorElement] = useState<HTMLElement | null>(null)
 
   const open = !!anchorElement
@@ -48,11 +48,11 @@ const VendorDropDown: FC<Props> = ({ vendorId }) => {
 
   const itemIds = useVendorItemIds(vendorId)
 
-  const handleOpen: MouseEventHandler<HTMLElement> = useCallback(event => {
+  const handleOpen = useCallback<MouseEventHandler<HTMLElement>>(event => {
     setAnchorElement(event.currentTarget)
   }, [])
 
-  const handleClose: MouseEventHandler<HTMLElement> = useCallback(() => {
+  const handleClose = useCallback<MouseEventHandler<HTMLElement>>(() => {
     setAnchorElement(null)
   }, [])
 
@@ -85,8 +85,8 @@ const VendorDropDown: FC<Props> = ({ vendorId }) => {
       >
         {itemIds.map(itemId => (
           <SingleDropDown
-            key={`${itemId.toString()}-${vendorId.toString()}`}
             itemId={itemId}
+            key={`${itemId.toString()}-${vendorId.toString()}`}
             vendorId={vendorId}
           />
         ))}
@@ -95,4 +95,4 @@ const VendorDropDown: FC<Props> = ({ vendorId }) => {
   )
 }
 
-export default memo<Props>(VendorDropDown)
+export default memo(VendorDropDown)

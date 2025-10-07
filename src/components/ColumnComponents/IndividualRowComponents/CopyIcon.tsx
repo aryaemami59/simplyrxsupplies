@@ -2,17 +2,17 @@ import { faCopy } from "@fortawesome/free-regular-svg-icons/faCopy"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Button from "@mui/material/Button"
 import Tooltip from "@mui/material/Tooltip"
-import type { FC, MouseEventHandler } from "react"
+import type { MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
 
 const startIcon = <FontAwesomeIcon icon={faCopy} />
 
 type Props = {
-  content: string
-  text: string
+  readonly content: string
+  readonly text: string
 }
 
-const CopyIcon: FC<Props> = ({ content, text }) => {
+const CopyIcon = ({ content, text }: Props) => {
   const copiedText = `Copied Item ${text}!`
 
   const [show, setShow] = useState(false)
@@ -20,13 +20,14 @@ const CopyIcon: FC<Props> = ({ content, text }) => {
   const handleClick = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     setShow(true)
     void navigator.clipboard.writeText(content)
+
     setTimeout(() => {
       setShow(false)
     }, 1000)
   }, [content])
 
   return (
-    <Tooltip role="tooltip" open={show} title={copiedText}>
+    <Tooltip open={show} role="tooltip" title={copiedText}>
       <Button
         className="fw-bold w-auto p-auto shadow-sm rounded-pill text-none"
         onClick={handleClick}
@@ -40,4 +41,4 @@ const CopyIcon: FC<Props> = ({ content, text }) => {
   )
 }
 
-export default memo<Props>(CopyIcon)
+export default memo(CopyIcon)

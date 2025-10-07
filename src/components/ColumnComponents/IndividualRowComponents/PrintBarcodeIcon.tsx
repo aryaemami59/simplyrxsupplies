@@ -3,20 +3,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
 import Tooltip from "@mui/material/Tooltip"
 import printJS from "print-js"
-import type { FC, MouseEventHandler } from "react"
+import type { MouseEventHandler } from "react"
 import { memo, useCallback, useState } from "react"
 import { useItemId } from "../../../hooks/useItemId.js"
 import { useItemSrc } from "../../../redux/selectors.js"
 
 type Props = {
-  header: string
+  readonly header: string
 }
 
 const startIcon = <FontAwesomeIcon icon={faPrint} />
 
 const title = "Print Barcode"
 
-const PrintBarcodeIcon: FC<Props> = ({ header }) => {
+const PrintBarcodeIcon = ({ header }: Props) => {
   const [open, setOpen] = useState(false)
   const itemId = useItemId()
   const src = useItemSrc(itemId)
@@ -59,4 +59,4 @@ const PrintBarcodeIcon: FC<Props> = ({ header }) => {
   )
 }
 
-export default memo<Props>(PrintBarcodeIcon)
+export default memo(PrintBarcodeIcon)

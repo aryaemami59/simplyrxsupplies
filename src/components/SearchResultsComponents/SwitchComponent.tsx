@@ -1,7 +1,6 @@
 import FormControlLabel from "@mui/material/FormControlLabel"
 import type { SwitchProps } from "@mui/material/Switch"
 import Switch from "@mui/material/Switch"
-import type { FC } from "react"
 import { memo, useCallback } from "react"
 import { toggledVendorForOneSearchResultItem } from "../../redux/addedSlice.js"
 import { useAppDispatch } from "../../redux/hooks.js"
@@ -17,14 +16,14 @@ const slotProps = {
   },
 } as const satisfies SwitchProps["slotProps"]
 
-const control = <Switch slotProps={slotProps} size="small" />
+const control = <Switch size="small" slotProps={slotProps} />
 
 type Props = {
-  visibleListId: number
-  vendorId: number
+  readonly vendorId: number
+  readonly visibleListId: number
 }
 
-const SwitchComponent: FC<Props> = ({ vendorId, visibleListId }) => {
+const SwitchComponent = ({ vendorId, visibleListId }: Props) => {
   const officialVendorName = useOfficialVendorName(vendorId)
 
   const dispatch = useAppDispatch()
@@ -52,4 +51,4 @@ const SwitchComponent: FC<Props> = ({ vendorId, visibleListId }) => {
   )
 }
 
-export default memo<Props>(SwitchComponent)
+export default memo(SwitchComponent)

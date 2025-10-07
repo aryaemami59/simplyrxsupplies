@@ -18,9 +18,10 @@ const slotProps = {
 const VendorColumnModalComponent = () => {
   const [show, setShow] = useState(false)
 
-  const showModal: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  const showModal = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     setShow(true)
   }, [])
+
   const hideModal = useCallback(() => {
     setShow(false)
   }, [])
@@ -38,11 +39,11 @@ const VendorColumnModalComponent = () => {
       </Button> */}
       <Dialog
         // keepMounted
-        role="dialog"
         fullWidth
         maxWidth="md"
         onClose={hideModal}
         open={show}
+        role="dialog"
         slotProps={slotProps}
       >
         <DialogTitle>Item Vendors</DialogTitle>

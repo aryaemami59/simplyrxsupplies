@@ -2,7 +2,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined"
 import Badge from "@mui/material/Badge"
 import IconButton from "@mui/material/IconButton"
-import type { FC, MouseEventHandler } from "react"
+import type { MouseEventHandler } from "react"
 import { memo, useMemo } from "react"
 import { useAppSelector } from "../../redux/hooks.js"
 import { checkIfAnyItemsAdded } from "../../redux/selectors.js"
@@ -11,7 +11,7 @@ type Props = {
   readonly showModal: MouseEventHandler<HTMLButtonElement>
 }
 
-const DisplayCartButton: FC<Props> = ({ showModal }) => {
+const DisplayCartButton = ({ showModal }: Props) => {
   const ifAdded = useAppSelector(checkIfAnyItemsAdded)
 
   const startIcon = useMemo(
@@ -42,4 +42,4 @@ const DisplayCartButton: FC<Props> = ({ showModal }) => {
   )
 }
 
-export default memo<Props>(DisplayCartButton)
+export default memo(DisplayCartButton)

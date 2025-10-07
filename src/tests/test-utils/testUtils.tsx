@@ -6,7 +6,7 @@ import {
   disableActEnvironment,
 } from "@testing-library/react-render-stream"
 import { userEvent } from "@testing-library/user-event"
-import type { FC, ReactElement } from "react"
+import type { ReactElement } from "react"
 import { Provider } from "react-redux"
 import App from "../../App.js"
 import { endpoints } from "../../redux/apiSlice.js"
@@ -132,7 +132,7 @@ export const renderWithProviders = async (
 
   const user = userEvent.setup(userEventOptions)
 
-  const Wrapper: FC<PropsWithRequiredChildren> = ({ children }) => (
+  const Wrapper = ({ children }: PropsWithRequiredChildren) => (
     <Provider store={store}>{children}</Provider>
   )
 
