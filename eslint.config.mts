@@ -64,11 +64,7 @@ const eslintConfig = defineConfig(
   vitestPlugin.configs.recommended,
   {
     name: `${reactHooksPlugin.meta.name}/recommended-latest`,
-    ...reactHooksPlugin.configs["recommended-latest"][0],
-  },
-  {
-    name: `${reactHooksPlugin.meta.name}/recommended`,
-    ...reactHooksPlugin.configs.recommended[0],
+    ...reactHooksPlugin.configs.flat["recommended-latest"],
   },
   {
     name: `${preferArrowFunctionsPlugin.meta.name}/all`,
