@@ -1,9 +1,8 @@
 import { createContext } from "react"
+import type { ItemIdAndVendorId } from "../types/reduxHelperTypes.js"
 import type { PropsWithRequiredChildren } from "../types/tsHelpers.js"
 
-type Props = PropsWithRequiredChildren<{
-  readonly itemId: number
-}>
+type Props = PropsWithRequiredChildren<Pick<ItemIdAndVendorId, "itemId">>
 
 export const ItemIdContext = createContext<number>(0)
 

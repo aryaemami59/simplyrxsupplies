@@ -3,26 +3,23 @@ import ButtonGroup from "@mui/material/ButtonGroup"
 import type { MouseEventHandler } from "react"
 import { useCallback } from "react"
 import { itemAddedToCarts } from "../../redux/addedSlice.js"
-import { useAppDispatch, useAppSelector } from "../../redux/hooks.js"
+import { useAppDispatch } from "../../redux/hooks.js"
 import {
-  checkIfAddedToAllVendors,
+  useCheckIfAddedToAllVendors,
   useCheckedVendorIds,
   useItemName,
   useVendorIdsByItemId,
 } from "../../redux/selectors.js"
+import type { ItemIdAndVendorId } from "../../types/reduxHelperTypes.js"
 import { isEmptyArray } from "../../utils/predicates/isEmptyArray.js"
 import { SideBarVendorBadges } from "./SideBarVendorBadges.js"
 
-type Props = {
-  readonly itemId: number
-}
+type Props = Pick<ItemIdAndVendorId, "itemId">
 
 export const SingleSideBarCategoryListItem = ({ itemId }: Props) => {
   const dispatch = useAppDispatch()
 
-  const ifAddedToAllVendors = useAppSelector(state =>
-    checkIfAddedToAllVendors(state, itemId),
-  )
+  const ifAddedToAllVendors = useCheckIfAddedToAllVendors(itemId)
 
   const itemName = useItemName(itemId)
 

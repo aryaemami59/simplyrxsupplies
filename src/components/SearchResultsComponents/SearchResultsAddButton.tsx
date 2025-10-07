@@ -3,8 +3,8 @@ import Button from "@mui/material/Button"
 import type { MouseEventHandler } from "react"
 import { useCallback } from "react"
 import { itemAddedToCarts } from "../../redux/addedSlice.js"
-import { useAppDispatch, useAppSelector } from "../../redux/hooks.js"
-import { checkIfAddedToAllVendors } from "../../redux/selectors.js"
+import { useAppDispatch } from "../../redux/hooks.js"
+import { useCheckIfAddedToAllVendors } from "../../redux/selectors.js"
 
 const startIcon = <AddIcon />
 
@@ -15,9 +15,7 @@ type Props = {
 export const SearchResultsAddButton = ({ visibleListId }: Props) => {
   const dispatch = useAppDispatch()
 
-  const ifAddedToAllVendors = useAppSelector(state =>
-    checkIfAddedToAllVendors(state, visibleListId),
-  )
+  const ifAddedToAllVendors = useCheckIfAddedToAllVendors(visibleListId)
 
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     dispatch(itemAddedToCarts({ itemId: visibleListId }))

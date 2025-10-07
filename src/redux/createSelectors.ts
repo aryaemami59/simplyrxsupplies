@@ -381,6 +381,23 @@ export const createDebugSelector = createSelectorCreator(lruMemoize, {
 //   return { results, fastest } as const;
 // };
 
+export const objectEntries = <ObjectType extends Record<string, unknown>>(
+  objectInput: ObjectType,
+) =>
+  Object.entries(objectInput) as {
+    [ObjectKey in Extract<keyof ObjectType, string>]: [
+      ObjectKey,
+      ObjectType[ObjectKey],
+    ]
+  }[Extract<keyof ObjectType, string>][]
+
+export const objectFromEntries = <Entries extends [string, unknown]>(
+  entries: Entries[],
+) =>
+  Object.fromEntries(entries) as {
+    [EntryKey in Entries[0]]: Extract<Entries, [EntryKey, unknown]>[1]
+  }
+
 export const createParametricSelectorHook =
   <Result, Params extends readonly [unknown, ...(readonly unknown[])]>(
     selector: (selector: RootState, ...args: Params) => Result,
@@ -388,10 +405,12 @@ export const createParametricSelectorHook =
   (...args: Params) =>
     useAppSelector(state => selector(state, ...args))
 
-type MapSelectorsToHooks<TObject extends SelectorsObject<RootState>> = {
-  [K in keyof TObject as K extends `select${infer R}`
+type MapSelectorsToHooks<
+  SelectorsObjectType extends SelectorsObject<RootState>,
+> = {
+  [SelectorName in keyof SelectorsObjectType as SelectorName extends `select${infer R}`
     ? `use${R}`
-    : `use${Capitalize<Extract<K, string>>}`]: TObject[K] extends Selector<
+    : `use${Capitalize<Extract<SelectorName, string>>}`]: SelectorsObjectType[SelectorName] extends Selector<
     RootState,
     infer Result,
     infer Params
@@ -401,12 +420,12 @@ type MapSelectorsToHooks<TObject extends SelectorsObject<RootState>> = {
 }
 
 export const createParametricSelectorHooks = <
-  TObject extends SelectorsObject<RootState>,
+  SelectorsObjectType extends SelectorsObject<RootState>,
 >(
-  selectors: TObject,
-): MapSelectorsToHooks<TObject> =>
-  Object.fromEntries(
-    Object.entries(selectors).map(
+  selectors: SelectorsObjectType,
+): MapSelectorsToHooks<SelectorsObjectType> =>
+  objectFromEntries(
+    objectEntries(selectors).map(
       ([selectorName, selector]) =>
         [
           selectorName.startsWith("select")
@@ -415,7 +434,7 @@ export const createParametricSelectorHooks = <
           createParametricSelectorHook(selector),
         ] as const,
     ),
-  ) as MapSelectorsToHooks<TObject>
+  ) as MapSelectorsToHooks<SelectorsObjectType>
 
 // export const useCurriedSelector =
 //   <Args extends unknown[], SelectorOutput>(

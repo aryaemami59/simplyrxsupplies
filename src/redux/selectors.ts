@@ -194,7 +194,7 @@ export const parametricSelectors = {
   selectVendorItemIds,
   selectCartsByItemId,
   checkIfAddedToAllVendors,
-}
+} as const
 
 export const {
   useCartItemNamesStringified,
