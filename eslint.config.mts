@@ -29,7 +29,7 @@ export const rulesToDisable = {
 } as const satisfies Linter.RulesRecord satisfies Record<
   keyof Linter.RulesRecord,
   readonly [
-    ruleSeverity: Extract<Linter.RuleSeverity, 0 | "off">,
+    ruleSeverity: Extract<Linter.RuleSeverity, "off" | 0>,
     ...ruleOptions: readonly unknown[],
   ]
 >
@@ -170,12 +170,12 @@ const eslintConfig = defineConfig(
       ],
       "@typescript-eslint/no-confusing-void-expression": [2],
       "@typescript-eslint/no-duplicate-type-constituents": [2],
-      "@typescript-eslint/require-await": [2],
+      "@typescript-eslint/no-inferrable-types": [2],
       "@typescript-eslint/no-redundant-type-constituents": [2],
       "@typescript-eslint/no-unnecessary-type-arguments": [2],
       "@typescript-eslint/no-unnecessary-type-assertion": [2],
       "@typescript-eslint/prefer-nullish-coalescing": [2],
-      "@typescript-eslint/no-inferrable-types": [2],
+      "@typescript-eslint/require-await": [2],
       "object-shorthand": [2],
       "@typescript-eslint/no-unused-vars": [
         2,
@@ -196,6 +196,7 @@ const eslintConfig = defineConfig(
           varsIgnorePattern: "^_",
         },
       ],
+      "@typescript-eslint/sort-type-constituents": [2],
       "prefer-arrow-functions/prefer-arrow-functions": [
         2,
         {
@@ -212,6 +213,7 @@ const eslintConfig = defineConfig(
     },
     linterOptions: {
       reportUnusedDisableDirectives: 2,
+      reportUnusedInlineConfigs: 2,
     },
   },
   {

@@ -101,11 +101,11 @@ export type UserEventOptions = NonNullable<
  * This type extends the default options for render from `RTL`, as well as
  * allows the user to specify other things such as `initialState`, `store`.
  */
-export type ExtendedRenderOptions = {
+export type ExtendedRenderOptions = Omit<RenderOptions, "queries"> & {
   preloadedState?: Partial<RootState>
   store?: AppStore
   fetch?: boolean
-} & Omit<RenderOptions, "queries">
+}
 
 /**
  * A wrapper for {@linkcode render}
@@ -220,10 +220,10 @@ export type SetupWithNoUIResults = {
 
 export type LocalBaseTestContext<
   SetupResults extends
-    | SetupWithNoUIResults
-    | ExtendedRenderResult = SetupWithNoUIResults,
-> = {
+    | ExtendedRenderResult
+    | SetupWithNoUIResults = SetupWithNoUIResults,
+> = SetupWithNoUIResults & {
   setupResults: Promise<SetupResults>
-} & SetupWithNoUIResults
+}
 
 export const isNode24 = Number.parseFloat(process.versions.node) >= 24

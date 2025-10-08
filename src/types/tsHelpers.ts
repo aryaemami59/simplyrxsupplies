@@ -71,3 +71,7 @@ export type ObjectChecker<T extends object> = {
 }
 
 export type AnyFunction = (...args: never[]) => unknown
+
+export type Simplify<T> = NonNullable<unknown> & {
+  [K in keyof T]: T[K]
+}

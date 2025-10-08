@@ -1,3 +1,5 @@
+import type { Simplify } from "./tsHelpers.js"
+
 // Categories
 type CategoryName =
   | "BD Syringes"
@@ -28,11 +30,15 @@ export type Category = {
    * References {@linkcode Category.itemIds | categoryItemIds}
    */
   readonly itemIds: number[]
+  /**
+   * References {@linkcode Category.name | categoryName}
+   * Can be any of {@linkcode CategoryName}.
+   */
   readonly name: CategoryName
 }
 
 // Vendors
-type VendorHelper = {
+type OfficialVendorNameLookup = {
   readonly MCK: "McKesson"
   readonly OI: "OrderInsite"
   readonly GNFR: "GNFR"
@@ -43,44 +49,42 @@ type VendorHelper = {
   readonly FORS: "FORS"
 }
 
-export type AbbrVendorNames = keyof VendorHelper
+export type AbbrVendorNames = Simplify<keyof OfficialVendorNameLookup>
 
-export type OfficialVendorName = VendorHelper[AbbrVendorNames]
+export type OfficialVendorName = OfficialVendorNameLookup[AbbrVendorNames]
 
-export type Vendor<VendorAbbrName extends AbbrVendorNames = AbbrVendorNames> = {
-  /**
-   * References {@linkcode Vendor.id | vendorId}.
-   */
-  readonly id: number
-  readonly officialName: VendorHelper[VendorAbbrName]
-  readonly abbrName: VendorAbbrName
-  readonly link: string
-  readonly joinChars: string
-  /**
-   * References {@linkcode Vendor.itemIds | vendorItemIds}.
-   */
-  readonly itemIds: number[]
-}
+export type Vendor = Simplify<
+  {
+    [AbbrVendorName in AbbrVendorNames]: {
+      /**
+       * Can be any of {@linkcode AbbrVendorNames}.
+       */
+      readonly abbrName: AbbrVendorName
+      /**
+       * Can be any of {@linkcode OfficialVendorName}.
+       */
+      readonly officialName: OfficialVendorNameLookup[AbbrVendorName]
+    }
+  }[AbbrVendorNames] & {
+    /**
+     * References {@linkcode Vendor.id | vendorId}.
+     */
+    readonly id: number
+    readonly joinChars: string
+    readonly link: string
+    /**
+     * References {@linkcode Vendor.itemIds | vendorItemIds}.
+     */
+    readonly itemIds: number[]
+  }
+>
 
 export type Vendors = {
-  readonly [AbbrVendorName in AbbrVendorNames]: Vendor<AbbrVendorName>
-  // {
-  //   /**
-  //    * References {@linkcode ItemIdAndVendorId.vendorId | vendorId}.
-  //    */
-  //   readonly id: number
-  //   readonly officialName: VendorHelper[AbbrVendorName]
-  //   readonly abbrName: AbbrVendorName
-  //   readonly link: string
-  //   readonly joinChars: string
-  //   /**
-  //    * References {@linkcode Cart.itemIds | vendorItemIds}.
-  //    */
-  //   readonly itemIds: number[]
-  // }
+  readonly [AbbrVendorName in AbbrVendorNames]: Extract<
+    Vendor,
+    { abbrName: AbbrVendorName }
+  >
 }
-
-// export type Vendor = Vendors[VendorName]
 
 // Items
 export type Item = {
@@ -88,9 +92,9 @@ export type Item = {
    * References {@linkcode Item.id | itemId}
    */
   readonly id: number
-  readonly name: string
   readonly itemNumber: string
   readonly keywords: string[]
+  readonly name: string
   /**
    * Can be an empty array.
    */
@@ -100,9 +104,9 @@ export type Item = {
 }
 
 export type Supplies = {
+  readonly categories: Category[]
   readonly items: Item[]
   readonly vendors: Vendor[]
-  readonly categories: Category[]
 }
 
 export type ItemNameAndKeywords = Pick<Item, "id" | "keywords" | "name">
