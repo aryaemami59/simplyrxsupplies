@@ -10,6 +10,10 @@ export const ColorModeContext = createContext({
   toggleColorMode: () => {
     /* no-op */
   },
+
+  /**
+   * @default lightTheme
+   */
   theme: lightTheme,
 })
 
@@ -19,8 +23,9 @@ export const ColorModeProvider = ({ children }: Props) => {
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        setTheme(prev => {
-          const currentTheme = prev === lightTheme ? darkTheme : lightTheme
+        setTheme(previousTheme => {
+          const currentTheme =
+            previousTheme === lightTheme ? darkTheme : lightTheme
 
           localStorage.setItem("theme", currentTheme.palette.mode)
 

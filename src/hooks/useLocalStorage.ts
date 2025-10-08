@@ -1,14 +1,17 @@
 import type { Dispatch, SetStateAction } from "react"
 import { useEffect, useState } from "react"
 
-const getSavedValue = (
+/**
+ * @todo fix typing so it can handle non-string values too
+ */
+const getSavedValue = <T extends string>(
   key: string,
-  initialValue: string | (() => string),
-): string => {
+  initialValue: T | (() => T),
+): T => {
   const savedValue = localStorage.getItem(key)
 
   if (savedValue != null) {
-    return savedValue
+    return savedValue as T
   }
 
   if (typeof initialValue === "function") {
@@ -18,10 +21,13 @@ const getSavedValue = (
   return initialValue
 }
 
-export const useLocalStorage = (
+/**
+ * @todo fix typing so it can handle non-string values too
+ */
+export const useLocalStorage = <T extends string>(
   key: string,
-  initialValue: string | (() => string),
-): [value: string, setValue: Dispatch<SetStateAction<string>>] => {
+  initialValue: T | (() => T),
+): [value: T, setValue: Dispatch<SetStateAction<T>>] => {
   const [value, setValue] = useState(() => getSavedValue(key, initialValue))
 
   useEffect(() => {

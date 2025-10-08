@@ -3,6 +3,7 @@ import Brightness7Icon from "@mui/icons-material/Brightness7"
 import IconButton from "@mui/material/IconButton"
 import { useMemo } from "react"
 import { useColorMode } from "../../hooks/useColorMode.js"
+import { Tooltip } from "../../shared/components/Tooltip.js"
 import { darkTheme } from "../../shared/themes.js"
 
 export const DarkModeTogglerButton = () => {
@@ -14,8 +15,10 @@ export const DarkModeTogglerButton = () => {
   )
 
   return (
-    <IconButton color="inherit" onClick={toggleColorMode}>
-      {icon}
-    </IconButton>
+    <Tooltip title={`Switch to ${theme === darkTheme ? "light" : "dark"} mode`}>
+      <IconButton color="inherit" onClick={toggleColorMode}>
+        {icon}
+      </IconButton>
+    </Tooltip>
   )
 }

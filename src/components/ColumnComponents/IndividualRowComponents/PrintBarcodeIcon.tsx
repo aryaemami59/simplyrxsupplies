@@ -1,12 +1,12 @@
 import { faPrint } from "@fortawesome/free-solid-svg-icons/faPrint"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
-import Tooltip from "@mui/material/Tooltip"
 import printJS from "print-js"
 import type { MouseEventHandler } from "react"
-import { useCallback, useState } from "react"
+import { useCallback } from "react"
 import { useItemId } from "../../../hooks/useItemId.js"
 import { useItemSrc } from "../../../redux/selectors.js"
+import { Tooltip } from "../../../shared/components/Tooltip.js"
 
 type Props = {
   readonly header: string
@@ -17,8 +17,8 @@ const startIcon = <FontAwesomeIcon icon={faPrint} />
 const title = "Print Barcode"
 
 export const PrintBarcodeIcon = ({ header }: Props) => {
-  const [open, setOpen] = useState(false)
   const itemId = useItemId()
+
   const src = useItemSrc(itemId)
 
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
@@ -30,24 +30,8 @@ export const PrintBarcodeIcon = ({ header }: Props) => {
     })
   }, [header, src])
 
-  const showTooltip = useCallback(() => {
-    setOpen(true)
-  }, [])
-
-  const hideTooltip = useCallback(() => {
-    setOpen(false)
-  }, [])
-
   return (
-    <Tooltip
-      role="tooltip"
-      enterDelay={500}
-      enterNextDelay={500}
-      onClose={hideTooltip}
-      onOpen={showTooltip}
-      open={open}
-      title={title}
-    >
+    <Tooltip title={title}>
       <IconButton
         className="d-inline-block w-auto"
         onClick={clickHandler}

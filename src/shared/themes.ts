@@ -1,4 +1,5 @@
 import { common, grey } from "@mui/material/colors"
+import type { BreakpointsOptions } from "@mui/material/styles"
 import { createTheme } from "@mui/material/styles"
 import {
   DARK_MODE_PAPER_BG,
@@ -23,16 +24,21 @@ declare module "@mui/material/styles" {
   }
 }
 
+const breakpoints = {
+  values: {
+    xs: 0,
+    sm: 576,
+    md: 768,
+    lg: 992,
+    xl: 1200,
+    xxl: 1400,
+  },
+} as const satisfies BreakpointsOptions
+
 export const lightTheme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 576,
-      md: 768,
-      lg: 992,
-      xl: 1200,
-      xxl: 1400,
-    },
+  breakpoints,
+  colorSchemes: {
+    light: true,
   },
   components: {
     MuiAccordionSummary: {
@@ -58,15 +64,9 @@ export const lightTheme = createTheme({
 })
 
 export const darkTheme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 576,
-      md: 768,
-      lg: 992,
-      xl: 1200,
-      xxl: 1400,
-    },
+  breakpoints,
+  colorSchemes: {
+    dark: true,
   },
   components: {
     MuiAccordionSummary: {

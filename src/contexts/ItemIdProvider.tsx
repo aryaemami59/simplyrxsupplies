@@ -4,7 +4,9 @@ import type { PropsWithRequiredChildren } from "../types/tsHelpers.js"
 
 type Props = PropsWithRequiredChildren<Pick<ItemIdAndVendorId, "itemId">>
 
-export const ItemIdContext = createContext<number>(0)
+export const ItemIdContext = createContext<ItemIdAndVendorId["itemId"] | null>(
+  null,
+)
 
 export const ItemIdProvider = ({ children, itemId }: Props) => (
   <ItemIdContext.Provider value={itemId}>{children}</ItemIdContext.Provider>

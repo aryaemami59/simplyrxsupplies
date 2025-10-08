@@ -11,7 +11,9 @@ type Props = {
 
 export const QRCodeImage = ({ className = "" }: Props) => {
   const vendorId = useVendorId()
+
   const title = useQRCodeText(vendorId)
+
   const qrCodeData = useQRCodeData()
 
   return (

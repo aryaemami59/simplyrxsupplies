@@ -75,3 +75,17 @@ export type AnyFunction = (...args: never[]) => unknown
 export type Simplify<T> = NonNullable<unknown> & {
   [K in keyof T]: T[K]
 }
+
+export type Primitive =
+  | bigint
+  | boolean
+  | number
+  | string
+  | symbol
+  | null
+  | undefined
+
+export type JsonPrimitive = boolean | number | string | null
+export type JsonValue = JsonArray | JsonObject | JsonPrimitive
+export type JsonObject = { [Key in string]: JsonValue }
+export type JsonArray = JsonValue[] | readonly JsonValue[]

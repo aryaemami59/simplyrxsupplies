@@ -1,9 +1,9 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons/faMagnifyingGlassPlus"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
-import Tooltip from "@mui/material/Tooltip"
 import type { MouseEventHandler } from "react"
 import { useCallback, useState } from "react"
+import { Tooltip } from "../../../../shared/components/Tooltip.js"
 import { RowBarcodeDialog } from "./RowBarcodeDialog.js"
 
 const title = "Take a Closer Look at The Barcode"
@@ -12,7 +12,6 @@ const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />
 
 export const RowBarcodeModal = () => {
   const [show, setShow] = useState(false)
-  const [open, setOpen] = useState(false)
 
   const showModal = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     setShow(true)
@@ -22,25 +21,9 @@ export const RowBarcodeModal = () => {
     setShow(false)
   }, [])
 
-  const showTooltip = useCallback(() => {
-    setOpen(true)
-  }, [])
-
-  const hideTooltip = useCallback(() => {
-    setOpen(false)
-  }, [])
-
   return (
     <>
-      <Tooltip
-        enterDelay={500}
-        enterNextDelay={500}
-        onClose={hideTooltip}
-        onOpen={showTooltip}
-        open={open}
-        role="tooltip"
-        title={title}
-      >
+      <Tooltip title={title}>
         <IconButton
           className="d-inline-block w-auto"
           onClick={showModal}
