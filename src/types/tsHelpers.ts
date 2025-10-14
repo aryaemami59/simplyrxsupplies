@@ -6,7 +6,7 @@ export type EmptyTuple = []
 
 /**
  * Omits keys from a type, **distributing** the operation over a union.
- * TypeScript’s {@linkcode Omit} does **not** distribute over unions,
+ * TypeScript's {@linkcode Omit} does **not** distribute over unions,
  * which can lead to the erasure of unique properties from union members
  * when omitting keys. This causes the resulting type to retain only
  * properties common to all union members, making it impossible to access
@@ -40,8 +40,8 @@ export type EmptyTuple = []
  * const omittedUnion: OmittedUnion = createOmittedUnion();
  *
  * if (omittedUnion.discriminant === 'A') {
- *   // We would like to narrow `omittedUnion`’s type to `A` here,
- *   // but we can’t because `Omit` doesn’t distribute over unions.
+ *   // We would like to narrow `omittedUnion`'s type to `A` here,
+ *   // but we can't because `Omit` doesn't distribute over unions.
  *
  *   omittedUnion.a;
  *   // => Error: Property 'a' does not exist on type '{ discriminant: "A" | "B" }'
