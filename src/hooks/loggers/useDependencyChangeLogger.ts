@@ -1,5 +1,6 @@
-import { useDebugValue } from "react"
+import { useDebugValue, useMemo } from "react"
 import { capitalize } from "../../utils/capitalize.js"
+import { inferComponentNameFromStack } from "../../utils/inferComponentNameFromStack.js"
 import { useComponentDidUpdate } from "../useComponentDidUpdate.js"
 
 /**
@@ -9,27 +10,28 @@ import { useComponentDidUpdate } from "../useComponentDidUpdate.js"
  * @param dependency - The dependency that we are checking for.
  * @param depName - Name of the dependency that we are checking for.
  */
-export const useDependencyChangeLogger = (
-  dependency: unknown,
-  depName = "",
-) => {
-  const componentName =
-    new Error().stack?.split("\n")[2]?.split(" ")[5] ?? "Component"
+export const useDependencyChangeLogger = (dependencyObject: {
+  dependency: unknown
+  dependencyName?: string
+}) => {
+  const componentName = useMemo(() => inferComponentNameFromStack(), [])
 
-  const depType = Array.isArray(dependency)
+  const { dependency, dependencyName = "Unknown Dependency" } = dependencyObject
+
+  const dependencyType = Array.isArray(dependency)
     ? "Array"
     : capitalize(typeof dependency)
-
-  useDebugValue([depName, dependency] as const, value => value)
 
   useComponentDidUpdate(() => {
     console.log(
       `%c${
-        depName || "Unknown Dependency"
-      }%c ${depType} in ${componentName} Changed: %O`,
+        dependencyName || "Unknown Dependency"
+      }%c ${dependencyType} in ${componentName} Changed: %O`,
       "color:palegreen; font-size: 15px;",
       "",
       dependency,
     )
-  }, [componentName, depName, depType, dependency])
+  }, [componentName, dependencyName, dependencyType, dependency])
+
+  useDebugValue(dependency)
 }
