@@ -82,13 +82,15 @@ export type DistributedOmit<
  *
  * @template Props - The base props type to extend. **Defaults to `unknown`**.
  */
-export type PropsWithRequiredChildren<Props = unknown> = Props & {
-  /**
-   * The **required** {@linkcode PropsWithRequiredChildren.children | children}
-   * to render inside the component.
-   */
-  readonly children: ReactNode
-}
+export type PropsWithRequiredChildren<Props = unknown> = Simplify<
+  Props & {
+    /**
+     * The **required** {@linkcode PropsWithRequiredChildren.children | children}
+     * to render inside the component.
+     */
+    readonly children: ReactNode
+  }
+>
 
 /**
  * Creates a variant of the given props type **without** the
