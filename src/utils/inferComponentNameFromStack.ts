@@ -29,7 +29,7 @@ export const inferComponentNameFromStack = (): string => {
     .filter(line => line.startsWith("at"))
 
   const markerIndex = frames.findIndex(frame =>
-    frame.includes("react_stack_bottom_frame"),
+    /react_stack_bottom_frame/.exec(frame),
   )
 
   if (markerIndex < 1) {

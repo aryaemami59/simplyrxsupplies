@@ -5,7 +5,7 @@ import { inferComponentNameFromStack } from "../../utils/inferComponentNameFromS
 import { styleToCssText } from "../../utils/styleToCssText.js"
 import { useComponentDidUpdate } from "../useComponentDidUpdate.js"
 
-type UseComponentUpdateLoggerOptions = {
+export type LoggerStyleOptions = {
   /**
    * CSS (hyphen-case) properties applied to the **component name**
    * segment in the console log.
@@ -23,7 +23,9 @@ type UseComponentUpdateLoggerOptions = {
   renderCountStyle?: Simplify<PropertiesHyphen>
 }
 
-const USE_COMPONENT_UPDATE_LOGGER_DEFAULT_OPTIONS = {
+type UseComponentUpdateLoggerOptions = LoggerStyleOptions
+
+export const DEFAULT_COMPONENT_LOGGER_OPTIONS = {
   componentNameStyle: {
     color: "violet",
     "font-size": "15px",
@@ -76,20 +78,20 @@ const USE_COMPONENT_UPDATE_LOGGER_DEFAULT_OPTIONS = {
 export const useComponentUpdateLogger = (
   useComponentUpdateLoggerOptions: UseComponentUpdateLoggerOptions = {},
 ): void => {
-  const componentName = inferComponentNameFromStack()
+  const componentName = useMemo(() => inferComponentNameFromStack(), [])
 
   const {
-    componentNameStyle = USE_COMPONENT_UPDATE_LOGGER_DEFAULT_OPTIONS.componentNameStyle,
-    renderCountStyle = USE_COMPONENT_UPDATE_LOGGER_DEFAULT_OPTIONS.renderCountStyle,
+    componentNameStyle = DEFAULT_COMPONENT_LOGGER_OPTIONS.componentNameStyle,
+    renderCountStyle = DEFAULT_COMPONENT_LOGGER_OPTIONS.renderCountStyle,
   } = useMemo(
     () =>
       ({
         componentNameStyle: {
-          ...USE_COMPONENT_UPDATE_LOGGER_DEFAULT_OPTIONS.componentNameStyle,
+          ...DEFAULT_COMPONENT_LOGGER_OPTIONS.componentNameStyle,
           ...useComponentUpdateLoggerOptions.componentNameStyle,
         },
         renderCountStyle: {
-          ...USE_COMPONENT_UPDATE_LOGGER_DEFAULT_OPTIONS.renderCountStyle,
+          ...DEFAULT_COMPONENT_LOGGER_OPTIONS.renderCountStyle,
           ...useComponentUpdateLoggerOptions.renderCountStyle,
         },
       }) as const satisfies UseComponentUpdateLoggerOptions,
@@ -111,8 +113,6 @@ export const useComponentUpdateLogger = (
 
   const renderCount = useRef(0)
 
-  useDebugValue(componentName)
-
   useComponentDidUpdate(() => {
     renderCount.current += 1
 
@@ -126,4 +126,6 @@ export const useComponentUpdateLogger = (
       "",
     )
   })
+
+  useDebugValue({ componentName })
 }
