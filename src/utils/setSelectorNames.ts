@@ -7,5 +7,6 @@ export const setSelectorNames = <const T extends Record<string, AnyFunction>>(
   Object.entries(funcsObject).forEach(([key, value]) => {
     setFunctionName(value, key)
   })
+
   return funcsObject
 }

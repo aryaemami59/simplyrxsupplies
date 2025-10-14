@@ -1,7 +1,19 @@
+import type { InputBaseComponentProps } from "@mui/material"
 import type { TextFieldProps } from "@mui/material/TextField"
 import TextField from "@mui/material/TextField"
-import type { CSSProperties, ChangeEventHandler } from "react"
-import { useCallback, useMemo, useRef, useState, useTransition } from "react"
+import type {
+  CSSProperties,
+  ChangeEventHandler,
+  MouseEventHandler,
+} from "react"
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from "react"
 import {
   searchResultsCleared,
   searchResultsUpdated,
@@ -20,14 +32,22 @@ const style = {
   borderRadius: "30px",
 } as const satisfies CSSProperties
 
+const inputProps = {
+  role: "search",
+} as const satisfies InputBaseComponentProps
+
 export const InputFieldComponent = () => {
-  const [inputValue, setInputValue] = useState("")
-  const [, startTransition] = useTransition()
-  const itemNamesAndKeywords = useAppSelector(selectItemNamesAndKeywords)
   const dispatch = useAppDispatch()
+
+  const [inputValue, setInputValue] = useState("")
+
+  const [, startTransition] = useTransition()
+
+  const itemNamesAndKeywords = useAppSelector(selectItemNamesAndKeywords)
+
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const clickHandler = useCallback(() => {
+  const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     dispatch(searchResultsCleared())
 
     setInputValue("")
@@ -64,24 +84,26 @@ export const InputFieldComponent = () => {
     () =>
       ({
         input: {
-          style,
-          inputProps: {
-            role: "search",
-          },
-          endAdornment: inputValue && (
+          endAdornment: inputValue ? (
             <InputEndAdornment onClick={clickHandler} />
-          ),
+          ) : null,
+          inputProps,
+          style,
         },
-      }) as const satisfies TextFieldProps["slotProps"],
+      }) as const satisfies TextFieldProps<"outlined">["slotProps"],
     [clickHandler, inputValue],
   )
 
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
+
   return (
     <TextField
-      autoFocus
+      // autoFocus
       className="mt-4"
       fullWidth
-      id="text-field"
+      id="search-field"
       inputRef={inputRef}
       label="Search"
       onChange={changeValue}

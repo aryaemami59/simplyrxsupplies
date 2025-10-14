@@ -4,7 +4,9 @@ import {
 } from "./withNumsArrayRuntimeChecks.js"
 
 /**
- * Will remove an element from an array if the array contains it, otherwise it will add the element to the array.
+ * Will remove an element from an array if the array contains it,
+ * otherwise it will add the element to the array.
+ *
  * @param array - The array that will be modified.
  * @param element - The element that is used to modify the array.
  * @returns The modified array.

@@ -6,8 +6,11 @@ export const sortResults = (
   inputValue: string,
 ): number => {
   let relevancyScore = 0
+
   const { name, keywords } = itemNameAndKeyword
+
   const itemName = name.toLowerCase()
+
   if (itemName === inputValue) {
     relevancyScore += 100
   } else if (itemName.startsWith(`${inputValue} `)) {
@@ -30,8 +33,11 @@ export const sortResults = (
           : total,
       0,
     )
+
     relevancyScore += keywordsScore
   }
+
   relevancyScore += itemName.match(searchRegexPattern)?.length ?? 0
+
   return relevancyScore
 }
