@@ -12,7 +12,7 @@ export const SideBarAccordionList = () => {
       {categoryIds.map(categoryId => (
         <SideBarAccordionCategories
           categoryId={categoryId}
-          key={`${categoryId.toString()}-SideBarAccordion-SideBarAccordionList`}
+          key={`${categoryId.toString()}-SideBarAccordionCategories`}
         />
       ))}
     </>

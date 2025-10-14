@@ -19,8 +19,8 @@ export const ColumnTopCardBody = () => {
       <List>
         {addedItemsIds.map(addedItemsId => (
           <ItemIdProvider
-            key={`${addedItemsId.toString()}-${vendorId.toString()}`}
             itemId={addedItemsId}
+            key={`${addedItemsId.toString()}-${vendorId.toString()}-ItemIdProvider`}
           >
             <RowSingleContainer />
           </ItemIdProvider>

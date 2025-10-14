@@ -25,7 +25,7 @@ export const SearchResultsCardBodyContent = ({ visibleListId }: Props) => {
               {!isEmptyArray(vendorIds) &&
                 vendorIds.map(vendorId => (
                   <SwitchComponent
-                    key={`SwitchComponent-${visibleListId.toString()}${vendorId.toString()}`}
+                    key={`${visibleListId.toString()}-${vendorId.toString()}-SwitchComponent`}
                     vendorId={vendorId}
                     visibleListId={visibleListId}
                   />

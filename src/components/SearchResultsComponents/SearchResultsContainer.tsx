@@ -19,6 +19,7 @@ export const SearchResultsContainer = () => {
   )
 
   const [hasMore, setHasMore] = useState(false)
+
   const [visibleListIds, setVisibleListIds] = useState(memoizedSearchResultsIds)
 
   useEffect(() => {

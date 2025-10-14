@@ -57,7 +57,7 @@ export const SideBarAccordionCategories = ({ categoryId }: Props) => {
           {categoryItemIds.map(categoryItemId => (
             <SingleSideBarCategoryListItem
               itemId={categoryItemId}
-              key={`${categoryItemId.toString()}-SingleSideBarAccordionListItem`}
+              key={`${categoryItemId.toString()}-SingleSideBarCategoryListItem`}
             />
           ))}
         </AccordionDetails>

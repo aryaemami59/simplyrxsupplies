@@ -10,7 +10,7 @@ export const VendorColumnList = () => {
       <div className="shadow col-11 col-xl-10 p-0 justify-content-center text-center">
         {vendorIds.map(vendorId => (
           <VendorIdProvider
-            key={`${vendorId.toString()}-VendorColumnList`}
+            key={`${vendorId.toString()}-VendorIdProvider`}
             vendorId={vendorId}
           >
             <VendorColumn />

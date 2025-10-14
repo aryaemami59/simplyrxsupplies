@@ -8,7 +8,10 @@ export const OffcanvasVendorAccordionList = () => {
   return (
     <>
       {vendorIds.map(vendorId => (
-        <VendorIdProvider key={vendorId} vendorId={vendorId}>
+        <VendorIdProvider
+          key={`${vendorId.toString()}-VendorIdProvider`}
+          vendorId={vendorId}
+        >
           <OffcanvasVendorAccordion />
         </VendorIdProvider>
       ))}

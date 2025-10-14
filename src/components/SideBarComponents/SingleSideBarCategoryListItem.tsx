@@ -51,7 +51,7 @@ export const SingleSideBarCategoryListItem = ({ itemId }: Props) => {
           vendorIds.map(vendorId => (
             <SideBarVendorBadges
               itemId={itemId}
-              key={`SideBarVendorBadges-${itemId.toString()}${vendorId.toString()}`}
+              key={`${itemId.toString()}-${vendorId.toString()}-SideBarVendorBadges`}
               vendorId={vendorId}
             />
           ))}

@@ -15,7 +15,7 @@ export const ExcludeVendors = () => {
       <ButtonGroup size="small">
         {vendorIds.map(vendorId => (
           <VendorIdProvider
-            key={`${vendorId.toString()}-ExcludeVendors`}
+            key={`${vendorId.toString()}-VendorIdProvider`}
             vendorId={vendorId}
           >
             <ExcludeVendorSingleCheckbox />

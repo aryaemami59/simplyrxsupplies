@@ -8,7 +8,7 @@ export const VendorDropDownsList = () => {
     <>
       {vendorIds.map(vendorId => (
         <VendorDropDown
-          key={`${vendorId.toString()}-VendorDropDownsList-VendorDropDown`}
+          key={`${vendorId.toString()}-VendorDropDown`}
           vendorId={vendorId}
         />
       ))}

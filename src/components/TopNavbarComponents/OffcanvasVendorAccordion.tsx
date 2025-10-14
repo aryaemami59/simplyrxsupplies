@@ -52,7 +52,7 @@ export const OffcanvasVendorAccordion = () => {
         {vendorItemIds.map(vendorItemId => (
           <ItemIdProvider
             itemId={vendorItemId}
-            key={`${vendorItemId.toString()}-OffcanvasVendorAccordion`}
+            key={`${vendorItemId.toString()}-ItemIdProvider`}
           >
             <SingleOffcanvasVendorItem />
           </ItemIdProvider>
