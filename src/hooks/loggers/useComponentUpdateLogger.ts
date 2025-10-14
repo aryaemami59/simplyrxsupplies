@@ -1,73 +1,111 @@
 import type { PropertiesHyphen } from "csstype"
 import { useDebugValue, useMemo, useRef } from "react"
 import type { Simplify } from "../../types/tsHelpers.js"
+import { inferComponentNameFromStack } from "../../utils/inferComponentNameFromStack.js"
+import { styleToCssText } from "../../utils/styleToCssText.js"
 import { useComponentDidUpdate } from "../useComponentDidUpdate.js"
 
-type ComponentLoggerOptions = {
+type UseComponentUpdateLoggerOptions = {
+  /**
+   * CSS (hyphen-case) properties applied to the **component name**
+   * segment in the console log.
+   *
+   * @default { color: "violet", "font-size": "15px" }
+   */
   componentNameStyle?: Simplify<PropertiesHyphen>
+
+  /**
+   * CSS (hyphen-case) properties applied to the **render count**
+   * segment in the console log.
+   *
+   * @default { color: "violet", "font-size": "15px" }
+   */
   renderCountStyle?: Simplify<PropertiesHyphen>
 }
 
-const DEFAULT_COMPONENT_NAME_STYLE = {
-  color: "violet",
-  "font-size": "15px",
-} as const satisfies PropertiesHyphen
-
-const DEFAULT_RENDER_COUNT_STYLE = {
-  color: "violet",
-  "font-size": "15px",
-} as const satisfies PropertiesHyphen
-
-const DEFAULT_OPTIONS = {
-  componentNameStyle: DEFAULT_COMPONENT_NAME_STYLE,
-  renderCountStyle: DEFAULT_RENDER_COUNT_STYLE,
-} as const satisfies ComponentLoggerOptions
-
-const styleToString = (style: Simplify<PropertiesHyphen>) =>
-  Object.entries(style)
-    .map(([key, value = ""]) => `${key}: ${value.toString()};` as const)
-    .join(" ")
+const USE_COMPONENT_UPDATE_LOGGER_DEFAULT_OPTIONS = {
+  componentNameStyle: {
+    color: "violet",
+    "font-size": "15px",
+  },
+  renderCountStyle: {
+    color: "violet",
+    "font-size": "15px",
+  },
+} as const satisfies UseComponentUpdateLoggerOptions
 
 /**
- * Use only in development mode
+ * DEV-ONLY: Logs whenever the component **re-renders**
+ * (skips the initial render) and displays a styled message in the console.
+ * Uses an internal counter to track updates and prints a message like:
+ * `"MyComponent re-rendered 3 times"`, with customizable CSS styles for
+ * the component name token and the render-count token.
+ * This hook is intended for debugging unnecessary re-renders during development.
+ * It performs a best-effort inference of the component name and surfaces a
+ * label in React DevTools via {@linkcode useDebugValue}.
  *
- * Counts how many times the component re-renders and logs the results to the console.
+ * @param useComponentUpdateLoggerOptions - Optional style overrides. Defaults to `{}`.
+ *
+ * @example
+ * <caption>Basic usage with default styling</caption>
+ *
+ * ```tsx
+ * import { useComponentUpdateLogger } from "../../hooks/useComponentUpdateLogger.js";
+ *
+ * export const Example = () => {
+ *   useComponentUpdateLogger();
+ *   return <div>Hello</div>;
+ * }
+ * ```
+ *
+ * @example
+ * <caption>Override console styles</caption>
+ *
+ * ```tsx
+ * import { useComponentUpdateLogger } from "../../hooks/useComponentUpdateLogger.js";
+ *
+ * export const Example = () => {
+ *   useComponentUpdateLogger({
+ *     componentNameStyle: { color: "blue", "font-weight": 700 },
+ *     renderCountStyle: { color: "tomato" },
+ *   });
+ *   return <div>Styled logs</div>;
+ * }
+ * ```
  */
 export const useComponentUpdateLogger = (
-  options: ComponentLoggerOptions = {},
-) => {
-  const componentName =
-    new Error().stack?.split("\n")[2]?.split(" ")[5] ?? "Component"
-
-  const finalOptions = useMemo(
-    () =>
-      Object.assign(options, {
-        ...DEFAULT_OPTIONS,
-        ...options,
-        componentNameStyle: {
-          ...DEFAULT_OPTIONS.componentNameStyle,
-          ...options.componentNameStyle,
-        },
-        renderCountStyle: {
-          ...DEFAULT_OPTIONS.renderCountStyle,
-          ...options.renderCountStyle,
-        },
-      }),
-    [options],
-  )
+  useComponentUpdateLoggerOptions: UseComponentUpdateLoggerOptions = {},
+): void => {
+  const componentName = inferComponentNameFromStack()
 
   const {
-    componentNameStyle = DEFAULT_OPTIONS.componentNameStyle,
-    renderCountStyle = DEFAULT_OPTIONS.renderCountStyle,
-  } = finalOptions
+    componentNameStyle = USE_COMPONENT_UPDATE_LOGGER_DEFAULT_OPTIONS.componentNameStyle,
+    renderCountStyle = USE_COMPONENT_UPDATE_LOGGER_DEFAULT_OPTIONS.renderCountStyle,
+  } = useMemo(
+    () =>
+      ({
+        componentNameStyle: {
+          ...USE_COMPONENT_UPDATE_LOGGER_DEFAULT_OPTIONS.componentNameStyle,
+          ...useComponentUpdateLoggerOptions.componentNameStyle,
+        },
+        renderCountStyle: {
+          ...USE_COMPONENT_UPDATE_LOGGER_DEFAULT_OPTIONS.renderCountStyle,
+          ...useComponentUpdateLoggerOptions.renderCountStyle,
+        },
+      }) as const satisfies UseComponentUpdateLoggerOptions,
+    [
+      useComponentUpdateLoggerOptions.componentNameStyle,
+      useComponentUpdateLoggerOptions.renderCountStyle,
+    ],
+  )
 
-  const componentNameStyleStringified = useMemo(
-    () => styleToString(componentNameStyle),
+  const componentNameCss = useMemo(
+    () => styleToCssText(componentNameStyle),
     [componentNameStyle],
   )
 
-  const renderCountStyleStringified = useMemo(
-    () => styleToString(renderCountStyle),
+  const renderCountCss = useMemo(
+    () => styleToCssText(renderCountStyle),
     [renderCountStyle],
   )
 
@@ -79,12 +117,12 @@ export const useComponentUpdateLogger = (
     renderCount.current += 1
 
     console.log(
-      `%c${componentName}%c Re-rendered %c${renderCount.current.toString()}%c ${
+      `%c${componentName}%c re-rendered %c${renderCount.current.toString()}%c ${
         renderCount.current === 1 ? "time" : "times"
       }`,
-      componentNameStyleStringified,
+      componentNameCss,
       "",
-      renderCountStyleStringified,
+      renderCountCss,
       "",
     )
   })
