@@ -10,7 +10,9 @@ type Props = {
 
 export const BarcodeImage = ({ className = "" }: Props) => {
   const itemId = useItemId()
+
   const src = useItemSrc(itemId)
+
   const itemName = useItemName(itemId)
 
   return (

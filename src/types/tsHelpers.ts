@@ -153,6 +153,8 @@ export type ObjectChecker<T extends object> = {
 
 export type AnyFunction = (...args: never[]) => unknown
 
+export type UnknownFunction = (...args: unknown[]) => unknown
+
 export type Simplify<BaseType> = BaseType extends BaseType
   ? NonNullable<unknown> & {
       [KeyType in keyof BaseType]: BaseType[KeyType]

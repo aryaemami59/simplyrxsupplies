@@ -32,8 +32,13 @@ export const SearchResultsContainer = () => {
   }, [searchResultsIds, memoizedSearchResultsIds])
 
   const next = useCallback(() => {
-    setVisibleListIds(prev =>
-      prev.concat(searchResultsIds.slice(prev.length, prev.length + 10)),
+    setVisibleListIds(previousVisibleListIds =>
+      previousVisibleListIds.concat(
+        searchResultsIds.slice(
+          previousVisibleListIds.length,
+          previousVisibleListIds.length + 10,
+        ),
+      ),
     )
 
     if (visibleListIds.length === searchResultsIds.length) {

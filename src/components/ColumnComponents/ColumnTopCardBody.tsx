@@ -9,6 +9,7 @@ import { VendorLink } from "./VendorLink.js"
 
 export const ColumnTopCardBody = () => {
   const vendorId = useVendorId()
+
   const addedItemsIds = useCartItemsIds(vendorId)
 
   return (

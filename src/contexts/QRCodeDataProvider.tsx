@@ -25,6 +25,7 @@ export const QRCodeDataProvider = ({ children, vendorId }: Props) => {
   useEffect(() => {
     const setQRCode = async () => {
       const data = await createQRCode(qrCodeText)
+
       setSrc(data)
     }
 

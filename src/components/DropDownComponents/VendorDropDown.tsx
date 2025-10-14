@@ -1,9 +1,8 @@
 import Button from "@mui/material/Button"
 import type { MenuProps } from "@mui/material/Menu"
 import Menu from "@mui/material/Menu"
-import type { PopoverOrigin } from "@mui/material/Popover"
 import type { MouseEventHandler } from "react"
-import { useCallback, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import {
   useOfficialVendorName,
   useVendorItemIds,
@@ -11,30 +10,14 @@ import {
 import type { ItemIdAndVendorId } from "../../types/reduxHelperTypes.js"
 import { SingleDropDown } from "./SingleDropDown.js"
 
-const transformOrigin = {
-  horizontal: "left",
-  vertical: "top",
-} as const satisfies PopoverOrigin
-
 const anchorOrigin = {
   horizontal: "left",
   vertical: "bottom",
-} as const satisfies PopoverOrigin
+} as const satisfies MenuProps["anchorOrigin"]
 
-const slotProps = {
-  list: {
-    "aria-labelledby": "menu-list",
-    autoFocus: true,
-    className: "menu-list",
-    style: {
-      maxHeight: "calc(100vh - 54px)",
-    },
-  },
-
-  paper: {
-    className: "paper",
-  },
-} as const satisfies MenuProps["slotProps"]
+const paper = {
+  className: "paper",
+} as const satisfies NonNullable<MenuProps["slotProps"]>["paper"]
 
 type Props = Pick<ItemIdAndVendorId, "vendorId">
 
@@ -55,15 +38,33 @@ export const VendorDropDown = ({ vendorId }: Props) => {
     setAnchorElement(null)
   }, [])
 
+  const buttonId = `${vendorId.toString()}-VendorDropDown` as const
+
+  const menuId = `${officialVendorName}-VendorDropDown-Menu` as const
+
+  const slotProps = useMemo(
+    () =>
+      ({
+        list: {
+          "aria-labelledby": buttonId,
+          autoFocus: true,
+          className: "menu-list",
+        },
+
+        paper,
+      }) as const satisfies MenuProps["slotProps"],
+    [buttonId],
+  )
+
   return (
     <>
       <Button
-        aria-controls={open ? "dropdown-menu" : undefined}
+        aria-controls={open ? menuId : undefined}
         aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
         className="rounded-pill"
         disableElevation
-        id={vendorId.toString()}
+        id={buttonId}
         onClick={handleOpen}
         variant="contained"
       >
@@ -73,19 +74,17 @@ export const VendorDropDown = ({ vendorId }: Props) => {
         anchorEl={anchorElement}
         anchorOrigin={anchorOrigin}
         aria-expanded={open}
-        aria-labelledby={vendorId.toString()}
-        // autoFocus
-        id={officialVendorName}
+        aria-labelledby={buttonId}
+        id={menuId}
         onClose={handleClose}
         open={open}
         slotProps={slotProps}
-        transformOrigin={transformOrigin}
         variant="menu"
       >
         {itemIds.map(itemId => (
           <SingleDropDown
             itemId={itemId}
-            key={`${itemId.toString()}-${vendorId.toString()}`}
+            key={`${itemId.toString()}-${vendorId.toString()}-SingleDropDown`}
             vendorId={vendorId}
           />
         ))}

@@ -12,9 +12,9 @@ const startIcon = <FontAwesomeIcon icon={faTrashCan} />
 const title = "Remove All Items"
 
 export const RemoveAllButton = () => {
-  const vendorId = useVendorId()
-
   const dispatch = useAppDispatch()
+
+  const vendorId = useVendorId()
 
   const clickHandler = useCallback(() => {
     dispatch(allItemsRemovedFromCart({ vendorId }))

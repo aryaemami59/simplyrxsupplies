@@ -14,10 +14,14 @@ import { RowDeleteButton } from "./RowDeleteButton.js"
 import { RowSingleItemInfo } from "./RowSingleItemInfo.js"
 
 export const RowSingleContainer = () => {
-  const itemId = useItemId()
-  const vendorId = useVendorId()
   const dispatch = useAppDispatch()
+
+  const itemId = useItemId()
+
+  const vendorId = useVendorId()
+
   const open = useIsMinimized(vendorId, itemId)
+
   const itemName = useItemName(itemId)
 
   const toggleFade = useCallback(() => {

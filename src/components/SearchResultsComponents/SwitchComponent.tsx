@@ -24,9 +24,9 @@ type Props = Pick<ItemIdAndVendorId, "vendorId"> & {
 }
 
 export const SwitchComponent = ({ vendorId, visibleListId }: Props) => {
-  const officialVendorName = useOfficialVendorName(vendorId)
-
   const dispatch = useAppDispatch()
+
+  const officialVendorName = useOfficialVendorName(vendorId)
 
   const checked = useIsVendorChecked(visibleListId, vendorId)
 

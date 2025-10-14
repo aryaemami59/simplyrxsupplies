@@ -14,6 +14,7 @@ type Props = {
 
 export const RowBarcodeDialog = ({ hideModal, isModalOpen }: Props) => {
   const itemId = useItemId()
+
   const itemName = useItemName(itemId)
 
   return (

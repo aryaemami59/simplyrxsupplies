@@ -55,10 +55,10 @@ export type Cart = {
  * Returned from `apiSlice` after data transformation.
  */
 export type SuppliesState = {
+  readonly cart: Cart[]
+  readonly categories: Category[]
   readonly items: Item[]
   readonly vendors: Vendor[]
-  readonly categories: Category[]
-  readonly cart: Cart[]
 }
 
 export type ItemIdAndVendorId = {
@@ -73,9 +73,9 @@ export type ItemIdAndVendorId = {
 }
 
 type ApiAdapters = {
+  readonly categories: Category
   readonly items: Item
   readonly vendors: Vendor
-  readonly categories: Category
 }
 
 /**

@@ -8,9 +8,12 @@ import { useAppDispatch } from "../../redux/hooks.js"
 import { useCheckIfAddedToVendor, useItemName } from "../../redux/selectors.js"
 
 export const SingleOffcanvasVendorItem = () => {
-  const vendorId = useVendorId()
-  const itemId = useItemId()
   const dispatch = useAppDispatch()
+
+  const vendorId = useVendorId()
+
+  const itemId = useItemId()
+
   const itemName = useItemName(itemId)
 
   const ifAddedToVendor = useCheckIfAddedToVendor(vendorId, itemId)

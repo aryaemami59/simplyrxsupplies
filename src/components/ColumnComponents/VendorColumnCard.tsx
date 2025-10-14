@@ -6,6 +6,7 @@ import { EmptyColumn } from "./EmptyColumn.js"
 
 export const VendorColumnCard = () => {
   const vendorId = useVendorId()
+
   const anyAdded = useCheckIfAnyAddedToOneVendor(vendorId)
 
   return <Card>{anyAdded ? <ColumnTopCardBody /> : <EmptyColumn />}</Card>

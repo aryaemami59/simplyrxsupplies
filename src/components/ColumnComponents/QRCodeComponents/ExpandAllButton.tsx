@@ -12,9 +12,9 @@ const title = "Expand All Items"
 const startIcon = <FontAwesomeIcon icon={faMaximize} />
 
 export const ExpandAllButton = () => {
-  const vendorId = useVendorId()
-
   const dispatch = useAppDispatch()
+
+  const vendorId = useVendorId()
 
   const toggleCollapse = useCallback(() => {
     dispatch(maximizedAllItemsInCart({ vendorId }))

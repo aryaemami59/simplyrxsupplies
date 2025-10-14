@@ -12,9 +12,9 @@ const title = "Collapse All Items"
 const startIcon = <FontAwesomeIcon icon={faMinimize} />
 
 export const CollapseAllButton = () => {
-  const vendorId = useVendorId()
-
   const dispatch = useAppDispatch()
+
+  const vendorId = useVendorId()
 
   const toggleCollapse = useCallback(() => {
     dispatch(minimizedAllItemsInCart({ vendorId }))

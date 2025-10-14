@@ -4,6 +4,7 @@ import { useCartItemsLength } from "../../../redux/selectors.js"
 
 export const RowCounterBadge = () => {
   const vendorId = useVendorId()
+
   const addedItemsLength = useCartItemsLength(vendorId)
 
   return (

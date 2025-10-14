@@ -14,11 +14,11 @@ const startIcon = <FontAwesomeIcon icon={faDeleteLeft} />
 const title = "Delete This Item"
 
 export const RowDeleteButton = () => {
+  const dispatch = useAppDispatch()
+
   const itemId = useItemId()
 
   const vendorId = useVendorId()
-
-  const dispatch = useAppDispatch()
 
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     dispatch(singleItemRemovedFromCart({ itemId, vendorId }))

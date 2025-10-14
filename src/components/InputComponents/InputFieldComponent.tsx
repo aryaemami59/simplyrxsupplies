@@ -1,11 +1,6 @@
-import type { InputBaseComponentProps } from "@mui/material"
 import type { TextFieldProps } from "@mui/material/TextField"
 import TextField from "@mui/material/TextField"
-import type {
-  CSSProperties,
-  ChangeEventHandler,
-  MouseEventHandler,
-} from "react"
+import type { ChangeEventHandler, MouseEventHandler } from "react"
 import {
   useCallback,
   useEffect,
@@ -21,6 +16,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../redux/hooks.js"
 import { selectItemNamesAndKeywords } from "../../redux/selectors.js"
 import { SEARCH_FIELD_BG } from "../../shared/styles.js"
+import type { AnyFunction } from "../../types/tsHelpers.js"
 import { EMPTY_ARRAY } from "../../utils/emptyArray.js"
 import { fallbackToEmptyArray } from "../../utils/fallbackToEmptyArray.js"
 import { isEmptyArray } from "../../utils/predicates/isEmptyArray.js"
@@ -30,11 +26,15 @@ import { InputEndAdornment } from "./InputEndAdornment.js"
 const style = {
   backgroundColor: SEARCH_FIELD_BG,
   borderRadius: "30px",
-} as const satisfies CSSProperties
+} as const satisfies NonNullable<
+  Exclude<NonNullable<TextFieldProps["slotProps"]>["input"], AnyFunction>
+>["style"]
 
-const inputProps = {
+const htmlInput = {
   role: "search",
-} as const satisfies InputBaseComponentProps
+} as const satisfies NonNullable<
+  Exclude<NonNullable<TextFieldProps["slotProps"]>["htmlInput"], AnyFunction>
+>
 
 export const InputFieldComponent = () => {
   const dispatch = useAppDispatch()
@@ -83,14 +83,14 @@ export const InputFieldComponent = () => {
   const slotProps = useMemo(
     () =>
       ({
+        htmlInput,
         input: {
           endAdornment: inputValue ? (
             <InputEndAdornment onClick={clickHandler} />
           ) : null,
-          inputProps,
           style,
         },
-      }) as const satisfies TextFieldProps<"outlined">["slotProps"],
+      }) as const satisfies TextFieldProps["slotProps"],
     [clickHandler, inputValue],
   )
 

@@ -13,6 +13,7 @@ const slotProps = {
 
 export const RowItemNumber = () => {
   const itemId = useItemId()
+
   const itemNumber = useItemNumber(itemId)
 
   return (

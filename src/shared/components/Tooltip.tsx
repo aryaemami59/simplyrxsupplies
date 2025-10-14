@@ -1,11 +1,11 @@
-import type { TooltipProps } from "@mui/material"
+import type { TooltipProps as MuiTooltipProps } from "@mui/material"
 import { Tooltip as MuiTooltip } from "@mui/material"
 import { useTooltip } from "../../hooks/useTooltip.js"
 import type { PropsWithRequiredChildren } from "../../types/tsHelpers.js"
 
-type Props = PropsWithRequiredChildren<TooltipProps>
+export type TooltipProps = PropsWithRequiredChildren<MuiTooltipProps>
 
-export const Tooltip = (props: Props) => {
+export const Tooltip = (props: TooltipProps) => {
   const { open, showTooltip, hideTooltip } = useTooltip()
 
   return (
