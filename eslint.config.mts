@@ -3,7 +3,9 @@ import type { TSESLint } from "@typescript-eslint/utils"
 import vitestPlugin from "@vitest/eslint-plugin"
 import type { Linter } from "eslint"
 import prettierConfig from "eslint-config-prettier/flat"
+import jsxA11yPlugin from "eslint-plugin-jsx-a11y"
 import preferArrowFunctionsPlugin from "eslint-plugin-prefer-arrow-functions"
+import reactPlugin from "eslint-plugin-react"
 import reactHooksPlugin from "eslint-plugin-react-hooks"
 import { defineConfig } from "eslint/config"
 import { configs } from "typescript-eslint"
@@ -54,14 +56,18 @@ const eslintConfig = defineConfig(
       "**/temp/",
     ],
   },
+
   {
     name: `${js.meta.name}/recommended`,
     ...js.configs.recommended,
   },
+
   ...configs.strictTypeChecked,
   ...configs.stylisticTypeChecked,
+
   // @ts-expect-error - types are wrong
   vitestPlugin.configs.recommended,
+
   {
     name: `${reactHooksPlugin.meta.name}/recommended-latest`,
     ...reactHooksPlugin.configs.flat["recommended-latest"],
@@ -70,6 +76,17 @@ const eslintConfig = defineConfig(
     name: `${preferArrowFunctionsPlugin.meta.name}/all`,
     ...preferArrowFunctionsPlugin.configs.all,
   },
+  {
+    name: "react/recommended",
+    ...reactPlugin.configs.flat.recommended,
+  },
+  {
+    name: "react/jsx-runtime",
+    ...reactPlugin.configs.flat["jsx-runtime"],
+  },
+
+  jsxA11yPlugin.flatConfigs.strict,
+
   {
     name: "main",
     languageOptions: {
@@ -80,11 +97,12 @@ const eslintConfig = defineConfig(
         tsconfigRootDir: import.meta.dirname,
       } as const satisfies TSESLint.FlatConfig.ParserOptions,
     } as const satisfies TSESLint.FlatConfig.LanguageOptions,
-    settings: {
-      vitest: {
-        typecheck: true,
-      },
+
+    linterOptions: {
+      reportUnusedDisableDirectives: 2,
+      reportUnusedInlineConfigs: 2,
     },
+
     rules: {
       "@typescript-eslint/consistent-type-imports": [
         2,
@@ -207,13 +225,19 @@ const eslintConfig = defineConfig(
       ],
       ...rulesToDisable,
     },
-    linterOptions: {
-      reportUnusedDisableDirectives: 2,
-      reportUnusedInlineConfigs: 2,
+
+    settings: {
+      react: {
+        version: "detect",
+      },
+      vitest: {
+        typecheck: true,
+      },
     },
   },
+
   {
-    name: "commonjs",
+    name: "commonjs-files",
     files: ["**/*.c[jt]s"],
     languageOptions: {
       sourceType: "commonjs" as const satisfies TSESLint.FlatConfig.SourceType,
@@ -230,6 +254,7 @@ const eslintConfig = defineConfig(
       ],
     },
   },
+
   {
     name: "typescript-declaration-files",
     files: ["**/*.d.?(c|m)ts"],
