@@ -155,8 +155,23 @@ export type AnyFunction = (...args: never[]) => unknown
 
 export type UnknownFunction = (...args: unknown[]) => unknown
 
+export type NonEmptyString<StringType extends string> = "" extends StringType
+  ? never
+  : StringType
+
+export type IsNonEmptyString<TypeToCheck> = "" extends TypeToCheck
+  ? false
+  : true
+
+export type IsNever<TypeToCheck> = [TypeToCheck] extends [never] ? true : false
+
+export type IfNever<TypeToCheck, TypeIfNever = true, TypeIfNotNever = false> =
+  IsNever<TypeToCheck> extends true ? TypeIfNever : TypeIfNotNever
+
+export type AnyNonNullishValue = NonNullable<unknown>
+
 export type Simplify<BaseType> = BaseType extends BaseType
-  ? NonNullable<unknown> & {
+  ? AnyNonNullishValue & {
       [KeyType in keyof BaseType]: BaseType[KeyType]
     }
   : never
