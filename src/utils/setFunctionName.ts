@@ -1,5 +1,9 @@
 import type { AnyFunction } from "../types/tsHelpers.js"
 
-export const setFunctionName = (func: AnyFunction, name: string) => {
-  Object.defineProperty(func, "name", { value: name })
-}
+export const setFunctionName = <FunctionToRename extends AnyFunction>(
+  functionToRename: FunctionToRename,
+  newFunctionName: string,
+): FunctionToRename =>
+  Object.defineProperty(functionToRename, "name", {
+    value: newFunctionName,
+  })

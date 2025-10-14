@@ -383,7 +383,12 @@ export const createDebugSelector = createSelectorCreator(lruMemoize, {
 
 export const objectEntries = <ObjectType extends Record<string, unknown>>(
   objectInput: ObjectType,
-) =>
+): {
+  [ObjectKey in Extract<keyof ObjectType, string>]: [
+    ObjectKey,
+    ObjectType[ObjectKey],
+  ]
+}[Extract<keyof ObjectType, string>][] =>
   Object.entries(objectInput) as {
     [ObjectKey in Extract<keyof ObjectType, string>]: [
       ObjectKey,
@@ -393,9 +398,11 @@ export const objectEntries = <ObjectType extends Record<string, unknown>>(
 
 export const objectFromEntries = <Entries extends [string, unknown]>(
   entries: Entries[],
-) =>
+): {
+  [EntryKey in Entries[0]]: Extract<Entries, [EntryKey, Entries[1]]>[1]
+} =>
   Object.fromEntries(entries) as {
-    [EntryKey in Entries[0]]: Extract<Entries, [EntryKey, unknown]>[1]
+    [EntryKey in Entries[0]]: Extract<Entries, [EntryKey, Entries[1]]>[1]
   }
 
 export const createParametricSelectorHook =
