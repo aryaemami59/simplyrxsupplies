@@ -1,5 +1,6 @@
 import viteReact from "@vitejs/plugin-react"
 import { visualizer } from "rollup-plugin-visualizer"
+import type { PluginOption } from "vite"
 import babelPlugin from "vite-plugin-babel"
 import macrosPlugin from "vite-plugin-babel-macros"
 import type { ViteUserConfig } from "vitest/config"
@@ -113,7 +114,7 @@ const viteConfig = defineConfig(({ mode }) => {
         gzipSize: true,
         open: process.env.NO_OPEN ? false : true,
         template: "flamegraph" as const,
-      })),
+      })) as PluginOption,
     ],
 
     server: {
