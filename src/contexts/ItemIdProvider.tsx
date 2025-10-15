@@ -9,5 +9,5 @@ export const ItemIdContext = createContext<ItemIdAndVendorId["itemId"] | null>(
 )
 
 export const ItemIdProvider = ({ children, itemId }: Props) => (
-  <ItemIdContext.Provider value={itemId}>{children}</ItemIdContext.Provider>
+  <ItemIdContext value={itemId}>{children}</ItemIdContext>
 )

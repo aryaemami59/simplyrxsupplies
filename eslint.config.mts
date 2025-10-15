@@ -8,6 +8,7 @@ import perfectionistPlugin from "eslint-plugin-perfectionist"
 import preferArrowFunctionsPlugin from "eslint-plugin-prefer-arrow-functions"
 import reactPlugin from "eslint-plugin-react"
 import reactHooksPlugin from "eslint-plugin-react-hooks"
+import reactXPlugin from "eslint-plugin-react-x"
 import { defineConfig } from "eslint/config"
 import { configs } from "typescript-eslint"
 
@@ -95,6 +96,8 @@ const eslintConfig = defineConfig(
     name: `${perfectionistPlugin.meta.name}/recommended-natural`,
     ...perfectionistPlugin.configs["recommended-natural"],
   },
+
+  reactXPlugin.configs["strict-type-checked"],
 
   {
     languageOptions: {

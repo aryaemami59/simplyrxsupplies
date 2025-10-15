@@ -6,18 +6,12 @@ import InputAdornment from "@mui/material/InputAdornment"
 import type { PropsWithoutChildren } from "../../types/tsHelpers.js"
 
 type Props = Required<Pick<IconButtonProps, "onClick">> & {
-  /**
-   * @default {}
-   */
   readonly InputAdornmentProps?: PropsWithoutChildren<
     Partial<InputAdornmentProps>
   >
 }
 
-export const InputEndAdornment = ({
-  InputAdornmentProps = {},
-  onClick,
-}: Props) => (
+export const InputEndAdornment = ({ InputAdornmentProps, onClick }: Props) => (
   <InputAdornment position="end" {...InputAdornmentProps}>
     <IconButton onClick={onClick}>
       <CloseIcon />

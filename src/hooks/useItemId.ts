@@ -1,8 +1,8 @@
-import { useContext } from "react"
+import { use } from "react"
 import { ItemIdContext } from "../contexts/ItemIdProvider.js"
 
 export const useItemId = () => {
-  const value = useContext(ItemIdContext)
+  const value = use(ItemIdContext)
 
   if (value == null) {
     throw new Error(

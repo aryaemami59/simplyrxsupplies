@@ -32,9 +32,5 @@ export const QRCodeDataProvider = ({ children, vendorId }: Props) => {
     void setQRCode()
   }, [qrCodeText])
 
-  return (
-    <QRCodeDataContext.Provider value={src}>
-      {children}
-    </QRCodeDataContext.Provider>
-  )
+  return <QRCodeDataContext value={src}>{children}</QRCodeDataContext>
 }

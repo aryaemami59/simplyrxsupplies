@@ -38,8 +38,8 @@ export const ColorModeProvider = ({ children }: Props) => {
   )
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
+    <ColorModeContext value={colorMode}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
-    </ColorModeContext.Provider>
+    </ColorModeContext>
   )
 }

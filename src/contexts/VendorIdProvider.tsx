@@ -9,7 +9,5 @@ export const VendorIdContext = createContext<
 >(null)
 
 export const VendorIdProvider = ({ children, vendorId }: Props) => (
-  <VendorIdContext.Provider value={vendorId}>
-    {children}
-  </VendorIdContext.Provider>
+  <VendorIdContext value={vendorId}>{children}</VendorIdContext>
 )
