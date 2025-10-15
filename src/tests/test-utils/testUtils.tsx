@@ -219,9 +219,8 @@ export type SetupWithNoUIResults = {
 }
 
 export type LocalBaseTestContext<
-  SetupResults extends
-    | ExtendedRenderResult
-    | SetupWithNoUIResults = SetupWithNoUIResults,
+  SetupResults extends ExtendedRenderResult | SetupWithNoUIResults =
+    SetupWithNoUIResults,
 > = SetupWithNoUIResults & {
   setupResults: Promise<SetupResults>
 }

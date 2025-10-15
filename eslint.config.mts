@@ -70,7 +70,6 @@ const eslintConfig = defineConfig(
   ...configs.strictTypeChecked,
   ...configs.stylisticTypeChecked,
 
-  // @ts-expect-error - types are wrong
   vitestPlugin.configs.recommended,
 
   {
@@ -78,8 +77,8 @@ const eslintConfig = defineConfig(
     ...reactHooksPlugin.configs.flat["recommended-latest"],
   },
   {
-    name: `${preferArrowFunctionsPlugin.meta.name}/all`,
-    ...preferArrowFunctionsPlugin.configs.all,
+    name: `${preferArrowFunctionsPlugin?.meta?.name ?? ""}/all`,
+    ...(preferArrowFunctionsPlugin?.configs?.all ?? {}),
   },
   {
     name: "react/recommended",
