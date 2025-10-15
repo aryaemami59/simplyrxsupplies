@@ -12,10 +12,12 @@ import { isEmptyArray } from "./predicates/isEmptyArray.js"
  * maintain referential integrity as much as possible.
  *
  * @param array - The array whose length will be checked.
- * @returns Either an empty array or the array parameter.
+ * @returns Either an {@linkcode EMPTY_ARRAY | empty array} or the {@linkcode array | array parameter}.
  * @see {@linkcode EMPTY_ARRAY}
  */
-export const fallbackToEmptyArray = <T>(array: T[] | undefined): T[] => {
+export const fallbackToEmptyArray = <ArrayElement>(
+  array: ArrayElement[] | undefined,
+): ArrayElement[] => {
   if (array == null) {
     return EMPTY_ARRAY
   }

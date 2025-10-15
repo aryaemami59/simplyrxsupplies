@@ -31,8 +31,10 @@ export type Category = {
    */
   readonly itemIds: number[]
   /**
-   * References {@linkcode Category.name | categoryName}
+   * References {@linkcode Category.name | categoryName}.
    * Can be any of {@linkcode CategoryName}.
+   *
+   * @default "Vials"
    */
   readonly name: CategoryName
 }
@@ -73,6 +75,8 @@ export type Vendor = Simplify<
       readonly abbrName: AbbrVendorName
       /**
        * Can be any of {@linkcode OfficialVendorName}.
+       *
+       * @default "GNFR"
        */
       readonly officialName: OfficialVendorNameLookup[AbbrVendorName]
     }
