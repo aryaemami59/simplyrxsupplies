@@ -12,6 +12,12 @@ import { createSelectorWeakMap } from "./createSelectors.js"
 export const selectAdded: AppSelector<AddedState, never> = state => state.added
 
 export const TOP_LEVEL_SELECTORS: TopLevelSelectorsForAddedState = {
+  cart: createSelectorWeakMap([selectAdded], added => added.cart),
+
+  cartItems: createSelectorWeakMap([selectAdded], added => added.cartItems),
+
+  itemVendors: createSelectorWeakMap([selectAdded], added => added.itemVendors),
+
   // searchResults: state => state.added.searchResults,
   // cart: state => state.added.cart,
   // itemVendors: state => state.added.itemVendors,
@@ -20,10 +26,4 @@ export const TOP_LEVEL_SELECTORS: TopLevelSelectorsForAddedState = {
     [selectAdded],
     added => added.searchResults,
   ),
-
-  cart: createSelectorWeakMap([selectAdded], added => added.cart),
-
-  itemVendors: createSelectorWeakMap([selectAdded], added => added.itemVendors),
-
-  cartItems: createSelectorWeakMap([selectAdded], added => added.cartItems),
 } as const satisfies TopLevelSelectorsForAddedState

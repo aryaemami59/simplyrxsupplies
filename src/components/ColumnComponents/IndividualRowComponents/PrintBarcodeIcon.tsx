@@ -23,10 +23,10 @@ export const PrintBarcodeIcon = ({ header }: Props) => {
 
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     printJS({
-      printable: src,
-      type: "image",
       header,
       imageStyle: "width:80%;margin-bottom:20px;",
+      printable: src,
+      type: "image",
     })
   }, [header, src])
 

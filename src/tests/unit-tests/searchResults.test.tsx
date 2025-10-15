@@ -15,33 +15,16 @@ import {
 } from "../test-utils/testUtils.js"
 
 type LocalTestContext = LocalBaseTestContext<ExtendedRenderResult> & {
-  view: ExtendedRenderResult
   inputField: HTMLInputElement
+  view: ExtendedRenderResult
 }
 
 const localTest = test.extend<LocalTestContext>({
-  setupResults: [renderWithProviders(<InputGroupComponent />), { auto: false }],
-  store: [
-    async ({ view }, use) => {
-      const { store } = view
-
-      await use(store)
-    },
-    { auto: false },
-  ],
   initialState: [
     async ({ store }, use) => {
       const initialState = store.getState()
 
       await use(initialState)
-    },
-    { auto: false },
-  ],
-  view: [
-    async ({ setupResults }, use) => {
-      const view = await setupResults
-
-      await use(view)
     },
     { auto: false },
   ],
@@ -57,6 +40,23 @@ const localTest = test.extend<LocalTestContext>({
       )
 
       await use(inputField)
+    },
+    { auto: false },
+  ],
+  setupResults: [renderWithProviders(<InputGroupComponent />), { auto: false }],
+  store: [
+    async ({ view }, use) => {
+      const { store } = view
+
+      await use(store)
+    },
+    { auto: false },
+  ],
+  view: [
+    async ({ setupResults }, use) => {
+      const view = await setupResults
+
+      await use(view)
     },
     { auto: false },
   ],

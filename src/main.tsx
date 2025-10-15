@@ -11,11 +11,11 @@ if (import.meta.env.DEV) {
   //   "@welldone-software/why-did-you-render"
   // )
   const {
+    checkSelector,
     getStateWith,
     registerSelectors,
-    selectorGraph,
-    checkSelector,
     reset,
+    selectorGraph,
   } = await import("reselect-tools")
   // eslint-disable-next-line @typescript-eslint/unbound-method
   getStateWith(store.getState)
@@ -35,7 +35,7 @@ if (import.meta.env.DEV) {
 }
 
 if (import.meta.vitest) {
-  const { it, expectTypeOf } = import.meta.vitest
+  const { expectTypeOf, it } = import.meta.vitest
 
   it("window.__RESELECT_TOOLS__ should have the correct types", () => {
     expectTypeOf(window.__RESELECT_TOOLS__)

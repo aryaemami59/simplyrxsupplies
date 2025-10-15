@@ -61,7 +61,7 @@ export const SearchResultsContainer = () => {
       >
         {visibleListIds.map(visibleListId => (
           <SearchResultsSingleCard
-            key={`${visibleListId.toString()}-inputListItems`}
+            key={`${visibleListId.toString()}-SearchResultsSingleCard`}
             visibleListId={visibleListId}
           />
         ))}

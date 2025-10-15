@@ -22,13 +22,13 @@ import type { Category, Item, Vendor } from "./api.js"
  */
 export type ItemVendors = {
   /**
-   * References {@linkcode ItemIdAndVendorId.itemId | itemId}.
-   */
-  readonly id: number
-  /**
    * @default Item.vendorIds
    */
   readonly checkedVendorIds: number[]
+  /**
+   * References {@linkcode ItemIdAndVendorId.itemId | itemId}.
+   */
+  readonly id: number
   readonly vendorIds: number[]
 }
 
@@ -88,28 +88,28 @@ export type CartItems = {
    */
   readonly id: number
   /**
-   * @default EMPTY_ARRAY
-   */
-  readonly minimizedItemIds: number[]
-  /**
    * References {@linkcode Cart.itemIds | vendorItemIds}.
    */
   readonly itemIds: number[]
+  /**
+   * @default EMPTY_ARRAY
+   */
+  readonly minimizedItemIds: number[]
 }
 
 export type StateAdapters = {
   readonly cart: Cart
-  readonly searchResults: SearchResultsItem
-  /**
-   * Controls the one to many relationship between an item and its vendors in
-   * the search results and the side bar accordion.
-   */
-  readonly itemVendors: ItemVendors
   /**
    * Controls the one to many relationship between a vendor and its items in a
    * cart.
    */
   readonly cartItems: CartItems
+  /**
+   * Controls the one to many relationship between an item and its vendors in
+   * the search results and the side bar accordion.
+   */
+  readonly itemVendors: ItemVendors
+  readonly searchResults: SearchResultsItem
 }
 
 export type AdaptersHelper = ApiAdapters & StateAdapters
@@ -123,9 +123,9 @@ export type AdaptersInitialStates = {
 }
 
 type SelectorParam = {
+  readonly name: string
   readonly params: readonly unknown[]
   readonly returnType: unknown
-  readonly name: string
 }
 
 export type SelectorParamsProvider<
@@ -173,8 +173,8 @@ export type AdapterGlobalizedSelectors = {
 }
 
 export type AdapterSelectors = {
-  readonly LOCAL: AdapterLocalizedSelectors
   readonly GLOBAL: AdapterGlobalizedSelectors
+  readonly LOCAL: AdapterLocalizedSelectors
 }
 
 export type AppSelector<

@@ -11,8 +11,8 @@ import {
 import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors.js"
 
 const ROOT_SELECTOR_PARAMS_PROVIDER = {
-  getItemId: (_state, itemId) => itemId,
   getCartIdAndItemId: (_state, _cartId, itemId) => itemId,
+  getItemId: (_state, itemId) => itemId,
   getItemIdAndCartId: (_state, _itemId, cartId) => cartId,
 } as const satisfies RootSelectorParamsProvider
 
@@ -49,10 +49,10 @@ export const selectVendorIdsByItemId = createSelectorWeakMap(
 export const selectItemNamesAndKeywords = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.items.selectAll],
   items =>
-    items.map<ItemNameAndKeywords>(({ name, keywords, id }) => ({
-      name,
-      keywords,
+    items.map<ItemNameAndKeywords>(({ id, keywords, name }) => ({
       id,
+      keywords,
+      name,
     })),
 )
 
@@ -174,26 +174,26 @@ export const checkIfAddedToAllVendors = createSelectorWeakMap(
 )
 
 export const parametricSelectors = {
-  selectVendorsLinks,
+  checkIfAddedToAllVendors,
+  checkIfAddedToVendor,
+  checkIfAnyAddedToOneVendor,
+  isMinimized,
+  isVendorChecked,
+  selectCartItemNamesStringified,
+  selectCartItemsIds,
+  selectCartItemsLength,
+  selectCartsByItemId,
+  selectCategoryItemIds,
+  selectCategoryName,
+  selectCheckedVendorIds,
+  selectItemName,
   selectItemNumber,
   selectItemSrc,
-  selectItemName,
-  selectVendorIdsByItemId,
-  selectCartItemsIds,
-  selectCartItemNamesStringified,
-  selectCheckedVendorIds,
-  isVendorChecked,
-  isMinimized,
-  selectCategoryName,
-  selectCategoryItemIds,
-  checkIfAddedToVendor,
-  selectCartItemsLength,
-  checkIfAnyAddedToOneVendor,
-  selectQRCodeText,
   selectOfficialVendorName,
+  selectQRCodeText,
+  selectVendorIdsByItemId,
   selectVendorItemIds,
-  selectCartsByItemId,
-  checkIfAddedToAllVendors,
+  selectVendorsLinks,
 } as const
 
 export const {
@@ -220,27 +220,27 @@ export const {
 } = createParametricSelectorHooks(parametricSelectors)
 
 export const mainSelectors = {
+  checkIfAddedToAllVendors,
+  checkIfAddedToVendor,
+  checkIfAnyAddedToOneVendor,
+  checkIfAnyItemsAdded,
+  isMinimized,
+  isVendorChecked,
+  selectCartItemNamesStringified,
+  selectCartItemsIds,
+  selectCartItemsLength,
+  selectCartsByItemId,
+  selectCartsItemIdsLength,
+  selectCategoryItemIds,
+  selectCategoryName,
+  selectItemName,
+  selectItemNamesAndKeywords,
   selectItemNumber,
   selectItemSrc,
-  selectItemName,
-  selectVendorIdsByItemId,
-  selectItemNamesAndKeywords,
-  checkIfAnyItemsAdded,
-  selectCartItemsIds,
-  selectCartItemNamesStringified,
-  isVendorChecked,
-  isMinimized,
-  selectCategoryName,
-  selectCategoryItemIds,
-  checkIfAddedToVendor,
-  selectCartItemsLength,
-  checkIfAnyAddedToOneVendor,
-  selectQRCodeText,
   selectOfficialVendorName,
+  selectQRCodeText,
+  selectVendorIdsByItemId,
   selectVendorItemIds,
-  selectCartsByItemId,
-  checkIfAddedToAllVendors,
-  selectCartsItemIdsLength,
 } as const
 
 export const allSelectors = setSelectorNames({

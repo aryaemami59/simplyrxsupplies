@@ -179,13 +179,13 @@ export type Simplify<BaseType> = BaseType extends BaseType
 export type Primitive =
   | bigint
   | boolean
+  | null
   | number
   | string
   | symbol
-  | null
   | undefined
 
-export type JsonPrimitive = boolean | number | string | null
+export type JsonPrimitive = boolean | null | number | string
 export type JsonValue = JsonArray | JsonObject | JsonPrimitive
 export type JsonObject = { [Key in string]: JsonValue }
 export type JsonArray = JsonValue[] | readonly JsonValue[]

@@ -7,14 +7,14 @@ import type { PropsWithRequiredChildren } from "../types/tsHelpers.js"
 type Props = PropsWithRequiredChildren
 
 export const ColorModeContext = createContext({
-  toggleColorMode: () => {
-    /* no-op */
-  },
-
   /**
    * @default lightTheme
    */
   theme: lightTheme,
+
+  toggleColorMode: () => {
+    /* no-op */
+  },
 })
 
 export const ColorModeProvider = ({ children }: Props) => {
@@ -22,6 +22,7 @@ export const ColorModeProvider = ({ children }: Props) => {
 
   const colorMode = useMemo(
     () => ({
+      theme,
       toggleColorMode: () => {
         setTheme(previousTheme => {
           const currentTheme =
@@ -32,7 +33,6 @@ export const ColorModeProvider = ({ children }: Props) => {
           return currentTheme
         })
       },
-      theme,
     }),
     [setTheme, theme],
   )

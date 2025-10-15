@@ -39,14 +39,14 @@ export type Category = {
 
 // Vendors
 type OfficialVendorNameLookup = {
-  readonly MCK: "McKesson"
-  readonly OI: "OrderInsite"
-  readonly GNFR: "GNFR"
-  readonly SOC: "Sign Order Catalog"
-  readonly VS: "VaxServe"
-  readonly MS: "MCK MedSurge"
   readonly COV: "Covap"
   readonly FORS: "FORS"
+  readonly GNFR: "GNFR"
+  readonly MCK: "McKesson"
+  readonly MS: "MCK MedSurge"
+  readonly OI: "OrderInsite"
+  readonly SOC: "Sign Order Catalog"
+  readonly VS: "VaxServe"
 }
 
 export type AbbrVendorNames = Simplify<keyof OfficialVendorNameLookup>
@@ -55,6 +55,17 @@ export type OfficialVendorName = OfficialVendorNameLookup[AbbrVendorNames]
 
 export type Vendor = Simplify<
   {
+    /**
+     * References {@linkcode Vendor.id | vendorId}.
+     */
+    readonly id: number
+    /**
+     * References {@linkcode Vendor.itemIds | vendorItemIds}.
+     */
+    readonly itemIds: number[]
+    readonly joinChars: string
+    readonly link: string
+  } & {
     [AbbrVendorName in AbbrVendorNames]: {
       /**
        * Can be any of {@linkcode AbbrVendorNames}.
@@ -65,18 +76,7 @@ export type Vendor = Simplify<
        */
       readonly officialName: OfficialVendorNameLookup[AbbrVendorName]
     }
-  }[AbbrVendorNames] & {
-    /**
-     * References {@linkcode Vendor.id | vendorId}.
-     */
-    readonly id: number
-    readonly joinChars: string
-    readonly link: string
-    /**
-     * References {@linkcode Vendor.itemIds | vendorItemIds}.
-     */
-    readonly itemIds: number[]
-  }
+  }[AbbrVendorNames]
 >
 
 export type Vendors = {
@@ -89,18 +89,18 @@ export type Vendors = {
 // Items
 export type Item = {
   /**
+   * Can be an empty array.
+   */
+  readonly categoryIds: [] | number[]
+  /**
    * References {@linkcode Item.id | itemId}
    */
   readonly id: number
   readonly itemNumber: string
   readonly keywords: string[]
   readonly name: string
-  /**
-   * Can be an empty array.
-   */
-  readonly categoryIds: number[] | []
-  readonly vendorIds: number[]
   readonly src: string
+  readonly vendorIds: number[]
 }
 
 export type Supplies = {

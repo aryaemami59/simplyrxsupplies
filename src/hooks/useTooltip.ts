@@ -13,6 +13,10 @@ export const useTooltip = () => {
 
   return {
     /**
+     * Hides the tooltip.
+     */
+    hideTooltip,
+    /**
      * Whether the tooltip is open.
      */
     open,
@@ -24,9 +28,5 @@ export const useTooltip = () => {
      * Shows the tooltip.
      */
     showTooltip,
-    /**
-     * Hides the tooltip.
-     */
-    hideTooltip,
   } as const
 }

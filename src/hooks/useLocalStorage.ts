@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
  */
 const getSavedValue = <T extends string>(
   key: string,
-  initialValue: T | (() => T),
+  initialValue: (() => T) | T,
 ): T => {
   const savedValue = localStorage.getItem(key)
 
@@ -26,7 +26,7 @@ const getSavedValue = <T extends string>(
  */
 export const useLocalStorage = <T extends string>(
   key: string,
-  initialValue: T | (() => T),
+  initialValue: (() => T) | T,
 ): [value: T, setValue: Dispatch<SetStateAction<T>>] => {
   const [value, setValue] = useState(() => getSavedValue(key, initialValue))
 

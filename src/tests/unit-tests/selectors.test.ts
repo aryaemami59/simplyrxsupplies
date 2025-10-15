@@ -27,7 +27,7 @@ import { isNode24, setupWithNoUI } from "../test-utils/testUtils.js"
 
 type LocalTestContext = SetupWithNoUIResults
 
-const { store, initialState } = await setupWithNoUI()
+const { initialState, store } = await setupWithNoUI()
 
 const localTest = test.extend<LocalTestContext>({ initialState, store })
 

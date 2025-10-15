@@ -8,13 +8,13 @@ import { isNumber } from "./isNumber.js"
 import { isString } from "./isString.js"
 
 const itemProperties: ObjectChecker<Item> = {
+  categoryIds: isArrayOfNumbersOrEmpty,
   id: isNumber,
-  name: isString,
   itemNumber: isString,
   keywords: isArrayOfStrings,
-  categoryIds: isArrayOfNumbersOrEmpty,
-  vendorIds: isArrayOfNumbers,
+  name: isString,
   src: isString,
+  vendorIds: isArrayOfNumbers,
 }
 
 export const isItem = complexDataTypePredicateFactory(itemProperties)

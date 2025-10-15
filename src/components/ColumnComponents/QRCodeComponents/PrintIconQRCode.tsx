@@ -19,10 +19,10 @@ export const PrintIconQRCode = () => {
 
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     printjs({
-      printable: qrCodeData,
-      type: "image",
       header,
       imageStyle: "width:80%;margin-bottom:20px;",
+      printable: qrCodeData,
+      type: "image",
     })
   }, [qrCodeData])
 

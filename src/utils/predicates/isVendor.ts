@@ -6,12 +6,12 @@ import { isNumber } from "./isNumber.js"
 import { isString } from "./isString.js"
 
 const vendorProperties: ObjectChecker<Vendor> = {
-  id: isNumber,
-  officialName: isString,
   abbrName: isString,
-  link: isString,
-  joinChars: isString,
+  id: isNumber,
   itemIds: isArrayOfNumbers,
+  joinChars: isString,
+  link: isString,
+  officialName: isString,
 } as ObjectChecker<Vendor>
 
 export const isVendor = complexDataTypePredicateFactory(vendorProperties)

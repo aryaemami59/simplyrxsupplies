@@ -7,8 +7,8 @@ import { isString } from "./isString.js"
 
 const categoryProperties: ObjectChecker<Category> = {
   id: isNumber,
-  name: isString,
   itemIds: isArrayOfNumbers,
+  name: isString,
 } as ObjectChecker<Category>
 
 export const isCategory = complexDataTypePredicateFactory(categoryProperties)

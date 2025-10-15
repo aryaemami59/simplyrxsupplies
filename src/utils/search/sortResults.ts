@@ -7,7 +7,7 @@ export const sortResults = (
 ): number => {
   let relevancyScore = 0
 
-  const { name, keywords } = itemNameAndKeyword
+  const { keywords, name } = itemNameAndKeyword
 
   const itemName = name.toLowerCase()
 

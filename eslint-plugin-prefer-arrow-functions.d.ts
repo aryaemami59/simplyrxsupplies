@@ -13,9 +13,9 @@ declare module "eslint-plugin-prefer-arrow-functions" {
   }
 
   declare const _default: {
+    configs: typeof configs
     meta: typeof meta
     rules: typeof rules
-    configs: typeof configs
   }
 
   declare const plugin: typeof _default & {

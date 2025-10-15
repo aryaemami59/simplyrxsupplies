@@ -39,20 +39,20 @@ type LocalTestContext = LocalBaseTestContext<ExtendedRenderResult> & {
 }
 
 const localTest = test.extend<LocalTestContext>({
+  initialState: [
+    async ({ store }, use) => {
+      const initialState = store.getState()
+
+      await use(initialState)
+    },
+    { auto: false },
+  ],
   setupResults: [renderWithProviders(<App />), { auto: false }],
   store: [
     async ({ setupResults }, use) => {
       const { store } = await setupResults
 
       await use(store)
-    },
-    { auto: false },
-  ],
-  initialState: [
-    async ({ store }, use) => {
-      const initialState = store.getState()
-
-      await use(initialState)
     },
     { auto: false },
   ],
@@ -109,7 +109,7 @@ describe("render App", () => {
       expect(selectCartsByItemId.recomputations()).toBe(0)
       expect(checkIfAddedToAllVendors.recomputations()).toBe(0)
       expect(selectCartsItemIdsLength.recomputations()).toBe(1)
-      const { store, user, container } = view
+      const { container, store, user } = view
       const state = store.getState()
       expect(selectVendorsData(state).ids).toBeArrayOfSize(8)
       expect(selectOfficialVendorName.recomputations()).toBe(

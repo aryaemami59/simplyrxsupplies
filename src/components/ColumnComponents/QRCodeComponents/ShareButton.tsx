@@ -27,9 +27,9 @@ export const ShareButton = () => {
   const data = useMemo(
     () =>
       ({
-        title,
         images: [qrCodeData ?? ""],
         text: itemNamesStringified,
+        title,
       }) satisfies Parameters<typeof shareOnMobile>[0],
     [itemNamesStringified, qrCodeData, title],
   )

@@ -36,7 +36,7 @@ type Props = {
 export const CopyIcon = ({ content, text }: Props) => {
   const title = `Copied Item ${text}!`
 
-  const { open, showTooltip, hideTooltip } = useTooltip()
+  const { hideTooltip, open, showTooltip } = useTooltip()
 
   const handleClick = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     void navigator.clipboard.writeText(content)

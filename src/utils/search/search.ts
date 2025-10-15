@@ -17,7 +17,7 @@ export const search = (
 
   const searchResults = fallbackToEmptyArray(
     itemNamesAndKeywords.filter(
-      ({ name, keywords }) =>
+      ({ keywords, name }) =>
         name.match(searchRegexPattern) ??
         keywords.join(" ").match(searchRegexPattern) ??
         (keywords.some(

@@ -5,41 +5,14 @@ import { createDraftSafeAddedSelector } from "./createSelectors.js"
 
 export const ADDED_SLICE_SELECTOR_PARAMS_PROVIDER: AddedSliceSelectorParamsProvider =
   {
-    getItemId: (_added, itemId) => itemId,
     getCartId: (_added, cartId) => cartId,
+    getItemId: (_added, itemId) => itemId,
   } as const satisfies AddedSliceSelectorParamsProvider
 
 export const DRAFT_SAFE_SELECTORS = {
   selectCartItems: createDraftSafeAddedSelector(
     [ADAPTER_SELECTORS.LOCAL.cart.selectById],
     cart => fallbackToEmptyArray(cart?.itemIds),
-  ),
-
-  selectUnCheckedItemVendors: createDraftSafeAddedSelector(
-    [
-      ADAPTER_SELECTORS.LOCAL.itemVendors.selectAll,
-      ADDED_SLICE_SELECTOR_PARAMS_PROVIDER.getCartId,
-    ],
-    (itemVendors, cartId) =>
-      fallbackToEmptyArray(
-        itemVendors.filter(
-          ({ checkedVendorIds, vendorIds }) =>
-            vendorIds.includes(cartId) && !checkedVendorIds.includes(cartId),
-        ),
-      ),
-  ),
-
-  selectItemVendorsByVendorId: createDraftSafeAddedSelector(
-    [
-      ADAPTER_SELECTORS.LOCAL.itemVendors.selectAll,
-      ADDED_SLICE_SELECTOR_PARAMS_PROVIDER.getCartId,
-    ],
-    (itemVendors, cartId) =>
-      fallbackToEmptyArray(
-        itemVendors.filter(({ checkedVendorIds }) =>
-          checkedVendorIds.includes(cartId),
-        ),
-      ),
   ),
 
   selectCartsByCheckedVendors: createDraftSafeAddedSelector(
@@ -61,5 +34,32 @@ export const DRAFT_SAFE_SELECTORS = {
   selectCheckedVendorIds: createDraftSafeAddedSelector(
     [ADAPTER_SELECTORS.LOCAL.itemVendors.selectById],
     itemVendors => fallbackToEmptyArray(itemVendors?.checkedVendorIds),
+  ),
+
+  selectItemVendorsByVendorId: createDraftSafeAddedSelector(
+    [
+      ADAPTER_SELECTORS.LOCAL.itemVendors.selectAll,
+      ADDED_SLICE_SELECTOR_PARAMS_PROVIDER.getCartId,
+    ],
+    (itemVendors, cartId) =>
+      fallbackToEmptyArray(
+        itemVendors.filter(({ checkedVendorIds }) =>
+          checkedVendorIds.includes(cartId),
+        ),
+      ),
+  ),
+
+  selectUnCheckedItemVendors: createDraftSafeAddedSelector(
+    [
+      ADAPTER_SELECTORS.LOCAL.itemVendors.selectAll,
+      ADDED_SLICE_SELECTOR_PARAMS_PROVIDER.getCartId,
+    ],
+    (itemVendors, cartId) =>
+      fallbackToEmptyArray(
+        itemVendors.filter(
+          ({ checkedVendorIds, vendorIds }) =>
+            vendorIds.includes(cartId) && !checkedVendorIds.includes(cartId),
+        ),
+      ),
   ),
 }

@@ -9,6 +9,7 @@ export type RootState = ReturnType<typeof rootReducer>
 
 export const setupStore = (preloadedState?: Partial<RootState>) =>
   configureStore({
+    enhancers: getDefaultEnhancers => getDefaultEnhancers(),
     middleware: getDefaultMiddleware =>
       import.meta.env.PROD ||
       import.meta.env.MODE === "test" ||
@@ -28,9 +29,8 @@ export const setupStore = (preloadedState?: Partial<RootState>) =>
                 duration: true,
               }),
             ),
-    reducer: rootReducer,
     preloadedState,
-    enhancers: getDefaultEnhancers => getDefaultEnhancers(),
+    reducer: rootReducer,
   })
 
 export const store = setupStore()

@@ -14,12 +14,11 @@ type LocalTestContext = LocalBaseTestContext & {
 }
 
 const localTest = test.extend<LocalTestContext>({
-  setupResults: [setupWithNoUI(), { auto: false }],
-  store: [
-    async ({ setupResults }, use) => {
-      const { store } = await setupResults
+  data: [
+    async ({ store }, use) => {
+      const data = selectMainData(store.getState())
 
-      await use(store)
+      await use(data)
     },
     { auto: false },
   ],
@@ -31,12 +30,13 @@ const localTest = test.extend<LocalTestContext>({
     },
     { auto: false },
   ],
+  setupResults: [setupWithNoUI(), { auto: false }],
 
-  data: [
-    async ({ store }, use) => {
-      const data = selectMainData(store.getState())
+  store: [
+    async ({ setupResults }, use) => {
+      const { store } = await setupResults
 
-      await use(data)
+      await use(store)
     },
     { auto: false },
   ],

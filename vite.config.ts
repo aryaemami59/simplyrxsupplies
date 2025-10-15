@@ -50,11 +50,6 @@ const viteConfig = defineConfig(({ mode }) => {
   } as const satisfies ViteUserConfig
 
   const productionConfig = {
-    esbuild: {
-      drop: ["console", "debugger"],
-      treeShaking: true,
-    },
-
     build: {
       emptyOutDir: true,
       minify: true,
@@ -62,6 +57,11 @@ const viteConfig = defineConfig(({ mode }) => {
 
     define: {
       "import.meta.vitest": "undefined",
+    },
+
+    esbuild: {
+      drop: ["console", "debugger"],
+      treeShaking: true,
     },
 
     plugins: [
@@ -110,9 +110,9 @@ const viteConfig = defineConfig(({ mode }) => {
       }),
       visualizer(_outputOptions => ({
         brotliSize: true,
-        projectRoot: import.meta.dirname,
         gzipSize: true,
         open: process.env.NO_OPEN ? false : true,
+        projectRoot: import.meta.dirname,
         template: "flamegraph" as const,
       })) as PluginOption,
     ],

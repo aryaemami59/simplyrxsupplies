@@ -11,14 +11,14 @@ const getCurrentTheme = () => {
     : lightTheme
 
   switch (valueFromStorage) {
-    case null: {
-      return preferredMode
+    case "dark": {
+      return darkTheme
     }
     case "light": {
       return lightTheme
     }
-    case "dark": {
-      return darkTheme
+    case null: {
+      return preferredMode
     }
     default: {
       return lightTheme

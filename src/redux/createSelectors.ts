@@ -169,8 +169,8 @@ import type { RootState } from "./store.js"
 // export const createAppSelector = createSelectorCreatorWrapper(defaultMemoize)
 export const createAppSelector = createSelectorCreator(lruMemoize)
 export const createAutotrackSelector = createSelectorCreator({
-  memoize: unstable_autotrackMemoize,
   argsMemoize: unstable_autotrackMemoize,
+  memoize: unstable_autotrackMemoize,
 })
 // export const createAppSelector: TypedExtendedCreateSelectorFunction<
 //   RootState,
@@ -216,7 +216,7 @@ export const createDraftSafeAddedSelector = createDraftSafeSelectorCreator({
 //   createDraftSafeSelectorCreator(lruMemoize)
 // TODO: remove later.
 export const createDebugSelector = createSelectorCreator(lruMemoize, {
-  resultEqualityCheck: (previousVal: unknown, currentVal: unknown) => {
+  equalityCheck: (previousVal: unknown, currentVal: unknown) => {
     const isSame = currentVal === previousVal
     const isShallowEqual = shallowEqual(previousVal, currentVal)
     if (!isSame && isShallowEqual) {
@@ -230,7 +230,7 @@ export const createDebugSelector = createSelectorCreator(lruMemoize, {
     }
     return isSame
   },
-  equalityCheck: (previousVal: unknown, currentVal: unknown) => {
+  resultEqualityCheck: (previousVal: unknown, currentVal: unknown) => {
     const isSame = currentVal === previousVal
     const isShallowEqual = shallowEqual(previousVal, currentVal)
     if (!isSame && isShallowEqual) {
@@ -478,7 +478,7 @@ export const findFastestSelector = <S extends OutputSelector>(
       // alternateSelector.apply(null, selectorArgs)
       alternateSelector(...selectorArgs)
       const time = performance.now() - start
-      return { name: memoize.name, time, selector: alternateSelector }
+      return { name: memoize.name, selector: alternateSelector, time }
       // return { name: memoize.name, time, selector: alternateSelector }
     })
     .sort((a, b) => a.time - b.time)
@@ -488,7 +488,7 @@ export const findFastestSelector = <S extends OutputSelector>(
   const ratios = results
     .filter(({ time }) => time !== fastest.time)
     .map(
-      ({ time, name }) =>
+      ({ name, time }) =>
         `\x1B[33m \x1B[1m${(
           time / fastest.time
         ).toString()}\x1B[0m times faster than \x1B[1;41m${name}\x1B[0m\n(\x1B[1m\x1B[35m${(
@@ -534,5 +534,5 @@ export const findFastestSelector = <S extends OutputSelector>(
   // console.table(results.map(({ name, time }) => ({ name, time })))
   // console.table([{ ...info }, ...rest])
   // console.table({ results, ...fastest })
-  return { results, fastest } as const
+  return { fastest, results } as const
 }

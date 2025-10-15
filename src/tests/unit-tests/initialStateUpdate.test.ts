@@ -15,7 +15,7 @@ type LocalTestContext = SetupWithNoUIResults
 
 describe<LocalTestContext>("initial state after fetch", it => {
   beforeEach<LocalTestContext>(async context => {
-    const { store, initialState } = await setupWithNoUI()
+    const { initialState, store } = await setupWithNoUI()
 
     context.store = store
 
@@ -35,7 +35,7 @@ describe<LocalTestContext>("initial state after fetch", it => {
     expect(
       ADAPTER_SELECTORS.GLOBAL.itemVendors.selectAll(state),
     ).toSatisfyAll<ItemVendors>(
-      ({ vendorIds, checkedVendorIds, id }) =>
+      ({ checkedVendorIds, id, vendorIds }) =>
         Object.is(checkedVendorIds, vendorIds) &&
         shallowEqual(checkedVendorIds, vendorIds) &&
         isNumber(id),
@@ -53,7 +53,7 @@ describe<LocalTestContext>("initial state after fetch", it => {
 
 describe<LocalTestContext>("initial state before fetch", it => {
   beforeEach<LocalTestContext>(async context => {
-    const { store, initialState } = await setupWithNoUI({
+    const { initialState, store } = await setupWithNoUI({
       fetch: false,
     })
 

@@ -11,11 +11,11 @@ import {
 declare module "@mui/material/styles" {
   // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   interface BreakpointOverrides {
-    xs: true
-    sm: true
-    md: true
     lg: true
+    md: true
+    sm: true
     xl: true
+    xs: true
     xxl: true
     // mobile: true;
     // tablet: true;
@@ -26,11 +26,11 @@ declare module "@mui/material/styles" {
 
 const breakpoints = {
   values: {
-    xs: 0,
-    sm: 576,
-    md: 768,
     lg: 992,
+    md: 768,
+    sm: 576,
     xl: 1200,
+    xs: 0,
     xxl: 1400,
   },
 } as const satisfies BreakpointsOptions
@@ -80,11 +80,11 @@ export const darkTheme = createTheme({
     },
   },
   palette: {
-    mode: "dark",
     background: {
       default: DARK_MODE_PAPER_BG,
       paper: DARK_MODE_PAPER_BG,
     },
+    mode: "dark",
     primary: {
       main: MAIN_COLOR,
     },

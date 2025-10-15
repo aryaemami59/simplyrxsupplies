@@ -6,7 +6,7 @@ import type { PropsWithRequiredChildren } from "../../types/tsHelpers.js"
 export type TooltipProps = PropsWithRequiredChildren<MuiTooltipProps>
 
 export const Tooltip = (props: TooltipProps) => {
-  const { open, showTooltip, hideTooltip } = useTooltip()
+  const { hideTooltip, open, showTooltip } = useTooltip()
 
   return (
     <MuiTooltip

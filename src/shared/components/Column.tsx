@@ -3,11 +3,11 @@ import useMediaQuery from "@mui/material/useMediaQuery"
 import type { PropsWithRequiredChildren } from "../../types/tsHelpers.js"
 
 type Props = PropsWithRequiredChildren<{
+  readonly end?: Breakpoint
   /**
    * @default "xs"
    */
   readonly start?: Breakpoint
-  readonly end?: Breakpoint
 }>
 
 export const Column = ({ children, end, start = "xs" }: Props) => {
