@@ -216,6 +216,12 @@ const eslintConfig = defineConfig(
       "perfectionist/sort-objects": [
         2,
         {
+          type: "unsorted",
+          useConfigurationIf: {
+            callingFunctionNamePattern: ["configureStore"],
+          },
+        },
+        {
           fallbackSort: {
             order: "asc",
             type: "alphabetical",
