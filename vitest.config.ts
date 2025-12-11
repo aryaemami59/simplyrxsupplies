@@ -54,7 +54,7 @@ const vitestConfig = defineConfig(configEnv =>
         reporters: [["verbose"], ["hanging-process"]],
         root: import.meta.dirname,
         setupFiles: ["./src/tests/test-utils/setup.vitest.ts"],
-        testTimeout: 10_000,
+        testTimeout: process.env.CI ? 15_000 : 10_000,
 
         typecheck: {
           enabled: true,
