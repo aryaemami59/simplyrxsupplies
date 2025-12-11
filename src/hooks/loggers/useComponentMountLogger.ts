@@ -27,18 +27,15 @@ export const useComponentMountLogger = (
     [options.componentNameStyle],
   )
 
-  const componentNameCss = useMemo(
-    () => styleToCssText(componentNameStyle),
-    [componentNameStyle],
-  )
-
   useEffect(() => {
+    const componentNameCss = styleToCssText(componentNameStyle)
+
     console.log(`%c${componentName}%c mounted`, componentNameCss, "")
 
     return () => {
       console.log(`%c${componentName}%c unmounted`, componentNameCss, "")
     }
-  }, [componentName, componentNameCss])
+  }, [componentName, componentNameStyle])
 
   useDebugValue({ componentName })
 }

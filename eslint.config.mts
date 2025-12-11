@@ -76,9 +76,13 @@ const eslintConfig = defineConfig(
     name: `${reactHooksPlugin.meta.name}/recommended-latest`,
     ...reactHooksPlugin.configs.flat["recommended-latest"],
   },
+  // {
+  //   name: `${preferArrowFunctionsPlugin?.meta?.name ?? ""}/all`,
+  //   ...(preferArrowFunctionsPlugin?.configs?.all ?? {}),
+  // },
   {
-    name: `${preferArrowFunctionsPlugin?.meta?.name ?? ""}/all`,
-    ...(preferArrowFunctionsPlugin?.configs?.all ?? {}),
+    name: `${preferArrowFunctionsPlugin.meta.name}/all`,
+    ...preferArrowFunctionsPlugin.configs.all,
   },
   {
     name: "react/recommended",
@@ -255,6 +259,19 @@ const eslintConfig = defineConfig(
           ignoreDeclarationSort: true,
           ignoreMemberSort: false,
           memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
+        },
+      ],
+      "vitest/no-standalone-expect": [
+        2,
+        {
+          additionalTestBlockFunctions: [
+            "test",
+            "test.skipIf",
+            "it",
+            "it.skipIf",
+            "localTest",
+            "localTest.skipIf",
+          ],
         },
       ],
       ...rulesToDisable,
