@@ -1,3 +1,4 @@
+import type { OutputSelector, Selector, UnknownMemoizer } from "reselect"
 import type { ItemNameAndKeywords } from "../types/api.js"
 import type { RootSelectorParamsProvider } from "../types/reduxHelperTypes.js"
 import { fallbackToEmptyArray } from "../utils/fallbackToEmptyArray.js"
@@ -8,6 +9,7 @@ import {
   createParametricSelectorHooks,
   createSelectorWeakMap,
 } from "./createSelectors.js"
+import type { RootState } from "./store.js"
 import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors.js"
 
 const ROOT_SELECTOR_PARAMS_PROVIDER = {
@@ -194,7 +196,15 @@ export const parametricSelectors = {
   selectVendorIdsByItemId,
   selectVendorItemIds,
   selectVendorsLinks,
-} as const
+} as const satisfies Record<
+  `${"check" | "is" | "select"}${string}`,
+  OutputSelector<
+    Selector<RootState, unknown, readonly [number, number, ...unknown[]]>[],
+    unknown,
+    UnknownMemoizer,
+    UnknownMemoizer
+  >
+>
 
 export const {
   useCartItemNamesStringified,

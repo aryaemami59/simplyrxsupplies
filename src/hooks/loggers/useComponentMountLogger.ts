@@ -14,9 +14,7 @@ export const useComponentMountLogger = (
 ): void => {
   const componentName = useMemo(() => inferComponentNameFromStack(), [])
 
-  const {
-    componentNameStyle = DEFAULT_COMPONENT_LOGGER_OPTIONS.componentNameStyle,
-  } = useMemo(
+  const { componentNameStyle } = useMemo(
     () =>
       ({
         componentNameStyle: {

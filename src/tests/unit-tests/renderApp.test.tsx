@@ -85,6 +85,7 @@ describe("render App", () => {
 
   localTest.skipIf(isNode24)(
     "selectors ui",
+    { timeout: process.env.CI ? 20_000 : 10_000 },
     async ({ expect, onTestFailed, view }) => {
       expect(selectVendorsLinks.recomputations()).toBe(0)
       expect(selectItemNumber.recomputations()).toBe(0)

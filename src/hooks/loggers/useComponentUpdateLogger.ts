@@ -80,10 +80,7 @@ export const useComponentUpdateLogger = (
 ): void => {
   const componentName = useMemo(() => inferComponentNameFromStack(), [])
 
-  const {
-    componentNameStyle = DEFAULT_COMPONENT_LOGGER_OPTIONS.componentNameStyle,
-    renderCountStyle = DEFAULT_COMPONENT_LOGGER_OPTIONS.renderCountStyle,
-  } = useMemo(
+  const { componentNameStyle, renderCountStyle } = useMemo(
     () =>
       ({
         componentNameStyle: {
