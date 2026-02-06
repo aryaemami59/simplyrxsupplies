@@ -57,6 +57,68 @@ export type DistributedOmit<
 > = ObjectType extends unknown ? Omit<ObjectType, KeyType> : never
 
 /**
+ * Picks keys from a type, **distributing** the operation over a union.
+ * TypeScript's {@linkcode Pick} does **not** distribute over unions,
+ * which can lead to the erasure of unique properties from union members
+ * when picking keys. This causes the resulting type to retain only
+ * properties common to all union members, making it impossible to access
+ * member-specific properties after using {@linkcode Pick}.
+ * In other words, using {@linkcode Pick} on a union merges its members into
+ * a less specific type, breaking type narrowing and property access based
+ * on discriminants. This utility solves that limitation by applying
+ * {@linkcode Pick} distributively to each union member.
+ *
+ * @example
+ * <caption>Demonstrating `Pick` vs `DistributedPick`</caption>
+ *
+ * ```ts
+ * type A = {
+ *   discriminant: 'A';
+ *   foo: {
+ *     bar: string;
+ *   };
+ *   extraneous: boolean;
+ * };
+ *
+ * type B = {
+ *   discriminant: 'B';
+ *   foo: {
+ *     baz: string;
+ *   };
+ *   extraneous: boolean;
+ * };
+ *
+ * // Notice that `foo.bar` exists in `A` but not in `B`.
+ *
+ * type Union = A | B;
+ *
+ * type PickedUnion = DistributedPick<Union, 'discriminant' | 'foo'>;
+ *
+ * declare const pickedUnion: PickedUnion;
+ *
+ * if (pickedUnion.discriminant === 'A') {
+ *   pickedUnion.foo.bar;
+ *    //=> OK
+ *
+ *   // @ts-expect-error
+ *   pickedUnion.extraneous;
+ *   //=> Error: Property `extraneous` does not exist on type `Pick<A, 'discriminant' | 'foo'>`.
+ *
+ *   // @ts-expect-error
+ *   pickedUnion.foo.baz;
+ *   //=> Error: `bar` is not a property of `{ discriminant: 'A'; a: string }`.
+ * }
+ * ```
+ *
+ * @template ObjectType - The base object or union type to pick properties from.
+ * @template KeyType - The keys of {@linkcode ObjectType} to pick.
+ */
+export type DistributedPick<
+  ObjectType,
+  KeyType extends keyof ObjectType,
+> = ObjectType extends unknown ? Pick<ObjectType, KeyType> : never
+
+/**
  * A utility type that augments the given {@linkcode Props}
  * type with a **required**
  * {@linkcode PropsWithRequiredChildren.children | children}
