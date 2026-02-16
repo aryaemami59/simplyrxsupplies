@@ -1,6 +1,9 @@
 name: CI
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
 
 concurrency:
   group: "${{ github.workflow }} - ${{ github.head_ref || github.ref }}"
@@ -15,20 +18,20 @@ jobs:
       fail-fast: false
 
       matrix:
-        node-version: [22, latest]
+        node-version: [24, latest]
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup Node.js ${{ matrix.node-version }} and Install dependencies on ${{ matrix.os }}
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
           cache-dependency-path: ./package-lock.json
+          cache: "npm"
           check-latest: true
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies on ${{ matrix.node-version }}
         run: npm ci
@@ -44,20 +47,20 @@ jobs:
       fail-fast: false
 
       matrix:
-        node-version: [22, latest]
+        node-version: [24, latest]
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup Node.js ${{ matrix.node-version }} and Install dependencies on ${{ matrix.os }}
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
           cache-dependency-path: ./package-lock.json
+          cache: "npm"
           check-latest: true
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies on ${{ matrix.node-version }}
         run: npm ci
@@ -73,20 +76,20 @@ jobs:
       fail-fast: false
 
       matrix:
-        node-version: [22, latest]
+        node-version: [24, latest]
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup Node.js ${{ matrix.node-version }} and Install dependencies on ${{ matrix.os }}
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
           cache-dependency-path: ./package-lock.json
+          cache: "npm"
           check-latest: true
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies on ${{ matrix.node-version }}
         run: npm ci
@@ -102,21 +105,21 @@ jobs:
       fail-fast: false
 
       matrix:
-        node-version: [22, latest]
+        node-version: [24, latest]
         os: [ubuntu-latest, windows-latest, macos-latest]
-        ts: [5.6, 5.7, 5.8, 5.9]
+        ts: ["5.6", "5.7", "5.8", "5.9"]
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup Node.js ${{ matrix.node-version }} and Install dependencies on ${{ matrix.os }}
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
           cache-dependency-path: ./package-lock.json
+          cache: "npm"
           check-latest: true
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies on ${{ matrix.node-version }}
         run: npm ci
@@ -125,7 +128,7 @@ jobs:
         run: npm install -D typescript@${{ matrix.ts }}
 
       - name: Run type tests
-        run: npm run type-check
+        run: npm run typecheck
 
   build:
     name: Build with Node.js ${{ matrix.node-version }} on ${{ matrix.os }}
@@ -135,20 +138,20 @@ jobs:
       fail-fast: false
 
       matrix:
-        node-version: [22, latest]
+        node-version: [24, latest]
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup Node.js ${{ matrix.node-version }} and Install dependencies on ${{ matrix.os }}
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
           cache-dependency-path: ./package-lock.json
+          cache: "npm"
           check-latest: true
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies on ${{ matrix.node-version }}
         run: npm ci
@@ -168,20 +171,20 @@ jobs:
       fail-fast: false
 
       matrix:
-        node-version: [22, latest]
+        node-version: [24, latest]
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup Node.js ${{ matrix.node-version }} and Install dependencies on ${{ matrix.os }}
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
           cache-dependency-path: ./package-lock.json
+          cache: "npm"
           check-latest: true
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies on ${{ matrix.node-version }}
         run: npm ci
