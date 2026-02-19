@@ -1,18 +1,20 @@
-import type { ItemNameAndKeywords } from "../types/api"
-import type { RootSelectorParamsProvider } from "../types/reduxHelperTypes"
-import { fallbackToEmptyArray } from "../utils/fallbackToEmptyArray"
-import { setSelectorNames } from "../utils/setSelectorNames"
-import { ADAPTER_SELECTORS, getAllEntitySelectors } from "./adapterSelectors"
-import { apiSelectors } from "./apiSlice"
+import type { OutputSelector, Selector, UnknownMemoizer } from "reselect"
+import type { ItemNameAndKeywords } from "../types/api.js"
+import type { RootSelectorParamsProvider } from "../types/reduxHelperTypes.js"
+import { fallbackToEmptyArray } from "../utils/fallbackToEmptyArray.js"
+import { setSelectorNames } from "../utils/setSelectorNames.js"
+import { ADAPTER_SELECTORS, getAllEntitySelectors } from "./adapterSelectors.js"
+import { apiSelectors } from "./apiSlice.js"
 import {
   createParametricSelectorHooks,
   createSelectorWeakMap,
-} from "./createSelectors"
-import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors"
+} from "./createSelectors.js"
+import type { RootState } from "./store.js"
+import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors.js"
 
-const ROOT_SELECTOR_PARAMS_PROVIDER: RootSelectorParamsProvider = {
-  getItemId: (_state, itemId) => itemId,
+const ROOT_SELECTOR_PARAMS_PROVIDER = {
   getCartIdAndItemId: (_state, _cartId, itemId) => itemId,
+  getItemId: (_state, itemId) => itemId,
   getItemIdAndCartId: (_state, _itemId, cartId) => cartId,
 } as const satisfies RootSelectorParamsProvider
 
@@ -49,10 +51,10 @@ export const selectVendorIdsByItemId = createSelectorWeakMap(
 export const selectItemNamesAndKeywords = createSelectorWeakMap(
   [ADAPTER_SELECTORS.GLOBAL.items.selectAll],
   items =>
-    items.map<ItemNameAndKeywords>(({ name, keywords, id }) => ({
-      name,
-      keywords,
+    items.map<ItemNameAndKeywords>(({ id, keywords, name }) => ({
       id,
+      keywords,
+      name,
     })),
 )
 
@@ -174,27 +176,35 @@ export const checkIfAddedToAllVendors = createSelectorWeakMap(
 )
 
 export const parametricSelectors = {
-  selectVendorsLinks,
+  checkIfAddedToAllVendors,
+  checkIfAddedToVendor,
+  checkIfAnyAddedToOneVendor,
+  isMinimized,
+  isVendorChecked,
+  selectCartItemNamesStringified,
+  selectCartItemsIds,
+  selectCartItemsLength,
+  selectCartsByItemId,
+  selectCategoryItemIds,
+  selectCategoryName,
+  selectCheckedVendorIds,
+  selectItemName,
   selectItemNumber,
   selectItemSrc,
-  selectItemName,
-  selectVendorIdsByItemId,
-  selectCartItemsIds,
-  selectCartItemNamesStringified,
-  selectCheckedVendorIds,
-  isVendorChecked,
-  isMinimized,
-  selectCategoryName,
-  selectCategoryItemIds,
-  checkIfAddedToVendor,
-  selectCartItemsLength,
-  checkIfAnyAddedToOneVendor,
-  selectQRCodeText,
   selectOfficialVendorName,
+  selectQRCodeText,
+  selectVendorIdsByItemId,
   selectVendorItemIds,
-  selectCartsByItemId,
-  checkIfAddedToAllVendors,
-}
+  selectVendorsLinks,
+} as const satisfies Record<
+  `${"check" | "is" | "select"}${string}`,
+  OutputSelector<
+    Selector<RootState, unknown, readonly [number, number, ...unknown[]]>[],
+    unknown,
+    UnknownMemoizer,
+    UnknownMemoizer
+  >
+>
 
 export const {
   useCartItemNamesStringified,
@@ -220,27 +230,27 @@ export const {
 } = createParametricSelectorHooks(parametricSelectors)
 
 export const mainSelectors = {
+  checkIfAddedToAllVendors,
+  checkIfAddedToVendor,
+  checkIfAnyAddedToOneVendor,
+  checkIfAnyItemsAdded,
+  isMinimized,
+  isVendorChecked,
+  selectCartItemNamesStringified,
+  selectCartItemsIds,
+  selectCartItemsLength,
+  selectCartsByItemId,
+  selectCartsItemIdsLength,
+  selectCategoryItemIds,
+  selectCategoryName,
+  selectItemName,
+  selectItemNamesAndKeywords,
   selectItemNumber,
   selectItemSrc,
-  selectItemName,
-  selectVendorIdsByItemId,
-  selectItemNamesAndKeywords,
-  checkIfAnyItemsAdded,
-  selectCartItemsIds,
-  selectCartItemNamesStringified,
-  isVendorChecked,
-  isMinimized,
-  selectCategoryName,
-  selectCategoryItemIds,
-  checkIfAddedToVendor,
-  selectCartItemsLength,
-  checkIfAnyAddedToOneVendor,
-  selectQRCodeText,
   selectOfficialVendorName,
+  selectQRCodeText,
+  selectVendorIdsByItemId,
   selectVendorItemIds,
-  selectCartsByItemId,
-  checkIfAddedToAllVendors,
-  selectCartsItemIdsLength,
 } as const
 
 export const allSelectors = setSelectorNames({

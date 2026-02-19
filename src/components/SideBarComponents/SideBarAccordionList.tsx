@@ -1,10 +1,8 @@
-import type { FC } from "react"
-import { memo } from "react"
-import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors"
-import { useAppSelector } from "../../redux/hooks"
-import SideBarAccordionCategories from "./SideBarAccordionCategories"
+import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors.js"
+import { useAppSelector } from "../../redux/hooks.js"
+import { SideBarAccordionCategories } from "./SideBarAccordionCategories.js"
 
-const SideBarAccordionList: FC = () => {
+export const SideBarAccordionList = () => {
   const categoryIds = useAppSelector(
     ADAPTER_SELECTORS.GLOBAL.categories.selectIds,
   )
@@ -13,12 +11,10 @@ const SideBarAccordionList: FC = () => {
     <>
       {categoryIds.map(categoryId => (
         <SideBarAccordionCategories
-          key={`${categoryId.toString()}-SideBarAccordion-SideBarAccordionList`}
           categoryId={categoryId}
+          key={`${categoryId.toString()}-SideBarAccordionCategories`}
         />
       ))}
     </>
   )
 }
-
-export default memo(SideBarAccordionList)

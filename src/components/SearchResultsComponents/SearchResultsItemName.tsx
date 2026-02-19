@@ -1,12 +1,9 @@
 import type { CardHeaderProps } from "@mui/material/CardHeader"
 import CardHeader from "@mui/material/CardHeader"
-import type { FC } from "react"
-import { memo } from "react"
-
-import { useItemName } from "../../redux/selectors"
+import { useItemName } from "../../redux/selectors.js"
 
 type Props = {
-  visibleListId: number
+  readonly visibleListId: number
 }
 
 const slotProps = {
@@ -15,16 +12,14 @@ const slotProps = {
   },
 } as const satisfies CardHeaderProps["slotProps"]
 
-const SearchResultsItemName: FC<Props> = ({ visibleListId }) => {
+export const SearchResultsItemName = ({ visibleListId }: Props) => {
   const itemName = useItemName(visibleListId)
 
   return (
     <CardHeader
       className="p-1 p-lg-auto"
-      title={itemName}
       slotProps={slotProps}
+      title={itemName}
     />
   )
 }
-
-export default memo<Props>(SearchResultsItemName)

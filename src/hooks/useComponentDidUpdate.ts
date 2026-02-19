@@ -1,32 +1,51 @@
+import type { DependencyList } from "react"
 import { useEffect, useRef } from "react"
 
 /**
- * Runs an effect anytime the component re-renders.
- * @param callback - Callback function that gets invoked anytime the component updates.
- * @param deps - An optional dependency array, if provided effect will run only if the values in the list change.
+ * Runs a callback function after the component updates,
+ * **excluding** the initial mount. This hook provides the functional
+ * equivalent of React's `componentDidUpdate` lifecycle method.
+ * The callback executes whenever the specified dependencies change,
+ * but is skipped on the first render.
+ *
+ * @param callback - A function to execute after updates.
+ * @param deps - An array of dependencies that trigger the callback when changed.
+ *
+ * @example
+ * <caption>Run an effect only after updates (not on mount).</caption>
+ *
+ * ```tsx
+ * import { useComponentDidUpdate } from "../../hooks/useComponentDidUpdate.js";
+ *
+ * export const Example = ({ count }: { count: number }) => {
+ *   useComponentDidUpdate(() => {
+ *     console.log("Count changed:", count);
+ *   }, [count]);
+ *
+ *   return <div>Count: {count}</div>;
+ * };
+ * ```
  */
 export const useComponentDidUpdate = (
   callback: () => void,
-  deps?: readonly unknown[],
-) => {
-  const didMount = useRef(false)
-  const callbackRef = useRef(callback)
+  deps?: DependencyList,
+): void => {
+  const isFirstRender = useRef(true)
+
+  const memoizedCallback = useRef(callback)
 
   useEffect(() => {
-    callbackRef.current = callback
+    memoizedCallback.current = callback
   }, [callback])
 
   useEffect(() => {
-    didMount.current = false
-    return () => {
-      didMount.current = false
-    }
-  }, [])
+    if (isFirstRender.current) {
+      isFirstRender.current = false
 
-  useEffect(() => {
-    if (didMount.current) {
-      callbackRef.current()
-    } else didMount.current = true
+      return
+    }
+
+    memoizedCallback.current()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
 }

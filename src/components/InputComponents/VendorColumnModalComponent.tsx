@@ -4,10 +4,10 @@ import Dialog from "@mui/material/Dialog"
 import DialogActions from "@mui/material/DialogActions"
 import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
-import type { FC, MouseEventHandler } from "react"
-import { memo, useCallback, useState } from "react"
-import VendorColumnList from "../ColumnComponents/VendorColumnList"
-import DisplayCartButton from "./DisplayCartButton"
+import type { MouseEventHandler } from "react"
+import { useCallback, useState } from "react"
+import { VendorColumnList } from "../ColumnComponents/VendorColumnList.js"
+import { DisplayCartButton } from "./DisplayCartButton.js"
 
 const slotProps = {
   paper: {
@@ -15,12 +15,13 @@ const slotProps = {
   },
 } as const satisfies DialogProps["slotProps"]
 
-const VendorColumnModalComponent: FC = () => {
+export const VendorColumnModalComponent = () => {
   const [show, setShow] = useState(false)
 
-  const showModal: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  const showModal = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     setShow(true)
   }, [])
+
   const hideModal = useCallback(() => {
     setShow(false)
   }, [])
@@ -38,11 +39,11 @@ const VendorColumnModalComponent: FC = () => {
       </Button> */}
       <Dialog
         // keepMounted
-        role="dialog"
         fullWidth
         maxWidth="md"
         onClose={hideModal}
         open={show}
+        role="dialog"
         slotProps={slotProps}
       >
         <DialogTitle>Item Vendors</DialogTitle>
@@ -62,5 +63,3 @@ const VendorColumnModalComponent: FC = () => {
     </>
   )
 }
-
-export default memo(VendorColumnModalComponent)

@@ -1,21 +1,17 @@
-import type { FC } from "react"
-import { memo } from "react"
-import { useVendorIds } from "../../hooks/useVendorIds"
-import VendorDropDown from "./VendorDropDown"
+import { useVendorIds } from "../../hooks/useVendorIds.js"
+import { VendorDropDown } from "./VendorDropDown.js"
 
-const VendorDropDownsList: FC = () => {
+export const VendorDropDownsList = () => {
   const vendorIds = useVendorIds()
 
   return (
     <>
       {vendorIds.map(vendorId => (
         <VendorDropDown
-          key={`${vendorId.toString()}-VendorDropDownsList-VendorDropDown`}
+          key={`${vendorId.toString()}-VendorDropDown`}
           vendorId={vendorId}
         />
       ))}
     </>
   )
 }
-
-export default memo(VendorDropDownsList)

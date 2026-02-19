@@ -1,17 +1,17 @@
-import type { Vendor } from "../../types/api"
-import type { ObjectChecker } from "../../types/tsHelpers"
-import { complexDataTypePredicateFactory } from "./complexDataTypePredicate"
-import { isArrayOfNumbers } from "./isArrayOfNumbers"
-import { isNumber } from "./isNumber"
-import { isString } from "./isString"
+import type { Vendor } from "../../types/api.js"
+import type { ObjectChecker } from "../../types/tsHelpers.js"
+import { complexDataTypePredicateFactory } from "./complexDataTypePredicate.js"
+import { isArrayOfNumbers } from "./isArrayOfNumbers.js"
+import { isNumber } from "./isNumber.js"
+import { isString } from "./isString.js"
 
 const vendorProperties: ObjectChecker<Vendor> = {
-  id: isNumber,
-  officialName: isString,
   abbrName: isString,
-  link: isString,
-  joinChars: isString,
+  id: isNumber,
   itemIds: isArrayOfNumbers,
+  joinChars: isString,
+  link: isString,
+  officialName: isString,
 } as ObjectChecker<Vendor>
 
 export const isVendor = complexDataTypePredicateFactory(vendorProperties)

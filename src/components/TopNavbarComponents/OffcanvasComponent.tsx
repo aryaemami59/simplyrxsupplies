@@ -4,9 +4,9 @@ import DialogActions from "@mui/material/DialogActions"
 import IconButton from "@mui/material/IconButton"
 import type { SwipeableDrawerProps } from "@mui/material/SwipeableDrawer"
 import SwipeableDrawer from "@mui/material/SwipeableDrawer"
-import type { FC, MouseEventHandler } from "react"
-import { memo, useCallback, useState } from "react"
-import OffcanvasBodyContent from "./OffcanvasBodyContent"
+import type { MouseEventHandler } from "react"
+import { useCallback, useState } from "react"
+import { OffcanvasBodyContent } from "./OffcanvasBodyContent.js"
 
 const slotProps = {
   paper: {
@@ -14,7 +14,7 @@ const slotProps = {
   },
 } as const satisfies SwipeableDrawerProps["slotProps"]
 
-const OffcanvasComponent: FC = () => {
+export const OffcanvasComponent = () => {
   const [show, setShow] = useState(false)
 
   const handleOpen = useCallback<MouseEventHandler<HTMLElement>>(() => {
@@ -46,5 +46,3 @@ const OffcanvasComponent: FC = () => {
     </>
   )
 }
-
-export default memo(OffcanvasComponent)

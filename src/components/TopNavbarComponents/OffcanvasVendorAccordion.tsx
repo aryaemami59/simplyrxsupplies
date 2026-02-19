@@ -5,13 +5,14 @@ import AccordionDetails from "@mui/material/AccordionDetails"
 import type { AccordionSummaryProps } from "@mui/material/AccordionSummary"
 import AccordionSummary from "@mui/material/AccordionSummary"
 import Typography from "@mui/material/Typography"
-import type { FC } from "react"
-import { memo, useCallback, useState } from "react"
-
-import ItemIdProvider from "../../contexts/ItemIdProvider"
-import { useVendorId } from "../../hooks/useVendorId"
-import { useOfficialVendorName, useVendorItemIds } from "../../redux/selectors"
-import SingleOffcanvasVendorItem from "./SingleOffcanvasVendorItem"
+import { useCallback, useState } from "react"
+import { ItemIdProvider } from "../../contexts/ItemIdProvider.js"
+import { useVendorId } from "../../hooks/useVendorId.js"
+import {
+  useOfficialVendorName,
+  useVendorItemIds,
+} from "../../redux/selectors.js"
+import { SingleOffcanvasVendorItem } from "./SingleOffcanvasVendorItem.js"
 
 const expandIcon = (
   <ExpandMoreIcon />
@@ -19,19 +20,19 @@ const expandIcon = (
 
 const slotProps = {
   transition: {
-    unmountOnExit: true,
     mountOnEnter: true,
+    unmountOnExit: true,
   },
 } as const satisfies AccordionSlotsAndSlotProps["slotProps"]
 
-const OffcanvasVendorAccordion: FC = () => {
+export const OffcanvasVendorAccordion = () => {
   const vendorId = useVendorId()
 
   const [open, setOpen] = useState(false)
 
   const officialVendorName = useOfficialVendorName(vendorId)
 
-  const vendorItemNames = useVendorItemIds(vendorId)
+  const vendorItemIds = useVendorItemIds(vendorId)
 
   const toggle = useCallback(() => {
     setOpen(prev => !prev)
@@ -47,20 +48,16 @@ const OffcanvasVendorAccordion: FC = () => {
       <AccordionSummary className="shadow-sm" expandIcon={expandIcon}>
         <Typography>{officialVendorName}</Typography>
       </AccordionSummary>
-      <AccordionDetails className="justify-content-center d-flex flex-column align-items-cente">
-        {vendorItemNames.map(itemName => (
+      <AccordionDetails className="justify-content-center d-flex flex-column">
+        {vendorItemIds.map(vendorItemId => (
           <ItemIdProvider
-            key={`${itemName.toString()}-OffcanvasVendorAccordion`}
-            itemId={itemName}
+            itemId={vendorItemId}
+            key={`${vendorItemId.toString()}-ItemIdProvider`}
           >
-            <SingleOffcanvasVendorItem
-              key={`${itemName.toString()}-OffcanvasVendorAccordion`}
-            />
+            <SingleOffcanvasVendorItem />
           </ItemIdProvider>
         ))}
       </AccordionDetails>
     </Accordion>
   )
 }
-
-export default memo(OffcanvasVendorAccordion)

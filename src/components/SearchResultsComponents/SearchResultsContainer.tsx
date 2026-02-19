@@ -1,28 +1,31 @@
 import List from "@mui/material/List"
-import type { FC } from "react"
-import { memo, useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import InfiniteScroll from "react-infinite-scroll-component"
-
-import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors"
-import { useAppSelector } from "../../redux/hooks"
-import IsLoading from "../../shared/components/IsLoading"
-import SearchResultsSingleCard from "./SearchResultsSingleCard"
+import { ADAPTER_SELECTORS } from "../../redux/adapterSelectors.js"
+import { useAppSelector } from "../../redux/hooks.js"
+import { IsLoading } from "../../shared/components/IsLoading.js"
+import { SearchResultsSingleCard } from "./SearchResultsSingleCard.js"
 
 const loader = <IsLoading />
 
-const SearchResultsContainer: FC = () => {
+export const SearchResultsContainer = () => {
   const searchResultsIds = useAppSelector(
     ADAPTER_SELECTORS.GLOBAL.searchResults.selectIds,
   )
+
   const memoizedSearchResultsIds = useMemo(
     () => searchResultsIds.slice(0, 10),
     [searchResultsIds],
   )
+
   const [hasMore, setHasMore] = useState(false)
+
   const [visibleListIds, setVisibleListIds] = useState(memoizedSearchResultsIds)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setVisibleListIds(memoizedSearchResultsIds)
+
     if (memoizedSearchResultsIds.length === searchResultsIds.length) {
       setHasMore(false)
     } else {
@@ -31,9 +34,15 @@ const SearchResultsContainer: FC = () => {
   }, [searchResultsIds, memoizedSearchResultsIds])
 
   const next = useCallback(() => {
-    setVisibleListIds(prev =>
-      prev.concat(searchResultsIds.slice(prev.length, prev.length + 10)),
+    setVisibleListIds(previousVisibleListIds =>
+      previousVisibleListIds.concat(
+        searchResultsIds.slice(
+          previousVisibleListIds.length,
+          previousVisibleListIds.length + 10,
+        ),
+      ),
     )
+
     if (visibleListIds.length === searchResultsIds.length) {
       setHasMore(false)
     } else {
@@ -53,7 +62,7 @@ const SearchResultsContainer: FC = () => {
       >
         {visibleListIds.map(visibleListId => (
           <SearchResultsSingleCard
-            key={`${visibleListId.toString()}-inputListItems`}
+            key={`${visibleListId.toString()}-SearchResultsSingleCard`}
             visibleListId={visibleListId}
           />
         ))}
@@ -61,5 +70,3 @@ const SearchResultsContainer: FC = () => {
     </List>
   )
 }
-
-export default memo(SearchResultsContainer)

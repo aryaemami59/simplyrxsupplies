@@ -1,97 +1,172 @@
 import js from "@eslint/js"
+import type { TSESLint } from "@typescript-eslint/utils"
 import vitestPlugin from "@vitest/eslint-plugin"
 import type { Linter } from "eslint"
 import prettierConfig from "eslint-config-prettier/flat"
-import reactHooks from "eslint-plugin-react-hooks"
-import { config, configs } from "typescript-eslint"
+import jsxA11yPlugin from "eslint-plugin-jsx-a11y"
+import perfectionistPlugin from "eslint-plugin-perfectionist"
+import preferArrowFunctionsPlugin from "eslint-plugin-prefer-arrow-functions"
+import reactPlugin from "eslint-plugin-react"
+import reactHooksPlugin from "eslint-plugin-react-hooks"
+import reactXPlugin from "eslint-plugin-react-x"
+import { defineConfig } from "eslint/config"
+import { configs } from "typescript-eslint"
 
 export const rulesToDisable = {
-  "no-undef": [0],
-  "@typescript-eslint/no-unused-vars": [
-    0,
-    {
-      vars: "all",
-      args: "after-used",
-      caughtErrors: "all",
-      ignoreRestSiblings: false,
-      reportUsedIgnorePattern: false,
-    },
-  ],
   "@typescript-eslint/ban-ts-comment": [
     0,
-    [
-      {
-        "ts-expect-error": "allow-with-description",
-        "ts-ignore": true,
-        "ts-nocheck": true,
-        "ts-check": false,
-        minimumDescriptionLength: 3,
-      },
-    ],
+    {
+      minimumDescriptionLength: 3,
+      "ts-check": false,
+      "ts-expect-error": "allow-with-description",
+      "ts-ignore": true,
+      "ts-nocheck": true,
+    },
   ],
+  "no-undef": [
+    0,
+    {
+      typeof: false,
+    },
+  ],
+  "perfectionist/sort-imports": [0],
+  "perfectionist/sort-modules": [0],
+  "perfectionist/sort-named-imports": [0],
   "vitest/valid-describe-callback": [0],
-} as const satisfies Linter.RulesRecord
+} as const satisfies Linter.RulesRecord satisfies Record<
+  keyof Linter.RulesRecord,
+  readonly [
+    ruleSeverity: Extract<Linter.RuleSeverity, 0 | "off">,
+    ...ruleOptions: readonly unknown[],
+  ]
+>
 
-const eslintConfig = config(
+const eslintConfig = defineConfig(
   {
-    name: "global-ignores",
     ignores: [
-      "**/dist/",
-      "**/.yalc/",
-      "**/build/",
-      "**/lib/",
-      "**/temp/",
+      "**/__snapshots__/",
+      "**/.docusaurus/",
+      "**/.expo/",
+      "**/.next/",
       "**/.temp/",
       "**/.tmp/",
+      "**/.yalc/",
       "**/.yarn/",
+      "**/*.snap",
+      "**/build/",
       "**/coverage/",
+      "**/dist/",
       "**/html/",
+      "**/temp/",
     ],
+    name: "global-ignores",
   },
-  { name: `${js.meta.name}/recommended`, ...js.configs.recommended },
+
+  {
+    name: `${js.meta.name}/recommended`,
+    ...js.configs.recommended,
+  },
+
   ...configs.strictTypeChecked,
   ...configs.stylisticTypeChecked,
+
   vitestPlugin.configs.recommended,
+
   {
-    name: "main",
+    name: `${reactHooksPlugin.meta.name}/recommended-latest`,
+    ...reactHooksPlugin.configs.flat["recommended-latest"],
+  },
+  // {
+  //   name: `${preferArrowFunctionsPlugin?.meta?.name ?? ""}/all`,
+  //   ...(preferArrowFunctionsPlugin?.configs?.all ?? {}),
+  // },
+  {
+    name: `${preferArrowFunctionsPlugin.meta.name}/all`,
+    ...preferArrowFunctionsPlugin.configs.all,
+  },
+  {
+    name: "react/recommended",
+    ...reactPlugin.configs.flat.recommended,
+  },
+  {
+    name: "react/jsx-runtime",
+    ...reactPlugin.configs.flat["jsx-runtime"],
+  },
+
+  jsxA11yPlugin.flatConfigs.strict,
+
+  {
+    name: `${perfectionistPlugin.meta?.name ?? ""}/recommended-natural`,
+    ...perfectionistPlugin.configs["recommended-natural"],
+  },
+
+  reactXPlugin.configs["strict-type-checked"],
+
+  {
     languageOptions: {
       parserOptions: {
         projectService: {
           defaultProject: "tsconfig.json",
         },
         tsconfigRootDir: import.meta.dirname,
-      },
+      } as const satisfies TSESLint.FlatConfig.ParserOptions,
+    } as const satisfies TSESLint.FlatConfig.LanguageOptions,
+    linterOptions: {
+      reportUnusedDisableDirectives: 2,
+      reportUnusedInlineConfigs: 2,
     },
-    plugins: {
-      "react-hooks": reactHooks,
-    },
-    settings: {
-      vitest: {
-        typecheck: true,
-      },
-    },
+
+    name: "main",
+
     rules: {
-      ...reactHooks.configs.recommended.rules,
+      "@typescript-eslint/consistent-type-definitions": [2, "type"],
+      "@typescript-eslint/consistent-type-exports": [
+        2,
+        {
+          fixMixedExportsWithInlineTypeSpecifier: false,
+        },
+      ],
       "@typescript-eslint/consistent-type-imports": [
         2,
         {
-          prefer: "type-imports",
-          fixStyle: "separate-type-imports",
           disallowTypeAnnotations: true,
+          fixStyle: "separate-type-imports",
+          prefer: "type-imports",
         },
       ],
-      "@typescript-eslint/consistent-type-exports": [
+      "@typescript-eslint/dot-notation": [2],
+      "@typescript-eslint/no-confusing-void-expression": [2],
+      "@typescript-eslint/no-duplicate-type-constituents": [2],
+      "@typescript-eslint/no-empty-object-type": [
         2,
-        { fixMixedExportsWithInlineTypeSpecifier: false },
+        {
+          allowInterfaces: "never",
+          allowObjectTypes: "never",
+        },
       ],
       "@typescript-eslint/no-explicit-any": [
         2,
-        { fixToUnknown: false, ignoreRestArgs: false },
+        {
+          fixToUnknown: false,
+          ignoreRestArgs: false,
+        },
       ],
-      "@typescript-eslint/no-empty-object-type": [
+      "@typescript-eslint/no-inferrable-types": [2],
+      "@typescript-eslint/no-invalid-void-type": [
         2,
-        { allowInterfaces: "never", allowObjectTypes: "never" },
+        {
+          allowAsThisParameter: false,
+          allowInGenericTypeArguments: ["BoxedVoid"],
+        },
       ],
+      "@typescript-eslint/no-namespace": [
+        2,
+        {
+          allowDeclarations: false,
+          allowDefinitionFiles: true,
+        },
+      ],
+      "@typescript-eslint/no-redundant-type-constituents": [2],
       "@typescript-eslint/no-restricted-types": [
         2,
         {
@@ -114,64 +189,135 @@ const eslintConfig = config(
           },
         },
       ],
-      "@typescript-eslint/no-namespace": [
+      "@typescript-eslint/no-unnecessary-type-arguments": [2],
+      "@typescript-eslint/no-unnecessary-type-assertion": [2],
+      "@typescript-eslint/no-unnecessary-type-parameters": [2],
+      "@typescript-eslint/no-unused-vars": [
         2,
-        { allowDeclarations: false, allowDefinitionFiles: true },
+        {
+          args: "after-used",
+          // Not included in default options
+          argsIgnorePattern: "^_",
+          caughtErrors: "all",
+          // Not included in default options
+          caughtErrorsIgnorePattern: "^_",
+          // Not included in default options
+          destructuredArrayIgnorePattern: "^_",
+          ignoreClassWithStaticInitBlock: false,
+          ignoreRestSiblings: false,
+          reportUsedIgnorePattern: false,
+          vars: "all",
+          // Not included in default options
+          varsIgnorePattern: "^_",
+        },
       ],
-      "@typescript-eslint/consistent-type-definitions": [2, "type"],
+      "@typescript-eslint/prefer-nullish-coalescing": [2],
+      "@typescript-eslint/require-await": [2],
+      "@typescript-eslint/unified-signatures": [2],
+      "object-shorthand": [2],
+      "perfectionist/sort-array-includes": [2],
+      "perfectionist/sort-interfaces": [2],
+      "perfectionist/sort-intersection-types": [2],
+      "perfectionist/sort-object-types": [2],
+      "perfectionist/sort-objects": [
+        2,
+        {
+          type: "unsorted",
+          useConfigurationIf: {
+            callingFunctionNamePattern: ["configureStore"],
+          },
+        },
+        {
+          fallbackSort: {
+            order: "asc",
+            type: "alphabetical",
+          },
+          order: "asc",
+          type: "natural",
+        },
+      ],
+      "perfectionist/sort-sets": [2],
+      "perfectionist/sort-switch-case": [2],
+      "perfectionist/sort-union-types": [2],
+      "prefer-arrow-functions/prefer-arrow-functions": [
+        2,
+        {
+          allowedNames: [] as const satisfies readonly string[],
+          allowNamedFunctions: false,
+          allowObjectProperties: false,
+          classPropertiesAllowed: false,
+          disallowPrototype: false,
+          returnStyle: "unchanged",
+          singleReturnOnly: false,
+        },
+      ],
       "sort-imports": [
         2,
         {
+          allowSeparatedGroups: false,
           ignoreCase: false,
           ignoreDeclarationSort: true,
           ignoreMemberSort: false,
           memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
-          allowSeparatedGroups: true,
         },
       ],
-      "@typescript-eslint/unified-signatures": [2],
-      "@typescript-eslint/dot-notation": [2],
-      "@typescript-eslint/no-unnecessary-type-parameters": [2],
-      "@typescript-eslint/no-invalid-void-type": [
+      "vitest/no-standalone-expect": [
         2,
         {
-          allowInGenericTypeArguments: ["BoxedVoid"],
-          allowAsThisParameter: false,
+          additionalTestBlockFunctions: [
+            "test",
+            "test.skipIf",
+            "it",
+            "it.skipIf",
+            "localTest",
+            "localTest.skipIf",
+          ],
         },
       ],
-      "@typescript-eslint/no-confusing-void-expression": [2],
-      "@typescript-eslint/no-duplicate-type-constituents": [2],
-      "@typescript-eslint/require-await": [2],
-      "@typescript-eslint/no-redundant-type-constituents": [2],
-      "@typescript-eslint/no-unnecessary-type-arguments": [2],
-      "@typescript-eslint/no-unnecessary-type-assertion": [2],
-      "@typescript-eslint/prefer-nullish-coalescing": [2],
-      "@typescript-eslint/no-inferrable-types": [2],
-      "object-shorthand": [2],
       ...rulesToDisable,
     },
-    linterOptions: { reportUnusedDisableDirectives: 2 },
+
+    settings: {
+      react: {
+        version: "detect",
+      },
+      vitest: {
+        typecheck: true,
+      },
+    },
   },
+
   {
-    name: "commonjs",
     files: ["**/*.c[jt]s"],
-    languageOptions: { sourceType: "commonjs" },
+    languageOptions: {
+      sourceType: "commonjs" as const satisfies TSESLint.FlatConfig.SourceType,
+    } as const satisfies TSESLint.FlatConfig.LanguageOptions,
+    name: "commonjs-files",
     rules: {
       "@typescript-eslint/no-require-imports": [
         0,
-        [{ allow: [], allowAsImport: false }],
+        [
+          {
+            allow: [] as const satisfies readonly string[],
+            allowAsImport: false,
+          },
+        ],
       ],
     },
   },
+
   {
-    name: "typescript-declaration-files",
     files: ["**/*.d.?(c|m)ts"],
+    name: "typescript-declaration-files",
     rules: {
+      "@typescript-eslint/consistent-type-definitions": [0, "type"],
       "@typescript-eslint/no-empty-object-type": [
         2,
-        { allowInterfaces: "with-single-extends", allowObjectTypes: "never" },
+        {
+          allowInterfaces: "with-single-extends",
+          allowObjectTypes: "never",
+        },
       ],
-      "@typescript-eslint/consistent-type-definitions": [0, "type"],
     },
   },
 

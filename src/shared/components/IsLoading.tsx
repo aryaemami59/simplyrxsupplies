@@ -1,8 +1,6 @@
-import type { FC } from "react"
-import { memo } from "react"
 import { Spinner } from "react-bootstrap"
 
-// const IsLoading: FC = () => (
+// export const IsLoading = () => (
 //   <div className="d-flex justify-content-center">
 //     <CircularProgress
 //       size={300}
@@ -11,8 +9,8 @@ import { Spinner } from "react-bootstrap"
 //     />
 //   </div>
 // );
-const IsLoading: FC = () => (
-  <div key="div-isLoading-App" className="d-flex justify-content-center">
+export const IsLoading = () => (
+  <div className="d-flex justify-content-center">
     <Spinner
       animation="border"
       className="my-5 loading-spinner"
@@ -23,5 +21,3 @@ const IsLoading: FC = () => (
     </Spinner>
   </div>
 )
-
-export default memo(IsLoading)

@@ -3,17 +3,14 @@ import Dialog from "@mui/material/Dialog"
 import DialogActions from "@mui/material/DialogActions"
 import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
-import type { FC } from "react"
-import { memo } from "react"
-
-import ModalBodyContent from "./ModalBodyContent"
+import { ModalBodyContent } from "./ModalBodyContent.js"
 
 type Props = {
-  hideModal: () => void
-  isModalOpen: boolean
+  readonly hideModal: () => void
+  readonly isModalOpen: boolean
 }
 
-const RowItemsDialog: FC<Props> = ({ hideModal, isModalOpen }) => (
+export const RowItemsDialog = ({ hideModal, isModalOpen }: Props) => (
   <Dialog
     aria-labelledby="contained-modal-title-vcenter"
     fullWidth
@@ -33,5 +30,3 @@ const RowItemsDialog: FC<Props> = ({ hideModal, isModalOpen }) => (
     </DialogActions>
   </Dialog>
 )
-
-export default memo<Props>(RowItemsDialog)

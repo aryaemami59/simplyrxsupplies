@@ -1,12 +1,10 @@
 import Badge from "@mui/material/Badge"
-import type { FC } from "react"
-import { memo } from "react"
+import { useVendorId } from "../../../hooks/useVendorId.js"
+import { useCartItemsLength } from "../../../redux/selectors.js"
 
-import { useVendorId } from "../../../hooks/useVendorId"
-import { useCartItemsLength } from "../../../redux/selectors"
-
-const RowCounterBadge: FC = () => {
+export const RowCounterBadge = () => {
   const vendorId = useVendorId()
+
   const addedItemsLength = useCartItemsLength(vendorId)
 
   return (
@@ -15,5 +13,3 @@ const RowCounterBadge: FC = () => {
     </span>
   )
 }
-
-export default memo(RowCounterBadge)

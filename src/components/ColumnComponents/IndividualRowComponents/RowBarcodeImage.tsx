@@ -1,18 +1,15 @@
-import type { FC } from "react"
-import { memo } from "react"
-
-import { useItemId } from "../../../hooks/useItemId"
-import { useVendorId } from "../../../hooks/useVendorId"
+import { useItemId } from "../../../hooks/useItemId.js"
+import { useVendorId } from "../../../hooks/useVendorId.js"
 import {
   useItemName,
   useItemNumber,
   useOfficialVendorName,
-} from "../../../redux/selectors"
-import BarcodeImage from "./BarcodeImage"
-import RowBarcodeModal from "./ModalComponents/RowBarcodeModal"
-import PrintBarcodeIcon from "./PrintBarcodeIcon"
+} from "../../../redux/selectors.js"
+import { BarcodeImage } from "./BarcodeImage.js"
+import { RowBarcodeModal } from "./ModalComponents/RowBarcodeModal.js"
+import { PrintBarcodeIcon } from "./PrintBarcodeIcon.js"
 
-const RowBarcodeImage: FC = () => {
+export const RowBarcodeImage = () => {
   const vendorId = useVendorId()
 
   const itemId = useItemId()
@@ -41,5 +38,3 @@ const RowBarcodeImage: FC = () => {
     </div>
   )
 }
-
-export default memo(RowBarcodeImage)

@@ -9,13 +9,12 @@ import type {
   lruMemoize,
   weakMapMemoize,
 } from "reselect"
-
 import type {
   createAppSelector,
   createDraftSafeAddedSelector,
-} from "../redux/createSelectors"
-import type { RootState } from "../redux/store"
-import type { Category, Item, Vendor } from "./api"
+} from "../redux/createSelectors.js"
+import type { RootState } from "../redux/store.js"
+import type { Category, Item, Vendor } from "./api.js"
 
 /**
  * Controls the one to many relationship between an item and its vendors in
@@ -23,13 +22,13 @@ import type { Category, Item, Vendor } from "./api"
  */
 export type ItemVendors = {
   /**
-   * References {@linkcode ItemIdAndVendorId.itemId | itemId}.
-   */
-  readonly id: number
-  /**
    * @default Item.vendorIds
    */
   readonly checkedVendorIds: number[]
+  /**
+   * References {@linkcode ItemIdAndVendorId.itemId | itemId}.
+   */
+  readonly id: number
   readonly vendorIds: number[]
 }
 
@@ -56,21 +55,27 @@ export type Cart = {
  * Returned from `apiSlice` after data transformation.
  */
 export type SuppliesState = {
+  readonly cart: Cart[]
+  readonly categories: Category[]
   readonly items: Item[]
   readonly vendors: Vendor[]
-  readonly categories: Category[]
-  readonly cart: Cart[]
 }
 
 export type ItemIdAndVendorId = {
+  /**
+   * References {@linkcode Item.id | itemId}.
+   */
   readonly itemId: number
+  /**
+   * References {@linkcode Vendor.id | vendorId}.
+   */
   readonly vendorId: number
 }
 
 type ApiAdapters = {
+  readonly categories: Category
   readonly items: Item
   readonly vendors: Vendor
-  readonly categories: Category
 }
 
 /**
@@ -83,28 +88,28 @@ export type CartItems = {
    */
   readonly id: number
   /**
-   * @default EMPTY_ARRAY
-   */
-  readonly minimizedItemIds: number[]
-  /**
    * References {@linkcode Cart.itemIds | vendorItemIds}.
    */
   readonly itemIds: number[]
+  /**
+   * @default EMPTY_ARRAY
+   */
+  readonly minimizedItemIds: number[]
 }
 
 export type StateAdapters = {
   readonly cart: Cart
-  readonly searchResults: SearchResultsItem
-  /**
-   * Controls the one to many relationship between an item and its vendors in
-   * the search results and the side bar accordion.
-   */
-  readonly itemVendors: ItemVendors
   /**
    * Controls the one to many relationship between a vendor and its items in a
    * cart.
    */
   readonly cartItems: CartItems
+  /**
+   * Controls the one to many relationship between an item and its vendors in
+   * the search results and the side bar accordion.
+   */
+  readonly itemVendors: ItemVendors
+  readonly searchResults: SearchResultsItem
 }
 
 export type AdaptersHelper = ApiAdapters & StateAdapters
@@ -118,9 +123,9 @@ export type AdaptersInitialStates = {
 }
 
 type SelectorParam = {
+  readonly name: string
   readonly params: readonly unknown[]
   readonly returnType: unknown
-  readonly name: string
 }
 
 export type SelectorParamsProvider<
@@ -168,8 +173,8 @@ export type AdapterGlobalizedSelectors = {
 }
 
 export type AdapterSelectors = {
-  readonly LOCAL: AdapterLocalizedSelectors
   readonly GLOBAL: AdapterGlobalizedSelectors
+  readonly LOCAL: AdapterLocalizedSelectors
 }
 
 export type AppSelector<

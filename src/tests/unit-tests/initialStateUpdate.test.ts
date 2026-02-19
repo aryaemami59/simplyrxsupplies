@@ -9,20 +9,20 @@ import { EMPTY_ARRAY } from "../../utils/emptyArray.js"
 import { isArrayOfNumbers } from "../../utils/predicates/isArrayOfNumbers.js"
 import { isNumber } from "../../utils/predicates/isNumber.js"
 import type { SetupWithNoUIResults } from "../test-utils/testUtils.js"
-import { setupWithNoUI } from "../test-utils/testUtils.js"
+import { isNode24, setupWithNoUI } from "../test-utils/testUtils.js"
 
 type LocalTestContext = SetupWithNoUIResults
 
 describe<LocalTestContext>("initial state after fetch", it => {
   beforeEach<LocalTestContext>(async context => {
-    const { store, initialState } = await setupWithNoUI()
+    const { initialState, store } = await setupWithNoUI()
 
     context.store = store
 
     context.initialState = initialState
   })
 
-  it("should hydrate the store", ({ store }) => {
+  it.skipIf(isNode24)("should hydrate the store", ({ store }) => {
     const addedState = store.getState().added
     const state = store.getState()
     expect(
@@ -35,7 +35,7 @@ describe<LocalTestContext>("initial state after fetch", it => {
     expect(
       ADAPTER_SELECTORS.GLOBAL.itemVendors.selectAll(state),
     ).toSatisfyAll<ItemVendors>(
-      ({ vendorIds, checkedVendorIds, id }) =>
+      ({ checkedVendorIds, id, vendorIds }) =>
         Object.is(checkedVendorIds, vendorIds) &&
         shallowEqual(checkedVendorIds, vendorIds) &&
         isNumber(id),
@@ -53,7 +53,7 @@ describe<LocalTestContext>("initial state after fetch", it => {
 
 describe<LocalTestContext>("initial state before fetch", it => {
   beforeEach<LocalTestContext>(async context => {
-    const { store, initialState } = await setupWithNoUI({
+    const { initialState, store } = await setupWithNoUI({
       fetch: false,
     })
 

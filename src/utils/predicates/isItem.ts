@@ -1,20 +1,20 @@
-import type { Item } from "../../types/api"
-import type { ObjectChecker } from "../../types/tsHelpers"
-import { complexDataTypePredicateFactory } from "./complexDataTypePredicate"
-import { isArrayOfNumbers } from "./isArrayOfNumbers"
-import { isArrayOfNumbersOrEmpty } from "./isArrayOfNumbersOrEmpty"
-import { isArrayOfStrings } from "./isArrayOfStrings"
-import { isNumber } from "./isNumber"
-import { isString } from "./isString"
+import type { Item } from "../../types/api.js"
+import type { ObjectChecker } from "../../types/tsHelpers.js"
+import { complexDataTypePredicateFactory } from "./complexDataTypePredicate.js"
+import { isArrayOfNumbers } from "./isArrayOfNumbers.js"
+import { isArrayOfNumbersOrEmpty } from "./isArrayOfNumbersOrEmpty.js"
+import { isArrayOfStrings } from "./isArrayOfStrings.js"
+import { isNumber } from "./isNumber.js"
+import { isString } from "./isString.js"
 
 const itemProperties: ObjectChecker<Item> = {
+  categoryIds: isArrayOfNumbersOrEmpty,
   id: isNumber,
-  name: isString,
   itemNumber: isString,
   keywords: isArrayOfStrings,
-  categoryIds: isArrayOfNumbersOrEmpty,
-  vendorIds: isArrayOfNumbers,
+  name: isString,
   src: isString,
+  vendorIds: isArrayOfNumbers,
 }
 
 export const isItem = complexDataTypePredicateFactory(itemProperties)

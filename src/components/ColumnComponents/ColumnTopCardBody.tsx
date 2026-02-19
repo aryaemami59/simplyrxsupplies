@@ -1,17 +1,15 @@
 import CardContent from "@mui/material/CardContent"
 import List from "@mui/material/List"
-import type { FC } from "react"
-import { memo } from "react"
+import { ItemIdProvider } from "../../contexts/ItemIdProvider.js"
+import { useVendorId } from "../../hooks/useVendorId.js"
+import { useCartItemsIds } from "../../redux/selectors.js"
+import { RowSingleContainer } from "./IndividualRowComponents/RowSingleContainer.js"
+import { QRCodeImageContainer } from "./QRCodeComponents/QRCodeImageContainer.js"
+import { VendorLink } from "./VendorLink.js"
 
-import ItemIdProvider from "../../contexts/ItemIdProvider"
-import { useVendorId } from "../../hooks/useVendorId"
-import { useCartItemsIds } from "../../redux/selectors"
-import RowSingleContainer from "./IndividualRowComponents/RowSingleContainer"
-import QRCodeImageContainer from "./QRCodeComponents/QRCodeImageContainer"
-import VendorLink from "./VendorLink"
-
-const ColumnTopCardBody: FC = () => {
+export const ColumnTopCardBody = () => {
   const vendorId = useVendorId()
+
   const addedItemsIds = useCartItemsIds(vendorId)
 
   return (
@@ -21,17 +19,13 @@ const ColumnTopCardBody: FC = () => {
       <List>
         {addedItemsIds.map(addedItemsId => (
           <ItemIdProvider
-            key={`${addedItemsId.toString()}-${vendorId.toString()}`}
             itemId={addedItemsId}
+            key={`${addedItemsId.toString()}-${vendorId.toString()}-ItemIdProvider`}
           >
-            <RowSingleContainer
-              key={`${addedItemsId.toString()}-${vendorId.toString()}-SingleVendorColumnListItem`}
-            />
+            <RowSingleContainer />
           </ItemIdProvider>
         ))}
       </List>
     </CardContent>
   )
 }
-
-export default memo(ColumnTopCardBody)

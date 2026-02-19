@@ -2,8 +2,8 @@ import type {
   ObjectChecker,
   ObjectEntries,
   UnknownObject,
-} from "../../types/tsHelpers"
-import { isObject } from "./isObject"
+} from "../../types/tsHelpers.js"
+import { isObject } from "./isObject.js"
 
 export const complexDataTypePredicateFactory =
   <T extends UnknownObject>(checker: ObjectChecker<T>) =>

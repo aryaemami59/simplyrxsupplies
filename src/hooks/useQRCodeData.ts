@@ -1,5 +1,4 @@
-import { useContext } from "react"
+import { use } from "react"
+import { QRCodeDataContext } from "../contexts/QRCodeDataProvider.js"
 
-import { QRCodeDataContext } from "../contexts/QRCodeDataProvider"
-
-export const useQRCodeData = () => useContext(QRCodeDataContext)
+export const useQRCodeData = () => use(QRCodeDataContext)

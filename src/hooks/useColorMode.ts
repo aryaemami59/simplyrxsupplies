@@ -1,5 +1,4 @@
-import { useContext } from "react"
+import { use } from "react"
+import { ColorModeContext } from "../contexts/ColorModeProvider.js"
 
-import { ColorModeContext } from "../contexts/ColorModeProvider"
-
-export const useColorMode = () => useContext(ColorModeContext)
+export const useColorMode = () => use(ColorModeContext)

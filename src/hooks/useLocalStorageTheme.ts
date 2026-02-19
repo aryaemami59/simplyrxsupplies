@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { darkTheme, lightTheme } from "../shared/themes"
+import { darkTheme, lightTheme } from "../shared/themes.js"
 
 const getCurrentTheme = () => {
   const valueFromStorage = localStorage.getItem("theme")
@@ -9,15 +9,16 @@ const getCurrentTheme = () => {
     .matches
     ? darkTheme
     : lightTheme
+
   switch (valueFromStorage) {
-    case null: {
-      return preferredMode
+    case "dark": {
+      return darkTheme
     }
     case "light": {
       return lightTheme
     }
-    case "dark": {
-      return darkTheme
+    case null: {
+      return preferredMode
     }
     default: {
       return lightTheme

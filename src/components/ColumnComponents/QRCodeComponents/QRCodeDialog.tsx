@@ -3,19 +3,16 @@ import Dialog from "@mui/material/Dialog"
 import DialogActions from "@mui/material/DialogActions"
 import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
-import type { FC } from "react"
-import { memo } from "react"
-
-import { useVendorId } from "../../../hooks/useVendorId"
-import { useOfficialVendorName } from "../../../redux/selectors"
-import QRCodeImage from "./QRCodeImage"
+import { useVendorId } from "../../../hooks/useVendorId.js"
+import { useOfficialVendorName } from "../../../redux/selectors.js"
+import { QRCodeImage } from "./QRCodeImage.js"
 
 type Props = {
-  hideModal: () => void
-  isModalOpen: boolean
+  readonly hideModal: () => void
+  readonly isModalOpen: boolean
 }
 
-const QRCodeDialog: FC<Props> = ({ hideModal, isModalOpen }) => {
+export const QRCodeDialog = ({ hideModal, isModalOpen }: Props) => {
   const vendorId = useVendorId()
 
   const officialVendorName = useOfficialVendorName(vendorId)
@@ -28,7 +25,7 @@ const QRCodeDialog: FC<Props> = ({ hideModal, isModalOpen }) => {
       onClose={hideModal}
       open={isModalOpen}
     >
-      <DialogTitle>QRCode for Items Added to {officialVendorName}</DialogTitle>
+      <DialogTitle>QR Code for items added to {officialVendorName}</DialogTitle>
       <DialogContent className="justify-content-center d-flex" dividers>
         <QRCodeImage className="w-75" />
       </DialogContent>
@@ -40,5 +37,3 @@ const QRCodeDialog: FC<Props> = ({ hideModal, isModalOpen }) => {
     </Dialog>
   )
 }
-
-export default memo<Props>(QRCodeDialog)

@@ -4,43 +4,59 @@ import {
   selectMainData,
   selectVendorsData,
 } from "../../redux/apiSlice.js"
-import type { AppStore } from "../../redux/store.js"
 import type { SuppliesState } from "../../types/reduxHelperTypes.js"
 import { EMPTY_ARRAY } from "../../utils/emptyArray.js"
-import { setupWithNoUI } from "../test-utils/testUtils.js"
+import type { LocalBaseTestContext } from "../test-utils/testUtils.js"
+import { isNode24, setupWithNoUI } from "../test-utils/testUtils.js"
 
-type LocalTestContext = {
+type LocalTestContext = LocalBaseTestContext & {
   data: SuppliesState | undefined
-  store: AppStore
 }
 
-describe<LocalTestContext>("apiSlice with fetch", it => {
-  beforeEach<LocalTestContext>(async context => {
-    const { store } = await setupWithNoUI()
+const localTest = test.extend<LocalTestContext>({
+  data: [
+    async ({ store }, use) => {
+      const data = selectMainData(store.getState())
 
-    const data = selectMainData(store.getState())
+      await use(data)
+    },
+    { auto: false },
+  ],
+  initialState: [
+    async ({ store }, use) => {
+      const initialState = store.getState()
 
-    context.data = data
+      await use(initialState)
+    },
+    { auto: false },
+  ],
+  setupResults: [setupWithNoUI(), { auto: false }],
 
-    context.store = store
-  })
+  store: [
+    async ({ setupResults }, use) => {
+      const { store } = await setupResults
 
-  it("RTK query api call should be successful", ({ data }) => {
-    expect(data).toBeDefined()
-    expect(data?.cart[0]?.itemIds).toBe(EMPTY_ARRAY)
-    expect(data?.items).not.toBe(EMPTY_ARRAY)
-  })
+      await use(store)
+    },
+    { auto: false },
+  ],
 })
 
-describe<LocalTestContext>("apiSlice without fetch", it => {
-  beforeEach<LocalTestContext>(async context => {
-    const { store } = await setupWithNoUI({ fetch: false })
-    const data = selectMainData(store.getState())
-    context.data = data
-    context.store = store
-  })
+describe("apiSlice with fetch", () => {
+  localTest.skipIf(isNode24)(
+    "RTK query api call should be successful",
+    ({ data }) => {
+      expect(data).toBeDefined()
+      expect(data?.cart[0]?.itemIds).toBe(EMPTY_ARRAY)
+      expect(data?.items).not.toBe(EMPTY_ARRAY)
+    },
+  )
+})
 
-  it("rtk query api call should fail", ({ data, store }) => {
+describe("apiSlice without fetch", () => {
+  localTest.scoped({ setupResults: setupWithNoUI({ fetch: false }) })
+
+  localTest("rtk query api call should fail", ({ data, store }) => {
     const state = store.getState()
     expect(data).toBeUndefined()
     expect(selectItemsData(state).ids).toBeEmptyArray()

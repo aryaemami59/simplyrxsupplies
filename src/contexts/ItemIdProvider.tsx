@@ -1,16 +1,13 @@
-import type { FC } from "react"
-import { createContext, memo } from "react"
+import { createContext } from "react"
+import type { ItemIdAndVendorId } from "../types/reduxHelperTypes.js"
+import type { PropsWithRequiredChildren } from "../types/tsHelpers.js"
 
-import type { PropsWithRequiredChildren } from "../types/tsHelpers"
+type Props = PropsWithRequiredChildren<Pick<ItemIdAndVendorId, "itemId">>
 
-type Props = PropsWithRequiredChildren<{
-  readonly itemId: number
-}>
-
-export const ItemIdContext = createContext<number>(0)
-
-const ItemIdProvider: FC<Props> = ({ children, itemId }) => (
-  <ItemIdContext.Provider value={itemId}>{children}</ItemIdContext.Provider>
+export const ItemIdContext = createContext<ItemIdAndVendorId["itemId"] | null>(
+  null,
 )
 
-export default memo<Props>(ItemIdProvider)
+export const ItemIdProvider = ({ children, itemId }: Props) => (
+  <ItemIdContext value={itemId}>{children}</ItemIdContext>
+)

@@ -2,24 +2,28 @@ import Button from "@mui/material/Button"
 import ButtonGroup from "@mui/material/ButtonGroup"
 import Collapse from "@mui/material/Collapse"
 import Fade from "@mui/material/Fade"
-import type { FC } from "react"
-import { memo, useCallback } from "react"
-import { useItemId } from "../../../hooks/useItemId"
-import { useVendorId } from "../../../hooks/useVendorId"
-import { toggledMinimizeOneItemInCart } from "../../../redux/addedSlice"
-import { useAppDispatch } from "../../../redux/hooks"
-import { useIsMinimized, useItemName } from "../../../redux/selectors"
-import CollapseButton from "./CollapseButton"
-import RowSingleContainerModal from "./ModalComponents/RowSingleContainerModal"
-import RowDeleteButton from "./RowDeleteButton"
-import RowSingleItemInfo from "./RowSingleItemInfo"
+import { useCallback } from "react"
+import { useItemId } from "../../../hooks/useItemId.js"
+import { useVendorId } from "../../../hooks/useVendorId.js"
+import { toggledMinimizeOneItemInCart } from "../../../redux/addedSlice.js"
+import { useAppDispatch } from "../../../redux/hooks.js"
+import { useIsMinimized, useItemName } from "../../../redux/selectors.js"
+import { CollapseButton } from "./CollapseButton.js"
+import { RowSingleContainerModal } from "./ModalComponents/RowSingleContainerModal.js"
+import { RowDeleteButton } from "./RowDeleteButton.js"
+import { RowSingleItemInfo } from "./RowSingleItemInfo.js"
 
-const RowSingleContainer: FC = () => {
-  const itemId = useItemId()
-  const vendorId = useVendorId()
+export const RowSingleContainer = () => {
   const dispatch = useAppDispatch()
+
+  const itemId = useItemId()
+
+  const vendorId = useVendorId()
+
   const open = useIsMinimized(vendorId, itemId)
+
   const itemName = useItemName(itemId)
+
   const toggleFade = useCallback(() => {
     dispatch(toggledMinimizeOneItemInCart({ itemId, vendorId }))
   }, [dispatch, itemId, vendorId])
@@ -60,5 +64,3 @@ const RowSingleContainer: FC = () => {
     </div>
   )
 }
-
-export default memo(RowSingleContainer)

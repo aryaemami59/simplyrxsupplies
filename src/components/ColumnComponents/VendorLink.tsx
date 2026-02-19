@@ -1,10 +1,11 @@
 import Link from "@mui/material/Link"
-import type { FC } from "react"
-import { memo } from "react"
-import { useVendorId } from "../../hooks/useVendorId"
-import { useOfficialVendorName, useVendorsLinks } from "../../redux/selectors"
+import { useVendorId } from "../../hooks/useVendorId.js"
+import {
+  useOfficialVendorName,
+  useVendorsLinks,
+} from "../../redux/selectors.js"
 
-const VendorLink: FC = () => {
+export const VendorLink = () => {
   const vendorId = useVendorId()
 
   const vendorLink = useVendorsLinks(vendorId)
@@ -19,5 +20,3 @@ const VendorLink: FC = () => {
     </div>
   )
 }
-
-export default memo(VendorLink)

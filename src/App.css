@@ -235,7 +235,7 @@ input.cursor-pointer {
   top: 40px;
 }
 
-div.menu-list {
+ul.menu-list {
   max-height: calc(100vh - 54px);
 }
 

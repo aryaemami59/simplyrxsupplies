@@ -1,17 +1,14 @@
 import MenuItem from "@mui/material/MenuItem"
-import type { FC, MouseEventHandler } from "react"
-import { memo, useCallback } from "react"
+import type { MouseEventHandler } from "react"
+import { useCallback } from "react"
+import { itemAddedToCarts } from "../../redux/addedSlice.js"
+import { useAppDispatch } from "../../redux/hooks.js"
+import { useCheckIfAddedToVendor, useItemName } from "../../redux/selectors.js"
+import type { ItemIdAndVendorId } from "../../types/reduxHelperTypes.js"
 
-import { itemAddedToCarts } from "../../redux/addedSlice"
-import { useAppDispatch } from "../../redux/hooks"
-import { useCheckIfAddedToVendor, useItemName } from "../../redux/selectors"
+type Props = ItemIdAndVendorId
 
-type Props = {
-  itemId: number
-  vendorId: number
-}
-
-const SingleDropDown: FC<Props> = ({ itemId, vendorId }) => {
+export const SingleDropDown = ({ itemId, vendorId }: Props) => {
   const dispatch = useAppDispatch()
 
   const itemName = useItemName(itemId)
@@ -26,7 +23,6 @@ const SingleDropDown: FC<Props> = ({ itemId, vendorId }) => {
 
   return (
     <MenuItem
-      key={itemId}
       className="text-wrap"
       disabled={ifAddedToVendor}
       onClick={clickHandler}
@@ -35,5 +31,3 @@ const SingleDropDown: FC<Props> = ({ itemId, vendorId }) => {
     </MenuItem>
   )
 }
-
-export default memo<Props>(SingleDropDown)

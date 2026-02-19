@@ -1,33 +1,37 @@
+import "@testing-library/jest-dom/vitest"
 import type { MatchersObject } from "@vitest/expect"
 import * as jestExtendedMatchers from "jest-extended"
-import "vitest-dom/extend-expect"
 
 expect.extend(jestExtendedMatchers)
 
 const customMatchers: MatchersObject = {
   toBeEmptyArray(received: unknown) {
+    const { isNot, utils } = this
+
     if (!Array.isArray(received)) {
       return {
-        pass: true,
-        message: () =>
-          `expected ${this.utils.printReceived(
-            received,
-          )} to be an array but instead it is of type ${this.utils.printExpected(
-            typeof received,
-          )}`,
         actual: received,
         expected: [],
+        message: () =>
+          `expected ${utils.printReceived(
+            received,
+          )} to be an array but instead it is of type ${utils.printExpected(
+            typeof received,
+          )}`,
+        pass: false,
       }
     }
+
     const pass = received.length === 0
+
     return {
-      pass,
-      message: () =>
-        this.isNot
-          ? "the received value should not be an empty array"
-          : `${this.utils.printReceived(received)} is not an empty array`,
-      expected: [],
       actual: received,
+      expected: [],
+      message: () =>
+        isNot
+          ? "the received value should not be an empty array"
+          : `${utils.printReceived(received)} is not an empty array`,
+      pass,
     }
   },
 }

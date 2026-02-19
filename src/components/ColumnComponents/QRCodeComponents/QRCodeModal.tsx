@@ -1,21 +1,19 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons/faMagnifyingGlassPlus"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
-import Tooltip from "@mui/material/Tooltip"
-import type { FC, MouseEventHandler } from "react"
-import { memo, useCallback, useState } from "react"
+import type { MouseEventHandler } from "react"
+import { useCallback, useState } from "react"
+import { Tooltip } from "../../../shared/components/Tooltip.js"
+import { QRCodeDialog } from "./QRCodeDialog.js"
 
-import QRCodeDialog from "./QRCodeDialog"
-
-const title = "Take a Closer Look at The QRCode"
+const title = "Take a Closer Look at The QR Code"
 
 const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />
 
-const QRCodeModal: FC = () => {
+export const QRCodeModal = () => {
   const [show, setShow] = useState(false)
-  const [open, setOpen] = useState(false)
 
-  const showModal: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  const showModal = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     setShow(true)
   }, [])
 
@@ -23,25 +21,9 @@ const QRCodeModal: FC = () => {
     setShow(false)
   }, [])
 
-  const showTooltip = useCallback(() => {
-    setOpen(true)
-  }, [])
-
-  const hideTooltip = useCallback(() => {
-    setOpen(false)
-  }, [])
-
   return (
     <>
-      <Tooltip
-        role="tooltip"
-        enterDelay={500}
-        enterNextDelay={500}
-        onClose={hideTooltip}
-        onOpen={showTooltip}
-        open={open}
-        title={title}
-      >
+      <Tooltip title={title}>
         <IconButton
           className="d-inline-block w-auto"
           onClick={showModal}
@@ -49,18 +31,8 @@ const QRCodeModal: FC = () => {
         >
           {startIcon}
         </IconButton>
-        {/* <Button
-          size="small"
-          variant="contained"
-          onClick={showModal}
-          startIcon={startIcon}
-          className="w-auto">
-          Magnify
-        </Button> */}
       </Tooltip>
       <QRCodeDialog hideModal={hideModal} isModalOpen={show} />
     </>
   )
 }
-
-export default memo(QRCodeModal)

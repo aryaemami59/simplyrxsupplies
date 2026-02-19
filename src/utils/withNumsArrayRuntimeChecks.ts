@@ -1,5 +1,5 @@
-import { fallbackToEmptyArray } from "./fallbackToEmptyArray"
-import { sortNumbers } from "./sortNumbers"
+import { fallbackToEmptyArray } from "./fallbackToEmptyArray.js"
+import { sortNumbers } from "./sortNumbers.js"
 
 export const withNumsArrayConcat = <T extends number>(array: T[]): T[] =>
   sortNumbers([...new Set(array)])

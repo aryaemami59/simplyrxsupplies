@@ -1,21 +1,19 @@
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons/faMagnifyingGlassPlus"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
-import Tooltip from "@mui/material/Tooltip"
-import type { FC, MouseEventHandler } from "react"
-import { memo, useCallback, useState } from "react"
-
-import RowItemsDialog from "./RowItemsDialog"
+import type { MouseEventHandler } from "react"
+import { useCallback, useState } from "react"
+import { Tooltip } from "../../../../shared/components/Tooltip.js"
+import { RowItemsDialog } from "./RowItemsDialog.js"
 
 const title = "Take a Closer Look at The Item Info"
 
 const startIcon = <FontAwesomeIcon icon={faMagnifyingGlassPlus} />
 
-const RowSingleContainerModal: FC = () => {
+export const RowSingleContainerModal = () => {
   const [modalOpen, setModalOpen] = useState(false)
-  const [open, setOpen] = useState(false)
 
-  const showModal: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+  const showModal = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     setModalOpen(true)
   }, [])
 
@@ -23,30 +21,10 @@ const RowSingleContainerModal: FC = () => {
     setModalOpen(false)
   }, [])
 
-  const showTooltip = useCallback(() => {
-    setOpen(true)
-  }, [])
-
-  const hideTooltip = useCallback(() => {
-    setOpen(false)
-  }, [])
-
   return (
     <>
-      <Tooltip
-        role="tooltip"
-        enterDelay={500}
-        enterNextDelay={500}
-        onClose={hideTooltip}
-        onOpen={showTooltip}
-        open={open}
-        title={title}
-      >
-        <IconButton
-          className="w-auto d-inline-block"
-          onClick={showModal}
-          size="medium"
-        >
+      <Tooltip title={title}>
+        <IconButton className="w-auto d-inline-block" onClick={showModal}>
           {startIcon}
         </IconButton>
       </Tooltip>
@@ -54,5 +32,3 @@ const RowSingleContainerModal: FC = () => {
     </>
   )
 }
-
-export default memo(RowSingleContainerModal)

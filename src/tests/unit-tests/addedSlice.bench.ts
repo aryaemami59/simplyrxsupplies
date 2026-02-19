@@ -1,4 +1,3 @@
-/* eslint-disable vitest/valid-title */
 import type { Options } from "tinybench"
 import { bench } from "vitest"
 import {
@@ -27,14 +26,16 @@ import {
 } from "../../redux/selectors.js"
 import { setupWithNoUI } from "../test-utils/testUtils.js"
 
-const options: Options = {
+const options = {
   iterations: 5,
   time: 0,
-}
+} as const satisfies Options
 
 describe("selectors", async () => {
   const { store } = await setupWithNoUI()
+
   const state = store.getState()
+
   bench(
     selectItemNamesAndKeywords,
     () => {

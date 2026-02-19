@@ -1,51 +1,33 @@
 import { faPrint } from "@fortawesome/free-solid-svg-icons/faPrint"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import IconButton from "@mui/material/IconButton"
-import Tooltip from "@mui/material/Tooltip"
 import printjs from "print-js"
-import type { FC, MouseEventHandler } from "react"
-import { memo, useCallback, useState } from "react"
-
-import { useQRCodeData } from "../../../hooks/useQRCodeData"
+import type { MouseEventHandler } from "react"
+import { useCallback } from "react"
+import { useQRCodeData } from "../../../hooks/useQRCodeData.js"
+import { Tooltip } from "../../../shared/components/Tooltip.js"
 
 const header =
   "You can scan this image on the vendor's website to pull up all the items at once."
 
 const startIcon = <FontAwesomeIcon icon={faPrint} />
 
-const title = "Print QRCode"
+const title = "Print QR Code"
 
-const PrintIconQRCode: FC = () => {
-  const [open, setOpen] = useState(false)
+export const PrintIconQRCode = () => {
   const qrCodeData = useQRCodeData()
 
   const clickHandler = useCallback<MouseEventHandler<HTMLButtonElement>>(() => {
     printjs({
-      printable: qrCodeData,
-      type: "image",
       header,
       imageStyle: "width:80%;margin-bottom:20px;",
+      printable: qrCodeData,
+      type: "image",
     })
   }, [qrCodeData])
 
-  const showTooltip = useCallback(() => {
-    setOpen(true)
-  }, [])
-
-  const hideTooltip = useCallback(() => {
-    setOpen(false)
-  }, [])
-
   return (
-    <Tooltip
-      role="tooltip"
-      enterDelay={500}
-      enterNextDelay={500}
-      onClose={hideTooltip}
-      onOpen={showTooltip}
-      open={open}
-      title={title}
-    >
+    <Tooltip title={title}>
       <IconButton
         className="d-inline-block w-auto"
         onClick={clickHandler}
@@ -56,5 +38,3 @@ const PrintIconQRCode: FC = () => {
     </Tooltip>
   )
 }
-
-export default memo(PrintIconQRCode)

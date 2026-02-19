@@ -1,5 +1,14 @@
-import { useContext } from "react"
+import { use } from "react"
+import { ItemIdContext } from "../contexts/ItemIdProvider.js"
 
-import { ItemIdContext } from "../contexts/ItemIdProvider"
+export const useItemId = () => {
+  const value = use(ItemIdContext)
 
-export const useItemId = () => useContext(ItemIdContext)
+  if (value == null) {
+    throw new Error(
+      `${useItemId.name} must be called within a <ItemIdProvider> component.`,
+    )
+  }
+
+  return value
+}

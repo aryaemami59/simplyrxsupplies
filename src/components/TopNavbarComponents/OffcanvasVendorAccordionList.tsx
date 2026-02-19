@@ -1,23 +1,20 @@
-import type { FC } from "react"
-import { memo } from "react"
-import VendorIdProvider from "../../contexts/VendorIdProvider"
-import { useVendorIds } from "../../hooks/useVendorIds"
-import OffcanvasVendorAccordion from "./OffcanvasVendorAccordion"
+import { VendorIdProvider } from "../../contexts/VendorIdProvider.js"
+import { useVendorIds } from "../../hooks/useVendorIds.js"
+import { OffcanvasVendorAccordion } from "./OffcanvasVendorAccordion.js"
 
-const OffcanvasVendorAccordionList: FC = () => {
-  const vendorNames = useVendorIds()
+export const OffcanvasVendorAccordionList = () => {
+  const vendorIds = useVendorIds()
 
   return (
     <>
-      {vendorNames.map(vendorName => (
-        <VendorIdProvider key={vendorName} vendorId={vendorName}>
-          <OffcanvasVendorAccordion
-            key={`${vendorName.toString()}-OffcanvasVendorAccordionList`}
-          />
+      {vendorIds.map(vendorId => (
+        <VendorIdProvider
+          key={`${vendorId.toString()}-VendorIdProvider`}
+          vendorId={vendorId}
+        >
+          <OffcanvasVendorAccordion />
         </VendorIdProvider>
       ))}
     </>
   )
 }
-
-export default memo(OffcanvasVendorAccordionList)

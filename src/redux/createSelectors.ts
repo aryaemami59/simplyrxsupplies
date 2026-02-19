@@ -9,9 +9,9 @@ import {
   unstable_autotrackMemoize,
   weakMapMemoize,
 } from "reselect"
-import { capitalize } from "../utils/capitalize"
-import { useAppSelector } from "./hooks"
-import type { RootState } from "./store"
+import { capitalize } from "../utils/capitalize.js"
+import { useAppSelector } from "./hooks.js"
+import type { RootState } from "./store.js"
 
 // export const timeSelector = <T extends AnyFunction>(
 //   func: T,
@@ -169,8 +169,8 @@ import type { RootState } from "./store"
 // export const createAppSelector = createSelectorCreatorWrapper(defaultMemoize)
 export const createAppSelector = createSelectorCreator(lruMemoize)
 export const createAutotrackSelector = createSelectorCreator({
-  memoize: unstable_autotrackMemoize,
   argsMemoize: unstable_autotrackMemoize,
+  memoize: unstable_autotrackMemoize,
 })
 // export const createAppSelector: TypedExtendedCreateSelectorFunction<
 //   RootState,
@@ -216,7 +216,7 @@ export const createDraftSafeAddedSelector = createDraftSafeSelectorCreator({
 //   createDraftSafeSelectorCreator(lruMemoize)
 // TODO: remove later.
 export const createDebugSelector = createSelectorCreator(lruMemoize, {
-  resultEqualityCheck: (previousVal: unknown, currentVal: unknown) => {
+  equalityCheck: (previousVal: unknown, currentVal: unknown) => {
     const isSame = currentVal === previousVal
     const isShallowEqual = shallowEqual(previousVal, currentVal)
     if (!isSame && isShallowEqual) {
@@ -230,7 +230,7 @@ export const createDebugSelector = createSelectorCreator(lruMemoize, {
     }
     return isSame
   },
-  equalityCheck: (previousVal: unknown, currentVal: unknown) => {
+  resultEqualityCheck: (previousVal: unknown, currentVal: unknown) => {
     const isSame = currentVal === previousVal
     const isShallowEqual = shallowEqual(previousVal, currentVal)
     if (!isSame && isShallowEqual) {
@@ -381,6 +381,30 @@ export const createDebugSelector = createSelectorCreator(lruMemoize, {
 //   return { results, fastest } as const;
 // };
 
+export const objectEntries = <ObjectType extends Record<string, unknown>>(
+  objectInput: ObjectType,
+): {
+  [ObjectKey in Extract<keyof ObjectType, string>]: [
+    ObjectKey,
+    ObjectType[ObjectKey],
+  ]
+}[Extract<keyof ObjectType, string>][] =>
+  Object.entries(objectInput) as {
+    [ObjectKey in Extract<keyof ObjectType, string>]: [
+      ObjectKey,
+      ObjectType[ObjectKey],
+    ]
+  }[Extract<keyof ObjectType, string>][]
+
+export const objectFromEntries = <Entries extends [string, unknown]>(
+  entries: Entries[],
+): {
+  [EntryKey in Entries[0]]: Extract<Entries, [EntryKey, Entries[1]]>[1]
+} =>
+  Object.fromEntries(entries) as {
+    [EntryKey in Entries[0]]: Extract<Entries, [EntryKey, Entries[1]]>[1]
+  }
+
 export const createParametricSelectorHook =
   <Result, Params extends readonly [unknown, ...(readonly unknown[])]>(
     selector: (selector: RootState, ...args: Params) => Result,
@@ -388,10 +412,12 @@ export const createParametricSelectorHook =
   (...args: Params) =>
     useAppSelector(state => selector(state, ...args))
 
-type MapSelectorsToHooks<TObject extends SelectorsObject<RootState>> = {
-  [K in keyof TObject as K extends `select${infer R}`
+type MapSelectorsToHooks<
+  SelectorsObjectType extends SelectorsObject<RootState>,
+> = {
+  [SelectorName in keyof SelectorsObjectType as SelectorName extends `select${infer R}`
     ? `use${R}`
-    : `use${Capitalize<Extract<K, string>>}`]: TObject[K] extends Selector<
+    : `use${Capitalize<Extract<SelectorName, string>>}`]: SelectorsObjectType[SelectorName] extends Selector<
     RootState,
     infer Result,
     infer Params
@@ -401,12 +427,12 @@ type MapSelectorsToHooks<TObject extends SelectorsObject<RootState>> = {
 }
 
 export const createParametricSelectorHooks = <
-  TObject extends SelectorsObject<RootState>,
+  SelectorsObjectType extends SelectorsObject<RootState>,
 >(
-  selectors: TObject,
-): MapSelectorsToHooks<TObject> =>
-  Object.fromEntries(
-    Object.entries(selectors).map(
+  selectors: SelectorsObjectType,
+): MapSelectorsToHooks<SelectorsObjectType> =>
+  objectFromEntries(
+    objectEntries(selectors).map(
       ([selectorName, selector]) =>
         [
           selectorName.startsWith("select")
@@ -415,7 +441,7 @@ export const createParametricSelectorHooks = <
           createParametricSelectorHook(selector),
         ] as const,
     ),
-  ) as MapSelectorsToHooks<TObject>
+  ) as MapSelectorsToHooks<SelectorsObjectType>
 
 // export const useCurriedSelector =
 //   <Args extends unknown[], SelectorOutput>(
@@ -452,7 +478,7 @@ export const findFastestSelector = <S extends OutputSelector>(
       // alternateSelector.apply(null, selectorArgs)
       alternateSelector(...selectorArgs)
       const time = performance.now() - start
-      return { name: memoize.name, time, selector: alternateSelector }
+      return { name: memoize.name, selector: alternateSelector, time }
       // return { name: memoize.name, time, selector: alternateSelector }
     })
     .sort((a, b) => a.time - b.time)
@@ -462,7 +488,7 @@ export const findFastestSelector = <S extends OutputSelector>(
   const ratios = results
     .filter(({ time }) => time !== fastest.time)
     .map(
-      ({ time, name }) =>
+      ({ name, time }) =>
         `\x1B[33m \x1B[1m${(
           time / fastest.time
         ).toString()}\x1B[0m times faster than \x1B[1;41m${name}\x1B[0m\n(\x1B[1m\x1B[35m${(
@@ -508,5 +534,5 @@ export const findFastestSelector = <S extends OutputSelector>(
   // console.table(results.map(({ name, time }) => ({ name, time })))
   // console.table([{ ...info }, ...rest])
   // console.table({ results, ...fastest })
-  return { results, fastest } as const
+  return { fastest, results } as const
 }

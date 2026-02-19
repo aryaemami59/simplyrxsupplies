@@ -1,14 +1,12 @@
 import Button from "@mui/material/Button"
 import Collapse from "@mui/material/Collapse"
-import type { FC } from "react"
-import { memo, useCallback, useState } from "react"
+import { useCallback, useState } from "react"
+import { useVendorId } from "../../hooks/useVendorId.js"
+import { useOfficialVendorName } from "../../redux/selectors.js"
+import { RowCounterBadge } from "./IndividualRowComponents/RowCounterBadge.js"
+import { VendorColumnCard } from "./VendorColumnCard.js"
 
-import { useVendorId } from "../../hooks/useVendorId"
-import { useOfficialVendorName } from "../../redux/selectors"
-import RowCounterBadge from "./IndividualRowComponents/RowCounterBadge"
-import VendorColumnCard from "./VendorColumnCard"
-
-const VendorColumn: FC = () => {
+export const VendorColumn = () => {
   const vendorId = useVendorId()
 
   const [open, setOpen] = useState(false)
@@ -41,5 +39,3 @@ const VendorColumn: FC = () => {
     </>
   )
 }
-
-export default memo(VendorColumn)

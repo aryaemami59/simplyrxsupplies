@@ -1,4 +1,4 @@
-import type { ItemNameAndKeywords } from "../../types/api"
+import type { ItemNameAndKeywords } from "../../types/api.js"
 
 export const sortResults = (
   itemNameAndKeyword: ItemNameAndKeywords,
@@ -6,8 +6,11 @@ export const sortResults = (
   inputValue: string,
 ): number => {
   let relevancyScore = 0
-  const { name, keywords } = itemNameAndKeyword
+
+  const { keywords, name } = itemNameAndKeyword
+
   const itemName = name.toLowerCase()
+
   if (itemName === inputValue) {
     relevancyScore += 100
   } else if (itemName.startsWith(`${inputValue} `)) {
@@ -30,8 +33,11 @@ export const sortResults = (
           : total,
       0,
     )
+
     relevancyScore += keywordsScore
   }
+
   relevancyScore += itemName.match(searchRegexPattern)?.length ?? 0
+
   return relevancyScore
 }

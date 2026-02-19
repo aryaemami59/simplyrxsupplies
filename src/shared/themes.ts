@@ -1,22 +1,21 @@
-import { grey } from "@mui/material/colors"
+import { common, grey } from "@mui/material/colors"
+import type { BreakpointsOptions } from "@mui/material/styles"
 import { createTheme } from "@mui/material/styles"
-
 import {
   DARK_MODE_PAPER_BG,
   DARK_MODE_SELECTED_BG,
   LIGHT_MODE_SELECTED_BG,
   MAIN_COLOR,
-  PRIMARY_TEXT,
-} from "./styles"
+} from "./styles.js"
 
 declare module "@mui/material/styles" {
   // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   interface BreakpointOverrides {
-    xs: true
-    sm: true
-    md: true
     lg: true
+    md: true
+    sm: true
     xl: true
+    xs: true
     xxl: true
     // mobile: true;
     // tablet: true;
@@ -25,16 +24,21 @@ declare module "@mui/material/styles" {
   }
 }
 
+const breakpoints = {
+  values: {
+    lg: 992,
+    md: 768,
+    sm: 576,
+    xl: 1200,
+    xs: 0,
+    xxl: 1400,
+  },
+} as const satisfies BreakpointsOptions
+
 export const lightTheme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 576,
-      md: 768,
-      lg: 992,
-      xl: 1200,
-      xxl: 1400,
-    },
+  breakpoints,
+  colorSchemes: {
+    light: true,
   },
   components: {
     MuiAccordionSummary: {
@@ -60,15 +64,9 @@ export const lightTheme = createTheme({
 })
 
 export const darkTheme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 576,
-      md: 768,
-      lg: 992,
-      xl: 1200,
-      xxl: 1400,
-    },
+  breakpoints,
+  colorSchemes: {
+    dark: true,
   },
   components: {
     MuiAccordionSummary: {
@@ -82,16 +80,16 @@ export const darkTheme = createTheme({
     },
   },
   palette: {
-    mode: "dark",
     background: {
       default: DARK_MODE_PAPER_BG,
       paper: DARK_MODE_PAPER_BG,
     },
+    mode: "dark",
     primary: {
       main: MAIN_COLOR,
     },
     text: {
-      primary: PRIMARY_TEXT,
+      primary: common.white,
       secondary: grey[500],
     },
   },

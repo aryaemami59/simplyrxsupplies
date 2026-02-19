@@ -1,12 +1,9 @@
 import List from "@mui/material/List"
-import type { FC } from "react"
-import { memo } from "react"
+import { RowBarcodeImage } from "./RowBarcodeImage.js"
+import { RowItemName } from "./RowItemName.js"
+import { RowItemNumber } from "./RowItemNumber.js"
 
-import RowBarcodeImage from "./RowBarcodeImage"
-import RowItemName from "./RowItemName"
-import RowItemNumber from "./RowItemNumber"
-
-const RowSingleItemInfo: FC = () => (
+export const RowSingleItemInfo = () => (
   <div className="container">
     <List>
       <RowItemName />
@@ -15,5 +12,3 @@ const RowSingleItemInfo: FC = () => (
     </List>
   </div>
 )
-
-export default memo(RowSingleItemInfo)

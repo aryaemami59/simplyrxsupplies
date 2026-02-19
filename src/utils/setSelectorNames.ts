@@ -1,11 +1,18 @@
-import type { AnyFunction } from "../types/tsHelpers"
-import { setFunctionName } from "./setFunctionName"
+import { objectEntries, objectFromEntries } from "../redux/createSelectors.js"
+import type { AnyFunction } from "../types/tsHelpers.js"
+import { setFunctionName } from "./setFunctionName.js"
 
-export const setSelectorNames = <const T extends Record<string, AnyFunction>>(
-  funcsObject: T,
-) => {
-  Object.entries(funcsObject).forEach(([key, value]) => {
-    setFunctionName(value, key)
-  })
-  return funcsObject
-}
+export const setSelectorNames = <
+  const SelectorFunctionObject extends Record<string, AnyFunction>,
+>(
+  selectorFunctions: SelectorFunctionObject,
+): SelectorFunctionObject =>
+  objectFromEntries(
+    objectEntries(selectorFunctions).map(
+      ([selectorName, selectorFunction]) =>
+        [
+          selectorName,
+          setFunctionName(selectorFunction, selectorName),
+        ] as const,
+    ),
+  ) as SelectorFunctionObject

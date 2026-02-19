@@ -1,27 +1,26 @@
 import Button from "@mui/material/Button"
 import ButtonGroup from "@mui/material/ButtonGroup"
-import type { FC, MouseEventHandler } from "react"
-import { memo, useCallback } from "react"
-import { itemAddedToCarts } from "../../redux/addedSlice"
-import { useAppDispatch, useAppSelector } from "../../redux/hooks"
+import type { MouseEventHandler } from "react"
+import { useCallback } from "react"
+import { itemAddedToCarts } from "../../redux/addedSlice.js"
+import { useAppDispatch } from "../../redux/hooks.js"
 import {
-  checkIfAddedToAllVendors,
+  useCheckIfAddedToAllVendors,
   useCheckedVendorIds,
   useItemName,
   useVendorIdsByItemId,
-} from "../../redux/selectors"
-import { isEmptyArray } from "../../utils/predicates/isEmptyArray"
-import SideBarVendorBadges from "./SideBarVendorBadges"
+} from "../../redux/selectors.js"
+import type { ItemIdAndVendorId } from "../../types/reduxHelperTypes.js"
+import { isEmptyArray } from "../../utils/predicates/isEmptyArray.js"
+import { SideBarVendorBadges } from "./SideBarVendorBadges.js"
 
-type Props = {
-  itemId: number
-}
+type Props = Pick<ItemIdAndVendorId, "itemId">
 
-const SingleSideBarCategoryListItem: FC<Props> = ({ itemId }) => {
+export const SingleSideBarCategoryListItem = ({ itemId }: Props) => {
   const dispatch = useAppDispatch()
-  const ifAddedToAllVendors = useAppSelector(state =>
-    checkIfAddedToAllVendors(state, itemId),
-  )
+
+  const ifAddedToAllVendors = useCheckIfAddedToAllVendors(itemId)
+
   const itemName = useItemName(itemId)
 
   const vendorIds = useVendorIdsByItemId(itemId)
@@ -51,8 +50,8 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemId }) => {
         {!isEmptyArray(vendorIds) &&
           vendorIds.map(vendorId => (
             <SideBarVendorBadges
-              key={`SideBarVendorBadges-${itemId.toString()}${vendorId.toString()}`}
               itemId={itemId}
+              key={`${itemId.toString()}-${vendorId.toString()}-SideBarVendorBadges`}
               vendorId={vendorId}
             />
           ))}
@@ -60,5 +59,3 @@ const SingleSideBarCategoryListItem: FC<Props> = ({ itemId }) => {
     </>
   )
 }
-
-export default memo<Props>(SingleSideBarCategoryListItem)

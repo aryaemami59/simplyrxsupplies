@@ -1,5 +1,14 @@
-import { useContext } from "react"
+import { use } from "react"
+import { VendorIdContext } from "../contexts/VendorIdProvider.js"
 
-import { VendorIdContext } from "../contexts/VendorIdProvider"
+export const useVendorId = () => {
+  const value = use(VendorIdContext)
 
-export const useVendorId = () => useContext(VendorIdContext)
+  if (value == null) {
+    throw new Error(
+      `${useVendorId.name} must be called within a <VendorIdProvider> component.`,
+    )
+  }
+
+  return value
+}

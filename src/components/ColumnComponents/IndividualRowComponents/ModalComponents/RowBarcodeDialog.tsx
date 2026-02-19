@@ -2,21 +2,19 @@ import Dialog from "@mui/material/Dialog"
 import DialogActions from "@mui/material/DialogActions"
 import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
-import type { FC } from "react"
-import { memo } from "react"
-import Button from "react-bootstrap/Button"
-
-import { useItemId } from "../../../../hooks/useItemId"
-import { useItemName } from "../../../../redux/selectors"
-import BarcodeImage from "../BarcodeImage"
+import { Button } from "react-bootstrap"
+import { useItemId } from "../../../../hooks/useItemId.js"
+import { useItemName } from "../../../../redux/selectors.js"
+import { BarcodeImage } from "../BarcodeImage.js"
 
 type Props = {
-  hideModal: () => void
-  isModalOpen: boolean
+  readonly hideModal: () => void
+  readonly isModalOpen: boolean
 }
 
-const RowBarcodeDialog: FC<Props> = ({ hideModal, isModalOpen }) => {
+export const RowBarcodeDialog = ({ hideModal, isModalOpen }: Props) => {
   const itemId = useItemId()
+
   const itemName = useItemName(itemId)
 
   return (
@@ -39,5 +37,3 @@ const RowBarcodeDialog: FC<Props> = ({ hideModal, isModalOpen }) => {
     </Dialog>
   )
 }
-
-export default memo<Props>(RowBarcodeDialog)

@@ -1,40 +1,45 @@
 import { ThemeProvider } from "@mui/material/styles"
-import type { FC } from "react"
-import { createContext, memo, useMemo } from "react"
-import { useLocalStorageTheme } from "../hooks/useLocalStorageTheme"
-import { darkTheme, lightTheme } from "../shared/themes"
-import type { PropsWithRequiredChildren } from "../types/tsHelpers"
+import { createContext, useMemo } from "react"
+import { useLocalStorageTheme } from "../hooks/useLocalStorageTheme.js"
+import { darkTheme, lightTheme } from "../shared/themes.js"
+import type { PropsWithRequiredChildren } from "../types/tsHelpers.js"
 
 type Props = PropsWithRequiredChildren
 
 export const ColorModeContext = createContext({
+  /**
+   * @default lightTheme
+   */
+  theme: lightTheme,
+
   toggleColorMode: () => {
     /* no-op */
   },
-  theme: lightTheme,
 })
 
-const ColorModeProvider: FC<Props> = ({ children }) => {
+export const ColorModeProvider = ({ children }: Props) => {
   const [theme, setTheme] = useLocalStorageTheme()
+
   const colorMode = useMemo(
     () => ({
+      theme,
       toggleColorMode: () => {
-        setTheme(prev => {
-          const currentTheme = prev === lightTheme ? darkTheme : lightTheme
+        setTheme(previousTheme => {
+          const currentTheme =
+            previousTheme === lightTheme ? darkTheme : lightTheme
+
           localStorage.setItem("theme", currentTheme.palette.mode)
+
           return currentTheme
         })
       },
-      theme,
     }),
     [setTheme, theme],
   )
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
+    <ColorModeContext value={colorMode}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
-    </ColorModeContext.Provider>
+    </ColorModeContext>
   )
 }
-
-export default memo<Props>(ColorModeProvider)
