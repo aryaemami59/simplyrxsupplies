@@ -4,14 +4,14 @@ import { useEffect, useState } from "react"
 /**
  * @todo fix typing so it can handle non-string values too
  */
-const getSavedValue = <T extends string>(
+const getSavedValue = <InitialValueType extends string>(
   key: string,
-  initialValue: (() => T) | T,
-): T => {
+  initialValue: (() => InitialValueType) | InitialValueType,
+): InitialValueType => {
   const savedValue = localStorage.getItem(key)
 
   if (savedValue != null) {
-    return savedValue as T
+    return savedValue as InitialValueType
   }
 
   if (typeof initialValue === "function") {
@@ -24,10 +24,13 @@ const getSavedValue = <T extends string>(
 /**
  * @todo fix typing so it can handle non-string values too
  */
-export const useLocalStorage = <T extends string>(
+export const useLocalStorage = <InitialValueType extends string>(
   key: string,
-  initialValue: (() => T) | T,
-): [value: T, setValue: Dispatch<SetStateAction<T>>] => {
+  initialValue: (() => InitialValueType) | InitialValueType,
+): [
+  value: InitialValueType,
+  setValue: Dispatch<SetStateAction<InitialValueType>>,
+] => {
   const [value, setValue] = useState(() => getSavedValue(key, initialValue))
 
   useEffect(() => {

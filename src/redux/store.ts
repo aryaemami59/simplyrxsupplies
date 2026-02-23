@@ -22,7 +22,7 @@ export const setupStore = (preloadedState?: Partial<RootState>) =>
           })
             .concat(apiSlice.middleware)
             .concat(
-              createLogger({
+              /* @__PURE__ */ createLogger({
                 collapsed: true,
                 diff: true,
                 duration: true,

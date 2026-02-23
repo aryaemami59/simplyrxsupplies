@@ -50,8 +50,22 @@ const vitestConfig = defineConfig(configEnv =>
         exclude: [...defaultExclude, "src/hooks/loggers", ".yalc"],
         globals: true,
         includeTaskLocation: true,
-        name: packageJson.name,
-        reporters: [["verbose"], ["hanging-process"]],
+
+        name: {
+          label: packageJson.name,
+        },
+
+        reporters: process.env.GITHUB_ACTIONS
+          ? [
+              ["default", { summary: false }],
+              ["hanging-process", {}],
+              ["github-actions", {}],
+            ]
+          : [
+              ["default", {}],
+              ["hanging-process", {}],
+            ],
+
         root: import.meta.dirname,
         setupFiles: ["./src/tests/test-utils/setup.vitest.ts"],
         testTimeout: process.env.CI ? 15_000 : 10_000,
