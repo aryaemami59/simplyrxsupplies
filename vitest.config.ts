@@ -15,23 +15,23 @@ const vitestConfig = defineConfig(configEnv =>
     defineConfig({
       plugins: [
         viteReact({
-          babel: {
-            plugins: [
-              [
-                "babel-plugin-transform-react-remove-prop-types",
-                { removeImport: true },
-              ],
-              [
-                "macros",
-                {
-                  "fontawesome-svg-core": {
-                    license: "free",
-                  },
-                },
-              ],
-              ["babel-plugin-react-compiler"],
-            ],
-          },
+          // babel: {
+          //   plugins: [
+          //     [
+          //       "babel-plugin-transform-react-remove-prop-types",
+          //       { removeImport: true },
+          //     ],
+          //     [
+          //       "macros",
+          //       {
+          //         "fontawesome-svg-core": {
+          //           license: "free",
+          //         },
+          //       },
+          //     ],
+          //     ["babel-plugin-react-compiler"],
+          //   ],
+          // },
         }),
       ],
 

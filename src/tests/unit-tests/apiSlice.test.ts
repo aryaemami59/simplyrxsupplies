@@ -5,13 +5,16 @@ import {
   selectVendorsData,
 } from "../../redux/apiSlice.js"
 import type { SuppliesState } from "../../types/reduxHelperTypes.js"
+import type { Simplify } from "../../types/tsHelpers.js"
 import { EMPTY_ARRAY } from "../../utils/emptyArray.js"
 import type { LocalBaseTestContext } from "../test-utils/testUtils.js"
 import { isNode24, setupWithNoUI } from "../test-utils/testUtils.js"
 
-type LocalTestContext = LocalBaseTestContext & {
-  data: SuppliesState | undefined
-}
+type LocalTestContext = Simplify<
+  LocalBaseTestContext & {
+    data: SuppliesState | undefined
+  }
+>
 
 const localTest = test.extend<LocalTestContext>({
   data: [
@@ -19,6 +22,13 @@ const localTest = test.extend<LocalTestContext>({
       const data = selectMainData(store.getState())
 
       await use(data)
+
+      selectMainData.clearCache()
+      selectMainData.resetDependencyRecomputations()
+      selectMainData.resetRecomputations()
+      selectMainData.resetResultsCount()
+      selectMainData.memoizedResultFunc.clearCache()
+      selectMainData.memoizedResultFunc.resetResultsCount()
     },
     { auto: false },
   ],
@@ -54,7 +64,7 @@ describe("apiSlice with fetch", () => {
 })
 
 describe("apiSlice without fetch", () => {
-  localTest.scoped({ setupResults: setupWithNoUI({ fetch: false }) })
+  localTest.override({ setupResults: setupWithNoUI({ fetch: false }) })
 
   localTest("rtk query api call should fail", ({ data, store }) => {
     const state = store.getState()

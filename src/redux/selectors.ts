@@ -66,7 +66,7 @@ export const selectCartsItemIdsLength = createSelectorWeakMap(
 export const checkIfAnyItemsAdded = createSelectorWeakMap(
   [selectCartsItemIdsLength],
   itemIdsLengthArray =>
-    itemIdsLengthArray.reduce<boolean>(
+    itemIdsLengthArray.reduce(
       (accumulator, itemIdsLength) => itemIdsLength > 0 || accumulator,
       false,
     ),
@@ -169,7 +169,7 @@ export const selectCartsByItemId = createSelectorWeakMap(
 export const checkIfAddedToAllVendors = createSelectorWeakMap(
   [selectCartsByItemId, ROOT_SELECTOR_PARAMS_PROVIDER.getItemId],
   (carts, itemId) =>
-    carts.reduce<boolean>(
+    carts.reduce(
       (accumulator, cart) => cart.itemIds.includes(itemId) && accumulator,
       true,
     ),
@@ -264,6 +264,9 @@ export const resetAllSelectors = () => {
   Object.values(allSelectors).forEach(selector => {
     selector.clearCache()
     selector.resetRecomputations()
+    selector.resetDependencyRecomputations()
+    selector.resetResultsCount()
     selector.memoizedResultFunc.clearCache()
+    selector.memoizedResultFunc.resetResultsCount()
   })
 }

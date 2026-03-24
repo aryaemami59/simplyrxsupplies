@@ -13,7 +13,7 @@ import type {
 type Props = Simplify<
   Required<DistributedPick<IconButtonProps, "onClick">> & {
     readonly InputAdornmentProps?: PropsWithoutChildren<
-      Partial<DistributedOmit<InputAdornmentProps, "key">>
+      DistributedOmit<InputAdornmentProps, "key">
     >
   }
 >

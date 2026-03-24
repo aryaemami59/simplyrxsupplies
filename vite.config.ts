@@ -9,41 +9,30 @@ import { defineConfig } from "vitest/config"
 // https://vitejs.dev/config/
 const viteConfig = defineConfig(({ mode }) => {
   const commonOptions = {
-    build: {
-      rollupOptions: {
-        output: {
-          importAttributesKey: "with",
-        },
-      },
-    },
     define: {
       "import.meta.vitest": "undefined",
     },
-    esbuild: {
-      drop: ["console", "debugger"],
-      treeShaking: true,
-    },
     plugins: [
       viteReact({
-        babel: {
-          plugins: [
-            [
-              "macros",
-              {
-                "fontawesome-svg-core": {
-                  license: "free",
-                },
-              },
-            ],
-            [
-              "babel-plugin-react-compiler",
-              // {
-              //   compilationMode: "infer",
-              //   eslintSuppressionRules: [],
-              // } as const satisfies Partial<PluginOptions>,
-            ],
-          ],
-        },
+        // babel: {
+        //   plugins: [
+        //     [
+        //       "macros",
+        //       {
+        //         "fontawesome-svg-core": {
+        //           license: "free",
+        //         },
+        //       },
+        //     ],
+        //     [
+        //       "babel-plugin-react-compiler",
+        //       // {
+        //       //   compilationMode: "infer",
+        //       //   eslintSuppressionRules: [],
+        //       // } as const satisfies Partial<PluginOptions>,
+        //     ],
+        //   ],
+        // },
       }),
       macrosPlugin(),
       babelPlugin({
@@ -80,25 +69,14 @@ const viteConfig = defineConfig(({ mode }) => {
       ...commonOptions.define,
       // "import.meta.env.PROD": "false",
     },
-    esbuild: {
-      ...commonOptions.esbuild,
-      // pure: ["createLogger", "requireReduxLogger"],
-      treeShaking: true,
-    },
     plugins: [...commonOptions.plugins],
   } as const satisfies ViteUserConfig
 
   const productionConfig = {
     ...commonOptions,
     build: {
-      ...commonOptions.build,
       emptyOutDir: true,
       minify: true,
-    },
-
-    esbuild: {
-      ...commonOptions.esbuild,
-      treeShaking: true,
     },
 
     plugins: [...commonOptions.plugins],

@@ -29,7 +29,10 @@ type LocalTestContext = SetupWithNoUIResults
 
 const { initialState, store } = await setupWithNoUI()
 
-const localTest = test.extend<LocalTestContext>({ initialState, store })
+const localTest = test.extend({
+  initialState,
+  store,
+} as const satisfies LocalTestContext)
 
 describe("selectors", () => {
   localTest("selectItemNamesAndKeywords", ({ initialState }) => {
