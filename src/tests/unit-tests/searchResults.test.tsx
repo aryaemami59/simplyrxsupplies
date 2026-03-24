@@ -4,20 +4,22 @@ import {
   resetAllSelectors,
   selectItemNamesAndKeywords,
 } from "../../redux/selectors.js"
+import type { Simplify } from "../../types/tsHelpers.js"
 import type {
   ExtendedRenderResult,
   LocalBaseTestContext,
 } from "../test-utils/testUtils.js"
 import {
-  isNode24,
   queryByRoleFactory,
   renderWithProviders,
 } from "../test-utils/testUtils.js"
 
-type LocalTestContext = LocalBaseTestContext<ExtendedRenderResult> & {
-  inputField: HTMLInputElement
-  view: ExtendedRenderResult
-}
+type LocalTestContext = Simplify<
+  LocalBaseTestContext<ExtendedRenderResult> & {
+    inputField: HTMLInputElement
+    view: ExtendedRenderResult
+  }
+>
 
 const localTest = test.extend<LocalTestContext>({
   initialState: [
@@ -78,7 +80,7 @@ describe("search results", () => {
     expect(inputField).toHaveFocus()
   })
 
-  localTest.skipIf(isNode24)(
+  localTest(
     "10 search results show up when typing a letter.",
     async ({ inputField, view }) => {
       const { user } = view

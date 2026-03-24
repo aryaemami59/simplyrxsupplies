@@ -11,12 +11,15 @@ import {
   unCheckedOneVendorForAllSearchResults,
 } from "../../redux/addedSlice.js"
 import type { AddedState } from "../../types/reduxHelperTypes.js"
+import type { Simplify } from "../../types/tsHelpers.js"
 import type { LocalBaseTestContext } from "../test-utils/testUtils.js"
 import { isNode24, setupWithNoUI } from "../test-utils/testUtils.js"
 
-type LocalTestContext = LocalBaseTestContext & {
-  initialAddedState: AddedState
-}
+type LocalTestContext = Simplify<
+  LocalBaseTestContext & {
+    initialAddedState: AddedState
+  }
+>
 
 const localTest = test.extend<LocalTestContext>({
   initialAddedState: [

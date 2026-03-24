@@ -28,15 +28,18 @@ import {
   selectVendorItemIds,
   selectVendorsLinks,
 } from "../../redux/selectors.js"
+import type { Simplify } from "../../types/tsHelpers.js"
 import type {
   ExtendedRenderResult,
   LocalBaseTestContext,
 } from "../test-utils/testUtils.js"
 import { isNode24, renderWithProviders } from "../test-utils/testUtils.js"
 
-type LocalTestContext = LocalBaseTestContext<ExtendedRenderResult> & {
-  view: ExtendedRenderResult
-}
+type LocalTestContext = Simplify<
+  LocalBaseTestContext<ExtendedRenderResult> & {
+    view: ExtendedRenderResult
+  }
+>
 
 const localTest = test.extend<LocalTestContext>({
   initialState: [

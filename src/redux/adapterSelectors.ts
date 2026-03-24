@@ -71,7 +71,10 @@ export const LOCAL_SELECTORS: AdapterLocalizedSelectors = {
     },
   ),
 } as const satisfies AdapterLocalizedSelectors
-/** Takes RootState as an argument. */
+
+/**
+ * Takes `RootState` as an argument.
+ */
 export const GLOBAL_SELECTORS: AdapterGlobalizedSelectors = {
   cart: ENTITY_ADAPTERS.cart.getSelectors(TOP_LEVEL_SELECTORS.cart, {
     createSelector: createSelectorWeakMap,
