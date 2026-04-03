@@ -1,10 +1,8 @@
 import "vitest"
 
-interface CustomMatchers<R = unknown> {
-  toBeEmptyArray(): R
-}
-
 declare module "vitest" {
-  interface Assertion<T> extends CustomMatchers<T> {}
-  interface AsymmetricMatchersContaining extends CustomMatchers {}
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  interface Matchers<T = any> {
+    toBeEmptyArray(): T
+  }
 }

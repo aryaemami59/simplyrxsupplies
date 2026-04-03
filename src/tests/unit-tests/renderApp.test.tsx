@@ -33,7 +33,7 @@ import type {
   ExtendedRenderResult,
   LocalBaseTestContext,
 } from "../test-utils/testUtils.js"
-import { isNode24, renderWithProviders } from "../test-utils/testUtils.js"
+import { renderWithProviders } from "../test-utils/testUtils.js"
 
 type LocalTestContext = Simplify<
   LocalBaseTestContext<ExtendedRenderResult> & {
@@ -86,7 +86,7 @@ describe("render App", () => {
     vi.unstubAllGlobals()
   })
 
-  localTest.skipIf(isNode24)(
+  localTest(
     "selectors ui",
     { timeout: process.env.CI ? 20_000 : 10_000 },
     async ({ expect, onTestFailed, view }) => {

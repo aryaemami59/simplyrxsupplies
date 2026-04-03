@@ -169,36 +169,73 @@ export type DistributedPick<
   : never
 
 /**
- * A utility type that augments the given {@linkcode Props}
- * type with a **required**
- * {@linkcode PropsWithRequiredChildren.children | children}
- * property of type {@linkcode ReactNode}.
+ * A utility type that augments the given {@linkcode Props} type with a
+ * **required** {@linkcode PropsWithRequiredChildren.children | children}
+ * property of type {@linkcode ReactNode}. Unlike
+ * {@linkcode PropsWithChildren}, which adds an **optional**
+ * {@linkcode PropsWithChildren.children | children} property of type
+ * {@linkcode ReactNode}, this type requires that the
+ * {@linkcode PropsWithRequiredChildren.children | children} property be
+ * present.
  *
  * @example
- * <caption>Requires both `valueToCopy` and `children`.</caption>
+ * <caption>Compare optional vs required `children`</caption>
  *
  * ```tsx
- * import type { PropsWithRequiredChildren } from "../types/tsHelpers.js";
+ * import type { PropsWithChildren } from "react";
+ * import type { PropsWithRequiredChildren } from "./typeHelpers.js";
  *
- * type ClickToCopyTagProps = PropsWithRequiredChildren<{ valueToCopy: string }>;
+ * type OptionalCardProps = PropsWithChildren<{
+ *   readonly title: string;
+ * }>;
  *
- * export const ClickToCopyTag = ({
- *   children,
- *   valueToCopy,
- * }: ClickToCopyTagProps) => (
- *   <ClickToCopyWrapper {valueToCopy}>
- *     <ChakraTag>{children}</ChakraTag>
- *   </ClickToCopyWrapper>
+ * export const OptionalCard = ({ children, title }: OptionalCardProps) => (
+ *   <section>
+ *     <h2>{title}</h2>
+ *     {children}
+ *   </section>
+ * );
+ *
+ * export const OptionalCardWrapper = () => (
+ *   <OptionalCard title="Hello" /> // ✅ OK — no `children` required
+ * );
+ *
+ * type RequiredCardProps = PropsWithRequiredChildren<{
+ *   readonly title: string;
+ * }>;
+ *
+ * export const RequiredCard = ({ children, title }: RequiredCardProps) => (
+ *   <section>
+ *     <h2>{title}</h2>
+ *     {children}
+ *   </section>
+ * );
+ *
+ * export const RequiredCardWrapper = () => (
+ *   <section>
+ *     {/* @ts-expect-error *\/}
+ *     <RequiredCard title="Hello" />
+ *     {/* ❌ Error: `children` is required *\/}
+ *
+ *     <RequiredCard title="Hello">{null}</RequiredCard>
+ *     {/* ✅ OK — `null` is a valid `ReactNode` *\/}
+ *
+ *     <RequiredCard title="Hello">
+ *       <p>Content</p>
+ *     </RequiredCard>
+ *     {/* ✅ OK *\/}
+ *   </section>
  * );
  * ```
  *
  * @template Props - The base props type to extend. **Defaults to `unknown`**.
+ * @internal
  */
 export type PropsWithRequiredChildren<Props = unknown> = Simplify<
   Props & {
     /**
-     * The **required** {@linkcode PropsWithRequiredChildren.children | children}
-     * to render inside the component.
+     * The content to render inside the component. This property is
+     * **required**, though its value may be any valid {@linkcode ReactNode}.
      */
     readonly children: ReactNode
   }
@@ -214,11 +251,12 @@ export type PropsWithRequiredChildren<Props = unknown> = Simplify<
  * <caption>Button props without `children`</caption>
  *
  * ```tsx
- * import type { PropsWithoutChildren } from "../types/tsHelpers.js";
+ * import * as React from "react";
+ * import type { PropsWithoutChildren } from "./typeHelpers.js";
  *
  * type ButtonProps = {
- *   label: string;
  *   children?: React.ReactNode;
+ *   label: string;
  * };
  *
  * type LabelOnlyProps = PropsWithoutChildren<ButtonProps>;
@@ -226,41 +264,64 @@ export type PropsWithRequiredChildren<Props = unknown> = Simplify<
  * ```
  *
  * @template Props - The base props type to omit {@linkcode Props.children | children} from. Defaults to {@linkcode PropsWithChildren}.
+ * @internal
  */
 export type PropsWithoutChildren<
   Props extends PropsWithChildren = PropsWithChildren,
-> = Simplify<DistributedOmit<Props, "children">>
+> =
+  Props extends Pick<PropsWithChildren, "children">
+    ? Simplify<Omit<Props, "children">>
+    : Props
 
-export type DeepPartial<T> = {
-  [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K]
+export type DeepPartial<ObjectType extends object> = {
+  [ObjectKey in keyof ObjectType]?: ObjectType[ObjectKey] extends object
+    ? DeepPartial<ObjectType[ObjectKey]>
+    : ObjectType[ObjectKey]
 }
 
-export type WritableDeep<T> = {
-  -readonly [K in keyof T]: T[K] extends object ? WritableDeep<T[K]> : T[K]
+/**
+ * Make all properties in {@linkcode ObjectType} writable.
+ *
+ * @template ObjectType - The object type to make writable.
+ * @internal
+ */
+export type Writable<ObjectType> = {
+  -readonly [ObjectKey in keyof ObjectType]: ObjectType[ObjectKey]
 }
 
-export type PartialObjectProperties<T extends object> = {
-  [K in keyof T]: T[K] extends UnknownObject ? Partial<T[K]> : T[K]
+export type WritableDeep<ObjectType extends object> = {
+  -readonly [ObjectKey in keyof ObjectType]: ObjectType[ObjectKey] extends object
+    ? WritableDeep<ObjectType[ObjectKey]>
+    : ObjectType[ObjectKey]
+}
+
+export type PartialObjectProperties<ObjectType extends object> = {
+  [ObjectKey in keyof ObjectType]: ObjectType[ObjectKey] extends UnknownObject
+    ? Partial<ObjectType[ObjectKey]>
+    : ObjectType[ObjectKey]
 }
 
 export type ValuesOf<
-  TObj extends UnknownObject,
-  K extends keyof TObj = keyof TObj,
-> = TObj[K]
+  ObjectType extends UnknownObject,
+  ObjectKey extends keyof ObjectType = keyof ObjectType,
+> = ObjectType[ObjectKey]
 
 export type ObjectEntries<
-  TObj extends UnknownObject,
-  K extends keyof TObj = keyof TObj,
-> = TObj extends { readonly [X in K]: TObj[X] }
+  ObjectType extends UnknownObject,
+  ObjectKey extends keyof ObjectType = keyof ObjectType,
+> = ObjectType extends { readonly [X in ObjectKey]: ObjectType[X] }
   ? ValuesOf<{
-      readonly [X in K]: [X, Pick<TObj, X>[X]]
+      readonly [ObjectKeyType in ObjectKey]: [
+        ObjectKeyType,
+        Pick<ObjectType, ObjectKeyType>[ObjectKeyType],
+      ]
     }>[]
   : never
 
-export type Predicate<T> = (value: unknown) => value is T
+export type Predicate<TargetType> = (value: unknown) => value is TargetType
 
-export type ObjectChecker<T extends object> = {
-  [K in keyof T]: Predicate<T[K]>
+export type ObjectChecker<ObjectType extends object> = {
+  [ObjectKey in keyof ObjectType]: Predicate<ObjectType[ObjectKey]>
 }
 
 export type AnyFunction = (...args: never[]) => unknown
@@ -285,6 +346,8 @@ export type IfNever<TypeToCheck, TypeIfNever = true, TypeIfNotNever = false> =
  * **`null`** or **`undefined`**. It is mostly used for semantic purposes to
  * help distinguish between an empty object type and **`{}`**
  * as they are not the same.
+ *
+ * @internal
  */
 export type AnyNonNullishValue = NonNullable<unknown>
 

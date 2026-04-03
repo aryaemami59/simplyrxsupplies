@@ -8,7 +8,7 @@ import type { SuppliesState } from "../../types/reduxHelperTypes.js"
 import type { Simplify } from "../../types/tsHelpers.js"
 import { EMPTY_ARRAY } from "../../utils/emptyArray.js"
 import type { LocalBaseTestContext } from "../test-utils/testUtils.js"
-import { isNode24, setupWithNoUI } from "../test-utils/testUtils.js"
+import { setupWithNoUI } from "../test-utils/testUtils.js"
 
 type LocalTestContext = Simplify<
   LocalBaseTestContext & {
@@ -53,14 +53,12 @@ const localTest = test.extend<LocalTestContext>({
 })
 
 describe("apiSlice with fetch", () => {
-  localTest.skipIf(isNode24)(
-    "RTK query api call should be successful",
-    ({ data }) => {
-      expect(data).toBeDefined()
-      expect(data?.cart[0]?.itemIds).toBe(EMPTY_ARRAY)
-      expect(data?.items).not.toBe(EMPTY_ARRAY)
-    },
-  )
+  localTest("RTK query api call should be successful", ({ data }) => {
+    // TODO: Change this to `expect.assert.isDefined(data)`.
+    expect.assert(data)
+    expect(data.cart[0]?.itemIds).toBe(EMPTY_ARRAY)
+    expect(data.items).not.toBe(EMPTY_ARRAY)
+  })
 })
 
 describe("apiSlice without fetch", () => {

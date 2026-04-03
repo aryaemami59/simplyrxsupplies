@@ -5,6 +5,7 @@ import {
   createRenderStream,
   disableActEnvironment,
 } from "@testing-library/react-render-stream"
+import type { Options, UserEvent } from "@testing-library/user-event"
 import { userEvent } from "@testing-library/user-event"
 import type { ReactElement } from "react"
 import { Provider } from "react-redux"
@@ -16,14 +17,25 @@ import type { Supplies } from "../../types/api.js"
 import type {
   PartialObjectProperties,
   PropsWithRequiredChildren,
-  UnknownObject,
-  WritableDeep,
+  Simplify,
 } from "../../types/tsHelpers.js"
 import { capitalize } from "../../utils/capitalize.js"
 
 disableActEnvironment()
 
 const { render } = createRenderStream()
+
+type SetupWithNoUIOptions = {
+  /**
+   * @default true
+   */
+  fetch?: boolean
+}
+
+export type SetupWithNoUIResults = {
+  initialState: RootState
+  store: AppStore
+}
 
 export const setupWithNoUI = async (
   options: SetupWithNoUIOptions = {},
@@ -41,71 +53,92 @@ export const setupWithNoUI = async (
   return { initialState, store }
 }
 
-export type ByRole = {
-  [K in keyof typeof queries]: K extends `${infer S extends string}ByRole`
-    ? `${S}ByRole`
-    : never
-}[keyof typeof queries]
+type Queries = Simplify<typeof queries>
 
-export type PickByRole = Pick<typeof queries, ByRole>
+type ByRole = keyof {
+  [QueryFunctionName in keyof Queries as QueryFunctionName extends `${infer _QueryFunctionPrefix extends string}ByRole`
+    ? QueryFunctionName
+    : never]: QueryFunctionName
+}
 
-export type CustomQueries<T extends Parameters<typeof screen.getAllByRole>[0]> =
-  {
-    [K in ByRole as InsertRole<K, T>]: () => ReturnType<PickByRole[K]>
-  }
+type ScreenGetAllByRole<HTMLElementType extends HTMLElement = HTMLElement> =
+  typeof screen.getAllByRole<HTMLElementType>
 
-export type InsertRole<
-  K extends ByRole,
-  T extends Parameters<typeof screen.getAllByRole>[0],
-> = K extends `${infer U extends string}ByRole`
-  ? `${U}` extends `${infer S extends string}All`
-    ? `${S}All${Capitalize<T>}sByRole`
-    : `${U}${Capitalize<T>}ByRole`
-  : `${T}ByRole`
+type ByRoleMatcher<HTMLElementType extends HTMLElement = HTMLElement> =
+  Parameters<ScreenGetAllByRole<HTMLElementType>>[0]
+
+type ByRoleOptions<HTMLElementType extends HTMLElement = HTMLElement> =
+  Parameters<ScreenGetAllByRole<HTMLElementType>>[1]
+
+type InsertRole<
+  ByRoleType extends ByRole,
+  ByRoleMatcherType extends ByRoleMatcher,
+> = ByRoleType extends `${infer RolePrefix extends string}ByRole`
+  ? `${RolePrefix}` extends `${infer AllRolePrefix extends string}All`
+    ? `${AllRolePrefix}All${Capitalize<ByRoleMatcherType>}sByRole`
+    : `${RolePrefix}${Capitalize<ByRoleMatcherType>}ByRole`
+  : `${ByRoleMatcherType}ByRole`
+
+type CustomQueries<ByRoleMatcherType extends ByRoleMatcher> = Simplify<{
+  [RoleKey in ByRole as InsertRole<
+    RoleKey,
+    ByRoleMatcherType
+  >]: () => ReturnType<Queries[RoleKey]>
+}>
 
 export const queryByRoleFactory = <
-  T extends HTMLElement,
-  P extends Parameters<typeof screen.getAllByRole<T>>[0] = Parameters<
-    typeof screen.getAllByRole<T>
-  >[0],
+  HTMLElementType extends HTMLElement,
+  ByRoleMatcherType extends ByRoleMatcher<HTMLElementType> =
+    ByRoleMatcher<HTMLElementType>,
 >(
-  role: P,
-  options: Parameters<typeof screen.getAllByRole<T>>[1],
-): CustomQueries<P> => {
+  role: ByRoleMatcherType,
+  options: ByRoleOptions<HTMLElementType>,
+): CustomQueries<ByRoleMatcherType> => {
   const args = [role, options] as const
+
   const capitalizedRole = capitalize(role)
-  const customQueries: CustomQueries<P> = {
+
+  const customQueries: CustomQueries<ByRoleMatcherType> = {
     [`find${capitalizedRole}ByRole` as const]: async () =>
-      screen.findByRole<T>(...args),
+      screen.findByRole<HTMLElementType>(...args),
     [`findAll${capitalizedRole}sByRole` as const]: async () =>
-      screen.findAllByRole<T>(...args),
+      screen.findAllByRole<HTMLElementType>(...args),
     [`get${capitalizedRole}ByRole` as const]: () =>
-      screen.getByRole<T>(...args),
+      screen.getByRole<HTMLElementType>(...args),
     [`getAll${capitalizedRole}sByRole` as const]: () =>
-      screen.getAllByRole<T>(...args),
+      screen.getAllByRole<HTMLElementType>(...args),
     [`query${capitalizedRole}ByRole` as const]: () =>
-      screen.queryByRole<T>(...args),
+      screen.queryByRole<HTMLElementType>(...args),
     [`queryAll${capitalizedRole}sByRole` as const]: () =>
-      screen.queryAllByRole<T>(...args),
-  } as CustomQueries<P>
+      screen.queryAllByRole<HTMLElementType>(...args),
+  } as CustomQueries<ByRoleMatcherType>
+
   return customQueries
 }
 
-export type UserEvent = ReturnType<typeof userEvent.setup>
+type UserEventType = Simplify<UserEvent>
 
-export type UserEventOptions = NonNullable<
-  Parameters<typeof userEvent.setup>[0]
->
+type UserEventOptions = Simplify<Options>
 
 /**
  * This type extends the default options for render from `RTL`, as well as
  * allows the user to specify other things such as `initialState`, `store`.
  */
-export type ExtendedRenderOptions = Omit<RenderOptions, "queries"> & {
-  fetch?: boolean
-  preloadedState?: Partial<RootState>
-  store?: AppStore
-}
+type ExtendedRenderOptions = Simplify<
+  Omit<RenderOptions, "queries"> & {
+    fetch?: boolean
+    preloadedState?: Simplify<Partial<RootState>>
+    store?: Simplify<AppStore>
+  }
+>
+
+export type ExtendedRenderResult = Simplify<
+  Awaited<ReturnType<AsyncRenderFn>> & {
+    screen: Simplify<typeof screen>
+    store: Simplify<AppStore>
+    user: UserEventType
+  }
+>
 
 /**
  * A wrapper for {@linkcode render}
@@ -150,13 +183,7 @@ export const renderWithProviders = async (
   } satisfies ExtendedRenderResult
 }
 
-export type ExtendedRenderResult = Awaited<ReturnType<AsyncRenderFn>> & {
-  screen: typeof screen
-  store: AppStore
-  user: UserEvent
-}
-
-export type NewSuppliesSample = PartialObjectProperties<Supplies>
+type NewSuppliesSample = PartialObjectProperties<Supplies>
 
 export const newSuppliesSample = {
   categories: [
@@ -203,26 +230,13 @@ export const newSuppliesSample = {
   ],
 } satisfies NewSuppliesSample
 
-export const unFreeze = <T extends UnknownObject>(object: T): WritableDeep<T> =>
-  JSON.parse(JSON.stringify(object)) as WritableDeep<T>
-
-export type SetupWithNoUIOptions = {
-  /**
-   * @default true
-   */
-  fetch?: boolean
-}
-
-export type SetupWithNoUIResults = {
-  initialState: RootState
-  store: AppStore
-}
-
 export type LocalBaseTestContext<
   SetupResults extends ExtendedRenderResult | SetupWithNoUIResults =
     SetupWithNoUIResults,
-> = SetupWithNoUIResults & {
-  setupResults: Promise<SetupResults>
-}
+> = Simplify<
+  SetupWithNoUIResults & {
+    setupResults: Promise<Simplify<SetupResults>>
+  }
+>
 
 export const isNode24 = Number.parseFloat(process.versions.node) >= 24

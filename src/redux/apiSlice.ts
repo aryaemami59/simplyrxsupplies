@@ -16,11 +16,12 @@ type BoxedVoid<T = void> = T
 export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
   // refetchOnFocus: true,
-  endpoints: builder => ({
-    getMain: builder.query<SuppliesState, BoxedVoid>({
+  endpoints: build => ({
+    getMain: build.query<SuppliesState, BoxedVoid>({
       query: () => "",
       transformResponse: (supplies: Supplies) => {
         const { categories, items, vendors } = supplies
+
         return {
           cart: vendors.map<Cart>(({ id }) => ({
             id,

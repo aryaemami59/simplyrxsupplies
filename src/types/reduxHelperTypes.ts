@@ -15,6 +15,7 @@ import type {
 } from "../redux/createSelectors.js"
 import type { RootState } from "../redux/store.js"
 import type { Category, Item, Vendor } from "./api.js"
+import type { AnyFunction, Simplify } from "./tsHelpers.js"
 
 /**
  * Controls the one to many relationship between an item and its vendors in
@@ -112,14 +113,18 @@ export type StateAdapters = {
   readonly searchResults: SearchResultsItem
 }
 
-export type AdaptersHelper = ApiAdapters & StateAdapters
+export type AllAdapters = Simplify<ApiAdapters & StateAdapters>
 
-export type Adapters = {
-  readonly [K in keyof AdaptersHelper]: EntityAdapter<AdaptersHelper[K], number>
+export type AllEntityAdapters = {
+  readonly [AdapterKey in keyof AllAdapters]: Simplify<
+    EntityAdapter<Simplify<AllAdapters[AdapterKey]>, number>
+  >
 }
 
 export type AdaptersInitialStates = {
-  readonly [K in keyof AdaptersHelper]: EntityState<AdaptersHelper[K], number>
+  readonly [AdapterKey in keyof AllAdapters]: Simplify<
+    EntityState<Simplify<AllAdapters[AdapterKey]>, number>
+  >
 }
 
 type SelectorParam = {
@@ -129,18 +134,17 @@ type SelectorParam = {
 }
 
 export type SelectorParamsProvider<
-  State extends object,
-  Params extends readonly SelectorParam[],
-> = {
-  readonly [K in Params[number] as `get${Capitalize<K["name"]>}`]: (
-    state: State,
-    ...params: K["params"]
-  ) => K["returnType"]
-}
+  StateType extends object,
+  SelectorParametersType extends readonly SelectorParam[],
+> = Simplify<{
+  readonly [SelectorParameter in SelectorParametersType[number] as `get${Capitalize<SelectorParameter["name"]>}`]: (
+    state: StateType,
+    ...params: SelectorParameter["params"]
+  ) => SelectorParameter["returnType"]
+}>
 
-export type TopLevelSelectorsForAddedState = TopLevelSelectors<
-  RootState,
-  "added"
+export type TopLevelSelectorsForAddedState = Simplify<
+  TopLevelSelectors<RootState, "added">
 >
 
 export type RootSelectorParamsProvider = SelectorParamsProvider<
@@ -165,10 +169,8 @@ export type RootSelectorParamsProvider = SelectorParamsProvider<
 >
 
 export type AdapterGlobalizedSelectors = {
-  readonly [K in keyof AdaptersHelper]: EntitySelectors<
-    AdaptersHelper[K],
-    RootState,
-    number
+  readonly [AdapterKey in keyof AllAdapters]: Simplify<
+    EntitySelectors<AllAdapters[AdapterKey], RootState, number>
   >
 }
 
@@ -178,9 +180,9 @@ export type AdapterSelectors = {
 }
 
 export type AppSelector<
-  Result = unknown,
-  Params extends Parameters<Selector> = Parameters<Selector>,
-> = Selector<RootState, Result, Params>
+  SelectorResultType = unknown,
+  SelectorParametersType extends Parameters<Selector> = Parameters<Selector>,
+> = Selector<RootState, SelectorResultType, SelectorParametersType>
 
 export type AddedSliceSelectorParamsProvider = SelectorParamsProvider<
   AddedState,
@@ -199,59 +201,68 @@ export type AddedSliceSelectorParamsProvider = SelectorParamsProvider<
 >
 
 export type AdapterLocalizedSelectors = {
-  readonly [K in keyof StateAdapters]: EntitySelectors<
-    StateAdapters[K],
-    AddedState,
-    number
+  readonly [StateAdapterKey in keyof StateAdapters]: Simplify<
+    EntitySelectors<StateAdapters[StateAdapterKey], AddedState, number>
   >
 }
 
 export type AddedSelector<
-  Return = unknown,
-  Params extends readonly unknown[] = unknown[],
-> = Selector<AddedState, Return, Params>
+  SelectorResultType = unknown,
+  SelectorParametersType extends readonly unknown[] = unknown[],
+> = Selector<AddedState, SelectorResultType, SelectorParametersType>
 
 export type TopLevelSelectors<
-  State extends object,
-  P extends keyof State = never,
-> = [P] extends [never]
-  ? {
-      [K in keyof State as `select${Capitalize<
-        Extract<K, string>
-      >}`]: ReturnType<
-        typeof createDraftSafeAddedSelector<
-          [AddedSelector<State, never>],
-          State[K]
+  StateType extends object,
+  StateKeyType extends keyof StateType = never,
+> = Simplify<
+  [StateKeyType] extends [never]
+    ? {
+        [StateKey in keyof StateType as `select${Capitalize<
+          Extract<StateKey, string>
+        >}`]: ReturnType<
+          typeof createDraftSafeAddedSelector<
+            [AddedSelector<StateType, never>],
+            StateType[StateKey]
+          >
         >
-      >
-    }
-  : {
-      [K in keyof State[P]]: ReturnType<
-        typeof createAppSelector<[AppSelector<AddedState, never>], State[P][K]>
-      >
-    }
+      }
+    : {
+        [SelectorKey in keyof StateType[StateKeyType]]: ReturnType<
+          typeof createAppSelector<
+            [AppSelector<AddedState, never>],
+            StateType[StateKeyType][SelectorKey]
+          >
+        >
+      }
+>
 
 export type AddedState = {
-  -readonly [K in keyof StateAdapters]: EntityState<StateAdapters[K], number>
+  -readonly [StateAdapterKey in keyof StateAdapters]: Simplify<
+    EntityState<Simplify<StateAdapters[StateAdapterKey]>, number>
+  >
 }
 
-export type DefaultMemoize = typeof lruMemoize
-export type WeakMapMemoize = typeof weakMapMemoize
-export type AutotrackMemoize = typeof autotrackMemoize
+export type DefaultMemoize<FunctionType extends AnyFunction = AnyFunction> =
+  typeof lruMemoize<FunctionType>
+export type WeakMapMemoize<FunctionType extends AnyFunction = AnyFunction> =
+  typeof weakMapMemoize<FunctionType>
+export type AutotrackMemoize<FunctionType extends AnyFunction = AnyFunction> =
+  typeof autotrackMemoize<FunctionType>
 
 export type Results = {
   readonly name: string
   readonly time: number
 }
 
-export type MappedAdapterSelectors = {
-  [K in keyof AdapterGlobalizedSelectors]: {
-    [P in keyof AdapterGlobalizedSelectors[K] as `select${Capitalize<K>}${RemoveSelect<
-      Extract<P, string>
-    >}`]: AdapterGlobalizedSelectors[K][P]
+export type MappedAdapterSelectors = Simplify<{
+  [AdapterKey in keyof AdapterGlobalizedSelectors]: {
+    [SelectorKey in keyof AdapterGlobalizedSelectors[AdapterKey] as `select${Capitalize<AdapterKey>}${RemoveSelect<
+      Extract<SelectorKey, string>
+    >}`]: Simplify<AdapterGlobalizedSelectors[AdapterKey][SelectorKey]>
   }
-}
+}>
 
-export type RemoveSelect<S extends string> = S extends `select${infer P}`
-  ? P
-  : never
+export type RemoveSelect<SelectorNameType extends string> =
+  SelectorNameType extends `select${infer SelectorNameWithoutSelectPrefix extends string}`
+    ? SelectorNameWithoutSelectPrefix
+    : never

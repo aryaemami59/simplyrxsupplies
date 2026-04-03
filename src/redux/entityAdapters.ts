@@ -1,14 +1,14 @@
 import { createEntityAdapter } from "@reduxjs/toolkit"
 import type { Category, Item, Vendor } from "../types/api.js"
 import type {
-  Adapters,
+  AllEntityAdapters,
   Cart,
   CartItems,
   ItemVendors,
   SearchResultsItem,
 } from "../types/reduxHelperTypes.js"
 
-export const ENTITY_ADAPTERS: Adapters = {
+export const ENTITY_ADAPTERS: AllEntityAdapters = {
   cart: createEntityAdapter<Cart>(),
 
   cartItems: createEntityAdapter<CartItems>(),
@@ -22,4 +22,4 @@ export const ENTITY_ADAPTERS: Adapters = {
   searchResults: createEntityAdapter<SearchResultsItem>(),
 
   vendors: createEntityAdapter<Vendor>(),
-} as const satisfies Adapters
+} as const satisfies AllEntityAdapters

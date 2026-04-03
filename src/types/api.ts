@@ -113,4 +113,6 @@ export type Supplies = {
   readonly vendors: Vendor[]
 }
 
-export type ItemNameAndKeywords = Pick<Item, "id" | "keywords" | "name">
+export type ItemNameAndKeywords = Simplify<
+  Pick<Item, "id" | "keywords" | "name">
+>
