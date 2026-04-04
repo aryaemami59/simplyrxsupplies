@@ -16,6 +16,10 @@ export const BarcodeImage = ({ className = "" }: Props) => {
   const itemName = useItemName(itemId)
 
   return (
-    <img alt={itemName} className={`${className} barcode-image`} src={src} />
+    <img
+      alt={itemName}
+      className={`${className ? `${className} ` : ""}barcode-image`}
+      src={src}
+    />
   )
 }
