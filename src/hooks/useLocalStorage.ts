@@ -8,7 +8,8 @@ const getSavedValue = <InitialValueType extends string>(
   key: string,
   initialValue: (() => InitialValueType) | InitialValueType,
 ): InitialValueType => {
-  const savedValue = localStorage.getItem(key)
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  const savedValue = localStorage?.getItem?.(key)
 
   if (savedValue != null) {
     return savedValue as InitialValueType
@@ -34,7 +35,8 @@ export const useLocalStorage = <InitialValueType extends string>(
   const [value, setValue] = useState(() => getSavedValue(key, initialValue))
 
   useEffect(() => {
-    localStorage.setItem(key, value)
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    localStorage?.setItem?.(key, value)
   }, [key, value])
 
   return [value, setValue] as const

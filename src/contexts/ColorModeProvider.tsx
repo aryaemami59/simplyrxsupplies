@@ -28,7 +28,8 @@ export const ColorModeProvider = ({ children }: Props) => {
           const currentTheme =
             previousTheme === lightTheme ? darkTheme : lightTheme
 
-          localStorage.setItem("theme", currentTheme.palette.mode)
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          localStorage?.setItem?.("theme", currentTheme.palette.mode)
 
           return currentTheme
         })
