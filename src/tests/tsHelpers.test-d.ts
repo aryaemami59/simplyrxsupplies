@@ -77,6 +77,7 @@ describe("tsHelpers type tests", () => {
     fn(someInterface) // ❌ Error: Index signature for type 'string' is missing in type 'SomeInterface'. Because `interface` can be re-opened
     // @ts-expect-error ❌ Error: Index signature for type 'string' is missing in type 'SomeInterface'. Because `interface` can be re-opened
     expectTypeOf(fn).toBeCallableWith(someInterface)
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     fn(someInterface as Simplify<SomeInterface>) // ✅ Good: transform an `interface` into a `type`
   })
 

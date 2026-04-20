@@ -1,3 +1,5 @@
+import type { Theme } from "@mui/material/styles"
+import type { Dispatch, SetStateAction } from "react"
 import { useState } from "react"
 import { darkTheme, lightTheme } from "../shared/themes.js"
 
@@ -27,4 +29,11 @@ const getCurrentTheme = () => {
   }
 }
 
-export const useLocalStorageTheme = () => useState(getCurrentTheme)
+export const useLocalStorageTheme = (): readonly [
+  theme: Theme,
+  setTheme: Dispatch<SetStateAction<Theme>>,
+] => {
+  const [theme, setTheme] = useState(getCurrentTheme)
+
+  return [theme, setTheme] as const
+}

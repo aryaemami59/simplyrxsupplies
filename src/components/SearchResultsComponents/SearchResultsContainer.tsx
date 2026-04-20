@@ -23,12 +23,14 @@ export const SearchResultsContainer = () => {
   const [visibleListIds, setVisibleListIds] = useState(memoizedSearchResultsIds)
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect, react-x/set-state-in-effect
     setVisibleListIds(memoizedSearchResultsIds)
 
     if (memoizedSearchResultsIds.length === searchResultsIds.length) {
+      // eslint-disable-next-line react-x/set-state-in-effect
       setHasMore(false)
     } else {
+      // eslint-disable-next-line react-x/set-state-in-effect
       setHasMore(true)
     }
   }, [searchResultsIds, memoizedSearchResultsIds])

@@ -46,6 +46,6 @@ export const useComponentDidUpdate = (
     }
 
     memoizedCallback.current()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps, react-x/exhaustive-deps
   }, deps)
 }

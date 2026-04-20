@@ -3,10 +3,8 @@ import type { TSESLint } from "@typescript-eslint/utils"
 import vitestPlugin from "@vitest/eslint-plugin"
 import type { Linter } from "eslint"
 import prettierConfig from "eslint-config-prettier/flat"
-import jsxA11yPlugin from "eslint-plugin-jsx-a11y"
 import perfectionistPlugin from "eslint-plugin-perfectionist"
 import preferArrowFunctionsPlugin from "eslint-plugin-prefer-arrow-functions"
-import reactPlugin from "eslint-plugin-react"
 import reactHooksPlugin from "eslint-plugin-react-hooks"
 import reactXPlugin from "eslint-plugin-react-x"
 import { defineConfig } from "eslint/config"
@@ -84,16 +82,18 @@ const eslintConfig = defineConfig(
     name: `${preferArrowFunctionsPlugin.meta.name}/all`,
     ...preferArrowFunctionsPlugin.configs.all,
   },
-  {
-    name: "react/recommended",
-    ...reactPlugin.configs.flat.recommended,
-  },
-  {
-    name: "react/jsx-runtime",
-    ...reactPlugin.configs.flat["jsx-runtime"],
-  },
-
-  jsxA11yPlugin.flatConfigs.strict,
+  // TODO: Add back when `eslint-plugin-react` adds support for ESLint v10. [Reference](https://github.com/jsx-eslint/eslint-plugin-react/issues/3977).
+  // {
+  //   name: "react/recommended",
+  //   ...reactPlugin.configs.flat.recommended,
+  // },
+  // TODO: Add back when `eslint-plugin-react` adds support for ESLint v10. [Reference](https://github.com/jsx-eslint/eslint-plugin-react/issues/3977).
+  // {
+  //   name: "react/jsx-runtime",
+  //   ...reactPlugin.configs.flat["jsx-runtime"],
+  // },
+  // TODO: Add back when `eslint-plugin-jsx-a11y` adds support for ESLint v10. [Reference](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/issues/1075).
+  // jsxA11yPlugin.flatConfigs.strict,
 
   {
     name: `${perfectionistPlugin.meta?.name ?? ""}/recommended-natural`,
