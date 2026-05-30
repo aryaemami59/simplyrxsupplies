@@ -7,23 +7,21 @@ import { useComponentDidUpdate } from "../useComponentDidUpdate.js"
 
 export type LoggerStyleOptions = {
   /**
-   * CSS (hyphen-case) properties applied to the **component name**
-   * segment in the console log.
+   * CSS (hyphen-case) properties applied to the **component name** segment in
+   * the console log.
    *
    * @default { color: "violet", "font-size": "15px" }
    */
   componentNameStyle?: Simplify<PropertiesHyphen>
 
   /**
-   * CSS (hyphen-case) properties applied to the **render count**
-   * segment in the console log.
+   * CSS (hyphen-case) properties applied to the **render count** segment in
+   * the console log.
    *
    * @default { color: "violet", "font-size": "15px" }
    */
   renderCountStyle?: Simplify<PropertiesHyphen>
 }
-
-type UseComponentUpdateLoggerOptions = LoggerStyleOptions
 
 export const DEFAULT_COMPONENT_LOGGER_OPTIONS = {
   componentNameStyle: {
@@ -34,7 +32,7 @@ export const DEFAULT_COMPONENT_LOGGER_OPTIONS = {
     color: "violet",
     "font-size": "15px",
   },
-} as const satisfies UseComponentUpdateLoggerOptions
+} as const satisfies LoggerStyleOptions
 
 /**
  * DEV-ONLY: Logs whenever the component **re-renders**
@@ -76,7 +74,7 @@ export const DEFAULT_COMPONENT_LOGGER_OPTIONS = {
  * ```
  */
 export const useComponentUpdateLogger = (
-  useComponentUpdateLoggerOptions: UseComponentUpdateLoggerOptions = {},
+  useComponentUpdateLoggerOptions: LoggerStyleOptions = {},
 ): void => {
   const componentName = useMemo(() => inferComponentNameFromStack(), [])
 
@@ -91,7 +89,7 @@ export const useComponentUpdateLogger = (
           ...DEFAULT_COMPONENT_LOGGER_OPTIONS.renderCountStyle,
           ...useComponentUpdateLoggerOptions.renderCountStyle,
         },
-      }) as const satisfies UseComponentUpdateLoggerOptions,
+      }) as const satisfies LoggerStyleOptions,
     [
       useComponentUpdateLoggerOptions.componentNameStyle,
       useComponentUpdateLoggerOptions.renderCountStyle,
