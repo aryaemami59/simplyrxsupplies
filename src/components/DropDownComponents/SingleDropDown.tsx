@@ -15,7 +15,7 @@ export const SingleDropDown = ({ itemId, vendorId }: Props) => {
 
   const ifAddedToVendor = useCheckIfAddedToVendor(vendorId, itemId)
 
-  const clickHandler = useCallback<MouseEventHandler<HTMLElement>>(() => {
+  const clickHandler = useCallback<MouseEventHandler<HTMLLIElement>>(() => {
     if (!ifAddedToVendor) {
       dispatch(itemAddedToCarts({ itemId }))
     }
