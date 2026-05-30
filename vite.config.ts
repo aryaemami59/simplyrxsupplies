@@ -60,8 +60,9 @@ const viteConfig = defineConfig(({ mode }) => {
   } as const satisfies ViteUserConfig
 
   const developmentConfig = {
+    ...commonOptions,
     build: {
-      ...commonOptions,
+      // ...commonOptions,
       cssMinify: false,
       minify: false,
     },
@@ -75,9 +76,18 @@ const viteConfig = defineConfig(({ mode }) => {
   const productionConfig = {
     ...commonOptions,
     build: {
+      cssMinify: true,
       emptyOutDir: true,
       minify: true,
+      // rolldownOptions: {
+      //   output: {
+      //     codeSplitting: {},
+      //   },
+      // },
     },
+    // define: {
+    //   ...commonOptions.define,
+    // },
 
     plugins: [...commonOptions.plugins],
   } as const satisfies ViteUserConfig
