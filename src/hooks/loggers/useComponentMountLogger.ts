@@ -5,9 +5,12 @@ import type { LoggerStyleOptions } from "./useComponentUpdateLogger.js"
 import { DEFAULT_COMPONENT_LOGGER_OPTIONS } from "./useComponentUpdateLogger.js"
 
 /**
- * Use only in development mode
+ * Checks when component mounts and unmounts and logs the results to the
+ * console.
  *
- * Checks when component mounts and unmounts and logs the results to the console.
+ * **Note**: Use only in development mode.
+ *
+ * @param [options] - Optional styles for the console logs.
  */
 export const useComponentMountLogger = (
   options: Pick<LoggerStyleOptions, "componentNameStyle"> = {},
