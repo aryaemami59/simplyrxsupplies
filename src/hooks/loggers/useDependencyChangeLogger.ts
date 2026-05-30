@@ -3,17 +3,29 @@ import { capitalize } from "../../utils/capitalize.js"
 import { inferComponentNameFromStack } from "../../utils/inferComponentNameFromStack.js"
 import { useComponentDidUpdate } from "../useComponentDidUpdate.js"
 
+type UseDependencyChangeLoggerOptions = {
+  /**
+   * The dependency that we are checking for.
+   */
+  dependency: unknown
+
+  /**
+   * Name of the dependency that we are checking for.
+   *
+   * @default "Unknown Dependency"
+   */
+  dependencyName?: string
+}
+
 /**
  * Use only in development mode
  *
  * Checks when a single dependency changes and logs the results to the console.
- * @param dependency - The dependency that we are checking for.
- * @param depName - Name of the dependency that we are checking for.
+ * @param dependencyObject - An object containing the dependency to check and its name.
  */
-export const useDependencyChangeLogger = (dependencyObject: {
-  dependency: unknown
-  dependencyName?: string
-}) => {
+export const useDependencyChangeLogger = (
+  dependencyObject: UseDependencyChangeLoggerOptions,
+): void => {
   const componentName = useMemo(() => inferComponentNameFromStack(), [])
 
   const { dependency, dependencyName = "Unknown Dependency" } = dependencyObject
