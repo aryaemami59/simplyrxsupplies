@@ -156,7 +156,8 @@ const eslintConfig = defineConfig(
         2,
         {
           allowAsThisParameter: false,
-          allowInGenericTypeArguments: ["BoxedVoid"],
+          allowInGenericTypeArguments: true,
+          // allowInGenericTypeArguments: ["BoxedVoid"],
         },
       ],
       "@typescript-eslint/no-namespace": [
