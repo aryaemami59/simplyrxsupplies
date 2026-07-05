@@ -14,4 +14,12 @@ const vendorProperties: ObjectChecker<Vendor> = {
   officialName: isString,
 } as ObjectChecker<Vendor>
 
+/**
+ * Type guard that checks whether {@linkcode value} is a valid {@linkcode Vendor}
+ * object. Validates the presence and types of all required {@linkcode Vendor}
+ * properties via {@linkcode complexDataTypePredicateFactory}.
+ *
+ * @param value - The value to check.
+ * @returns `true` when {@linkcode value} conforms to the {@linkcode Vendor} shape.
+ */
 export const isVendor = complexDataTypePredicateFactory(vendorProperties)

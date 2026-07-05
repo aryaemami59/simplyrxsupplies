@@ -1,6 +1,8 @@
 /**
- * Splits a word by space.
- * @param str - the string parameter.
- * @returns An array of words separated by white space.
+ * Splits {@linkcode str} into individual words, using any run of whitespace
+ * as the delimiter.
+ *
+ * @param str - The string to split on whitespace.
+ * @returns An array of words separated by whitespace.
  */
 export const splitBySpace = (str: string) => str.split(/\s+/u)

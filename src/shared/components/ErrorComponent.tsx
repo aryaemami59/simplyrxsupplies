@@ -1,5 +1,10 @@
 import { Alert } from "react-bootstrap"
 
+/**
+ * Displays a full-width Bootstrap danger {@linkcode Alert} when a page fails
+ * to load. Intended to be used as the `errorElement` in a React Router route
+ * or as a generic error boundary fallback UI.
+ */
 export const ErrorComponent = () => (
   <div className="justify-content-center d-flex mt-5 w-100">
     <Alert className="w-75" variant="danger">

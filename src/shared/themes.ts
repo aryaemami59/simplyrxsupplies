@@ -35,6 +35,12 @@ const breakpoints = {
   },
 } as const satisfies BreakpointsOptions
 
+/**
+ * The MUI theme applied when light mode is active. Selected and persisted by
+ * the color mode provider.
+ *
+ * @see {@linkcode darkTheme}
+ */
 export const lightTheme = createTheme({
   breakpoints,
   colorSchemes: {
@@ -63,6 +69,12 @@ export const lightTheme = createTheme({
   },
 })
 
+/**
+ * The MUI theme applied when dark mode is active. Selected and persisted by
+ * the color mode provider.
+ *
+ * @see {@linkcode lightTheme}
+ */
 export const darkTheme = createTheme({
   breakpoints,
   colorSchemes: {

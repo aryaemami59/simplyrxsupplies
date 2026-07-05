@@ -9,6 +9,10 @@ import { Tooltip } from "../../../shared/components/Tooltip.js"
 
 type Props = {
   /**
+   * The text content to be copied to the clipboard when the icon is clicked.
+   * This should be either an item name or item number, depending on the
+   * context in which the {@linkcode CopyIcon} is used.
+   *
    * @example
    * <caption>Item Name</caption>
    *
@@ -26,11 +30,26 @@ type Props = {
   readonly content: string
 
   /**
-   * @example "Name"
+   * A label indicating the type of content being copied, which is used in the
+   * tooltip message when the copy action is performed. This should be either
+   * `"Name"` or `"Number"` to reflect whether the content is an item name or
+   * item number, respectively.
    *
-   * @example "Number"
+   * @example
+   * <caption>Copy button label for item name</caption>
+   *
+   * ```tsx
+   * "Name"
+   * ```
+   *
+   * @example
+   * <caption>Copy button label for item number</caption>
+   *
+   * ```tsx
+   * "Number"
+   * ```
    */
-  readonly text: string
+  readonly text: "Name" | "Number"
 }
 
 export const CopyIcon = ({ content, text }: Props) => {

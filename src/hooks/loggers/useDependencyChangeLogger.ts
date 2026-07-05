@@ -5,12 +5,12 @@ import { useComponentDidUpdate } from "../useComponentDidUpdate.js"
 
 type UseDependencyChangeLoggerOptions = {
   /**
-   * The dependency that we are checking for.
+   * The dependency value to watch for changes.
    */
   dependency: unknown
 
   /**
-   * Name of the dependency that we are checking for.
+   * Human-readable name of the dependency shown in the console log.
    *
    * @default "Unknown Dependency"
    */
@@ -18,10 +18,30 @@ type UseDependencyChangeLoggerOptions = {
 }
 
 /**
- * Use only in development mode
+ * Logs a styled console message whenever a single dependency value changes,
+ * including the dependency's current value and its runtime type.
+ * The component name is inferred automatically via
+ * {@linkcode inferComponentNameFromStack()}.
  *
- * Checks when a single dependency changes and logs the results to the console.
- * @param dependencyObject - An object containing the dependency to check and its name.
+ * **Note**: Use only in development mode.
+ *
+ * @param dependencyObject - An object containing the dependency to watch and its display name.
+ *
+ * @example
+ * <caption>Watch a prop for changes</caption>
+ *
+ * ```tsx
+ * import { useDependencyChangeLogger } from "../../hooks/loggers/useDependencyChangeLogger.js";
+ *
+ * export const Example = ({ count }: { count: number }) => {
+ *   useDependencyChangeLogger({
+ *     dependency: count,
+ *     dependencyName: "count",
+ *   });
+ *
+ *   return <div>Count: {count}</div>;
+ * };
+ * ```
  */
 export const useDependencyChangeLogger = (
   dependencyObject: UseDependencyChangeLoggerOptions,

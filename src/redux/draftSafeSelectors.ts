@@ -3,12 +3,24 @@ import { fallbackToEmptyArray } from "../utils/fallbackToEmptyArray.js"
 import { ADAPTER_SELECTORS } from "./adapterSelectors.js"
 import { createDraftSafeAddedSelector } from "./createSelectors.js"
 
-export const ADDED_SLICE_SELECTOR_PARAMS_PROVIDER: AddedSliceSelectorParamsProvider =
-  {
-    getCartId: (_added, cartId) => cartId,
-    getItemId: (_added, itemId) => itemId,
-  } as const satisfies AddedSliceSelectorParamsProvider
+/**
+ * Input selectors that forward the extra positional arguments passed to a
+ * selector (a cart ID or an item ID) through as their result. Used to feed
+ * per-call parameters into the memoized selectors in
+ * {@linkcode DRAFT_SAFE_SELECTORS}.
+ */
+export const ADDED_SLICE_SELECTOR_PARAMS_PROVIDER = {
+  getCartId: (_added, cartId) => cartId,
+  getItemId: (_added, itemId) => itemId,
+} as const satisfies AddedSliceSelectorParamsProvider
 
+/**
+ * Draft-safe memoized selectors (created via
+ * {@linkcode createDraftSafeAddedSelector()}) that derive cart and
+ * item-vendor data from the added slice. Being draft-safe, they can be called
+ * with an Immer draft - e.g. inside the slice reducers - as well as with
+ * normal state.
+ */
 export const DRAFT_SAFE_SELECTORS = {
   selectCartItems: createDraftSafeAddedSelector(
     [ADAPTER_SELECTORS.LOCAL.cart.selectById],

@@ -1,7 +1,15 @@
 import type { PropsWithChildren, ReactNode } from "react"
 
+/**
+ * A plain object type with `string` keys and `unknown` values. Used as a
+ * base constraint for generic object utilities throughout the codebase.
+ */
 export type UnknownObject = Record<string, unknown>
 
+/**
+ * The type of a tuple with zero elements. Used to represent and narrow empty
+ * arrays while preserving their identity via {@linkcode EMPTY_ARRAY}.
+ */
 export type EmptyTuple = []
 
 /**
@@ -197,7 +205,7 @@ export type DistributedPick<
  * );
  *
  * export const OptionalCardWrapper = () => (
- *   <OptionalCard title="Hello" /> // ✅ OK — no `children` required
+ *   <OptionalCard title="Hello" /> // ✅ OK - no `children` required
  * );
  *
  * type RequiredCardProps = PropsWithRequiredChildren<{
@@ -218,7 +226,7 @@ export type DistributedPick<
  *     {/* ❌ Error: `children` is required *\/}
  *
  *     <RequiredCard title="Hello">{null}</RequiredCard>
- *     {/* ✅ OK — `null` is a valid `ReactNode` *\/}
+ *     {/* ✅ OK - `null` is a valid `ReactNode` *\/}
  *
  *     <RequiredCard title="Hello">
  *       <p>Content</p>
@@ -273,6 +281,12 @@ export type PropsWithoutChildren<
     ? Simplify<Omit<Props, "children">>
     : Props
 
+/**
+ * Recursively makes all properties of {@linkcode ObjectType} optional,
+ * descending into nested object types.
+ *
+ * @template ObjectType - The object type to make deeply partial.
+ */
 export type DeepPartial<ObjectType extends object> = {
   [ObjectKey in keyof ObjectType]?: ObjectType[ObjectKey] extends object
     ? DeepPartial<ObjectType[ObjectKey]>
@@ -289,23 +303,53 @@ export type Writable<ObjectType> = {
   -readonly [ObjectKey in keyof ObjectType]: ObjectType[ObjectKey]
 }
 
+/**
+ * Recursively removes `readonly` modifiers from all properties of
+ * {@linkcode ObjectType}, descending into nested object types.
+ *
+ * @template ObjectType - The object type to make deeply writable.
+ */
 export type WritableDeep<ObjectType extends object> = {
-  -readonly [ObjectKey in keyof ObjectType]: ObjectType[ObjectKey] extends object
+  -readonly [
+    ObjectKey in keyof ObjectType
+  ]: ObjectType[ObjectKey] extends object
     ? WritableDeep<ObjectType[ObjectKey]>
     : ObjectType[ObjectKey]
 }
 
+/**
+ * For each property of {@linkcode ObjectType} whose value is itself an
+ * object, wraps that value type with {@linkcode Partial}, making its nested
+ * properties optional. Leaf (non-object) property types are left unchanged.
+ *
+ * @template ObjectType - The object type whose nested object properties will be partialized.
+ */
 export type PartialObjectProperties<ObjectType extends object> = {
   [ObjectKey in keyof ObjectType]: ObjectType[ObjectKey] extends UnknownObject
     ? Partial<ObjectType[ObjectKey]>
     : ObjectType[ObjectKey]
 }
 
+/**
+ * Extracts a union of all value types of {@linkcode ObjectType}, optionally
+ * scoped to a specific subset of keys via {@linkcode ObjectKey}.
+ *
+ * @template ObjectType - The object type to extract values from.
+ * @template ObjectKey - The subset of keys whose values to include. Defaults to all keys.
+ */
 export type ValuesOf<
   ObjectType extends UnknownObject,
   ObjectKey extends keyof ObjectType = keyof ObjectType,
 > = ObjectType[ObjectKey]
 
+/**
+ * Produces a union of `[key, value]` tuple types for each key–value pair in
+ * {@linkcode ObjectType}. Useful as a strongly-typed alternative to
+ * {@linkcode Object.entries | Object.entries()}.
+ *
+ * @template ObjectType - The object type to derive entry tuples from.
+ * @template ObjectKey - The subset of keys to include. Defaults to all keys.
+ */
 export type ObjectEntries<
   ObjectType extends UnknownObject,
   ObjectKey extends keyof ObjectType = keyof ObjectType,
@@ -318,26 +362,78 @@ export type ObjectEntries<
     }>[]
   : never
 
+/**
+ * A type-guard function signature that narrows an `unknown` value to
+ * {@linkcode TargetType}.
+ *
+ * @template TargetType - The type that the predicate narrows to.
+ */
 export type Predicate<TargetType> = (value: unknown) => value is TargetType
 
+/**
+ * A record that maps each key of {@linkcode ObjectType} to a
+ * {@linkcode Predicate} for the corresponding value type. Used by
+ * {@linkcode complexDataTypePredicateFactory} to validate complex objects.
+ *
+ * @template ObjectType - The object type whose properties are to be checked.
+ */
 export type ObjectChecker<ObjectType extends object> = {
   [ObjectKey in keyof ObjectType]: Predicate<ObjectType[ObjectKey]>
 }
 
+/**
+ * A function type that accepts any number of arguments (typed as `never[]`
+ * to allow assignment from any function) and returns `unknown`. Used as a
+ * loose upper bound for generic function constraints.
+ */
 export type AnyFunction = (...args: never[]) => unknown
 
+/**
+ * A function type that accepts any number of `unknown` arguments and returns
+ * `unknown`. Less strict than {@linkcode AnyFunction} - accepts functions
+ * whose parameters are not typed as `never`.
+ */
 export type UnknownFunction = (...args: unknown[]) => unknown
 
+/**
+ * Excludes the empty string `""` from the given {@linkcode StringType},
+ * resolving to `never` when `""` is assignable to it. Useful as a constraint
+ * to reject empty-string literals at the type level.
+ *
+ * @template StringType - The string type to enforce non-emptiness on.
+ */
 export type NonEmptyString<StringType extends string> = "" extends StringType
   ? never
   : StringType
 
+/**
+ * Evaluates to `true` when {@linkcode TypeToCheck} does not include the
+ * empty string `""`, and `false` otherwise.
+ *
+ * @template TypeToCheck - The type to test for non-emptiness.
+ */
 export type IsNonEmptyString<TypeToCheck> = "" extends TypeToCheck
   ? false
   : true
 
+/**
+ * Evaluates to `true` when {@linkcode TypeToCheck} is the `never` type, and
+ * `false` otherwise. Uses a tuple wrapper to prevent distributive behavior
+ * over unions.
+ *
+ * @template TypeToCheck - The type to test.
+ */
 export type IsNever<TypeToCheck> = [TypeToCheck] extends [never] ? true : false
 
+/**
+ * Conditional type that resolves to {@linkcode TypeIfNever} when
+ * {@linkcode TypeToCheck} is `never`, and to {@linkcode TypeIfNotNever}
+ * otherwise. Delegates to {@linkcode IsNever} for the check.
+ *
+ * @template TypeToCheck - The type to test.
+ * @template TypeIfNever - The type to resolve to when `TypeToCheck` is `never`. Defaults to `true`.
+ * @template TypeIfNotNever - The type to resolve to when `TypeToCheck` is not `never`. Defaults to `false`.
+ */
 export type IfNever<TypeToCheck, TypeIfNever = true, TypeIfNotNever = false> =
   IsNever<TypeToCheck> extends true ? TypeIfNever : TypeIfNotNever
 
@@ -405,18 +501,46 @@ export type Simplify<BaseType> = BaseType extends (...args: never[]) => unknown
       [KeyType in keyof BaseType]: BaseType[KeyType]
     }
 
+/**
+ * A union of all JavaScript primitive value types:
+ * `bigint`, `boolean`, `null`, `number`, `string`, `symbol`, and `undefined`.
+ */
 export type Primitive =
-  | bigint
-  | boolean
-  | null
-  | number
-  | string
-  | symbol
-  | undefined
+  bigint | boolean | null | number | string | symbol | undefined
 
+/**
+ * A JSON-safe primitive: `boolean`, `null`, `number`, or `string`.
+ * Does not include `undefined`, `bigint`, or `symbol`, which are not valid
+ * in JSON.
+ *
+ * @see {@linkcode JsonValue}
+ */
 export type JsonPrimitive = boolean | null | number | string
+
+/**
+ * Represents any valid JSON value: a {@linkcode JsonPrimitive}, a
+ * {@linkcode JsonObject}, or a {@linkcode JsonArray}.
+ *
+ * @see {@linkcode JsonPrimitive}
+ * @see {@linkcode JsonObject}
+ * @see {@linkcode JsonArray}
+ */
 export type JsonValue = JsonArray | JsonObject | JsonPrimitive
+
+/**
+ * Represents a JSON object whose string keys map to {@linkcode JsonValue}
+ * values. Equivalent to `{ [Key in string]: JsonValue }`.
+ *
+ * @see {@linkcode JsonValue}
+ */
 export type JsonObject = { [Key in string]: JsonValue }
+
+/**
+ * Represents a JSON array: either a mutable or readonly array of
+ * {@linkcode JsonValue} elements.
+ *
+ * @see {@linkcode JsonValue}
+ */
 export type JsonArray = JsonValue[] | readonly JsonValue[]
 
 /**

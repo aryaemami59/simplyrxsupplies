@@ -4,9 +4,10 @@ import { useEffect, useRef } from "react"
 /**
  * Runs a callback function after the component updates,
  * **excluding** the initial mount. This hook provides the functional
- * equivalent of React's `componentDidUpdate` lifecycle method.
- * The callback executes whenever the specified dependencies change,
- * but is skipped on the first render.
+ * equivalent of React's
+ * {@linkcode React.ComponentLifecycle.componentDidUpdate | componentDidUpdate()}
+ * lifecycle method. The callback executes whenever the specified dependencies
+ * change, but is skipped on the first render.
  *
  * @param callback - A function to execute after updates.
  * @param deps - An array of dependencies that trigger the callback when changed.

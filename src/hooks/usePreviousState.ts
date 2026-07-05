@@ -26,7 +26,7 @@ import { useEffect, useRef, useState } from "react"
  *   return (
  *     <button
  *       onClick={() => {
- *         setCount(previousCount => previousCount + 1);
+ *         setCount((previousCount) => previousCount + 1);
  *       }}
  *     >
  *       Count: {count}

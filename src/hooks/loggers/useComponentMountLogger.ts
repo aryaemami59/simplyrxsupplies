@@ -5,12 +5,39 @@ import type { LoggerStyleOptions } from "./useComponentUpdateLogger.js"
 import { DEFAULT_COMPONENT_LOGGER_OPTIONS } from "./useComponentUpdateLogger.js"
 
 /**
- * Checks when component mounts and unmounts and logs the results to the
- * console.
+ * Logs a styled message to the console when a component mounts and again
+ * when it unmounts. The component name is inferred automatically via
+ * {@linkcode inferComponentNameFromStack()}.
  *
  * **Note**: Use only in development mode.
  *
- * @param [options] - Optional styles for the console logs.
+ * @param [options] - Optional CSS style overrides for the component name token.
+ *
+ * @example
+ * <caption>Basic usage inside a component</caption>
+ *
+ * ```tsx
+ * import { useComponentMountLogger } from "../../hooks/loggers/useComponentMountLogger.js";
+ *
+ * export const Example = () => {
+ *   useComponentMountLogger();
+ *   return <div>Hello</div>;
+ * };
+ * ```
+ *
+ * @example
+ * <caption>Override the component name style</caption>
+ *
+ * ```tsx
+ * import { useComponentMountLogger } from "../../hooks/loggers/useComponentMountLogger.js";
+ *
+ * export const Example = () => {
+ *   useComponentMountLogger({
+ *     componentNameStyle: { color: "coral", "font-weight": "700" },
+ *   });
+ *   return <div>Hello</div>;
+ * };
+ * ```
  */
 export const useComponentMountLogger = (
   options: Pick<LoggerStyleOptions, "componentNameStyle"> = {},

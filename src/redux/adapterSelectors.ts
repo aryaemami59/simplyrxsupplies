@@ -17,6 +17,12 @@ import {
 import { ENTITY_ADAPTERS } from "./entityAdapters.js"
 import { TOP_LEVEL_SELECTORS } from "./topLevelSelectors.js"
 
+/**
+ * Entity-adapter selectors for each collection, created **without** a state
+ * root - each operates directly on the entity-adapter state passed as its
+ * first argument. Cart-related collections use the draft-safe selector creator
+ * so they can run inside reducers.
+ */
 export const SIMPLE_SELECTORS = {
   cart: ENTITY_ADAPTERS.cart.getSelectors(undefined, {
     createSelector: createDraftSafSelectorWeakMap,
@@ -47,8 +53,12 @@ export const SIMPLE_SELECTORS = {
   }),
 }
 
-/** Takes AddedState as an argument. Need to be draft safe. Mostly used inside of reducers. */
-export const LOCAL_SELECTORS: AdapterLocalizedSelectors = {
+/**
+ * Localized entity-adapter selectors that read each collection out of the
+ * added slice's state (e.g. `added.cart`). Being draft-safe, they are mostly
+ * used inside reducers.
+ */
+export const LOCAL_SELECTORS = {
   cart: ENTITY_ADAPTERS.cart.getSelectors(added => added.cart, {
     createSelector: createDraftSafSelectorWeakMap,
   }),
@@ -73,9 +83,11 @@ export const LOCAL_SELECTORS: AdapterLocalizedSelectors = {
 } as const satisfies AdapterLocalizedSelectors
 
 /**
- * Takes `RootState` as an argument.
+ * Globalized entity-adapter selectors that read each collection from the full
+ * root state, wired to the top-level and API-data input selectors. These are
+ * the selectors consumed throughout the component tree.
  */
-export const GLOBAL_SELECTORS: AdapterGlobalizedSelectors = {
+export const GLOBAL_SELECTORS = {
   cart: ENTITY_ADAPTERS.cart.getSelectors(TOP_LEVEL_SELECTORS.cart, {
     createSelector: createSelectorWeakMap,
   }),
@@ -114,6 +126,11 @@ export const GLOBAL_SELECTORS: AdapterGlobalizedSelectors = {
   }),
 } as const satisfies AdapterGlobalizedSelectors
 
+/**
+ * Flattens {@linkcode GLOBAL_SELECTORS} into a single object of selectors,
+ * renaming each entry (e.g. `selectById` → `selectVendorsById`) so the
+ * collection name is embedded in the selector's key and function name.
+ */
 export const getAllEntitySelectors = () => {
   const gg = Object.entries(GLOBAL_SELECTORS).reduce(
     (prev, [key, value]) => ({
@@ -133,7 +150,12 @@ export const getAllEntitySelectors = () => {
   return gg
 }
 
-export const ADAPTER_SELECTORS: AdapterSelectors = {
+/**
+ * Groups the {@linkcode GLOBAL_SELECTORS | GLOBAL} and
+ * {@linkcode LOCAL_SELECTORS | LOCAL} entity-adapter selectors under a single
+ * object.
+ */
+export const ADAPTER_SELECTORS = {
   GLOBAL: GLOBAL_SELECTORS,
   LOCAL: LOCAL_SELECTORS,
 } as const satisfies AdapterSelectors

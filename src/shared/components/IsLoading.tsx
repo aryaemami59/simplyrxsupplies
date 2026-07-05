@@ -1,5 +1,10 @@
 import { Spinner } from "react-bootstrap"
 
+/**
+ * Displays a centered Bootstrap {@linkcode Spinner} to indicate that data is
+ * being fetched or a page is being loaded. Intended for use as a `Suspense`
+ * fallback or an RTK Query loading state placeholder.
+ */
 // export const IsLoading = () => (
 //   <div className="d-flex justify-content-center">
 //     <CircularProgress

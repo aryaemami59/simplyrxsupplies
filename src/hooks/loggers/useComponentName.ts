@@ -2,7 +2,11 @@ import { useMemo } from "react"
 import { inferComponentNameFromStack } from "../../utils/inferComponentNameFromStack.js"
 
 /**
- * @todo make sure this works with {@linkcode React.useDebugValue | useDebugValue()}.
+ * Returns the name of the calling React component by parsing the current
+ * {@linkcode Error} stack trace via {@linkcode inferComponentNameFromStack()}.
+ * Falls back to `"Component"` when the name cannot be determined.
+ *
+ * @returns The inferred component name string.
  */
 export const useComponentName = () => {
   // TODO: this does not work with `useDebugValue()`

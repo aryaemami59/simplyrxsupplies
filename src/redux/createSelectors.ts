@@ -165,9 +165,18 @@ import type { RootState } from "./store.js"
 
 // const element = createDraftSafeSelector.withTypes<RootState>()
 
-/** A {@link createSelector} function that takes {@link RootState} as the first argument in its input selectors. */
+/**
+ * A {@linkcode createSelector()} function that takes {@linkcode RootState} as
+ * the first argument in its input selectors.
+ */
 // export const createAppSelector = createSelectorCreatorWrapper(defaultMemoize)
 export const createAppSelector = createSelectorCreator(lruMemoize)
+
+/**
+ * A selector creator that uses Reselect's
+ * {@linkcode unstable_autotrackMemoize()} for both result and argument
+ * memoization. Best suited to selectors that access nested fields.
+ */
 export const createAutotrackSelector = createSelectorCreator({
   argsMemoize: unstable_autotrackMemoize,
   memoize: unstable_autotrackMemoize,
@@ -180,6 +189,12 @@ export const createAutotrackSelector = createSelectorCreator({
 // export const createSelectorWeakMap = createSelectorCreator({
 //   memoize: weakMapMemoize,
 // })
+/**
+ * A {@linkcode createSelector()} function, pre-typed with
+ * {@linkcode RootState}, that uses Reselect's default
+ * {@linkcode weakMapMemoize()} strategy. Used to create selectors shared
+ * across multiple component instances.
+ */
 export const createSelectorWeakMap = createSelector.withTypes<RootState>()
 // export const createSelectorWeakMap = createSelectorCreator({
 //   memoize: unstable_autotrackMemoize,
@@ -188,19 +203,29 @@ export const createSelectorWeakMap = createSelector.withTypes<RootState>()
 // export const createSelectorWeakmap =
 //   createSelectorCreatorWrapper(weakMapMemoize)
 // export const createSelectorWeakmap = createSelectorCreator(weakMapMemoize)
-/** Used to create selectors that are used to access nested fields in data. */
+/**
+ * Used to create selectors that are used to access nested fields in data.
+ */
 // export const createSelectorAutotrack = createSelectorCreator(autotrackMemoize)
 // export const createSelectorAutotrack: TypedExtendedCreateSelectorFunction<
 //   RootState,
 //   AutotrackMemoize
 // > = createSelectorCreatorWrapper(autotrackMemoize);
 
+/**
+ * A draft-safe selector creator using {@linkcode lruMemoize()}. Safe to call
+ * with an Immer draft state, e.g. inside reducers.
+ */
 export const createDraftSafeAppSelector =
   createDraftSafeSelectorCreator(lruMemoize)
 // export const createDraftSafeAppSelector: TypedExtendedCreateSelectorFunction<
 //   RootState,
 //   DefaultMemoize
 // > = createDraftSafeSelectorCreatorCorrected(defaultMemoize);
+/**
+ * A draft-safe selector creator using {@linkcode weakMapMemoize()}. Safe to
+ * call with an Immer draft state, e.g. inside reducers.
+ */
 export const createDraftSafSelectorWeakMap =
   createDraftSafeSelectorCreator(weakMapMemoize)
 // export const createDraftSafSelectorWeakMap: TypedExtendedCreateSelectorFunction<
@@ -209,12 +234,21 @@ export const createDraftSafSelectorWeakMap =
 // > = createDraftSafeSelectorCreatorCorrected(weakMapMemoize);
 // export const createDraftSafSelectorAutotrack =
 //   createDraftSafeSelectorCreatorCorrected(autotrackMemoize)
+/**
+ * The draft-safe selector creator used for the added slice's selectors,
+ * memoized with {@linkcode weakMapMemoize}.
+ */
 export const createDraftSafeAddedSelector = createDraftSafeSelectorCreator({
   memoize: weakMapMemoize,
 })
 // export const createDraftSafeAddedSelector =
 //   createDraftSafeSelectorCreator(lruMemoize)
 // TODO: remove later.
+/**
+ * A debugging selector creator that warns via {@linkcode console.error()} when
+ * a selector's input or result reference changes even though the value is
+ * still shallow-equal - a signal of unnecessary recomputation.
+ */
 export const createDebugSelector = createSelectorCreator(lruMemoize, {
   equalityCheck: (previousVal: unknown, currentVal: unknown) => {
     const isSame = currentVal === previousVal
@@ -381,43 +415,81 @@ export const createDebugSelector = createSelectorCreator(lruMemoize, {
 //   return { results, fastest } as const;
 // };
 
-export const objectEntries = <ObjectType extends Record<string, unknown>>(
-  objectInput: ObjectType,
-): {
-  [ObjectKey in Extract<keyof ObjectType, string>]: [
-    ObjectKey,
-    ObjectType[ObjectKey],
-  ]
-}[Extract<keyof ObjectType, string>][] =>
-  Object.entries(objectInput) as {
+/**
+ * A strongly-typed wrapper around {@linkcode Object.entries()} that preserves
+ * the key and value types of {@linkcode objectInput} in the returned array of
+ * `[key, value]` tuples.
+ *
+ * @param objectInput - The object whose entries are returned.
+ * @returns An array of typed `[key, value]` tuples.
+ */
+export const objectEntries =
+  /**
+   * @template ObjectType - The object type whose entries are produced.
+   */
+  <ObjectType extends Record<string, unknown>>(
+    objectInput: ObjectType,
+  ): {
     [ObjectKey in Extract<keyof ObjectType, string>]: [
       ObjectKey,
       ObjectType[ObjectKey],
     ]
-  }[Extract<keyof ObjectType, string>][]
+  }[Extract<keyof ObjectType, string>][] =>
+    Object.entries(objectInput) as {
+      [ObjectKey in Extract<keyof ObjectType, string>]: [
+        ObjectKey,
+        ObjectType[ObjectKey],
+      ]
+    }[Extract<keyof ObjectType, string>][]
 
-export const objectFromEntries = <Entries extends [string, unknown]>(
-  entries: Entries[],
-): {
-  [EntryKey in Entries[0]]: Extract<Entries, [EntryKey, Entries[1]]>[1]
-} =>
-  Object.fromEntries(entries) as {
+/**
+ * A strongly-typed wrapper around {@linkcode Object.fromEntries()} that
+ * reconstructs an object type from an array of `[key, value]` tuples.
+ *
+ * @param entries - The array of `[key, value]` tuples to build the object from.
+ * @returns The object assembled from {@linkcode entries}.
+ */
+export const objectFromEntries =
+  /**
+   * @template Entries - The `[key, value]` tuple type of the input entries.
+   */
+  <Entries extends [string, unknown]>(
+    entries: Entries[],
+  ): {
     [EntryKey in Entries[0]]: Extract<Entries, [EntryKey, Entries[1]]>[1]
-  }
+  } =>
+    Object.fromEntries(entries) as {
+      [EntryKey in Entries[0]]: Extract<Entries, [EntryKey, Entries[1]]>[1]
+    }
 
+/**
+ * Wraps a parametric selector (one that takes the state plus extra arguments)
+ * into a React hook that reads from the store via
+ * {@linkcode useAppSelector()}, forwarding the hook's arguments to the
+ * selector.
+ *
+ * @param selector - The parametric selector to wrap into a hook.
+ * @returns A hook that accepts the selector's extra arguments and returns its result.
+ */
 export const createParametricSelectorHook =
+  /**
+   * @template Result - The value the selector returns.
+   * @template Params - The tuple of extra arguments the selector accepts.
+   */
   <Result, Params extends readonly [unknown, ...(readonly unknown[])]>(
-    selector: (selector: RootState, ...args: Params) => Result,
-  ) =>
-  (...args: Params) =>
-    useAppSelector(state => selector(state, ...args))
+      selector: (selector: RootState, ...args: Params) => Result,
+    ) =>
+    (...args: Params) =>
+      useAppSelector(state => selector(state, ...args))
 
 type MapSelectorsToHooks<
   SelectorsObjectType extends SelectorsObject<RootState>,
 > = {
-  [SelectorName in keyof SelectorsObjectType as SelectorName extends `select${infer R}`
-    ? `use${R}`
-    : `use${Capitalize<Extract<SelectorName, string>>}`]: SelectorsObjectType[SelectorName] extends Selector<
+  [
+    SelectorName in keyof SelectorsObjectType as SelectorName extends `select${infer R}`
+      ? `use${R}`
+      : `use${Capitalize<Extract<SelectorName, string>>}`
+  ]: SelectorsObjectType[SelectorName] extends Selector<
     RootState,
     infer Result,
     infer Params
@@ -426,22 +498,33 @@ type MapSelectorsToHooks<
     : never
 }
 
-export const createParametricSelectorHooks = <
-  SelectorsObjectType extends SelectorsObject<RootState>,
->(
-  selectors: SelectorsObjectType,
-): MapSelectorsToHooks<SelectorsObjectType> =>
-  objectFromEntries(
-    objectEntries(selectors).map(
-      ([selectorName, selector]) =>
-        [
-          selectorName.startsWith("select")
-            ? selectorName.replace(/^select/, "use")
-            : `use${capitalize(selectorName)}`,
-          createParametricSelectorHook(selector),
-        ] as const,
-    ),
-  ) as MapSelectorsToHooks<SelectorsObjectType>
+/**
+ * Maps an object of parametric selectors into an object of React hooks, one
+ * per selector. Each `select*` key becomes a `use*` hook (built via
+ * {@linkcode createParametricSelectorHook()}); other keys are prefixed with
+ * `use` and capitalized.
+ *
+ * @param selectors - The object of parametric selectors to convert into hooks.
+ * @returns An object of hooks keyed by the derived `use*` names.
+ */
+export const createParametricSelectorHooks =
+  /**
+   * @template SelectorsObjectType - The shape of the input selectors object.
+   */
+  <SelectorsObjectType extends SelectorsObject<RootState>>(
+    selectors: SelectorsObjectType,
+  ): MapSelectorsToHooks<SelectorsObjectType> =>
+    objectFromEntries(
+      objectEntries(selectors).map(
+        ([selectorName, selector]) =>
+          [
+            selectorName.startsWith("select")
+              ? selectorName.replace(/^select/, "use")
+              : `use${capitalize(selectorName)}`,
+            createParametricSelectorHook(selector),
+          ] as const,
+      ),
+    ) as MapSelectorsToHooks<SelectorsObjectType>
 
 // export const useCurriedSelector =
 //   <Args extends unknown[], SelectorOutput>(
@@ -461,78 +544,92 @@ export const createParametricSelectorHooks = <
 //   curriedFn: (...args: unknown[]) => UnknownFunction
 // ) => createSelector(...selectors, uncurry(curriedFn));
 
-export const findFastestSelector = <S extends OutputSelector>(
-  selector: S,
-  ...selectorArgs: Parameters<S>
-) => {
-  const memoizeFuncs = [lruMemoize, weakMapMemoize]
-  const results = memoizeFuncs
-    .map(memoize => {
-      const alternateSelector = createSelector(
-        selector.dependencies as Selector<RootState>[],
-        selector.resultFunc,
-        { memoize },
+/**
+ * DEV-ONLY diagnostic that benchmarks the given selector against alternative
+ * memoization strategies ({@linkcode lruMemoize()} and
+ * {@linkcode weakMapMemoize()}), logging which is fastest and by how much.
+ * Used to spot selectors configured with a sub-optimal memoize function.
+ *
+ * @param selector - The selector to benchmark.
+ * @param selectorArgs - The arguments to invoke {@linkcode selector} with.
+ * @returns An object with the fastest result and all timing results.
+ */
+export const findFastestSelector =
+  /**
+   * @template OutputSelectorType - The {@linkcode OutputSelector} type being benchmarked.
+   */
+  <OutputSelectorType extends OutputSelector>(
+    selector: OutputSelectorType,
+    ...selectorArgs: Parameters<OutputSelectorType>
+  ) => {
+    const memoizeFuncs = [lruMemoize, weakMapMemoize]
+    const results = memoizeFuncs
+      .map(memoize => {
+        const alternateSelector = createSelector(
+          selector.dependencies as Selector<RootState>[],
+          selector.resultFunc,
+          { memoize },
+        )
+        const start = performance.now()
+        // @ts-expect-error rest args not working
+        // alternateSelector.apply(null, selectorArgs)
+        alternateSelector(...selectorArgs)
+        const time = performance.now() - start
+        return { name: memoize.name, selector: alternateSelector, time }
+        // return { name: memoize.name, time, selector: alternateSelector }
+      })
+      .sort((a, b) => a.time - b.time)
+    const fastest = results.reduce((minResult, currentResult) =>
+      currentResult.time < minResult.time ? currentResult : minResult,
+    )
+    const ratios = results
+      .filter(({ time }) => time !== fastest.time)
+      .map(
+        ({ name, time }) =>
+          `\x1B[33m \x1B[1m${(
+            time / fastest.time
+          ).toString()}\x1B[0m times faster than \x1B[1;41m${name}\x1B[0m\n(\x1B[1m\x1B[35m${(
+            ((time - fastest.time) / time) *
+            100
+          ).toString()}\x1B[0m% speed increase).`,
       )
-      const start = performance.now()
-      // @ts-expect-error rest args not working
-      // alternateSelector.apply(null, selectorArgs)
-      alternateSelector(...selectorArgs)
-      const time = performance.now() - start
-      return { name: memoize.name, selector: alternateSelector, time }
-      // return { name: memoize.name, time, selector: alternateSelector }
-    })
-    .sort((a, b) => a.time - b.time)
-  const fastest = results.reduce((minResult, currentResult) =>
-    currentResult.time < minResult.time ? currentResult : minResult,
-  )
-  const ratios = results
-    .filter(({ time }) => time !== fastest.time)
-    .map(
-      ({ name, time }) =>
-        `\x1B[33m \x1B[1m${(
-          time / fastest.time
-        ).toString()}\x1B[0m times faster than \x1B[1;41m${name}\x1B[0m\n(\x1B[1m\x1B[35m${(
-          ((time - fastest.time) / time) *
-          100
-        ).toString()}\x1B[0m% speed increase).`,
+    if (fastest.selector.memoize.name !== selector.memoize.name) {
+      console.warn(
+        `The memoization method for \x1B[1;41m${
+          selector.name
+        }\x1B[0m is \x1B[31m${
+          selector.memoize.name
+        }\x1B[0m!\nChange it to \x1B[32m\x1B[1m${
+          fastest.selector.memoize.name
+        }\x1B[0m to be more efficient.\nYou should use \x1B[32m\x1B[1m${
+          fastest.name
+        }\x1B[0m because it is${ratios.join("\nand\n")}`,
+      )
+    }
+    const element = `\x1B[32m\x1B[1m${
+      fastest.selector.memoize.name
+    }\x1B[0m is\x1B[1m${ratios.join("\nand\n")}\x1B[0m`
+    console.log(element)
+    const slowest = Math.min(...results.map(({ time }) => time))
+    console.log({ slowest })
+    // const rest = results.filter(({ name }) => name !== fastest.name)
+    // const info = {
+    //   Fastest: fastest.name,
+    //   Time: fastest.time,
+    //   // fastestRecomputations: fastest.selector.recomputations(),
+    //   // slowestRecomputations: slowest.selector.recomputations(),
+    // }
+    console.log(
+      results.map(({ selector }) => ({
+        [selector.name]: selector.recomputations(),
+      })),
     )
-  if (fastest.selector.memoize.name !== selector.memoize.name) {
-    console.warn(
-      `The memoization method for \x1B[1;41m${
-        selector.name
-      }\x1B[0m is \x1B[31m${
-        selector.memoize.name
-      }\x1B[0m!\nChange it to \x1B[32m\x1B[1m${
-        fastest.selector.memoize.name
-      }\x1B[0m to be more efficient.\nYou should use \x1B[32m\x1B[1m${
-        fastest.name
-      }\x1B[0m because it is${ratios.join("\nand\n")}`,
-    )
+    // console.log(
+    //   results.map(({ name, time }) => ({ name, time })),
+    //   (fastest.time / slowest) * 100
+    // )
+    // console.table(results.map(({ name, time }) => ({ name, time })))
+    // console.table([{ ...info }, ...rest])
+    // console.table({ results, ...fastest })
+    return { fastest, results } as const
   }
-  const element = `\x1B[32m\x1B[1m${
-    fastest.selector.memoize.name
-  }\x1B[0m is\x1B[1m${ratios.join("\nand\n")}\x1B[0m`
-  console.log(element)
-  const slowest = Math.min(...results.map(({ time }) => time))
-  console.log({ slowest })
-  // const rest = results.filter(({ name }) => name !== fastest.name)
-  // const info = {
-  //   Fastest: fastest.name,
-  //   Time: fastest.time,
-  //   // fastestRecomputations: fastest.selector.recomputations(),
-  //   // slowestRecomputations: slowest.selector.recomputations(),
-  // }
-  console.log(
-    results.map(({ selector }) => ({
-      [selector.name]: selector.recomputations(),
-    })),
-  )
-  // console.log(
-  //   results.map(({ name, time }) => ({ name, time })),
-  //   (fastest.time / slowest) * 100
-  // )
-  // console.table(results.map(({ name, time }) => ({ name, time })))
-  // console.table([{ ...info }, ...rest])
-  // console.table({ results, ...fastest })
-  return { fastest, results } as const
-}

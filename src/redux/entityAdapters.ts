@@ -8,7 +8,13 @@ import type {
   SearchResultsItem,
 } from "../types/reduxHelperTypes.js"
 
-export const ENTITY_ADAPTERS: AllEntityAdapters = {
+/**
+ * The {@linkcode createEntityAdapter | entity adapters} for every normalized
+ * collection in the store - carts, cart items, categories, items,
+ * item-vendors, search results, and vendors. Conforms to
+ * {@linkcode AllEntityAdapters}.
+ */
+export const ENTITY_ADAPTERS = {
   cart: createEntityAdapter<Cart>(),
 
   cartItems: createEntityAdapter<CartItems>(),

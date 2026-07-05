@@ -5,6 +5,11 @@ import { inferComponentNameFromStack } from "../../utils/inferComponentNameFromS
 import { styleToCssText } from "../../utils/styleToCssText.js"
 import { useComponentDidUpdate } from "../useComponentDidUpdate.js"
 
+/**
+ * Style overrides for the two console-log segments produced by
+ * {@linkcode useComponentUpdateLogger()}: the component name and the render
+ * count.
+ */
 export type LoggerStyleOptions = {
   /**
    * CSS (hyphen-case) properties applied to the **component name** segment in
@@ -23,6 +28,11 @@ export type LoggerStyleOptions = {
   renderCountStyle?: Simplify<PropertiesHyphen>
 }
 
+/**
+ * The default {@linkcode LoggerStyleOptions} applied by
+ * {@linkcode useComponentUpdateLogger()} when no overrides are provided. Both
+ * the component-name and render-count segments are styled violet at `15px`.
+ */
 export const DEFAULT_COMPONENT_LOGGER_OPTIONS = {
   componentNameStyle: {
     color: "violet",
@@ -42,9 +52,9 @@ export const DEFAULT_COMPONENT_LOGGER_OPTIONS = {
  * the component name token and the render-count token.
  * This hook is intended for debugging unnecessary re-renders during development.
  * It performs a best-effort inference of the component name and surfaces a
- * label in React DevTools via {@linkcode useDebugValue}.
+ * label in React DevTools via {@linkcode useDebugValue()}.
  *
- * @param useComponentUpdateLoggerOptions - Optional style overrides. Defaults to `{}`.
+ * @param [useComponentUpdateLoggerOptions] - Optional style overrides. Defaults to `{}`.
  *
  * @example
  * <caption>Basic usage with default styling</caption>

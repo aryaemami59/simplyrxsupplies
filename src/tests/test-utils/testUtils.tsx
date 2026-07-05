@@ -56,9 +56,11 @@ export const setupWithNoUI = async (
 type Queries = Simplify<typeof queries>
 
 type ByRole = keyof {
-  [QueryFunctionName in keyof Queries as QueryFunctionName extends `${infer _QueryFunctionPrefix extends string}ByRole`
-    ? QueryFunctionName
-    : never]: QueryFunctionName
+  [
+    QueryFunctionName in keyof Queries as QueryFunctionName extends `${infer _QueryFunctionPrefix extends string}ByRole`
+      ? QueryFunctionName
+      : never
+  ]: QueryFunctionName
 }
 
 type ScreenGetAllByRole<HTMLElementType extends HTMLElement = HTMLElement> =
@@ -80,10 +82,9 @@ type InsertRole<
   : `${ByRoleMatcherType}ByRole`
 
 type CustomQueries<ByRoleMatcherType extends ByRoleMatcher> = Simplify<{
-  [RoleKey in ByRole as InsertRole<
-    RoleKey,
-    ByRoleMatcherType
-  >]: () => ReturnType<Queries[RoleKey]>
+  [
+    RoleKey in ByRole as InsertRole<RoleKey, ByRoleMatcherType>
+  ]: () => ReturnType<Queries[RoleKey]>
 }>
 
 export const queryByRoleFactory = <

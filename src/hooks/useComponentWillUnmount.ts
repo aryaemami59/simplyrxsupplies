@@ -3,17 +3,16 @@ import { useEffect, useRef } from "react"
 /**
  * Invokes a callback when the component unmounts. This hook provides the
  * functional equivalent of React's
- * {@linkcode React.ComponentLifecycle.componentWillUnmount | componentWillUnmount}
- * lifecycle method. If {@linkcode callback} changes between renders, the most
- * recent callback is invoked when the component unmounts.
+ * {@linkcode React.ComponentLifecycle.componentWillUnmount | componentWillUnmount()}
+ * lifecycle method. If {@linkcode callback()} changes between renders, the
+ * most recent callback is invoked when the component unmounts.
  *
  * @remarks
  * When {@linkcode React.StrictMode | React Strict Mode} is enabled, React runs
  * an additional development-only setup and cleanup cycle for Effects. As a
- * result, {@linkcode callback | callback()} may be invoked an additional time.
+ * result, {@linkcode callback()} may be invoked an additional time.
  *
  * @param callback - The callback to invoke when the component unmounts.
- *
  *
  * @example
  * <caption>Remove an event listener when the component unmounts.</caption>

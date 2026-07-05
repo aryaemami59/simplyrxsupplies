@@ -1,5 +1,28 @@
 import type { ItemNameAndKeywords } from "../../types/api.js"
 
+/**
+ * Computes a numeric relevancy score for a single
+ * {@linkcode ItemNameAndKeywords} record against a search query. Higher
+ * scores indicate stronger matches. The scoring rules (in descending priority)
+ * are:
+ *
+ * - Exact name match: +100
+ * - Name starts with `"<query> "`: +85
+ * - Name starts with `<query>`: +75
+ * - Name contains `" <query> "`: +70
+ * - Name contains `"<query> "`: +65
+ * - Name contains `" <query>"`: +60
+ * - Name contains `<query>`: +50
+ * - Keyword match: +1 per keyword that the query covers or the regex matches
+ * - Number of regex matches in the name: +1 per match
+ *
+ * Used as the comparator in {@linkcode search} to sort results by relevance.
+ *
+ * @param itemNameAndKeyword - The item record to score.
+ * @param searchRegexPattern - The compiled regex built from the search query tokens.
+ * @param inputValue - The normalized search query string.
+ * @returns A non-negative numeric relevancy score.
+ */
 export const sortResults = (
   itemNameAndKeyword: ItemNameAndKeywords,
   searchRegexPattern: RegExp,
