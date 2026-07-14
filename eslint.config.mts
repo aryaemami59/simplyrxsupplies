@@ -1,5 +1,4 @@
 import js from "@eslint/js"
-import type { TSESLint } from "@typescript-eslint/utils"
 import vitestPlugin from "@vitest/eslint-plugin"
 import type { Linter } from "eslint"
 import prettierConfig from "eslint-config-prettier/flat"
@@ -8,9 +7,10 @@ import preferArrowFunctionsPlugin from "eslint-plugin-prefer-arrow-functions"
 import reactHooksPlugin from "eslint-plugin-react-hooks"
 import reactXPlugin from "eslint-plugin-react-x"
 import { defineConfig } from "eslint/config"
+import type { FlatConfig } from "typescript-eslint"
 import { configs } from "typescript-eslint"
 
-export const rulesToDisable = {
+const rulesToDisable = {
   "@typescript-eslint/ban-ts-comment": [
     0,
     {
@@ -109,8 +109,8 @@ const eslintConfig = defineConfig(
           defaultProject: "tsconfig.json",
         },
         tsconfigRootDir: import.meta.dirname,
-      } as const satisfies TSESLint.FlatConfig.ParserOptions,
-    } as const satisfies TSESLint.FlatConfig.LanguageOptions,
+      } as const satisfies FlatConfig.ParserOptions,
+    } as const satisfies FlatConfig.LanguageOptions,
     linterOptions: {
       reportUnusedDisableDirectives: 2,
       reportUnusedInlineConfigs: 2,
@@ -291,8 +291,8 @@ const eslintConfig = defineConfig(
   {
     files: ["**/*.c[jt]s"],
     languageOptions: {
-      sourceType: "commonjs" as const satisfies TSESLint.FlatConfig.SourceType,
-    } as const satisfies TSESLint.FlatConfig.LanguageOptions,
+      sourceType: "commonjs" as const satisfies FlatConfig.SourceType,
+    } as const satisfies FlatConfig.LanguageOptions,
     name: "commonjs-files",
     rules: {
       "@typescript-eslint/no-require-imports": [
